@@ -3,14 +3,46 @@ Section: gnome
 Priority: optional
 Maintainer: Loic Minier <lool@dooz.org>
 Uploaders: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Build-Depends: libpam0g-dev, libgnomeui-dev, librsvg2-dev, libglade2-dev, libwrap0-dev, debhelper (>= 4), gettext, intltool, scrollkeeper, libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], libattr1-dev, libxau-dev, libxt-dev, libxdmcp-dev, libxinerama-dev, libdmx-dev, gnome-doc-utils, sharutils, gnome-pkg-tools, quilt
+Build-Depends: libpam0g-dev,
+               libgnomeui-dev,
+               librsvg2-dev,
+               libglade2-dev,
+               libwrap0-dev,
+               debhelper (>= 4),
+               gettext,
+               intltool,
+               scrollkeeper,
+               libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
+               libattr1-dev,
+               libxau-dev,
+               libxt-dev,
+               libxdmcp-dev,
+               libxinerama-dev,
+               libdmx-dev,
+               gnome-doc-utils,
+               sharutils,
+               gnome-pkg-tools,
+               quilt
 Standards-Version: 3.7.2
 
 Package: gdm
 Architecture: any
-Depends: adduser, debconf (>= 0.5) | debconf-2.0, ${shlibs:Depends}, libpam-modules (>= 0.72-1), libpam-runtime (>= 0.76-13.1), gnome-session | xterm | x-window-manager | x-terminal-emulator, xbase-clients, gksu (>= 1.0.7), lsb-base (>= 3.0-10), librsvg2-common
-Recommends: whiptail | dialog, zenity, gdm-themes
-Suggests: locales, apmd, msttcorefonts
+Depends: adduser,
+         debconf (>= 0.5) | debconf-2.0,
+         ${shlibs:Depends},
+         libpam-modules (>= 0.72-1),
+         libpam-runtime (>= 0.76-13.1),
+         gnome-session | xterm | x-window-manager | x-terminal-emulator,
+         xbase-clients,
+         gksu (>= 1.0.7),
+         lsb-base (>= 3.0-10),
+         librsvg2-common
+Recommends: whiptail | dialog,
+            zenity,
+            gdm-themes
+Suggests: locales,
+          apmd,
+          msttcorefonts
 Provides: x-display-manager
 Description: GNOME Display Manager
  gdm provides the equivalent of a "login:" prompt for X displays- it
