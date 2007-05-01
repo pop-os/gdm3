@@ -1,2 +1,1 @@
-debian/*.1
-debian/*.8
+debian/*.[0-9]

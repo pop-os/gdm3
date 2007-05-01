@@ -28,10 +28,7 @@ else
 	configure_flags += --without-selinux
 endif
 
-MANPAGES += debian/gdm.8 \
-	debian/gdmlogin.8 \
-	debian/gdmchooser.8 \
-	debian/gdmflexiserver.1
+MANPAGES += $(patsubst %.pod,%,$(wildcard debian/*.pod))
 
 PATCH_DIR := debian/patches
 
@@ -108,15 +105,8 @@ clean::
 		po/*.gmo po/.intltool-merge-cache \
 		config/gnome.desktop config/CDE.desktop config/default.desktop
 
-%.1: %.pod
-	pod2man --section=1 \
-		--release="GNOME $(MAJOR_MINOR)" \
-		--center="Debian GNU/Linux" \
-		$< \
-		| sed -e 's/debian:://' >$@
-
-%.8: %.pod
-	pod2man --section=8 \
+%: %.pod
+	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
 		--release="GNOME $(MAJOR_MINOR)" \
 		--center="Debian GNU/Linux" \
 		$< \
