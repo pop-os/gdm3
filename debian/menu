@@ -14,7 +14,7 @@
   icon="/usr/share/pixmaps/gdm.xpm"\
   longtitle="Select a photo for GDM"
 ?package(gdm):needs="X11" section="Apps/System" \
-  title="GDM Setup" command="su-to-root -X -p root -c gdmsetup"\
+  title="GDM Setup" command="su-to-root -X -p root -c /usr/sbin/gdmsetup"\
   hints="Display Manager"\
   icon="/usr/share/pixmaps/gdm.xpm"\
   longtitle="GDM Setup"
