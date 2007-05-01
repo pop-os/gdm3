@@ -30,8 +30,9 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
     included in the footer of man pages.
   * Update watch file to track all stable releases.
   * Misc cleanups.
+  * Bump up Debhelper compatibility level to 5.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 13:41:57 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 13:49:36 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
