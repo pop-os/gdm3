@@ -20,7 +20,8 @@ configure_flags += --disable-dependency-tracking \
 		--libexecdir=\$${prefix}/lib/gdm \
 		--localstatedir=/var/lib \
 		--with-custom-conf=/etc/gdm/gdm.conf \
-		--disable-scrollkeeper
+		--disable-scrollkeeper \
+		--enable-ipv6=yes
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 	configure_flags += --with-selinux
