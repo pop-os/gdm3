@@ -19,7 +19,8 @@ configure_flags += --disable-dependency-tracking \
 		--sysconfdir=/etc \
 		--libexecdir=\$${prefix}/lib/gdm \
 		--localstatedir=/var/lib \
-		--with-custom-conf=/etc/gdm/gdm.conf
+		--with-custom-conf=/etc/gdm/gdm.conf \
+		--disable-scrollkeeper
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 	configure_flags += --with-selinux
@@ -55,60 +56,54 @@ build-stamp: configure-stamp $(MANPAGES)
 	sh debian/debian-moreblue.shar
 	touch build-stamp
 
-install: build
+install: install-stamp
+install-stamp: build-stamp
 	dh_testdir
 	dh_testroot
-	dh_clean -k
-	dh_installdirs
-	$(MAKE) DESTDIR=$(CURDIR)/debian/gdm install
-	chmod 644 $(CURDIR)/debian/gdm/usr/share/gdm/BuiltInSessions/default.desktop
-	install -m644 debian/gdm.xpm debian/login-photo.xpm debian/gdmDebianLogo.xpm $(CURDIR)/debian/gdm/usr/share/pixmaps/
-	rm $(CURDIR)/debian/gdm/etc/gdm/locale.alias $(CURDIR)/debian/gdm/usr/sbin/gdm $(CURDIR)/debian/gdm/usr/share/gdm/factory-defaults.conf
-	# special environment settings should be done in /etc/default/gdm
-	mv $(CURDIR)/debian/gdm/usr/sbin/gdm-binary $(CURDIR)/debian/gdm/usr/sbin/gdm
-	# /etc/init.d/gdm should be used for stop/start
-	rm $(CURDIR)/debian/gdm/usr/sbin/gdm-stop $(CURDIR)/debian/gdm/usr/sbin/gdm-restart $(CURDIR)/debian/gdm/usr/sbin/gdm-safe-restart
-	# /usr/share/xsessions/gnome.desktop provided by gnome-session.
-	rm -rf $(CURDIR)/debian/gdm/var/lib/scrollkeeper $(CURDIR)/debian/gdm/usr/share/xsessions $(CURDIR)/debian/gdm/var/lib/log
-	install -m644 debian/locale.conf $(CURDIR)/debian/gdm/etc/gdm/locale.conf
-	install -m755 debian/Xsession $(CURDIR)/debian/gdm/etc/gdm/Xsession
-	install -m644 debian/debian-moreblue/* $(CURDIR)/debian/gdm/usr/share/gdm/themes/debian-moreblue/
+	mkdir debian/tmp
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
+	touch $@
 
 binary-indep: build install
 
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdebconf
-	dh_installdocs
-	dh_installmenu
-	#dh_installlogrotate
-	dh_scrollkeeper
-	dh_desktop
-	dh_installpam
-	install -m644 debian/gdm-autologin.pam debian/gdm/etc/pam.d/gdm-autologin
-	dh_installinit --noscripts
-	dh_installman $(MANPAGES)
-	dh_installchangelogs ChangeLog
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+	dh_installdirs -a
+	dh_install -a
+	#dh_fixperms -a
+	# special environment settings should be done in /etc/default/gdm
+	mv debian/gdm/usr/sbin/gdm-binary debian/gdm/usr/sbin/gdm
+	chmod 755 debian/gdm/etc/gdm/Xsession
+	dh_installdebconf -a
+	dh_installdocs -a
+	dh_installmenu -a
+	#dh_installlogrotate -a
+	dh_scrollkeeper -a
+	dh_desktop -a
+	dh_installpam -a --name=gdm-autologin
+	dh_installinit -a --noscripts
+	dh_installman -a
+	dh_installchangelogs -a ChangeLog
+	dh_strip -a
+	dh_compress -a
+	dh_fixperms -a
+	dh_installdeb -a
+	dh_shlibdeps -a
+	dh_gencontrol -a
+	dh_md5sums -a
+	dh_builddeb -a
 
 clean::
 	dh_testdir
 	dh_testroot
+	rm -rf debian/tmp
 	-$(MAKE) distclean
 	# unapply patches, if any
 	QUILT_PATCHES=$(PATCH_DIR) \
 		quilt --quiltrc /dev/null pop -a -R || test $$? = 2
 	-rm -rf .pc
-	rm -f build-stamp configure-stamp patch-stamp
+	rm -f install-stamp build-stamp configure-stamp patch-stamp
 	rm -rf debian/debian-moreblue
 	dh_clean $(MANPAGES) \
 		po/*.gmo po/.intltool-merge-cache \

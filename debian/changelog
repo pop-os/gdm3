@@ -31,8 +31,12 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Update watch file to track all stable releases.
   * Misc cleanups.
   * Bump up Debhelper compatibility level to 5.
+  * Rework the install / binary-arch targets completely to me more
+    debhelper-ish.
+    - Stop shipping *.a and *.la files for Gtk modules.
+  * Pass --disable-scrollkeeper to configure.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 13:49:36 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 14:20:08 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
