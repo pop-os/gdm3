@@ -17,8 +17,10 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Fix "closes:" in 2.2.5.2-1 and 2.13.0.10-1.
   * Version the debhelper build-dep to >= 4 and set Debhelper compatibility
     level via debian/compat to 4 instead of via DH_COMPAT in rules.
+  * Depend on "debconf (>= 0.5) | debconf-2.0" instead of the only virtual
+    "debconf-2.0".
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:46:17 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:47:35 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
