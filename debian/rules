@@ -5,6 +5,12 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+DEB_VERSION := $(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
+DEB_NOEPOCH_VERSION := $(shell echo $(DEB_VERSION) | cut -d: -f2-)
+DEB_UPSTREAM_VERSION := $(shell echo $(DEB_NOEPOCH_VERSION) | sed 's/-[^-]*$$//')
+
+MAJOR_MINOR := $(shell echo $(DEB_UPSTREAM_VERSION) | sed -r 's/([0-9]+\.[0-9]+).*/\1/')
+
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 
 DEB_HOST_ARCH_OS = $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
@@ -107,6 +113,6 @@ binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure patch
 
 %.8: %.pod
-	pod2man --section=8 --release="GNOME 2.14" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
+	pod2man --section=8 --release="GNOME $(MAJOR_MINOR)" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
 %.1: %.pod
-	pod2man --section=8 --release="GNOME 2.14" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
+	pod2man --section=8 --release="GNOME $(MAJOR_MINOR)" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
