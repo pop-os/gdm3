@@ -2,6 +2,7 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
 
   * Adopt package; set myself as Maintainer; thanks Ryan Murray for your
     maintenance until now!
+  * Ack Porter NMU by Aurélien Jarno; thanks!
   * GNOME Team uploads.
     - Use a control.in.
     - Build-depend on gnome-pkg-tools and include uploaders.mk.
@@ -51,7 +52,7 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Rework gdm.postinst to only run version-specific upgrade code during
     upgrades from these versions and to always run update-rc.d in these cases.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 17:58:02 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 18:12:18 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
