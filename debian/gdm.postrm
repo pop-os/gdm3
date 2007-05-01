@@ -13,10 +13,14 @@ if [ "$1" = "purge" ] ; then
                 rm -r /var/log/gdm
         fi
         if getent passwd gdm >/dev/null; then
-                deluser gdm
+                if [ -x /usr/sbin/deluser ]; then
+                        deluser gdm
+                fi
         fi
         if getent group gdm >/dev/null; then
-                delgroup gdm
+                if [ -x /usr/sbin/delgroup ]; then
+                        delgroup gdm
+                fi
         fi
 fi
 #DEBHELPER#
