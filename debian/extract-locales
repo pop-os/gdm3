@@ -10,31 +10,31 @@ my $always_charset = 0;
 
 chdir("/usr/share/i18n/locales") or die "can't find /usr/share/i18n/locales";
 while (<>) {
-	my $language;
-	my $territory;
-	chomp;
-	@line = split / /;
-	($file = $line[0]) =~ s/\..*$//;
-	open F, $file or die "can't open $file\n";
-	while (<F>) {
-		chomp;
-		$title = $1 if /^title\s+"(.*)"/;
-		$language = $1 if /^language\s+"(.*)"/;
-		$territory = $1 if /^territory\s+"(.*)"/;
-		last if /^END LC_IDENTIFICATION/;
-	}
-	close F;
+        my $language;
+        my $territory;
+        chomp;
+        @line = split / /;
+        ($file = $line[0]) =~ s/\..*$//;
+        open F, $file or die "can't open $file\n";
+        while (<F>) {
+                chomp;
+                $title = $1 if /^title\s+"(.*)"/;
+                $language = $1 if /^language\s+"(.*)"/;
+                $territory = $1 if /^territory\s+"(.*)"/;
+                last if /^END LC_IDENTIFICATION/;
+        }
+        close F;
 
-	if ($always_charset and $line[1] and $line[0] =~ s/(\@.*)$//) {
-		my $suffix = $1;
-		$line[1] =~ s/$/$suffix/;
-	}
+        if ($always_charset and $line[1] and $line[0] =~ s/(\@.*)$//) {
+                my $suffix = $1;
+                $line[1] =~ s/$/$suffix/;
+        }
 
-	$language =~ s/ /_/g;
-	$territory =~ s/ /_/g;
-	if (!$always_charset or $line[0] =~ /\./) {
-		print "$language($territory)\t$line[0]\n";
-	} else {
-		print "$language($territory)\t$line[0].$line[1]\n";
-	}
+        $language =~ s/ /_/g;
+        $territory =~ s/ /_/g;
+        if (!$always_charset or $line[0] =~ /\./) {
+                print "$language($territory)\t$line[0]\n";
+        } else {
+                print "$language($territory)\t$line[0].$line[1]\n";
+        }
 }

@@ -16,7 +16,7 @@ B<gdm> reads F</etc/gdm/gdm.conf> for its configuration. For each
 local display, gdm starts an X server and runs gdmlogin(8x) on that
 display. The main gdm process also listens for XDMCP requests from
 remote displays. These requests can either be direct, causing B<gdm>
-to start a gdmlogin(8x) on the remote display, or indirect, causeing 
+to start a gdmlogin(8x) on the remote display, or indirect, causing
 a gdmchooser(8x) to be opened.
 
 When managing a display, B<gdm> attempts to execute

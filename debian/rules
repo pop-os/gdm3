@@ -1,9 +1,4 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
-
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
 
 DEB_VERSION := $(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
 DEB_NOEPOCH_VERSION := $(shell echo $(DEB_VERSION) | cut -d: -f2-)
@@ -15,58 +10,57 @@ include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 
 DEB_HOST_ARCH_OS = $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
+configure_flags += --disable-dependency-tracking \
+		--with-tags= \
+		--prefix=/usr \
+		--libexecdir=\$${prefix}/lib \
+		--mandir=\$${prefix}/share/man \
+		--infodir=\$${prefix}/share/info \
+		--sysconfdir=/etc \
+		--libexecdir=\$${prefix}/lib/gdm \
+		--localstatedir=/var/lib \
+		--with-custom-conf=/etc/gdm/gdm.conf
+
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-	SELINUX_CONFIGURE = --with-selinux
+	configure_flags += --with-selinux
 else
-	SELINUX_CONFIGURE = --without-selinux
+	configure_flags += --without-selinux
 endif
+
+MANPAGES += debian/gdm.8 \
+	debian/gdmlogin.8 \
+	debian/gdmchooser.8 \
+	debian/gdmflexiserver.1
 
 PATCH_DIR := debian/patches
 
 patch: patch-stamp
-
 patch-stamp:
 	dh_testdir
 	# apply patches
-	QUILT_PATCHES=$(PATCH_DIR) quilt --quiltrc /dev/null push -a || test $$? = 2
+	QUILT_PATCHES=$(PATCH_DIR) \
+		quilt --quiltrc /dev/null push -a || test $$? = 2
 	touch $@
 
 configure: configure-stamp
 configure-stamp: patch-stamp
 	dh_testdir
-	./configure --disable-dependency-tracking --with-tags= --prefix=/usr --libexecdir=\$${prefix}/lib --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --sysconfdir=/etc --libexecdir=\$${prefix}/lib/gdm --localstatedir=/var/lib $(SELINUX_CONFIGURE) --with-custom-conf=/etc/gdm/gdm.conf
+	./configure $(configure_flags)
 	touch configure-stamp
 
-build: configure-stamp build-stamp
-build-stamp: debian/gdm.8 debian/gdmlogin.8 debian/gdmchooser.8 debian/gdmflexiserver.1
+build: build-stamp
+build-stamp: configure-stamp $(MANPAGES)
 	dh_testdir
-
 	$(MAKE)
 	sh debian/debian-moreblue.shar
-
 	touch build-stamp
-
-clean::
-	dh_testdir
-	dh_testroot
-	-$(MAKE) distclean
-	# unapply patches, if any
-	QUILT_PATCHES=$(PATCH_DIR) quilt --quiltrc /dev/null pop -a -R || test $$? = 2
-	-rm -rf .pc
-	rm -f build-stamp configure-stamp patch-stamp
-	rm -rf debian/debian-moreblue
-
-	dh_clean debian/gdm.8 debian/gdmlogin.8 debian/gdmchooser.8 debian/gdmflexiserver.1 po/*.gmo po/.intltool-merge-cache config/gnome.desktop config/CDE.desktop config/default.desktop
 
 install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-
-	# Add here commands to install the package into debian/gdm.
-	$(MAKE) DESTDIR=$(CURDIR)/debian/gdm \
-		install
+	$(MAKE) DESTDIR=$(CURDIR)/debian/gdm install
 	chmod 644 $(CURDIR)/debian/gdm/usr/share/gdm/BuiltInSessions/default.desktop
 	install -m644 debian/gdm.xpm debian/login-photo.xpm debian/gdmDebianLogo.xpm $(CURDIR)/debian/gdm/usr/share/pixmaps/
 	rm $(CURDIR)/debian/gdm/etc/gdm/locale.alias $(CURDIR)/debian/gdm/usr/sbin/gdm $(CURDIR)/debian/gdm/usr/share/gdm/factory-defaults.conf
@@ -80,24 +74,21 @@ install: build
 	install -m755 debian/Xsession $(CURDIR)/debian/gdm/etc/gdm/Xsession
 	install -m644 debian/debian-moreblue/* $(CURDIR)/debian/gdm/usr/share/gdm/themes/debian-moreblue/
 
-# Build architecture-independent files here.
 binary-indep: build install
-# We have nothing to do by default.
 
-# Build architecture-dependent files here.
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdebconf	
+	dh_installdebconf
 	dh_installdocs
 	dh_installmenu
-#	dh_installlogrotate
+	#dh_installlogrotate
 	dh_scrollkeeper
 	dh_desktop
 	dh_installpam
 	install -m644 debian/gdm-autologin.pam debian/gdm/etc/pam.d/gdm-autologin
 	dh_installinit --noscripts
-	dh_installman debian/gdm.8 debian/gdmlogin.8 debian/gdmchooser.8 debian/gdmflexiserver.1
+	dh_installman $(MANPAGES)
 	dh_installchangelogs ChangeLog
 	dh_link
 	dh_strip
@@ -109,10 +100,33 @@ binary-arch: build install
 	dh_md5sums
 	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure patch
+clean::
+	dh_testdir
+	dh_testroot
+	-$(MAKE) distclean
+	# unapply patches, if any
+	QUILT_PATCHES=$(PATCH_DIR) \
+		quilt --quiltrc /dev/null pop -a -R || test $$? = 2
+	-rm -rf .pc
+	rm -f build-stamp configure-stamp patch-stamp
+	rm -rf debian/debian-moreblue
+	dh_clean $(MANPAGES) \
+		po/*.gmo po/.intltool-merge-cache \
+		config/gnome.desktop config/CDE.desktop config/default.desktop
+
+%.1: %.pod
+	pod2man --section=1 \
+		--release="GNOME $(MAJOR_MINOR)" \
+		--center="Debian GNU/Linux" \
+		$< \
+		| sed -e 's/debian:://' >$@
 
 %.8: %.pod
-	pod2man --section=8 --release="GNOME $(MAJOR_MINOR)" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
-%.1: %.pod
-	pod2man --section=8 --release="GNOME $(MAJOR_MINOR)" --center="Debian GNU/Linux" $< | sed -e 's/debian:://'> $@
+	pod2man --section=8 \
+		--release="GNOME $(MAJOR_MINOR)" \
+		--center="Debian GNU/Linux" \
+		$< \
+		| sed -e 's/debian:://' >$@
+
+binary: binary-indep binary-arch
+.PHONY: patch configure build install clean binary-indep binary-arch binary

@@ -139,7 +139,7 @@ fi
 # clean up after xbanner
 freetemp=`which freetemp 2>/dev/null`
 if [ -n "$freetemp" ] ; then
-	"$freetemp"
+        "$freetemp"
 fi
 
 usermodmap="$HOME/.Xmodmap"
@@ -162,11 +162,11 @@ unset XKB_IN_USE
 # if GDM_LANG isn't first in LANGUAGE, then unset it.
 if [ -n "$GDM_LANG" ]; then
     if [ -n "$LANGUAGE" ]; then
-	if echo "$LANGUAGE" | grep -q -- "^$GDM_LANG"; then
-	   :
-	else
-	   unset LANGUAGE
-	fi
+        if echo "$LANGUAGE" | grep -q -- "^$GDM_LANG"; then
+           :
+        else
+           unset LANGUAGE
+        fi
     fi
 fi
 
@@ -191,7 +191,7 @@ fi
 echo "$0: Executing $command failed, will try to run x-terminal-emulator"
 
 if [ -n "$zenity" ] ; then
-	"$zenity" --info --text "`gettextfunc "I could not start your session and so I have started the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"`"
+        "$zenity" --info --text "`gettextfunc "I could not start your session and so I have started the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"`"
 fi
 
 exec x-terminal-emulator -geometry 80x24+0+0

@@ -10,7 +10,7 @@
 # Description:       Debian init script for the GNOME Display Manager
 ### END INIT INFO
 #
-# Author:	Ryan Murray <rmurray@debian.org>
+# Author:       Ryan Murray <rmurray@debian.org>
 #
 set -e
 
@@ -34,37 +34,37 @@ DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 case "$1" in
   start)
-  	if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" -a "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" -a "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)" != "$DEBCONF_DAEMON" ]; then
-		log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
-	else
-		log_daemon_msg "Starting GNOME Display Manager" "gdm"
-		start_daemon $DAEMON
-		log_end_msg $?
-	fi
+        if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" -a "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" -a "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)" != "$DEBCONF_DAEMON" ]; then
+                log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
+        else
+                log_daemon_msg "Starting GNOME Display Manager" "gdm"
+                start_daemon $DAEMON
+                log_end_msg $?
+        fi
   ;;
   stop)
-	log_daemon_msg "Stopping GNOME Display Manager" "gdm"
-	set +e
-	start-stop-daemon --stop --quiet --pidfile /var/run/gdm.pid \
-		--name gdm --retry 5
-	set -e
-	log_end_msg $?
+        log_daemon_msg "Stopping GNOME Display Manager" "gdm"
+        set +e
+        start-stop-daemon --stop --quiet --pidfile /var/run/gdm.pid \
+                --name gdm --retry 5
+        set -e
+        log_end_msg $?
   ;;
   reload)
-  	log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm"
-	set +e
-	start-stop-daemon --stop --signal USR1 --quiet --pidfile \
-		/var/run/gdm.pid --name gdm
-	set -e
-	log_end_msg $?
+        log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm"
+        set +e
+        start-stop-daemon --stop --signal USR1 --quiet --pidfile \
+                /var/run/gdm.pid --name gdm
+        set -e
+        log_end_msg $?
   ;;
   restart|force-reload)
-	$0 stop
-	$0 start
+        $0 stop
+        $0 start
   ;;
   *)
-	echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload}"
-	exit 1
+        echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload}"
+        exit 1
   ;;
 esac
 

@@ -5,7 +5,7 @@ or in B<Xnest>
 
 =head1 SYNOPSIS
 
-B<gdmflexiserver>	GNOME options	gdmflexiserver options
+B<gdmflexiserver>       GNOME options   gdmflexiserver options
 
 =head1 DESCRIPTION
 

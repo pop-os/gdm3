@@ -15,10 +15,10 @@ fi
 # creating gdm user if he isn't already there
 if ! getent passwd gdm >/dev/null; then
         adduser --system --ingroup gdm --home /var/lib/gdm gdm
-	usermod -c "Gnome Display Manager" gdm
-	usermod -d "/var/lib/gdm"          gdm
-	usermod -g "gdm"                   gdm
-	usermod -s "/bin/false"            gdm
+        usermod -c "Gnome Display Manager" gdm
+        usermod -d "/var/lib/gdm"          gdm
+        usermod -g "gdm"                   gdm
+        usermod -s "/bin/false"            gdm
 fi
 
 if [ -d /var/lib/gdm ]; then
