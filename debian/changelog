@@ -28,8 +28,9 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Compute DEB_VERSION, DEB_NOEPOCH_VERSION, and DEB_UPSTREAM_VERSION
     similarly to CDBS and finally compute MAJOR_MINOR for the GNOME version
     included in the footer of man pages.
+  * Update watch file to track all stable releases.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 13:08:47 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 13:15:30 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
