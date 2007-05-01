@@ -51,8 +51,9 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Start gdm in S30 instead of S21; thanks Sjoerd Simons; closes: #419392.
   * Rework gdm.postinst to only run version-specific upgrade code during
     upgrades from these versions and to always run update-rc.d in these cases.
+  * Suggest xserver-xephyr | xnest; closes: #416238.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 18:12:18 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 18:13:27 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

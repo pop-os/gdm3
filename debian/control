@@ -43,7 +43,8 @@ Recommends: whiptail | dialog,
             gdm-themes
 Suggests: locales,
           apmd,
-          msttcorefonts
+          msttcorefonts,
+          xserver-xephyr | xnest
 Provides: x-display-manager
 Description: GNOME Display Manager
  gdm provides the equivalent of a "login:" prompt for X displays- it
