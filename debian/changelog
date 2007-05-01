@@ -24,8 +24,9 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
     - Use full download URL.
     - Include full GPL blob.
     - List GNOME Team as new maintainer.
+  * Include AUTHORS in docs.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:52:36 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:53:49 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
