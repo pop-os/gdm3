@@ -38,8 +38,12 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Factorize manpages generation.
   * Rename various debian/* files to debian/gdm.*.
   * Add ${misc:Depends}.
+  * Misc updates to debian-moreblue.
+    - Cleanup indentation of this file.
+    - Merge patch by Michael Biebl to properly display wrapped login text;
+      closes: #408043.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 15:08:38 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 15:26:01 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

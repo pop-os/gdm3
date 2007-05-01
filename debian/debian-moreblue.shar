@@ -3,8 +3,8 @@
 # To extract the files from this archive, save it to some FILE, remove
 # everything before the `!/bin/sh' line above, then type `sh FILE'.
 #
-# Made on 2006-12-14 22:07 PST by <rmurray@ninsei>.
-# Source directory was `/usr/src/debian/gdm/gdm-2.16.4'.
+# Made on 2007-05-01 15:25 CEST by <lool@bee>.
+# Source directory was `/home/lool/svn/debian/pkg-gnome/desktop/unstable/gdm'.
 #
 # Existing files will *not* be overwritten unless `-c' is specified.
 #
@@ -15,7 +15,7 @@
 #    214 -rw-r--r-- debian/debian-moreblue/GdmGreeterTheme.desktop
 #  90821 -rw-r--r-- debian/debian-moreblue/background.svg
 #  17856 -rw-r--r-- debian/debian-moreblue/boundingbox.png
-#   7254 -rw-r--r-- debian/debian-moreblue/debian-moreblue.xml
+#   7869 -rw-r--r-- debian/debian-moreblue/debian-moreblue.xml
 #  13786 -rw-r--r-- debian/debian-moreblue/screenshot.png
 #   1112 -rw-r--r-- debian/debian-moreblue/userentry.png
 #    909 -rw-r--r-- debian/debian-moreblue/icon-language.png
@@ -71,7 +71,7 @@ else
 fi
 rm -f 200112312359.59 123123592001.59 123123592001.5 1231235901 $$.touch
 #
-if mkdir _sh06648; then
+if mkdir _sh09333; then
   $echo 'x -' 'creating lock directory'
 else
   $echo 'failed to create lock directory'
@@ -2987,27 +2987,31 @@ else
   sed 's/^X//' << 'SHAR_EOF' > 'debian/debian-moreblue/debian-moreblue.xml' &&
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE greeter SYSTEM "greeter.dtd">
-<!--
-X	Debian MoreBlue GDM Theme
-X	====================
-X	version 0.5 Dez 2006
-X		
-X	(c) 2006 by Andre Luiz Rodrigues Ferreira
-X	Published under the terms of the GNU General Public License, version 2
+<!-- 
+X    Debian MoreBlue GDM Theme
+X    ====================
+X    version 0.6 may 2006
 X
-X	ChangeLog:
-X	0.5 (Dez/2006)
-X	  - Added the icons, fixed the pam-message and moved up the clock.
-X	0.4 (Dez/2006)
-X	  - Fixed the pam-message and the pam-error
-X	0.3 (Dez/2006):
-X	  - Changed options buttons for use the GDM original strings. Thanks to Sven Arvidsson
-X	0.2 (Dez/2006):
-X	  - Fixed Debian Logo and added the clock. Patch by Valessio Brito.
-X	0.1 (Out/2006):
-X	 - Initial version
-X				
--->
+X    (c) 2006 by Andre Luiz Rodrigues Ferreira
+X    Published under the terms of the GNU General Public License, version 2
+X
+X    ChangeLog:
+X    0.6 (May/2007)
+X      - Debian #408043; merge patch by Michael Biebl to properly display
+X        wrapped login text
+X      - Cleanup indentation of this file
+X    0.5 (Dec/2006)
+X      - Added the icons, fixed the pam-message and moved up the clock.
+X    0.4 (Dec/2006)
+X      - Fixed the pam-message and the pam-error
+X    0.3 (Dec/2006):
+X      - Changed options buttons for use the GDM original strings. Thanks to
+X        Sven Arvidsson
+X    0.2 (Dec/2006):
+X      - Fixed Debian Logo and added the clock. Patch by Valessio Brito.
+X    0.1 (Oct/2006):
+X     - Initial version
+X -->
 <greeter>
 X    <!-- background -->
 X  <item type="svg">
@@ -3030,8 +3034,8 @@ X  </item>
 <!-- clock -->
 X    <item type="pixmap">
 X        <normal file="boundingbox.png"/>
-X		<pos x="50%" y="50%" width="400" height="282" anchor="c"/>
-X    </item> 
+X        <pos x="50%" y="50%" width="400" height="282" anchor="c"/>
+X    </item>
 X  <item type="rect">
 X    <normal/>
 X    <pos x="0" y="-50" width="100%" height="50"/>
@@ -3042,89 +3046,89 @@ X        <pos x="0" y="4" width="100%" height="100%"/>
 X        <box orientation="horizontal" spacing="10" xpadding="10">
 X          <item type="rect" id="language_button" button="true">
 X            <normal />
-X	    <pos y="50%" anchor="w" width="box" height="box"/>
+X        <pos y="50%" anchor="w" width="box" height="box"/>
 X            <box orientation="horizontal" spacing="10" xpadding="10">
-X	      <item type="pixmap">
-X	        <normal file="icon-language.png" tint="#dddddd"/>
-X	        <prelight file="icon-language.png"/>
-X	        <active file="icon-language.png" tint="#bbbbbb" />
-X	        <pos y="50%" anchor="w"/>
-X	      </item>
-X	      <item type="label">
-X	        <normal color="#FFFFFF" font="Sans Bold 12"/>
-X		<prelight color="#BBBBBB" font="Sans Bold 12"/>
-X		<active color="#bbbbbb" font="Sans Bold 12"/>
-X	        <pos y="50%" anchor="w"/>	
-X		<stock type="language" />
-X	      </item>
+X          <item type="pixmap">
+X            <normal file="icon-language.png" tint="#dddddd"/>
+X            <prelight file="icon-language.png"/>
+X            <active file="icon-language.png" tint="#bbbbbb" />
+X            <pos y="50%" anchor="w"/>
+X          </item>
+X          <item type="label">
+X            <normal color="#FFFFFF" font="Sans Bold 12"/>
+X        <prelight color="#BBBBBB" font="Sans Bold 12"/>
+X        <active color="#bbbbbb" font="Sans Bold 12"/>
+X            <pos y="50%" anchor="w"/>
+X        <stock type="language" />
+X          </item>
 X            </box>
 X          </item>
 X          <item type="rect" id="session_button" button="true">
 X            <normal />
-X	    <pos y="50%" anchor="w" width="box" height="box"/>
+X        <pos y="50%" anchor="w" width="box" height="box"/>
 X            <box orientation="horizontal" spacing="10" xpadding="10">
-X	      <item type="pixmap">
-X	        <normal file="icon-session.png" tint="#dddddd"/>
-X	        <prelight file="icon-session.png"/>
-X	        <active file="icon-session.png" tint="#bbbbbb"/>
-X	        <pos y="50%" anchor="w"/>
-X	      </item>
-X	      <item type="label">
-X	        <normal color="#FFFFFF" font="Sans Bold 12"/>
-X		<prelight color="#BBBBBB" font="Sans Bold 12"/>
-X		<active color="#bbbbbb" font="Sans Bold 12"/>
-X	        <pos y="50%" anchor="w"/>
-X		<stock type="session" />
-X	      </item>
+X          <item type="pixmap">
+X            <normal file="icon-session.png" tint="#dddddd"/>
+X            <prelight file="icon-session.png"/>
+X            <active file="icon-session.png" tint="#bbbbbb"/>
+X            <pos y="50%" anchor="w"/>
+X          </item>
+X          <item type="label">
+X            <normal color="#FFFFFF" font="Sans Bold 12"/>
+X        <prelight color="#BBBBBB" font="Sans Bold 12"/>
+X        <active color="#bbbbbb" font="Sans Bold 12"/>
+X            <pos y="50%" anchor="w"/>
+X        <stock type="session" />
+X          </item>
 X            </box>
 X          </item>
 X          <item type="rect" id="system_button" button="true">
 X            <normal />
-X	    <show modes="console" type="system"/>
-X	    <pos y="50%" anchor="w" width="box" height="box"/>
+X        <show modes="console" type="system"/>
+X        <pos y="50%" anchor="w" width="box" height="box"/>
 X            <box orientation="horizontal" spacing="10" xpadding="10">
-X	      <item type="pixmap">
-X	        <normal file="icon-reboot.png" tint="#dddddd"/>
-X	        <prelight file="icon-reboot.png"/>
-X	        <active file="icon-reboot.png" tint="#bbbbbb"/>
-X	        <pos y="50%" anchor="w"/>
-X	      </item>
-X	      <item type="label">
-X	        <normal color="#FFFFFF" font="Sans Bold 12"/>
-X		<prelight color="#BBBBBB" font="Sans Bold 12"/>
-X		<active color="#bbbbbb" font="Sans Bold 12"/>
-X	        <pos y="50%" anchor="w"/>
-X		<stock type="system"/>
-X	      </item>
+X          <item type="pixmap">
+X            <normal file="icon-reboot.png" tint="#dddddd"/>
+X            <prelight file="icon-reboot.png"/>
+X            <active file="icon-reboot.png" tint="#bbbbbb"/>
+X            <pos y="50%" anchor="w"/>
+X          </item>
+X          <item type="label">
+X            <normal color="#FFFFFF" font="Sans Bold 12"/>
+X        <prelight color="#BBBBBB" font="Sans Bold 12"/>
+X        <active color="#bbbbbb" font="Sans Bold 12"/>
+X            <pos y="50%" anchor="w"/>
+X        <stock type="system"/>
+X          </item>
 X            </box>
 X          </item>
 X          <item type="rect" id="disconnect_button" button="true">
 X            <normal />
-X	    <show modes="flexi,remote"/>
-X	    <pos y="50%" anchor="w" width="box" height="box"/>
+X        <show modes="flexi,remote"/>
+X        <pos y="50%" anchor="w" width="box" height="box"/>
 X            <box orientation="horizontal" spacing="10" xpadding="10">
-X	      <item type="pixmap">
-X	        <normal file="icon-shutdown.png" tint="#dddddd"/>
-X	        <prelight file="icon-shutdown.png"/>
-X	        <active file="icon-shutdown.png" tint="#bbbbbb"/>
-X	        <pos y="50%" anchor="w"/>
-X	      </item>
-X	      <item type="label">
-X	        <normal color="#FFFFFF" font="Sans Bold 12"/>
-X		<prelight color="#666666" font="Sans Bold 12"/>
-X		<active color="#bbbbbb" font="Sans Bold 12"/>
-X	        <pos y="50%" anchor="w"/>
-X	        <stock type="disconnect"/>
-X		<show modes="remote"/>
-X	      </item>
-X	      <item type="label">
-X	        <normal color="#FFFFFF" font="Sans Bold 12"/>
-X		<prelight color="#BBBBBB" font="Sans Bold 12"/>
-X		<active color="#bbbbbb" font="Sans Bold 12"/>
-X	        <pos y="50%" anchor="w"/>
-X	        <stock type="quit"/>
-X		<show modes="flexi"/>
-X	      </item>
+X          <item type="pixmap">
+X            <normal file="icon-shutdown.png" tint="#dddddd"/>
+X            <prelight file="icon-shutdown.png"/>
+X            <active file="icon-shutdown.png" tint="#bbbbbb"/>
+X            <pos y="50%" anchor="w"/>
+X          </item>
+X          <item type="label">
+X            <normal color="#FFFFFF" font="Sans Bold 12"/>
+X        <prelight color="#666666" font="Sans Bold 12"/>
+X        <active color="#bbbbbb" font="Sans Bold 12"/>
+X            <pos y="50%" anchor="w"/>
+X            <stock type="disconnect"/>
+X        <show modes="remote"/>
+X          </item>
+X          <item type="label">
+X            <normal color="#FFFFFF" font="Sans Bold 12"/>
+X        <prelight color="#BBBBBB" font="Sans Bold 12"/>
+X        <active color="#bbbbbb" font="Sans Bold 12"/>
+X            <pos y="50%" anchor="w"/>
+X            <stock type="quit"/>
+X        <show modes="flexi"/>
+X          </item>
 X            </box>
 X          </item>
 X        </box>
@@ -3150,66 +3154,66 @@ X                <pos x="50%" y="120" anchor="c"/>
 X                <normal font="Sans Bold 12" color="#000000"/>
 X                <stock type="username-label"/>
 X            </item>
-X	   <item type="label" id="pam-message">
+X       <item type="label" id="pam-message">
 X            <pos anchor="c" x="50%" y="130"/>
-X	            <normal color="#000000" font="Sans 12"/>
-X	            <text></text>
-X	    </item>
-X				  
+X                <normal color="#000000" font="Sans 11"/>
+X                <text></text>
+X        </item>
+X
 X            <!-- user-pw-entry background pixmap -->
 X            <item type="pixmap">
-X                <pos x="90" y="125" width="300" height="40"/>
+X                <pos x="90" y="135" width="300" height="40"/>
 X                <normal file="userentry.png"/>
 X            </item>
-X            
+X
 X            <!-- user-pw-entry -->
 X            <item type="entry" id="user-pw-entry">
-X                <pos x="100" y="95" width="280" height="20"/>
+X                <pos x="100" y="105" width="280" height="20"/>
 X                <normal font="Sans 12" color="#444444"/>
 X            </item>
 X        </box>
 X    </item>
 X
-X	<!-- caps-lock-warning -->
-X	<item type="rect" id="caps-lock-warning">
-X		<normal color="#ffffff" alpha="0.2"/>
-X		<pos x="0" y="0" width="100%" height="box" anchor="nw"/>
-X		<box orientation="vertical" min-width="250" xpadding="10" ypadding="5" spacing="0">
-X			<item type="label">
-X				<normal color="#000000" font="Sans 12"/>
-X				<pos x="50%" y="50%" anchor="c"/>
-X				<stock type="caps-lock-warning"/>
-X			</item>
-X		</box>
+X    <!-- caps-lock-warning -->
+X    <item type="rect" id="caps-lock-warning">
+X        <normal color="#ffffff" alpha="0.2"/>
+X        <pos x="0" y="0" width="100%" height="box" anchor="nw"/>
+X        <box orientation="vertical" min-width="250" xpadding="10" ypadding="5" spacing="0">
+X            <item type="label">
+X                <normal color="#000000" font="Sans 12"/>
+X                <pos x="50%" y="50%" anchor="c"/>
+X                <stock type="caps-lock-warning"/>
+X            </item>
+X        </box>
 X    </item>
 X
-X	<!-- pam-error (login failure etc.) -->
-X	<item type="rect" id="pam-error">
-X		<pos x="0" y="90%" width="100%" height="box" anchor="sw"/>
-X		<box orientation="vertical" min-width="250" xpadding="10" ypadding="5" spacing="0">
-X			<item type="label" id="pam-error">
-X				<normal color="#FFFFFF" font="Sans 12"/>
-X				<pos x="50%" y="50%" anchor="c"/>
-X			<text></text>
-X			</item>
-X		</box>
+X    <!-- pam-error (login failure etc.) -->
+X    <item type="rect" id="pam-error">
+X        <pos x="0" y="90%" width="100%" height="box" anchor="sw"/>
+X        <box orientation="vertical" min-width="250" xpadding="10" ypadding="5" spacing="0">
+X            <item type="label" id="pam-error">
+X                <normal color="#FFFFFF" font="Sans 12"/>
+X                <pos x="50%" y="50%" anchor="c"/>
+X            <text></text>
+X            </item>
+X        </box>
 X    </item>
 X
 </greeter>
 SHAR_EOF
-  (set 20 06 12 11 11 00 18 'debian/debian-moreblue/debian-moreblue.xml'; eval "$shar_touch") &&
+  (set 20 07 05 01 15 25 18 'debian/debian-moreblue/debian-moreblue.xml'; eval "$shar_touch") &&
   chmod 0644 'debian/debian-moreblue/debian-moreblue.xml' ||
   $echo 'restore of' 'debian/debian-moreblue/debian-moreblue.xml' 'failed'
   if ( md5sum --help 2>&1 | grep 'sage: md5sum \[' ) >/dev/null 2>&1 \
   && ( md5sum --version 2>&1 | grep -v 'textutils 1.12' ) >/dev/null; then
     md5sum -c << SHAR_EOF >/dev/null 2>&1 \
     || $echo 'debian/debian-moreblue/debian-moreblue.xml:' 'MD5 check failed'
-18462d026c5c18c64d4c5d19478aac67  debian/debian-moreblue/debian-moreblue.xml
+a598bb4f9b5e926e6c8956a9ce10afa1  debian/debian-moreblue/debian-moreblue.xml
 SHAR_EOF
   else
     shar_count="`LC_ALL= LC_CTYPE= LANG= wc -c < 'debian/debian-moreblue/debian-moreblue.xml'`"
-    test 7254 -eq "$shar_count" ||
-    $echo 'debian/debian-moreblue/debian-moreblue.xml:' 'original size' '7254,' 'current size' "$shar_count!"
+    test 7869 -eq "$shar_count" ||
+    $echo 'debian/debian-moreblue/debian-moreblue.xml:' 'original size' '7869,' 'current size' "$shar_count!"
   fi
 fi
 # ============= debian/debian-moreblue/screenshot.png ==============
@@ -3775,5 +3779,5 @@ SHAR_EOF
     $echo 'debian/debian-moreblue/icon-shutdown.png:' 'original size' '727,' 'current size' "$shar_count!"
   fi
 fi
-rm -fr _sh06648
+rm -fr _sh09333
 exit 0
