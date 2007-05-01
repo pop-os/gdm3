@@ -1,0 +1,13 @@
+Debian #392611; typo in french translation.
+
+--- gdm-2.16.4.orig/po/fr.po
++++ gdm-2.16.4/po/fr.po
+@@ -400,7 +400,7 @@
+ #: ../daemon/gdm.c:661
+ #, c-format
+ msgid "System is shutting down, please wait ..."
+-msgstr "Le système est en train de s'arrêter, veuillez patientez..."
++msgstr "Le système est en train de s'arrêter, veuillez patienter..."
+ 
+ #: ../daemon/gdm.c:672
+ msgid "Master halting..."

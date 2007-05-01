@@ -1,0 +1,22 @@
+#!/bin/sh
+if [ "$1" = "purge" ] ; then
+	update-rc.d gdm remove >/dev/null
+	rm -f /etc/default/gdm
+	if [ -d /etc/gdm ]; then
+		rmdir --ignore-fail-on-non-empty /etc/gdm/Init /etc/gdm/PreSession /etc/gdm/PostSession /etc/gdm/PostLogin /etc/gdm/Sessions /etc/gdm 2>/dev/null
+	fi
+	if [ -d /var/lib/gdm ]; then
+		rm -r /var/lib/gdm
+	fi
+	if [ -d /var/log/gdm ]; then
+		rm -r /var/log/gdm
+	fi
+	if getent passwd gdm >/dev/null; then
+		deluser gdm
+	fi
+	if getent group gdm >/dev/null; then
+		delgroup gdm
+	fi
+fi
+#DEBHELPER#
+exit 0

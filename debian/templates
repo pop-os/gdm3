@@ -1,0 +1,153 @@
+Template: gdm/daemon_name
+Type: string
+Default: /usr/bin/gdm
+Description: for internal use only
+ This template is never shown to the user and does not require translation.
+
+Template: shared/default-x-display-manager
+Type: select
+Choices: ${choices}
+Description: Select the desired default display manager.
+ A display manager is a program that provides graphical login capabilities for
+ the X Window System.
+ .
+ Only one display manager can manage a given X server, but multiple display
+ manager packages are installed.  Please select which display manager should
+ run by default.
+ .
+ (Multiple display managers can run simultaneously if they are configured to
+ manage different servers; to achieve this, configure the display managers
+ accordingly, edit each of their init scripts in /etc/init.d, and disable the
+ check for a default display manager.)
+Description-ca.UTF-8: Escolliu el gestor de pantalla per defecte que desitgeu.
+ Un gestor de pantalla (display manager) és un programa que proporciona la capacitat d'un quadre gràfic d'entrada (login) a l'X Window System.
+ .
+ Només un gestor de pantalla pot gestionar un servidor X determinat, però teniu instal·lats diversos paquets de gestor de pantalla.  Per favor, escolliu quin gestor de pantalla s'executarà per defecte.
+ .
+ (Poden haver diversos gestors de pantalla corrent simultàniament si es configuren per a gestionar diferents servidors; per a aconseguir açò, configureu adequadament els gestors de pantalla, editeu cadascun dels seus guions d'inici en «/etc/init.d», i deshabiliteu la comprovació de gestor de pantalla per defecte.)
+Description-cs.UTF-8: Vyberte výchozího správce obrazovky.
+ Správce obrazovky je program, který nabízí grafické přihlášení do systému X Window.
+ .
+ Je nainstalováno několik správců obrazovky, ale jen jeden může obsluhovat daný X server. Vyberte, který správce se má spouštět jako výchozí.
+ .
+ (Více správců obrazovky může běžet zároveň pouze pokud spravují různé servery. Pro dosažení takového nastavení je musíte správně nakonfigurovat, upravit jejich spouštěcí skripty v /etc/init.d a zakázat kontrolu výchozího správce obrazovky.)
+Description-da.UTF-8: Vælg den ønskede logindhåndtering.
+ En logindhåndtering er et program der giver et grafisk logind til X Window-systemet.
+ .
+ Der kan kun køre én logindhåndtering for hver X-server, men der er installeret flere logindhåndteringer Vælg hvilken logindhåndtering der skal benyttes som standard.
+ .
+ (Flere logindhåndteringer kan køre samtidig. hvis de er sat op til at håndtere forskellige servere. For at få dette til at fungere, skal logindhåndteringenerne sættes op til det. Det gør du ved at fjerne tjekket for standard logindhåndtering i deres initialiseringsskripter i /etc/init.d.)
+Description-de.UTF-8: Bitte wählen Sie den gewünschten Display Manager.
+ Ein Display Manager ist ein Programm, welches grafische Anmeldemöglichkeiten für das X Window System zur Verfügung stellt.
+ .
+ Ein Display Manager kann nur einen vorgegebenen X Server benutzen, doch es können mehrere Display Manager installiert sein. Bitte wählen Sie, welcher Display Manager als Standard benutzt werden soll.
+ .
+ (Es können mehrere Display Manager gleichzeitig laufen, wenn diese so konfiguriert sind, dass sie verschiedene X Server benutzen; um dies zu erreichen, konfigurieren Sie die Display Manager entsprechend, editieren Sie jedes der Init-Skripte in /etc/init.d, und schalten Sie den Check nach einem Standard-Display-Manager ab.)
+Description-el.UTF-8: Επιλέξτε τον επιθυμητό διαχειριστή οθόνης.
+ Ο διαχειριστής οθόνης είναι ένα πρόγραμμα που προσφέρει τη δυνατότητα σύνδεσης στο σύστημα παραθύρων X μέσω γραφικού περιβάλλοντος.
+ .
+ Μόνο ένας διαχειριστής οθόνης μπορεί να χειρίζεται ένα συγκεκριμένο εξυπηρετητή X, αλλά περισσότεροι από ένας είναι εγκατεστημένοι. Παρακαλώ επιλέξτε τον διαχειριστή οθόνης που θα εκτελείται ως προκαθορισμένος.
+ .
+ Πολλαπλοί διαχειριστές οθόνης μπορούν να τρέχουν ταυτόχρονα, αν έχουν ρυθμιστεί να χειρίζονται διαφορετικούς διακομιστές X. Για να επιτευχθεί αυτό, ρυθμίστε τους διαχειριστές οθόνης κατάλληλα, επεξεργαστείτε τα αρχεία εκκίνησής τους στον κατάλογο /etc/init.d, και απενεργοποιήστε τον έλεγχο για προκαθορισμένο διαχειριστή οθόνης.
+Description-es.UTF-8: Escoja el gestor de sesiones que desea tener por defecto.
+ Un gestor de sesiones es un programa que le ofrece la posibilidad de entrar gráficamente a su sistema mediante el sistema X Window.
+ .
+ Cada servidor X sólo puede ser gestionado por un gestor de sesiones, pero hay instalados varios paquetes de gestores de sesiones. Por favor, seleccione qué gestor desea utilizar por defecto.
+ .
+ (Se pueden ejecutar múltiples gestores de sesiones simultáneamente si se configuran para gestionar distintos servidores; para conseguir esto, configure los gestores de sesiones apropiadamente, edite cada uno de sus guiones de inicio en /etc/init.d, y desactive el chequeo de un gestor de sesiones por defecto).
+Description-eu.UTF-8: Hautatu erabili nahi duzun pantaila kudeatzailea
+ Pantaila kudeatzailea X Leiho Sistemarako saio hasiera grafiko aukera ematen duen programa bat da.
+ .
+ Jakindako X zerbitzari bat pantaila kudeatzaile batek bakarrik kudea dezake, baina pantaila kudeatzaile anitz daude instalaturik.  Hautatu zein pantaila kudeatzaile erabili nahi duzun lehenetsi bezala.
+ .
+ (Pantaila kudeatzaile anitz batera martxan egon daitezke, zerbitzari ezberdinak kudeatzeko konfiguraturik badaude; hau lortzeko, pantaila kudeatzaileak behar bezala konfiguratu eta /etc/init.d-eko init script-ean lehenetsiriko pantaila kudeatzailea arakatzeko aukera ezgaitu.)
+Description-fr.UTF-8: Gestionnaire graphique de session par défaut :
+ Un gestionnaire graphique de session est un programme qui permet de se connecter à la machine depuis le système X Window.
+ .
+ Un seul gestionnaire graphique de session peut s'occuper d'un serveur X donné, bien que plusieurs gestionnaires puissent être installés simultanément. Veuillez choisir celui qui sera utilisé par défaut.
+ .
+ Plusieurs gestionnaires graphiques peuvent être lancés en même temps, s'ils gèrent des serveurs X différents ; pour cela, configurez correctement chacun des gestionnaires graphiques, modifiez leurs scripts de lancement dans /etc/init.d, et désactivez le test de gestionnaire graphique par défaut.
+Description-gl.UTF-8: Escolla o xestor de pantalla por defecto que desexe.
+ Un xestor de pantalla é un programa que fornece capacidades de inicio de sesión gráfico para o sistema X Window.
+ .
+ Só un xestor de pantalla pode xestionar un servidor X determinado, pero hai varios paquetes de xestores de pantalla instalados. Escolla o que se debería executar por defecto.
+ .
+ (Pódense executar varios xestores de pantalla ao mesmo tempo se se configuran para xestionar servidores distintos; para facelo, configure os xestores de pantalla, edite os seus scripts de inicio de /etc/init.d e desactive a comprobación do xestor de pantalla por defecto).
+Description-it.UTF-8: Scegliere il display manager predefinito.
+ Un display manager è un programma che fornisce capacità di login grafico per il sistema X Window.
+ .
+ Solo un display manager può gestire un dato server X, ma sono installati più pacchetti di display manager. Scegliere quale display manager usare.
+ .
+ Possono essere eseguiti più display manager contemporaneamente, a patto che siano impostati per gestire server diversi; per fare questo, configurare i display manager in maniera appropriata, modificare ciascuno dei loro script di avvio in /etc/init.d e disabilitare il controllo per un display manager predefinito.
+Description-ja.UTF-8: デフォルトで使いたいディスプレイマネージャを選んで下さい。
+ ディスプレイマネージャとは、X Window System 上でのグラフィカルなログイン機能を提供するものです。
+ .
+ ひとつの X サーバを管理できるのはひとつのディスプレイマネージャだけですが、現在複数のディスプレイマネージャがインストールされています。どのディスプレイマネージャをデフォルトで起動させるか選択して下さい。
+ .
+ (異なるサーバを担当するように設定すれば、複数のディスプレイサーバは同時に動作できます。そのようにするには、/etc/init.d にある各ディスプレイマネージャの初期化スクリプトを編集し、デフォルトディスプレイマネージャのチェックを無効にして下さい。)
+Description-nl.UTF-8: Gelieve de standaard beeldschermbeheerder te selecteren.
+ Een beeldschermbeheerder is een programma waarmee u zich grafisch op het systeem kunt aanmelden, waarna u in de grafische omgeving (het X Window System) terecht komt.
+ .
+ Elke X-server kan door slechts 1 beeldschermbeheerder beheerd worden, hoewel er meerdere beeldschermbeheerders geïnstalleerd kunnen zijn. Gelieve de standaard te gebruiken beeldschermbeheerder uit te kiezen.
+ .
+ (Er kunnen meerdere beeldschermbeheerders tegerlijkertijd actief zijn indien deze verschillende X-servers beheren; om dit te bereiken dient u elke beeldschermbeheerder in te stellen, en hun init-scripts in /etc/init.d/ aan te passen zodat deze niet controleren of ze de standaard beeldscherm-beheerder zijn)
+Description-pl.UTF-8: Wybierz domyślny display manager.
+ Display manager to program, który umożliwia logowanie się bezpośrednio do systemu X Window.
+ .
+ Tylko jeden display manager może kontrolować dany X serwer, ale zainstalowanych jest obecnie kilka takich programów. Wybierz, który z nich ma być uruchamiany domyślnie.
+ .
+ (Można uruchomić kilka programów "display manager", ale muszą one kontrolować różne serwery; można to osiągnąć konfigurując odpowiednio każdy z nich i wyłączając w ich skryptach startowych fragment sprawdzający domyślny display manager.)
+Description-pt.UTF-8: Seleccione o gestor de ecrã por omissão desejado.
+ Um gestor de ecrã é um programa que fornece capacidades de autenticação gráfica ao X Window System.
+ .
+ Apenas um único gestor de ecrã pode gerir um dado servidor X, mas estão instalados múltiplos pacotes de gestores de ecrã.  Por favor seleccione qual o gestor de ecrã que deve ser executado por omissão.
+ .
+ (Podem ser executados múltiplos gestores de écran em simultâneo se estes estiverem configurados para gerir diferentes servidores; para fazer isto, configure os gestores de ecrã de acordo, edite cada um dos seus scripts "init" em /etc/init.d, e desligue a verificação de um gestor de écran de omissão.)
+Description-pt_BR.UTF-8: Selecione o gerenciador de display padrão preferido.
+ Um gerenciador de display é um programa que provê capacidades de login gráfico para o Sistema de Janelas X.
+ .
+ Somente um gerenciador de display pode gerenciar um dado servidor X, mas diversos pacotes de gerenciadores de display estão instalados. Por favor selecione qual gerenciador de display deverá ser executado como padrão.
+ .
+ (Múltiplos gerenciadores de display podem rodar simultaneamente se eles estão configurados para gerenciar servidores diferentes; para conseguir isso, configure o gerenciador de display apropriadamente, edite cada um de seus scripts de inicialização em /etc/init.d, e desabilite a checagem por um gerenciador de display padrão.)
+Description-ro.UTF-8: Selectaţi managerul de ecran implicit dorit.
+ Un manager de ecran este un program care oferă facilitatea de autentificare grafică sistemului de ferestre X.
+ .
+ Doar un singur manager de ecran poate guverna un anumit server X, dar mai mulţi manageri de ecran sunt instalaţi. Sunteţi rugat să selectaţi managerul care ar trebui să pornească în mod implicit.
+ .
+ (Mai mulţi manageri de ecran pot rula simultan dacă sunt configuraţi să guverneze servere diferite; pentru a obţine acest lucru, configuraţi managerii de ecran corespunzător, editaţi fiecare dintre script-urile lor de iniţializare din /etc/init.d şi dezactivaţi testul de manager de ecran implicit.)
+Description-ru.UTF-8: Выберите желаемый менеджер дисплеев по умолчанию.
+ Менеджер дисплеев -- это программа, которая обеспечивает графическую возможность регистрации в системе для X Window System.
+ .
+ Данный X сервер может обслуживать только один менеджер дисплеев, но установлено может быть несколько пакетов менеджеров дисплеев. Выберите менеджер дисплеев, который должен запускаться по умолчанию.
+ .
+ (Несколько менеджеров дисплеев могут запускаться одновременно, если они настроены на обслуживание разных серверов X; чтобы добиться этого, соответственно настройте менеджеры дисплеев, отредактируйте их сценарии в каталоге /etc/init.d и запретите проверку на менеджер дисплеев по умолчанию.)
+Description-sk.UTF-8: Zvoľte predvoleného správcu obrazovky.
+ Správca obrazovky je program, ktorý ponúka grafické prihlásenie do systému X Window.
+ .
+ Máte nainštalovaných viac správcov obrazovky, ale iba jeden môže obsluhovať daný X server. Zvoľte si správcu, ktorý sa bude štandartne spúšťať.
+ .
+ (Súbežne môže byť spustených viac správcov obrazovky, ale iba v prípade viacero rozdielnych serverov. Pre dosiahnutie takéhoto nastavenia ich musíte správne nastaviť, upraviť ich spúšťacie skripty v /etc/init.d a zakázať kontrolu štandartného správcu obrazovky.)
+Description-sv.UTF-8: Välj vilken skärmhanterare du vill använda.
+ En skärmhanterare är det program som tillhandahåller grafiska loginmöjligheter i X Window-systemet.
+ .
+ Endast en skärmhanterare kan köras för varje X-server, men flera skärmhanterarpaket kan vare installerade. Var vänlig och välj den skärmhanterare som skall användas som standard.
+ .
+ (Flera skärmhanterare kan köras samtidigt om de är konfigurerade att hantera olika servrar. För att uppnå detta, konfigurera skärmhanterarnas initskript i /etc/init.d, och stäng av kollen efter standard skärmhanteraren.)
+Description-tr.UTF-8: Kullanmak istediğiniz öntanımlı ekran yöneticisini seçin.
+ Ekran yöneticisi, X Window Sistemi'ne grafik arayüz ile giriş yapmayı sağlar.
+ .
+ Sadece bir ekran yöneticisi verilen X sunucusunu yönetebilir; ancak birden fazla ekran yöneticisi kurulu durumda.  Lütfen öntanımlı olarak çalıştırmak istediğiniz ekran yöneticisini seçin.
+ .
+ (Eğer farklı sunucuları çalıştırmak için ayarlanırsa birden fazla ekran yöneticisi kullanılabilir.  Bunun için /etc/init.d içindeki ilgili betikleri değiştirin ve öntanımlı ekran yöneticisini denetleyen işlevleri devre dışı bırakın.)
+Description-vi.UTF-8: Hãy chọn trình quản lý trình bày mặc định đã muốn.
+ Một trình quản lý trình bày là chương trình cung cấp khả năng đăng nhập vào môi trường đồ họa cho Hệ thống Cửa sổ X.
+ .
+ Chỉ một trình quản lý trình bày có thể quản lý mỗi trình phục vụ X (X server) đã cho, nhưng mà đã cài đăt nhiều gói trình quản lý trình bày rồi. Như thế thì bạn hãy chọn trình này sẽ chạy theo mặc định.
+ .
+ Nhiều trình quản lý trình bày có thể chạy đồng thời nếu mỗi điều có cấu hình quản lý trình phục vụ khác. Để làm như thế, bạn hãy cấu hình mọi trình quản lý trình bày một cách thích hợp, sửa đổi tập lệnh sơ khởi (init script) trong </etc/init.d>, và tắt việc kiểm tra có trình quản lý trình bày mặc định.
+Description-zh_CN.UTF-8: 请选择您想使用的默认显示管理器。
+ 显示管理器即为 X 窗口系统提供图形界面登录模式的程序。
+ .
+ 一个给定的 X 服务器只能由一个显示管理器来管理，但是您的系统中已经安装了多个显示管理器软件包。请选择一个作为默认的显示管理器。
+ .
+ (如果多个显示管理器分别被配置为管理不同的 X 服务器，那么它们可以同时运行。要做到这一点，您需要根据需要分别对显示管理器进行设置，编辑它们在 /etc/init.d 目录下的 init 脚本，并且禁止检查默认显示管理器。)

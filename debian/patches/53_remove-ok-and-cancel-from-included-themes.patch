@@ -1,0 +1,53 @@
+Debian #377934; remove Ok and Cancel buttons from included themes.
+
+--- gdm-2.16.4.orig/gui/greeter/themes/circles/circles.xml
++++ gdm-2.16.4/gui/greeter/themes/circles/circles.xml
+@@ -84,14 +84,6 @@
+ 	  </item>
+ 	</fixed>
+       </item>
+-      <item type="button" id="ok_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="ok"/>
+-      </item>
+-      <item type="button" id="cancel_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="startagain"/>
+-      </item>
+       <item type="label" id="pam-message">
+         <pos anchor="n" x="50%"/>
+         <normal color="#000000" font="Sans 12"/>
+--- gdm-2.16.4.orig/gui/greeter/themes/happygnome/happygnome.xml
++++ gdm-2.16.4/gui/greeter/themes/happygnome/happygnome.xml
+@@ -84,14 +84,6 @@
+ 	  </item>
+ 	</fixed>
+       </item>
+-      <item type="button" id="ok_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="ok"/>
+-      </item>
+-      <item type="button" id="cancel_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="startagain"/>
+-      </item>
+       <item type="label" id="pam-message">
+         <pos anchor="n" x="50%"/>
+         <normal color="#000000" font="Sans 12"/>
+--- gdm-2.16.4.orig/gui/greeter/themes/happygnome-list/happygnome.xml
++++ gdm-2.16.4/gui/greeter/themes/happygnome-list/happygnome.xml
+@@ -95,14 +95,6 @@
+ 	  </item>
+ 	</fixed>
+       </item>
+-      <item type="button" id="ok_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="ok"/>
+-      </item>
+-      <item type="button" id="cancel_button">
+-        <pos anchor="n" x="50%" height="32" width="50%"/>
+-        <stock type="startagain"/>
+-      </item>
+       <item type="label" id="pam-message">
+         <pos anchor="n" x="50%"/>
+         <normal color="#000000" font="Sans 12"/>

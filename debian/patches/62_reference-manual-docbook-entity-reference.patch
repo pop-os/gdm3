@@ -1,0 +1,10 @@
+--- gdm-2.16.4.orig/docs/C/gdm.xml
++++ gdm-2.16.4/docs/C/gdm.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0"?>
+ <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+-    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
++    "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+     <!ENTITY legal SYSTEM "legal.xml">
+     <!ENTITY version "2.15.1"> 
+     <!ENTITY date "05/12/2006"> 

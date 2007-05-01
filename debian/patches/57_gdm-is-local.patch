@@ -1,0 +1,28 @@
+Disable GDM_IS_LOCAL logic.
+
+XXX Clarify the purpose; this is pre 2.6.0.8-1
+
+--- gdm-2.16.4.orig/gui/gdmcommon.c
++++ gdm-2.16.4/gui/gdmcommon.c
+@@ -264,10 +264,6 @@
+ {
+ 	guint sid;
+ 
+-	if ( ! ve_string_empty (g_getenv ("GDM_IS_LOCAL")) &&
+-	    strncmp (ve_sure_string (g_getenv ("DISPLAY")), ":0", 2) == 0)
+-		return;
+-
+ 	sid = g_signal_lookup ("activate",
+ 			       GTK_TYPE_MENU_ITEM);
+ 	if (sid != NULL) {
+@@ -307,10 +303,6 @@
+ 	EntryBlink *eb;
+ 	GtkSettings *settings;
+ 
+-	if ( ! ve_string_empty (g_getenv ("GDM_IS_LOCAL")) &&
+-	    strncmp (ve_sure_string (g_getenv ("DISPLAY")), ":0", 2) == 0)
+-		return;
+-
+ 	eb = g_new0 (EntryBlink, 1);
+ 
+ 	eb->entry = entry;

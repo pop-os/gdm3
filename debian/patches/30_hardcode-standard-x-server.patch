@@ -1,0 +1,18 @@
+Debian #362925, #363160; Hardcode StandardXServer to /usr/bin/X.
+
+--- gdm-2.16.4.orig/configure.ac
++++ gdm-2.16.4/configure.ac
+@@ -969,7 +969,12 @@
+ # symlink to each other, and configure should use the more stable
+ # location (the real directory) if possible.
+ #
+-if test ! -h /usr/X11R6 -a -x /usr/X11R6/bin/X; then
++if true; then # debian
++   X_PATH="/usr/bin"
++   X_SERVER_PATH="/usr/bin"
++   X_SERVER="/usr/bin/X"
++   X_CONFIG_OPTIONS="-audit 0"
++elif test ! -h /usr/X11R6 -a -x /usr/X11R6/bin/X; then
+    X_PATH="/usr/X11R6/bin"
+    X_SERVER_PATH="/usr/X11R6/bin"
+    X_SERVER="/usr/X11R6/bin/X"

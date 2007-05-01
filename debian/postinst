@@ -1,0 +1,76 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+THIS_PACKAGE=gdm
+DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
+
+# creating gdm group if he isn't already there
+if ! getent group gdm >/dev/null; then
+        addgroup --system gdm
+fi
+
+# creating gdm user if he isn't already there
+if ! getent passwd gdm >/dev/null; then
+        adduser --system --ingroup gdm --home /var/lib/gdm gdm
+	usermod -c "Gnome Display Manager" gdm
+	usermod -d "/var/lib/gdm"          gdm
+	usermod -g "gdm"                   gdm
+	usermod -s "/bin/false"            gdm
+fi
+
+if [ -d /var/lib/gdm ]; then
+  chown -R gdm:gdm /var/lib/gdm
+  chmod 0750 /var/lib/gdm
+fi
+
+# debconf is not a registry, so we only fiddle with the default file if it
+# does not exist
+if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
+  if db_get shared/default-x-display-manager; then
+    # workaround debconf passthru bug (#379198)
+    if [ -z "$RET" ]; then
+      $RET="$THIS_PACKAGE"
+    fi
+    if [ "$THIS_PACKAGE" != "$RET" ]; then
+      echo "Please be sure to run \"dpkg --configure $RET\"."
+    fi
+    if db_get "$RET"/daemon_name; then
+      echo "$RET" > $DEFAULT_DISPLAY_MANAGER_FILE
+    fi
+  fi
+fi
+# debconf hangs if gdm gets started below without this
+db_stop || true
+
+gdm_running=
+
+# NOTE: the binary on disk most likely has changed, so we can't use --exec
+if start-stop-daemon --stop --quiet --name gdm --signal 0 --pid /var/run/gdm.pid; then
+  gdm_running=yes
+fi
+
+if [ -d /var/state/gdm ]; then
+  if [ "$gdm_running" ]; then
+    echo "Note: obsolete directory /var/state/gdm cannot be removed when gdm"
+    echo "is running.  Reinstall the gdm package (or remove the directory"
+    echo "manually) when gdm is not running."
+  else
+    rm -r /var/state/gdm
+  fi
+fi
+
+if [ -e /etc/rc2.d/S99gdm ]; then
+  update-rc.d -f gdm remove >/dev/null
+fi
+
+if [ -x /etc/init.d/gdm ]; then
+  update-rc.d gdm defaults 21 01 >/dev/null 2>&1
+  invoke-rc.d gdm reload || true
+fi
+
+#DEBHELPER#
+
+exit 0

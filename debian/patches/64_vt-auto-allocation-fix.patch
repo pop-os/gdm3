@@ -1,0 +1,43 @@
+Debian #339790; GNOME #322137; patch from CVS to fix new auto VT allocation
+method.
+
+--- gdm-2.16.4.orig/gui/Makefile.am
++++ gdm-2.16.4/gui/Makefile.am
+@@ -119,10 +119,7 @@
+ 	$(PANGO_LIBS)		\
+ 	$(GDKPIXBUF_LIBS)	\
+ 	$(top_builddir)/vicious-extensions/libviciousui-minimal.a \
+-	$(X_EXTRA_LIBS)		\
+-	$(XINERAMA_LIBS)	\
+-	$(X_LIBS)		\
+-	-lX11
++	$(XINERAMA_LIBS)
+ 
+ # LIBGNOMEUI should be removed from gdmsetup at some point.
+ # It is needed because it uses gnome_help_display_uri(), which
+@@ -141,10 +138,7 @@
+ 	$(GDKPIXBUF_LIBS)	\
+ 	$(EXTRA_SETUP_LIBS)	\
+ 	$(LIBGNOMEUI_LIBS)	\
+-	$(top_builddir)/vicious-extensions/libviciousui.a \
+-	$(X_LIBS)		\
+-	-lXau			\
+-	-lX11
++	$(top_builddir)/vicious-extensions/libviciousui.a
+ 
+ gdmphotosetup_LDADD = \
+ 	libgdmcommon.a		\
+--- gdm-2.16.4.orig/gui/greeter/Makefile.am
++++ gdm-2.16.4/gui/greeter/Makefile.am
+@@ -85,10 +85,7 @@
+ 	$(GDK_LIBS)		\
+ 	$(GDKPIXBUF_LIBS)	\
+ 	$(GREETER_LIBS)		\
+-	$(X_EXTRA_LIBS)		\
+-	$(XINERAMA_LIBS)	\
+-	$(X_LIBS)		\
+-	-lX11
++	$(XINERAMA_LIBS)
+ 
+ EXTRA_DIST = \
+ 	gdmthemetester.in \

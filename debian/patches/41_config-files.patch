@@ -1,0 +1,56 @@
+Debian #250438, #344822, #317612; set $HOME to /etc/X11 when starting the X
+server, causing the code that looks for $HOME/xorg.conf before other files in
+/etc to look at our configfile, and not one that might be in root's homedir.
+
+XXX Clarify the two changes below; one seem to ignore a compatibility file, the
+other sets HOME, but it might need some adaptation to be sent upstream, perhaps
+ignoring /root/gdm.conf explicitely?
+
+--- gdm-2.16.4.orig/daemon/gdmconfig.c
++++ gdm-2.16.4/daemon/gdmconfig.c
+@@ -593,11 +593,22 @@
+     * file has all the keys in it (except new ones).  But
+     * that would be what the user wants.
+     */
++
++    /*
++     * We disable this on Debian, as we already have the non-custom conf
++     * located in /usr/share.  So, we make the old conf the custom config
++     * in /etc, with the same name as before.  Users that upgrade to the new
++     * maintainer conf get just that (and a blank custom.conf to make changes
++     * in), and users that don't upgrade to the new conf, get both configs
++     * with the one they kept getting precedence.
++     */
++#if 0
+    VE_IGNORE_EINTR (r = g_stat (GDM_OLD_CONF, statbuf));
+    if (r >= 0) {
+       custom_config_file = g_strdup (GDM_OLD_CONF);
+       return ve_config_new (custom_config_file);
+    }
++#endif
+ 
+    VE_IGNORE_EINTR (r = g_stat (GDM_CUSTOM_CONF, statbuf));
+    if (r >= 0) {
+--- gdm-2.16.4.orig/daemon/server.c
++++ gdm-2.16.4/daemon/server.c
+@@ -1255,11 +1255,20 @@
+ 				   (int)d->server_uid);
+ 			_exit (SERVER_ABORT);
+ 		}
++	/*
++	 * When started as root, X will read $HOME/xorg.conf before files in /etc.  As this isn't what users
++	 * expect from gdm starting up, we set $HOME to be /etc/X11.  (an unset $HOME will cause the X server
++	 * to bail)  The Debian X server will have this removed soon, and hopefully the change will go
++	 * upstream, at which point the original code will not cause user confusion.
++	 */
++#if 0
+ 		if (pwent->pw_dir != NULL &&
+ 		    g_file_test (pwent->pw_dir, G_FILE_TEST_EXISTS))
+ 			g_setenv ("HOME", pwent->pw_dir, TRUE);
+ 		else
+ 			g_setenv ("HOME", "/", TRUE); /* Hack */
++#endif
++		g_setenv ("HOME", "/etc/X11", TRUE);
+ 		g_setenv ("SHELL", pwent->pw_shell, TRUE);
+ 		g_unsetenv ("MAIL");
+ 

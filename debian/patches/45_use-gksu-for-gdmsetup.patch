@@ -1,0 +1,14 @@
+Debian #189615, #238337; Use gksu to start gdmsetup as it needs root
+permissions.
+
+--- gdm-2.16.4.orig/gui/gdmsetup.desktop.in.in
++++ gdm-2.16.4/gui/gdmsetup.desktop.in.in
+@@ -4,7 +4,7 @@
+ _GenericName=Login Window Preferences
+ _Comment=Configure the login window (GNOME Display Manager)
+ TryExec=@sbindir@/gdmsetup
+-Exec=gdmsetup
++Exec=gksu gdmsetup
+ Icon=gdm-setup
+ StartupNotify=true
+ Terminal=false
