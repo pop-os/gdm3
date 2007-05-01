@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Loic Minier <lool@dooz.org>
 Uploaders: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Build-Depends: libpam0g-dev, libgnomeui-dev, librsvg2-dev, libglade2-dev, libwrap0-dev, debhelper, gettext, intltool, scrollkeeper, libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], libattr1-dev, libxau-dev, libxt-dev, libxdmcp-dev, libxinerama-dev, libdmx-dev, gnome-doc-utils, sharutils, gnome-pkg-tools, quilt
+Build-Depends: libpam0g-dev, libgnomeui-dev, librsvg2-dev, libglade2-dev, libwrap0-dev, debhelper (>= 4), gettext, intltool, scrollkeeper, libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], libattr1-dev, libxau-dev, libxt-dev, libxdmcp-dev, libxinerama-dev, libdmx-dev, gnome-doc-utils, sharutils, gnome-pkg-tools, quilt
 Standards-Version: 3.7.2
 
 Package: gdm

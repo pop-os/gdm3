@@ -7,9 +7,6 @@
 
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 
-# This is the debhelper compatability version to use.
-export DH_COMPAT=4
-
 DEB_HOST_ARCH_OS = $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
