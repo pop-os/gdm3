@@ -1,4 +1,4 @@
-gdm (2.16.4-2) UNRELEASED; urgency=low
+gdm (2.18.1-1) UNRELEASED; urgency=low
 
   * Adopt package; set myself as Maintainer; thanks Ryan Murray for your
     maintenance until now!
@@ -56,8 +56,10 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
     J S Bygott; closes: #361436.
   * Configure with --enable-ipv6=yes; GNOME #385451; Ubuntu #75254;
     closes: #409428.
+  * New upstream releases; *** WIP ***
+    - Build-dep on libdbus-glib-1-dev (>= 0.30) for ConsoleKit support.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 19:11:04 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 22:55:52 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

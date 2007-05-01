@@ -22,7 +22,8 @@ Build-Depends: libpam0g-dev,
                gnome-doc-utils,
                sharutils,
                gnome-pkg-tools,
-               quilt
+               quilt,
+               libdbus-glib-1-dev (>= 0.30)
 Standards-Version: 3.7.2
 
 Package: gdm
