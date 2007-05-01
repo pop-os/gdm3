@@ -55,7 +55,7 @@ if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt "2.16.1-1"; then
         update-rc.d -f gdm remove >/dev/null
         update-rc.d gdm defaults $S $K
     fi
-elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1"; then
+elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1.1"; then
     # since after 2.16.4-1.1, gdm isn't started from S21 anymore
     if [ -e /etc/rc2.d/S21gdm ]; then
         update-rc.d -f gdm remove >/dev/null
