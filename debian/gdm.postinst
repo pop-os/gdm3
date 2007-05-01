@@ -45,12 +45,26 @@ fi
 # debconf hangs if gdm gets started below without this
 db_stop || true
 
-if [ -e /etc/rc2.d/S99gdm ]; then
-  update-rc.d -f gdm remove >/dev/null
+# update-rc.d levels
+S=30
+K=01
+
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt "2.16.1-1"; then
+    # since 2.16.1-1, gdm isn't started from S99 anymore
+    if [ -e /etc/rc2.d/S99gdm ]; then
+        update-rc.d -f gdm remove >/dev/null
+        update-rc.d gdm defaults $S $K
+    fi
+elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1"; then
+    # since after 2.16.4-1.1, gdm isn't started from S21 anymore
+    if [ -e /etc/rc2.d/S21gdm ]; then
+        update-rc.d -f gdm remove >/dev/null
+        update-rc.d gdm defaults $S $K
+    fi
 fi
 
 if [ -x /etc/init.d/gdm ]; then
-  update-rc.d gdm defaults 21 01 >/dev/null 2>&1
+  update-rc.d gdm defaults $S $K >/dev/null 2>&1
   invoke-rc.d gdm reload || true
 fi
 
