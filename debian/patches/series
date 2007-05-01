@@ -18,4 +18,5 @@
 65_french-translation-typo.patch
 67_C-locale-fallback.patch
 68_doc-build-add-revnumber.patch
+69_misc-config-typos.patch
 70_mandatory-relibtoolize.patch
