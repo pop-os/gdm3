@@ -20,8 +20,12 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * Depend on "debconf (>= 0.5) | debconf-2.0" instead of the only virtual
     "debconf-2.0".
   * Wrap build-deps and deps.
+  * Update copyright file.
+    - Use full download URL.
+    - Include full GPL blob.
+    - List GNOME Team as new maintainer.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:50:07 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:52:36 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
