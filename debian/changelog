@@ -43,8 +43,10 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
     - Merge patch by Michael Biebl to properly display wrapped login text;
       closes: #408043.
   * Apply update to templates; thanks Christian Perrier; closes: #417981.
+  * Drop postinst upgrade snippet for version <= 2.0-0.beta4.6; upgrades of
+    version before sarge don't have to be supported.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 15:50:10 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 17:21:01 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

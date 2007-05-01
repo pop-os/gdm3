@@ -45,23 +45,6 @@ fi
 # debconf hangs if gdm gets started below without this
 db_stop || true
 
-gdm_running=
-
-# NOTE: the binary on disk most likely has changed, so we can't use --exec
-if start-stop-daemon --stop --quiet --name gdm --signal 0 --pid /var/run/gdm.pid; then
-  gdm_running=yes
-fi
-
-if [ -d /var/state/gdm ]; then
-  if [ "$gdm_running" ]; then
-    echo "Note: obsolete directory /var/state/gdm cannot be removed when gdm"
-    echo "is running.  Reinstall the gdm package (or remove the directory"
-    echo "manually) when gdm is not running."
-  else
-    rm -r /var/state/gdm
-  fi
-fi
-
 if [ -e /etc/rc2.d/S99gdm ]; then
   update-rc.d -f gdm remove >/dev/null
 fi
