@@ -14,8 +14,9 @@ gdm (2.16.4-2) UNRELEASED; urgency=low
   * New patch, 68_doc-build-add-revnumber, fixes build with newer
     gnome-doc-utils.
   * Use full path to gdmsetup in menu file.
+  * Fix "closes:" in 2.2.5.2-1 and 2.13.0.10-1.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:44:15 +0200
+ -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 12:45:06 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
@@ -112,7 +113,7 @@ gdm (2.13.0.10-1) unstable; urgency=low
   * Set $HOME to /etc/X11 when starting the X server, causing the code
     that looks for $HOME/xorg.conf before other files in /etc to look
     at our configfile, and not one that might be in root's homedir.
-    (closes #250438)
+    (closes: #250438)
   * Confirmed that the new version correctly works with utf-8 locales
     (closes: #277953)
 
@@ -387,7 +388,7 @@ gdm (2.2.5.2-1) unstable; urgency=low
   * Lower --retry timeout on gdm stop (closes: #122202)
   * Only do the password stuff if the gdm user doesn't exist (closes: #119385)
   * add pam_limits to the installed pam file (closes: #118335)
-  * Correct debconf for selection of display managers (closes : #115776)
+  * Correct debconf for selection of display managers (closes: #115776)
   * Add -xkb option to Xnest startup (closes: #111783)
 
  -- Ryan Murray <rmurray@debian.org>  Sun,  9 Dec 2001 16:56:32 -0800
