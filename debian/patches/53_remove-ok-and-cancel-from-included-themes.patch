@@ -1,8 +1,10 @@
 Debian #377934; remove Ok and Cancel buttons from included themes.
 
---- gdm-2.16.4.orig/gui/greeter/themes/circles/circles.xml
-+++ gdm-2.16.4/gui/greeter/themes/circles/circles.xml
-@@ -84,14 +84,6 @@
+Index: gdm-2.18.1/gui/greeter/themes/circles/circles.xml
+===================================================================
+--- gdm-2.18.1.orig/gui/greeter/themes/circles/circles.xml	2007-04-09 07:15:09.000000000 +0200
++++ gdm-2.18.1/gui/greeter/themes/circles/circles.xml	2007-05-02 11:04:25.000000000 +0200
+@@ -78,14 +78,6 @@
  	  </item>
  	</fixed>
        </item>
@@ -17,9 +19,11 @@ Debian #377934; remove Ok and Cancel buttons from included themes.
        <item type="label" id="pam-message">
          <pos anchor="n" x="50%"/>
          <normal color="#000000" font="Sans 12"/>
---- gdm-2.16.4.orig/gui/greeter/themes/happygnome/happygnome.xml
-+++ gdm-2.16.4/gui/greeter/themes/happygnome/happygnome.xml
-@@ -84,14 +84,6 @@
+Index: gdm-2.18.1/gui/greeter/themes/happygnome/happygnome.xml
+===================================================================
+--- gdm-2.18.1.orig/gui/greeter/themes/happygnome/happygnome.xml	2007-04-09 07:15:09.000000000 +0200
++++ gdm-2.18.1/gui/greeter/themes/happygnome/happygnome.xml	2007-05-02 11:04:25.000000000 +0200
+@@ -90,14 +90,6 @@
  	  </item>
  	</fixed>
        </item>
@@ -34,9 +38,11 @@ Debian #377934; remove Ok and Cancel buttons from included themes.
        <item type="label" id="pam-message">
          <pos anchor="n" x="50%"/>
          <normal color="#000000" font="Sans 12"/>
---- gdm-2.16.4.orig/gui/greeter/themes/happygnome-list/happygnome.xml
-+++ gdm-2.16.4/gui/greeter/themes/happygnome-list/happygnome.xml
-@@ -95,14 +95,6 @@
+Index: gdm-2.18.1/gui/greeter/themes/happygnome-list/happygnome.xml
+===================================================================
+--- gdm-2.18.1.orig/gui/greeter/themes/happygnome-list/happygnome.xml	2007-04-09 07:15:08.000000000 +0200
++++ gdm-2.18.1/gui/greeter/themes/happygnome-list/happygnome.xml	2007-05-02 11:04:25.000000000 +0200
+@@ -101,14 +101,6 @@
  	  </item>
  	</fixed>
        </item>

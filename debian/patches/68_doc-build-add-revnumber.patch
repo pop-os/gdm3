@@ -1,10 +1,10 @@
-Index: gdm-2.16.4/docs/C/gdm.xml
+Index: gdm-2.18.1/docs/C/gdm.xml
 ===================================================================
---- gdm-2.16.4.orig/docs/C/gdm.xml	2007-05-01 12:34:32.000000000 +0200
-+++ gdm-2.16.4/docs/C/gdm.xml	2007-05-01 12:34:49.000000000 +0200
-@@ -10,6 +10,13 @@
-   <articleinfo>
-     <title>Gnome Display Manager Reference Manual</title>
+--- gdm-2.18.1.orig/docs/C/gdm.xml	2007-05-02 11:07:19.000000000 +0200
++++ gdm-2.18.1/docs/C/gdm.xml	2007-05-02 11:08:26.000000000 +0200
+@@ -17,6 +17,13 @@
+       </revision>
+     </revhistory>
  
 +    <revhistory>
 +      <revision>

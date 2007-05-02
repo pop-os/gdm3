@@ -1,10 +1,10 @@
-Index: gdm-2.16.4/config/gdm.conf.in
+Index: gdm-2.18.1/config/gdm.conf.in
 ===================================================================
---- gdm-2.16.4.orig/config/gdm.conf.in	2007-05-01 18:21:48.000000000 +0200
-+++ gdm-2.16.4/config/gdm.conf.in	2007-05-01 18:23:25.000000000 +0200
-@@ -93,9 +93,9 @@
+--- gdm-2.18.1.orig/config/gdm.conf.in	2007-05-02 10:38:10.000000000 +0200
++++ gdm-2.18.1/config/gdm.conf.in	2007-05-02 11:08:29.000000000 +0200
+@@ -88,9 +88,9 @@
  # always true and this configuration setting is ignored.
- #AlwaysRestartServer=false
+ #AlwaysRestartServer=@ALWAYS_RESTART_SERVER@
  
 -# User and group used for running GDM GUI applicaitons.  By default this is set
 +# User and group used for running GDM GUI applications.  By default this is set
@@ -14,16 +14,16 @@ Index: gdm-2.16.4/config/gdm.conf.in
  User=gdm
  Group=gdm
  
-@@ -160,7 +160,7 @@
- # The X nest command.
- Xnest=@X_XNEST_PATH@/Xnest @X_XNEST_CONFIG_OPTIONS@
+@@ -166,7 +166,7 @@
+ XnestUnscaledFontPath=@X_XNEST_UNSCALED_FONTPATH@
+ 
  # Automatic VT allocation.  Right now only works on Linux.  This way we force
 -# X to use specific vts.  turn VTAllocation to false if this is causing
 +# X to use specific vts.  Turn VTAllocation to false if this is causing
  # problems.
  FirstVT=7
  VTAllocation=true
-@@ -247,7 +247,7 @@
+@@ -255,7 +255,7 @@
  
  # XDMCP is the protocol that allows remote login.  If you want to log into GDM
  # remotely (I'd never turn this on on open network, use ssh for such remote

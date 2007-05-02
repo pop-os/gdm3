@@ -3,12 +3,13 @@ server, causing the code that looks for $HOME/xorg.conf before other files in
 /etc to look at our configfile, and not one that might be in root's homedir.
 
 XXX Clarify the two changes below; one seem to ignore a compatibility file, the
-other sets HOME, but it might need some adaptation to be sent upstream, perhaps
-ignoring /root/gdm.conf explicitely?
+other sets HOME to avoid /root/xorg.conf, but this seems to be a xorg bug.
 
---- gdm-2.16.4.orig/daemon/gdmconfig.c
-+++ gdm-2.16.4/daemon/gdmconfig.c
-@@ -593,11 +593,22 @@
+Index: gdm-2.18.1/daemon/gdmconfig.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/gdmconfig.c	2007-04-09 07:15:16.000000000 +0200
++++ gdm-2.18.1/daemon/gdmconfig.c	2007-05-02 10:38:20.000000000 +0200
+@@ -627,11 +627,22 @@
      * file has all the keys in it (except new ones).  But
      * that would be what the user wants.
      */
@@ -31,9 +32,11 @@ ignoring /root/gdm.conf explicitely?
  
     VE_IGNORE_EINTR (r = g_stat (GDM_CUSTOM_CONF, statbuf));
     if (r >= 0) {
---- gdm-2.16.4.orig/daemon/server.c
-+++ gdm-2.16.4/daemon/server.c
-@@ -1255,11 +1255,20 @@
+Index: gdm-2.18.1/daemon/server.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/server.c	2007-04-09 07:15:15.000000000 +0200
++++ gdm-2.18.1/daemon/server.c	2007-05-02 10:38:20.000000000 +0200
+@@ -1268,11 +1268,20 @@
  				   (int)d->server_uid);
  			_exit (SERVER_ABORT);
  		}

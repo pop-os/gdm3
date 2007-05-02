@@ -58,8 +58,22 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
     closes: #409428.
   * New upstream releases; *** WIP ***
     - Build-dep on libdbus-glib-1-dev (>= 0.30) for ConsoleKit support.
+    - Refresh patches 30_hardcode-standard-x-server, 41_config-files,
+      42_pam-and-timed-login, 48_random-greeter-theme,
+      53_remove-ok-and-cancel-from-included-themes, 57_gdm-is-local,
+      62_reference-manual-docbook-entity-reference, 64_vt-auto-allocation-fix,
+      67_C-locale-fallback, 68_doc-build-add-revnumber, 69_misc-config-typos.
+    - Drop patch 55_hurd-no-pipe-buf, merged upstream.
+    - Update patches:
+      . 35_gdm.conf: Update reference to System Configuration file.
+      . 45_use-gksu-for-gdmsetup: Update to use the full path to gdmsetup.
+      . 50_close-fds: Update to match upstream changes which closed even more
+        fds than in the past; convert some Debian specific closes to use
+        VE_IGNORE_EINTR() too; leave the upstream code in the source.
+      . 65_french-translation-typo: Update to upstream rewording of this
+        string.
 
- -- Loic Minier <lool@dooz.org>  Tue, 01 May 2007 22:55:52 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 11:20:44 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

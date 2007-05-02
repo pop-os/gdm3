@@ -1,8 +1,10 @@
 Debian #339790; GNOME #322137; patch from CVS to fix new auto VT allocation
 method.
 
---- gdm-2.16.4.orig/gui/Makefile.am
-+++ gdm-2.16.4/gui/Makefile.am
+Index: gdm-2.18.1/gui/Makefile.am
+===================================================================
+--- gdm-2.18.1.orig/gui/Makefile.am	2007-04-09 07:15:11.000000000 +0200
++++ gdm-2.18.1/gui/Makefile.am	2007-05-02 11:07:23.000000000 +0200
 @@ -119,10 +119,7 @@
  	$(PANGO_LIBS)		\
  	$(GDKPIXBUF_LIBS)	\
@@ -27,9 +29,11 @@ method.
  
  gdmphotosetup_LDADD = \
  	libgdmcommon.a		\
---- gdm-2.16.4.orig/gui/greeter/Makefile.am
-+++ gdm-2.16.4/gui/greeter/Makefile.am
-@@ -85,10 +85,7 @@
+Index: gdm-2.18.1/gui/greeter/Makefile.am
+===================================================================
+--- gdm-2.18.1.orig/gui/greeter/Makefile.am	2007-04-09 07:15:10.000000000 +0200
++++ gdm-2.18.1/gui/greeter/Makefile.am	2007-05-02 11:07:23.000000000 +0200
+@@ -87,10 +87,7 @@
  	$(GDK_LIBS)		\
  	$(GDKPIXBUF_LIBS)	\
  	$(GREETER_LIBS)		\

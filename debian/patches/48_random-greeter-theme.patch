@@ -1,8 +1,10 @@
 Debian #217250; use a random greeter theme from all the available ones.
 
---- gdm-2.16.4.orig/gui/greeter/greeter.c
-+++ gdm-2.16.4/gui/greeter/greeter.c
-@@ -92,15 +92,22 @@
+Index: gdm-2.18.1/gui/greeter/greeter.c
+===================================================================
+--- gdm-2.18.1.orig/gui/greeter/greeter.c	2007-04-09 07:15:10.000000000 +0200
++++ gdm-2.18.1/gui/greeter/greeter.c	2007-05-02 10:39:11.000000000 +0200
+@@ -95,15 +95,22 @@
     ignore_buttons = val;
  }
  
@@ -29,7 +31,7 @@ Debian #217250; use a random greeter theme from all the available ones.
  
      themes_list = gdm_config_get_string (GDM_KEY_GRAPHICAL_THEMES);
  
-@@ -115,9 +122,26 @@
+@@ -118,9 +125,26 @@
      for (size = 0; vec[size] != NULL; size++) {}
  
  	/* Get Random Theme from list */

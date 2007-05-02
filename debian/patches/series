@@ -9,7 +9,6 @@
 48_random-greeter-theme.patch
 50_close-fds.patch
 53_remove-ok-and-cancel-from-included-themes.patch
-55_hurd-no-pipe-buf.patch
 57_gdm-is-local.patch
 60_logname-is-log-name-in-PostLogin.patch
 61_gdm-manpage-section.patch

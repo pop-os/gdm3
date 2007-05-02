@@ -3,9 +3,11 @@ Prepend the "C" locale instead of "en_US" as "C" is always available while
 
 XXX Can probably be sent upstream; this is pre 2.6.0.8-1.
 
---- gdm-2.16.4.orig/gui/gdmlanguages.c
-+++ gdm-2.16.4/gui/gdmlanguages.c
-@@ -242,6 +242,7 @@
+Index: gdm-2.18.1/gui/gdmlanguages.c
+===================================================================
+--- gdm-2.18.1.orig/gui/gdmlanguages.c	2007-04-09 07:15:10.000000000 +0200
++++ gdm-2.18.1/gui/gdmlanguages.c	2007-05-02 11:08:20.000000000 +0200
+@@ -296,6 +296,7 @@
  gdm_lang_init (void)
  {
  	int i;
@@ -13,7 +15,7 @@ XXX Can probably be sent upstream; this is pre 2.6.0.8-1.
  	if (lang_names != NULL)
  		return;
  
-@@ -468,7 +469,6 @@
+@@ -524,7 +525,6 @@
  	char curline[256];
  	GList *langs = NULL;
  	GHashTable *dupcheck;
@@ -21,7 +23,7 @@ XXX Can probably be sent upstream; this is pre 2.6.0.8-1.
  	Language *language;
  	gboolean clean;
  	char *curlocale;
-@@ -560,21 +560,15 @@
+@@ -616,21 +616,15 @@
  		g_hash_table_insert (dupcheck, g_strdup (lang),
  				     GINT_TO_POINTER (1));
  

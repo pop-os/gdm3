@@ -4,9 +4,11 @@
 
 XXX To be splitted further and clarified
 
---- gdm-2.16.4.orig/daemon/verify-pam.c
-+++ gdm-2.16.4/daemon/verify-pam.c
-@@ -825,17 +825,18 @@
+Index: gdm-2.18.1/daemon/verify-pam.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/verify-pam.c	2007-04-09 07:15:15.000000000 +0200
++++ gdm-2.18.1/daemon/verify-pam.c	2007-05-02 10:38:29.000000000 +0200
+@@ -826,17 +826,18 @@
      started_timer = FALSE;
      null_tok = 0;
  
@@ -33,7 +35,7 @@ XXX To be splitted further and clarified
      }
  
      cur_gdm_disp = d;
-@@ -1111,8 +1112,10 @@
+@@ -1165,8 +1166,10 @@
      if ( ! error_msg_given &&
  	gdm_slave_action_pending ()) {
  	    /* I'm not sure yet if I should display this message for any other issues - heeten */

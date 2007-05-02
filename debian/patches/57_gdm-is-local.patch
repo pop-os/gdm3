@@ -2,9 +2,11 @@ Disable GDM_IS_LOCAL logic.
 
 XXX Clarify the purpose; this is pre 2.6.0.8-1
 
---- gdm-2.16.4.orig/gui/gdmcommon.c
-+++ gdm-2.16.4/gui/gdmcommon.c
-@@ -264,10 +264,6 @@
+Index: gdm-2.18.1/gui/gdmcommon.c
+===================================================================
+--- gdm-2.18.1.orig/gui/gdmcommon.c	2007-04-09 07:15:11.000000000 +0200
++++ gdm-2.18.1/gui/gdmcommon.c	2007-05-02 11:07:11.000000000 +0200
+@@ -268,10 +268,6 @@
  {
  	guint sid;
  
@@ -14,8 +16,8 @@ XXX Clarify the purpose; this is pre 2.6.0.8-1
 -
  	sid = g_signal_lookup ("activate",
  			       GTK_TYPE_MENU_ITEM);
- 	if (sid != NULL) {
-@@ -307,10 +303,6 @@
+ 	if (sid != 0) {
+@@ -311,10 +307,6 @@
  	EntryBlink *eb;
  	GtkSettings *settings;
  

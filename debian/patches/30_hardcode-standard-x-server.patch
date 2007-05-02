@@ -1,8 +1,10 @@
 Debian #362925, #363160; Hardcode StandardXServer to /usr/bin/X.
 
---- gdm-2.16.4.orig/configure.ac
-+++ gdm-2.16.4/configure.ac
-@@ -969,7 +969,12 @@
+Index: gdm-2.18.1/configure.ac
+===================================================================
+--- gdm-2.18.1.orig/configure.ac	2007-04-09 07:15:16.000000000 +0200
++++ gdm-2.18.1/configure.ac	2007-05-02 10:20:56.000000000 +0200
+@@ -1010,7 +1010,12 @@
  # symlink to each other, and configure should use the more stable
  # location (the real directory) if possible.
  #
