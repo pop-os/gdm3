@@ -1,8 +1,4 @@
-* Don't start a timed login if an username was already entered.
-* Debian #157792, #160578, #184218; handle PAM's AUTHINFO_UNAVAIL in incorrect
-  password error handler.
-
-XXX To be splitted further and clarified
+Don't start a timed login if an username was already entered.
 
 Index: gdm-2.18.1/daemon/verify-pam.c
 ===================================================================
@@ -35,15 +31,3 @@ Index: gdm-2.18.1/daemon/verify-pam.c
      }
  
      cur_gdm_disp = d;
-@@ -1165,8 +1166,10 @@
-     if ( ! error_msg_given &&
- 	gdm_slave_action_pending ()) {
- 	    /* I'm not sure yet if I should display this message for any other issues - heeten */
-+	    /* at least AUTHINFO_UNAVAIL -- it's what user unknown is! */
- 	    if (pamerr == PAM_AUTH_ERR ||
--		pamerr == PAM_USER_UNKNOWN) {
-+		pamerr == PAM_USER_UNKNOWN ||
-+		pamerr == PAM_AUTHINFO_UNAVAIL) {
- 		    gboolean is_capslock = FALSE;
- 		    const char *basemsg;
- 		    char *msg;

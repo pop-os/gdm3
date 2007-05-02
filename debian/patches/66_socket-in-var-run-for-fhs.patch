@@ -1,5 +1,5 @@
-Ubuntu #79620; use /var/run for the gdm_socket file to comply with the FHS and
-to avoid issues with bootclean; found in the Ubuntu package.
+GNOME #331059; Ubuntu #79620; use /var/run for the gdm_socket file to comply
+with the FHS and to avoid issues with bootclean; found in the Ubuntu package.
 
 Index: gdm-2.18.1/daemon/gdm.h
 ===================================================================

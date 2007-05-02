@@ -1,0 +1,62 @@
+* Don't unset MAIL environment variable
+* Set PWD environment variable
+
+XXX Might need some clarification
+
+Index: gdm-2.18.1/daemon/slave.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/slave.c	2007-05-02 18:42:54.000000000 +0200
++++ gdm-2.18.1/daemon/slave.c	2007-05-02 18:48:05.000000000 +0200
+@@ -1807,7 +1807,6 @@
+ 		g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
+ 		if ( ! ve_string_empty (display->theme_name))
+ 			g_setenv ("GDM_GTK_THEME", display->theme_name, TRUE);
+-		g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
+ 
+ 		closelog ();
+ 
+@@ -2588,7 +2587,6 @@
+ 	g_setenv ("GDM_GREETER_PROTOCOL_VERSION",
+ 		      GDM_GREETER_PROTOCOL_VERSION, TRUE);
+ 	g_setenv ("GDM_VERSION", VERSION, TRUE);
+-	g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
+ 
+ 	pwent = getpwnam (gdmuser);
+ 	if G_LIKELY (pwent != NULL) {
+@@ -3090,8 +3088,6 @@
+ 
+ 		g_setenv ("GDM_VERSION", VERSION, TRUE);
+ 
+-		g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
+-
+ 		pwent = getpwnam (gdmuser);
+ 		if G_LIKELY (pwent != NULL) {
+ 			/* Note that usually this doesn't exist */
+@@ -3556,10 +3552,10 @@
+ 		g_setenv ("XDG_SESSION_COOKIE", ck_session_cookie, TRUE);
+ 	}
+ #endif
++	g_setenv ("PWD", home_dir, TRUE);
+ 	g_setenv ("GDMSESSION", session, TRUE);
+ 	g_setenv ("DESKTOP_SESSION", session, TRUE);
+ 	g_setenv ("SHELL", pwent->pw_shell, TRUE);
+-	g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
+ 
+ 	if (d->type == TYPE_STATIC) {
+ 		g_setenv ("GDM_XSERVER_LOCATION", "local", TRUE);
+@@ -5489,7 +5485,6 @@
+ 	g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
+ 	if ( ! ve_string_empty (d->theme_name))
+ 		g_setenv ("GDM_GTK_THEME", d->theme_name, TRUE);
+-	g_unsetenv ("MAIL");
+ 	argv = ve_split (script);
+ 	VE_IGNORE_EINTR (execv (argv[0], argv));
+ 	syslog (LOG_ERR, _("%s: Failed starting: %s"), "gdm_slave_exec_script",
+@@ -5628,7 +5623,6 @@
+ 	    g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
+ 	    if ( ! ve_string_empty (d->theme_name))
+ 		    g_setenv ("GDM_GTK_THEME", d->theme_name, TRUE);
+-	    g_unsetenv ("MAIL");
+ 
+ 	    argv = ve_split (str->str);
+ 	    VE_IGNORE_EINTR (execv (argv[0], argv));

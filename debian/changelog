@@ -102,8 +102,14 @@ gdm (2.18.1-1) unstable; urgency=low
   * Disabling patch 66_socket-in-var-run-for-fhs for now as it requires
     changes in gnome-session, gnome-panel, and fast-switch-user-applet at the
     same time; thanks Sébastien Bacher.
+  * Split patches:
+    . 42_pam-and-timed-login into 42_timed-login and 68_pam-authinfo-unavail.
+    . 43_clearenv-no-lang-and-buf-decl into 43_clearenv-no-lang and
+      63_buf-decl.
+    . 50_close-fds into 50_close-fds and 51_misc-env-var-fixes.
+  * Add GNOME bug to 66_socket-in-var-run-for-fhs.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:27:22 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:50:19 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

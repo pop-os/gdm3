@@ -1,8 +1,7 @@
-* Drop gdm_clearenv_no_lang() which clears the environment but keeps the i18n
-  environment variables.
-* Switch a "buf" declaration from char to unsigned char.
+Drop gdm_clearenv_no_lang() which clears the environment but keeps the i18n
+environment variables.
 
-XXX To be splitted further and clarified
+XXX To be clarified
 
 --- gdm-2.16.4.orig/daemon/misc.c
 +++ gdm-2.16.4/daemon/misc.c
@@ -44,12 +43,3 @@ XXX To be splitted further and clarified
   * Clear environment completely
   * note that this leaks memory so only use before exec
   * (keep LD_* if preserve_ld_vars is true)
-@@ -1391,7 +1360,7 @@
- int
- gdm_fdgetc (int fd)
- {
--	char buf[1];
-+	unsigned char buf[1];
- 	int bytes;
- 
- 	VE_IGNORE_EINTR (bytes = read (fd, buf, 1));

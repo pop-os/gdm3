@@ -1,13 +1,11 @@
 Debian #308825; don't close all descriptors before starting the slave.
 
-XXX needs to be splitted and clarified:
-* Don't unset MAIL environment variable
-* Set PWD environment variable
+XXX needs to be clarified and perhaps merged upstream
 
 Index: gdm-2.18.1/daemon/display.c
 ===================================================================
---- gdm-2.18.1.orig/daemon/display.c	2007-04-09 07:15:15.000000000 +0200
-+++ gdm-2.18.1/daemon/display.c	2007-05-02 11:00:12.000000000 +0200
+--- gdm-2.18.1.orig/daemon/display.c	2007-05-02 18:38:48.000000000 +0200
++++ gdm-2.18.1/daemon/display.c	2007-05-02 18:41:44.000000000 +0200
 @@ -306,8 +306,17 @@
  
  	closelog ();
@@ -30,8 +28,8 @@ Index: gdm-2.18.1/daemon/display.c
           * is to ignore & try to continue */
 Index: gdm-2.18.1/daemon/slave.c
 ===================================================================
---- gdm-2.18.1.orig/daemon/slave.c	2007-04-09 07:15:15.000000000 +0200
-+++ gdm-2.18.1/daemon/slave.c	2007-05-02 10:54:29.000000000 +0200
+--- gdm-2.18.1.orig/daemon/slave.c	2007-05-02 18:38:48.000000000 +0200
++++ gdm-2.18.1/daemon/slave.c	2007-05-02 18:42:54.000000000 +0200
 @@ -1635,6 +1635,9 @@
  
  	closelog ();
@@ -60,11 +58,7 @@ Index: gdm-2.18.1/daemon/slave.c
  
  	openlog ("gdm", LOG_PID, LOG_DAEMON);
  
-@@ -1793,10 +1807,12 @@
- 		g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
- 		if ( ! ve_string_empty (display->theme_name))
- 			g_setenv ("GDM_GTK_THEME", display->theme_name, TRUE);
--		g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
+@@ -1797,6 +1811,9 @@
  
  		closelog ();
  
@@ -74,7 +68,7 @@ Index: gdm-2.18.1/daemon/slave.c
  		gdm_close_all_descriptors (0 /* from */, slave_fifo_pipe_fd /* except */, d->slave_notify_fd /* except2 */);
  
  		/* No error checking here - if it's messed the best response
-@@ -1804,6 +1820,17 @@
+@@ -1804,6 +1821,17 @@
  		gdm_open_dev_null (O_RDONLY); /* open stdin - fd 0 */
  		gdm_open_dev_null (O_RDWR); /* open stdout - fd 1 */
  		gdm_open_dev_null (O_RDWR); /* open stderr - fd 2 */
@@ -92,48 +86,3 @@ Index: gdm-2.18.1/daemon/slave.c
  
  		openlog ("gdm", LOG_PID, LOG_DAEMON);
  
-@@ -2560,7 +2587,6 @@
- 	g_setenv ("GDM_GREETER_PROTOCOL_VERSION",
- 		      GDM_GREETER_PROTOCOL_VERSION, TRUE);
- 	g_setenv ("GDM_VERSION", VERSION, TRUE);
--	g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
- 
- 	pwent = getpwnam (gdmuser);
- 	if G_LIKELY (pwent != NULL) {
-@@ -3062,8 +3088,6 @@
- 
- 		g_setenv ("GDM_VERSION", VERSION, TRUE);
- 
--		g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
--
- 		pwent = getpwnam (gdmuser);
- 		if G_LIKELY (pwent != NULL) {
- 			/* Note that usually this doesn't exist */
-@@ -3528,10 +3552,10 @@
- 		g_setenv ("XDG_SESSION_COOKIE", ck_session_cookie, TRUE);
- 	}
- #endif
-+	g_setenv ("PWD", home_dir, TRUE);
- 	g_setenv ("GDMSESSION", session, TRUE);
- 	g_setenv ("DESKTOP_SESSION", session, TRUE);
- 	g_setenv ("SHELL", pwent->pw_shell, TRUE);
--	g_unsetenv ("MAIL");	/* Unset $MAIL for broken shells */
- 
- 	if (d->type == TYPE_STATIC) {
- 		g_setenv ("GDM_XSERVER_LOCATION", "local", TRUE);
-@@ -5461,7 +5485,6 @@
- 	g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
- 	if ( ! ve_string_empty (d->theme_name))
- 		g_setenv ("GDM_GTK_THEME", d->theme_name, TRUE);
--	g_unsetenv ("MAIL");
- 	argv = ve_split (script);
- 	VE_IGNORE_EINTR (execv (argv[0], argv));
- 	syslog (LOG_ERR, _("%s: Failed starting: %s"), "gdm_slave_exec_script",
-@@ -5600,7 +5623,6 @@
- 	    g_setenv ("RUNNING_UNDER_GDM", "true", TRUE);
- 	    if ( ! ve_string_empty (d->theme_name))
- 		    g_setenv ("GDM_GTK_THEME", d->theme_name, TRUE);
--	    g_unsetenv ("MAIL");
- 
- 	    argv = ve_split (str->str);
- 	    VE_IGNORE_EINTR (execv (argv[0], argv));
