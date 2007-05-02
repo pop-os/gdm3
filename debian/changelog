@@ -73,6 +73,14 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
       . 65_french-translation-typo: Update to upstream rewording of this
         string.
       . 70_mandatory-relibtoolize: Relibtoolize.
+    - Works with sites using automounting since 2.17.0; GNOME #356869;
+      closes: #365606.
+    - Fixes typo in German translation with 2.18.1; GNOME #421661;
+      closes: #414387.
+    - Fixes incomprehensible Czech translation with 2.18.1; GNOME #421664;
+      closes: #415274.
+    - Fixed language selection issues since 2.17.5; GNOME #384603;
+      closes: #403928.
 
  -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 12:07:08 +0200
 
