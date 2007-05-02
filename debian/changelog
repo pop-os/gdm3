@@ -72,8 +72,9 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
         VE_IGNORE_EINTR() too; leave the upstream code in the source.
       . 65_french-translation-typo: Update to upstream rewording of this
         string.
+      . 70_mandatory-relibtoolize: Relibtoolize.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 11:20:44 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 12:07:08 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
