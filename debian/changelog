@@ -83,8 +83,9 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
       closes: #403928.
   * Drop "--with-tags=" from configure args; libtool should autodetect this
     properly.
+  * Build-dep on x11proto-core-dev for XDMCP.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:07:07 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:14:48 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
