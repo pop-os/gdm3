@@ -11,7 +11,6 @@ debian/tmp/etc/gdm/XKeepsCrashing
 debian/tmp/etc/gdm/Xsession
 debian/tmp/etc/gdm/PostLogin
 debian/tmp/etc/gdm/modules
-debian/tmp/etc/pam.d/gdm
 debian/tmp/usr/bin
 debian/tmp/usr/lib/gdm
 debian/tmp/usr/lib/gtk-2.0/modules/*.so

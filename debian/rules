@@ -78,7 +78,9 @@ binary-arch: build install
 	#dh_installlogrotate -a
 	dh_scrollkeeper -a
 	dh_desktop -a
-	dh_installpam -a --name=gdm-autologin
+	dh_installpam -a
+	# additional PAM file to install
+	dh_installpam -pgdm --name=gdm-autologin
 	dh_installinit -a --noscripts
 	dh_installman -a
 	dh_installchangelogs -a ChangeLog
