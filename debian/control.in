@@ -1,7 +1,7 @@
 Source: gdm
 Section: gnome
 Priority: optional
-Maintainer: Loic Minier <lool@dooz.org>
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
 Build-Depends: libpam0g-dev,
                libgnomeui-dev,
