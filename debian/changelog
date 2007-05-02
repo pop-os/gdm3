@@ -1,4 +1,4 @@
-gdm (2.18.1-1) UNRELEASED; urgency=low
+gdm (2.18.1-1) unstable; urgency=low
 
   * Adopt package; set myself as Maintainer; thanks Ryan Murray for your
     maintenance until now!
@@ -63,7 +63,9 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
       53_remove-ok-and-cancel-from-included-themes, 57_gdm-is-local,
       62_reference-manual-docbook-entity-reference, 64_vt-auto-allocation-fix,
       67_C-locale-fallback, 68_doc-build-add-revnumber, 69_misc-config-typos.
-    - Drop patch 55_hurd-no-pipe-buf, merged upstream.
+    - Drop patches:
+      . 55_hurd-no-pipe-buf, merged upstream.
+      . 68_doc-build-add-revnumber: merged upstream.
     - Update patches:
       . 35_gdm.conf: Update reference to System Configuration file.
       . 45_use-gksu-for-gdmsetup: Update to use the full path to gdmsetup.
@@ -98,7 +100,7 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
   * New patch, 46_kde-substitude-uid, add X-KDE-SubstituteUID=true to the
     gdmsetup desktop file to hide the entry for non-admin users in KDE.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:13:45 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:24:00 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
