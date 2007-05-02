@@ -99,8 +99,11 @@ gdm (2.18.1-1) unstable; urgency=low
     directory and use it; found in the Ubuntu package.
   * New patch, 46_kde-substitude-uid, add X-KDE-SubstituteUID=true to the
     gdmsetup desktop file to hide the entry for non-admin users in KDE.
+  * Disabling patch 66_socket-in-var-run-for-fhs for now as it requires
+    changes in gnome-session, gnome-panel, and fast-switch-user-applet at the
+    same time; thanks Sébastien Bacher.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:24:00 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:27:22 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 

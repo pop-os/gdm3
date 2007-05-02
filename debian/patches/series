@@ -18,7 +18,7 @@
 62_reference-manual-docbook-entity-reference.patch
 64_vt-auto-allocation-fix.patch
 65_french-translation-typo.patch
-66_socket-in-var-run-for-fhs.patch
+#66_socket-in-var-run-for-fhs.patch
 67_C-locale-fallback.patch
 69_misc-config-typos.patch
 70_mandatory-relibtoolize.patch
