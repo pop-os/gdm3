@@ -1,6 +1,7 @@
-diff -Nur gdm-2.18.0/daemon/slave.c gdm-2.18.0.new/daemon/slave.c
---- gdm-2.18.0/daemon/slave.c	2007-03-26 17:14:30.000000000 +0200
-+++ gdm-2.18.0.new/daemon/slave.c	2007-03-26 17:14:31.000000000 +0200
+Index: gdm-2.18.1/daemon/slave.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/slave.c	2007-05-02 17:54:12.000000000 +0200
++++ gdm-2.18.1/daemon/slave.c	2007-05-02 17:54:16.000000000 +0200
 @@ -160,7 +160,6 @@
  /* Local prototypes */
  static gint     gdm_slave_xerror_handler (Display *disp, XErrorEvent *evt);
@@ -18,7 +19,7 @@ diff -Nur gdm-2.18.0/daemon/slave.c gdm-2.18.0.new/daemon/slave.c
  static gboolean return_to_slave_start_jmp = FALSE;
  static gboolean already_in_slave_start_jmp = FALSE;
  static char *slave_start_jmp_error_to_print = NULL;
-@@ -4519,38 +4516,6 @@
+@@ -4550,38 +4547,6 @@
  	    kill (- (d->sesspid), SIGTERM);
      gdm_sigchld_block_pop ();
  
@@ -57,7 +58,7 @@ diff -Nur gdm-2.18.0/daemon/slave.c gdm-2.18.0.new/daemon/slave.c
      finish_session_output (run_post_session /* do_read */);
      
      if (local_login == NULL)
-@@ -4983,14 +4948,6 @@
+@@ -5013,14 +4978,6 @@
      return (0);
  }
  

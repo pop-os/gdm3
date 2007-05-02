@@ -88,8 +88,17 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
     in Debian though.
   * New patch, 90_from_svn_fix_gdm_restart, fixed restarting of gdm when
     Ctrl-Alt-Backspace is pressed; from SVN; found in the Ubuntu package.
+  * New patch, 37_manpage-binaries, removes mentions of various executables
+    not present in the Debian package; closes: #357988.
+  * New patch, 66_socket-in-var-run-for-fhs, use /var/run for the gdm_socket
+    file to comply with the FHS and to avoid issues with bootclean;
+    Ubuntu #79620; found in the Ubuntu package.
+  * New patch, 55_use-theme-gtkrc, look for gtk-2.0/gtkrc in the theme
+    directory and use it; found in the Ubuntu package.
+  * New patch, 46_kde-substitude-uid, add X-KDE-SubstituteUID=true to the
+    gdmsetup desktop file to hide the entry for non-admin users in KDE.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:27:02 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 18:13:45 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
