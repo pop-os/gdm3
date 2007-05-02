@@ -56,7 +56,7 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
     J S Bygott; closes: #361436.
   * Configure with --enable-ipv6=yes; GNOME #385451; Ubuntu #75254;
     closes: #409428.
-  * New upstream releases; *** WIP ***
+  * New upstream releases.
     - Build-dep on libdbus-glib-1-dev (>= 0.30) for ConsoleKit support.
     - Refresh patches 30_hardcode-standard-x-server, 41_config-files,
       42_pam-and-timed-login, 48_random-greeter-theme,
