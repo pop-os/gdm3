@@ -84,8 +84,10 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
   * Drop "--with-tags=" from configure args; libtool should autodetect this
     properly.
   * Build-dep on x11proto-core-dev for XDMCP.
+  * Configure with "--with-prefetch=yes"; PreFetchProgram is empty by default
+    in Debian though.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:14:48 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:17:56 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
