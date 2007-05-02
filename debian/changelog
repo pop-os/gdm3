@@ -81,8 +81,10 @@ gdm (2.18.1-1) UNRELEASED; urgency=low
       closes: #415274.
     - Fixed language selection issues since 2.17.5; GNOME #384603;
       closes: #403928.
+  * Drop "--with-tags=" from configure args; libtool should autodetect this
+    properly.
 
- -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 12:07:08 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 02 May 2007 15:07:07 +0200
 
 gdm (2.16.4-1.1) unstable; urgency=low
 
