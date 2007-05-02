@@ -19,3 +19,4 @@
 68_doc-build-add-revnumber.patch
 69_misc-config-typos.patch
 70_mandatory-relibtoolize.patch
+90_from_svn_fix_gdm_restart.patch
