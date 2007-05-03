@@ -8,7 +8,6 @@ debian/tmp/etc/gdm/PreSession
 debian/tmp/etc/gdm/PostSession
 debian/tmp/etc/gdm/gdm.conf
 debian/tmp/etc/gdm/XKeepsCrashing
-debian/tmp/etc/gdm/Xsession
 debian/tmp/etc/gdm/PostLogin
 debian/tmp/etc/gdm/modules
 debian/tmp/usr/bin
