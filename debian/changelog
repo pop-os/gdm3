@@ -1,8 +1,7 @@
 gdm (2.18.1-2) unstable; urgency=low
 
   * Fix a packaging mistake introduced while refactoring the install which
-    overwrote Debian's /etc/gdm/Xsession with upstream's; I'm puzzled that
-    nobody noticed!
+    overwrote Debian's /etc/gdm/Xsession with upstream's.
   * Set GNOME Team as Maintainer.
 
  -- Loic Minier <lool@dooz.org>  Thu, 03 May 2007 14:42:24 +0200
