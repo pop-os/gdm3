@@ -24,7 +24,8 @@ Build-Depends: libpam0g-dev,
                gnome-pkg-tools,
                quilt,
                libdbus-glib-1-dev (>= 0.30),
-               x11proto-core-dev
+               x11proto-core-dev,
+               xserver-xephyr
 Standards-Version: 3.7.2
 
 Package: gdm
