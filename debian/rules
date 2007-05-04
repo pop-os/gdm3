@@ -33,12 +33,7 @@ MANPAGES += $(patsubst %.pod,%,$(wildcard debian/*.pod))
 
 PATCH_DIR := debian/patches
 
-CFLAGS := -g
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
+CFLAGS += -Wall -g -O$(if $(findstring noopt,$(DEB_BUILD_OPTIONS)),0,2)
 
 patch: patch-stamp
 patch-stamp:
