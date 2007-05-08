@@ -7,9 +7,10 @@ autoconf
 automake-1.9
 rm -rf autom4te.cache
 
-diff -urN gdm-2.18.1.orig/aclocal.m4 gdm-2.18.1/aclocal.m4
+Index: gdm-2.18.1/aclocal.m4
+===================================================================
 --- gdm-2.18.1.orig/aclocal.m4	2007-04-09 07:16:35.000000000 +0200
-+++ gdm-2.18.1/aclocal.m4	2007-05-02 12:03:40.000000000 +0200
++++ gdm-2.18.1/aclocal.m4	2007-05-08 17:12:59.000000000 +0200
 @@ -11,2028 +11,2592 @@
  # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
  # PARTICULAR PURPOSE.
@@ -6395,9 +6396,10 @@ diff -urN gdm-2.18.1.orig/aclocal.m4 gdm-2.18.1/aclocal.m4
  
  m4_include([m4/gnome-doc-utils.m4])
  m4_include([m4/intltool.m4])
-diff -urN gdm-2.18.1.orig/config.guess gdm-2.18.1/config.guess
+Index: gdm-2.18.1/config.guess
+===================================================================
 --- gdm-2.18.1.orig/config.guess	2007-04-09 07:17:04.000000000 +0200
-+++ gdm-2.18.1/config.guess	2007-04-20 04:09:10.000000000 +0200
++++ gdm-2.18.1/config.guess	2007-05-08 17:12:59.000000000 +0200
 @@ -1,9 +1,10 @@
  #! /bin/sh
  # Attempt to guess a canonical system name.
@@ -6604,9 +6606,10 @@ diff -urN gdm-2.18.1.orig/config.guess gdm-2.18.1/config.guess
  esac
  
  #echo '(No uname command or uname output not recognized.)' 1>&2
-diff -urN gdm-2.18.1.orig/config.sub gdm-2.18.1/config.sub
+Index: gdm-2.18.1/config.sub
+===================================================================
 --- gdm-2.18.1.orig/config.sub	2007-04-09 07:17:04.000000000 +0200
-+++ gdm-2.18.1/config.sub	2007-04-20 04:09:10.000000000 +0200
++++ gdm-2.18.1/config.sub	2007-05-08 17:12:59.000000000 +0200
 @@ -1,9 +1,10 @@
  #! /bin/sh
  # Configuration validation subroutine script.
@@ -6908,9 +6911,10 @@ diff -urN gdm-2.18.1.orig/config.sub gdm-2.18.1/config.sub
  	mips*-cisco)
  		os=-elf
  		;;
-diff -urN gdm-2.18.1.orig/configure gdm-2.18.1/configure
+Index: gdm-2.18.1/configure
+===================================================================
 --- gdm-2.18.1.orig/configure	2007-04-09 07:16:44.000000000 +0200
-+++ gdm-2.18.1/configure	2007-05-02 12:03:46.000000000 +0200
++++ gdm-2.18.1/configure	2007-05-08 17:13:12.000000000 +0200
 @@ -1,6 +1,6 @@
  #! /bin/sh
  # Guess values for system-dependent variables and create Makefiles.
@@ -13978,20 +13982,48 @@ diff -urN gdm-2.18.1.orig/configure gdm-2.18.1/configure
        conftest$ac_exeext conftest.$ac_ext
  LIBS=$ac_check_lib_save_LIBS
  fi
-@@ -34151,7 +31770,12 @@
+@@ -34151,29 +31770,34 @@
  # symlink to each other, and configure should use the more stable
  # location (the real directory) if possible.
  #
 -if test ! -h /usr/X11R6 -a -x /usr/X11R6/bin/X; then
-+if true; then # debian
-+   X_PATH="/usr/bin"
-+   X_SERVER_PATH="/usr/bin"
-+   X_SERVER="/usr/bin/X"
-+   X_CONFIG_OPTIONS="-audit 0"
-+elif test ! -h /usr/X11R6 -a -x /usr/X11R6/bin/X; then
++if test ! -h /usr/X11R6 -a ! -h /usr/X11R6/bin -a -x /usr/X11R6/bin/X; then
     X_PATH="/usr/X11R6/bin"
     X_SERVER_PATH="/usr/X11R6/bin"
     X_SERVER="/usr/X11R6/bin/X"
+    GDM_USER_PATH="$GDM_USER_PATH:/usr/X11R6/bin"
+    X_CONFIG_OPTIONS="-audit 0"
+-elif test ! -h /usr/X11 -a -x /usr/X11/bin/X; then
++elif test ! -h /usr/X11 -a ! -h /usr/X11/bin -a -x /usr/X11/bin/X; then
+    X_PATH="/usr/X11/bin"
+    X_SERVER_PATH="/usr/X11/bin"
+    X_SERVER="/usr/X11/bin/X"
+    GDM_USER_PATH="$GDM_USER_PATH:/usr/X11/bin"
+    X_CONFIG_OPTIONS="-audit 0"
+-elif test -x /usr/X11R6/bin/X; then
+-   X_PATH="/usr/X11R6/bin"
+-   X_SERVER_PATH="/usr/X11R6/bin"
+-   X_SERVER="/usr/X11R6/bin/X"
+-   GDM_USER_PATH="$GDM_USER_PATH:/usr/X11R6/bin"
++elif test -x /usr/bin/X; then
++   X_PATH="/usr/bin"
++   X_SERVER_PATH="/usr/bin"
++   X_SERVER="/usr/bin/X"
+    X_CONFIG_OPTIONS="-audit 0"
+ elif test -x /usr/bin/Xorg; then
+    X_PATH="/usr/bin"
+    X_SERVER_PATH="/usr/bin"
+    X_SERVER="/usr/bin/Xorg"
+    X_CONFIG_OPTIONS="-audit 0"
++elif test -x /usr/X11R6/bin/X; then
++   X_PATH="/usr/X11R6/bin"
++   X_SERVER_PATH="/usr/X11R6/bin"
++   X_SERVER="/usr/X11R6/bin/X"
++   GDM_USER_PATH="$GDM_USER_PATH:/usr/X11R6/bin"
++   X_CONFIG_OPTIONS="-audit 0"
+ elif test -x /usr/X11/bin/X; then
+    X_PATH="/usr/X11/bin"
+    X_SERVER_PATH="/usr/X11/bin"
 @@ -34577,7 +32201,8 @@
  ## M4sh Initialization.  ##
  ## --------------------- ##
@@ -14086,9 +14118,10 @@ diff -urN gdm-2.18.1.orig/configure gdm-2.18.1/configure
    with options \\"`echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`\\"
  
  Copyright (C) 2006 Free Software Foundation, Inc.
-diff -urN gdm-2.18.1.orig/gui/Makefile.in gdm-2.18.1/gui/Makefile.in
+Index: gdm-2.18.1/gui/Makefile.in
+===================================================================
 --- gdm-2.18.1.orig/gui/Makefile.in	2007-04-09 07:16:59.000000000 +0200
-+++ gdm-2.18.1/gui/Makefile.in	2007-05-02 12:03:50.000000000 +0200
++++ gdm-2.18.1/gui/Makefile.in	2007-05-08 17:12:59.000000000 +0200
 @@ -114,7 +114,6 @@
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
  	$(am__DEPENDENCIES_1) \
@@ -14131,9 +14164,10 @@ diff -urN gdm-2.18.1.orig/gui/Makefile.in gdm-2.18.1/gui/Makefile.in
  
  gdmphotosetup_LDADD = \
  	libgdmcommon.a		\
-diff -urN gdm-2.18.1.orig/gui/greeter/Makefile.in gdm-2.18.1/gui/greeter/Makefile.in
+Index: gdm-2.18.1/gui/greeter/Makefile.in
+===================================================================
 --- gdm-2.18.1.orig/gui/greeter/Makefile.in	2007-04-09 07:17:00.000000000 +0200
-+++ gdm-2.18.1/gui/greeter/Makefile.in	2007-05-02 12:03:50.000000000 +0200
++++ gdm-2.18.1/gui/greeter/Makefile.in	2007-05-08 17:12:59.000000000 +0200
 @@ -67,7 +67,6 @@
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -14154,9 +14188,10 @@ diff -urN gdm-2.18.1.orig/gui/greeter/Makefile.in gdm-2.18.1/gui/greeter/Makefil
  
  EXTRA_DIST = \
  	gdmthemetester.in \
-diff -urN gdm-2.18.1.orig/ltmain.sh gdm-2.18.1/ltmain.sh
+Index: gdm-2.18.1/ltmain.sh
+===================================================================
 --- gdm-2.18.1.orig/ltmain.sh	2007-01-12 06:30:30.000000000 +0100
-+++ gdm-2.18.1/ltmain.sh	2006-03-11 19:49:04.000000000 +0100
++++ gdm-2.18.1/ltmain.sh	2007-05-08 17:12:59.000000000 +0200
 @@ -43,7 +43,7 @@
  
  PROGRAM=ltmain.sh
