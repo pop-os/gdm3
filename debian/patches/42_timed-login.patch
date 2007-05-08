@@ -1,4 +1,4 @@
-Don't start a timed login if an username was already entered.
+GNOME #436797; Don't start a timed login if an username was already entered.
 
 Index: gdm-2.18.1/daemon/verify-pam.c
 ===================================================================

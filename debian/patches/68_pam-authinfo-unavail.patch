@@ -1,5 +1,5 @@
-Debian #157792, #160578, #184218; handle PAM's AUTHINFO_UNAVAIL in incorrect
-password error handler.
+GNOME #436812; Debian #157792, #160578, #184218; handle PAM's AUTHINFO_UNAVAIL
+in incorrect password error handler.
 
 Index: gdm-2.18.1/daemon/verify-pam.c
 ===================================================================

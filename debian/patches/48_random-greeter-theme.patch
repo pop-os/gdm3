@@ -1,4 +1,5 @@
-Debian #217250; use a random greeter theme from all the available ones.
+Debian #217250; GNOME #436800; use a random greeter theme from all the
+available ones.
 
 Index: gdm-2.18.1/gui/greeter/greeter.c
 ===================================================================

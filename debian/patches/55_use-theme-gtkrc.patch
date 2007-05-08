@@ -1,5 +1,5 @@
-Look for gtk-2.0/gtkrc in the theme directory and use it; found in the Ubuntu
-package.
+GNOME #411427; Look for gtk-2.0/gtkrc in the theme directory and use it; found
+in the Ubuntu package.
 
 Index: gdm-2.18.1/gui/greeter/greeter_parser.c
 ===================================================================

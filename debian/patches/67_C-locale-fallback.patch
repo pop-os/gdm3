@@ -1,7 +1,7 @@
-Prepend the "C" locale instead of "en_US" as "C" is always available while
-"en_US" might not be.
+GNOME #436811; Prepend the "C" locale instead of "en_US" as "C" is always
+available while "en_US" might not be.
 
-XXX Can probably be sent upstream; this is pre 2.6.0.8-1.
+This is pre 2.6.0.8-1.
 
 Index: gdm-2.18.1/gui/gdmlanguages.c
 ===================================================================

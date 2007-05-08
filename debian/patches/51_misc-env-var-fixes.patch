@@ -1,3 +1,5 @@
+GNOME #436803
+
 * Don't unset MAIL environment variable
 * Set PWD environment variable
 

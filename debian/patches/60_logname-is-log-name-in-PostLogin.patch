@@ -1,5 +1,5 @@
-Debian #287725; correct PostLogin sample file comments: the name of the
-environment variable for the login name is $LOGNAME, not $LOGIN
+GNOME #436805; Debian #287725; correct PostLogin sample file comments: the name
+of the environment variable for the login name is $LOGNAME, not $LOGIN
 
 --- gdm-2.16.4.orig/config/PostLogin
 +++ gdm-2.16.4/config/PostLogin

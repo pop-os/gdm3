@@ -1,4 +1,5 @@
-Debian #377934; remove Ok and Cancel buttons from included themes.
+Debian #377934; GNOME #436804; remove Ok and Cancel buttons from included
+themes.
 
 Index: gdm-2.18.1/gui/greeter/themes/circles/circles.xml
 ===================================================================

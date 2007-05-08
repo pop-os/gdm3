@@ -1,6 +1,4 @@
-Switch a "buf" declaration from char to unsigned char.
-
-XXX clarify and send upstream
+GNOME #436808; Switch a "buf" declaration from char to unsigned char.
 
 Index: gdm-2.18.1/daemon/misc.c
 ===================================================================
