@@ -3,7 +3,6 @@
 37_manpage-binaries.patch
 41_config-files.patch
 42_timed-login.patch
-43_clearenv-no-lang.patch
 45_use-gksu-for-gdmsetup.patch
 46_kde-substitude-uid.patch
 47_XKeepsCrashing-restore-keyboard.patch
