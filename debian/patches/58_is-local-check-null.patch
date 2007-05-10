@@ -1,0 +1,21 @@
+Index: gdm-2.18.1/daemon/misc.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/misc.c	2007-05-10 08:42:14.000000000 +0200
++++ gdm-2.18.1/daemon/misc.c	2007-05-10 08:42:02.000000000 +0200
+@@ -1204,6 +1204,7 @@
+ gboolean
+ gdm_is_local_addr6 (struct in6_addr* ia)
+ {
++	if (NULL == ia) return;
+ 
+ 	if (IN6_IS_ADDR_LOOPBACK (ia)) {
+ 		return TRUE;
+@@ -1231,6 +1232,8 @@
+ {
+ 	const char lo[] = {127,0,0,1};
+ 
++	if (NULL == ia) return;
++
+ 	if (ia->s_addr == INADDR_LOOPBACK ||
+ 	    memcmp (&ia->s_addr, lo, 4) == 0) {
+ 		return TRUE;

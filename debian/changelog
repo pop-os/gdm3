@@ -10,8 +10,10 @@ gdm (2.18.1-3) UNRELEASED; urgency=low
     59_standard-x-server-detection; update 70_mandatory-relibtoolize.
   * Drop patch 43_clearenv-no-lang as it seems useless -- it only removes a
     function, not calls to this function.
+  * New patch, 58_is-local-check-null, checks for NULL ia in
+    gdm_is_local_addr6() and gdm_is_local_addr()
 
- -- Loic Minier <lool@dooz.org>  Wed, 09 May 2007 09:14:02 +0200
+ -- Loic Minier <lool@dooz.org>  Thu, 10 May 2007 08:46:25 +0200
 
 gdm (2.18.1-2) unstable; urgency=low
 
