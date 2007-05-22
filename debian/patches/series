@@ -9,7 +9,6 @@
 48_random-greeter-theme.patch
 50_close-fds.patch
 51_misc-env-var-fixes.patch
-53_remove-ok-and-cancel-from-included-themes.patch
 55_use-theme-gtkrc.patch
 57_gdm-is-local.patch
 58_is-local-check-null.patch
