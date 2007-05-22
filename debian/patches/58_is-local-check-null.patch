@@ -1,21 +1,46 @@
 Index: gdm-2.18.1/daemon/misc.c
 ===================================================================
---- gdm-2.18.1.orig/daemon/misc.c	2007-05-10 08:42:14.000000000 +0200
-+++ gdm-2.18.1/daemon/misc.c	2007-05-10 08:42:02.000000000 +0200
-@@ -1204,6 +1204,7 @@
+--- gdm-2.18.1.orig/daemon/misc.c	2007-04-09 07:15:15.000000000 +0200
++++ gdm-2.18.1/daemon/misc.c	2007-05-22 18:00:58.000000000 +0200
+@@ -1204,6 +1204,8 @@
  gboolean
  gdm_is_local_addr6 (struct in6_addr* ia)
  {
-+	if (NULL == ia) return;
++	if (ia == NULL)
++		return FALSE;
  
  	if (IN6_IS_ADDR_LOOPBACK (ia)) {
  		return TRUE;
-@@ -1231,6 +1232,8 @@
+@@ -1231,6 +1233,9 @@
  {
  	const char lo[] = {127,0,0,1};
  
-+	if (NULL == ia) return;
++	if (ia == NULL)
++		return FALSE;
 +
  	if (ia->s_addr == INADDR_LOOPBACK ||
  	    memcmp (&ia->s_addr, lo, 4) == 0) {
  		return TRUE;
+Index: gdm-2.18.1/daemon/xdmcp.c
+===================================================================
+--- gdm-2.18.1.orig/daemon/xdmcp.c	2007-05-22 17:59:10.000000000 +0200
++++ gdm-2.18.1/daemon/xdmcp.c	2007-05-22 18:00:58.000000000 +0200
+@@ -810,7 +810,8 @@
+ 					struct in_addr *addr;
+ 
+ #ifdef ENABLE_IPV6
+-					if (saddr->sa_family == AF_INET6) {
++					if (saddr->sa_family == AF_INET6 && id != NULL &&
++					    id->chosen_host6 != NULL) {
+ 						addr6 = &(((struct sockaddr_in6 *)saddr)->sin6_addr);
+ 						if ( ! gdm_is_loopback_addr6 (addr6)) {
+ 							/* forward query to * chosen host */
+@@ -837,7 +838,7 @@
+ 			} else {
+ 				/* or send forward query to chosen host */
+ #ifdef ENABLE_IPV6
+-				if (clnt_sa->ss_family == AF_INET6)
++				if (clnt_sa->ss_family == AF_INET6 && id != NULL && id->chosen_host6 != NULL)
+ 				{
+ 					gdm_xdmcp_send_forward_query6
+ 						(id, (struct sockaddr_in6 *)clnt_sa,
