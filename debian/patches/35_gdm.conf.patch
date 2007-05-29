@@ -3,10 +3,10 @@ Patch default configuration file:
 * update comments
 * update pathnames
 
-Index: gdm-2.18.1/config/gdm.conf.in
+Index: gdm-2.18.2/config/gdm.conf.in
 ===================================================================
---- gdm-2.18.1.orig/config/gdm.conf.in	2007-04-09 07:15:16.000000000 +0200
-+++ gdm-2.18.1/config/gdm.conf.in	2007-05-02 10:38:10.000000000 +0200
+--- gdm-2.18.2.orig/config/gdm.conf.in	2007-05-29 19:11:17.282380500 +0200
++++ gdm-2.18.2/config/gdm.conf.in	2007-05-29 19:33:33.141866500 +0200
 @@ -1,14 +1,8 @@
  # GDM System Defaults Configuration file.
  #
@@ -143,6 +143,15 @@ Index: gdm-2.18.1/config/gdm.conf.in
  # By default never place cookies if we "detect" NFS.  We detect NFS by
  # detecting "root-squashing".  It seems bad practice to place cookies on things
  # that go over the network by default and thus we do not do it by default.
+@@ -308,7 +299,7 @@
+ #GtkRC=@datadir@/themes/Default/gtk-2.0/gtkrc
+ 
+ # The GTK+ theme to use for the GUI.
+-#GtkTheme=Default
++GtkTheme=Clearlooks
+ # If to allow changing the GTK+ (widget) theme from the greeter.  Currently
+ # this only affects the standard greeter as the graphical greeter does not yet
+ # have this ability.
 @@ -353,7 +344,7 @@
  # User ID's less than the MinimalUID value will not be included in the face
  # browser or in the gdmselection list for Automatic/Timed login.  They will not

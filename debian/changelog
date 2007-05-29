@@ -5,8 +5,9 @@ gdm (2.18.2-2) UNRELEASED; urgency=low
     + 56_xnest-wrapper.patch: force its use in configure.ac.
     + 70_mandatory-relibtoolize.patch: refresh configure.
     + Stop build-depending on xserver-xephyr.
+  * 35_gdm.conf.patch: set Clearlooks as the default GTK+ theme.
 
- -- Josselin Mouette <joss@debian.org>  Tue, 29 May 2007 19:31:59 +0200
+ -- Josselin Mouette <joss@debian.org>  Tue, 29 May 2007 19:34:30 +0200
 
 gdm (2.18.2-1) unstable; urgency=low
 
