@@ -16,12 +16,9 @@
 60_logname-is-log-name-in-PostLogin.patch
 61_gdm-manpage-section.patch
 62_reference-manual-docbook-entity-reference.patch
-63_buf-decl.patch
 64_vt-auto-allocation-fix.patch
-65_french-translation-typo.patch
 #66_socket-in-var-run-for-fhs.patch
 67_C-locale-fallback.patch
-68_pam-authinfo-unavail.patch
 69_misc-config-typos.patch
 70_mandatory-relibtoolize.patch
 90_from_svn_fix_gdm_restart.patch

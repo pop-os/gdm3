@@ -1,10 +1,10 @@
 GNOME #436797; Don't start a timed login if an username was already entered.
 
-Index: gdm-2.18.1/daemon/verify-pam.c
+Index: gdm-2.18.2/daemon/verify-pam.c
 ===================================================================
---- gdm-2.18.1.orig/daemon/verify-pam.c	2007-04-09 07:15:15.000000000 +0200
-+++ gdm-2.18.1/daemon/verify-pam.c	2007-05-02 10:38:29.000000000 +0200
-@@ -826,17 +826,18 @@
+--- gdm-2.18.2.orig/daemon/verify-pam.c	2007-05-29 10:38:01.000000000 +0200
++++ gdm-2.18.2/daemon/verify-pam.c	2007-05-29 10:38:02.000000000 +0200
+@@ -830,17 +830,18 @@
      started_timer = FALSE;
      null_tok = 0;
  
