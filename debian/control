@@ -2,7 +2,7 @@ Source: gdm
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Loic Minier <lool@dooz.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>
 Build-Depends: libpam0g-dev,
                libgnomeui-dev,
                librsvg2-dev,
@@ -24,8 +24,7 @@ Build-Depends: libpam0g-dev,
                gnome-pkg-tools,
                quilt,
                libdbus-glib-1-dev (>= 0.30),
-               x11proto-core-dev,
-               xserver-xephyr
+               x11proto-core-dev
 Standards-Version: 3.7.2
 
 Package: gdm

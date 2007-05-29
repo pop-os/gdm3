@@ -10,6 +10,7 @@
 50_close-fds.patch
 51_misc-env-var-fixes.patch
 55_use-theme-gtkrc.patch
+56_xnest-wrapper.patch
 57_gdm-is-local.patch
 58_is-local-check-null.patch
 59_standard-x-server-detection.patch

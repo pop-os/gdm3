@@ -2,6 +2,7 @@ debian/*.xpm                            usr/share/pixmaps/
 debian/locale.conf                      etc/gdm
 debian/Xsession                         etc/gdm
 debian/debian-moreblue                  usr/share/gdm/themes
+debian/gdmXnestWrapper			usr/share/gdm/
 debian/tmp/etc/dm
 debian/tmp/etc/gdm/Init
 debian/tmp/etc/gdm/PreSession

@@ -10,7 +10,7 @@ rm -rf autom4te.cache
 Index: gdm-2.18.2/aclocal.m4
 ===================================================================
 --- gdm-2.18.2.orig/aclocal.m4	2007-05-29 02:34:10.000000000 +0200
-+++ gdm-2.18.2/aclocal.m4	2007-05-29 10:56:39.000000000 +0200
++++ gdm-2.18.2/aclocal.m4	2007-05-29 19:09:28.971611500 +0200
 @@ -587,34 +587,9 @@
    AC_SUBST(WARN_CXXFLAGS)
  ])
@@ -282,7 +282,7 @@ Index: gdm-2.18.2/aclocal.m4
 Index: gdm-2.18.2/configure
 ===================================================================
 --- gdm-2.18.2.orig/configure	2007-05-29 02:34:14.000000000 +0200
-+++ gdm-2.18.2/configure	2007-05-29 10:56:39.000000000 +0200
++++ gdm-2.18.2/configure	2007-05-29 19:09:55.737284250 +0200
 @@ -1,6 +1,6 @@
  #! /bin/sh
  # Guess values for system-dependent variables and create Makefiles.
@@ -7553,7 +7553,41 @@ Index: gdm-2.18.2/configure
  elif test -x /usr/X11/bin/X; then
     X_PATH="/usr/X11/bin"
     X_SERVER_PATH="/usr/X11/bin"
-@@ -34646,7 +32201,8 @@
+@@ -34284,29 +31839,10 @@
+     GDM_USER_PATH="$GDM_USER_PATH:${bindir}"
+ fi
+ 
+-# Use Xephyr if it is available.  It works better than Xnest since Xephyr
+-# supports the Xserver extensions, even if on a remote machine.
+-#
+-if test -x $X_SERVER_PATH/Xephyr; then
+-    X_XNEST_CMD="$X_SERVER_PATH/Xephyr"
+-    X_XNEST_CONFIG_OPTIONS="-audit 0"
+-    X_XNEST_UNSCALED_FONTPATH="true"
+-else
+-    if test -x /usr/openwin/bin/Xnest; then
+-        # If on Solaris, Xnest is only shipped with the Xsun Xserver, so
+-        # use this version.
+-        #
+-        X_XNEST_CMD="/usr/openwin/bin/Xnest"
+-        X_XNEST_CONFIG_OPTIONS="-audit 0 -name Xnest -pn"
+-        X_XNEST_UNSCALED_FONTPATH="false"
+-    else
+-        if test -x $X_SERVER_PATH/Xnest; then
+-            X_XNEST_CMD="$X_SERVER_PATH/Xnest"
+-            X_XNEST_CONFIG_OPTIONS="-audit 0 -name Xnest"
+-            X_XNEST_UNSCALED_FONTPATH="true"
+-        fi
+-    fi
+-fi
++# Use the wrapper script for the nested X server
++X_XNEST_CMD=/usr/share/gdm/gdmXnestWrapper
++X_XNEST_CONFIG_OPTIONS="-audit 0"
++X_XNEST_UNSCALED_FONTPATH="true"
+ 
+ # Set POST_PATH after doing system specific case above just in case
+ # any platforms want to update the PATH for a specific OS or distro.
+@@ -34646,7 +32182,8 @@
  ## M4sh Initialization.  ##
  ## --------------------- ##
  
@@ -7563,7 +7597,7 @@ Index: gdm-2.18.2/configure
  if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then
    emulate sh
    NULLCMD=:
-@@ -34655,10 +32211,13 @@
+@@ -34655,10 +32192,13 @@
    alias -g '${1+"$@"}'='"$@"'
    setopt NO_GLOB_SUBST
  else
@@ -7580,7 +7614,7 @@ Index: gdm-2.18.2/configure
  
  
  # PATH needs CR
-@@ -34882,19 +32441,28 @@
+@@ -34882,19 +32422,28 @@
    as_mkdir_p=false
  fi
  
@@ -7620,7 +7654,7 @@ Index: gdm-2.18.2/configure
  
  # Sed expression to map a string onto a valid CPP name.
  as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_alnum]%_%g'"
-@@ -34910,7 +32478,7 @@
+@@ -34910,7 +32459,7 @@
  # values after options handling.
  ac_log="
  This file was extended by $as_me, which was
@@ -7629,7 +7663,7 @@ Index: gdm-2.18.2/configure
  
    CONFIG_FILES    = $CONFIG_FILES
    CONFIG_HEADERS  = $CONFIG_HEADERS
-@@ -34939,7 +32507,7 @@
+@@ -34939,7 +32488,7 @@
  Usage: $0 [OPTIONS] [FILE]...
  
    -h, --help       print this help, then exit
@@ -7638,7 +7672,7 @@ Index: gdm-2.18.2/configure
    -q, --quiet      do not print progress messages
    -d, --debug      don't remove temporary files
        --recheck    update $as_me by reconfiguring in the same conditions
-@@ -34963,7 +32531,7 @@
+@@ -34963,7 +32512,7 @@
  cat >>$CONFIG_STATUS <<_ACEOF
  ac_cs_version="\\
  config.status
@@ -7650,7 +7684,7 @@ Index: gdm-2.18.2/configure
 Index: gdm-2.18.2/gui/Makefile.in
 ===================================================================
 --- gdm-2.18.2.orig/gui/Makefile.in	2007-05-29 02:34:17.000000000 +0200
-+++ gdm-2.18.2/gui/Makefile.in	2007-05-29 10:56:39.000000000 +0200
++++ gdm-2.18.2/gui/Makefile.in	2007-05-29 19:09:29.007613750 +0200
 @@ -114,7 +114,6 @@
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
  	$(am__DEPENDENCIES_1) \
@@ -7696,7 +7730,7 @@ Index: gdm-2.18.2/gui/Makefile.in
 Index: gdm-2.18.2/gui/greeter/Makefile.in
 ===================================================================
 --- gdm-2.18.2.orig/gui/greeter/Makefile.in	2007-05-29 02:34:18.000000000 +0200
-+++ gdm-2.18.2/gui/greeter/Makefile.in	2007-05-29 10:56:39.000000000 +0200
++++ gdm-2.18.2/gui/greeter/Makefile.in	2007-05-29 19:09:29.007613750 +0200
 @@ -67,7 +67,6 @@
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
  	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -7720,7 +7754,7 @@ Index: gdm-2.18.2/gui/greeter/Makefile.in
 Index: gdm-2.18.2/ltmain.sh
 ===================================================================
 --- gdm-2.18.2.orig/ltmain.sh	2006-11-08 17:23:53.000000000 +0100
-+++ gdm-2.18.2/ltmain.sh	2006-03-11 19:49:04.000000000 +0100
++++ gdm-2.18.2/ltmain.sh	2007-05-29 19:09:29.011614000 +0200
 @@ -43,7 +43,7 @@
  
  PROGRAM=ltmain.sh
@@ -7756,8 +7790,8 @@ Index: gdm-2.18.2/ltmain.sh
  	no)
 Index: gdm-2.18.2/config.guess
 ===================================================================
---- gdm-2.18.2.orig/config.guess	2007-05-29 10:56:49.000000000 +0200
-+++ gdm-2.18.2/config.guess	2007-04-20 04:09:10.000000000 +0200
+--- gdm-2.18.2.orig/config.guess	2007-05-29 02:34:20.000000000 +0200
++++ gdm-2.18.2/config.guess	2007-05-29 19:09:29.011614000 +0200
 @@ -1,9 +1,10 @@
  #! /bin/sh
  # Attempt to guess a canonical system name.
@@ -7966,8 +8000,8 @@ Index: gdm-2.18.2/config.guess
  #echo '(No uname command or uname output not recognized.)' 1>&2
 Index: gdm-2.18.2/config.sub
 ===================================================================
---- gdm-2.18.2.orig/config.sub	2007-05-29 10:56:51.000000000 +0200
-+++ gdm-2.18.2/config.sub	2007-04-20 04:09:10.000000000 +0200
+--- gdm-2.18.2.orig/config.sub	2007-05-29 02:34:20.000000000 +0200
++++ gdm-2.18.2/config.sub	2007-05-29 19:09:29.015614250 +0200
 @@ -1,9 +1,10 @@
  #! /bin/sh
  # Configuration validation subroutine script.

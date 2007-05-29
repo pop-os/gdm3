@@ -1,3 +1,13 @@
+gdm (2.18.2-2) UNRELEASED; urgency=low
+
+  * gdmXnestWrapper: provide a wrapper script for both nested X servers.
+    + gdm.install: install it.
+    + 56_xnest-wrapper.patch: force its use in configure.ac.
+    + 70_mandatory-relibtoolize.patch: refresh configure.
+    + Stop build-depending on xserver-xephyr.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 29 May 2007 19:31:59 +0200
+
 gdm (2.18.2-1) unstable; urgency=low
 
   [ Sam Morris ]
