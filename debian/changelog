@@ -1,5 +1,6 @@
 gdm (2.18.2-2) UNRELEASED; urgency=low
 
+  [ Josselin Mouette ]
   * gdmXnestWrapper: provide a wrapper script for both nested X servers.
     + gdm.install: install it.
     + 56_xnest-wrapper.patch: force its use in configure.ac.
@@ -7,7 +8,10 @@ gdm (2.18.2-2) UNRELEASED; urgency=low
     + Stop build-depending on xserver-xephyr.
   * 35_gdm.conf.patch: set Clearlooks as the default GTK+ theme.
 
- -- Josselin Mouette <joss@debian.org>  Tue, 29 May 2007 19:34:30 +0200
+  [ Loic Minier ]
+  * Fix tabs versus spaces in gdm.install.
+
+ -- Loic Minier <lool@dooz.org>  Sun, 10 Jun 2007 17:11:20 +0200
 
 gdm (2.18.2-1) unstable; urgency=low
 
