@@ -42,11 +42,10 @@ Depends: ${shlibs:Depends},
          librsvg2-common
 Recommends: whiptail | dialog,
             zenity,
-            gdm-themes
+            gdm-themes,
+            xserver-xephyr | xnest
 Suggests: locales,
-          apmd,
-          msttcorefonts,
-          xserver-xephyr | xnest
+          hibernate
 Provides: x-display-manager
 Description: GNOME Display Manager
  gdm provides the equivalent of a "login:" prompt for X displays- it

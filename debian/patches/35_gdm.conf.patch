@@ -86,7 +86,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
 -#SuspendCommand=@SUSPEND_COMMAND@
 +RebootCommand=/sbin/shutdown -r now "Rebooted via gdm."
 +HaltCommand=/sbin/shutdown -h now "Shut Down via gdm."
-+SuspendCommand=/usr/bin/apm --suspend
++SuspendCommand=/usr/sbin/hibernate
  # Probably should not touch the below this is the standard setup.
  ServAuthDir=@authdir@
  # This is our standard startup script.  A bit different from a normal X
