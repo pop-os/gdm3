@@ -12,7 +12,6 @@
 55_use-theme-gtkrc.patch
 56_xnest-wrapper.patch
 57_gdm-is-local.patch
-58_is-local-check-null.patch
 59_standard-x-server-detection.patch
 60_logname-is-log-name-in-PostLogin.patch
 61_gdm-manpage-section.patch

@@ -1,4 +1,4 @@
-gdm (2.18.2-2) UNRELEASED; urgency=low
+gdm (2.18.3-1) unstable; urgency=low
 
   [ Josselin Mouette ]
   * gdmXnestWrapper: provide a wrapper script for both nested X servers.
@@ -16,7 +16,14 @@ gdm (2.18.2-2) UNRELEASED; urgency=low
   * Suggest hibernate instead of apmd.
   * 35_gdm.conf.patch: use hibernate as the default suspend command.
 
- -- Josselin Mouette <joss@debian.org>  Mon, 25 Jun 2007 15:45:38 +0200
+  [ Loic Minier ]
+  * New upstream stable release; bug fix and translation.
+    - Drop patch 58_is-local-check-null, a more complete fix was added
+      upstream; closes: #422483.
+    - Update autotools patch, 70_mandatory-relibtoolize, and update patch
+      header to use automake and aclocal 1.10 instead of 1.9.
+
+ -- Loic Minier <lool@dooz.org>  Tue, 03 Jul 2007 22:06:34 +0200
 
 gdm (2.18.2-1) unstable; urgency=low
 
