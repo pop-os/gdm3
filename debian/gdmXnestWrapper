@@ -1,11 +1,13 @@
-#! /bin/sh
+#!/bin/sh
+
+set -e
 
 if [ -x /usr/bin/Xephyr ]; then
-  exec /usr/bin/Xephyr "$@"
+    exec /usr/bin/Xephyr "$@"
 fi
 
 if [ -x /usr/bin/Xnest ]; then
-  exec /usr/bin/Xnest -name Xnest "$@"
+    exec /usr/bin/Xnest -name Xnest "$@"
 fi
 
 echo "Cannot find nested X server, exiting..." >&2
