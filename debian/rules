@@ -71,6 +71,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdirs -a
 	dh_install -a
+	chmod 755 debian/gdm/usr/share/gdm/gdmXnestWrapper
 	# special environment settings should be done in /etc/default/gdm
 	mv debian/gdm/usr/sbin/gdm-binary debian/gdm/usr/sbin/gdm
 	chmod 755 debian/gdm/etc/gdm/Xsession
