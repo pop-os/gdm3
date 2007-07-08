@@ -1,4 +1,4 @@
-gdm (2.18.3-2) UNRELEASED; urgency=low
+gdm (2.18.3-2) unstable; urgency=medium
 
   * Cleanups.
   * Fix permissions of gdmXnestWrapper; closes: #432153.
