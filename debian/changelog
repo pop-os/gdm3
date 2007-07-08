@@ -1,7 +1,7 @@
 gdm (2.18.3-2) UNRELEASED; urgency=low
 
   * Cleanups.
-  * Fix permissions of gdmXnestWrapper.
+  * Fix permissions of gdmXnestWrapper; closes: #432153.
   * Drop dep on debconf which is already added by ${misc:Depends}; thanks
     Michael Biebl; closes: #431698.
 
