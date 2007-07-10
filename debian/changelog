@@ -1,3 +1,12 @@
+gdm (2.18.3-3) unstable; urgency=high
+
+  * New patch,
+    91_from-svn_gdm-init-hints-and-af-family-in-gdm_peek_local_address_list,
+    fixes crash when using IPv6; thanks Ely Levy; GNOME #455190; from
+    SVN r5044; closes: #432227.
+
+ -- Loic Minier <lool@dooz.org>  Tue, 10 Jul 2007 15:48:01 +0200
+
 gdm (2.18.3-2) unstable; urgency=medium
 
   * Cleanups.
