@@ -7,15 +7,14 @@ GNOME #455190; Debian #432227; SVN r5044; fixes crash when using IPv6
 
 Index: daemon/misc.c
 ===================================================================
---- daemon/misc.c (revision 5043)
-+++ daemon/misc.c (revision 5044)
-@@ -1084,6 +1084,10 @@ gdm_peek_local_address_list (void)
+--- daemon/misc.c.orig	2007-07-03 10:08:01.000000000 +0200
++++ daemon/misc.c	2007-07-12 17:45:06.000000000 +0200
+@@ -1084,6 +1084,9 @@
  		return g_list_append (the_list, sin6);
  	}
  
 +	memset (&hints, 0, sizeof (hints));
 +	hints.ai_family = AF_INET;
-+	hints.ai_family |= AF_INET6;
 +
  	if (getaddrinfo (hostbuf, NULL, &hints, &result) != 0) {
  		gdm_debug ("%s: Could not get address from hostname!", "gdm_peek_local_address_list");

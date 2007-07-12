@@ -1,3 +1,11 @@
+gdm (2.18.3-4) unstable; urgency=high
+
+  * Update
+    91_from-svn_gdm-init-hints-and-af-family-in-gdm_peek_local_address_list to
+    not set AF_INET6; thanks Ely Levy; GNOME #455190; closes: #432227.
+
+ -- Loic Minier <lool@dooz.org>  Thu, 12 Jul 2007 17:43:04 +0200
+
 gdm (2.18.3-3) unstable; urgency=high
 
   * New patch,
