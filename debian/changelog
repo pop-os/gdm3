@@ -1,3 +1,10 @@
+gdm (2.18.3-5) UNRELEASED; urgency=low
+
+  * 43_gdmphotosetup.desktop.patch: set NoDisplay=true for 
+    gdmphotosetup, which duplicates gnome-about-me's functionality.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 17 Jul 2007 19:29:05 +0200
+
 gdm (2.18.3-4) unstable; urgency=high
 
   * Update
