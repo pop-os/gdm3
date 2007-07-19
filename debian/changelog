@@ -1,9 +1,16 @@
 gdm (2.18.3-5) UNRELEASED; urgency=low
 
-  * 43_gdmphotosetup.desktop.patch: set NoDisplay=true for 
+  [ Josselin Mouette ]
+  * 43_gdmphotosetup.desktop.patch: set NoDisplay=true for
     gdmphotosetup, which duplicates gnome-about-me's functionality.
 
- -- Josselin Mouette <joss@debian.org>  Tue, 17 Jul 2007 19:29:05 +0200
+  [ Loic Minier ]
+  * Stop imposing the DPI settings; this was a quick fix that users may opt to
+    do, but the correct thing to do is to fix the Xorg configuration on these
+    systems or fix the generation of this config; document this in
+    README.Debian; closes: #278026, #339707, #364545.
+
+ -- Loic Minier <lool@dooz.org>  Thu, 19 Jul 2007 16:33:44 +0100
 
 gdm (2.18.3-4) unstable; urgency=high
 

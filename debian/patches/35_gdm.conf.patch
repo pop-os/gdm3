@@ -201,12 +201,3 @@ Index: gdm-2.18.2/config/gdm.conf.in
  GraphicalThemeDir=@datadir@/gdm/themes/
  GraphicalThemeRand=false
  
-@@ -572,7 +563,7 @@
- # Definition of the standard X server.
- [server-Standard]
- name=Standard server
--command=@X_SERVER@ @X_CONFIG_OPTIONS@ @XEVIE_OPTION@
-+command=@X_SERVER@ -dpi 96 @X_CONFIG_OPTIONS@ @XEVIE_OPTION@
- flexible=true
- # Indicates that the X server should be started at a different process
- # priority.  Values can be any integer value accepted by the setpriority C
