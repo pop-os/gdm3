@@ -10,7 +10,10 @@ gdm (2.18.3-5) UNRELEASED; urgency=low
     systems or fix the generation of this config; document this in
     README.Debian; closes: #278026, #339707, #364545.
 
- -- Loic Minier <lool@dooz.org>  Thu, 19 Jul 2007 16:33:44 +0100
+  [ Kilian Krause ]
+  * Add get-orig-source target.
+
+ -- Kilian Krause <kilian@debian.org>  Sat, 21 Jul 2007 17:01:32 +0200
 
 gdm (2.18.3-4) unstable; urgency=high
 
