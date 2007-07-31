@@ -23,4 +23,3 @@
 69_misc-config-typos.patch
 70_mandatory-relibtoolize.patch
 90_from_svn_fix_gdm_restart.patch
-91_from-svn_gdm-init-hints-and-af-family-in-gdm_peek_local_address_list.patch -p0
