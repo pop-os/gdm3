@@ -14,12 +14,12 @@ if [ "$1" = "purge" ] ; then
         fi
         if getent passwd gdm >/dev/null; then
                 if [ -x /usr/sbin/deluser ]; then
-                        deluser gdm
+                        deluser --system gdm
                 fi
         fi
         if getent group gdm >/dev/null; then
                 if [ -x /usr/sbin/delgroup ]; then
-                        delgroup gdm
+                        delgroup --system gdm
                 fi
         fi
 fi
