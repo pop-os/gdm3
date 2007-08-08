@@ -1,8 +1,9 @@
 gdm (2.18.4-2) UNRELEASED; urgency=low
 
   * Pass --system to delgroup and deluser; thanks Vincent Bernat.
+  * Recommend xserver-xorg; closes: #436665.
 
- -- Loic Minier <lool@dooz.org>  Fri, 03 Aug 2007 09:11:35 +0200
+ -- Loic Minier <lool@dooz.org>  Wed, 08 Aug 2007 21:39:43 +0200
 
 gdm (2.18.4-1) unstable; urgency=high
 

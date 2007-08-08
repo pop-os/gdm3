@@ -42,7 +42,8 @@ Depends: ${shlibs:Depends},
 Recommends: whiptail | dialog,
             zenity,
             gdm-themes,
-            xserver-xephyr | xnest
+            xserver-xephyr | xnest,
+            xserver-xorg
 Suggests: locales,
           hibernate
 Provides: x-display-manager
