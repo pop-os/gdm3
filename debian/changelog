@@ -8,7 +8,9 @@ gdm (2.20.0-1) unstable; urgency=low
   * New upstream release.
   * Update build-dependencies.
   * Refresh patches.
-  * 35_gdm.conf.patch: use s2ram as suspend command; suggest uswsusp.
+  * 35_gdm.conf.patch:
+    + Use s2ram as suspend command; suggest uswsusp.
+    + Set UseCirclesInEntry.
   * 41_config-files.patch: the OLD_CONF part is obsolete.
   * Drop patches integrated upstream:
     - 42_timed-login.patch
@@ -32,7 +34,7 @@ gdm (2.20.0-1) unstable; urgency=low
     substitutions.
   * gdm.menu: update to the latest menu policy.
 
- -- Josselin Mouette <joss@debian.org>  Sat, 06 Oct 2007 18:21:55 +0200
+ -- Josselin Mouette <joss@debian.org>  Sat, 06 Oct 2007 18:39:23 +0200
 
 gdm (2.18.4-1) unstable; urgency=high
 

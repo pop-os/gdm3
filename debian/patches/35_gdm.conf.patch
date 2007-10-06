@@ -5,8 +5,8 @@ Patch default configuration file:
 
 Index: gdm-2.20.0/config/gdm.conf.in
 ===================================================================
---- gdm-2.20.0.orig/config/gdm.conf.in	2007-09-17 16:45:50.000000000 +0200
-+++ gdm-2.20.0/config/gdm.conf.in	2007-10-06 14:51:46.652213423 +0200
+--- gdm-2.20.0.orig/config/gdm.conf.in	2007-10-06 18:38:57.372983931 +0200
++++ gdm-2.20.0/config/gdm.conf.in	2007-10-06 18:39:19.322234748 +0200
 @@ -1,14 +1,8 @@
  # GDM System Defaults Configuration file.
  #
@@ -190,6 +190,15 @@ Index: gdm-2.20.0/config/gdm.conf.in
  # Logo shown on file chooser button in gdmsetup (do not modify this value).
  #ChooserButtonLogo=@pixmapdir@/gdm-foot-logo.png
  # The standard greeter should shake if a user entered the wrong username or
+@@ -502,7 +493,7 @@
+ #Use24Clock=auto
+ # Use circles in the password field.  Looks kind of cool actually, but only
+ # works with certain fonts.
+-#UseCirclesInEntry=false
++UseCirclesInEntry=true
+ # Do not show any visible feedback in the password field. This is standard for
+ # instance in console, xdm and ssh.
+ #UseInvisibleInEntry=false
 @@ -512,8 +503,8 @@
  # list then provide a list that is delimited by /: to the GraphicalThemes
  # key and set GraphicalThemeRand to true.  Otherwise use GraphicalTheme
