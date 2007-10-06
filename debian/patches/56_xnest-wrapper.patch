@@ -1,18 +1,21 @@
-Index: gdm-2.18.2/configure.ac
+Index: gdm-2.20.0/configure.ac
 ===================================================================
---- gdm-2.18.2.orig/configure.ac	2007-05-29 19:06:44.749348250 +0200
-+++ gdm-2.18.2/configure.ac	2007-05-29 19:08:36.096307000 +0200
-@@ -1074,29 +1074,10 @@
-     GDM_USER_PATH="$GDM_USER_PATH:${bindir}"
+--- gdm-2.20.0.orig/configure.ac	2007-09-17 16:46:22.000000000 +0200
++++ gdm-2.20.0/configure.ac	2007-10-06 16:26:31.404168974 +0200
+@@ -1215,28 +1215,10 @@
  fi
+ 
  
 -# Use Xephyr if it is available.  It works better than Xnest since Xephyr
 -# supports the Xserver extensions, even if on a remote machine.
 -#
++# Use the wrapper script for the nested X server
++X_XNEST_CMD=/usr/share/gdm/gdmXnestWrapper
++X_XNEST_CONFIG_OPTIONS="-audit 0"
+ X_XNEST_UNSCALED_FONTPATH="true"
 -if test -x $X_SERVER_PATH/Xephyr; then
 -    X_XNEST_CMD="$X_SERVER_PATH/Xephyr"
 -    X_XNEST_CONFIG_OPTIONS="-audit 0"
--    X_XNEST_UNSCALED_FONTPATH="true"
 -else
 -    if test -x /usr/openwin/bin/Xnest; then
 -        # If on Solaris, Xnest is only shipped with the Xsun Xserver, so
@@ -25,14 +28,9 @@ Index: gdm-2.18.2/configure.ac
 -        if test -x $X_SERVER_PATH/Xnest; then
 -            X_XNEST_CMD="$X_SERVER_PATH/Xnest"
 -            X_XNEST_CONFIG_OPTIONS="-audit 0 -name Xnest"
--            X_XNEST_UNSCALED_FONTPATH="true"
 -        fi
 -    fi
 -fi
-+# Use the wrapper script for the nested X server
-+X_XNEST_CMD=/usr/share/gdm/gdmXnestWrapper
-+X_XNEST_CONFIG_OPTIONS="-audit 0"
-+X_XNEST_UNSCALED_FONTPATH="true"
  
  # Set POST_PATH after doing system specific case above just in case
  # any platforms want to update the PATH for a specific OS or distro.

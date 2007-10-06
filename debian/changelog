@@ -1,9 +1,38 @@
-gdm (2.18.4-2) UNRELEASED; urgency=low
+gdm (2.20.0-1) unstable; urgency=low
 
+  [ Loic Minier ]
   * Pass --system to delgroup and deluser; thanks Vincent Bernat.
   * Recommend xserver-xorg; closes: #436665.
 
- -- Loic Minier <lool@dooz.org>  Wed, 08 Aug 2007 21:39:43 +0200
+  [ Josselin Mouette ]
+  * New upstream release.
+  * Update build-dependencies.
+  * Refresh patches.
+  * 35_gdm.conf.patch: use s2ram as suspend command; suggest uswsusp.
+  * 41_config-files.patch: the OLD_CONF part is obsolete.
+  * Drop patches integrated upstream:
+    - 42_timed-login.patch
+    - 48_random-greeter-theme.patch
+    - 51_misc-env-var-fixes.patch
+    - 57_gdm-is-local.patch
+    - 59_standard-x-server-detection.patch
+    - 60_logname-is-log-name-in-PostLogin.patch
+    - 61_gdm-manpage-section.patch
+    - 67_C-locale-fallback.patch
+    - 69_misc-config-typos.patch
+    - 90_from_svn_fix_gdm_restart.patch
+  * 64_vt-auto-allocation-fix.patch: deactivated for now, it seems to
+    "fix" only part of the binaries, and I don't really know why.
+  * Enable secure remote connection; build-depend on zenity.
+  * gdm.install:
+    + Install desktop files in /usr/share/applications.
+    + Install the remote SSH session.
+  * gdm.8.pod, gdmlogin.8.pod: fix encoding.
+  * rules: don't pass ${prefix} to --libexecdir, it keeps as is in some
+    substitutions.
+  * gdm.menu: update to the latest menu policy.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 06 Oct 2007 18:21:55 +0200
 
 gdm (2.18.4-1) unstable; urgency=high
 

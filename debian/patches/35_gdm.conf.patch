@@ -3,10 +3,10 @@ Patch default configuration file:
 * update comments
 * update pathnames
 
-Index: gdm-2.18.2/config/gdm.conf.in
+Index: gdm-2.20.0/config/gdm.conf.in
 ===================================================================
---- gdm-2.18.2.orig/config/gdm.conf.in	2007-05-29 19:11:17.282380500 +0200
-+++ gdm-2.18.2/config/gdm.conf.in	2007-05-29 19:33:33.141866500 +0200
+--- gdm-2.20.0.orig/config/gdm.conf.in	2007-09-17 16:45:50.000000000 +0200
++++ gdm-2.20.0/config/gdm.conf.in	2007-10-06 14:51:46.652213423 +0200
 @@ -1,14 +1,8 @@
  # GDM System Defaults Configuration file.
  #
@@ -45,8 +45,8 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # GNOME|System category.  You can also find the docs in HTML form on
 @@ -68,7 +64,7 @@
  
- # The greeter for local (non-xdmcp) logins.  Change gdmlogin to gdmgreeter to
- # get the new graphical greeter.
+ # The greeter for attached (non-xdmcp) logins.  Change gdmlogin to gdmgreeter
+ # to get the new graphical greeter.
 -#Greeter=@libexecdir@/gdmlogin
 +Greeter=@libexecdir@/gdmgreeter
  
@@ -74,23 +74,23 @@ Index: gdm-2.18.2/config/gdm.conf.in
  #KillInitClients=true
 -LogDir=@logdir@
 +LogDir=/var/log/gdm
- # You should probably never change this value unless you have a weird setup.
- PidFile=/var/run/gdm.pid
  
-@@ -125,9 +117,9 @@
- XKeepsCrashing=@gdmconfdir@/XKeepsCrashing
+ # Note that a post login script is run before a PreSession script.  It is run
+ # after the login is successful and before any setup is run on behalf of the
+@@ -126,9 +118,9 @@
+ #
  # Reboot, Halt and suspend commands, you can add different commands separated
  # by a semicolon.  GDM will use the first one it can find.
--#RebootCommand=@REBOOT_COMMAND@
--#HaltCommand=@HALT_COMMAND@
--#SuspendCommand=@SUSPEND_COMMAND@
+-RebootCommand=@REBOOT_COMMAND@
+-HaltCommand=@HALT_COMMAND@
+-SuspendCommand=@SUSPEND_COMMAND@
 +RebootCommand=/sbin/shutdown -r now "Rebooted via gdm."
 +HaltCommand=/sbin/shutdown -h now "Shut Down via gdm."
-+SuspendCommand=/usr/sbin/hibernate
- # Probably should not touch the below this is the standard setup.
- ServAuthDir=@authdir@
- # This is our standard startup script.  A bit different from a normal X
-@@ -136,11 +128,10 @@
++SuspendCommand=/usr/sbin/s2ram
+ 
+ # The following options specify how GDM system commands are supported.
+ #
+@@ -161,11 +153,10 @@
  BaseXsession=@gdmconfdir@/Xsession
  # This is a directory where .desktop files describing the sessions live.  It is
  # really a PATH style variable since 2.4.4.2 to allow actual interoperability
@@ -105,9 +105,9 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Better leave this blank and HOME will be used.  You can use syntax ~/ below
  # to indicate home directory of the user.  You can also set this to something
  # like /tmp if you don't want the authorizations to be in home directories.
-@@ -177,8 +168,8 @@
+@@ -202,8 +193,8 @@
  # Automatic VT allocation.  Right now only works on Linux.  This way we force
- # X to use specific vts.  turn VTAllocation to false if this is causing
+ # X to use specific vts.  Turn VTAllocation to false if this is causing
  # problems.
 -#FirstVT=7
 -#VTAllocation=true
@@ -116,7 +116,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Should double login be treated with a warning (and possibility to change VT's
  # on Linux and FreeBSD systems for console logins)
  #DoubleLoginWarning=true
-@@ -217,7 +208,7 @@
+@@ -242,7 +233,7 @@
  [security]
  # Allow root to login.  It makes sense to turn this off for kiosk use, when
  # you want to minimize the possibility of break in.
@@ -125,7 +125,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Allow login as root via XDMCP.  This value will be overridden and set to
  # false if the /etc/default/login file exists and contains
  # "CONSOLE=/dev/login", and set to true if the /etc/default/login file exists
-@@ -227,7 +218,7 @@
+@@ -252,7 +243,7 @@
  AllowRemoteAutoLogin=false
  # 0 is the most restrictive, 1 allows group write permissions, 2 allows all
  # write permissions.
@@ -134,16 +134,16 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Check if directories are owned by logon user.  Set to false, if you have, for
  # example, home directories owned by some other user.
  CheckDirOwner=true
-@@ -246,7 +237,7 @@
+@@ -271,7 +262,7 @@
  # Note: Anytime we find a -query or -indirect on the command line we do not add
  # a "-nolisten tcp", as then the query just wouldn't work, so this setting only
- # affects truly local sessions.
+ # affects truly attached sessions.
 -#DisallowTCP=true
 +DisallowTCP=true
  # By default never place cookies if we "detect" NFS.  We detect NFS by
  # detecting "root-squashing".  It seems bad practice to place cookies on things
  # that go over the network by default and thus we do not do it by default.
-@@ -308,7 +299,7 @@
+@@ -352,7 +343,7 @@
  #GtkRC=@datadir@/themes/Default/gtk-2.0/gtkrc
  
  # The GTK+ theme to use for the GUI.
@@ -152,7 +152,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # If to allow changing the GTK+ (widget) theme from the greeter.  Currently
  # this only affects the standard greeter as the graphical greeter does not yet
  # have this ability.
-@@ -353,7 +344,7 @@
+@@ -397,7 +388,7 @@
  # User ID's less than the MinimalUID value will not be included in the face
  # browser or in the gdmselection list for Automatic/Timed login.  They will not
  # be displayed regardless of the settings for Include and Exclude.
@@ -161,7 +161,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Users listed in Include will be included in the face browser and in the
  # gdmsetup selection list for Automatic/Timed login.  Users should be separated
  # by commas.
-@@ -362,7 +353,7 @@
+@@ -406,7 +397,7 @@
  # gdmsetup selection list for Automatic/Timed login.  Excluded users will still
  # be able to log in, but will have to type their username.  Users should be
  # separated by commas.  
@@ -170,7 +170,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # By default, an empty include list means display no users.  By setting
  # IncludeAll to true, the password file will be scanned and all users will be
  # displayed except users excluded via the Exclude setting and user ID's less
-@@ -370,16 +361,16 @@
+@@ -414,16 +405,16 @@
  # large numbers of users and this feature should not be used in such
  # environments.  The setting of IncludeAll does nothing if Include is set to a
  # non-empty value.
@@ -190,7 +190,7 @@ Index: gdm-2.18.2/config/gdm.conf.in
  # Logo shown on file chooser button in gdmsetup (do not modify this value).
  #ChooserButtonLogo=@pixmapdir@/gdm-foot-logo.png
  # The standard greeter should shake if a user entered the wrong username or
-@@ -468,8 +459,8 @@
+@@ -512,8 +503,8 @@
  # list then provide a list that is delimited by /: to the GraphicalThemes
  # key and set GraphicalThemeRand to true.  Otherwise use GraphicalTheme
  # and specify just one theme.

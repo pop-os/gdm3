@@ -16,7 +16,7 @@ debian/tmp/usr/lib/gdm
 debian/tmp/usr/lib/gtk-2.0/modules/*.so
 debian/tmp/usr/sbin/gdmsetup
 debian/tmp/usr/sbin/gdm-binary
-debian/tmp/usr/share/applications
+debian/tmp/usr/share/gdm/applications   usr/share
 debian/tmp/usr/share/gdm/themes
 debian/tmp/usr/share/gdm/defaults.conf
 debian/tmp/usr/share/gdm/BuiltInSessions
@@ -27,3 +27,4 @@ debian/tmp/usr/share/locale
 debian/tmp/usr/share/man
 debian/tmp/usr/share/omf/gdm
 debian/tmp/usr/share/pixmaps
+debian/tmp/usr/share/xsessions/ssh.desktop

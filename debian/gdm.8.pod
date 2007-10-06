@@ -41,7 +41,7 @@ F</etc/pam.d/gdm>.
 Martin Kasper Petersen <mkp@SunSITE.auc.dk>
 
 This manual page written by Steve Haslam <araqnid@debian.org> for
-Debian GNU/Linux. Updated by Raphaël Hertzog <hertzog@debian.org>.
+Debian GNU/Linux. Updated by RaphaÃ«l Hertzog <hertzog@debian.org>.
 Updated by Ryan Murray <rmurray@debian.org>.
 
 =cut

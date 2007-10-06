@@ -13,16 +13,16 @@ DEB_HOST_ARCH_OS = $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
 configure_flags += --disable-dependency-tracking \
 		--prefix=/usr \
-		--libexecdir=\$${prefix}/lib \
 		--mandir=\$${prefix}/share/man \
 		--infodir=\$${prefix}/share/info \
 		--sysconfdir=/etc \
-		--libexecdir=\$${prefix}/lib/gdm \
+		--libexecdir=/usr/lib/gdm \
 		--localstatedir=/var/lib \
 		--with-custom-conf=/etc/gdm/gdm.conf \
 		--disable-scrollkeeper \
 		--enable-ipv6=yes \
-		--with-prefetch=yes
+		--with-prefetch=yes \
+		--enable-secureremote=yes
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 	configure_flags += --with-selinux
@@ -101,7 +101,7 @@ clean::
 	dh_testdir
 	dh_testroot
 	rm -rf debian/tmp
-	-$(MAKE) distclean
+	[ ! -f Makefile ] || $(MAKE) distclean
 	# unapply patches, if any
 	QUILT_PATCHES=$(PATCH_DIR) \
 		quilt --quiltrc /dev/null pop -a -R || test $$? = 2

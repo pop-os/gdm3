@@ -2,13 +2,13 @@ Debian #308825; don't close all descriptors before starting the slave.
 
 XXX needs to be clarified and perhaps merged upstream
 
-Index: gdm-2.18.2/daemon/display.c
+Index: gdm-2.20.0/daemon/display.c
 ===================================================================
---- gdm-2.18.2.orig/daemon/display.c	2007-05-29 10:37:47.000000000 +0200
-+++ gdm-2.18.2/daemon/display.c	2007-05-29 10:38:30.000000000 +0200
-@@ -306,8 +306,17 @@
+--- gdm-2.20.0.orig/daemon/display.c	2007-09-17 16:45:50.000000000 +0200
++++ gdm-2.20.0/daemon/display.c	2007-10-06 16:22:16.537644959 +0200
+@@ -387,8 +387,17 @@
  
- 	closelog ();
+ 	gdm_log_shutdown ();
  
 -	/* Close everything */
 -	gdm_close_all_descriptors (0 /* from */, fds[0] /* except */, slave_fifo_pipe_fd /* except2 */);
@@ -26,13 +26,13 @@ Index: gdm-2.18.2/daemon/display.c
  
  	/* No error checking here - if it's messed the best response
           * is to ignore & try to continue */
-Index: gdm-2.18.2/daemon/slave.c
+Index: gdm-2.20.0/daemon/slave.c
 ===================================================================
---- gdm-2.18.2.orig/daemon/slave.c	2007-05-29 10:37:47.000000000 +0200
-+++ gdm-2.18.2/daemon/slave.c	2007-05-29 10:38:30.000000000 +0200
-@@ -1648,6 +1648,9 @@
+--- gdm-2.20.0.orig/daemon/slave.c	2007-09-17 16:45:50.000000000 +0200
++++ gdm-2.20.0/daemon/slave.c	2007-10-06 16:22:16.541645187 +0200
+@@ -1745,6 +1745,9 @@
  
- 	closelog ();
+ 	gdm_log_shutdown ();
  
 +	/* Debian changes */
 +#if 0
@@ -40,7 +40,7 @@ Index: gdm-2.18.2/daemon/slave.c
  	gdm_close_all_descriptors (0 /* from */, p[1] /* except */, -1 /* except2 */);
  
  	/* No error checking here - if it's messed the best response
-@@ -1655,6 +1658,17 @@
+@@ -1752,6 +1755,17 @@
  	gdm_open_dev_null (O_RDONLY); /* open stdin - fd 0 */
  	gdm_open_dev_null (O_RDWR); /* open stdout - fd 1 */
  	gdm_open_dev_null (O_RDWR); /* open stderr - fd 2 */
@@ -56,11 +56,11 @@ Index: gdm-2.18.2/daemon/slave.c
 +	gdm_open_dev_null (O_RDWR); /* open stdout - fd 1 */
 +	/* End of Debian changes */
  
- 	openlog ("gdm", LOG_PID, LOG_DAEMON);
+ 	gdm_log_init ();
  
-@@ -1810,6 +1824,9 @@
+@@ -1912,6 +1926,9 @@
  
- 		closelog ();
+ 		gdm_log_shutdown ();
  
 +		/* Debian changes */
 +#if 0
@@ -68,7 +68,7 @@ Index: gdm-2.18.2/daemon/slave.c
  		gdm_close_all_descriptors (0 /* from */, slave_fifo_pipe_fd /* except */, d->slave_notify_fd /* except2 */);
  
  		/* No error checking here - if it's messed the best response
-@@ -1817,6 +1834,17 @@
+@@ -1919,6 +1936,17 @@
  		gdm_open_dev_null (O_RDONLY); /* open stdin - fd 0 */
  		gdm_open_dev_null (O_RDWR); /* open stdout - fd 1 */
  		gdm_open_dev_null (O_RDWR); /* open stderr - fd 2 */
@@ -84,5 +84,5 @@ Index: gdm-2.18.2/daemon/slave.c
 +		gdm_open_dev_null (O_RDWR); /* open stdout - fd 1 */
 +		/* End of Debian changes */
  
- 		openlog ("gdm", LOG_PID, LOG_DAEMON);
+ 		gdm_log_init ();
  

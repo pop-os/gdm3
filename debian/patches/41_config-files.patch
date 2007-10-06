@@ -5,38 +5,11 @@ server, causing the code that looks for $HOME/xorg.conf before other files in
 XXX Clarify the two changes below; one seem to ignore a compatibility file, the
 other sets HOME to avoid /root/xorg.conf, but this seems to be a xorg bug.
 
-Index: gdm-2.18.1/daemon/gdmconfig.c
+Index: gdm-2.20.0/daemon/server.c
 ===================================================================
---- gdm-2.18.1.orig/daemon/gdmconfig.c	2007-04-09 07:15:16.000000000 +0200
-+++ gdm-2.18.1/daemon/gdmconfig.c	2007-05-02 10:38:20.000000000 +0200
-@@ -627,11 +627,22 @@
-     * file has all the keys in it (except new ones).  But
-     * that would be what the user wants.
-     */
-+
-+    /*
-+     * We disable this on Debian, as we already have the non-custom conf
-+     * located in /usr/share.  So, we make the old conf the custom config
-+     * in /etc, with the same name as before.  Users that upgrade to the new
-+     * maintainer conf get just that (and a blank custom.conf to make changes
-+     * in), and users that don't upgrade to the new conf, get both configs
-+     * with the one they kept getting precedence.
-+     */
-+#if 0
-    VE_IGNORE_EINTR (r = g_stat (GDM_OLD_CONF, statbuf));
-    if (r >= 0) {
-       custom_config_file = g_strdup (GDM_OLD_CONF);
-       return ve_config_new (custom_config_file);
-    }
-+#endif
- 
-    VE_IGNORE_EINTR (r = g_stat (GDM_CUSTOM_CONF, statbuf));
-    if (r >= 0) {
-Index: gdm-2.18.1/daemon/server.c
-===================================================================
---- gdm-2.18.1.orig/daemon/server.c	2007-04-09 07:15:15.000000000 +0200
-+++ gdm-2.18.1/daemon/server.c	2007-05-02 10:38:20.000000000 +0200
-@@ -1268,11 +1268,20 @@
+--- gdm-2.20.0.orig/daemon/server.c	2007-09-17 16:45:50.000000000 +0200
++++ gdm-2.20.0/daemon/server.c	2007-10-06 15:00:12.229024603 +0200
+@@ -1358,11 +1358,20 @@
  				   (int)d->server_uid);
  			_exit (SERVER_ABORT);
  		}
