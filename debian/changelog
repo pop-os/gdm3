@@ -1,3 +1,9 @@
+gdm (2.20.0-2) UNRELEASED; urgency=low
+
+  * Re-add bug ids and references to patch 64_vt-auto-allocation-fix.
+
+ -- Loic Minier <lool@dooz.org>  Sat, 06 Oct 2007 19:59:55 +0200
+
 gdm (2.20.0-1) unstable; urgency=low
 
   [ Loic Minier ]
