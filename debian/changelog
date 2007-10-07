@@ -1,3 +1,9 @@
+gdm (2.20.0-3) UNRELEASED; urgency=low
+
+  * Document that references in 64_vt-auto-allocation-fix are wrong.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 07 Oct 2007 04:28:23 +0200
+
 gdm (2.20.0-2) unstable; urgency=high
 
   * Re-add bug ids and references to patch 64_vt-auto-allocation-fix.

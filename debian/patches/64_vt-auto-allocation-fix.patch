@@ -1,8 +1,10 @@
 Debian #339790; GNOME #322137; patch from CVS to fix new auto VT allocation
 method.
 
-Comment from Josselin: No idea what this patch was introduced for. It seems to
-patch only half of the binaries, and I don't see the point.
+Comment from Josselin: No idea what this patch was introduced for. The 
+references have nothing to do with it and concern a bug fixed long ago.
+It seems to patch the build system for only half of the binaries, and I 
+don't see the point.
 Index: gdm-2.18.1/gui/Makefile.am
 ===================================================================
 --- gdm-2.18.1.orig/gui/Makefile.am	2007-04-09 07:15:11.000000000 +0200
