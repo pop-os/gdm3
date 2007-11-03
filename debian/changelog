@@ -1,8 +1,17 @@
-gdm (2.20.0-3) UNRELEASED; urgency=low
+gdm (2.20.1-1) unstable; urgency=low
 
+  [ Josselin Mouette ]
   * Document that references in 64_vt-auto-allocation-fix are wrong.
 
- -- Josselin Mouette <joss@debian.org>  Sun, 07 Oct 2007 04:28:23 +0200
+  [ Sebastian Dröge ]
+  * New upstream bugfix release:
+    + It's possible to change to password input via tab again (Closes: #446962).
+    + debian/control.in:
+      - Require libglib2.0-dev (>= 2.12.0).
+    + debian/patches/70_mandatory-relibtoolize.patch:
+      - Updated for the new version.
+
+ -- Sebastian Dröge <slomo@debian.org>  Sat, 03 Nov 2007 22:04:04 +0100
 
 gdm (2.20.0-2) unstable; urgency=high
 
