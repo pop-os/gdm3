@@ -11,4 +11,5 @@
 56_xnest-wrapper.patch
 62_reference-manual-docbook-entity-reference.patch
 #66_socket-in-var-run-for-fhs.patch
+67_dont_use_LC_CTYPE_for_GDMLANG.patch
 70_mandatory-relibtoolize.patch
