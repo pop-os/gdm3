@@ -1,10 +1,10 @@
-gdm (2.20.1-2) UNRELEASED; urgency=low
+gdm (2.20.1-2) unstable; urgency=low
 
   * debian/patches/67_dont_use_LC_CTYPE_for_GDMLANG.patch:
     + Added. Use g_get_language_names to determine the value of GDM_LANG
       instead of LC_CTYPE
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sun, 18 Nov 2007 16:49:11 +0100
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 18 Nov 2007 17:29:25 +0100
 
 gdm (2.20.1-1) unstable; urgency=low
 

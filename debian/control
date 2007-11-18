@@ -2,7 +2,7 @@ Source: gdm
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>, Sebastian Dröge <slomo@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>, Sebastian Dröge <slomo@debian.org>, Sjoerd Simons <sjoerd@debian.org>
 Build-Depends: libpam0g-dev,
                libdbus-glib-1-dev (>= 0.30),
                libglib2.0-dev (>= 2.12.0),
