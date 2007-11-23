@@ -16,7 +16,6 @@ set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/gdm
-DEBCONF_DAEMON=/usr/bin/gdm
 
 test -x $DAEMON || exit 0
 
@@ -34,11 +33,10 @@ DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 case "$1" in
   start)
-        CONFIGURED_DAEMON=$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)
+        CONFIGURED_DAEMON=$(basename $(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null))
         if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
            [ "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" ] && \
-           [ "$CONFIGURED_DAEMON" != "$DEBCONF_DAEMON" ] && \
-           [ "$CONFIGURED_DAEMON" != "$DAEMON" ] ; then
+           [ "$CONFIGURED_DAEMON" != gdm ] ; then
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm"
