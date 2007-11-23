@@ -34,7 +34,11 @@ DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 case "$1" in
   start)
-        if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" -a "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" -a "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)" != "$DEBCONF_DAEMON" ]; then
+        CONFIGURED_DAEMON=$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)
+        if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
+           [ "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" ] && \
+           [ "$CONFIGURED_DAEMON" != "$DEBCONF_DAEMON" ] && \
+           [ "$CONFIGURED_DAEMON" != "$DAEMON" ] ; then
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm"
