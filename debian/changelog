@@ -1,14 +1,16 @@
 gdm (2.20.1-3) UNRELEASED; urgency=low
 
   * debian/gdm.init:
-    + Use the basename of the contents of 
-      /etc/X11/default-display-manager, to allow the user to specify a 
+    + Use the basename of the contents of
+      /etc/X11/default-display-manager, to allow the user to specify a
       path by hand. Closes: #452344.
     + Fix bashims.
   * gdm.pam: add support for pam_gnome_keyring. Closes: #445870.
   * Suggest libpam-gnome-keyring.
-  * 35_gdm.conf.patch: set Browser=true so that themes with a face 
+  * 35_gdm.conf.patch: set Browser=true so that themes with a face
     browser work correctly. Closes: #445743.
+  * gdm.postinst: fix quoting in gdm.conf after upgrading from gdm < 
+    2.20. Closes: #445947.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 25 Nov 2007 11:32:50 +0100
 

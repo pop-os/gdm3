@@ -63,6 +63,16 @@ elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1.1"; the
     fi
 fi
 
+if [ "$1" = "configure" ] && [ -n "$2" ] && dpkg --compare-versions "$2" lt "2.20"; then
+    # D'uh, that's an ugly hack, but upstream changed the syntax
+    # of the quoting
+    if grep -q '\\"' /etc/gdm/gdm.conf; then
+        echo "WARNING: fixing quotes in /etc/gdm/gdm.conf"
+        cp -p /etc/gdm/gdm.conf /etc/gdm/gdm.conf.dpkg-old
+        sed -i 's/\\"/"/g' /etc/gdm/gdm.conf
+    fi
+fi
+
 if [ -x /etc/init.d/gdm ]; then
   update-rc.d gdm defaults $S $K >/dev/null 2>&1
   invoke-rc.d gdm reload || true
