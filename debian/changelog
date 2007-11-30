@@ -1,5 +1,6 @@
 gdm (2.20.1-3) UNRELEASED; urgency=low
 
+  [ Josselin Mouette ]
   * debian/gdm.init:
     + Use the basename of the contents of
       /etc/X11/default-display-manager, to allow the user to specify a
@@ -9,10 +10,15 @@ gdm (2.20.1-3) UNRELEASED; urgency=low
   * Suggest libpam-gnome-keyring.
   * 35_gdm.conf.patch: set Browser=true so that themes with a face
     browser work correctly. Closes: #445743.
-  * gdm.postinst: fix quoting in gdm.conf after upgrading from gdm < 
+  * gdm.postinst: fix quoting in gdm.conf after upgrading from gdm <
     2.20. Closes: #445947.
 
- -- Josselin Mouette <joss@debian.org>  Sun, 25 Nov 2007 11:32:50 +0100
+  [ Loic Minier ]
+  * Read /etc/profile, ~/.profile, /etc/xprofile and ~/.xprofile; this is more
+    confortable for users, matches RedHat distros, and matches the
+    documentation; closes: #438866.
+
+ -- Loic Minier <lool@fox.dooz.org>  Fri, 30 Nov 2007 10:57:40 +0100
 
 gdm (2.20.1-2) unstable; urgency=low
 
