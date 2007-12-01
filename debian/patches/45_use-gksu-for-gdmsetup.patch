@@ -11,6 +11,7 @@ Index: gdm-2.18.1/gui/gdmsetup.desktop.in.in
  TryExec=@sbindir@/gdmsetup
 -Exec=@sbindir@/gdmsetup
 +Exec=gksu @sbindir@/gdmsetup
- Icon=gdm-setup
+ Icon=gdmsetup
  StartupNotify=true
  Terminal=false
+
