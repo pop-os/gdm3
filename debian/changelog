@@ -1,8 +1,12 @@
 gdm (2.20.2-2) UNRELEASED; urgency=low
 
+  [ Loic Minier ]
   * Drop xbase-clients dep; thanks Robert Millan; closes: #455538.
 
- -- Loic Minier <lool@dooz.org>  Mon, 10 Dec 2007 20:32:10 +0100
+  [ Josselin Mouette ]
+  * Conflict against gnome-panel (<< 2.19.2). Closes: #446762.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 19 Dec 2007 15:33:53 +0100
 
 gdm (2.20.2-1) unstable; urgency=low
 
