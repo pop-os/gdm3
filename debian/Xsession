@@ -79,7 +79,7 @@ run_parts () {
     internal_errormsg "run_parts() called, but \"$1\" does not exist or is" \
                       "not a directory."
   fi
-  for F in $(ls $1); do
+  for F in $(/bin/ls $1); do
     if expr "$F" : '[[:alnum:]_-]\+$' > /dev/null 2>&1; then
       if [ -f "$1/$F" ]; then
         echo "$1/$F"

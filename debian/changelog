@@ -6,6 +6,9 @@ gdm (2.20.2-2) UNRELEASED; urgency=low
   [ Josselin Mouette ]
   * Conflict against gnome-panel (<< 2.19.2). Closes: #446762.
 
+  [ Loic Minier ]
+  * Don't use an aliased ls but hardcode /bin/ls; closes: #454097
+
  -- Josselin Mouette <joss@debian.org>  Wed, 19 Dec 2007 15:33:53 +0100
 
 gdm (2.20.2-1) unstable; urgency=low
