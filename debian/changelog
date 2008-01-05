@@ -9,6 +9,11 @@ gdm (2.20.2-2) UNRELEASED; urgency=low
   [ Loic Minier ]
   * Don't use an aliased ls but hardcode /bin/ls; closes: #454097
 
+  [ Josselin Mouette ]
+  * 61_config-parser-issues.patch: upstream fix (r5604) for a bug in the 
+    parser. Also include r5599 which is required as well.
+    Closes: #458094.
+
  -- Josselin Mouette <joss@debian.org>  Wed, 19 Dec 2007 15:33:53 +0100
 
 gdm (2.20.2-1) unstable; urgency=low
