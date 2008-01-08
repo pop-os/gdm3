@@ -1,4 +1,4 @@
-gdm (2.20.2-2) UNRELEASED; urgency=low
+gdm (2.20.3-1) unstable; urgency=low
 
   [ Loic Minier ]
   * Drop xbase-clients dep; thanks Robert Millan; closes: #455538.
@@ -10,11 +10,17 @@ gdm (2.20.2-2) UNRELEASED; urgency=low
   * Don't use an aliased ls but hardcode /bin/ls; closes: #454097
 
   [ Josselin Mouette ]
-  * 61_config-parser-issues.patch: upstream fix (r5604) for a bug in the 
+  * 61_config-parser-issues.patch: upstream fix (r5604) for a bug in the
     parser. Also include r5599 which is required as well.
     Closes: #458094.
 
- -- Josselin Mouette <joss@debian.org>  Wed, 19 Dec 2007 15:33:53 +0100
+  [ Sebastian Dröge ]
+  * New upstream bugfix release:
+    + Fixes running gdmflexiserver setuid/setgid (Closes: #455694).
+    + 61_config-parser-issues.patch, dropped, merged upstream.
+    + 70_mandatory-relibtoolize.patch, regenerated for the new version.
+
+ -- Sebastian Dröge <slomo@debian.org>  Tue, 08 Jan 2008 15:22:58 +0100
 
 gdm (2.20.2-1) unstable; urgency=low
 

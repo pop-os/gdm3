@@ -9,7 +9,6 @@
 50_close-fds.patch
 55_use-theme-gtkrc.patch
 56_xnest-wrapper.patch
-61_config-parser-issues.patch
 62_reference-manual-docbook-entity-reference.patch
 #66_socket-in-var-run-for-fhs.patch
 70_mandatory-relibtoolize.patch
