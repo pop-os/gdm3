@@ -31,7 +31,7 @@ Build-Depends: libpam0g-dev,
                gnome-pkg-tools,
                quilt,
                zenity
-Standards-Version: 3.7.2
+Standards-Version: 3.7.3
 
 Package: gdm
 Architecture: any
