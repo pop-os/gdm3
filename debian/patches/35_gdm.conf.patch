@@ -98,7 +98,7 @@ Index: gdm-2.20.1/config/gdm.conf.in
 -# compatibility reasons with 2.4.4.x.
 -#SessionDesktopDir=/etc/X11/sessions/:@dmconfdir@/Sessions/:@datadir@/gdm/BuiltInSessions/:@datadir@/xsessions/
 +# with KDM.
-+SessionDesktopDir=@datadir@/gdm/BuiltInSessions/:@datadir@/xsessions/:/var/lib/menu-xdg/xsessions/:/etc/dm/Sessions/
++SessionDesktopDir=@datadir@/gdm/BuiltInSessions/:@datadir@/xsessions/:/etc/dm/Sessions/
  # This is the default .desktop session.  One of the ones in SessionDesktopDir
 -#DefaultSession=gnome.desktop
 +DefaultSession=default.desktop
