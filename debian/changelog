@@ -1,9 +1,13 @@
 gdm (2.20.3-2) UNRELEASED; urgency=low
 
-  * gdm.init: add dbus, hal and network-manager to the Should-Start 
+  [ Josselin Mouette ]
+  * gdm.init: add dbus, hal and network-manager to the Should-Start
     section.
-  * 35_gdm.conf.patch: remove /var/lib/menu-xdg/xsessions from the list 
+  * 35_gdm.conf.patch: remove /var/lib/menu-xdg/xsessions from the list
     of session directories. Closes: #464179.
+
+  [ Loic Minier ]
+  * Add missing libpopt-dev b-dep; thanks Daniel Schepler; closes: #467179.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 16 Feb 2008 02:52:39 +0100
 

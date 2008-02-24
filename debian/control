@@ -30,7 +30,8 @@ Build-Depends: libpam0g-dev,
                sharutils,
                gnome-pkg-tools,
                quilt,
-               zenity
+               zenity,
+               libpopt-dev
 Standards-Version: 3.7.3
 
 Package: gdm
