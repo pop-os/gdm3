@@ -1,4 +1,4 @@
-gdm (2.20.3-2) UNRELEASED; urgency=low
+gdm (2.20.3-2) unstable; urgency=medium
 
   [ Josselin Mouette ]
   * gdm.init: add dbus, hal and network-manager to the Should-Start
