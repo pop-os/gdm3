@@ -197,15 +197,6 @@ Index: gdm-2.20.1/config/gdm.conf.in
  # Logo shown on file chooser button in gdmsetup (do not modify this value).
  #ChooserButtonLogo=@pixmapdir@/gdm-foot-logo.png
  # The standard greeter should shake if a user entered the wrong username or
-@@ -502,7 +493,7 @@ GraphicalThemedColor=#76848F
- #Use24Clock=auto
- # Use circles in the password field.  Looks kind of cool actually, but only
- # works with certain fonts.
--#UseCirclesInEntry=false
-+UseCirclesInEntry=true
- # Do not show any visible feedback in the password field. This is standard for
- # instance in console, xdm and ssh.
- #UseInvisibleInEntry=false
 @@ -512,8 +503,8 @@ GraphicalThemedColor=#76848F
  # list then provide a list that is delimited by /: to the GraphicalThemes
  # key and set GraphicalThemeRand to true.  Otherwise use GraphicalTheme

@@ -1,3 +1,13 @@
+gdm (2.20.4-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    + debian/patches/35_gdm.conf.patch:
+      - Updated to apply cleanly again.
+    + debian/patches/70_mandatory-relibtoolize.patch:
+      - Regenerated for the new version.
+
+ -- Sebastian Dröge <slomo@debian.org>  Fri, 14 Mar 2008 10:51:38 +0100
+
 gdm (2.20.3-2) unstable; urgency=medium
 
   [ Josselin Mouette ]
