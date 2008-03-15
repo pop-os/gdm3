@@ -1,3 +1,9 @@
+gdm (2.20.4-2) unstable; urgency=low
+
+  * gdm.init: remove S from the Default-Stop header. Closes: #471074.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 15 Mar 2008 19:03:17 +0100
+
 gdm (2.20.4-1) unstable; urgency=low
 
   * New upstream bugfix release:
