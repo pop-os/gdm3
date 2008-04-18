@@ -1,3 +1,10 @@
+gdm (2.20.5-2) UNRELEASED; urgency=low
+
+  * Xsession: set the USERXSESSIONRC variable. Thanks to Yves-Alexis 
+    Perez. Closes: #458549.
+
+ -- Josselin Mouette <joss@debian.org>  Fri, 18 Apr 2008 12:51:52 +0200
+
 gdm (2.20.5-1) unstable; urgency=low
 
   * New upstream bugfix release:

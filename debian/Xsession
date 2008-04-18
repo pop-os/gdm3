@@ -96,6 +96,7 @@ USRRESOURCES=$HOME/.Xresources
 
 SYSSESSIONDIR=/etc/X11/Xsession.d
 USERXSESSION=$HOME/.xsession
+USERXSESSIONRC=$HOME/.xsessionrc
 ALTUSERXSESSION=$HOME/.Xsession
 
 # this will go into the .xsession-errors along with all other echo's
