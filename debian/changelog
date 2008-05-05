@@ -4,6 +4,10 @@ gdm (2.20.5-2) UNRELEASED; urgency=low
     Perez. Closes: #458549.
   * control.in: depend on gnome-session | x-session-manager | ...
     Closes: #478497.
+  * gdm.init: stop providing x-display-manager, to prevent installation 
+    failure together with another display manager. The parallel 
+    installation is already handled through debconf. Closes: #479468.
+    Other display manager packages should be fixed the same way.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 18 Apr 2008 12:51:52 +0200
 
