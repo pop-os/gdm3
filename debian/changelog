@@ -10,7 +10,7 @@ gdm (2.20.5-2) unstable; urgency=low
     Other display manager packages should be fixed the same way.
   * 01_crash_on_shutdown.patch: stolen from upstream SVN. Fixes the 
     crash that happens during the shutdown process.
-    Closes: #480056, #475855, #459024 and many duplicates.
+    Closes: #480056, #475855, #467203. However it does not fix #459024. 
 
  -- Josselin Mouette <joss@debian.org>  Sun, 11 May 2008 02:12:44 +0200
 
