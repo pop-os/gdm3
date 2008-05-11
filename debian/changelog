@@ -1,4 +1,4 @@
-gdm (2.20.5-2) UNRELEASED; urgency=low
+gdm (2.20.5-2) unstable; urgency=low
 
   * Xsession: set the USERXSESSIONRC variable. Thanks to Yves-Alexis 
     Perez. Closes: #458549.
@@ -8,8 +8,11 @@ gdm (2.20.5-2) UNRELEASED; urgency=low
     failure together with another display manager. The parallel 
     installation is already handled through debconf. Closes: #479468.
     Other display manager packages should be fixed the same way.
+  * 01_crash_on_shutdown.patch: stolen from upstream SVN. Fixes the 
+    crash that happens during the shutdown process.
+    Closes: #480056, #475855, #459024 and many duplicates.
 
- -- Josselin Mouette <joss@debian.org>  Fri, 18 Apr 2008 12:51:52 +0200
+ -- Josselin Mouette <joss@debian.org>  Sun, 11 May 2008 02:12:44 +0200
 
 gdm (2.20.5-1) unstable; urgency=low
 
