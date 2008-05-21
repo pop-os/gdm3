@@ -1,3 +1,13 @@
+gdm (2.20.6-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    + debian/patches/01_crash_on_shutdown.patch:
+      - Dropped, merged upstream.
+    + debian/patches/70_mandatory-relibtoolize.patch:
+      - Regenerated for the new version.
+
+ -- Sebastian Dröge <slomo@debian.org>  Wed, 21 May 2008 11:59:42 +0200
+
 gdm (2.20.5-2) unstable; urgency=low
 
   * Xsession: set the USERXSESSIONRC variable. Thanks to Yves-Alexis 
