@@ -1,3 +1,10 @@
+gdm (2.20.6-2) UNRELEASED; urgency=low
+
+  * 01_fixfree.patch: stolen from upstream. Patch from Frédéric Crozat 
+    to fix an invalid free causing yet another crash upon shutdown.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 03 Jun 2008 21:19:53 +0200
+
 gdm (2.20.6-1) unstable; urgency=low
 
   * New upstream bugfix release:
