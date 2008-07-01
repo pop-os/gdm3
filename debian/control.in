@@ -32,7 +32,7 @@ Build-Depends: libpam0g-dev,
                quilt,
                zenity,
                libpopt-dev
-Standards-Version: 3.7.3
+Standards-Version: 3.8.0
 
 Package: gdm
 Architecture: any
