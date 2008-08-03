@@ -60,12 +60,15 @@ case "$1" in
         set -e
         log_end_msg $?
   ;;
+  status)
+        status_of_proc -p "$PIDFILE" "$DAEMON" gdm && exit 0 || exit $?
+  ;;
   restart|force-reload)
         $0 stop
         $0 start
   ;;
   *)
-        echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload}"
+        echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload|status}"
         exit 1
   ;;
 esac
