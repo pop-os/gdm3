@@ -34,7 +34,9 @@ DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 case "$1" in
   start)
         CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
-        if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
+        if grep -wqs text /proc/cmdline; then
+            log_warning_msg "Not starting GNOME Display Manager (gdm); found 'text' in kernel commandline."
+        elif [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
            [ "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" ] && \
            [ "$CONFIGURED_DAEMON" != gdm ] ; then
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
