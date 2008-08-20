@@ -1,0 +1,17 @@
+Index: gdm-2.20.7/daemon/slave.c
+===================================================================
+--- gdm-2.20.7.orig/daemon/slave.c	2008-08-20 15:52:46.379361134 +0200
++++ gdm-2.20.7/daemon/slave.c	2008-08-20 15:52:59.487356494 +0200
+@@ -3546,8 +3546,11 @@
+ 	if (is_selinux_enabled () <= 0)
+ 		return TRUE;
+ 
+-	if (getseuserbyname(login, &seuser, &level) == 0)
++	if (getseuserbyname(login, &seuser, &level) == 0) {
+ 		ret=get_default_context_with_level(seuser, level, 0, &scontext);
++		free(seuser);
++		free(level);
++	}
+ 
+ 	if (ret < 0) {
+ 		gdm_error ("SELinux gdm login: unable to obtain default security context for %s.", login);

@@ -7,6 +7,7 @@
 46_kde-substitude-uid.patch
 47_XKeepsCrashing-restore-keyboard.patch
 50_close-fds.patch
+51_selinux_memleak.patch
 55_use-theme-gtkrc.patch
 56_xnest-wrapper.patch
 62_reference-manual-docbook-entity-reference.patch
