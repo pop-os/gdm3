@@ -1,4 +1,4 @@
-gdm (2.20.7-2) UNRELEASED; urgency=low
+gdm (2.20.7-2) unstable; urgency=low
 
   [ Loic Minier ]
   * Add "status" support to the init script; bump dep on lsb to >= 3.2-14;
@@ -10,8 +10,10 @@ gdm (2.20.7-2) UNRELEASED; urgency=low
   [ Josselin Mouette ]
   * 51_selinux_memleak.patch: patch from Julien Cristau to fix a memory 
     leak in the SELinux code.
+  * 52_shutdown_crash.patch: new patch, fixes crash upon shutdown when
+    the daemon is not correctly closed. Closes: #458802.
 
- -- Loic Minier <lool@dooz.org>  Sun, 03 Aug 2008 18:48:50 +0200
+ -- Josselin Mouette <joss@debian.org>  Fri, 29 Aug 2008 16:03:45 +0200
 
 gdm (2.20.7-1) unstable; urgency=low
 

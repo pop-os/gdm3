@@ -1,0 +1,20 @@
+Index: gdm-2.20.7/daemon/gdm.c
+===================================================================
+--- gdm-2.20.7.orig/daemon/gdm.c	2008-06-30 19:53:13.000000000 +0200
++++ gdm-2.20.7/daemon/gdm.c	2008-08-29 16:41:50.896047612 +0200
+@@ -708,6 +708,7 @@ halt_machine (void)
+ 		change_to_first_and_clear (FALSE);
+ #endif /* __linux */
+ 
++		_exit (EXIT_SUCCESS);
+ 	}
+ }
+ 
+@@ -728,6 +729,7 @@ restart_machine (void)
+ 		change_to_first_and_clear (TRUE);
+ #endif /* __linux */
+ 
++	_exit (EXIT_SUCCESS);
+ 	}
+ }
+ 
