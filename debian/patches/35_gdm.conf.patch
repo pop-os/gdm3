@@ -203,8 +203,8 @@ Index: gdm-2.20.1/config/gdm.conf.in
  # and specify just one theme.
 -#GraphicalTheme=circles
 -#GraphicalThemes=circles/:happygnome
-+GraphicalTheme=debian-moreblue
-+#GraphicalThemes=debian-moreblue:/bijou/:blueswirl/:circles/:debblue-list/:debblue/:ayo/:debian-dawn/:debian-greeter/:debian/:glassfoot/:hantzley/:happygnome/:industrial/:crystal/:linsta
++GraphicalTheme=debian-moreblue-orbit
++#GraphicalThemes=debian-moreblue-orbit:/bijou/:blueswirl/:circles/:debblue-list/:debblue/:ayo/:debian-dawn/:debian-greeter/:debian/:glassfoot/:hantzley/:happygnome/:industrial/:crystal/:linsta
  GraphicalThemeDir=@datadir@/gdm/themes/
  GraphicalThemeRand=false
  
