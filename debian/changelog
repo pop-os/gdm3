@@ -3,6 +3,7 @@ gdm (2.20.7-3) unstable; urgency=low
   * Install the debian-moreblue-orbit theme, thanks Andre Luiz Rodrigues 
     Ferreira. Closes: #497440.
   * 35_gdm.conf.patch: make it the default.
+  * copyright: fix encoding.
 
  -- Josselin Mouette <joss@debian.org>  Tue, 02 Sep 2008 10:37:20 +0200
 
