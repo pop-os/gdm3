@@ -1,3 +1,13 @@
+gdm (2.20.7-4) UNRELEASED; urgency=low
+
+  * 52_shutdown_crash.patch: updated to also ignore the signals in the 
+    shutdown process.
+  * 35_gdm.conf.patch: use pm-suspend instead of s2ram, for consistency 
+    with HAL. Closes: #503085.
+  * Suggest pm-utils instead of uswsusp.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 03 Sep 2008 13:01:44 +0200
+
 gdm (2.20.7-3) unstable; urgency=low
 
   * Install the debian-moreblue-orbit theme, thanks Andre Luiz Rodrigues 

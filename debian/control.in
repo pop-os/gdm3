@@ -51,7 +51,7 @@ Recommends: whiptail | dialog,
             xserver-xephyr | xnest,
             xserver-xorg
 Suggests: locales,
-          uswsusp,
+          pm-utils,
           libpam-gnome-keyring
 Provides: x-display-manager
 Conflicts: fast-user-switch-applet (<< 2.17.4),
