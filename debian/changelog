@@ -1,4 +1,4 @@
-gdm (2.20.7-4) UNRELEASED; urgency=low
+gdm (2.20.7-4) unstable; urgency=low
 
   * 52_shutdown_crash.patch: updated to also ignore the signals in the 
     shutdown process.
@@ -6,7 +6,7 @@ gdm (2.20.7-4) UNRELEASED; urgency=low
     with HAL. Closes: #503085.
   * Suggest pm-utils instead of uswsusp.
 
- -- Josselin Mouette <joss@debian.org>  Wed, 03 Sep 2008 13:01:44 +0200
+ -- Josselin Mouette <joss@debian.org>  Fri, 24 Oct 2008 21:53:24 +0200
 
 gdm (2.20.7-3) unstable; urgency=low
 
