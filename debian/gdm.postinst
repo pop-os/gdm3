@@ -49,13 +49,13 @@ db_stop || true
 S=30
 K=01
 
-if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt "2.16.1-1"; then
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt-nl "2.16.1-1"; then
     # since 2.16.1-1, gdm isn't started from S99 anymore
     if [ -e /etc/rc2.d/S99gdm ]; then
         update-rc.d -f gdm remove >/dev/null
         update-rc.d gdm defaults $S $K
     fi
-elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1.1"; then
+elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le-nl "2.16.4-1.1"; then
     # since after 2.16.4-1.1, gdm isn't started from S21 anymore
     if [ -e /etc/rc2.d/S21gdm ]; then
         update-rc.d -f gdm remove >/dev/null
@@ -63,7 +63,7 @@ elif [ "$1" = "configure" ] && dpkg --compare-versions "$2" le "2.16.4-1.1"; the
     fi
 fi
 
-if [ "$1" = "configure" ] && [ -n "$2" ] && dpkg --compare-versions "$2" lt "2.20"; then
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt-nl "2.20"; then
     # D'uh, that's an ugly hack, but upstream changed the syntax
     # of the quoting
     if grep -q '\\"' /etc/gdm/gdm.conf; then

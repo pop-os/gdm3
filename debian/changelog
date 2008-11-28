@@ -1,3 +1,10 @@
+gdm (2.20.7-5) UNRELEASED; urgency=low
+
+  * Don't update-rc.d remove / install during first configuration.
+  * Use lt-nl when comparing versions instead of checking $2.
+
+ -- Loic Minier <lool@dooz.org>  Fri, 28 Nov 2008 19:55:12 +0100
+
 gdm (2.20.7-4) unstable; urgency=low
 
   * 52_shutdown_crash.patch: updated to also ignore the signals in the 
