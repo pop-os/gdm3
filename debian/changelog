@@ -5,7 +5,7 @@ gdm (2.20.7-5) unstable; urgency=low
   * Build-depend on xserver-xorg for the X_SERVER detection logic to work; it
     would be more elegant to add an AC_ARG_WITH to skip the detection and
     avoid the bdep, but the 2.20 branch isn't the long term focus so this is a
-    good stop gap measure.
+    good stop gap measure; closes: #509425.
 
  -- Loic Minier <lool@dooz.org>  Fri, 28 Nov 2008 19:55:12 +0100
 
