@@ -31,7 +31,8 @@ Build-Depends: libpam0g-dev,
                gnome-pkg-tools,
                quilt,
                zenity,
-               libpopt-dev
+               libpopt-dev,
+               xserver-xorg
 Standards-Version: 3.8.0
 
 Package: gdm

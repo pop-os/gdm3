@@ -48,6 +48,7 @@ configure: configure-stamp
 configure-stamp: patch-stamp
 	dh_testdir
 	./configure $(configure_flags) CFLAGS="$(CFLAGS)"
+	false
 	touch configure-stamp
 
 build: build-stamp
