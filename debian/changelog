@@ -3,6 +3,7 @@ gdm (2.20.7-6) UNRELEASED; urgency=low
   * gdm.install: install the desktop files in 
     /usr/share/gdm/applications, so that they are only available when 
     the session has been started by GDM. Closes: #508345.
+  * Ship an empty /usr/share/sounds directory. Closes: #509219.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 23 Jan 2009 16:32:08 +0100
 
