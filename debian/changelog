@@ -1,11 +1,19 @@
-gdm (2.20.7-6) UNRELEASED; urgency=low
+gdm (2.20.9-1) unstable; urgency=low
 
   * gdm.install: install the desktop files in 
     /usr/share/gdm/applications, so that they are only available when 
     the session has been started by GDM. Closes: #508345.
   * Ship an empty /usr/share/sounds directory. Closes: #509219.
+  * New upstream translation and bugfix release.
+  * 51_selinux_memleak.patch, 52_shutdown_crash.patch: removed, merged 
+    upstream.
+  * 70_mandatory-relibtoolize.patch: updated for the new version.
+  * 51_xkb_init.patch: new patch, stolen upstream. Handle the case where 
+    XKB is not properly initialized.
+  * 52_xdmcp_fixes.patch: new patch, stolen upstream. Fix a double free 
+    and improve error handling for XDMCP. Hopefully closes: #495797.
 
- -- Josselin Mouette <joss@debian.org>  Fri, 23 Jan 2009 16:32:08 +0100
+ -- Josselin Mouette <joss@debian.org>  Fri, 27 Feb 2009 19:22:26 +0100
 
 gdm (2.20.7-5) unstable; urgency=low
 
