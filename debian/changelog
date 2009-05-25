@@ -1,3 +1,10 @@
+gdm (2.20.9-2) UNRELEASED; urgency=low
+
+  * 21_XKeepsCrashing_bashism.patch: new patch, fix a bashism.
+    Closes: #530086.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 25 May 2009 14:24:01 +0200
+
 gdm (2.20.9-1) unstable; urgency=low
 
   * gdm.install: install the desktop files in 

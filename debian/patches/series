@@ -1,4 +1,5 @@
 20_xdm-stuff.patch
+21_XKeepsCrashing_bashism.patch
 35_gdm.conf.patch
 37_manpage-binaries.patch
 41_config-files.patch
