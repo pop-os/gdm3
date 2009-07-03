@@ -1,4 +1,4 @@
-gdm (2.26.1-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.26.1-0ubuntu2) karmic; urgency=low
 
   * debian/control: Add Vcs-Bzr, package imported into bzr.
   * Add 02_dont_force_us_keyboard.patch: Don't force GDM_KEYBOARD_LAYOUT=us if
@@ -7,7 +7,7 @@ gdm (2.26.1-0ubuntu2) UNRELEASED; urgency=low
     let the GNOME session default to the very same system default as gdm
     itself. (LP: #395103)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 03 Jul 2009 18:51:20 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 03 Jul 2009 19:19:56 +0200
 
 gdm (2.26.1-0ubuntu1) karmic; urgency=low
 
