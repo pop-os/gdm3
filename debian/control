@@ -25,6 +25,7 @@ Build-Depends: cdbs,
 	       libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
 	       iso-codes
 Standards-Version: 3.8.1
+Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm
 Conflicts: gdm-snapshot, fast-user-switch-applet
