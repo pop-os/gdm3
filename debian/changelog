@@ -1,0 +1,45 @@
+gdm (2.26.1-0ubuntu1) karmic; urgency=low
+
+  * Upload the new gdm codebase to karmic, there is several known issues but
+    the new version need testing:
+    - there is no graphical configure tool yet
+    - gdm will not work correctly after upgrade until restart (restarting on
+      upgrade is not possible since it would close running xsession)
+    - the fast user switch applet ubuntu changes and the guest session
+      have not been updated yet
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 02 Jul 2009 16:24:43 +0200
+
+gdm (2.26.1-0ubuntu0.3) karmic; urgency=low
+
+  * debian/gdm.init: tweak previous change to not break default server
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 01 Jul 2009 09:55:39 +0200
+
+gdm (2.26.1-0ubuntu0.2) karmic; urgency=low
+
+  * debian/patches/17_update_default_xserver.patch:
+    - update xserver location
+  * debian/gdm.init: use the correct binary naming so restart is working
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 30 Jun 2009 23:23:17 +0200
+
+gdm (2.26.1-0ubuntu0.1) karmic; urgency=low
+
+  * New upstream version 
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 04 Jun 2009 16:01:19 +0200
+
+gdm-new (2.25.2-0ubuntu0.2) jaunty; urgency=low
+
+  * debian/patches/16_correct_customconf_naming.patch:
+    - use correct gdm.conf-custom location so user config settings are read
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 03 Mar 2009 17:40:04 +0100
+
+gdm-new (2.25.2-0ubuntu0.1) intrepid; urgency=low
+
+  * New upstream version, the code is a rewrite so the packaging is new too
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Jul 2008 14:16:47 +0100
+

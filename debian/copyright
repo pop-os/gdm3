@@ -1,0 +1,54 @@
+This package was debianized by Sebastien Bacher <seb128@canonical.com> on
+Tue, 15 Jul 2008 14:16:47 +0100.
+
+It was downloaded from http://ftp.acc.umu.se/pub/GNOME/sources/gdm/2.22
+
+Upstream Authors:
+
+	 William Jon McCann <mccann@jhu.edu>
+	 Ray Strode <rstrode@redhat.com>
+
+Copyright:
+
+Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
+Copyright (C) 2003 Red Hat Inc.
+Copyright (C) 1999, 2000 Aladdin Enterprises.  All rights reserved.
+Copyright (C) 2006 Red Hat, Inc.
+Copyright (C) 2006 Ray Strode <rstrode@redhat.com>
+Copyright (C) 2004, 2008 Sun Microsystems, Inc.
+Copyright (C) 2005, 2008 Red Hat, Inc.
+Copyright (c) 2007 David Zeuthen <davidz@redhat.com>
+Copyright (C) 1998, 1999, 2000 Martin K. Petersen <mkp@mkp.net>
+Copyright (C) 2004-2005 James M. Cape <jcape@ignore-your.tv>.
+Copyright (C) 2001 Havoc Pennington, 2002 Red Hat Inc.
+Copyright (C) 2003-2006 Vincent Untz
+Copyright (C) 2002 Red Hat, Inc.
+Copyright (C) 2006, 2007 Christian Persch
+Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
+Copyright (C) 2002 Anders Carlsson <andersca@gnu.org>
+Copyright (C) 2008 Red Hat, Inc.
+Copyright (C) 2002 Free Software Foundation, Inc.
+Copyright (C) 2003 Sun Microsystems, Inc.
+Copyright (C) 2000 Helix Code, Inc.
+Copyright (C) 2001-2006  Jonathan Blandford <jrb@alum.mit.edu> 
+
+License:
+
+    This package is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation version 3
+
+    This package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this package; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.
+
+The Debian packaging is (C) 2008, Sebastien Bacher <seb128@canonical.com> and
+is licensed under the GPL, see above.

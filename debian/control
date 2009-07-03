@@ -1,0 +1,55 @@
+Source: gdm
+Section: gnome
+Priority: optional
+Maintainer: Sebastien Bacher <seb128@ubuntu.com>
+Build-Depends: cdbs, 
+	       debhelper (>= 7),
+	       autotools-dev, 
+               gnome-pkg-tools,
+	       libglib2.0-dev (>= 2.15.4), 
+	       libdbus-glib-1-dev (>= 0.74), 
+	       libx11-dev, 
+	       libgtk2.0-dev (>= 2.10), 
+	       libgconf2-dev, 
+	       libglade2-dev, 
+               gnome-doc-utils,
+	       libpolkit-gnome-dev, 
+	       libpanel-applet2-dev, 
+	       gconf2,
+               libattr1-dev,
+	       libpam0g-dev, 
+	       libxdmcp-dev, 
+	       libwrap0-dev, 
+	       libxi-dev, 
+	       libxinerama-dev, 
+	       libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
+	       iso-codes
+Standards-Version: 3.8.1
+
+Package: gdm
+Conflicts: gdm-snapshot, fast-user-switch-applet
+Replaces: gdm-snapshot, fast-user-switch-applet
+Architecture: any
+Depends: ${shlibs:Depends}, 
+	 ${misc:Depends},
+         adduser,
+         libpam-modules (>= 0.72-1),
+         libpam-runtime (>= 0.76-13.1),
+         gnome-session | xterm | x-window-manager | x-terminal-emulator,
+         kbd | console-tools
+Recommends: xserver-xorg
+Suggests: locales,
+          uswsusp,
+          libpam-gnome-keyring
+Provides: x-display-manager
+Description: GNOME Display Manager
+ gdm provides the equivalent of a "login:" prompt for X displays- it
+ pops up a login window and starts an X session.
+ .
+ It provides all the functionality of xdm, including XDMCP support for
+ managing remote displays.
+ .
+ The greeting window is written using the GNOME libraries and hence
+ looks like a GNOME application- even to the extent of supporting
+ themes! By default, the greeter is run as an unprivileged user for
+ security.
