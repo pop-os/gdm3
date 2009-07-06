@@ -11,6 +11,10 @@ gdm (2.26.1-0ubuntu3) UNRELEASED; urgency=low
     and installs /etc/gdm/custom.conf, so gdm also needs to read this. Add
     debian/gdm.preinst to migrate the old name to the new name on upgrades.
     (LP: #395861)
+  * 02_dont_force_us_keyboard.patch: Don't return NULL in
+    get_default_layout(), but return an empty string and explicitly check this
+    when setting $GDM_KEYBOARD_LAYOUT. With NULL, gdm trips over an assertion
+    check. (LP: #395595)
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 06 Jul 2009 10:51:29 +0200
 
