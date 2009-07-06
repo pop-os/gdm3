@@ -1,0 +1,32 @@
+# Description: Do not show system users in the "frequent users" list
+# Ubuntu: https://launchpad.net/bugs/395281
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587708
+--- gdm-2.26.1/gui/simple-greeter/gdm-user-manager.c        2009-02-20 03:45:09.000000000 +0100
++++ gdm-2.26.1.new/gui/simple-greeter/gdm-user-manager.c        2009-07-06 14:28:38.729267351 +0200
+@@ -1130,6 +1130,7 @@
+         gboolean res;
+         char    *username;
+         gulong   frequency;
++        struct passwd *pwent;
+         GdmUser *user;
+ 
+         frequency = 0;
+@@ -1145,6 +1146,18 @@
+                 return;
+         }
+ 
++        /* do not show system users; we cannot use gdm_user_manager_get_user()
++         * here since this creates/signals users as a side effect */
++        pwent = getpwnam (username);
++        if (pwent == NULL) {
++                g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
++                return;
++        }
++        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                g_debug ("GdmUserManager: excluding user '%s'", username);
++                return;
++        }
++
+         user = gdm_user_manager_get_user (manager, username);
+         if (user == NULL) {
+                 g_debug ("GdmUserManager: unable to lookup user '%s'", username);

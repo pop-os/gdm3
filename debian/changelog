@@ -1,3 +1,10 @@
+gdm (2.26.1-0ubuntu3) UNRELEASED; urgency=low
+
+  * Add 03_hide_system_users.patch: Do not show system users in the "frequent
+    users" list. (LP: #395281)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 06 Jul 2009 10:51:29 +0200
+
 gdm (2.26.1-0ubuntu2) karmic; urgency=low
 
   * debian/control: Add Vcs-Bzr, package imported into bzr.
