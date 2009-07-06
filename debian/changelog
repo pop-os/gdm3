@@ -2,6 +2,11 @@ gdm (2.26.1-0ubuntu3) UNRELEASED; urgency=low
 
   * Add 03_hide_system_users.patch: Do not show system users in the "frequent
     users" list. (LP: #395281)
+  * debian/rules: Call dh_installinit with --no-scripts, to avoid restarting
+    gdm (and killing your X session) during upgrade. The prerm/postinst
+    scripts already have code to reload gdm if appropriate. Unfortunately this
+    doesn't help to fix the upgrade from 0ubuntu2, its prerm already kills it.
+    (LP: #395302)
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 06 Jul 2009 10:51:29 +0200
 
