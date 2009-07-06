@@ -6,7 +6,8 @@ gdm (2.26.1-0ubuntu3) UNRELEASED; urgency=low
     gdm (and killing your X session) during upgrade. The prerm/postinst
     scripts already have code to reload gdm if appropriate. Unfortunately this
     doesn't help to fix the upgrade from 0ubuntu2, its prerm already kills it.
-    (LP: #395302)
+    (LP: #395302) This also fixes the "locks session and spawns a second X
+    server" issue on upgrades from Jaunty. (LP: #395313)
   * Drop 16_correct_customconf_naming.patch: Upstream uses
     and installs /etc/gdm/custom.conf, so gdm also needs to read this. Add
     debian/gdm.preinst to migrate the old name to the new name on upgrades.
