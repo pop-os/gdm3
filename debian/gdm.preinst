@@ -19,12 +19,15 @@ rm_conffile() {
 }
 
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
+    # earlier releases used /etc/gdm/gdm.conf-custom, but upstream uses
+    # custom.conf
     dpkg --compare-versions "$2" le-nl "2.26.1-0ubuntu5"; then
     if [ -f /etc/gdm/gdm.conf-custom ]; then
 	echo "Renaming /etc/gdm/gdm.conf-custom to /etc/gdm/custom.conf" >&2
 	mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
     fi
 
+    # obsolete conffiles
     rm_conffile /etc/gdm/gdm.conf
     rm_conffile /etc/gdm/locale.conf
     rm_conffile /etc/gdm/gdmprefetchlist
