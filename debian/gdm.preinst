@@ -1,9 +1,37 @@
 #!/bin/sh -e
 
+rm_conffile() {
+  PKGNAME="gdm"
+  CONFFILE="$1"
+
+  if [ -e "$CONFFILE" ]; then
+   md5sum="`md5sum \"$CONFFILE\" | sed -e \"s/ .*//\"`"
+   old_md5sum="`dpkg-query -W -f='${Conffiles}' $PKGNAME | sed -n -e \"\\\\' $CONFFILE'{s/ obsolete$//;s/.* //p}\"`"
+   if [ "$md5sum" != "$old_md5sum" ]; then
+     echo "Obsolete conffile $CONFFILE has been modified by you."
+     echo "Saving as $CONFFILE.dpkg-bak ..."
+     mv -f "$CONFFILE" "$CONFFILE".dpkg-bak
+   else
+     echo "Removing obsolete conffile $CONFFILE ..."
+     rm -f "$CONFFILE"
+   fi
+ fi
+}
+
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
-	dpkg --compare-versions "$2" lt-nl "2.26.1-0ubuntu3" && \
-	[ -f /etc/gdm/gdm.conf-custom ]; then
-    echo "Renaming /etc/gdm/gdm.conf-custom to /etc/gdm/custom.conf" >&2
-    mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
+    dpkg --compare-versions "$2" le-nl "2.26.1-0ubuntu5"; then
+    if [ -f /etc/gdm/gdm.conf-custom ]; then
+	echo "Renaming /etc/gdm/gdm.conf-custom to /etc/gdm/custom.conf" >&2
+	mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
+    fi
+
+    rm_conffile /etc/gdm/gdm.conf
+    rm_conffile /etc/gdm/locale.conf
+    rm_conffile /etc/gdm/gdmprefetchlist
+    rm_conffile /etc/gdm/XKeepsCrashing
+    rm_conffile /etc/gdm/modules/AccessKeyMouseEvents
+    rm_conffile /etc/gdm/modules/factory-AccessKeyMouseEvents
+    rm_conffile /etc/gdm/modules/AccessDwellMouseEvents
+    rm_conffile /etc/gdm/modules/factory-AccessDwellMouseEvents
 fi
 
