@@ -36,7 +36,7 @@ Depends: ${shlibs:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
-         gnome-session | xterm | x-window-manager | x-terminal-emulator,
+         gnome-session,
          kbd | console-tools
 Recommends: xserver-xorg
 Suggests: locales,

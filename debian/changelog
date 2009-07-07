@@ -3,6 +3,8 @@ gdm (2.26.1-0ubuntu4) UNRELEASED; urgency=low
   * debian/gdm.preinst: Do not check for an existing custom.conf, since we
     already ship it. Always let the gdm.conf-custom win, to actually migrate
     settings.
+  * debian/control: Drop alternative dependencies for gnome-session, since gdm
+    itself now needs gnome-session. (LP: #396321).
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Jul 2009 08:34:50 +0200
 
