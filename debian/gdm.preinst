@@ -27,6 +27,15 @@ if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
 	mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
     fi
 
+    # migrate autologin settings
+    if ! egrep -q '^(Automatic|Timed)Login(Enable|Delay|)=' /etc/gdm/custom.conf; then
+	settings="`egrep '^((Automatic|Timed)LoginEnable=[^f])|^((Automatic|Timed)Login=.)|^TimedLoginDelay=[^3]' /etc/gdm/gdm.conf`"
+	if [ -n "$settings" ]; then
+	    echo '[daemon]' >> /etc/gdm/custom.conf
+	    echo "$settings" >> /etc/gdm.custom.conf
+	fi
+    fi
+
     # obsolete conffiles
     rm_conffile /etc/gdm/gdm.conf
     rm_conffile /etc/gdm/locale.conf
