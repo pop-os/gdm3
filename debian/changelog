@@ -1,3 +1,11 @@
+gdm (2.26.1-0ubuntu4) UNRELEASED; urgency=low
+
+  * debian/gdm.preinst: Do not check for an existing custom.conf, since we
+    already ship it. Always let the gdm.conf-custom win, to actually migrate
+    settings.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Jul 2009 08:34:50 +0200
+
 gdm (2.26.1-0ubuntu3) karmic; urgency=low
 
   * Add 03_hide_system_users.patch: Do not show system users in the "frequent

@@ -3,12 +3,7 @@
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
 	dpkg --compare-versions "$2" lt-nl "2.26.1-0ubuntu3" && \
 	[ -f /etc/gdm/gdm.conf-custom ]; then
-    if [ -e /etc/gdm/custom.conf ]; then
-	echo "WARNING: /etc/gdm/gdm.conf-custom is obsolete, using /etc/gdm/custom.conf now" >&2
-	mv /etc/gdm/gdm.conf-custom /etc/gdm/gdm.conf-custom.dpkg-old
-    else
-	echo "Renaming /etc/gdm/gdm.conf-custom to /etc/gdm/custom.conf" >&2
-	mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
-    fi
+    echo "Renaming /etc/gdm/gdm.conf-custom to /etc/gdm/custom.conf" >&2
+    mv /etc/gdm/gdm.conf-custom /etc/gdm/custom.conf
 fi
 
