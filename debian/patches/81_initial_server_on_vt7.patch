@@ -1,0 +1,23 @@
+# Description: Force initial X server to go to tty7 instead of tty1. This is an Ugly Hack until we have a cleaner solution for getty not to tramp over a running X server on vt1.
+# Ubuntu: https://launchpad.net/bugs/396226
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1/daemon/gdm-server.c gdm-2.26.1.new/daemon/gdm-server.c
+--- gdm-2.26.1/daemon/gdm-server.c        2009-07-09 15:33:58.281094408 +0200
++++ gdm-2.26.1.new/daemon/gdm-server.c        2009-07-09 15:37:40.697075106 +0200
+@@ -674,9 +674,16 @@
+ gdm_server_start (GdmServer *server)
+ {
+         gboolean res;
++        int f;
++
++        /* HACK: force initial server to go on vt7, since 1 to 6 usually get
++         * gettys after gdm startup, which interfere with X */
++        f = open ("/var/run/gdm/firstserver.stamp", O_CREAT|O_WRONLY|O_EXCL, 0666);
++        if (f > 0)
++                close (f);
+ 
+         /* fork X server process */
+-        res = gdm_server_spawn (server, NULL);
++        res = gdm_server_spawn (server, (f > 0) ? "vt7" : NULL);
+ 
+         return res;
+ }

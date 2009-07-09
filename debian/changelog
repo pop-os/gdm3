@@ -3,6 +3,11 @@ gdm (2.26.1-0ubuntu5) UNRELEASED; urgency=low
   * debian/gdm.preinst: Remove obsolete conffiles.
   * debian/gdm.preinst: Migrate autologin settings from gdm.conf (which isn't
     read any more) to custom.conf. (LP: #396459)
+  * Add 81_initial_server_on_vt7.patch: Force initial X server to go to tty7
+    instead of tty1. This is an Ugly Hack until we have a cleaner solution for
+    getty not to tramp over a running X server on vt1. This bandaids the
+    immediate problem of the first X server being killed after a few minutes
+    due to getty on tty1 timing out. (LP: #396226)
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Jul 2009 15:01:02 +0200
 
