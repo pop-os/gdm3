@@ -1,0 +1,31 @@
+From 51443645f2e394c1f138fd285fbbe56962d34779 Mon Sep 17 00:00:00 2001
+From: Matthias Clasen <mclasen@redhat.com>
+Date: Tue, 28 Apr 2009 23:57:32 +0000
+Subject: Fix an obvious use-after-free in the XDMCP code
+
+The patch was provided by Michael Young in rhbz#496882.
+---
+diff --git a/daemon/gdm-xdmcp-display-factory.c b/daemon/gdm-xdmcp-display-factory.c
+index 724717c..1d33b44 100644
+--- a/daemon/gdm-xdmcp-display-factory.c
++++ b/daemon/gdm-xdmcp-display-factory.c
+@@ -2309,8 +2309,6 @@ gdm_xdmcp_handle_request (GdmXdmcpDisplayFactory *factory,
+                                 authorization_data.data     = (CARD8 *) cookie->data;
+                                 authorization_data.length   = cookie->len;
+ 
+-                                g_array_free (cookie, TRUE);
+-
+                                 /* the addrs are NOT copied */
+                                 gdm_xdmcp_send_accept (factory,
+                                                        address,
+@@ -2319,6 +2317,8 @@ gdm_xdmcp_handle_request (GdmXdmcpDisplayFactory *factory,
+                                                        &authentication_data,
+                                                        &authorization_name,
+                                                        &authorization_data);
++
++                                g_array_free (cookie, TRUE);
+                         }
+                 }
+         } else {
+--
+cgit v0.8.2

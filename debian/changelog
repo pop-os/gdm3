@@ -2,6 +2,8 @@ gdm (2.26.1-0ubuntu6) UNRELEASED; urgency=low
 
   * Add 00git-greeter-session-management.patch: Make the greeter a
     well-behaved session client. Patch taken from upstream git head.
+  * Add 00git-use-after-free.patch: Fix crash in xdmcp chooser. Taken from
+    upstream git head.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 10 Jul 2009 15:34:16 +0200
 
