@@ -1,6 +1,12 @@
 gdm (2.26.1-0ubuntu7) UNRELEASED; urgency=low
 
   * Rename 04_xklavier4.patch to 00git-xklavier4.patch.
+  * Add 04_polkit1.patch: Port to PolicyKit (which essentially means to rip
+    out all PolicyKit code, since the backend now talks to the authentication
+    agent itself).
+  * debian/control: Drop polkit build dependency.
+  * Add debian/patches/99_autoreconf.patch: Regenerate autotools files to pick
+    up 04_polkit1.patch changes.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Jul 2009 11:24:26 +0200
 
