@@ -1,4 +1,4 @@
-gdm (2.26.1-0ubuntu6) UNRELEASED; urgency=low
+gdm (2.26.1-0ubuntu6) karmic; urgency=low
 
   * Add 00git-greeter-session-management.patch: Make the greeter a
     well-behaved session client. Patch taken from upstream git head.
@@ -11,7 +11,7 @@ gdm (2.26.1-0ubuntu6) UNRELEASED; urgency=low
   * Add 00git-invalid-dmrc-layout.patch: Correctly handle invalid xkb layout
     from ~/.dmrc. Taken from upstream git head.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 10 Jul 2009 15:34:16 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Jul 2009 11:17:44 +0200
 
 gdm (2.26.1-0ubuntu5) karmic; urgency=low
 
