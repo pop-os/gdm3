@@ -22,7 +22,7 @@ Build-Depends: cdbs,
 	       libwrap0-dev, 
 	       libxi-dev, 
 	       libxinerama-dev, 
-	       libxklavier12-dev,
+	       libxklavier-dev,
 	       libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
 	       iso-codes
 Standards-Version: 3.8.1
