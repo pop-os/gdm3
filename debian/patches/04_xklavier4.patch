@@ -1,0 +1,13 @@
+# Description: Build with libxklavier 4.0
+# Upstream: http://git.gnome.org/cgit/gdm/commit/?id=dbe0531853ce6725fd927c837604837284b7458c
+--- gdm-2.26.1/gui/simple-greeter/gdm-layouts.c.xklavier4	2009-07-01 09:47:32.546576916 -0400
++++ gdm-2.26.1/gui/simple-greeter/gdm-layouts.c	2009-07-01 09:47:50.848564055 -0400
+@@ -52,7 +52,7 @@ init_xkl (void)
+                 engine = xkl_engine_get_instance (GDK_DISPLAY ());
+                 xkl_engine_backup_names_prop (engine);
+                 config_registry = xkl_config_registry_get_instance (engine);
+-                xkl_config_registry_load (config_registry);
++                xkl_config_registry_load (config_registry, FALSE);
+ 
+                 initial_config = xkl_config_rec_new ();
+                 if (!xkl_config_rec_get_from_backup (initial_config, engine)) {

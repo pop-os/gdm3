@@ -6,6 +6,8 @@ gdm (2.26.1-0ubuntu6) UNRELEASED; urgency=low
     upstream git head.
   * debian/control: Add libxklavier-dev build dependency, to get the
     keyboard selector.
+  * Add 04_xklavier4.patch: Fix build with libxklavier 4.0. Taken from
+    upstream git head.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 10 Jul 2009 15:34:16 +0200
 
