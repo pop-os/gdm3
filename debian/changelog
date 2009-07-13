@@ -1,4 +1,4 @@
-gdm (2.26.1-0ubuntu7) UNRELEASED; urgency=low
+gdm (2.26.1-0ubuntu7) karmic; urgency=low
 
   * Rename 04_xklavier4.patch to 00git-xklavier4.patch.
   * Add 04_polkit1.patch: Port to PolicyKit (which essentially means to rip
@@ -8,7 +8,7 @@ gdm (2.26.1-0ubuntu7) UNRELEASED; urgency=low
   * Add debian/patches/99_autoreconf.patch: Regenerate autotools files to pick
     up 04_polkit1.patch changes.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Jul 2009 11:24:26 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Jul 2009 14:50:17 +0200
 
 gdm (2.26.1-0ubuntu6) karmic; urgency=low
 
