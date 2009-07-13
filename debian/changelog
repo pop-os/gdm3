@@ -1,3 +1,9 @@
+gdm (2.26.1-0ubuntu7) UNRELEASED; urgency=low
+
+  * Rename 04_xklavier4.patch to 00git-xklavier4.patch.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Jul 2009 11:24:26 +0200
+
 gdm (2.26.1-0ubuntu6) karmic; urgency=low
 
   * Add 00git-greeter-session-management.patch: Make the greeter a
