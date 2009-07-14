@@ -31,6 +31,16 @@ fi
 HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
+gen_config() {
+  if [ -d /var/lib/gdm/.gconf.mandatory ]; then
+    update-gconf-defaults \
+	--source=/usr/share/gdm/greeter-config \
+	--destination=/var/lib/gdm/.gconf.mandatory \
+	--no-signal \
+	--only-if-changed
+  fi
+}
+
 case "$1" in
   start)
         CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
@@ -42,6 +52,7 @@ case "$1" in
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm"
+                gen_config
                 start_daemon $DAEMON
                 log_end_msg $?
         fi
@@ -57,8 +68,11 @@ case "$1" in
   reload)
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm"
         set +e
+        gen_config
         start-stop-daemon --stop --signal USR1 --quiet --pidfile \
                 /var/run/gdm.pid --name gdm
+        start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
+                --user gdm --oknodo
         set -e
         log_end_msg $?
   ;;

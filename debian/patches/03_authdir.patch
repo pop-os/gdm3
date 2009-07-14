@@ -1,0 +1,26 @@
+Index: gdm-2.26.1/configure.ac
+===================================================================
+--- gdm-2.26.1.orig/configure.ac	2009-07-14 19:24:40.628782453 +0200
++++ gdm-2.26.1/configure.ac	2009-07-14 19:24:47.368783467 +0200
+@@ -935,7 +935,7 @@ dnl ------------------------------------
+ dnl - Define some variables to represent the directories we use.
+ dnl ---------------------------------------------------------------------------
+ 
+-AC_SUBST(authdir, ${localstatedir}/gdm)
++AC_SUBST(authdir, ${localstatedir}/lib/gdm)
+ AC_SUBST(gdmlocaledir, ${gdmconfdir})
+ AC_SUBST(pixmapdir, ${datadir}/pixmaps)
+ 
+Index: gdm-2.26.1/data/Makefile.am
+===================================================================
+--- gdm-2.26.1.orig/data/Makefile.am	2009-07-14 22:17:16.197287667 +0200
++++ gdm-2.26.1/data/Makefile.am	2009-07-14 22:17:21.001164752 +0200
+@@ -7,7 +7,7 @@ SUBDIRS =			\
+ 	$(NULL)
+ 
+ initdir = $(gdmconfdir)/Init
+-authdir = $(localstatedir)/gdm
++authdir = $(localstatedir)/lib/gdm
+ postdir = $(gdmconfdir)/PostSession
+ predir = $(gdmconfdir)/PreSession
+ postlogindir = $(gdmconfdir)/PostLogin

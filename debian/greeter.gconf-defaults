@@ -1,0 +1,15 @@
+# Use a specific background
+/desktop/gnome/background/picture_filename	/usr/share/images/desktop-base/moreblue-orbit-gdm.svg 
+/desktop/gnome/background/picture_options	stretched
+
+# Theming options
+#/desktop/gnome/interface/gtk_theme		Clearlooks
+
+# Greeter options
+/apps/gdm/simple-greeter/logo_icon_name 	debian-swirl
+
+# Some other possible options
+#/apps/gdm/simple-greeter/banner_message_enable		true
+#/apps/gdm/simple-greeter/banner_message_text		Welcome
+#/apps/gdm/simple-greeter/disable_restart_buttons	false
+#/apps/gdm/simple-greeter/disable_user_list		false

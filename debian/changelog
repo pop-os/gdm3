@@ -1,9 +1,39 @@
-gdm (2.20.9-2) UNRELEASED; urgency=low
+gdm (2.26.1-1) experimental; urgency=low
 
-  * 21_XKeepsCrashing_bashism.patch: new patch, fix a bashism.
-    Closes: #530086.
+  * New upstream release.
+  * Completely revamp patches. The patches remaining are:
+    + 01_minimal_uid.patch: set the minimal UID to 1000 which is the 
+      Debian default.
+    + 02_xnest-wrapper.patch: formerly 56_xnest-wrapper.patch.
+    + 03_authdir.patch: use /var/lib/gdm, not /var/gdm.
+    + 90_relibtoolize.patch: formerly 70_mandatory-relibtoolize.patch.
+  * Massive update to build-dependencies.
+  * Depend/Recommend/Suggest the session components used by GDM.
+  * Remove anything related to gdmsetup and gdmphotosetup, they have 
+    both disappeared.
+  * copyright:
+    + Update list of copyright holders.
+    + Point to versioned GPL file.
+  * postrm:
+    + Stop cleaning up /etc/default/gdm.
+    + Clean up /etc/dm and /var/run/gdm.
+  * Stop installing themes, only install the background picture.
+  * Stop installing the locale.conf.
+  * New packaging based on cdbs.
+  * Don’t ship /var/lib/gdm/.gconf.mandatory in the package. Instead, 
+    ship the upstream configuration in /usr/share/gdm/greeter-config and 
+    a file for Debian-specific defaults in /etc/gdm. The configuration 
+    is generated in the postinst, and if needed in the init script.
+  * Require gconf2 2.26.2-3 for this change.
+  * Update README.Debian.
+  * Forbid root login using PAM, since this is no longer a configuration 
+    option.
+  * Add a preinst to remove the old conffiles.
+  * Remove some man pages, including the gdmflexiserver one, which is 
+    seriously outdated.
+  * Add lintian overrides.
 
- -- Josselin Mouette <joss@debian.org>  Mon, 25 May 2009 14:24:01 +0200
+ -- Josselin Mouette <joss@debian.org>  Tue, 14 Jul 2009 18:58:07 +0200
 
 gdm (2.20.9-1) unstable; urgency=low
 

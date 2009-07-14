@@ -1,10 +1,10 @@
-Index: gdm-2.20.0/configure.ac
+Index: gdm-2.26.1/configure.ac
 ===================================================================
---- gdm-2.20.0.orig/configure.ac	2007-09-17 16:46:22.000000000 +0200
-+++ gdm-2.20.0/configure.ac	2007-10-06 16:26:31.404168974 +0200
-@@ -1215,28 +1215,10 @@
- fi
- 
+--- gdm-2.26.1.orig/configure.ac	2009-03-16 20:50:10.000000000 +0100
++++ gdm-2.26.1/configure.ac	2009-07-14 18:25:15.021281016 +0200
+@@ -1146,28 +1146,10 @@ dnl ------------------------------------
+ dnl - Check for Xnest / Xephyr support
+ dnl ---------------------------------------------------------------------------
  
 -# Use Xephyr if it is available.  It works better than Xnest since Xephyr
 -# supports the Xserver extensions, even if on a remote machine.
@@ -32,5 +32,5 @@ Index: gdm-2.20.0/configure.ac
 -    fi
 -fi
  
- # Set POST_PATH after doing system specific case above just in case
- # any platforms want to update the PATH for a specific OS or distro.
+ dnl ---------------------------------------------------------------------------
+ dnl - Expand vars

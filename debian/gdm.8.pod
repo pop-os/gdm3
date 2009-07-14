@@ -12,12 +12,12 @@ B<gdm> is the equivalent of xdm(1x) or wdm(1x), but uses the GNOME
 libraries to provide a GNOME look-and-feel. It provides the GNOME
 equivalent of a "login:" prompt.
 
-B<gdm> reads F</etc/gdm/gdm.conf> for its configuration. For each
-local display, gdm starts an X server and runs gdmlogin(8x) on that
-display. The main gdm process also listens for XDMCP requests from
-remote displays. These requests can either be direct, causing B<gdm>
-to start a gdmlogin(8x) on the remote display, or indirect, causing
-a gdmchooser(8x) to be opened.
+B<gdm> reads F</etc/gdm/daemon.conf> for its configuration. For each
+local display, gdm starts an X server and runs a minimal GNOME session
+including a graphical greeter. If configured so, the main gdm process
+also listens for XDMCP requests from remote displays. These requests
+can either be direct, causing B<gdm> to start a session on the remote
+display, or indirect, causing a chooser to be opened.
 
 When managing a display, B<gdm> attempts to execute
 F</etc/gdm/Init/>I<display>, or F</etc/gdm/Init/Default> if that does
@@ -41,7 +41,8 @@ F</etc/pam.d/gdm>.
 Martin Kasper Petersen <mkp@SunSITE.auc.dk>
 
 This manual page written by Steve Haslam <araqnid@debian.org> for
-Debian GNU/Linux. Updated by Raphaël Hertzog <hertzog@debian.org>.
-Updated by Ryan Murray <rmurray@debian.org>.
+Debian GNU/Linux. Updated by Raphaël Hertzog <hertzog@debian.org>,
+Ryan Murray <rmurray@debian.org> and Josselin Mouette
+<joss@debian.org>.
 
 =cut
