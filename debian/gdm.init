@@ -53,8 +53,9 @@ case "$1" in
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm"
                 gen_config
-                start_daemon $DAEMON
-                log_end_msg $?
+                start-stop-daemon --start --quiet --pidfile /var/run/gdm.pid \
+			--background --exec $DAEMON || log_end_msg 1
+                log_end_msg 0
         fi
   ;;
   stop)

@@ -32,6 +32,8 @@ gdm (2.26.1-1) experimental; urgency=low
   * Remove some man pages, including the gdmflexiserver one, which is 
     seriously outdated.
   * Add lintian overrides.
+  * Use start-stop-daemon --background since it is not able to daemonize 
+    itself automatically.
 
  -- Josselin Mouette <joss@debian.org>  Tue, 14 Jul 2009 18:58:07 +0200
 
