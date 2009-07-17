@@ -19,6 +19,5 @@ else
 endif
 
 binary-post-install/gdm::
-	install -m755 debian/Xsession $(CURDIR)/debian/gdm/etc/gdm/Xsession
 	install -m644 debian/gdm-autologin.pam debian/gdm/etc/pam.d/gdm-autologin
 	install -m644 debian/gdm.pam debian/gdm/etc/pam.d/gdm
