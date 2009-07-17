@@ -1,4 +1,4 @@
-gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.26.1git20090717-0ubuntu1) karmic; urgency=low
 
   * Update to latest upstream git head:
     - Make greeter login window be a dock. Fixes metacity complaining about
@@ -33,7 +33,7 @@ gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
   * debian/gdm.postrm: Use "set -e" to conform to policy.
   * Add debian/xterm.desktop: Reintroduce "failsafe xterm" session.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 11:41:35 +0200
 
 gdm (2.26.1-0ubuntu7) karmic; urgency=low
 
