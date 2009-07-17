@@ -11,6 +11,10 @@ gdm (2.26.1+git20090717-0ubuntu1) UNRELEASED; urgency=low
     - 02_dont_force_us_keyboard.patch
     - 04_polkit1.patch
   * 80_workaround_incorrect_directories.patch: Update to new upstream version.
+  * Drop 01_xconfigoptions.patch; these configure variables are not used any
+    more in the upstream code, and upstream supplies the X.org -br option by
+    default now. Also drop the corresponding configure changes from
+    17_update_default_xserver.patch.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
 
