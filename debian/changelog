@@ -17,7 +17,8 @@ gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
     17_update_default_xserver.patch.
   * Apply 15_usplash.patch to debian/gdm.init and drop the patch.
   * 17_update_default_xserver.patch: Update to new upstream version, add
-    corresponding configure change, and add patch tag header.
+    corresponding configure change, add patch tag header, forward upstream,
+    and rename to 02_x_server_location.patch.
   * Drop 99_autoreconf.patch. The only remaining build system change is the
     previous item.
   * Drop 20_xdm-stuff.patch, it's just cruft.
