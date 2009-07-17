@@ -31,6 +31,7 @@ gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
     be created at runtime), thanks lintian.
   * debian/copyright: Point to versioned GPL, thanks lintian.
   * debian/gdm.postrm: Use "set -e" to conform to policy.
+  * Add debian/xterm.desktop: Reintroduce "failsafe xterm" session.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
 
