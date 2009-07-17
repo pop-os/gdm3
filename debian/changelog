@@ -24,6 +24,8 @@ gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
   * Drop 20_xdm-stuff.patch, it's just cruft.
   * Drop debian/Xsession, and change debian/rules to install the upstream one.
   * 01_xrdb_nocpp.patch: Add patch tag header, forward upstream.
+  * Rename 80_workaround_incorrect_directories.patch to
+    04_fix_external_program_directories.patch and add patch tag header.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
 
