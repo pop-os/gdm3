@@ -1,4 +1,4 @@
-gdm (2.26.1+git20090717-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
 
   * Update to latest upstream git head:
     - Make greeter login window be a dock. Fixes metacity complaining about
