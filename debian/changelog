@@ -27,6 +27,8 @@ gdm (2.26.1git20090717-0ubuntu1) UNRELEASED; urgency=low
   * Rename 80_workaround_incorrect_directories.patch to
     04_fix_external_program_directories.patch and add patch tag header.
   * Rename 81_initial_server_on_vt7.patch to 05_initial_server_on_vt7.patch.
+  * debian/rules: Remove /var/gdm (empty and nonstandard) and /var/run (will
+    be created at runtime), thanks lintian.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
 
