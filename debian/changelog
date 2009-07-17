@@ -1,3 +1,18 @@
+gdm (2.26.1+git20090717-0ubuntu1) UNRELEASED; urgency=low
+
+  * Update to latest upstream git head:
+    - Make greeter login window be a dock. Fixes metacity complaining about
+      session management. (LP: #395324)
+  * Drop patches which are fixed upstream:
+    - 00git-greeter-session-management.patch
+    - 00git-invalid-dmrc-layout.patch
+    - 00git-use-after-free.patch
+    - 00git-xklavier4.patch
+    - 02_dont_force_us_keyboard.patch
+    - 04_polkit1.patch
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
+
 gdm (2.26.1-0ubuntu7) karmic; urgency=low
 
   * Rename 04_xklavier4.patch to 00git-xklavier4.patch.
