@@ -55,9 +55,40 @@ case "$1" in
   	elif [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" -a "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" -a "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2>/dev/null)" != "/usr/sbin/gdm" ]; then
 		log_warning_msg "Not starting GNOME Display Manager (gdm); it is not the default display manager."
 	else
-		log_begin_msg "Starting GNOME Display Manager..."
+		if [ -z "$SPLASH_ORIG_CONSOLE" ]; then
+			log_begin_msg "Starting GNOME Display Manager..."
+		fi
+		# if usplash is running, make sure to stop it now, yes "start" kills it.
+		if [ "$SPLASH_ORIG_CONSOLE" ]; then
+			# usplash was already shut down earlier, so don't
+			# log success as it will look weird on the console.
+			log_end_msg=:
+	        elif pidof usplash > /dev/null; then
+			SPLASH_ORIG_CONSOLE="$(fgconsole)"
+			DO_NOT_SWITCH_VT=yes /etc/init.d/usplash start
+			# We've just shut down usplash, so don't log
+			# success as it will look weird on the console.
+			log_end_msg=:
+		else
+			log_end_msg=log_end_msg
+		fi
 		start-stop-daemon --start --quiet --background --oknodo --pidfile $PIDFILE --name gdm-binary $SSD_ARG -- $CONFIG_FILE >/dev/null 2>&1 || log_end_msg 1
-		log_end_msg 0
+		$log_end_msg 0
+
+		if [ "$SPLASH_ORIG_CONSOLE" ] && \
+		   [ "$SPLASH_ORIG_CONSOLE" != serial ]; then
+			# Wait a short while for the active console to
+			# change, to try to avoid visible console noise from
+			# later init scripts.
+			i=0
+			while [ "$(fgconsole)" = "$SPLASH_ORIG_CONSOLE" ]; do
+				i="$(($i + 1))"
+				if [ "$i" -gt 5 ]; then
+					break
+				fi
+				sleep 1
+			done
+		fi
 	fi
   ;;
   stop)
