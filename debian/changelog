@@ -20,6 +20,7 @@ gdm (2.26.1+git20090717-0ubuntu1) UNRELEASED; urgency=low
     corresponding configure change, and add patch tag header.
   * Drop 99_autoreconf.patch. The only remaining build system change is the
     previous item.
+  * Drop 20_xdm-stuff.patch, it's just cruft.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 17 Jul 2009 09:39:31 +0200
 
