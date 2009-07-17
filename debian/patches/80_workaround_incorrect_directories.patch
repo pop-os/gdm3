@@ -1,7 +1,7 @@
 Les fichiers binaires gdm-2.22.0/.bzr/checkout/dirstate et gdm-2.22.0.new/.bzr/checkout/dirstate sont différents.
-diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/daemon/gdm-server.c gdm-2.25.2.new/daemon/gdm-server.c
---- gdm-2.25.2/daemon/gdm-server.c	2008-09-09 00:05:34.000000000 +0200
-+++ gdm-2.25.2.new/daemon/gdm-server.c	2009-01-21 15:50:58.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/daemon/gdm-server.c gdm-2.26.1+git20090717.new/daemon/gdm-server.c
+--- gdm-2.26.1+git20090717/daemon/gdm-server.c	2009-07-17 09:34:50.000000000 +0200
++++ gdm-2.26.1+git20090717.new/daemon/gdm-server.c	2009-07-17 09:51:02.820952747 +0200
 @@ -127,7 +127,7 @@
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
@@ -11,23 +11,23 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/daemon/gdm-server.c gdm-2.25.2.new/daem
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
-diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/data/greeter-autostart/gnome-settings-daemon.desktop.in gdm-2.25.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in
---- gdm-2.25.2/data/greeter-autostart/gnome-settings-daemon.desktop.in	2008-12-17 03:40:00.000000000 +0100
-+++ gdm-2.25.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in	2009-01-21 15:51:15.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/data/greeter-autostart/gnome-settings-daemon.desktop.in gdm-2.26.1+git20090717.new/data/greeter-autostart/gnome-settings-daemon.desktop.in
+--- gdm-2.26.1+git20090717/data/greeter-autostart/gnome-settings-daemon.desktop.in	2009-07-17 09:37:10.000000000 +0200
++++ gdm-2.26.1+git20090717.new/data/greeter-autostart/gnome-settings-daemon.desktop.in	2009-07-17 09:51:36.384972669 +0200
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
  _Name=GNOME Settings Daemon
--TryExec=/usr/libexec/gnome-settings-daemon
--Exec=/usr/libexec/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
+-TryExec=/usr/local/libexec/gnome-settings-daemon
+-Exec=/usr/local/libexec/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
 +TryExec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon
 +Exec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/data/greeter-autostart/gnome-settings-daemon.desktop.in.in gdm-2.25.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
---- gdm-2.25.2/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2008-09-09 01:27:42.000000000 +0200
-+++ gdm-2.25.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2009-01-21 15:51:22.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/data/greeter-autostart/gnome-settings-daemon.desktop.in.in gdm-2.26.1+git20090717.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
+--- gdm-2.26.1+git20090717/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2009-07-17 09:34:50.000000000 +0200
++++ gdm-2.26.1+git20090717.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2009-07-17 09:51:02.820952747 +0200
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
@@ -39,9 +39,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/data/greeter-autostart/gnome-settings-d
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-diff -Nur -x '*.orig' -x '*~' gdm-2.25.2/gui/simple-chooser/gdm-chooser-session.c gdm-2.25.2.new/gui/simple-chooser/gdm-chooser-session.c
---- gdm-2.25.2/gui/simple-chooser/gdm-chooser-session.c	2008-08-26 21:04:00.000000000 +0200
-+++ gdm-2.25.2.new/gui/simple-chooser/gdm-chooser-session.c	2009-01-21 15:50:42.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/gui/simple-chooser/gdm-chooser-session.c gdm-2.26.1+git20090717.new/gui/simple-chooser/gdm-chooser-session.c
+--- gdm-2.26.1+git20090717/gui/simple-chooser/gdm-chooser-session.c	2009-07-17 09:34:51.000000000 +0200
++++ gdm-2.26.1+git20090717.new/gui/simple-chooser/gdm-chooser-session.c	2009-07-17 09:51:02.824970506 +0200
 @@ -131,7 +131,7 @@
          ret = FALSE;
  
