@@ -1,7 +1,7 @@
-diff -Nur -x '*.orig' -x '*~' gdm-2.26.1/configure.ac gdm-2.26.1.new/configure.ac
---- gdm-2.26.1/configure.ac	2009-06-30 23:23:03.000000000 +0200
-+++ gdm-2.26.1.new/configure.ac	2009-06-30 23:23:04.000000000 +0200
-@@ -1136,9 +1136,9 @@
+# Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
+--- gdm-2.26.1+git20090717/configure	2009-07-17 09:35:54.000000000 +0200
++++ gdm-2.26.1+git20090717.new/configure	2009-07-17 09:59:41.276952165 +0200
+@@ -31257,9 +31257,9 @@
  else
     # what to do, what to do, this is wrong, but this just sets the
     # defaults, perhaps this user is cross compiling or some such
@@ -11,6 +11,22 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.26.1/configure.ac gdm-2.26.1.new/configure.a
 +   X_PATH="/usr/bin"
 +   X_SERVER_PATH="/usr/bin"
 +   X_SERVER="/usr/bin/X"
-    X_CONFIG_OPTIONS="-br -audit 0"
+    X_CONFIG_OPTIONS="-audit 0"
+ fi
+ 
+diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/configure.ac gdm-2.26.1+git20090717.new/configure.ac
+--- gdm-2.26.1+git20090717/configure.ac	2009-07-17 09:34:50.000000000 +0200
++++ gdm-2.26.1+git20090717.new/configure.ac	2009-07-17 09:59:21.068953307 +0200
+@@ -1109,9 +1109,9 @@
+ else
+    # what to do, what to do, this is wrong, but this just sets the
+    # defaults, perhaps this user is cross compiling or some such
+-   X_PATH="/usr/bin/X11:/usr/X11R6/bin:/opt/X11R6/bin"
+-   X_SERVER_PATH="/usr/X11R6/bin"
+-   X_SERVER="/usr/X11R6/bin/X"
++   X_PATH="/usr/bin"
++   X_SERVER_PATH="/usr/bin"
++   X_SERVER="/usr/bin/X"
+    X_CONFIG_OPTIONS="-audit 0"
  fi
  
