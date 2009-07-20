@@ -1,3 +1,9 @@
+gdm (2.26.1git20090717-0ubuntu2) UNRELEASED; urgency=low
+
+  * Add 06_run_xsession.d.patch: Run /etc/X11/Xsession.d/. (LP: #401201)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 20 Jul 2009 09:09:50 +0200
+
 gdm (2.26.1git20090717-0ubuntu1) karmic; urgency=low
 
   * Update to latest upstream git head:
