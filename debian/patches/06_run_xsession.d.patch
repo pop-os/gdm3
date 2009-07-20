@@ -8,7 +8,7 @@
  
 +# run /etc/X11/Xsession.d/
 +if [ -d /etc/X11/Xsession.d ]; then
-+    for i in `ls /etc/X11/Xsession.d/ ; do
++    for i in `ls /etc/X11/Xsession.d/` ; do
 +        if [ -r "$i" ] && expr "$i" : '^[[:alnum:]_-]\+$' > /dev/null; then
 +	    . "$i"
 +        fi
