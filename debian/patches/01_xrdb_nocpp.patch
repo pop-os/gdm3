@@ -1,0 +1,24 @@
+# Description: Don't invoke cpp with xrdb. It's very heavy, and mostly useless.
+# Ubuntu: https://launchpad.net/bugs/20507
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=588849
+--- gdm-2.22.0/data/Xsession.in	2008-04-18 04:29:29.000000000 +0100
++++ gdm-2.22.0.new/data/Xsession.in	2008-07-16 16:07:45.000000000 +0100
+@@ -109,15 +109,15 @@
+ 
+ # merge in defaults
+ if [ -f "$rh6sysresources" ]; then
+-    xrdb -merge "$rh6sysresources"
++    xrdb -nocpp -merge "$rh6sysresources"
+ fi
+ 
+ if [ -f "$sysresources" ]; then
+-    xrdb -merge "$sysresources"
++    xrdb -nocpp -merge "$sysresources"
+ fi
+ 
+ if [ -f "$userresources" ]; then
+-    xrdb -merge "$userresources"
++    xrdb -nocpp -merge "$userresources"
+ fi
+ 
+ # merge in keymaps
