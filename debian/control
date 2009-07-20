@@ -29,7 +29,7 @@ Standards-Version: 3.8.1
 Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm
-Conflicts: gdm-snapshot, fast-user-switch-applet
+Conflicts: gdm-snapshot, fast-user-switch-appletk, libxklavier15 (<< 4.0-0ubuntu2)
 Replaces: gdm-snapshot, fast-user-switch-applet
 Architecture: any
 Depends: ${shlibs:Depends}, 
