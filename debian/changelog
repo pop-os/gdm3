@@ -1,10 +1,10 @@
-gdm (2.27.4-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.27.4-0ubuntu3) karmic; urgency=low
 
   * 06_run_xsession.d.patch: Define $OPTIONFILE, so that the
     75dbus_dbus-launch Xsession.d script properly runs the session under
     dbus-launch. (LP: #402161)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 21 Jul 2009 14:29:23 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 21 Jul 2009 14:31:02 +0200
 
 gdm (2.27.4-0ubuntu2) karmic; urgency=low
 
