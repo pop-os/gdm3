@@ -1,3 +1,13 @@
+gdm (2.27.4-0ubuntu4) karmic; urgency=low
+
+  * debian/control:
+    - Replace dependency on gnome-session with gnome-session-bin
+    - Add recommends on metacity | x-window-manager
+    - Add recommends on gnome-settings-daemon | xfconf
+    - Add suggestion on gnome-power-manager, gnome-orca, gok, and gnome-mag
+
+ -- Cody A.W. somerville <cody-somerville@ubuntu.com>  Tue, 21 Jul 2009 12:29:06 -0400
+
 gdm (2.27.4-0ubuntu3) karmic; urgency=low
 
   * 06_run_xsession.d.patch: Define $OPTIONFILE, so that the

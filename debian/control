@@ -37,12 +37,18 @@ Depends: ${shlibs:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
-         gnome-session,
+         gnome-session-bin,
          kbd | console-tools
-Recommends: xserver-xorg
+Recommends: xserver-xorg,
+        metacity | x-window-manager,
+        gnome-settings-daemon | xfconf
 Suggests: locales,
           uswsusp,
-          libpam-gnome-keyring
+          libpam-gnome-keyring,
+          gnome-power-manager,
+          gnome-orca,
+          gok,
+          gnome-mag
 Provides: x-display-manager
 Description: GNOME Display Manager
  gdm provides the equivalent of a "login:" prompt for X displays- it
