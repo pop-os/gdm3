@@ -23,3 +23,5 @@ binary-post-install/gdm::
 	install -m644 debian/gdm.pam debian/gdm/etc/pam.d/gdm
 	install -D -m644 debian/xterm.desktop debian/gdm/usr/share/xsessions/xterm.desktop
 	rm -r debian/gdm/var/gdm debian/gdm/var/run
+	rm -f debian/gdm/etc/gdm/custom.conf
+

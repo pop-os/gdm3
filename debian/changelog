@@ -1,3 +1,13 @@
+gdm (2.27.4-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/rules:
+    - do not ship empty custom.conf to avoid a conffile
+      prompt when moving a existing gdm.custom-conf
+  * debian/gdm.preinst:
+    - fix typo
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Jul 2009 10:20:03 +0200
+
 gdm (2.27.4-0ubuntu4) karmic; urgency=low
 
   * debian/control:

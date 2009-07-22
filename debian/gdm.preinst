@@ -32,7 +32,7 @@ if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
 	settings="`egrep '^((Automatic|Timed)LoginEnable=[^f])|^((Automatic|Timed)Login=.)|^TimedLoginDelay=[^3]' /etc/gdm/gdm.conf`" || true
 	if [ -n "$settings" ]; then
 	    echo '[daemon]' >> /etc/gdm/custom.conf
-	    echo "$settings" >> /etc/gdm.custom.conf
+	    echo "$settings" >> /etc/gdm/custom.conf
 	fi
     fi
 
