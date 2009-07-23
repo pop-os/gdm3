@@ -1,3 +1,10 @@
+gdm (2.27.4-0ubuntu6) karmic; urgency=low
+
+  * debian/patches/07_correct_distribution_version.patch:
+    - correctly display ubuntu as distribution (lp: #396805)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 23 Jul 2009 23:19:33 +0200
+
 gdm (2.27.4-0ubuntu5) karmic; urgency=low
 
   * debian/rules:
