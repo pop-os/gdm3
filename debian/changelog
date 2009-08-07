@@ -1,9 +1,11 @@
 gdm (2.27.4-0ubuntu7) UNRELEASED; urgency=low
 
-  * debian/patches/08_use_polkit_for_settings.patch
+  * debian/patches/08_use_polkit_for_settings.patch:
     - Use PolicyKit for GDM settings
-  * debian/patches/09_gdmsetup.patch
+  * debian/patches/09_gdmsetup.patch:
     - Provide a setup tool for basic configuration (LP: #395299)
+  * debian/patches/10_xsplash.patch:
+    - Load xsplash on login
   * debian/patches/99_autoreconf.patch:
     - Updated
 

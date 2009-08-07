@@ -1,0 +1,35 @@
+#
+# Description: Load xsplash on login
+# Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Karmic/LoginExperience
+#
+
+=== modified file 'data/Init.in'
+--- data/Init.in	2009-08-07 14:14:26 +0000
++++ data/Init.in	2009-08-07 14:14:58 +0000
+@@ -6,6 +6,11 @@
+ PATH=@X_PATH@:$PATH
+ OLD_IFS=$IFS
+ 
++if [ -x '/usr/bin/xsplash'];
++then
++        /usr/bin/xsplash --gdm-session &
++fi
++
+ gdmwhich () {
+   COMMAND="$1"
+   OUTPUT=
+
+=== modified file 'data/PreSession.in'
+--- data/PreSession.in	2009-08-07 14:14:26 +0000
++++ data/PreSession.in	2009-08-07 14:14:35 +0000
+@@ -7,3 +7,9 @@
+ # Note that output goes into the .xsession-errors file for easy debugging
+ #
+ PATH="@X_PATH@:$PATH:/bin:/usr/bin"
++
++if [ -x '/usr/bin/xsplash'];
++then
++        /usr/bin/xsplash --gdm-session &
++fi
++
+
