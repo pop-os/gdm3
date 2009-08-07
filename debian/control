@@ -23,6 +23,7 @@ Build-Depends: cdbs,
 	       libxi-dev, 
 	       libxinerama-dev, 
 	       libxklavier-dev,
+	       libpolkit-gobject-1-dev,
 	       libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
 	       iso-codes
 Standards-Version: 3.8.1
