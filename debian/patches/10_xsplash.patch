@@ -10,7 +10,7 @@
  PATH=@X_PATH@:$PATH
  OLD_IFS=$IFS
  
-+if [ -x '/usr/bin/xsplash'];
++if [ -x '/usr/bin/xsplash' ];
 +then
 +        /usr/bin/xsplash --gdm-session &
 +fi
@@ -27,7 +27,7 @@
  #
  PATH="@X_PATH@:$PATH:/bin:/usr/bin"
 +
-+if [ -x '/usr/bin/xsplash'];
++if [ -x '/usr/bin/xsplash' ];
 +then
 +        /usr/bin/xsplash --gdm-session &
 +fi
