@@ -1,4 +1,4 @@
-gdm (2.27.4-0ubuntu7) karmic; urgency=low
+gdm (2.27.4-0ubuntu7) UNRELEASED; urgency=low
 
   * debian/patches/08_use_polkit_for_settings.patch
     - Use PolicyKit for GDM settings
