@@ -1,7 +1,9 @@
 From 9e0b98f031967fd57384f178cf1c13864bf6a922 Mon Sep 17 00:00:00 2001
-From: Robert Ancell <robert.ancell@gmail.com>
+From: Robert Ancell <robert.ancell@ubuntu.com>
 Date: Thu, 6 Aug 2009 16:18:34 +0100
 Subject: [PATCH 2/2] Add GDM Setup
+Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
+Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/configure.ac gdm-2.27.4.new/configure.ac
 --- gdm-2.27.4/configure.ac	2009-08-07 09:25:50.000000000 +0100
