@@ -1,4 +1,4 @@
-From 9e0b98f031967fd57384f178cf1c13864bf6a922 Mon Sep 17 00:00:00 2001
+From dd700ac2561db159e2da85495646b5de1ee771ed Mon Sep 17 00:00:00 2001
 From: Robert Ancell <robert.ancell@ubuntu.com>
 Date: Thu, 6 Aug 2009 16:18:34 +0100
 Subject: [PATCH 2/2] Add GDM Setup
@@ -6,8 +6,8 @@ Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/configure.ac gdm-2.27.4.new/configure.ac
---- gdm-2.27.4/configure.ac	2009-08-07 09:25:50.000000000 +0100
-+++ gdm-2.27.4.new/configure.ac	2009-08-07 09:25:51.000000000 +0100
+--- gdm-2.27.4/configure.ac	2009-08-07 13:52:20.000000000 +0100
++++ gdm-2.27.4.new/configure.ac	2009-08-07 13:52:21.000000000 +0100
 @@ -99,6 +99,14 @@
  AC_SUBST(GCONF_CFLAGS)
  AC_SUBST(GCONF_LIBS)
@@ -40,8 +40,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/configure.ac gdm-2.27.4.new/configure.a
  data/greeter-autostart/Makefile
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/gui/gdmsetup/gdmsetup.c
 --- gdm-2.27.4/gui/gdmsetup/gdmsetup.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.c	2009-08-07 09:25:51.000000000 +0100
-@@ -0,0 +1,484 @@
++++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.c	2009-08-07 13:52:21.000000000 +0100
+@@ -0,0 +1,470 @@
 +#include <string.h>
 +#include <stdlib.h>
 +#include <gtk/gtk.h>
@@ -59,8 +59,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +static GtkWidget *user_combo, *user_entry, *delay_spin;
 +static GtkWidget *auto_login_radio, *login_delay_box, *login_delay_check;
 +
-+/* Timer to delay application of login delay spin button */
-+static guint login_delay_timeout = 0;
++/* Timer to delay application of configuration */
++static guint apply_timeout = 0;
 +
 +/* Flag to show when information is loaded */
 +static gboolean loaded = FALSE;
@@ -76,6 +76,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +
 +/* Proxy to GDM settings */
 +static DBusGProxy *proxy = NULL;
++
 +
 +static gchar *
 +get_value (const gchar *key, gchar *def)
@@ -173,9 +174,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +    gint delay = 0;
 +    gboolean auto_login = FALSE, timed_login = FALSE, error = FALSE;
 +    
-+    if (login_delay_timeout != 0) {
-+        g_source_remove (login_delay_timeout);
-+        login_delay_timeout = 0;
++    if (apply_timeout != 0) {
++        g_source_remove (apply_timeout);
++        apply_timeout = 0;
 +    }
 +
 +    if (user_list_is_combo) {
@@ -213,16 +214,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +
 +
 +G_MODULE_EXPORT
-+gboolean
-+gdm_capplet_key_press_event_cb (GtkWidget *widget, GdkEventKey *event)
++void
++gdm_capplet_response_cb (GtkWidget *widget, gint response_id)
 +{
-+    if (event->keyval == GDK_w && event->state == GDK_CONTROL_MASK ||
-+        event->keyval == GDK_Escape && event->state == 0) {
++    if (response_id != 1)
 +        gtk_main_quit ();
-+        return TRUE;
-+    }
-+    
-+    return FALSE;
 +}
 +
 +
@@ -271,7 +267,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +
 +
 +static gboolean
-+apply_login_delay ()
++delayed_apply_cb ()
 +{
 +    update_config ();
 +    return FALSE;
@@ -280,12 +276,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +
 +G_MODULE_EXPORT
 +void
-+login_delay_spin_value_changed_cb (GtkWidget *widget)
++apply_config_cb (GtkWidget *widget)
 +{
 +    if (loaded) {
-+        if (login_delay_timeout != 0)
-+            g_source_remove (login_delay_timeout);
-+        login_delay_timeout = g_timeout_add (200, (GSourceFunc)apply_login_delay, NULL);
++        if (apply_timeout != 0)
++            g_source_remove (apply_timeout);
++        apply_timeout = g_timeout_add (200, (GSourceFunc)delayed_apply_cb, NULL);
 +    }
 +}
 +
@@ -325,7 +321,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +}
 +
 +
-+/* Called when user changed */
 +G_MODULE_EXPORT
 +void
 +default_user_combo_box_changed_cb (void)
@@ -381,15 +376,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +    }
 +    
 +    g_free (user);
-+}
-+
-+
-+/* Called when window closed */
-+G_MODULE_EXPORT
-+void
-+gdm_capplet_delete_event_cb (GtkWidget *widget)
-+{
-+    gtk_main_quit ();
 +}
 +
 +
@@ -528,7 +514,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.c gdm-2.27.4.new/
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.desktop.in gdm-2.27.4.new/gui/gdmsetup/gdmsetup.desktop.in
 --- gdm-2.27.4/gui/gdmsetup/gdmsetup.desktop.in	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.desktop.in	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.desktop.in	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,13 @@
 +[Desktop Entry]
 +Encoding=UTF-8
@@ -545,8 +531,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.desktop.in gdm-2.
 +X-GNOME-Bugzilla-Component=general
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new/gui/gdmsetup/gdmsetup.ui
 --- gdm-2.27.4/gui/gdmsetup/gdmsetup.ui	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.ui	2009-08-07 09:25:51.000000000 +0100
-@@ -0,0 +1,259 @@
++++ gdm-2.27.4.new/gui/gdmsetup/gdmsetup.ui	2009-08-07 13:52:21.000000000 +0100
+@@ -0,0 +1,263 @@
 +<?xml version="1.0"?>
 +<interface>
 +  <requires lib="gtk+" version="2.16"/>
@@ -561,58 +547,17 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new
 +      <column type="GdkPixbuf"/>
 +    </columns>
 +  </object>
-+  <object class="GtkWindow" id="gdm_capplet">
-+    <property name="border_width">24</property>
-+    <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
-+    <property name="resizable">False</property>
-+    <property name="icon_name">gdm-setup</property>
-+    <property name="type_hint">dialog</property>
-+    <signal name="key_press_event" handler="gdm_capplet_key_press_event_cb"/>
-+    <signal name="delete_event" handler="gdm_capplet_delete_event_cb"/>
-+    <child>
-+      <object class="GtkVBox" id="vbox1">
++  <object class="GtkDialog" id="gdm_capplet">
++    <property name="border_width">5</property>
++    <property name="window_position">center</property>
++    <property name="type_hint">normal</property>
++    <property name="has_separator">False</property>
++    <signal name="response" handler="gdm_capplet_response_cb"/>
++    <child internal-child="vbox">
++      <object class="GtkVBox" id="dialog-vbox1">
 +        <property name="visible">True</property>
 +        <property name="orientation">vertical</property>
-+        <property name="spacing">24</property>
-+        <child>
-+          <object class="GtkHBox" id="hbox2">
-+            <property name="visible">True</property>
-+            <property name="spacing">6</property>
-+            <child>
-+              <object class="GtkButton" id="unlock_button">
-+                <property name="visible">True</property>
-+                <property name="can_focus">True</property>
-+                <property name="receives_default">True</property>
-+                <signal name="clicked" handler="unlock_button_clicked_cb"/>
-+                <child>
-+                  <object class="GtkImage" id="image1">
-+                    <property name="visible">True</property>
-+                    <property name="stock">gtk-dialog-authentication</property>
-+                  </object>
-+                </child>
-+              </object>
-+              <packing>
-+                <property name="expand">False</property>
-+                <property name="position">0</property>
-+              </packing>
-+            </child>
-+            <child>
-+              <object class="GtkLabel" id="label1">
-+                <property name="visible">True</property>
-+                <property name="xalign">0</property>
-+                <property name="label" translatable="yes">_Unlock to make changes</property>
-+                <property name="use_underline">True</property>
-+                <property name="mnemonic_widget">unlock_button</property>
-+              </object>
-+              <packing>
-+                <property name="position">1</property>
-+              </packing>
-+            </child>
-+          </object>
-+          <packing>
-+            <property name="position">0</property>
-+          </packing>
-+        </child>
++        <property name="spacing">12</property>
 +        <child>
 +          <object class="GtkVBox" id="gdm_capplet_vbox">
 +            <property name="visible">True</property>
@@ -697,6 +642,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new
 +                            <property name="sensitive">False</property>
 +                            <property name="can_focus">True</property>
 +                            <property name="invisible_char">&#x2022;</property>
++                            <signal name="changed" handler="apply_config_cb"/>
 +                          </object>
 +                          <packing>
 +                            <property name="position">2</property>
@@ -754,7 +700,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new
 +                                <property name="can_focus">True</property>
 +                                <property name="invisible_char">&#x2022;</property>
 +                                <property name="adjustment">adjustment1</property>
-+                                <signal name="value_changed" handler="login_delay_spin_value_changed_cb"/>
++                                <signal name="value_changed" handler="apply_config_cb"/>
 +                              </object>
 +                              <packing>
 +                                <property name="position">1</property>
@@ -795,8 +741,52 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new
 +            <property name="position">1</property>
 +          </packing>
 +        </child>
++        <child internal-child="action_area">
++          <object class="GtkHButtonBox" id="dialog-action_area1">
++            <property name="visible">True</property>
++            <property name="layout_style">end</property>
++            <child>
++              <object class="GtkButton" id="unlock_button">
++                <property name="label" translatable="yes">_Unlock</property>
++                <property name="visible">True</property>
++                <property name="can_focus">True</property>
++                <property name="receives_default">True</property>
++                <property name="use_underline">True</property>
++                <signal name="clicked" handler="unlock_button_clicked_cb"/>
++              </object>
++              <packing>
++                <property name="expand">False</property>
++                <property name="fill">False</property>
++                <property name="position">0</property>
++              </packing>
++            </child>
++            <child>
++              <object class="GtkButton" id="close_button">
++                <property name="label">gtk-close</property>
++                <property name="visible">True</property>
++                <property name="can_focus">True</property>
++                <property name="receives_default">True</property>
++                <property name="use_stock">True</property>
++              </object>
++              <packing>
++                <property name="expand">False</property>
++                <property name="fill">False</property>
++                <property name="position">1</property>
++              </packing>
++            </child>
++          </object>
++          <packing>
++            <property name="expand">False</property>
++            <property name="pack_type">end</property>
++            <property name="position">0</property>
++          </packing>
++        </child>
 +      </object>
 +    </child>
++    <action-widgets>
++      <action-widget response="1">unlock_button</action-widget>
++      <action-widget response="-7">close_button</action-widget>
++    </action-widgets>
 +  </object>
 +  <object class="GtkSizeGroup" id="combo_size_group"/>
 +  <object class="GtkSizeGroup" id="radio_size_group"/>
@@ -808,7 +798,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdmsetup.ui gdm-2.27.4.new
 +</interface>
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user.c gdm-2.27.4.new/gui/gdmsetup/gdm-user.c
 --- gdm-2.27.4/gui/gdmsetup/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdm-user.c	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdm-user.c	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -1984,7 +1974,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user.c gdm-2.27.4.new/
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user.h gdm-2.27.4.new/gui/gdmsetup/gdm-user.h
 --- gdm-2.27.4/gui/gdmsetup/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdm-user.h	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdm-user.h	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2047,7 +2037,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user.h gdm-2.27.4.new/
 +#endif
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-manager.c gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.c
 --- gdm-2.27.4/gui/gdmsetup/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.c	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.c	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,1644 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3695,7 +3685,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-manager.c gdm-2.2
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-manager.h gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.h
 --- gdm-2.27.4/gui/gdmsetup/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.h	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-manager.h	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3786,7 +3776,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-manager.h gdm-2.2
 +#endif /* __GDM_USER_MANAGER_H */
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-private.h gdm-2.27.4.new/gui/gdmsetup/gdm-user-private.h
 --- gdm-2.27.4/gui/gdmsetup/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-private.h	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/gdm-user-private.h	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3834,7 +3824,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/gdm-user-private.h gdm-2.2
 +#endif /* !__GDM_USER_PRIVATE__ */
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/Makefile.am gdm-2.27.4.new/gui/gdmsetup/Makefile.am
 --- gdm-2.27.4/gui/gdmsetup/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.27.4.new/gui/gdmsetup/Makefile.am	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/gdmsetup/Makefile.am	2009-08-07 13:52:21.000000000 +0100
 @@ -0,0 +1,37 @@
 +NULL =
 +
@@ -3875,7 +3865,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/gdmsetup/Makefile.am gdm-2.27.4.new
 +	$(NULL)
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/Makefile.am gdm-2.27.4.new/gui/Makefile.am
 --- gdm-2.27.4/gui/Makefile.am	2009-05-19 16:18:12.000000000 +0100
-+++ gdm-2.27.4.new/gui/Makefile.am	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/gui/Makefile.am	2009-08-07 13:52:21.000000000 +0100
 @@ -1,6 +1,7 @@
  NULL =
  
@@ -3886,7 +3876,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/Makefile.am gdm-2.27.4.new/gui/Make
  	user-switch-applet	\
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/po/POTFILES.in gdm-2.27.4.new/po/POTFILES.in
 --- gdm-2.27.4/po/POTFILES.in	2009-07-15 20:34:00.000000000 +0100
-+++ gdm-2.27.4.new/po/POTFILES.in	2009-08-07 09:25:51.000000000 +0100
++++ gdm-2.27.4.new/po/POTFILES.in	2009-08-07 13:52:21.000000000 +0100
 @@ -58,6 +58,9 @@
  data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
