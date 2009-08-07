@@ -1,3 +1,14 @@
+gdm (2.27.4-0ubuntu7) karmic; urgency=low
+
+  * debian/patches/08_use_polkit_for_settings.patch
+    - Use PolicyKit for GDM settings
+  * debian/patches/09_gdmsetup.patch
+    - Provide a setup tool for basic configuration (LP: #395299)
+  * debian/patches/99_autoreconf.patch:
+    - Updated
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 07 Aug 2009 09:23:21 +0100
+
 gdm (2.27.4-0ubuntu6) karmic; urgency=low
 
   * debian/patches/07_correct_distribution_version.patch:
