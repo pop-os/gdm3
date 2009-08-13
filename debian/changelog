@@ -1,3 +1,15 @@
+gdm (2.27.4-0ubuntu11) karmic; urgency=low
+
+  * debian/patches/09_gdmsetup.patch:
+    - clean some unused variables there
+    - don't crash if there is no autologin key in the configuration yet
+      (lp: #410475)
+    - don't specify encoding in desktop entry (lp: #410591)
+  * debian/patches/11_crash_for_apport.patch:
+    - don't catch crashes so apport can do its job
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 12 Aug 2009 16:17:23 +0200
+
 gdm (2.27.4-0ubuntu10) karmic; urgency=low
 
   * debian/patches/10_xsplash.patch:
