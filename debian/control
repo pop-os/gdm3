@@ -34,7 +34,7 @@ Conflicts: gdm-snapshot, fast-user-switch-applet, libxklavier15 (<< 4.0-0ubuntu2
 Replaces: gdm-snapshot, fast-user-switch-applet
 Architecture: any
 Depends: ${shlibs:Depends}, 
-	 ${misc:Depends},
+         ${misc:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
