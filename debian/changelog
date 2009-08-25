@@ -17,9 +17,11 @@ gdm (2.27.90-0ubuntu1) UNRELEASED; urgency=low
   * debian/patches/03_hide_system_users.patch:
   * debian/patches/04_fix_external_program_directories.patch:
   * debian/patches/08_use_polkit_for_settings.patch:
-  * debian/patches/09_gdmsetup.patch:
   * debian/patches/99_autoreconf.patch:
     - Refreshed
+  * debian/patches/09_gdmsetup.patch:
+    - Set gdmsetup window title and icon
+    - Fix crash when have no default users configured
 
  -- Robert Ancell <robert.ancell@canonical.com>  Tue, 25 Aug 2009 14:23:13 +1000
 
