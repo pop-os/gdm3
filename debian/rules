@@ -26,4 +26,5 @@ binary-post-install/gdm::
 	# move custom.conf to the examples
 	mkdir -p debian/gdm/usr/share/doc/gdm/examples
 	mv debian/gdm/etc/gdm/custom.conf debian/gdm/usr/share/doc/gdm/examples
+	mv debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchApplet.server debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchAppletGdm.server
 

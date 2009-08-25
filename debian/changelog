@@ -1,5 +1,6 @@
 gdm (2.27.90-0ubuntu1) UNRELEASED; urgency=low
 
+  [ Robert Ancell ]
   * New upstream release: (LP: #418426)
     - Autostart polkit-gnome authentication agent.
     - Add screen capture sound effect to screenshot tool.
@@ -22,6 +23,12 @@ gdm (2.27.90-0ubuntu1) UNRELEASED; urgency=low
   * debian/patches/09_gdmsetup.patch:
     - Set gdmsetup window title and icon
     - Fix crash when have no default users configured
+
+  [ Ted Gould ]
+   * Add 12_fusa_name_change.patch: Change the Bonobo activation server name
+     of the FUSA applet.
+   * debian/rules: Rename the Bonobo activate server description before
+     installing it. (LP: #410498)
 
  -- Robert Ancell <robert.ancell@canonical.com>  Tue, 25 Aug 2009 14:23:13 +1000
 

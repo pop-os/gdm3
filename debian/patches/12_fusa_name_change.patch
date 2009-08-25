@@ -1,0 +1,42 @@
+diff -ur gdm-2.27.4/gui/user-switch-applet/applet.c gdm-ted/gui/user-switch-applet/applet.c
+--- gdm-2.27.4/gui/user-switch-applet/applet.c	2009-07-20 02:09:09.000000000 +0100
++++ gdm-ted/gui/user-switch-applet/applet.c	2009-08-07 22:29:45.000000000 +0100
+@@ -101,7 +101,7 @@
+                                 const char    *iid,
+                                 gpointer       data);
+ 
+-PANEL_APPLET_BONOBO_FACTORY ("OAFIID:GNOME_FastUserSwitchApplet_Factory",
++PANEL_APPLET_BONOBO_FACTORY ("OAFIID:GNOME_FastUserSwitchAppletGdm_Factory",
+                              PANEL_TYPE_APPLET,
+                              "gdm-user-switch-applet", "0",
+                              (PanelAppletFactoryCallback)applet_factory,
+@@ -1619,7 +1619,7 @@
+ {
+         gboolean ret;
+         ret = FALSE;
+-        if (strcmp (iid, "OAFIID:GNOME_FastUserSwitchApplet") == 0) {
++        if (strcmp (iid, "OAFIID:GNOME_FastUserSwitchAppletGdm") == 0) {
+                 ret = fill_applet (applet);
+         }
+         return ret;
+diff -ur gdm-2.27.4/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in gdm-ted/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in
+--- gdm-2.27.4/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2009-05-19 16:18:12.000000000 +0100
++++ gdm-ted/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2009-08-07 22:28:29.000000000 +0100
+@@ -1,5 +1,5 @@
+ <oaf_info>
+-  <oaf_server iid="OAFIID:GNOME_FastUserSwitchApplet_Factory" type="exe"
++  <oaf_server iid="OAFIID:GNOME_FastUserSwitchAppletGdm_Factory" type="exe"
+               location="@LIBEXECDIR@/gdm-user-switch-applet">
+ 
+     <oaf_attribute name="repo_ids" type="stringv">
+@@ -18,8 +18,8 @@
+     </oaf_attribute>
+   </oaf_server>
+ 
+-  <oaf_server iid="OAFIID:GNOME_FastUserSwitchApplet" type="factory"
+-              location="OAFIID:GNOME_FastUserSwitchApplet_Factory">
++  <oaf_server iid="OAFIID:GNOME_FastUserSwitchAppletGdm" type="factory"
++              location="OAFIID:GNOME_FastUserSwitchAppletGdm_Factory">
+ 
+     <oaf_attribute name="repo_ids" type="stringv">
+       <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
