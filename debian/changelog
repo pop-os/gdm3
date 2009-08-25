@@ -1,4 +1,4 @@
-gdm (2.27.90-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.27.90-0ubuntu1) karmic; urgency=low
 
   [ Robert Ancell ]
   * New upstream release: (LP: #418426)
@@ -30,7 +30,7 @@ gdm (2.27.90-0ubuntu1) UNRELEASED; urgency=low
    * debian/rules: Rename the Bonobo activate server description before
      installing it. (LP: #410498)
 
- -- Robert Ancell <robert.ancell@canonical.com>  Tue, 25 Aug 2009 14:23:13 +1000
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 25 Aug 2009 15:32:13 +0200
 
 gdm (2.27.4-0ubuntu11) karmic; urgency=low
 
