@@ -24,6 +24,7 @@ Build-Depends: cdbs,
 	       libxinerama-dev, 
 	       libxklavier-dev,
 	       libpolkit-gobject-1-dev,
+	       libcanberra-gtk-dev (>= 0.4),
 	       libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
 	       iso-codes
 Standards-Version: 3.8.1

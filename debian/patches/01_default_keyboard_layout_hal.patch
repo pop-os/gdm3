@@ -1,9 +1,10 @@
 # Description: Get default keyboard layout from hal
 # Ubuntu: https://bugs.launchpad.net/bugs/395103
 # Fedora: http://cvs.fedoraproject.org/viewvc//devel/gdm/gdm-system-keyboard.patch?view=markup
---- gdm-2.27.4/configure.ac	2009-07-20 04:17:17.000000000 +0200
-+++ gdm-2.27.4.new/configure.ac	2009-07-20 11:36:04.520478449 +0200
-@@ -68,6 +68,7 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure.ac
+--- gdm-2.27.90/configure.ac	2009-08-25 06:47:32.000000000 +1000
++++ gdm-2.27.90.new/configure.ac	2009-08-25 14:34:38.000000000 +1000
+@@ -69,6 +69,7 @@
  PKG_CHECK_MODULES(DAEMON,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gobject-2.0 >= $GLIB_REQUIRED_VERSION
@@ -11,9 +12,9 @@
  )
  AC_SUBST(DAEMON_CFLAGS)
  AC_SUBST(DAEMON_LIBS)
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/gdm-session-direct.c gdm-2.27.4.new/daemon/gdm-session-direct.c
---- gdm-2.27.4/daemon/gdm-session-direct.c	2009-07-20 03:09:09.000000000 +0200
-+++ gdm-2.27.4.new/daemon/gdm-session-direct.c	2009-07-20 11:36:04.524498024 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/daemon/gdm-session-direct.c gdm-2.27.90.new/daemon/gdm-session-direct.c
+--- gdm-2.27.90/daemon/gdm-session-direct.c	2009-08-25 05:31:18.000000000 +1000
++++ gdm-2.27.90.new/daemon/gdm-session-direct.c	2009-08-25 14:34:38.000000000 +1000
 @@ -45,6 +45,8 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>

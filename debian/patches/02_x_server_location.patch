@@ -1,8 +1,9 @@
 # Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=588848
---- gdm-2.26.1+git20090717/configure	2009-07-17 09:35:54.000000000 +0200
-+++ gdm-2.26.1+git20090717.new/configure	2009-07-17 09:59:41.276952165 +0200
-@@ -31257,9 +31257,9 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
+--- gdm-2.27.90/configure	2009-08-25 07:07:12.000000000 +1000
++++ gdm-2.27.90.new/configure	2009-08-25 14:34:49.000000000 +1000
+@@ -34484,9 +34484,9 @@
  else
     # what to do, what to do, this is wrong, but this just sets the
     # defaults, perhaps this user is cross compiling or some such
@@ -15,10 +16,10 @@
     X_CONFIG_OPTIONS="-audit 0"
  fi
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.26.1+git20090717/configure.ac gdm-2.26.1+git20090717.new/configure.ac
---- gdm-2.26.1+git20090717/configure.ac	2009-07-17 09:34:50.000000000 +0200
-+++ gdm-2.26.1+git20090717.new/configure.ac	2009-07-17 09:59:21.068953307 +0200
-@@ -1109,9 +1109,9 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure.ac
+--- gdm-2.27.90/configure.ac	2009-08-25 14:34:48.000000000 +1000
++++ gdm-2.27.90.new/configure.ac	2009-08-25 14:34:49.000000000 +1000
+@@ -1129,9 +1129,9 @@
  else
     # what to do, what to do, this is wrong, but this just sets the
     # defaults, perhaps this user is cross compiling or some such
