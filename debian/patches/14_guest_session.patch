@@ -1,0 +1,273 @@
+# Description: Add a new D-Bus operation StartGuestSession().
+#  If setup/teardown scripts are available in
+#  /usr/share/gdm/guest-session/ (shipped by separate gdm-guest-user
+#  package), run a guest session without requiring a password. 
+#  Guest sessions call /usr/share/gdm/guest-session/Xsession instead of
+#  /etc/gdm/Xsession, so that we can wrap AppArmor (or other MAC
+#  system) rules around it.
+# Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
+
+diff -ur gdm-2.27.90/daemon/gdm-local-display-factory.c /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.c
+--- gdm-2.27.90/daemon/gdm-local-display-factory.c	2009-08-24 21:31:18.000000000 +0200
++++ /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.c	2009-09-07 17:59:17.819967929 +0200
+@@ -22,6 +22,7 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <errno.h>
+ 
+ #include <glib.h>
+ #include <glib/gi18n.h>
+@@ -234,6 +235,213 @@
+         return ret;
+ }
+ 
++/* GdmGuestDisplay */
++
++typedef struct
++{
++        GdmTransientDisplayClass   parent_class;
++} GdmGuestDisplayClass;
++
++typedef struct
++{
++        GdmTransientDisplay        parent;
++        GdmTransientDisplayPrivate *priv;
++} GdmGuestDisplay;
++
++#define GDM_TYPE_GUEST_DISPLAY         (gdm_guest_display_get_type ())
++#define GDM_GUEST_DISPLAY_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GDM_TYPE_GUEST_DISPLAY, GdmGuestDisplayClass))
++GType           gdm_guest_display_get_type     (void);
++static void     gdm_guest_display_class_init   (GdmGuestDisplayClass *klass);
++static void     gdm_guest_display_init         (GdmGuestDisplay      *display) {}
++GdmDisplay *    gdm_guest_display_new          (int display_number);
++static gboolean gdm_guest_display_finish       (GdmDisplay           *display);
++
++G_DEFINE_TYPE (GdmGuestDisplay, gdm_guest_display, GDM_TYPE_TRANSIENT_DISPLAY);
++
++/* override timed_login_details for guest session */
++static void
++gdm_guest_display_get_timed_login_details (GdmDisplay *display,
++                                           gboolean   *enabledp,
++                                           char      **usernamep,
++                                           int        *delayp)
++{
++	g_debug ("GdmLocalDisplayFactory: Getting guest timed login details");
++	*enabledp = TRUE;
++	*usernamep = g_strdup("guest");
++	*delayp = 0;
++}
++
++static void
++gdm_guest_display_class_init (GdmGuestDisplayClass *klass)
++{
++        GdmDisplayClass *display_class = GDM_DISPLAY_CLASS (klass);
++
++        display_class->get_timed_login_details = gdm_guest_display_get_timed_login_details;
++        display_class->finish = gdm_guest_display_finish;
++}
++
++GdmDisplay *
++gdm_guest_display_new (int display_number)
++{
++        GObject *object;
++        char    *x11_display;
++
++        x11_display = g_strdup_printf (":%d", display_number);
++        object = g_object_new (GDM_TYPE_GUEST_DISPLAY,
++                               "x11-display-number", display_number,
++                               "x11-display-name", x11_display,
++                               NULL);
++        g_free (x11_display);
++
++        return GDM_DISPLAY (object);
++}
++
++static
++gboolean
++gdm_guest_display_finish (GdmDisplay *display)
++{
++	GError *err = NULL;
++	gboolean result;
++	gint status;
++	struct sigaction dfl, old_act;
++	const char* argv[] = {
++	    "/usr/share/gdm/guest-session/guest-session-cleanup.sh",
++	    "guest", NULL};
++
++	/* temporarily reset SIGCHLD, we need it for g_spawn_sync */
++	dfl.sa_handler = SIG_DFL;
++	dfl.sa_flags = SA_RESTART|SA_NOCLDSTOP;
++	sigemptyset (&dfl.sa_mask);
++	g_assert (sigaction (SIGCHLD, &dfl, &old_act) == 0);
++
++	/* destroy guest user again */
++	result = g_spawn_sync ("/", (gchar**) argv, NULL, 0, NULL, NULL, NULL,
++	    NULL, &status, &err);
++
++	g_assert (sigaction (SIGCHLD, &old_act, NULL) == 0);
++
++	if (!result) {
++	    g_warning ("gdm_guest_display_finish: Calling '%s %s' failed: %s", argv[0],
++	        argv[1], err->message);
++	    g_error_free (err);
++	}
++
++        return GDM_DISPLAY_CLASS (gdm_guest_display_parent_class)->finish (display);
++}
++
++/* End GdmGuestDisplay */
++
++static gboolean
++gdm_local_display_factory_setup_guest_account ()
++{
++	GError *err = NULL;
++	gboolean result;
++	gchar *sout, *serr;
++	char *username;
++	gint status;
++	int len;
++	struct sigaction dfl, old_act;
++	const char* argv[] = {
++	    "/usr/share/gdm/guest-session/guest-session-setup.sh",
++	    NULL, NULL}; /* leave enough room for one argument */
++	
++	g_debug ("gdm_local_display_factory_setup_guest_account: Calling guest-session-setup.sh");
++	
++	/* temporarily reset SIGCHLD, we need it for g_spawn_sync */
++	dfl.sa_handler = SIG_DFL;
++	dfl.sa_flags = SA_RESTART|SA_NOCLDSTOP;
++	sigemptyset (&dfl.sa_mask);
++	if (sigaction (SIGCHLD, &dfl, &old_act) < 0) {
++	    g_warning("gdm_local_display_factory_setup_guest_account: failure to temporarily restore SIGCHLD: %s",
++	        strerror(errno));
++	    return FALSE;
++	}
++	
++	/* call guest setup script */
++	result = g_spawn_sync ("/", (gchar**) argv, NULL, 0, NULL, NULL, &sout,
++	    &serr, &status, &err);
++	g_assert (sigaction (SIGCHLD, &old_act, NULL) == 0);
++	if (!result) {
++	    g_warning ("gdm_local_display_factory_setup_guest_account: Calling %s failed: %s", argv[0],
++	        err->message);
++	    g_error_free (err);
++	    return FALSE;
++	}
++	if (status != 0) {
++	    g_warning ("gdm_local_display_factory_setup_guest_account: %s failed with status %i:\n%s\n%s",
++	        argv[0], status, sout, serr);
++	    g_free(sout);
++	    g_free(serr);
++	    return FALSE;
++	}
++	g_free (serr);
++	
++	/* extract user name from stdout */
++	len = strlen (sout);
++	if (sout[len-1] == '\n')
++	    sout[len-1] = 0;
++	username = strrchr (sout, '\n');
++	if (!username || strcmp (username + 1, "guest")) {
++	    g_warning ("gdm_local_display_factory_setup_guest_account: no output, last line of stdout must have username; or username is not 'guest'");
++	    g_free (sout);
++	    return FALSE;
++	}
++	g_debug ("gdm_local_display_factory_setup_guest_account: %s succeeded, username: '%s'", argv[0], username+1);
++	/* if we ever need to pass it to outside: */
++	/* username = g_strdup (username + 1); */
++	g_free (sout);
++	
++	return TRUE;
++}
++
++gboolean
++gdm_local_display_factory_start_guest_session (GdmLocalDisplayFactory *factory,
++                                               char                  **id,
++                                               GError                **error)
++{
++        gboolean         ret;
++        GdmDisplay      *display = NULL;
++        guint32          num;
++
++        g_return_val_if_fail (GDM_IS_LOCAL_DISPLAY_FACTORY (factory), FALSE);
++
++        ret = FALSE;
++
++	if (!gdm_local_display_factory_setup_guest_account()) {
++		goto out;
++	}
++
++        num = take_next_display_number (factory);
++
++        g_debug ("GdmLocalDisplayFactory: Starting Guest Session %d", num);
++
++        display = gdm_guest_display_new (num);
++
++        /* FIXME: don't hardcode seat1? */
++        g_object_set (display, "seat-id", CK_SEAT1_PATH, NULL);
++
++        store_display (factory, num, display);
++
++        if (! gdm_display_manage (display)) {
++                display = NULL;
++                goto out;
++        }
++
++        if (! gdm_display_get_id (display, id, NULL)) {
++                display = NULL;
++                goto out;
++        }
++
++        ret = TRUE;
++
++ out:
++        /* ref either held by store or not at all */
++	if (display != NULL)
++		g_object_unref (display);
++
++        return ret;
++}
++
+ gboolean
+ gdm_local_display_factory_create_product_display (GdmLocalDisplayFactory *factory,
+                                                   const char             *parent_display_id,
+diff -ur gdm-2.27.90/daemon/gdm-local-display-factory.h /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.h
+--- gdm-2.27.90/daemon/gdm-local-display-factory.h	2009-08-24 21:31:18.000000000 +0200
++++ /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.h	2009-09-07 17:59:17.819967929 +0200
+@@ -65,6 +65,10 @@
+                                                                                char                  **id,
+                                                                                GError                **error);
+ 
++gboolean                   gdm_local_display_factory_start_guest_session       (GdmLocalDisplayFactory *factory,
++                                                                               char                  **id,
++                                                                               GError                **error);
++
+ gboolean                   gdm_local_display_factory_create_product_display   (GdmLocalDisplayFactory *factory,
+                                                                                const char             *parent_display_id,
+                                                                                const char             *relay_address,
+diff -ur gdm-2.27.90/daemon/gdm-local-display-factory.xml /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.xml
+--- gdm-2.27.90/daemon/gdm-local-display-factory.xml	2009-08-24 21:31:18.000000000 +0200
++++ /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.xml	2009-09-07 17:59:17.819967929 +0200
+@@ -9,5 +9,8 @@
+     <method name="CreateTransientDisplay">
+       <arg name="id" direction="out" type="o"/>
+     </method>
++    <method name="StartGuestSession">
++      <arg name="id" direction="out" type="o"/>
++    </method>
+   </interface>
+ </node>
+diff -ur gdm-2.27.90/data/gdm.conf.in /tmp/gdm-2.27.90/data/gdm.conf.in
+--- gdm-2.27.90/data/gdm.conf.in	2009-09-07 17:59:50.000000000 +0200
++++ /tmp/gdm-2.27.90/data/gdm.conf.in	2009-09-07 17:59:17.775968269 +0200
+@@ -68,6 +68,9 @@
+     <allow send_destination="org.gnome.DisplayManager"
+            send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
+            send_member="CreateTransientDisplay"/>
++    <allow send_destination="org.gnome.DisplayManager"
++           send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
++           send_member="StartGuestSession"/>
+ 
+     <allow send_destination="org.gnome.DisplayManager"
+            send_interface="org.gnome.DisplayManager.Manager"
