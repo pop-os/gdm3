@@ -1,3 +1,10 @@
+gdm (2.27.90-0ubuntu2) UNRELEASED; urgency=low
+
+  * debian/patches/13_cache_ck_history.patch:
+    - Cache result of ck-history to make startup fast (LP: #400863)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Mon, 07 Sep 2009 14:45:37 +1000
+
 gdm (2.27.90-0ubuntu1) karmic; urgency=low
 
   [ Robert Ancell ]

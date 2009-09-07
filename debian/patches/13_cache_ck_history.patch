@@ -1,0 +1,129 @@
+#
+# Ubuntu: https://bugs.edge.launchpad.net/ubuntu/karmic/+source/gdm/+bug/400863
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=594344
+# Description: Cache the result of ck-history so greeter shows user list immediately after login
+#
+
+From b5e49650c6f6cf66fdbffe7e160152f9ed1eded3 Mon Sep 17 00:00:00 2001
+From: Robert Ancell <robert.ancell@canonical.com>
+Date: Mon, 7 Sep 2009 14:44:41 +1000
+Subject: [PATCH] Add cache for ck-history call to improve startup time (Bug #594344)
+
+---
+ gui/simple-greeter/Makefile.am        |    1 +
+ gui/simple-greeter/gdm-user-manager.c |   57 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 57 insertions(+), 1 deletions(-)
+
+diff --git a/gui/simple-greeter/Makefile.am b/gui/simple-greeter/Makefile.am
+index b36aa28..901a71b 100644
+--- a/gui/simple-greeter/Makefile.am
++++ b/gui/simple-greeter/Makefile.am
+@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
+ 	-DDMCONFDIR=\""$(dmconfdir)"\"			\
+ 	-DGDMCONFDIR=\"$(gdmconfdir)\"                  \
+ 	-DDATADIR=\""$(datadir)"\"		 	\
++	-DCACHEDIR=\""$(GDM_WORKING_DIR)/.cache"\"	 	\
+ 	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
+ 	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\"	\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
+diff --git a/gui/simple-greeter/gdm-user-manager.c b/gui/simple-greeter/gdm-user-manager.c
+index 6c91b3b..3fb8423 100644
+--- a/gui/simple-greeter/gdm-user-manager.c
++++ b/gui/simple-greeter/gdm-user-manager.c
+@@ -99,6 +99,8 @@
+                                   "pcap",       \
+                                   NULL }
+ 
++#define LOGIN_CACHE_FILE CACHEDIR "/login_frequency.cache"
++
+ struct GdmUserManagerPrivate
+ {
+         GHashTable            *users;
+@@ -116,6 +118,8 @@ struct GdmUserManagerPrivate
+         guint                  ck_history_id;
+ 
+         guint8                 users_dirty : 1;
++        guint8                 loaded_cache : 1;
++        guint8                 loading_users : 1;    
+ };
+ 
+ enum {
+@@ -1274,7 +1278,30 @@ ck_history_watch (GIOChannel     *source,
+         }
+ 
+         if (done) {
+-                g_signal_emit (G_OBJECT (manager), signals[USERS_LOADED], 0);
++                FILE *fp;
++
++                /* Cache login counts */
++                fp = fopen (LOGIN_CACHE_FILE, "w");
++                if (fp != NULL) {
++                        GHashTableIter iter;
++                        gpointer value;
++
++                        g_hash_table_iter_init (&iter, manager->priv->users);
++                        while (g_hash_table_iter_next (&iter, NULL, &value)) {
++                                GdmUser *user = (GdmUser *) value;
++                                fprintf (fp, "%s %lu\n",
++                                         gdm_user_get_user_name (user),
++                                         gdm_user_get_login_frequency (user));
++                        }
++                        fclose (fp);
++                }
++                else
++                        g_warning ("Unable to write to login cache file: %s", LOGIN_CACHE_FILE);
++
++                if (manager->priv->loading_users) {
++                        g_signal_emit (G_OBJECT (manager), signals[USERS_LOADED], 0);
++                        manager->priv->loading_users = FALSE;
++                }
+ 
+                 manager->priv->ck_history_id = 0;
+                 return FALSE;
+@@ -1472,8 +1499,35 @@ reload_passwd (GdmUserManager *manager)
+ }
+ 
+ static void
++load_login_frequency_cache (GdmUserManager *manager)
++{
++        GIOChannel *channel;
++        gchar *line;
++
++        channel = g_io_channel_new_file (LOGIN_CACHE_FILE, "r", NULL);
++        if (channel == NULL)
++                return;
++
++        while (g_io_channel_read_line (channel, &line, NULL, NULL, NULL) == G_IO_STATUS_NORMAL) {
++                process_ck_history_line (manager, line);
++                g_free (line);
++        }
++    
++        g_io_channel_close (channel);
++    
++        if (manager->priv->loading_users) {
++                g_signal_emit (G_OBJECT (manager), signals[USERS_LOADED], 0);
++                manager->priv->loading_users = FALSE;
++        }    
++}
++
++static void
+ reload_users (GdmUserManager *manager)
+ {
++        if (!manager->priv->loaded_cache) {
++                load_login_frequency_cache (manager);
++                manager->priv->loaded_cache = TRUE;
++        }
+         reload_ck_history (manager);
+         reload_passwd (manager);
+ }
+@@ -1495,6 +1549,7 @@ queue_reload_users (GdmUserManager *manager)
+         }
+ 
+         g_signal_emit (G_OBJECT (manager), signals[LOADING_USERS], 0);
++        manager->priv->loading_users = TRUE;
+         manager->priv->reload_id = g_idle_add ((GSourceFunc)reload_users_timeout, manager);
+ }
+ 
+-- 
+1.6.3.3
+

@@ -1,6 +1,6 @@
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
 --- gdm-2.27.90/aclocal.m4	2009-08-25 07:07:05.000000000 +1000
-+++ gdm-2.27.90.new/aclocal.m4	2009-08-25 14:38:52.000000000 +1000
++++ gdm-2.27.90.new/aclocal.m4	2009-09-07 15:43:04.000000000 +1000
 @@ -1,7 +1,7 @@
 -# generated automatically by aclocal 1.10 -*- Autoconf -*-
 +# generated automatically by aclocal 1.11 -*- Autoconf -*-
@@ -11,7 +11,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  # This file is free software; the Free Software Foundation
  # gives unlimited permission to copy and/or distribute it,
  # with or without modifications, as long as this notice is preserved.
-@@ -11,1679 +11,1584 @@
+@@ -11,1679 +11,1587 @@
  # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
  # PARTICULAR PURPOSE.
  
@@ -1091,13 +1091,16 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
 -  AC_SUBST(MAINT)dnl
 -]
 -)
++AC_MSG_CHECKING([gnome-doc-utils >= $gdu_cv_version_required])
 +PKG_CHECK_EXISTS([gnome-doc-utils >= $gdu_cv_version_required],
 +	[gdu_cv_have_gdu=yes],[gdu_cv_have_gdu=no])
  
 -AU_DEFUN([jm_MAINTAINER_MODE], [AM_MAINTAINER_MODE])
 +if test "$gdu_cv_have_gdu" = "yes"; then
++	AC_MSG_RESULT([yes])
 +	ifelse([$2],,[:],[$2])
 +else
++	AC_MSG_RESULT([no])
 +	ifelse([$3],,[AC_MSG_ERROR([gnome-doc-utils >= $gdu_cv_version_required not found])],[$3])
 +fi
  
@@ -3089,7 +3092,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  # If no C compiler was specified, use CC.
  LTCC=${LTCC-"$CC"}
  
-@@ -1692,35 +1597,20 @@
+@@ -1692,35 +1600,20 @@
  
  # Allow CC to be a program name with arguments.
  compiler=$CC
@@ -3131,7 +3134,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  ])# _LT_COMPILER_BOILERPLATE
  
  
-@@ -1728,70 +1618,203 @@
+@@ -1728,70 +1621,203 @@
  # ----------------------
  # Check for linker boilerplate output or warnings with
  # the simple link test code.
@@ -3361,7 +3364,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    :
  else
    # Restart under the correct shell.
-@@ -1801,9 +1824,9 @@
+@@ -1801,9 +1827,9 @@
  if test "X[$]1" = X--fallback-echo; then
    # used as fallback echo
    shift
@@ -3373,7 +3376,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    exit 0
  fi
  
-@@ -1811,124 +1834,127 @@
+@@ -1811,124 +1837,127 @@
  # if CDPATH is set.
  (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
  
@@ -3600,7 +3603,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  test "x$enable_libtool_lock" != xno && enable_libtool_lock=yes
  
  # Some flags need to be propagated to the compiler or linker for good
-@@ -1939,12 +1965,12 @@
+@@ -1939,12 +1968,12 @@
    echo 'int i;' > conftest.$ac_ext
    if AC_TRY_EVAL(ac_compile); then
      case `/usr/bin/file conftest.$ac_objext` in
@@ -3619,7 +3622,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      esac
    fi
    rm -rf conftest*
-@@ -1953,72 +1979,79 @@
+@@ -1953,72 +1982,79 @@
    # Find out which ABI we are using.
    echo '[#]line __oline__ "configure"' > conftest.$ac_ext
    if AC_TRY_EVAL(ac_compile); then
@@ -3757,7 +3760,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      esac
    fi
    rm -rf conftest*
-@@ -2030,7 +2063,7 @@
+@@ -2030,7 +2066,7 @@
    CFLAGS="$CFLAGS -belf"
    AC_CACHE_CHECK([whether the C compiler needs -belf], lt_cv_cc_needs_belf,
      [AC_LANG_PUSH(C)
@@ -3766,7 +3769,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
       AC_LANG_POP])
    if test x"$lt_cv_cc_needs_belf" != x"yes"; then
      # this is probably gcc 2.8.0, egcs 1.0 or newer; no need for -belf
-@@ -2045,38 +2078,75 @@
+@@ -2045,38 +2081,75 @@
      *64-bit*)
        case $lt_cv_prog_gnu_ld in
        yes*) LD="${LD-ld} -m elf64_sparc" ;;
@@ -3859,7 +3862,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
     lt_compiler_flag="$3"
     # Insert the option either (1) after the last *FLAGS variable, or
     # (2) before a word containing "conftest.", or (3) at the end.
-@@ -2095,40 +2165,47 @@
+@@ -2095,40 +2168,47 @@
     if (exit $ac_status) && test -s "$ac_outfile"; then
       # The compiler can only warn and ignore the option if not recognized
       # So say no if there are warnings other than the usual output.
@@ -3921,7 +3924,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
         $SED '/^$/d; /^ *+/d' conftest.err >conftest.er2
         if diff conftest.exp conftest.er2 >/dev/null; then
           $2=yes
-@@ -2137,22 +2214,28 @@
+@@ -2137,22 +2217,28 @@
         $2=yes
       fi
     fi
@@ -3958,7 +3961,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  AC_MSG_CHECKING([the maximum length of command line arguments])
  AC_CACHE_VAL([lt_cv_sys_max_cmd_len], [dnl
    i=0
-@@ -2174,7 +2257,7 @@
+@@ -2174,7 +2260,7 @@
      lt_cv_sys_max_cmd_len=-1;
      ;;
  
@@ -3967,7 +3970,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      # On Win9x/ME, this test blows up -- it succeeds, but takes
      # about 5 minutes as the teststring grows exponentially.
      # Worse, since 9x/ME are not pre-emptively multitasking,
-@@ -2229,30 +2312,41 @@
+@@ -2229,30 +2315,41 @@
    sysv5* | sco5v6* | sysv4.2uw2*)
      kargmax=`grep ARG_MAX /etc/conf/cf.d/stune 2>/dev/null`
      if test -n "$kargmax"; then
@@ -4028,7 +4031,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      ;;
    esac
  ])
-@@ -2261,27 +2355,35 @@
+@@ -2261,27 +2358,35 @@
  else
    AC_MSG_RESULT(none)
  fi
@@ -4076,7 +4079,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  [#line __oline__ "configure"
  #include "confdefs.h"
  
-@@ -2323,10 +2425,6 @@
+@@ -2323,10 +2428,6 @@
  #  endif
  #endif
  
@@ -4087,7 +4090,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  void fnord() { int i=42;}
  int main ()
  {
-@@ -2342,9 +2440,9 @@
+@@ -2342,9 +2443,9 @@
    else
      puts (dlerror ());
  
@@ -4099,7 +4102,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    if AC_TRY_EVAL(ac_link) && test -s conftest${ac_exeext} 2>/dev/null; then
      (./conftest; exit; ) >&AS_MESSAGE_LOG_FD 2>/dev/null
      lt_status=$?
-@@ -2359,13 +2457,13 @@
+@@ -2359,13 +2460,13 @@
    fi
  fi
  rm -fr conftest*
@@ -4118,7 +4121,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  if test "x$enable_dlopen" != xyes; then
    enable_dlopen=unknown
    enable_dlopen_self=unknown
-@@ -2381,15 +2479,15 @@
+@@ -2381,15 +2482,15 @@
      lt_cv_dlopen_self=yes
      ;;
  
@@ -4137,7 +4140,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  
    darwin*)
    # if libdl is installed we need to link against it
-@@ -2399,13 +2497,13 @@
+@@ -2399,13 +2500,13 @@
      lt_cv_dlopen_libs=
      lt_cv_dlopen_self=yes
      ])
@@ -4153,7 +4156,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  	[AC_CHECK_FUNC([dlopen],
  	      [lt_cv_dlopen="dlopen"],
  	  [AC_CHECK_LIB([dl], [dlopen],
-@@ -2413,7 +2511,7 @@
+@@ -2413,7 +2514,7 @@
  	    [AC_CHECK_LIB([svld], [dlopen],
  		  [lt_cv_dlopen="dlopen" lt_cv_dlopen_libs="-lsvld"],
  	      [AC_CHECK_LIB([dld], [dld_link],
@@ -4162,7 +4165,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  	      ])
  	    ])
  	  ])
-@@ -2441,7 +2539,7 @@
+@@ -2441,7 +2542,7 @@
  
      AC_CACHE_CHECK([whether a program can dlopen itself],
  	  lt_cv_dlopen_self, [dnl
@@ -4171,7 +4174,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  	    lt_cv_dlopen_self=yes, lt_cv_dlopen_self=yes,
  	    lt_cv_dlopen_self=no, lt_cv_dlopen_self=cross)
      ])
-@@ -2449,8 +2547,8 @@
+@@ -2449,8 +2550,8 @@
      if test "x$lt_cv_dlopen_self" = xyes; then
        wl=$lt_prog_compiler_wl eval LDFLAGS=\"\$LDFLAGS $lt_prog_compiler_static\"
        AC_CACHE_CHECK([whether a statically linked program can dlopen itself],
@@ -4182,7 +4185,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  	    lt_cv_dlopen_self_static=yes, lt_cv_dlopen_self_static=yes,
  	    lt_cv_dlopen_self_static=no,  lt_cv_dlopen_self_static=cross)
        ])
-@@ -2472,22 +2570,36 @@
+@@ -2472,22 +2573,36 @@
    *) enable_dlopen_self_static=unknown ;;
    esac
  fi
@@ -4229,7 +4232,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  
     lt_compiler_flag="-o out/conftest2.$ac_objext"
     # Insert the option either (1) after the last *FLAGS variable, or
-@@ -2507,37 +2619,41 @@
+@@ -2507,37 +2622,41 @@
     then
       # The compiler can only warn and ignore the option if not recognized
       # So say no if there are warnings
@@ -4285,7 +4288,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    ln conftest.a conftest.b 2>/dev/null && hard_links=no
    touch conftest.a
    ln conftest.a conftest.b 2>&5 || hard_links=no
-@@ -2550,12 +2666,13 @@
+@@ -2550,12 +2669,13 @@
  else
    need_locks=no
  fi
@@ -4303,7 +4306,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  [AC_CACHE_CHECK([for objdir], [lt_cv_objdir],
  [rm -f .libs 2>/dev/null
  mkdir .libs 2>/dev/null
-@@ -2567,40 +2684,46 @@
+@@ -2567,40 +2687,46 @@
  fi
  rmdir .libs 2>/dev/null])
  objdir=$lt_cv_objdir
@@ -4367,7 +4370,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    # Fast installation is not supported
    enable_fast_install=no
  elif test "$shlibpath_overrides_runpath" = yes ||
-@@ -2608,43 +2731,107 @@
+@@ -2608,43 +2734,107 @@
    # Fast installation is not necessary
    enable_fast_install=needless
  fi
@@ -4495,7 +4498,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  library_names_spec=
  libname_spec='lib$name'
  soname_spec=
-@@ -2658,20 +2845,6 @@
+@@ -2658,20 +2848,6 @@
  version_type=none
  dynamic_linker="$host_os ld.so"
  sys_lib_dlsearch_path_spec="/lib /usr/lib"
@@ -4516,7 +4519,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  need_lib_prefix=unknown
  hardcode_into_libs=no
  
-@@ -2689,7 +2862,7 @@
+@@ -2689,7 +2865,7 @@
    soname_spec='${libname}${release}${shared_ext}$major'
    ;;
  
@@ -4525,7 +4528,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    version_type=linux
    need_lib_prefix=no
    need_version=no
-@@ -2708,7 +2881,7 @@
+@@ -2708,7 +2884,7 @@
        aix4 | aix4.[[01]] | aix4.[[01]].*)
        if { echo '#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 97)'
  	   echo ' yes '
@@ -4534,7 +4537,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  	:
        else
  	can_build_shared=no
-@@ -2734,9 +2907,18 @@
+@@ -2734,9 +2910,18 @@
    ;;
  
  amigaos*)
@@ -4556,7 +4559,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    ;;
  
  beos*)
-@@ -2759,25 +2941,28 @@
+@@ -2759,25 +2944,28 @@
    # libtool to hard-code these into programs
    ;;
  
@@ -4590,7 +4593,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      shlibpath_overrides_runpath=yes
  
      case $host_os in
-@@ -2786,20 +2971,20 @@
+@@ -2786,20 +2974,20 @@
        soname_spec='`echo ${libname} | sed -e 's/^lib/cyg/'``echo ${release} | $SED -e 's/[[.]]/-/g'`${versuffix}${shared_ext}'
        sys_lib_search_path_spec="/usr/lib /lib/w32api /lib /usr/local/lib"
        ;;
@@ -4616,7 +4619,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
        fi
        ;;
      pw32*)
-@@ -2823,17 +3008,13 @@
+@@ -2823,17 +3011,13 @@
    version_type=darwin
    need_lib_prefix=no
    need_version=no
@@ -4637,7 +4640,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    sys_lib_dlsearch_path_spec='/usr/local/lib /lib /usr/lib'
    ;;
  
-@@ -2850,18 +3031,6 @@
+@@ -2850,18 +3034,6 @@
    dynamic_linker=no
    ;;
  
@@ -4656,7 +4659,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  freebsd* | dragonfly*)
    # DragonFly does not have aout.  When/if they implement a new
    # versioning mechanism, adjust this.
-@@ -2899,7 +3068,7 @@
+@@ -2899,7 +3071,7 @@
      shlibpath_overrides_runpath=no
      hardcode_into_libs=yes
      ;;
@@ -4665,7 +4668,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      shlibpath_overrides_runpath=yes
      hardcode_into_libs=yes
      ;;
-@@ -2938,18 +3107,18 @@
+@@ -2938,18 +3110,18 @@
      fi
      sys_lib_dlsearch_path_spec=$sys_lib_search_path_spec
      ;;
@@ -4696,7 +4699,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      shrext_cmds='.sl'
      dynamic_linker="$host_os dld.sl"
      shlibpath_var=SHLIB_PATH
-@@ -2962,7 +3131,7 @@
+@@ -2962,7 +3134,7 @@
    postinstall_cmds='chmod 555 $lib'
    ;;
  
@@ -4705,7 +4708,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    version_type=linux
    need_lib_prefix=no
    need_version=no
-@@ -3017,7 +3186,7 @@
+@@ -3017,7 +3189,7 @@
    ;;
  
  # This must be Linux ELF.
@@ -4714,7 +4717,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    version_type=linux
    need_lib_prefix=no
    need_version=no
-@@ -3026,6 +3195,17 @@
+@@ -3026,6 +3198,17 @@
    finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
    shlibpath_var=LD_LIBRARY_PATH
    shlibpath_overrides_runpath=no
@@ -4732,7 +4735,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    # This implies no fast_install, which is unacceptable.
    # Some rework will be needed to allow for fast_install
    # before this can be enabled.
-@@ -3033,7 +3213,7 @@
+@@ -3033,7 +3216,7 @@
  
    # Append ld.so.conf contents to the search path
    if test -f /etc/ld.so.conf; then
@@ -4741,7 +4744,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
    fi
  
-@@ -3046,7 +3226,7 @@
+@@ -3046,7 +3229,7 @@
    dynamic_linker='GNU/Linux ld.so'
    ;;
  
@@ -4750,7 +4753,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    version_type=linux
    need_lib_prefix=no
    need_version=no
-@@ -3055,14 +3235,14 @@
+@@ -3055,14 +3238,14 @@
    shlibpath_var=LD_LIBRARY_PATH
    shlibpath_overrides_runpath=no
    hardcode_into_libs=yes
@@ -4767,7 +4770,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${shared_ext}$versuffix'
      finish_cmds='PATH="\$PATH:/sbin" ldconfig -m $libdir'
      dynamic_linker='NetBSD (a.out) ld.so'
-@@ -3083,14 +3263,16 @@
+@@ -3083,14 +3266,16 @@
    shlibpath_overrides_runpath=yes
    ;;
  
@@ -4787,7 +4790,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    ;;
  
  openbsd*)
-@@ -3099,13 +3281,13 @@
+@@ -3099,13 +3284,13 @@
    need_lib_prefix=no
    # Some older versions of OpenBSD (3.3 at least) *do* need versioned libs.
    case $host_os in
@@ -4804,7 +4807,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      case $host_os in
        openbsd2.[[89]] | openbsd2.[[89]].*)
  	shlibpath_overrides_runpath=no
-@@ -3139,6 +3321,10 @@
+@@ -3139,6 +3324,10 @@
    sys_lib_dlsearch_path_spec="$sys_lib_search_path_spec"
    ;;
  
@@ -4815,7 +4818,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  solaris*)
    version_type=linux
    need_lib_prefix=no
-@@ -3173,7 +3359,6 @@
+@@ -3173,7 +3362,6 @@
      sni)
        shlibpath_overrides_runpath=no
        need_lib_prefix=no
@@ -4823,7 +4826,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
        runpath_var=LD_RUN_PATH
        ;;
      siemens)
-@@ -3204,13 +3389,12 @@
+@@ -3204,13 +3392,12 @@
    library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext} $libname${shared_ext}'
    soname_spec='${libname}${release}${shared_ext}$major'
    shlibpath_var=LD_LIBRARY_PATH
@@ -4838,7 +4841,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      case $host_os in
        sco3.2v5*)
          sys_lib_search_path_spec="$sys_lib_search_path_spec /lib"
-@@ -3220,6 +3404,17 @@
+@@ -3220,6 +3407,17 @@
    sys_lib_dlsearch_path_spec='/usr/lib'
    ;;
  
@@ -4856,7 +4859,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  uts4*)
    version_type=linux
    library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major $libname${shared_ext}'
-@@ -3238,362 +3433,150 @@
+@@ -3238,362 +3436,150 @@
  if test "$GCC" = yes; then
    variables_saved_for_relink="$variables_saved_for_relink GCC_EXEC_PREFIX COMPILER_PATH LIBRARY_PATH"
  fi
@@ -5345,7 +5348,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  ac_prog=ld
  if test "$GCC" = yes; then
    # Check if gcc -print-prog-name=ld gives a path.
-@@ -3610,9 +3593,9 @@
+@@ -3610,9 +3596,9 @@
      [[\\/]]* | ?:[[\\/]]*)
        re_direlt='/[[^/]][[^/]]*/\.\./'
        # Canonicalize the pathname of ld
@@ -5358,7 +5361,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
        done
        test -z "$LD" && LD="$ac_prog"
        ;;
-@@ -3662,15 +3645,24 @@
+@@ -3662,15 +3648,24 @@
    AC_MSG_RESULT(no)
  fi
  test -z "$LD" && AC_MSG_ERROR([no acceptable ld found in \$PATH])
@@ -5390,7 +5393,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  [# I'd rather use --version here, but apparently some GNU lds only accept -v.
  case `$LD -v 2>&1 </dev/null` in
  *GNU* | *'with BFD'*)
-@@ -3681,14 +3673,14 @@
+@@ -3681,14 +3676,14 @@
    ;;
  esac])
  with_gnu_ld=$lt_cv_prog_gnu_ld
@@ -5409,7 +5412,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  [AC_CACHE_CHECK([for $LD option to reload object files],
    lt_cv_ld_reload_flag,
    [lt_cv_ld_reload_flag='-r'])
-@@ -3707,15 +3699,19 @@
+@@ -3707,15 +3702,19 @@
      fi
      ;;
  esac
@@ -5434,7 +5437,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  lt_cv_deplibs_check_method,
  [lt_cv_file_magic_cmd='$MAGIC_CMD'
  lt_cv_file_magic_test_file=
-@@ -3732,7 +3728,7 @@
+@@ -3732,7 +3731,7 @@
  # whether `pass_all' will *always* work, you probably want this one.
  
  case $host_os in
@@ -5443,7 +5446,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    lt_cv_deplibs_check_method=pass_all
    ;;
  
-@@ -3754,8 +3750,20 @@
+@@ -3754,8 +3753,20 @@
  
  mingw* | pw32*)
    # Base MSYS/MinGW do not provide the 'file' command needed by
@@ -5466,7 +5469,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    lt_cv_file_magic_cmd='$OBJDUMP -f'
    ;;
  
-@@ -3763,8 +3771,8 @@
+@@ -3763,8 +3774,8 @@
    lt_cv_deplibs_check_method=pass_all
    ;;
  
@@ -5477,7 +5480,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      case $host_cpu in
      i*86 )
        # Not sure whether the presence of OpenBSD here was a mistake.
-@@ -3801,7 +3809,7 @@
+@@ -3801,7 +3812,7 @@
    esac
    ;;
  
@@ -5486,7 +5489,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    # PIC code is broken on Interix 3.x, that's why |\.a not |_pic\.a here
    lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so|\.a)$'
    ;;
-@@ -3817,12 +3825,12 @@
+@@ -3817,12 +3828,12 @@
    ;;
  
  # This must be Linux ELF.
@@ -5502,7 +5505,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so\.[[0-9]]+\.[[0-9]]+|_pic\.a)$'
    else
      lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so|_pic\.a)$'
-@@ -3835,12 +3843,12 @@
+@@ -3835,12 +3846,12 @@
    lt_cv_file_magic_test_file=/usr/lib/libnls.so
    ;;
  
@@ -5518,7 +5521,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so\.[[0-9]]+\.[[0-9]]+|\.so|_pic\.a)$'
    else
      lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so\.[[0-9]]+\.[[0-9]]+|_pic\.a)$'
-@@ -3851,10 +3859,18 @@
+@@ -3851,10 +3862,18 @@
    lt_cv_deplibs_check_method=pass_all
    ;;
  
@@ -5537,7 +5540,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  sysv4 | sysv4.3*)
    case $host_vendor in
    motorola)
-@@ -3882,7 +3898,7 @@
+@@ -3882,7 +3901,7 @@
    esac
    ;;
  
@@ -5546,7 +5549,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
    lt_cv_deplibs_check_method=pass_all
    ;;
  esac
-@@ -3890,20 +3906,26 @@
+@@ -3890,20 +3909,26 @@
  file_magic_cmd=$lt_cv_file_magic_cmd
  deplibs_check_method=$lt_cv_deplibs_check_method
  test -z "$deplibs_check_method" && deplibs_check_method=unknown
@@ -5579,7 +5582,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
      lt_nm_to_check="$lt_nm_to_check nm"
    fi
    for lt_tmp_nm in $lt_nm_to_check; do
-@@ -3939,16 +3961,51 @@
+@@ -3939,16 +3964,51 @@
      done
      IFS="$lt_save_ifs"
    done
@@ -5637,7 +5640,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  [AC_REQUIRE([AC_CANONICAL_HOST])dnl
  LIBM=
  case $host in
-@@ -3963,4040 +4020,5901 @@
+@@ -3963,4040 +4023,5901 @@
    AC_CHECK_LIB(m, cos, LIBM="-lm")
    ;;
  esac
@@ -15148,7 +15151,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/aclocal.m4 gdm-2.27.90.new/aclocal.m4
  m4_include([acinclude.m4])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/Makefile.in gdm-2.27.90.new/common/Makefile.in
 --- gdm-2.27.90/common/Makefile.in	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/common/Makefile.in	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/common/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -15816,7 +15819,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/Makefile.in gdm-2.27.90.new/com
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/compile gdm-2.27.90.new/compile
 --- gdm-2.27.90/compile	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/compile	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/compile	2009-09-07 15:43:09.000000000 +1000
 @@ -1,9 +1,10 @@
  #! /bin/sh
  # Wrapper for compilers which do not understand `-c -o'.
@@ -15867,7 +15870,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/compile gdm-2.27.90.new/compile
  # End:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/config.h.in gdm-2.27.90.new/config.h.in
 --- gdm-2.27.90/config.h.in	2009-08-25 07:07:13.000000000 +1000
-+++ gdm-2.27.90.new/config.h.in	2009-08-25 14:38:57.000000000 +1000
++++ gdm-2.27.90.new/config.h.in	2009-09-07 15:43:09.000000000 +1000
 @@ -287,6 +287,10 @@
  /* ISO codes prefix */
  #undef ISO_CODES_PREFIX
@@ -15939,8 +15942,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/config.h.in gdm-2.27.90.new/config.h.i
  /* Compatibility type */
  #undef socklen_t
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
---- gdm-2.27.90/configure	2009-08-25 14:38:34.000000000 +1000
-+++ gdm-2.27.90.new/configure	2009-08-25 14:38:55.000000000 +1000
+--- gdm-2.27.90/configure	2009-09-07 15:42:46.000000000 +1000
++++ gdm-2.27.90.new/configure	2009-09-07 15:43:07.000000000 +1000
 @@ -1,62 +1,83 @@
  #! /bin/sh
  # Guess values for system-dependent variables and create Makefiles.
@@ -49551,7 +49554,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  
  
-@@ -22157,2456 +14904,1151 @@
+@@ -22157,2456 +14904,1157 @@
  
  
  
@@ -52179,6 +52182,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
 -  LDFLAGS=$ac_save_LDFLAGS
 +gdu_cv_version_required=0.3.2
  
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking gnome-doc-utils >= $gdu_cv_version_required" >&5
++$as_echo_n "checking gnome-doc-utils >= $gdu_cv_version_required... " >&6; }
 +if test -n "$PKG_CONFIG" && \
 +    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gnome-doc-utils >= \$gdu_cv_version_required\""; } >&5
 +  ($PKG_CONFIG --exists --print-errors "gnome-doc-utils >= $gdu_cv_version_required") 2>&5
@@ -52202,8 +52207,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
 -	if test "$no_x" = yes; then
 -  # Not all programs may use this symbol, but it does not hurt to define it.
 +if test "$gdu_cv_have_gdu" = "yes"; then
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
 +	:
 +else
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
 +	as_fn_error "gnome-doc-utils >= $gdu_cv_version_required not found" "$LINENO" 5
 +fi
  
@@ -52836,7 +52845,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -24615,88 +16057,36 @@
+@@ -24615,88 +16063,36 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -52942,7 +52951,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -24704,67 +16094,35 @@
+@@ -24704,67 +16100,35 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -53027,7 +53036,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -24773,81 +16131,49 @@
+@@ -24773,81 +16137,49 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -53136,7 +53145,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -24855,67 +16181,35 @@
+@@ -24855,67 +16187,35 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -53221,7 +53230,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -24924,463 +16218,550 @@
+@@ -24924,463 +16224,550 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -54141,7 +54150,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  
-@@ -25393,67 +16774,42 @@
+@@ -25393,67 +16780,42 @@
          _pkg_short_errors_supported=no
  fi
          if test $_pkg_short_errors_supported = yes; then
@@ -54229,7 +54238,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  	:
  fi
  
-@@ -25461,46 +16817,68 @@
+@@ -25461,46 +16823,68 @@
  
  
  pkg_failed=no
@@ -54324,7 +54333,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  
-@@ -25513,67 +16891,54 @@
+@@ -25513,67 +16897,54 @@
          _pkg_short_errors_supported=no
  fi
          if test $_pkg_short_errors_supported = yes; then
@@ -54421,7 +54430,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  	:
  fi
  
-@@ -25581,70 +16946,68 @@
+@@ -25581,70 +16952,68 @@
  
  
  pkg_failed=no
@@ -54538,7 +54547,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  
-@@ -25657,234 +17020,292 @@
+@@ -25657,234 +17026,292 @@
          _pkg_short_errors_supported=no
  fi
          if test $_pkg_short_errors_supported = yes; then
@@ -55007,7 +55016,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  
-@@ -25897,263 +17318,516 @@
+@@ -25897,263 +17324,516 @@
          _pkg_short_errors_supported=no
  fi
          if test $_pkg_short_errors_supported = yes; then
@@ -55726,7 +55735,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
    X_CFLAGS= X_PRE_LIBS= X_LIBS= X_EXTRA_LIBS=
  else
-@@ -26166,16 +17840,12 @@
+@@ -26166,16 +17846,12 @@
      X_LIBS="$X_LIBS -L$x_libraries"
      # For Solaris; some versions of Sun CC require a space after -R and
      # others require no space.  Words are not sufficient . . . .
@@ -55746,7 +55755,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  int
-@@ -26186,37 +17856,13 @@
+@@ -26186,37 +17862,13 @@
    return 0;
  }
  _ACEOF
@@ -55789,7 +55798,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  int
-@@ -26227,41 +17873,19 @@
+@@ -26227,41 +17879,19 @@
    return 0;
  }
  _ACEOF
@@ -55840,7 +55849,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
      ac_c_werror_flag=$ac_xsave_c_werror_flag
      LIBS=$ac_xsave_LIBS
    fi
-@@ -26277,11 +17901,7 @@
+@@ -26277,11 +17907,7 @@
      # libraries were built with DECnet support.  And Karl Berry says
      # the Alpha needs dnet_stub (dnet does not exist).
      ac_xsave_LIBS="$LIBS"; LIBS="$LIBS $X_LIBS -lX11"
@@ -55853,7 +55862,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -26299,41 +17919,17 @@
+@@ -26299,41 +17925,17 @@
    return 0;
  }
  _ACEOF
@@ -55902,7 +55911,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -26351,55 +17947,187 @@
+@@ -26351,55 +17953,187 @@
    return 0;
  }
  _ACEOF
@@ -56130,7 +56139,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -26408,93 +18136,48 @@
+@@ -26408,93 +18142,48 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -56248,7 +56257,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -26502,67 +18185,47 @@
+@@ -26502,67 +18191,47 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -56343,7 +56352,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -26571,64 +18234,50 @@
+@@ -26571,64 +18240,50 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -56437,7 +56446,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -26637,630 +18286,654 @@
+@@ -26637,630 +18292,654 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -57630,7 +57639,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  
-@@ -27273,806 +18946,780 @@
+@@ -27273,806 +18952,780 @@
          _pkg_short_errors_supported=no
  fi
          if test $_pkg_short_errors_supported = yes; then
@@ -59060,7 +59069,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -28080,780 +19727,461 @@
+@@ -28080,780 +19733,461 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -60180,7 +60189,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -28861,74 +20189,53 @@
+@@ -28861,74 +20195,53 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -60284,7 +60293,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -28937,159 +20244,109 @@
+@@ -28937,159 +20250,109 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -60513,7 +60522,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -29098,84 +20355,53 @@
+@@ -29098,84 +20361,53 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -60629,7 +60638,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-@@ -29183,58 +20409,40 @@
+@@ -29183,58 +20415,40 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -60709,7 +60718,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  else
    mkdtemp_missing=true
-@@ -29250,10 +20458,10 @@
+@@ -29250,10 +20464,10 @@
  
  
  
@@ -60723,7 +60732,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
    enableval=$enable_ipv6;
  else
    enable_ipv6=no
-@@ -29261,11 +20469,7 @@
+@@ -29261,11 +20475,7 @@
  
  
  if test x$enable_ipv6 = xyes; then
@@ -60736,7 +60745,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
      #include <sys/types.h>
-@@ -29281,136 +20485,32 @@
+@@ -29281,136 +20491,32 @@
    return 0;
  }
  _ACEOF
@@ -60883,7 +60892,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -29428,146 +20528,42 @@
+@@ -29428,146 +20534,42 @@
    return 0;
  }
  _ACEOF
@@ -61047,7 +61056,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -29585,40 +20581,20 @@
+@@ -29585,40 +20587,20 @@
    return 0;
  }
  _ACEOF
@@ -61097,7 +61106,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
    "LIBS=$LIBS -l$lib";have_inet_ntop=yes;break
  fi
  
-@@ -29629,29 +20605,27 @@
+@@ -29629,29 +20611,27 @@
        if test x$have_inet_ntop = xyes; then
          have_ipv6=yes
  
@@ -61135,7 +61144,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
    withval=$with_user;
  fi
  
-@@ -29672,7 +20646,7 @@
+@@ -29672,7 +20652,7 @@
  withval=""
  
  # Check whether --with-group was given.
@@ -61144,7 +61153,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
    withval=$with_group;
  fi
  
-@@ -29694,10 +20668,10 @@
+@@ -29694,10 +20674,10 @@
  withval=""
  
  # Check whether --with-pam-prefix was given.
@@ -61158,7 +61167,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
               fi
  fi
  
-@@ -29710,18 +20684,14 @@
+@@ -29710,18 +20690,14 @@
  
  
  have_pam=no
@@ -61182,7 +61191,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -29739,211 +20709,52 @@
+@@ -29739,211 +20715,52 @@
    return 0;
  }
  _ACEOF
@@ -61423,7 +61432,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -29961,104 +20772,67 @@
+@@ -29961,104 +20778,67 @@
    return 0;
  }
  _ACEOF
@@ -61551,7 +61560,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  		#ifdef HAVE_USERSEC_H
  		#include <usersec.h>
  		#endif
-@@ -30073,491 +20847,67 @@
+@@ -30073,491 +20853,67 @@
    return 0;
  }
  _ACEOF
@@ -62085,7 +62094,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  fi
  
  done
-@@ -30577,20 +20927,16 @@
+@@ -30577,20 +20933,16 @@
  ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
  ac_compiler_gnu=$ac_cv_c_compiler_gnu
  
@@ -62112,7 +62121,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  #define _POSIX_PTHREAD_SEMANTICS
-@@ -30614,42 +20960,18 @@
+@@ -30614,42 +20966,18 @@
    return 0;
  }
  _ACEOF
@@ -62161,7 +62170,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  ac_ext=c
  ac_cpp='$CPP $CPPFLAGS'
  ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-@@ -30659,21 +20981,15 @@
+@@ -30659,21 +20987,15 @@
  
  if test "$ac_cv_func_posix_getpwnam_r" = yes; then
  
@@ -62189,7 +62198,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #include <pwd.h>
  int
-@@ -30687,304 +21003,60 @@
+@@ -30687,304 +21009,60 @@
    return 0;
  }
  _ACEOF
@@ -62518,7 +62527,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -31002,60 +21074,33 @@
+@@ -31002,60 +21080,33 @@
    return 0;
  }
  _ACEOF
@@ -62592,7 +62601,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -31073,60 +21118,33 @@
+@@ -31073,60 +21124,33 @@
    return 0;
  }
  _ACEOF
@@ -62666,7 +62675,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -31144,207 +21162,47 @@
+@@ -31144,207 +21168,47 @@
    return 0;
  }
  _ACEOF
@@ -62896,7 +62905,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #include <sys/types.h>
  #include <sys/time.h>
-@@ -31359,65 +21217,35 @@
+@@ -31359,65 +21223,35 @@
    return 0;
  }
  _ACEOF
@@ -62972,7 +62981,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31443,49 +21271,23 @@
+@@ -31443,49 +21277,23 @@
    return 0;
  }
  _ACEOF
@@ -63030,7 +63039,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31511,49 +21313,23 @@
+@@ -31511,49 +21319,23 @@
    return 0;
  }
  _ACEOF
@@ -63088,7 +63097,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31579,49 +21355,23 @@
+@@ -31579,49 +21361,23 @@
    return 0;
  }
  _ACEOF
@@ -63146,7 +63155,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31647,49 +21397,23 @@
+@@ -31647,49 +21403,23 @@
    return 0;
  }
  _ACEOF
@@ -63204,7 +63213,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31715,49 +21439,23 @@
+@@ -31715,49 +21445,23 @@
    return 0;
  }
  _ACEOF
@@ -63262,7 +63271,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31783,49 +21481,23 @@
+@@ -31783,49 +21487,23 @@
    return 0;
  }
  _ACEOF
@@ -63320,7 +63329,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31851,49 +21523,23 @@
+@@ -31851,49 +21529,23 @@
    return 0;
  }
  _ACEOF
@@ -63378,7 +63387,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31919,49 +21565,23 @@
+@@ -31919,49 +21571,23 @@
    return 0;
  }
  _ACEOF
@@ -63436,7 +63445,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -31987,49 +21607,23 @@
+@@ -31987,49 +21613,23 @@
    return 0;
  }
  _ACEOF
@@ -63494,7 +63503,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  #ifdef TIME_WITH_SYS_TIME
  #include <sys/time.h>
-@@ -32055,51 +21649,25 @@
+@@ -32055,51 +21655,25 @@
    return 0;
  }
  _ACEOF
@@ -63554,7 +63563,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
    #include <utmpx.h>
-@@ -32114,42 +21682,20 @@
+@@ -32114,42 +21688,20 @@
    return 0;
  }
  _ACEOF
@@ -63602,7 +63611,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  
  
-@@ -32157,64 +21703,18 @@
+@@ -32157,64 +21709,18 @@
  if test x$with_xdmcp != xno ; then
  	xdmcp_save_CPPFLAGS="$CPPFLAGS"
  	CPPFLAGS="$CPPFLAGS $X_CFLAGS"
@@ -63675,7 +63684,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -32232,44 +21732,21 @@
+@@ -32232,44 +21738,21 @@
    return 0;
  }
  _ACEOF
@@ -63728,7 +63737,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  		     	XDMCP_LIBS="-lXdmcp"
  		     	XDMCP_SUPPORT=yes
-@@ -32281,9 +21758,7 @@
+@@ -32281,9 +21764,7 @@
  
  
  	if test x$with_xdmcp = xyes -a "x$XDMCP_SUPPORT" = "x" ; then
@@ -63739,7 +63748,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  	fi
  	CPPFLAGS="$xdmcp_save_CPPFLAGS"
  fi
-@@ -32364,24 +21839,18 @@
+@@ -32364,24 +21845,18 @@
  	else
  		LIBWRAP_LIBS="-L/usr/sfw/lib -R/usr/sfw/lib -lwrap"
  
@@ -63770,7 +63779,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -32399,72 +21868,45 @@
+@@ -32399,72 +21874,45 @@
    return 0;
  }
  _ACEOF
@@ -63860,7 +63869,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  #include <tcpd.h>
-@@ -32474,41 +21916,17 @@
+@@ -32474,41 +21922,17 @@
  main ()
  {
  return hosts_access;
@@ -63909,7 +63918,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  #include <tcpd.h>
-@@ -32522,48 +21940,26 @@
+@@ -32522,48 +21946,26 @@
    return 0;
  }
  _ACEOF
@@ -63968,7 +63977,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  		fi
    fi
  fi
-@@ -32574,27 +21970,21 @@
+@@ -32574,27 +21976,21 @@
  
  if $PKG_CONFIG --exists xft ; then
  
@@ -64002,7 +64011,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -32612,39 +22002,18 @@
+@@ -32612,39 +22008,18 @@
    return 0;
  }
  _ACEOF
@@ -64049,7 +64058,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
    XINPUT_LIBS=-lXi
  fi
  
-@@ -32655,13 +22024,9 @@
+@@ -32655,13 +22030,9 @@
      if test x$os_solaris = xyes ; then
         XINPUT_RPATH_FLAGS="-R$xinputpath"
      fi
@@ -64066,7 +64075,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  int
-@@ -32672,215 +22037,302 @@
+@@ -32672,215 +22043,302 @@
    return 0;
  }
  _ACEOF
@@ -64539,7 +64548,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -32889,138 +22341,118 @@
+@@ -32889,138 +22347,118 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -64763,7 +64772,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -33029,612 +22461,303 @@
+@@ -33029,612 +22467,303 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -65581,7 +65590,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -33643,63 +22766,73 @@
+@@ -33643,63 +22772,73 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -65696,7 +65705,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  /* end confdefs.h.  */
  
  /* Override any GCC internal prototype to avoid an error.
-@@ -33708,2956 +22841,3190 @@
+@@ -33708,2956 +22847,3190 @@
  #ifdef __cplusplus
  extern "C"
  #endif
@@ -71391,7 +71400,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
      fi
      rm -f "po/stamp-it" "po/stamp-it.tmp" "po/POTFILES" "po/Makefile.tmp"
      >"po/stamp-it.tmp"
-@@ -36680,11 +26047,13 @@
+@@ -36680,11 +26053,13 @@
  done # for ac_tag
  
  
@@ -71407,7 +71416,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
  # configure is writing to config.log, and then calls config.status.
  # config.status does its own redirection, appending to config.log.
-@@ -36704,7 +26073,11 @@
+@@ -36704,7 +26079,11 @@
    exec 5>>config.log
    # Use ||, not &&, to avoid exiting from the if with $? = 1, which
    # would make configure fail if this is the last instruction.
@@ -71422,7 +71431,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
  
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/daemon/Makefile.in gdm-2.27.90.new/daemon/Makefile.in
 --- gdm-2.27.90/daemon/Makefile.in	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/daemon/Makefile.in	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/daemon/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -71997,7 +72006,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/daemon/Makefile.in gdm-2.27.90.new/dae
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/faces/Makefile.in gdm-2.27.90.new/data/faces/Makefile.in
 --- gdm-2.27.90/data/faces/Makefile.in	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/data/faces/Makefile.in	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/data/faces/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -72300,7 +72309,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/faces/Makefile.in gdm-2.27.90.new
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/greeter-autostart/Makefile.in gdm-2.27.90.new/data/greeter-autostart/Makefile.in
 --- gdm-2.27.90/data/greeter-autostart/Makefile.in	2009-08-25 07:25:36.000000000 +1000
-+++ gdm-2.27.90.new/data/greeter-autostart/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/data/greeter-autostart/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -72603,7 +72612,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/greeter-autostart/Makefile.in gdm
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.in gdm-2.27.90.new/data/Makefile.in
 --- gdm-2.27.90/data/Makefile.in	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/data/Makefile.in	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/data/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -73234,7 +73243,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.in gdm-2.27.90.new/data/
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/16x16/Makefile.in gdm-2.27.90.new/data/pixmaps/16x16/Makefile.in
 --- gdm-2.27.90/data/pixmaps/16x16/Makefile.in	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/data/pixmaps/16x16/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/data/pixmaps/16x16/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -73537,7 +73546,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/16x16/Makefile.in gdm-2.2
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/32x32/Makefile.in gdm-2.27.90.new/data/pixmaps/32x32/Makefile.in
 --- gdm-2.27.90/data/pixmaps/32x32/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/data/pixmaps/32x32/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/data/pixmaps/32x32/Makefile.in	2009-09-07 15:43:10.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -73840,7 +73849,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/32x32/Makefile.in gdm-2.2
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/48x48/Makefile.in gdm-2.27.90.new/data/pixmaps/48x48/Makefile.in
 --- gdm-2.27.90/data/pixmaps/48x48/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/data/pixmaps/48x48/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/data/pixmaps/48x48/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -74143,7 +74152,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/48x48/Makefile.in gdm-2.2
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/Makefile.in gdm-2.27.90.new/data/pixmaps/Makefile.in
 --- gdm-2.27.90/data/pixmaps/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/data/pixmaps/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/data/pixmaps/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -74630,7 +74639,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/pixmaps/Makefile.in gdm-2.27.90.n
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/depcomp gdm-2.27.90.new/depcomp
 --- gdm-2.27.90/depcomp	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/depcomp	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/depcomp	2009-09-07 15:43:12.000000000 +1000
 @@ -1,10 +1,10 @@
  #! /bin/sh
  # depcomp - compile a program generating dependencies as side-effects
@@ -74886,7 +74895,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/depcomp gdm-2.27.90.new/depcomp
  # End:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/docs/Makefile.in gdm-2.27.90.new/docs/Makefile.in
 --- gdm-2.27.90/docs/Makefile.in	2009-08-25 07:08:19.000000000 +1000
-+++ gdm-2.27.90.new/docs/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/docs/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -75130,7 +75139,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/docs/Makefile.in gdm-2.27.90.new/docs/
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/Makefile.in gdm-2.27.90.new/gui/gdmsetup/Makefile.in
 --- gdm-2.27.90/gui/gdmsetup/Makefile.in	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -0,0 +1,734 @@
 +# Makefile.in generated by automake 1.11 from Makefile.am.
 +# @configure_input@
@@ -75868,7 +75877,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/Makefile.in gdm-2.27.90.n
 +.NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/Makefile.in gdm-2.27.90.new/gui/Makefile.in
 --- gdm-2.27.90/gui/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/gui/Makefile.in	2009-08-25 14:38:59.000000000 +1000
++++ gdm-2.27.90.new/gui/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -76305,7 +76314,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/Makefile.in gdm-2.27.90.new/gui/Ma
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-chooser/Makefile.in gdm-2.27.90.new/gui/simple-chooser/Makefile.in
 --- gdm-2.27.90/gui/simple-chooser/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/gui/simple-chooser/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/gui/simple-chooser/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -76718,7 +76727,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-chooser/Makefile.in gdm-2.2
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/libnotificationarea/Makefile.in gdm-2.27.90.new/gui/simple-greeter/libnotificationarea/Makefile.in
 --- gdm-2.27.90/gui/simple-greeter/libnotificationarea/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/gui/simple-greeter/libnotificationarea/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/gui/simple-greeter/libnotificationarea/Makefile.in	2009-09-07 15:43:12.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -77093,7 +77102,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/libnotificationarea
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.27.90.new/gui/simple-greeter/Makefile.in
 --- gdm-2.27.90/gui/simple-greeter/Makefile.in	2009-08-25 07:07:15.000000000 +1000
-+++ gdm-2.27.90.new/gui/simple-greeter/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/gui/simple-greeter/Makefile.in	2009-09-07 15:43:11.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -77312,7 +77321,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
  NULL = 
-@@ -782,14 +838,14 @@
+@@ -460,6 +516,7 @@
+ 	-DDMCONFDIR=\""$(dmconfdir)"\"			\
+ 	-DGDMCONFDIR=\"$(gdmconfdir)\"                  \
+ 	-DDATADIR=\""$(datadir)"\"		 	\
++	-DCACHEDIR=\""$(GDM_WORKING_DIR)/.cache"\"	 	\
+ 	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
+ 	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\"	\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
+@@ -782,14 +839,14 @@
  	@for dep in $?; do \
  	  case '$(am__configure_deps)' in \
  	    *$$dep*) \
@@ -77332,7 +77349,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  .PRECIOUS: Makefile
  Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
  	@case '$?' in \
-@@ -807,6 +863,7 @@
+@@ -807,6 +864,7 @@
  	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
  $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
  	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -77340,7 +77357,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  
  clean-noinstLTLIBRARIES:
  	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
-@@ -821,38 +878,55 @@
+@@ -821,38 +879,55 @@
  install-libexecPROGRAMS: $(libexec_PROGRAMS)
  	@$(NORMAL_INSTALL)
  	test -z "$(libexecdir)" || $(MKDIR_P) "$(DESTDIR)$(libexecdir)"
@@ -77421,7 +77438,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  gdm-simple-greeter$(EXEEXT): $(gdm_simple_greeter_OBJECTS) $(gdm_simple_greeter_DEPENDENCIES) 
  	@rm -f gdm-simple-greeter$(EXEEXT)
  	$(LINK) $(gdm_simple_greeter_OBJECTS) $(gdm_simple_greeter_LDADD) $(LIBS)
-@@ -933,38 +1007,38 @@
+@@ -933,38 +1008,38 @@
  
  .c.o:
  @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -77469,7 +77486,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  
  mostlyclean-libtool:
  	-rm -f *.lo
-@@ -974,37 +1048,43 @@
+@@ -974,37 +1049,43 @@
  install-gladeDATA: $(glade_DATA)
  	@$(NORMAL_INSTALL)
  	test -z "$(gladedir)" || $(MKDIR_P) "$(DESTDIR)$(gladedir)"
@@ -77531,7 +77548,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  
  # This directory's subdirectories are mostly independent; you can cd
  # into them and run `make' without going through this Makefile.
-@@ -1030,7 +1110,7 @@
+@@ -1030,7 +1111,7 @@
  	  else \
  	    local_target="$$target"; \
  	  fi; \
@@ -77540,7 +77557,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  	  || eval $$failcom; \
  	done; \
  	if test "$$dot_seen" = "no"; then \
-@@ -1064,16 +1144,16 @@
+@@ -1064,16 +1145,16 @@
  	  else \
  	    local_target="$$target"; \
  	  fi; \
@@ -77560,7 +77577,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  	done
  
  ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
-@@ -1081,14 +1161,14 @@
+@@ -1081,14 +1162,14 @@
  	unique=`for i in $$list; do \
  	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
  	  done | \
@@ -77578,7 +77595,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  	here=`pwd`; \
  	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
  	  include_option=--etags-include; \
-@@ -1100,39 +1180,43 @@
+@@ -1100,39 +1181,43 @@
  	list='$(SUBDIRS)'; for subdir in $$list; do \
  	  if test "$$subdir" = .; then :; else \
  	    test ! -f $$subdir/TAGS || \
@@ -77636,7 +77653,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  
  distclean-tags:
  	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
-@@ -1153,29 +1237,44 @@
+@@ -1153,29 +1238,44 @@
  	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
  	  if test -d $$d/$$file; then \
  	    dir=`echo "/$$file" | sed -e 's,/[^/]*$$,,'`; \
@@ -77691,7 +77708,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  	        distdir) \
  	      || exit 1; \
  	  fi; \
-@@ -1208,6 +1307,7 @@
+@@ -1208,6 +1308,7 @@
  
  distclean-generic:
  	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -77699,7 +77716,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
  
  maintainer-clean-generic:
-@@ -1231,6 +1331,8 @@
+@@ -1231,6 +1332,8 @@
  
  html: html-recursive
  
@@ -77708,7 +77725,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  info: info-recursive
  
  info-am:
-@@ -1240,18 +1342,28 @@
+@@ -1240,18 +1343,28 @@
  
  install-dvi: install-dvi-recursive
  
@@ -77737,7 +77754,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  installcheck-am:
  
  maintainer-clean: maintainer-clean-recursive
-@@ -1275,8 +1387,8 @@
+@@ -1275,8 +1388,8 @@
  uninstall-am: uninstall-gladeDATA uninstall-libexecPROGRAMS \
  	uninstall-schemasDATA
  
@@ -77748,7 +77765,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  
  .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
  	all all-am check check-am clean clean-generic \
-@@ -1307,6 +1419,7 @@
+@@ -1307,6 +1420,7 @@
  @GCONF_SCHEMAS_INSTALL_TRUE@		done \
  @GCONF_SCHEMAS_INSTALL_TRUE@	fi
  @GCONF_SCHEMAS_INSTALL_FALSE@install-data-local:
@@ -77758,7 +77775,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/Makefile.in gdm-2.2
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/user-switch-applet/Makefile.in gdm-2.27.90.new/gui/user-switch-applet/Makefile.in
 --- gdm-2.27.90/gui/user-switch-applet/Makefile.in	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/gui/user-switch-applet/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/gui/user-switch-applet/Makefile.in	2009-09-07 15:43:12.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -78259,7 +78276,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/user-switch-applet/Makefile.in gdm
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/INSTALL gdm-2.27.90.new/INSTALL
 --- gdm-2.27.90/INSTALL	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/INSTALL	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/INSTALL	2009-09-07 15:43:12.000000000 +1000
 @@ -2,15 +2,15 @@
  *************************
  
@@ -78467,7 +78484,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/INSTALL gdm-2.27.90.new/INSTALL
  
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/install-sh gdm-2.27.90.new/install-sh
 --- gdm-2.27.90/install-sh	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/install-sh	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/install-sh	2009-09-07 15:43:09.000000000 +1000
 @@ -1,7 +1,7 @@
  #!/bin/sh
  # install - install a program, script, or datafile
@@ -78840,7 +78857,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/install-sh gdm-2.27.90.new/install-sh
  # End:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/ltmain.sh gdm-2.27.90.new/ltmain.sh
 --- gdm-2.27.90/ltmain.sh	2009-05-26 01:53:07.000000000 +1000
-+++ gdm-2.27.90.new/ltmain.sh	2009-08-25 14:38:48.000000000 +1000
++++ gdm-2.27.90.new/ltmain.sh	2009-09-07 15:43:00.000000000 +1000
 @@ -1,30 +1,174 @@
 -# ltmain.sh - Provide generalized library-building support services.
 -# NOTE: Changing this file will not affect anything until you rerun configure.
@@ -92971,7 +92988,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/ltmain.sh gdm-2.27.90.new/ltmain.sh
 +
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/libtool.m4 gdm-2.27.90.new/m4/libtool.m4
 --- gdm-2.27.90/m4/libtool.m4	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/m4/libtool.m4	2009-08-25 14:38:48.000000000 +1000
++++ gdm-2.27.90.new/m4/libtool.m4	2009-09-07 15:43:00.000000000 +1000
 @@ -0,0 +1,7376 @@
 +# libtool.m4 - Configure libtool for the host system. -*-Autoconf-*-
 +#
@@ -100351,7 +100368,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/libtool.m4 gdm-2.27.90.new/m4/libto
 +])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/lt~obsolete.m4 gdm-2.27.90.new/m4/lt~obsolete.m4
 --- gdm-2.27.90/m4/lt~obsolete.m4	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/m4/lt~obsolete.m4	2009-08-25 14:38:49.000000000 +1000
++++ gdm-2.27.90.new/m4/lt~obsolete.m4	2009-09-07 15:43:01.000000000 +1000
 @@ -0,0 +1,92 @@
 +# lt~obsolete.m4 -- aclocal satisfying obsolete definitions.    -*-Autoconf-*-
 +#
@@ -100447,7 +100464,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/lt~obsolete.m4 gdm-2.27.90.new/m4/l
 +m4_ifndef([_LT_AC_FILE_LTDLL_C],	[AC_DEFUN([_LT_AC_FILE_LTDLL_C])])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltoptions.m4 gdm-2.27.90.new/m4/ltoptions.m4
 --- gdm-2.27.90/m4/ltoptions.m4	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/m4/ltoptions.m4	2009-08-25 14:38:48.000000000 +1000
++++ gdm-2.27.90.new/m4/ltoptions.m4	2009-09-07 15:43:00.000000000 +1000
 @@ -0,0 +1,368 @@
 +# Helper functions for option handling.                    -*- Autoconf -*-
 +#
@@ -100819,7 +100836,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltoptions.m4 gdm-2.27.90.new/m4/lto
 +		 [m4_define([_LTDL_TYPE], [convenience])])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltsugar.m4 gdm-2.27.90.new/m4/ltsugar.m4
 --- gdm-2.27.90/m4/ltsugar.m4	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/m4/ltsugar.m4	2009-08-25 14:38:49.000000000 +1000
++++ gdm-2.27.90.new/m4/ltsugar.m4	2009-09-07 15:43:00.000000000 +1000
 @@ -0,0 +1,123 @@
 +# ltsugar.m4 -- libtool m4 base layer.                         -*-Autoconf-*-
 +#
@@ -100946,7 +100963,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltsugar.m4 gdm-2.27.90.new/m4/ltsug
 +])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltversion.m4 gdm-2.27.90.new/m4/ltversion.m4
 --- gdm-2.27.90/m4/ltversion.m4	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/m4/ltversion.m4	2009-08-25 14:38:49.000000000 +1000
++++ gdm-2.27.90.new/m4/ltversion.m4	2009-09-07 15:43:00.000000000 +1000
 @@ -0,0 +1,23 @@
 +# ltversion.m4 -- version numbers			-*- Autoconf -*-
 +#
@@ -100973,7 +100990,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/m4/ltversion.m4 gdm-2.27.90.new/m4/ltv
 +])
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/Makefile.in gdm-2.27.90.new/Makefile.in
 --- gdm-2.27.90/Makefile.in	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/Makefile.in	2009-08-25 14:39:01.000000000 +1000
++++ gdm-2.27.90.new/Makefile.in	2009-09-07 15:43:12.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -101537,7 +101554,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/Makefile.in gdm-2.27.90.new/Makefile.i
  # Otherwise a system limit (for SysV at least) may be exceeded.
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/missing gdm-2.27.90.new/missing
 --- gdm-2.27.90/missing	2009-08-25 07:07:14.000000000 +1000
-+++ gdm-2.27.90.new/missing	2009-08-25 14:38:58.000000000 +1000
++++ gdm-2.27.90.new/missing	2009-09-07 15:43:09.000000000 +1000
 @@ -1,10 +1,10 @@
  #! /bin/sh
  # Common stub for a few missing GNU programs while installing.
@@ -101695,7 +101712,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/missing gdm-2.27.90.new/missing
  # End:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/mkinstalldirs gdm-2.27.90.new/mkinstalldirs
 --- gdm-2.27.90/mkinstalldirs	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/mkinstalldirs	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/mkinstalldirs	2009-09-07 15:43:12.000000000 +1000
 @@ -1,7 +1,7 @@
  #! /bin/sh
  # mkinstalldirs --- make directory hierarchy
@@ -101715,7 +101732,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/mkinstalldirs gdm-2.27.90.new/mkinstal
  # End:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/tests/Makefile.in gdm-2.27.90.new/tests/Makefile.in
 --- gdm-2.27.90/tests/Makefile.in	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/tests/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/tests/Makefile.in	2009-09-07 15:43:12.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
@@ -102246,7 +102263,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/tests/Makefile.in gdm-2.27.90.new/test
  .NOEXPORT:
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/utils/Makefile.in gdm-2.27.90.new/utils/Makefile.in
 --- gdm-2.27.90/utils/Makefile.in	2009-08-25 07:07:16.000000000 +1000
-+++ gdm-2.27.90.new/utils/Makefile.in	2009-08-25 14:39:00.000000000 +1000
++++ gdm-2.27.90.new/utils/Makefile.in	2009-09-07 15:43:12.000000000 +1000
 @@ -1,8 +1,9 @@
 -# Makefile.in generated by automake 1.10 from Makefile.am.
 +# Makefile.in generated by automake 1.11 from Makefile.am.
