@@ -1,4 +1,4 @@
-gdm (2.27.90-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.27.90-0ubuntu2) karmic; urgency=low
 
   [ Robert Ancell ]
   * debian/patches/13_cache_ck_history.patch:
@@ -9,7 +9,7 @@ gdm (2.27.90-0ubuntu2) UNRELEASED; urgency=low
     architecture. This now adds a D-BUS operation StartGuestSession(), since
     gdmflexiserver is being deprecated. (LP: #404870)
 
- -- Robert Ancell <robert.ancell@canonical.com>  Mon, 07 Sep 2009 14:45:37 +1000
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 07 Sep 2009 18:18:15 +0200
 
 gdm (2.27.90-0ubuntu1) karmic; urgency=low
 
