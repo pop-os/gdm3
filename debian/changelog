@@ -1,3 +1,11 @@
+gdm (2.27.90-0ubuntu3) UNRELEASED; urgency=low
+
+  * Add 15_default_session.patch: Prefer "default.session", so that other
+    desktop environments like XFCE can use gdm, too, without being forced to
+    start GNOME. (LP: #403291)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 10 Sep 2009 12:28:59 +0200
+
 gdm (2.27.90-0ubuntu2) karmic; urgency=low
 
   [ Robert Ancell ]
