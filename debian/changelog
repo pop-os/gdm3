@@ -3,6 +3,8 @@ gdm (2.27.90-0ubuntu3) UNRELEASED; urgency=low
   * Add 15_default_session.patch: Prefer "default.session", so that other
     desktop environments like XFCE can use gdm, too, without being forced to
     start GNOME. (LP: #403291)
+  * debian/gdm.postrm: Fix purge breakage if one of the to-be-cleaned-up
+    directories does not exist.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 10 Sep 2009 12:28:59 +0200
 
