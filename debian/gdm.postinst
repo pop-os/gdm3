@@ -45,14 +45,8 @@ fi
 # debconf hangs if gdm gets started below without this
 db_stop || true
 
-# update-rc.d levels
-S=30
-K=01
-
-if [ -x /etc/init.d/gdm ]; then
-  update-rc.d gdm defaults $S $K >/dev/null 2>&1
-  invoke-rc.d gdm reload || true
-fi
+PID=$(status "gdm" 2>/dev/null | awk '/[0-9]$/ { print $NF }')
+[ -z "$PID" ] || kill -HUP $PID
 
 #DEBHELPER#
 

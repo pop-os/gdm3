@@ -2,7 +2,6 @@
 set -e
 
 if [ "$1" = "purge" ] ; then
-        update-rc.d gdm remove >/dev/null
         rm -f /etc/default/gdm
         if [ -d /etc/gdm ]; then
                 rmdir /etc/gdm/Init /etc/gdm/PreSession /etc/gdm/PostSession /etc/gdm/PostLogin /etc/gdm/Sessions /etc/gdm 2>/dev/null || true

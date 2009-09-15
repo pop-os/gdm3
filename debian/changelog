@@ -1,9 +1,23 @@
-gdm (2.27.90-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.27.90-0ubuntu5) karmic; urgency=low
+
+  FFE LP: #427356.
+
+  * Replace init script with Upstart job.
+  * debian/control:
+    - Bump build-dependency on debhelper for Upstart-aware dh_installinit
+  * debian/patches/20_upstart.patch:
+    - Emit Upstart events when starting the login session and desktop
+      session, just after starting xsplash.  These can be used as
+      synchronisation points.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Tue, 15 Sep 2009 03:31:21 +0100
+
+gdm (2.27.90-0ubuntu4) karmic; urgency=low
 
   * debian/patches/16_gdmserver_user_manager.patch:
     - Add user manager d-bus interface to gdmserver (LP: #423450)
 
- -- Robert Ancell <robert.ancell@canonical.com>  Fri, 11 Sep 2009 16:12:13 +1000
+ -- Robert Ancell <robert.ancell@canonical.com>  Sat, 12 Sep 2009 12:49:48 +0200
 
 gdm (2.27.90-0ubuntu3) karmic; urgency=low
 

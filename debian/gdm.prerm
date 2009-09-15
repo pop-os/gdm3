@@ -54,7 +54,7 @@ if [ "$1" = "remove" ]; then
       fi
     done
     if [ -z $nostop ]; then
-      invoke-rc.d gdm stop
+      stop gdm || :
     fi
   fi
 fi
