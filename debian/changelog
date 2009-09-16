@@ -1,9 +1,9 @@
-gdm (2.27.90-0ubuntu6) UNRELEASED; urgency=low
+gdm (2.27.90-0ubuntu6) karmic; urgency=low
 
   * The upstart job won't start unless hal is also started, so add an
     appropriate versioned dependency on the upstarted hal.
 
- -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 16 Sep 2009 01:25:40 -0700
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 16 Sep 2009 01:58:11 -0700
 
 gdm (2.27.90-0ubuntu5) karmic; urgency=low
 
