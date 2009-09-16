@@ -1,7 +1,10 @@
 gdm (2.27.90-0ubuntu7) UNRELEASED; urgency=low
 
-  * debian/patches/10_xsplash.patch
+  * debian/patches/10_xsplash.patch:
     - Use --daemon instead of using the "&" (LP: #430834) 
+  * debian/control:
+    - Conflict with xsplash (<< 0.8), we don't depend on xsplash but if 
+      /usr/bin/xsplash exists we need it to support the --daemon option
 
  -- Ken VanDine <ken.vandine@canonical.com>  Wed, 16 Sep 2009 13:58:55 -0400
 
