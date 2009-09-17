@@ -1,4 +1,4 @@
-gdm (2.27.90-0ubuntu7) UNRELEASED; urgency=low
+gdm (2.27.90-0ubuntu7) karmic; urgency=low
 
   [ Ken VanDine ]
   * debian/patches/10_xsplash.patch:
@@ -18,7 +18,7 @@ gdm (2.27.90-0ubuntu7) UNRELEASED; urgency=low
   * debian/rules: Install onboard.desktop, remove gok.desktop from upstream
     install. We do not ship gok any more. (LP: #423831, #130368)
 
- -- Ken VanDine <ken.vandine@canonical.com>  Wed, 16 Sep 2009 13:58:55 -0400
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 17 Sep 2009 19:22:46 +0200
 
 gdm (2.27.90-0ubuntu6) karmic; urgency=low
 
