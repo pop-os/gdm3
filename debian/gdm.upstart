@@ -14,7 +14,6 @@ respawn
 
 script
     [ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ]
-    [ -f /etc/gdm/gdm-cdd.conf ] && CONFIG_FILE="--config=/etc/gdm/gdm-cdd.conf"
 
     if [ -r /etc/default/locale ]; then
 	. /etc/default/locale
