@@ -10,6 +10,8 @@ gdm (2.27.90-0ubuntu7) UNRELEASED; urgency=low
   [ Martin Pitt ]
   * debian/gdm.upstart: Drop gdm-cdd.conf handling, gdm does not support it
     any more.
+  * debian/gdm.upstart: Do not start in single-user modes or when "text" is
+    given as a kernel command line option. This restores previous behaviour.
 
  -- Ken VanDine <ken.vandine@canonical.com>  Wed, 16 Sep 2009 13:58:55 -0400
 
