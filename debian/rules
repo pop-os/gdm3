@@ -27,4 +27,6 @@ binary-post-install/gdm::
 	mkdir -p debian/gdm/usr/share/doc/gdm/examples
 	mv debian/gdm/etc/gdm/custom.conf debian/gdm/usr/share/doc/gdm/examples
 	mv debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchApplet.server debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchAppletGdm.server
-
+	# we install onboard (debian/onboard.desktop), and do not have gok
+	install -m 644 debian/onboard.desktop debian/gdm/usr/share/gdm/autostart/LoginWindow/
+	rm debian/gdm/usr/share/gdm/autostart/LoginWindow/gok.desktop

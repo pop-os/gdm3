@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Onboard Onscreen Keyboard
+Comment=Type without using a hardware keyboard
+TryExec=onboard
+Exec=onboard --size 500x180 -x 20 -y 10
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+X-Ubuntu-Gettext-Domain=gdm
