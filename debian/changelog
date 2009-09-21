@@ -1,3 +1,11 @@
+gdm (2.27.90-0ubuntu8) UNRELEASED; urgency=low
+
+  * debian/patches/09_gdmsetup.patch:
+    - Filter ConsoleKit system users (LP: 432271)
+    - Make window size fixed (LP: 429206)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Mon, 21 Sep 2009 13:05:51 +1000
+
 gdm (2.27.90-0ubuntu7) karmic; urgency=low
 
   [ Ken VanDine ]

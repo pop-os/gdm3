@@ -6,8 +6,8 @@ Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure.ac
---- gdm-2.27.90/configure.ac	2009-08-25 16:39:36.000000000 +1000
-+++ gdm-2.27.90.new/configure.ac	2009-08-25 16:39:38.000000000 +1000
+--- gdm-2.27.90/configure.ac	2009-09-21 13:09:52.000000000 +1000
++++ gdm-2.27.90.new/configure.ac	2009-09-21 13:09:53.000000000 +1000
 @@ -106,6 +106,14 @@
  AC_SUBST(GCONF_CFLAGS)
  AC_SUBST(GCONF_LIBS)
@@ -40,7 +40,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure
  data/greeter-autostart/Makefile
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.c gdm-2.27.90.new/gui/gdmsetup/gdmsetup.c
 --- gdm-2.27.90/gui/gdmsetup/gdmsetup.c	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.c	2009-08-25 16:40:36.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.c	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,476 @@
 +#include <string.h>
 +#include <stdlib.h>
@@ -520,7 +520,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.c gdm-2.27.90.ne
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.desktop.in gdm-2.27.90.new/gui/gdmsetup/gdmsetup.desktop.in
 --- gdm-2.27.90/gui/gdmsetup/gdmsetup.desktop.in	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.desktop.in	2009-08-25 16:41:02.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.desktop.in	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -536,8 +536,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.desktop.in gdm-2
 +X-GNOME-Bugzilla-Component=general
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.ui gdm-2.27.90.new/gui/gdmsetup/gdmsetup.ui
 --- gdm-2.27.90/gui/gdmsetup/gdmsetup.ui	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.ui	2009-08-25 16:40:44.000000000 +1000
-@@ -0,0 +1,270 @@
++++ gdm-2.27.90.new/gui/gdmsetup/gdmsetup.ui	2009-09-21 13:09:53.000000000 +1000
+@@ -0,0 +1,271 @@
 +<?xml version="1.0"?>
 +<interface>
 +  <requires lib="gtk+" version="2.16"/>
@@ -555,6 +555,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.ui gdm-2.27.90.n
 +  <object class="GtkDialog" id="gdm_capplet">
 +    <property name="border_width">5</property>
 +    <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
++    <property name="resizable">False</property>
 +    <property name="window_position">center</property>
 +    <property name="icon_name">gdm-setup</property>
 +    <property name="type_hint">normal</property>
@@ -810,7 +811,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdmsetup.ui gdm-2.27.90.n
 +</interface>
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user.c gdm-2.27.90.new/gui/gdmsetup/gdm-user.c
 --- gdm-2.27.90/gui/gdmsetup/gdm-user.c	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdm-user.c	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdm-user.c	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -1986,7 +1987,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user.c gdm-2.27.90.ne
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user.h gdm-2.27.90.new/gui/gdmsetup/gdm-user.h
 --- gdm-2.27.90/gui/gdmsetup/gdm-user.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdm-user.h	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdm-user.h	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2049,8 +2050,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user.h gdm-2.27.90.ne
 +#endif
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.c gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.c
 --- gdm-2.27.90/gui/gdmsetup/gdm-user-manager.c	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.c	2009-08-25 16:39:38.000000000 +1000
-@@ -0,0 +1,1644 @@
++++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.c	2009-09-21 13:10:29.000000000 +1000
+@@ -0,0 +1,1658 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2007-2008 William Jon McCann <mccann@jhu.edu>
@@ -3183,6 +3184,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.c gdm-2.
 +        gboolean res;
 +        char    *username;
 +        gulong   frequency;
++        struct passwd *pwent;
 +        GdmUser *user;
 +
 +        frequency = 0;
@@ -3195,6 +3197,19 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.c gdm-2.
 +        if (g_hash_table_lookup (manager->priv->exclusions, username)) {
 +                g_debug ("GdmUserManager: excluding user '%s'", username);
 +                g_free (username);
++                return;
++        }
++
++        /* https://bugzilla.gnome.org/show_bug.cgi?id=587708 */
++        /* do not show system users; we cannot use gdm_user_manager_get_user()
++         * here since this creates/signals users as a side effect */
++        pwent = getpwnam (username);
++        if (pwent == NULL) {
++                g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
++                return;
++        }
++        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                g_debug ("GdmUserManager: excluding user '%s'", username);
 +                return;
 +        }
 +
@@ -3697,7 +3712,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.c gdm-2.
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.h gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.h
 --- gdm-2.27.90/gui/gdmsetup/gdm-user-manager.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.h	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-manager.h	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3788,7 +3803,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-manager.h gdm-2.
 +#endif /* __GDM_USER_MANAGER_H */
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-private.h gdm-2.27.90.new/gui/gdmsetup/gdm-user-private.h
 --- gdm-2.27.90/gui/gdmsetup/gdm-user-private.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-private.h	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/gdm-user-private.h	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3836,7 +3851,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/gdm-user-private.h gdm-2.
 +#endif /* !__GDM_USER_PRIVATE__ */
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/Makefile.am gdm-2.27.90.new/gui/gdmsetup/Makefile.am
 --- gdm-2.27.90/gui/gdmsetup/Makefile.am	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/gui/gdmsetup/Makefile.am	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/gdmsetup/Makefile.am	2009-09-21 13:09:53.000000000 +1000
 @@ -0,0 +1,37 @@
 +NULL =
 +
@@ -3877,7 +3892,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/gdmsetup/Makefile.am gdm-2.27.90.n
 +	$(NULL)
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/Makefile.am gdm-2.27.90.new/gui/Makefile.am
 --- gdm-2.27.90/gui/Makefile.am	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/gui/Makefile.am	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/gui/Makefile.am	2009-09-21 13:09:53.000000000 +1000
 @@ -1,6 +1,7 @@
  NULL =
  
@@ -3888,7 +3903,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/Makefile.am gdm-2.27.90.new/gui/Ma
  	user-switch-applet	\
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/po/POTFILES.in gdm-2.27.90.new/po/POTFILES.in
 --- gdm-2.27.90/po/POTFILES.in	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/po/POTFILES.in	2009-08-25 16:39:38.000000000 +1000
++++ gdm-2.27.90.new/po/POTFILES.in	2009-09-21 13:09:53.000000000 +1000
 @@ -59,6 +59,9 @@
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
