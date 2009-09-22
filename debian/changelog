@@ -6,6 +6,11 @@ gdm (2.28.0-0ubuntu2) karmic; urgency=low
     debian/patches/99_autoreconf.patch:
     - initialize the translations so the gdmsetup interface is translated
       (lp: #434102)
+  * debian/patches/17_use_timed_login_after_autologin.patch:
+    - revert upstream change to not use timed login after autologin session
+      (lp: #396489)
+  * debian/patches/18_create_log_dir_when_required.patch:
+    - create the log directory when required (lp: #405227)
   * debian/gdm.config, debian/gdm.templates:
     - restore debconf files which have been dropped by error in karmic, 
       thanks Pär Andersson (lp: #395591)

@@ -1,0 +1,13 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-static-display.c gdm-2.28.0.new/daemon/gdm-static-display.c
+--- gdm-2.28.0/daemon/gdm-static-display.c	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/daemon/gdm-static-display.c	2009-09-22 17:46:19.000000000 +0200
+@@ -121,6 +121,9 @@
+ {
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+ 
++        /* Only allow timed/automatic login once */
++        GDM_STATIC_DISPLAY (display)->priv->enable_timed_login = FALSE;
++
+         GDM_DISPLAY_CLASS (gdm_static_display_parent_class)->unmanage (display);
+ 
+         return TRUE;

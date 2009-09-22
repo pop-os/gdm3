@@ -1,0 +1,12 @@
+--- ./gdm-2.28.0.ubuntu/daemon/main.c	2009-09-22 16:13:09.000000000 +0200
++++ ./gdm-2.28.0/daemon/main.c	2009-09-22 18:33:29.000000000 +0200
+@@ -267,7 +267,8 @@
+ 
+         r = g_stat (log_path, &statbuf);
+         if (r < 0 || ! S_ISDIR (statbuf.st_mode))  {
+-                gdm_fail (_("Logdir %s does not exist or isn't a directory."), log_path);
++                if (g_mkdir (log_path, 0755) < 0)
++                        gdm_fail (_("Logdir %s does not exist or isn't a directory."), log_path);
+         }
+ }
+ 
