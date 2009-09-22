@@ -5,9 +5,9 @@ Subject: [PATCH 1/2] Add PolicyKit support to GDM settings D-Bus interface
 Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.c gdm-2.27.90.new/common/gdm-settings.c
---- gdm-2.27.90/common/gdm-settings.c	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/common/gdm-settings.c	2009-08-25 14:36:01.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/common/gdm-settings.c gdm-2.28.0.new/common/gdm-settings.c
+--- gdm-2.28.0/common/gdm-settings.c	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/common/gdm-settings.c	2009-09-22 16:16:05.000000000 +0200
 @@ -36,6 +36,7 @@
  #define DBUS_API_SUBJECT_TO_CHANGE
  #include <dbus/dbus-glib.h>
@@ -153,9 +153,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.c gdm-2.27.90.new/
  }
  
  static gboolean
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.h gdm-2.27.90.new/common/gdm-settings.h
---- gdm-2.27.90/common/gdm-settings.h	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/common/gdm-settings.h	2009-08-25 14:36:01.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/common/gdm-settings.h gdm-2.28.0.new/common/gdm-settings.h
+--- gdm-2.28.0/common/gdm-settings.h	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/common/gdm-settings.h	2009-09-22 16:16:05.000000000 +0200
 @@ -23,6 +23,7 @@
  #define __GDM_SETTINGS_H
  
@@ -178,9 +178,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.h gdm-2.27.90.new/
  
  G_END_DECLS
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.xml gdm-2.27.90.new/common/gdm-settings.xml
---- gdm-2.27.90/common/gdm-settings.xml	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/common/gdm-settings.xml	2009-08-25 14:36:01.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/common/gdm-settings.xml gdm-2.28.0.new/common/gdm-settings.xml
+--- gdm-2.28.0/common/gdm-settings.xml	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/common/gdm-settings.xml	2009-09-22 16:16:05.000000000 +0200
 @@ -5,7 +5,12 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
@@ -194,9 +194,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/common/gdm-settings.xml gdm-2.27.90.ne
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="in" type="s"/>
      </method>
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure.ac
---- gdm-2.27.90/configure.ac	2009-08-25 14:36:00.000000000 +1000
-+++ gdm-2.27.90.new/configure.ac	2009-08-25 14:36:01.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
+--- gdm-2.28.0/configure.ac	2009-09-22 16:16:04.000000000 +0200
++++ gdm-2.28.0.new/configure.ac	2009-09-22 16:16:05.000000000 +0200
 @@ -40,6 +40,7 @@
  dnl ---------------------------------------------------------------------------
  
@@ -219,11 +219,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 +        polkit-gobject-1 >= $POLKIT_GOBJECT_REQUIRED_VERSION
          gobject-2.0 >= $GLIB_REQUIRED_VERSION
- 	hal
- )
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/gdm.conf.in gdm-2.27.90.new/data/gdm.conf.in
---- gdm-2.27.90/data/gdm.conf.in	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/data/gdm.conf.in	2009-08-25 14:36:01.000000000 +1000
+         gio-2.0 >= $GLIB_REQUIRED_VERSION
+         hal
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/gdm.conf.in gdm-2.28.0.new/data/gdm.conf.in
+--- gdm-2.28.0/data/gdm.conf.in	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/data/gdm.conf.in	2009-09-22 16:16:05.000000000 +0200
 @@ -34,8 +34,6 @@
      <deny send_destination="org.gnome.DisplayManager"
            send_interface="org.gnome.DisplayManager.LocalDisplayFactory"/>
@@ -244,9 +244,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/gdm.conf.in gdm-2.27.90.new/data/
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Display"
             send_member="GetId"/>
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/gdm.policy.in gdm-2.27.90.new/data/gdm.policy.in
---- gdm-2.27.90/data/gdm.policy.in	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/data/gdm.policy.in	2009-08-25 14:36:01.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/gdm.policy.in gdm-2.28.0.new/data/gdm.policy.in
+--- gdm-2.28.0/data/gdm.policy.in	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.0.new/data/gdm.policy.in	2009-09-22 16:16:05.000000000 +0200
 @@ -0,0 +1,18 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<!DOCTYPE policyconfig PUBLIC
@@ -258,18 +258,18 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/gdm.policy.in gdm-2.27.90.new/dat
 +  <icon_name>gdm</icon_name>
 +
 +  <action id="org.gnome.displaymanager.settings.write">
-+    <description>Change login screen configuration</description>
-+    <message>Privileges are required to change the login screen configuration.</message>
++    <_description>Change login screen configuration</_description>
++    <_message>Privileges are required to change the login screen configuration.</_message>
 +    <defaults>
 +      <allow_inactive>no</allow_inactive>
 +      <allow_active>auth_admin_keep</allow_active>
 +    </defaults>
 +  </action>
 +</policyconfig>
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.am gdm-2.27.90.new/data/Makefile.am
---- gdm-2.27.90/data/Makefile.am	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/data/Makefile.am	2009-08-25 14:36:01.000000000 +1000
-@@ -44,6 +44,8 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/Makefile.am gdm-2.28.0.new/data/Makefile.am
+--- gdm-2.28.0/data/Makefile.am	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/data/Makefile.am	2009-09-22 16:16:05.000000000 +0200
+@@ -45,6 +45,8 @@
  schemas_in_files = gdm.schemas.in
  schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
  
@@ -278,7 +278,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.am gdm-2.27.90.new/data/
  gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
  	sed	-e 's,[@]GDMPREFETCHCMD[@],$(GDMPREFETCHCMD),g' \
  		-e 's,[@]GDM_CUSTOM_CONF[@],$(GDM_CUSTOM_CONF),g' \
-@@ -73,10 +75,17 @@
+@@ -74,10 +76,17 @@
  		-e 's,[@]sbindir[@],$(sbindir),g' \
  		<$(srcdir)/gdm.schemas.in.in >gdm.schemas.in
  
@@ -296,7 +296,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.am gdm-2.27.90.new/data/
  	gdm.schemas.in.in	\
  	gdm.conf-custom.in 	\
  	Xsession.in 		\
-@@ -99,7 +108,8 @@
+@@ -100,7 +109,8 @@
  	$(NULL)
  
  DISTCLEANFILES =			\
@@ -306,3 +306,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/Makefile.am gdm-2.27.90.new/data/
  	gdm.schemas			\
  	$(NULL)
  
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/po/POTFILES.in gdm-2.28.0.new/po/POTFILES.in
+--- gdm-2.28.0/po/POTFILES.in	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/po/POTFILES.in	2009-09-22 16:16:16.000000000 +0200
+@@ -49,6 +49,7 @@
+ daemon/simple-slave-main.c
+ daemon/test-session.c
+ daemon/xdmcp-chooser-slave-main.c
++data/gdm.policy.in
+ data/gdm.schemas.in.in
+ data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in
+ data/greeter-autostart/gdm-simple-greeter.desktop.in.in

@@ -1,3 +1,17 @@
+gdm (2.28.0-0ubuntu2) karmic; urgency=low
+
+  * debian/patches/08_use_polkit_for_settings.patch:
+    - set translatable strings and list the file to translate (lp: #425798)
+  * debian/patches/09_gdmsetup.patch,
+    debian/patches/99_autoreconf.patch:
+    - initialize the translations so the gdmsetup interface is translated
+      (lp: #434102)
+  * debian/gdm.config, debian/gdm.templates:
+    - restore debconf files which have been dropped by error in karmic, 
+      thanks Pär Andersson (lp: #395591)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 22 Sep 2009 15:20:27 +0200
+
 gdm (2.28.0-0ubuntu1) karmic; urgency=low
 
   * New upstream release (LP: #434354)
