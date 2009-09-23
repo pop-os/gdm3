@@ -1,3 +1,10 @@
+gdm (2.28.0-0ubuntu3+shutdownmenu) karmic; urgency=low
+
+  * Move shutdown buttons from under user list to lower right corner of screen
+    (LP: #434338)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 23 Sep 2009 15:44:15 +1000
+
 gdm (2.28.0-0ubuntu3) karmic; urgency=low
 
   * debian/patches/21_dkpower.patch:
