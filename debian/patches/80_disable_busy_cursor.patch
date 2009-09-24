@@ -1,0 +1,39 @@
+diff -uNr gdm-2.28.0.orig/daemon/gdm-factory-slave.c gdm-2.28.0/daemon/gdm-factory-slave.c
+--- gdm-2.28.0.orig/daemon/gdm-factory-slave.c	2009-09-24 18:55:45.000000000 +0200
++++ gdm-2.28.0/daemon/gdm-factory-slave.c	2009-09-24 18:56:21.000000000 +0200
+@@ -450,8 +450,7 @@
+ static void
+ setup_server (GdmFactorySlave *slave)
+ {
+-        /* Set the busy cursor */
+-        gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
++        /* gdm_slave_set_busy_cursor (GDM_SLAVE (slave)); */
+ }
+ 
+ static void
+diff -uNr gdm-2.28.0.orig/daemon/gdm-product-slave.c gdm-2.28.0/daemon/gdm-product-slave.c
+--- gdm-2.28.0.orig/daemon/gdm-product-slave.c	2009-09-24 18:56:53.000000000 +0200
++++ gdm-2.28.0/daemon/gdm-product-slave.c	2009-09-24 18:56:58.000000000 +0200
+@@ -307,8 +307,7 @@
+ static void
+ setup_server (GdmProductSlave *slave)
+ {
+-        /* Set the busy cursor */
+-        gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
++        /* gdm_slave_set_busy_cursor (GDM_SLAVE (slave)); */
+ }
+ 
+ static gboolean
+diff -uNr gdm-2.28.0.orig/daemon/gdm-simple-slave.c gdm-2.28.0/daemon/gdm-simple-slave.c
+--- gdm-2.28.0.orig/daemon/gdm-simple-slave.c	2009-09-24 18:57:19.000000000 +0200
++++ gdm-2.28.0/daemon/gdm-simple-slave.c	2009-09-24 18:57:27.000000000 +0200
+@@ -857,8 +857,7 @@
+ static void
+ setup_server (GdmSimpleSlave *slave)
+ {
+-        /* Set the busy cursor */
+-        gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
++        /* gdm_slave_set_busy_cursor (GDM_SLAVE (slave)); */
+ }
+ 
+ static void
