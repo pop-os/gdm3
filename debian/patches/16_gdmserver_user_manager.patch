@@ -1099,7 +1099,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.ne
 +                             g_strdup (gdm_user_get_user_name (user)),
 +                             g_object_ref (user));
 +
-+        g_signal_emit (manager, signals[USER_ADDED], 0, user);
++        g_signal_emit (manager, signals[USER_ADDED], 0, gdm_user_get_uid (user));
 +}
 +
 +static GdmUser *
@@ -1788,7 +1788,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.ne
 +        /* Go through and handle removed users */
 +        for (list = old_users; list; list = list->next) {
 +                if (! g_slist_find (new_users, list->data)) {
-+                        g_signal_emit (manager, signals[USER_REMOVED], 0, list->data);
++                        g_signal_emit (manager, signals[USER_REMOVED], 0, gdm_user_get_uid (GDM_USER (list->data)));
 +                        g_hash_table_remove (manager->priv->users,
 +                                             gdm_user_get_user_name (list->data));
 +                }
