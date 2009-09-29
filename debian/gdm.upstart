@@ -10,6 +10,8 @@ start on (filesystem
 	  and started hal)
 stop on runlevel [06]
 
+emits starting-dm
+
 respawn
 
 script
@@ -32,6 +34,8 @@ script
 	. /etc/environment
 	export LANG LANGUAGE
     fi
+
+    initctl emit starting-dm DM=gdm
 
     exec gdm-binary $CONFIG_FILE
 end script
