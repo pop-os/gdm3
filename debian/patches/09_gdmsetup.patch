@@ -1,10 +1,8 @@
-From bf71cbd0efacdb1d329fc2cd2b7c1a6e050e21ac Mon Sep 17 00:00:00 2001
-From: Robert Ancell <robert.ancell@ubuntu.com>
-Date: Thu, 6 Aug 2009 16:18:34 +0100
-Subject: [PATCH 2/2] Add GDM Setup
-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
-Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
-
+#
+# Description: Add GDM Setup
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
 --- gdm-2.28.0/configure.ac	2009-09-22 16:42:24.000000000 +0200
 +++ gdm-2.28.0.new/configure.ac	2009-09-22 16:42:25.000000000 +0200

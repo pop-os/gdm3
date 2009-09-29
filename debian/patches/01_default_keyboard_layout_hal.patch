@@ -1,6 +1,8 @@
+#
 # Description: Get default keyboard layout from hal
 # Ubuntu: https://bugs.launchpad.net/bugs/395103
 # Fedora: http://cvs.fedoraproject.org/viewvc//devel/gdm/gdm-system-keyboard.patch?view=markup
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
 --- gdm-2.28.0/configure.ac	2009-09-22 06:06:40.000000000 +1000
 +++ gdm-2.28.0.new/configure.ac	2009-09-22 10:49:34.000000000 +1000

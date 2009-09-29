@@ -1,6 +1,11 @@
+#
+# Description: Move shutdown menu to lower right hand corner as it is easy to accidentally use below user list
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/434338
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=596151
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c
---- gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-23 17:20:26.000000000 +1000
-+++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-23 17:20:27.000000000 +1000
+--- gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-29 10:33:56.000000000 +1000
++++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-29 10:33:57.000000000 +1000
 @@ -531,6 +531,11 @@
          show_suspend_button = dkp_client_can_suspend (login_window->priv->dkp_client);
          show_hibernate_button = dkp_client_can_hibernate (login_window->priv->dkp_client);
@@ -15,7 +20,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-wi
             to a known state */
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-panel.c
 --- gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-panel.c	2009-09-23 17:20:58.000000000 +1000
++++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-panel.c	2009-09-29 10:34:50.000000000 +1000
 @@ -34,6 +34,8 @@
  
  #include <gconf/gconf-client.h>
@@ -214,7 +219,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c 
 +                g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_stop), NULL);
 +                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 +
-+                gtk_box_pack_end (GTK_BOX (panel->priv->hbox), GTK_WIDGET (shutdown_menu), FALSE, FALSE, 6);
++                gtk_box_pack_end (GTK_BOX (panel->priv->hbox), GTK_WIDGET (shutdown_menu), FALSE, FALSE, 0);
 +                gtk_widget_show_all (GTK_WIDGET (shutdown_menu));
 +        }
 +

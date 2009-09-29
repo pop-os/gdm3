@@ -1,6 +1,8 @@
+#
 # Description: Do not show system users in the "frequent users" list
 # Ubuntu: https://launchpad.net/bugs/395281
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587708
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/gdm-user-manager.c gdm-2.27.90.new/gui/simple-greeter/gdm-user-manager.c
 --- gdm-2.27.90/gui/simple-greeter/gdm-user-manager.c	2009-08-25 05:31:18.000000000 +1000
 +++ gdm-2.27.90.new/gui/simple-greeter/gdm-user-manager.c	2009-08-25 14:35:01.000000000 +1000

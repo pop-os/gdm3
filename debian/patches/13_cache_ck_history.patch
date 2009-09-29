@@ -1,19 +1,8 @@
 #
+# Description: Cache the result of ck-history so greeter shows user list immediately after login
 # Ubuntu: https://bugs.edge.launchpad.net/ubuntu/karmic/+source/gdm/+bug/400863
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=594344
-# Description: Cache the result of ck-history so greeter shows user list immediately after login
 #
-
-From b5e49650c6f6cf66fdbffe7e160152f9ed1eded3 Mon Sep 17 00:00:00 2001
-From: Robert Ancell <robert.ancell@canonical.com>
-Date: Mon, 7 Sep 2009 14:44:41 +1000
-Subject: [PATCH] Add cache for ck-history call to improve startup time (Bug #594344)
-
----
- gui/simple-greeter/Makefile.am        |    1 +
- gui/simple-greeter/gdm-user-manager.c |   57 ++++++++++++++++++++++++++++++++-
- 2 files changed, 57 insertions(+), 1 deletions(-)
-
 diff --git a/gui/simple-greeter/Makefile.am b/gui/simple-greeter/Makefile.am
 index b36aa28..901a71b 100644
 --- a/gui/simple-greeter/Makefile.am

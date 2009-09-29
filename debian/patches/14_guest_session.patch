@@ -1,3 +1,4 @@
+#
 # Description: Add a new D-Bus operation StartGuestSession().
 #  If setup/teardown scripts are available in
 #  /usr/share/gdm/guest-session/ (shipped by separate gdm-guest-user
@@ -6,7 +7,7 @@
 #  /etc/gdm/Xsession, so that we can wrap AppArmor (or other MAC
 #  system) rules around it.
 # Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
-
+#
 diff -ur gdm-2.27.90/daemon/gdm-local-display-factory.c /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.c
 --- gdm-2.27.90/daemon/gdm-local-display-factory.c	2009-08-24 21:31:18.000000000 +0200
 +++ /tmp/gdm-2.27.90/daemon/gdm-local-display-factory.c	2009-09-07 17:59:17.819967929 +0200

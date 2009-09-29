@@ -1,3 +1,6 @@
+#
+# Description: Don't catch crashes so apport can do its job
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/factory-slave-main.c gdm-2.27.4.new/daemon/factory-slave-main.c
 --- gdm-2.27.4/daemon/factory-slave-main.c	2009-06-23 08:05:32.000000000 +0200
 +++ gdm-2.27.4.new/daemon/factory-slave-main.c	2009-08-13 20:00:15.000000000 +0200

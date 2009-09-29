@@ -1,9 +1,8 @@
 #
+# Description: Add org.gnome.DisplayManager.UserManager interface to gdmserver to be shared between greeter, configuration applet and FUSA applet
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/423450
 # Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=593996
-# Description: Add org.gnome.DisplayManager.UserManager interface to gdmserver to be shared between greeter, configuration applet and FUSA applet
 #
-
 From 35aa54f6fe3ff8fa8d6129f805ea243a6204aa65 Mon Sep 17 00:00:00 2001
 From: Robert Ancell <robert.ancell@canonical.com>
 Date: Fri, 11 Sep 2009 16:01:30 +1000

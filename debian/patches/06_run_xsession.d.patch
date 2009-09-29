@@ -1,5 +1,7 @@
+#
 # Description: Run /etc/X11/Xsession.d/.
 # Ubuntu-Specific: /etc/X11/Xsession.d is a Debianism/Ubuntuism
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/data/Xsession.in gdm-2.27.4.new/data/Xsession.in
 --- gdm-2.27.4/data/Xsession.in	2009-07-20 03:09:09.000000000 +0200
 +++ gdm-2.27.4.new/data/Xsession.in	2009-07-21 14:29:06.978475046 +0200

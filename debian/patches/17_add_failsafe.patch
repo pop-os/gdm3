@@ -1,3 +1,7 @@
+#
+# Description: Support failsafe sessions
+# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=594833
+#
 --- gdm-2.27.90/daemon/gdm-session-direct.c	2009-09-09 18:39:10.902593154 +1000
 +++ gdm-2.27.90-failsafe/daemon/gdm-session-direct.c	2009-09-09 21:04:10.641171722 +1000
 @@ -2032,7 +2032,14 @@

@@ -1,3 +1,7 @@
+#
+# Description: Create the log directory when required
+# Ubuntu: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/405227
+#
 --- ./gdm-2.28.0.ubuntu/daemon/main.c	2009-09-22 16:13:09.000000000 +0200
 +++ ./gdm-2.28.0/daemon/main.c	2009-09-22 18:33:29.000000000 +0200
 @@ -267,7 +267,8 @@

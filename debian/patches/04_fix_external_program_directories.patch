@@ -1,4 +1,6 @@
+#
 # Description: Fix location of external programs.
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/daemon/gdm-server.c gdm-2.27.90.new/daemon/gdm-server.c
 --- gdm-2.27.90/daemon/gdm-server.c	2009-08-25 05:31:18.000000000 +1000
 +++ gdm-2.27.90.new/daemon/gdm-server.c	2009-08-25 14:35:12.000000000 +1000

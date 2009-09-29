@@ -1,6 +1,8 @@
+#
 # Description: use lsb informations to correctly display the distribution
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=589549
 # Ubuntu: https://bugs.launchpad.net/bugs/396805
+#
 --- ./gdm-2.27.4/gui/simple-greeter/gdm-greeter-login-window.c.gnome	2009-07-23 23:12:50.000000000 +0200
 +++ ./gdm-2.27.4/gui/simple-greeter/gdm-greeter-login-window.c	2009-07-23 23:24:26.000000000 +0200
 @@ -1265,10 +1265,16 @@

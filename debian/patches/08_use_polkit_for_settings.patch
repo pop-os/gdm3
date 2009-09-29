@@ -1,10 +1,8 @@
-From 09153c6825e5b5157fba7600cefabb762d887891 Mon Sep 17 00:00:00 2001
-From: Robert Ancell <robert.ancell@ubuntu.com>
-Date: Thu, 6 Aug 2009 15:57:15 +0100
-Subject: [PATCH 1/2] Add PolicyKit support to GDM settings D-Bus interface
-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
-Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
-
+#
+# Description: Add PolicyKit support to GDM settings D-Bus interface
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/common/gdm-settings.c gdm-2.28.0.new/common/gdm-settings.c
 --- gdm-2.28.0/common/gdm-settings.c	2009-09-21 22:05:27.000000000 +0200
 +++ gdm-2.28.0.new/common/gdm-settings.c	2009-09-22 16:16:05.000000000 +0200

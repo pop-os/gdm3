@@ -1,5 +1,7 @@
+#
 # Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=588848
+#
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
 --- gdm-2.27.90/configure	2009-08-25 07:07:12.000000000 +1000
 +++ gdm-2.27.90.new/configure	2009-08-25 14:34:49.000000000 +1000
