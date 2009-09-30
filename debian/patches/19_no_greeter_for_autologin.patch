@@ -1,7 +1,7 @@
 #
 # Description: gdm_slave_get_timed_login_details() does not fill variables if username is NULL
 # Ubuntu: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/435801
-# Upstream: Fixed in master
+# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=596830
 #
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-simple-slave.c gdm-2.28.0.new/daemon/gdm-simple-slave.c
 --- gdm-2.28.0/daemon/gdm-simple-slave.c	2009-09-30 17:12:26.000000000 +1000
