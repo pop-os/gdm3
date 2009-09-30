@@ -1,5 +1,9 @@
-gdm (2.28.0-0ubuntu9) UNRELEASED; urgency=low
+gdm (2.28.0-0ubuntu9) karmic; urgency=low
 
+  * debian/gdm.postinst:
+    - use the correct key to set the gtk theme
+
+  [ Robert Ancell ]
   * debian/patches/22_shutdown_menu.patch:
     - Fix spacing on shutdown menu (LP: #437691)
   * debian/patches/*.patch:
@@ -8,7 +12,7 @@ gdm (2.28.0-0ubuntu9) UNRELEASED; urgency=low
     - Fix bug that caused the GDM greeter to be displayed briefly when
       automatically logging in (LP: #435801)
 
- -- Robert Ancell <robert.ancell@canonical.com>  Wed, 30 Sep 2009 17:21:41 +1000
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 30 Sep 2009 15:21:09 +0200
 
 gdm (2.28.0-0ubuntu8) karmic; urgency=low
 

@@ -49,9 +49,9 @@ PID=$(status "gdm" 2>/dev/null | awk '/[0-9]$/ { print $NF }')
 [ -z "$PID" ] || kill -HUP $PID
 
 #set default theme for the gdm login screen
-if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt 2.28.0-0ubuntu7; then
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt 2.28.0-0ubuntu9; then
     su -s /bin/sh -c 'gconftool --set /desktop/gnome/background/picture_filename --type string /usr/share/images/xsplash/bg_2560x1600.jpg' gdm
-    su -s /bin/sh -c 'gconftool --set /desktop/gnome/interface/gtk-theme --type string HumanLogin' gdm
+    su -s /bin/sh -c 'gconftool --set /desktop/gnome/interface/gtk_theme --type string HumanLogin' gdm
 fi
 
 #DEBHELPER#
