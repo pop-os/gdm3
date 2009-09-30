@@ -1,0 +1,26 @@
+#
+# Description: gdm_slave_get_timed_login_details() does not fill variables if username is NULL
+# Ubuntu: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/435801
+# Upstream: Fixed in master
+#
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-simple-slave.c gdm-2.28.0.new/daemon/gdm-simple-slave.c
+--- gdm-2.28.0/daemon/gdm-simple-slave.c	2009-09-30 17:12:26.000000000 +1000
++++ gdm-2.28.0.new/daemon/gdm-simple-slave.c	2009-09-30 17:13:14.000000000 +1000
+@@ -1014,6 +1014,7 @@
+         if (res) {
+                 gboolean enabled;
+                 int      delay;
++                char    *username;
+ 
+                 /* FIXME: handle wait-for-go */
+ 
+@@ -1021,7 +1022,8 @@
+ 
+                 delay = 0;
+                 enabled = FALSE;
+-                gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, NULL, &delay);
++                gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
++                g_free (username);
+                 if (! enabled || delay > 0) {
+                         start_greeter (slave);
+                         create_new_session (slave);
