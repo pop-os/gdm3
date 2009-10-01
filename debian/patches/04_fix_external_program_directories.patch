@@ -27,29 +27,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/greeter-autostart/gnome-settings-
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej gdm-2.27.90.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej
---- gdm-2.27.90/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.27.90.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej	2009-08-25 14:35:12.000000000 +1000
-@@ -0,0 +1,19 @@
-+***************
-+*** 1,8 ****
-+  [Desktop Entry]
-+  Type=Application
-+  _Name=GNOME Settings Daemon
-+- TryExec=/usr/libexec/gnome-settings-daemon
-+- Exec=/usr/libexec/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
-+  OnlyShowIn=GNOME;
-+  X-GNOME-Autostart-Phase=Initialization
-+  X-GNOME-Autostart-Notify=true
-+--- 1,8 ----
-+  [Desktop Entry]
-+  Type=Application
-+  _Name=GNOME Settings Daemon
-++ TryExec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon
-++ Exec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
-+  OnlyShowIn=GNOME;
-+  X-GNOME-Autostart-Phase=Initialization
-+  X-GNOME-Autostart-Notify=true
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-chooser/gdm-chooser-session.c gdm-2.27.90.new/gui/simple-chooser/gdm-chooser-session.c
 --- gdm-2.27.90/gui/simple-chooser/gdm-chooser-session.c	2009-08-25 05:31:18.000000000 +1000
 +++ gdm-2.27.90.new/gui/simple-chooser/gdm-chooser-session.c	2009-08-25 14:35:12.000000000 +1000

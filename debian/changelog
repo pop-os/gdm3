@@ -4,6 +4,7 @@ gdm (2.28.0-0ubuntu10) UNRELEASED; urgency=low
     (LP: #421212)
   * debian/gdm.postinst: Set HumanLogin theme for metacity, too. Thanks to
     Devid Antonio Filoni! (LP: #439546)
+  * 04_fix_external_program_directories.patch: Remove *.rej junk.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 01 Oct 2009 12:36:43 +0200
 
