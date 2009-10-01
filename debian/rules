@@ -30,3 +30,6 @@ binary-post-install/gdm::
 	# we install onboard (debian/onboard.desktop), and do not have gok
 	install -m 644 debian/onboard.desktop debian/gdm/usr/share/gdm/autostart/LoginWindow/
 	rm debian/gdm/usr/share/gdm/autostart/LoginWindow/gok.desktop
+	# we do not currently need a PK agent in the gdm session
+	rm debian/gdm/usr/share/gdm/autostart/LoginWindow/polkit-gnome-authentication-agent-1.desktop
+
