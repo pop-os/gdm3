@@ -4,8 +4,8 @@
 # Fedora: http://cvs.fedoraproject.org/viewvc//devel/gdm/gdm-system-keyboard.patch?view=markup
 #
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
---- gdm-2.28.0/configure.ac	2009-09-22 06:06:40.000000000 +1000
-+++ gdm-2.28.0.new/configure.ac	2009-09-22 10:49:34.000000000 +1000
+--- gdm-2.28.0/configure.ac	2009-09-21 22:06:40.000000000 +0200
++++ gdm-2.28.0.new/configure.ac	2009-10-01 12:35:50.345762314 +0200
 @@ -70,6 +70,7 @@
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gobject-2.0 >= $GLIB_REQUIRED_VERSION
@@ -15,8 +15,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.a
  AC_SUBST(DAEMON_CFLAGS)
  AC_SUBST(DAEMON_LIBS)
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-session-direct.c gdm-2.28.0.new/daemon/gdm-session-direct.c
---- gdm-2.28.0/daemon/gdm-session-direct.c	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-session-direct.c	2009-09-22 10:49:03.000000000 +1000
+--- gdm-2.28.0/daemon/gdm-session-direct.c	2009-09-21 22:05:27.000000000 +0200
++++ gdm-2.28.0.new/daemon/gdm-session-direct.c	2009-10-01 12:34:43.000000000 +0200
 @@ -45,6 +45,8 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
@@ -26,7 +26,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-session-direct.c gdm-2.28.0.
  #include "gdm-session-direct.h"
  #include "gdm-session.h"
  #include "gdm-session-private.h"
-@@ -598,14 +600,66 @@
+@@ -598,14 +600,87 @@
      return setlocale (LC_MESSAGES, NULL);
  }
  
@@ -38,6 +38,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-session-direct.c gdm-2.28.0.
 +    char **devices;
 +    int n_devices;
 +    char *layout;
++    char *variant;
 +    char *result;
 +
 +    result = NULL;
@@ -65,7 +66,26 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-session-direct.c gdm-2.28.0.
 +                                                        "input.xkb.layout",
 +                                                        NULL);
 +        }
-+	result = g_strdup (layout);
++	if (!layout)
++	    goto out;
++
++        variant = libhal_device_get_property_string (ctx,
++                                                    devices[0],
++                                                    "input.x11_options.XkbVariant",
++                                                    NULL);
++        if (!variant) {
++            variant = libhal_device_get_property_string (ctx,
++                                                        devices[0],
++                                                        "input.xkb.variant",
++                                                        NULL);
++        }
++
++	if (variant) {
++	    result = g_strdup_printf("%s\t%s", layout, variant);
++	    libhal_free_string (variant);
++	} else {
++	    result = g_strdup (layout);
++	}
 +	libhal_free_string (layout);
 +    }
 +
@@ -79,6 +99,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-session-direct.c gdm-2.28.0.
 +        result = g_strdup ("us");
 +    }
 +
++    g_debug ("GdmSessionDirect: System default keyboard layout: '%s'", result);
 +    return result;
 +}
 +
