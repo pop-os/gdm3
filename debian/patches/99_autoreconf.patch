@@ -72379,29 +72379,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/faces/Makefile.in gdm-2.28.0.new/d
  # Tell versions [3.59,3.63) of GNU make to not export all variables.
  # Otherwise a system limit (for SysV at least) may be exceeded.
  .NOEXPORT:
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej gdm-2.28.0.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej
---- gdm-2.28.0/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej	2009-09-22 22:22:27.843746391 +0100
-+++ gdm-2.28.0.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.rej	1970-01-01 01:00:00.000000000 +0100
-@@ -1,19 +0,0 @@
--***************
--*** 1,8 ****
--  [Desktop Entry]
--  Type=Application
--  _Name=GNOME Settings Daemon
--- TryExec=/usr/libexec/gnome-settings-daemon
--- Exec=/usr/libexec/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
--  OnlyShowIn=GNOME;
--  X-GNOME-Autostart-Phase=Initialization
--  X-GNOME-Autostart-Notify=true
----- 1,8 ----
--  [Desktop Entry]
--  Type=Application
--  _Name=GNOME Settings Daemon
--+ TryExec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon
--+ Exec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
--  OnlyShowIn=GNOME;
--  X-GNOME-Autostart-Phase=Initialization
--  X-GNOME-Autostart-Notify=true
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/greeter-autostart/Makefile.in gdm-2.28.0.new/data/greeter-autostart/Makefile.in
 --- gdm-2.28.0/data/greeter-autostart/Makefile.in	2009-09-21 21:17:03.000000000 +0100
 +++ gdm-2.28.0.new/data/greeter-autostart/Makefile.in	2009-09-22 22:22:49.540744129 +0100
