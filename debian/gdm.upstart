@@ -8,7 +8,7 @@ author		"William Jon McCann <mccann@jhu.edu>"
 
 start on (filesystem
 	  and started hal)
-stop on runlevel [06]
+stop on runlevel [016]
 
 emits starting-dm
 
