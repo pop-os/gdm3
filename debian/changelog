@@ -1,3 +1,10 @@
+gdm (2.28.0-0ubuntu14) UNRELEASED; urgency=low
+
+  * debian/gdm.postinst: Set icon theme to HumanLoginIcons. Also, call su just
+    once with all four gconftool commands instead of several times.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 07 Oct 2009 15:29:26 +0200
+
 gdm (2.28.0-0ubuntu13) karmic; urgency=low
 
   * debian/gdm{,-autologin}.pam: correctly handle SELinux transitions,
