@@ -1,0 +1,17 @@
+#
+# Description: Don't use the DOCK hint on the login window as this stops it from getting keyboard focus
+# Ubuntu: https://bugs.launchpad.net/gdm/+bug/447049 
+# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=598235
+#
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c
+--- gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c	2009-10-13 15:54:50.000000000 +1100
++++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c	2009-10-13 15:55:38.000000000 +1100
+@@ -1739,7 +1739,7 @@
+         gtk_window_set_skip_taskbar_hint (GTK_WINDOW (login_window), TRUE);
+         gtk_window_set_skip_pager_hint (GTK_WINDOW (login_window), TRUE);
+         gtk_window_stick (GTK_WINDOW (login_window));
+-        gtk_window_set_type_hint (GTK_WINDOW (login_window), GDK_WINDOW_TYPE_HINT_DOCK);
++        /*gtk_window_set_type_hint (GTK_WINDOW (login_window), GDK_WINDOW_TYPE_HINT_DOCK);*/ /* Docks cannot get focus */
+         gtk_container_set_border_width (GTK_CONTAINER (login_window), 0);
+ 
+         g_signal_connect (login_window,
