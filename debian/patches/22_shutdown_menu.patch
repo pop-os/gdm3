@@ -200,22 +200,22 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c 
 +                gtk_menu_shell_append (GTK_MENU_SHELL (shutdown_menu), menu_item);
 +
 +                if (dkp_client_can_suspend (panel->priv->dkp_client)) {
-+                        menu_item = gtk_menu_item_new_with_label ("Suspend");
++                        menu_item = gtk_menu_item_new_with_label (_("Suspend"));
 +                        g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_suspend), panel);
 +                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 +                }
 +
 +                if (dkp_client_can_hibernate (panel->priv->dkp_client)) {            
-+                        menu_item = gtk_menu_item_new_with_label ("Hibernate");
++                        menu_item = gtk_menu_item_new_with_label (_("Hibernate"));
 +                        g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_hibernate), panel);
 +                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 +                }
 +
-+                menu_item = gtk_menu_item_new_with_label ("Restart");
++                menu_item = gtk_menu_item_new_with_label (_("Restart"));
 +                g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_restart), NULL);
 +                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 +
-+                menu_item = gtk_menu_item_new_with_label ("Shut Down");
++                menu_item = gtk_menu_item_new_with_label (_("Shut Down"));
 +                g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_stop), NULL);
 +                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 +
