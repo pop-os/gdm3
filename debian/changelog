@@ -2,6 +2,9 @@ gdm (2.28.0-0ubuntu18) UNRELEASED; urgency=low
 
   * debian/patches/14_guest_session.patch:
     - Switch to existing guest session if already open (LP: #450965)
+  * debian/patches/24_system_uid.patch:
+  * debian/patches/16_gdmserver_user_manager.patch:
+    - Fix more cases of users with UID < 1000
 
  -- Robert Ancell <robert.ancell@canonical.com>  Wed, 14 Oct 2009 15:50:10 +1100
 

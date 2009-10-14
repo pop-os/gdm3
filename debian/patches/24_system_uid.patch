@@ -1,0 +1,73 @@
+#
+# Description:  Ignore users with UID < 1000
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/427462
+#
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.new/daemon/gdm-user-manager.c
+--- gdm-2.28.0/daemon/gdm-user-manager.c	2009-10-14 18:31:35.000000000 +1100
++++ gdm-2.28.0.new/daemon/gdm-user-manager.c	2009-10-14 18:34:59.000000000 +1100
+@@ -66,7 +66,7 @@
+ #ifdef __sun
+ #define DEFAULT_MINIMAL_UID     100
+ #else
+-#define DEFAULT_MINIMAL_UID     500
++#define DEFAULT_MINIMAL_UID     1000
+ #endif
+ 
+ #ifndef _PATH_SHELLS
+@@ -539,6 +539,10 @@
+                 return;
+         }
+ 
++        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                return;
++        }
++
+         /* check exclusions up front */
+         if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
+                 g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c
+--- gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c	2009-10-14 18:31:34.000000000 +1100
++++ gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c	2009-10-14 18:33:38.000000000 +1100
+@@ -66,7 +66,7 @@
+ #ifdef __sun
+ #define DEFAULT_MINIMAL_UID     100
+ #else
+-#define DEFAULT_MINIMAL_UID     500
++#define DEFAULT_MINIMAL_UID     1000
+ #endif
+ 
+ #ifndef _PATH_SHELLS
+@@ -835,6 +835,10 @@
+                 return;
+         }
+ 
++        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                return;
++        }
++
+         /* check exclusions up front */
+         if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
+                 g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-user-manager.c gdm-2.28.0.new/gui/simple-greeter/gdm-user-manager.c
+--- gdm-2.28.0/gui/simple-greeter/gdm-user-manager.c	2009-10-14 18:31:35.000000000 +1100
++++ gdm-2.28.0.new/gui/simple-greeter/gdm-user-manager.c	2009-10-14 18:34:14.000000000 +1100
+@@ -66,7 +66,7 @@
+ #ifdef __sun
+ #define DEFAULT_MINIMAL_UID     100
+ #else
+-#define DEFAULT_MINIMAL_UID     500
++#define DEFAULT_MINIMAL_UID     1000
+ #endif
+ 
+ #ifndef _PATH_SHELLS
+@@ -909,6 +909,10 @@
+                 return;
+         }
+ 
++        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                return;
++        }
++
+         /* check exclusions up front */
+         if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
+                 g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
