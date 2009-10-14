@@ -1,9 +1,15 @@
-gdm (2.28.0-0ubuntu16) UNRELEASED; urgency=low
+gdm (2.28.0-0ubuntu17) UNRELEASED; urgency=low
 
+  [ Robert Ancell ]
   * debian/patches/22_shutdown_menu.patch:
     - Mark power menu options as translatable (LP: #450707)
 
- -- Robert Ancell <robert.ancell@canonical.com>  Wed, 14 Oct 2009 09:48:05 +1100
+  [ Scott James Remnant ]
+  * debian/gdm.upstart:
+    - Wait for tty7 to be ready, and either a framebuffer or the end
+      of coldplugging.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Wed, 14 Oct 2009 04:58:54 +0100
 
 gdm (2.28.0-0ubuntu15) karmic; urgency=low
 
