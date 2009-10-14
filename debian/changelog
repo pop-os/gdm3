@@ -1,4 +1,4 @@
-gdm (2.28.0-0ubuntu17) UNRELEASED; urgency=low
+gdm (2.28.0-0ubuntu17) karmic; urgency=low
 
   [ Robert Ancell ]
   * debian/patches/22_shutdown_menu.patch:
@@ -9,7 +9,7 @@ gdm (2.28.0-0ubuntu17) UNRELEASED; urgency=low
     - Wait for tty7 to be ready, and either a framebuffer or the end
       of coldplugging.
 
- -- Scott James Remnant <scott@ubuntu.com>  Wed, 14 Oct 2009 04:58:54 +0100
+ -- Scott James Remnant <scott@ubuntu.com>  Wed, 14 Oct 2009 05:08:47 +0100
 
 gdm (2.28.0-0ubuntu15) karmic; urgency=low
 
