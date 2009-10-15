@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="desktop">
+		<dir name="gnome">
+			<dir name="background">
+				<entry name="picture_filename" mtime="1255598514" type="string">
+					<stringvalue>/usr/share/images/xsplash/bg_2560x1600.jpg</stringvalue>
+				</entry>
+			</dir>
+			<dir name="interface">
+				<entry name="icon_theme" mtime="1255598514" type="string">
+					<stringvalue>HumanLoginIcons</stringvalue>
+				</entry>
+				<entry name="gtk_theme" mtime="1255598514" type="string">
+					<stringvalue>HumanLogin</stringvalue>
+				</entry>
+			</dir>
+		</dir>
+	</dir>
+	<dir name="apps">
+		<dir name="gnome-power-manager">
+			<dir name="ui">
+				<entry name="icon_policy" mtime="1255598662" type="string">
+					<stringvalue>never</stringvalue>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="metacity">
+			<dir name="general">
+				<entry name="theme" mtime="1255598514" type="string">
+					<stringvalue>HumanLogin</stringvalue>
+				</entry>
+			</dir>
+		</dir>
+	</dir>
+</gconf>
