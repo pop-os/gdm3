@@ -3,24 +3,23 @@
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/434338
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=596151
 #
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c
---- gdm-2.28.0/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-29 10:33:56.000000000 +1000
-+++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-login-window.c	2009-09-29 10:33:57.000000000 +1000
-@@ -531,6 +531,11 @@
-         show_suspend_button = dkp_client_can_suspend (login_window->priv->dkp_client);
-         show_hibernate_button = dkp_client_can_hibernate (login_window->priv->dkp_client);
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.28.1.new/gui/simple-greeter/gdm-greeter-login-window.c
+--- gdm-2.28.1/gui/simple-greeter/gdm-greeter-login-window.c	2009-10-20 12:30:15.000000000 +1100
++++ gdm-2.28.1.new/gui/simple-greeter/gdm-greeter-login-window.c	2009-10-20 12:30:16.000000000 +1100
+@@ -550,6 +550,10 @@
+         show_suspend_button = FALSE;
+ #endif
  
 +        /* Buttons now in shutdown menu */
 +        show_restart_buttons = FALSE;
 +        show_suspend_button = FALSE;
-+        show_hibernate_button = FALSE;
 +
          /* we want to run this even if we're supposed to
             be in the mode already so that we reset everything
             to a known state */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-panel.c
---- gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/gui/simple-greeter/gdm-greeter-panel.c	2009-09-29 10:34:50.000000000 +1000
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/gui/simple-greeter/gdm-greeter-panel.c gdm-2.28.1.new/gui/simple-greeter/gdm-greeter-panel.c
+--- gdm-2.28.1/gui/simple-greeter/gdm-greeter-panel.c	2009-10-20 09:12:45.000000000 +1100
++++ gdm-2.28.1.new/gui/simple-greeter/gdm-greeter-panel.c	2009-10-20 12:30:16.000000000 +1100
 @@ -34,6 +34,8 @@
  
  #include <gconf/gconf-client.h>
@@ -226,3 +225,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-greeter-panel.c 
          panel->priv->clock = gdm_clock_widget_new ();
          gtk_box_pack_end (GTK_BOX (panel->priv->hbox),
                              GTK_WIDGET (panel->priv->clock), FALSE, FALSE, 6);
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/gui/simple-greeter/Makefile.am gdm-2.28.1.new/gui/simple-greeter/Makefile.am
+--- gdm-2.28.1/gui/simple-greeter/Makefile.am	2009-10-20 12:30:15.000000000 +1100
++++ gdm-2.28.1.new/gui/simple-greeter/Makefile.am	2009-10-20 12:33:43.000000000 +1100
+@@ -142,6 +142,7 @@
+ 	$(top_builddir)/common/libgdmcommon.la	\
+ 	$(top_builddir)/gui/simple-greeter/libnotificationarea/libnotificationarea.la	\
+ 	$(SIMPLE_GREETER_LIBS)		\
++	$(DEVKIT_POWER_LIBS)		\
+ 	$(GTK_LIBS)			\
+ 	$(GCONF_LIBS)			\
+ 	$(LIBXKLAVIER_LIBS)		\
