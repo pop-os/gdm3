@@ -1,4 +1,5 @@
 01_minimal_uid.patch
 02_xnest-wrapper.patch
 03_authdir.patch
+04_custom-conf.patch
 90_relibtoolize.patch

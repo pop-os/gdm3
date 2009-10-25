@@ -1,9 +1,6 @@
 This file lists the most obvious breakages in GDM. There are probably a 
 lot of bugs remaining after that, these are only the blockers.
 
- * The custom.conf file cannot be found
-   => Probably needs a bit of patching.
-
  * The default keyboard layout is wrong
    => Ubuntu has a patch, 01_default_keyboard_layout_hal.patch.
    => It’s a giant hack to talk directly to HAL! We need to use 
