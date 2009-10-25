@@ -1,0 +1,43 @@
+This file lists the most obvious breakages in GDM. There are probably a 
+lot of bugs remaining after that, these are only the blockers.
+
+ * The custom.conf file cannot be found
+   => Probably needs a bit of patching.
+
+ * The default keyboard layout is wrong
+   => Ubuntu has a patch, 01_default_keyboard_layout_hal.patch.
+   => It’s a giant hack to talk directly to HAL! We need to use 
+      libxklavier properly instead.
+
+ * Settings are not migrated.
+   => There are so many regressions, we probably need to ship the new 
+      version in a new package named e.g. gdm3.
+ 
+ * GConf settings don’t work in the greeter.
+   => Probably fixed by Ubuntu’s 04_fix_external_program_directories.patch
+
+ * gdmflexiserver doesn’t appear in the menus
+   => It needs a .desktop file
+
+ * User switching is broken, two connections start two sessions.
+   => Possibly fixed by Ubuntu’s 04_fix_external_program_directories.patch
+
+ * The default session is always GNOME
+   => Fixed by Ubuntu’s 15_default_session.patch
+
+ * TTYs are allocated by X itself, which leads to giant FAIL when gdm is 
+   started before the getty processes (which is the case on Debian).
+   => Ubuntu uses a giant hack that is clearly not an acceptable fix.
+   => We need to port some functions of the VT manager from GDM 2.20, 
+      mostly the one that finds the first unallocated VT.
+
+ * There is no configuration GUI
+   => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
+      09_gdmsetup.patch.
+
+ * Other Ubuntu patches we need
+   - 03_hide_system_users.patch to avoid showing system users in recent 
+     connections
+   - 13_cache_ck_history.patch for speed improvement
+   - 19_no_greeter_for_autologin.patch, already fixed in git master
+   - 23_login_window_hint.patch for a focus fix
