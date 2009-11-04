@@ -14,8 +14,6 @@ stop on runlevel [016]
 
 emits starting-dm
 
-respawn
-
 script
     [ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ]
 
