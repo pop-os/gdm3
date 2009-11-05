@@ -1,11 +1,11 @@
-gdm (2.28.1-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.28.1-0ubuntu2) karmic-proposed; urgency=low
 
   * Don't respawn gdm on failure; this lets us capture X failures instead and
     trigger the bulletproof X handler here.  LP: #441638.
   * re-export any XORGCONFIG value passed to the upstart job, needed to
     complete integration with bulletproof X.  LP: #474806.
 
- -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 04 Nov 2009 22:59:25 +0000
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 04 Nov 2009 18:15:37 -0800
 
 gdm (2.28.1-0ubuntu1) karmic; urgency=low
 
