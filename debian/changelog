@@ -12,8 +12,16 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/control.in:
     - Require libxklavier-dev build-dep instead of libxklavier12-dev.
     - Update to Standards-Version 3.8.3, no additional changes needed.
+  * debian/patches/02_xnest-wrapper.patch:
+    - Update to apply cleanly.
   * debian/patches/04_custom-conf.patch:
     - TODO: The custom.conf file cannot be found.
+  * debian/patches/05_default_keyboard_layout_xkl.patch:
+    - Ubuntu hal patch translated to libxklavier.
+    - TODO: The default keyboard layout is wrong.
+  * debian/patches/90_relibtoolize.patch:
+    - Update for 05_default_keyboard_layout_xkl.patch libxklavier changes to
+      Makefile.am.
 
  -- Luca Bruno <lethalman88@gmail.com>  Sun, 25 Oct 2009 11:04:57 +0100
 

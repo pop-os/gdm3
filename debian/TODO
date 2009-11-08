@@ -1,11 +1,6 @@
 This file lists the most obvious breakages in GDM. There are probably a 
 lot of bugs remaining after that, these are only the blockers.
 
- * The default keyboard layout is wrong
-   => Ubuntu has a patch, 01_default_keyboard_layout_hal.patch.
-   => It’s a giant hack to talk directly to HAL! We need to use 
-      libxklavier properly instead.
-
  * Settings are not migrated.
    => There are so many regressions, we probably need to ship the new 
       version in a new package named e.g. gdm3.
