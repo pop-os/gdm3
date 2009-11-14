@@ -8,9 +8,6 @@ lot of bugs remaining after that, these are only the blockers.
  * GConf settings don’t work in the greeter.
    => Probably fixed by Ubuntu’s 04_fix_external_program_directories.patch
 
- * gdmflexiserver doesn’t appear in the menus
-   => It needs a .desktop file
-
  * User switching is broken, two connections start two sessions.
    => Possibly fixed by Ubuntu’s 04_fix_external_program_directories.patch
 
@@ -26,6 +23,11 @@ lot of bugs remaining after that, these are only the blockers.
  * There is no configuration GUI
    => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
       09_gdmsetup.patch.
+
+ * gdmflexiserver is missing many options, including xnest.
+   => Looks like Ubuntu has no bugs and GNOME has a sort of feature request,
+      but no one replied for implementing it.
+      Is "Login in a nested window" going to die?
 
  * Other Ubuntu patches we need
    - 03_hide_system_users.patch to avoid showing system users in recent 
