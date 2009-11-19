@@ -3,4 +3,5 @@
 03_authdir.patch
 04_custom-conf.patch
 05_default_keyboard_layout_xkl.patch
+06_first_vt.patch
 90_relibtoolize.patch

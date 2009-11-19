@@ -19,6 +19,10 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/patches/05_default_keyboard_layout_xkl.patch:
     - Ubuntu hal patch translated to libxklavier.
     - TODO: The default keyboard layout is wrong.
+  * debian/patches/06_first_vt.patch:
+    - Backport some code of the tty manager from gdm 2.20.
+    - TODO: TTYs are allocated by X itself, which leads to giant FAIL when
+      gdm is started before the getty processes.
   * debian/patches/90_relibtoolize.patch:
     - Update for 05_default_keyboard_layout_xkl.patch libxklavier changes to
       Makefile.am.
@@ -34,7 +38,7 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/TODO:
     - gdmflexiserver is ignoring many options, including xnest.
 
- -- Luca Bruno <lethalman88@gmail.com>  Sat, 14 Nov 2009 17:50:44 +0100
+ -- Luca Bruno <lethalman88@gmail.com>  Thu, 19 Nov 2009 20:56:19 +0100
 
 gdm (2.26.1-1) UNRELEASED; urgency=low
 

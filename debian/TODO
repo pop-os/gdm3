@@ -14,12 +14,6 @@ lot of bugs remaining after that, these are only the blockers.
  * The default session is always GNOME
    => Fixed by Ubuntu’s 15_default_session.patch
 
- * TTYs are allocated by X itself, which leads to giant FAIL when gdm is 
-   started before the getty processes (which is the case on Debian).
-   => Ubuntu uses a giant hack that is clearly not an acceptable fix.
-   => We need to port some functions of the VT manager from GDM 2.20, 
-      mostly the one that finds the first unallocated VT.
-
  * There is no configuration GUI
    => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
       09_gdmsetup.patch.
