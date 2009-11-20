@@ -22,6 +22,9 @@ lot of bugs remaining after that, these are only the blockers.
    => Looks like Ubuntu has no bugs and GNOME has a sort of feature request,
       but no one replied for implementing it.
       Is "Login in a nested window" going to die?
+   => It is easy to implement, but it will require extending the D-Bus 
+      API so that gdmflexiserver has a way to communicate Xephyr’s 
+      $DISPLAY to gdm.
 
  * Other Ubuntu patches we need
    - 03_hide_system_users.patch to avoid showing system users in recent 
