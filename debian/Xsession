@@ -185,6 +185,14 @@ if [ "x$command" = "xcustom" ] ; then
   set default $*
 fi
 
+# Add /usr/share/gdm to XDG_DATA_DIRS
+if [ -z "$XDG_DATA_DIRS" ]; then
+  XDG_DATA_DIRS=/usr/share/gdm/:/usr/local/share/:/usr/share/
+else
+  XDG_DATA_DIRS="$XDG_DATA_DIRS":/usr/share/gdm/
+fi
+export XDG_DATA_DIRS
+
 # use run-parts to source every file in the session directory; we source
 # instead of executing so that the variables and functions defined above
 # are available to the scripts, and so that they can pass variables to each

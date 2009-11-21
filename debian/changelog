@@ -30,19 +30,19 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/patches/90_relibtoolize.patch:
     - Update for 05_default_keyboard_layout_xkl.patch libxklavier changes to
       Makefile.am.
-  * debian/59gdm-xdg-data-dirs, debian/gdmflexiserver.svg,
+  * debian/Xsession, debian/gdmflexiserver.svg,
     debian/gdmflexiserver.desktop, debian/gdm.install:
-    - /etc/X11/Xsession.d/59gdm-xdg-data-dirs will add /usr/share/gdm to
-      XDG_DATA_DIRS so that /usr/share/gdm/applications/gdmflexiserver.desktop
-      appears only in gdm sessions with icon
+    - /etc/gdm/Xsession will add /usr/share/gdm to XDG_DATA_DIRS so that
+      /usr/share/gdm/applications/gdmflexiserver.desktop appears only in gdm
+      sessions with icon
       /usr/share/icons/hicolor/scalable/apps/gdmflexiserver.svg.
-    - TODO: gdmflexiserver doesn’t appear in the menus.
+    - TODO: gdmflexiserver doesn't appear in the menus.
   * debian/gdmflexiserver.1.pod:
     - Added for lintian, even if most of the options are currently ignored.
   * debian/TODO:
     - gdmflexiserver is ignoring many options, including xnest.
 
- -- Luca Bruno <lethalman88@gmail.com>  Fri, 20 Nov 2009 23:31:21 +0100
+ -- Luca Bruno <lethalman88@gmail.com>  Sat, 21 Nov 2009 09:31:13 +0100
 
 gdm (2.26.1-1) UNRELEASED; urgency=low
 
