@@ -1,0 +1,30 @@
+diff -urN gdm-2.28.1.orig/daemon/ck-connector.c gdm-2.28.1/daemon/ck-connector.c
+--- gdm-2.28.1.orig/daemon/ck-connector.c	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1/daemon/ck-connector.c	2009-11-21 12:56:23.000000000 +0100
+@@ -430,6 +430,14 @@
+                 name = va_arg (var_args, char *);
+         }
+ 
++        const char *session_type = "gdm";
++        if (! add_param_basic (&iter_array, "session-type", DBUS_TYPE_STRING, &session_type)) {
++                dbus_set_error (error,
++                                CK_CONNECTOR_ERROR,
++                                "Error adding parameter: session-type");
++                goto out;
++        }
++
+         if (! dbus_message_iter_close_container (&iter, &iter_array)) {
+                 goto out;
+         }
+diff -urN gdm-2.28.1.orig/gui/simple-greeter/gdm-user-manager.c gdm-2.28.1/gui/simple-greeter/gdm-user-manager.c
+--- gdm-2.28.1.orig/gui/simple-greeter/gdm-user-manager.c	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1/gui/simple-greeter/gdm-user-manager.c	2009-11-21 10:16:40.000000000 +0100
+@@ -1306,7 +1306,7 @@
+                 return;
+         }
+ 
+-        command = g_strdup_printf ("ck-history --frequent --seat='%s' --session-type=''",
++        command = g_strdup_printf ("ck-history --frequent --seat='%s' --session-type='gdm'",
+                                    seat_id);
+         g_debug ("GdmUserManager: running '%s'", command);
+         error = NULL;

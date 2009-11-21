@@ -27,8 +27,6 @@ lot of bugs remaining after that, these are only the blockers.
       $DISPLAY to gdm.
 
  * Other Ubuntu patches we need
-   - 03_hide_system_users.patch to avoid showing system users in recent 
-     connections
    - 13_cache_ck_history.patch for speed improvement
    - 19_no_greeter_for_autologin.patch, already fixed in git master
    - 23_login_window_hint.patch for a focus fix

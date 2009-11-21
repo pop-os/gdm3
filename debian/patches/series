@@ -5,4 +5,5 @@
 05_default_keyboard_layout_xkl.patch
 06_first_vt.patch
 07_libexec-paths.patch
+08_frequent-users_greeter.patch
 90_relibtoolize.patch
