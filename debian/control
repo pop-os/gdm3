@@ -8,7 +8,6 @@ Build-Depends: cdbs,
 	       gnome-pkg-tools,
 	       libglib2.0-dev (>= 2.15.4), 
 	       libdbus-glib-1-dev (>= 0.74), 
-	       libhal-dev,
 	       libx11-dev, 
 	       libgtk2.0-dev (>= 2.10), 
 	       libgconf2-dev, 
@@ -41,8 +40,7 @@ Depends: ${shlibs:Depends},
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin,
-         kbd | console-tools,
-         hal (>= 0.5.13-1ubuntu3)
+         kbd | console-tools
 Recommends: xserver-xorg,
          metacity | x-window-manager,
          gnome-settings-daemon | xfconf
