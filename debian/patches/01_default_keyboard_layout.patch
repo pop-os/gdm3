@@ -23,7 +23,7 @@ Always overrides keyboard layout variants: https://bugzilla.gnome.org/show_bug.c
 +    Display *display;
 +    
 +    result = NULL;    
-+    display = XOpenDisplay (session->priv->display_id);
++    display = XOpenDisplay (session->priv->display_name);
 +    if (display) {
 +        XklConfigRec *config;
 +        XklEngine *engine = xkl_engine_get_instance (display);
