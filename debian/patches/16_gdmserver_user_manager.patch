@@ -8,18 +8,18 @@ From: Robert Ancell <robert.ancell@canonical.com>
 Date: Fri, 11 Sep 2009 16:01:30 +1000
 Subject: [PATCH] Add org.gnome.DisplayManager.UserManager interface to gdmserver
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
---- gdm-2.28.0/configure.ac	2009-10-14 18:30:50.000000000 +1100
-+++ gdm-2.28.0.new/configure.ac	2009-10-14 18:30:51.000000000 +1100
-@@ -73,6 +73,7 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/configure.ac gdm-2.28.1.new/configure.ac
+--- gdm-2.28.1/configure.ac	2009-11-26 17:07:28.317717514 +0100
++++ gdm-2.28.1.new/configure.ac	2009-11-26 17:07:45.585319608 +0100
+@@ -65,6 +65,7 @@
          polkit-gobject-1 >= $POLKIT_GOBJECT_REQUIRED_VERSION
          gobject-2.0 >= $GLIB_REQUIRED_VERSION
          gio-2.0 >= $GLIB_REQUIRED_VERSION
 +        gconf-2.0 >= $GCONF_REQUIRED_VERSION
-         hal
  )
- AC_SUBST(DAEMON_CFLAGS)
-@@ -949,6 +950,17 @@
+ AC_SUBST(COMMON_CFLAGS)
+ AC_SUBST(COMMON_LIBS)
+@@ -961,6 +962,17 @@
  fi
  AC_SUBST(logdir, $GDM_LOG_DIR)
  
@@ -37,9 +37,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.a
  withval=""
  AC_ARG_WITH(at-bindir,
              AS_HELP_STRING([--with-at-bindir=<PATH>]
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user.c gdm-2.28.0.new/daemon/gdm-user.c
---- gdm-2.28.0/daemon/gdm-user.c	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user.c	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon/gdm-user.c
+--- gdm-2.28.1/daemon/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user.c	2009-11-26 17:07:31.427725843 +0100
 @@ -0,0 +1,596 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -637,9 +637,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user.c gdm-2.28.0.new/daemon
 +         */   
 +        return user->icon_url;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user.h gdm-2.28.0.new/daemon/gdm-user.h
---- gdm-2.28.0/daemon/gdm-user.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user.h	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.h gdm-2.28.1.new/daemon/gdm-user.h
+--- gdm-2.28.1/daemon/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user.h	2009-11-26 17:07:31.427725843 +0100
 @@ -0,0 +1,53 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -694,9 +694,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user.h gdm-2.28.0.new/daemon
 +G_END_DECLS
 +
 +#endif
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.new/daemon/gdm-user-manager.c
---- gdm-2.28.0/daemon/gdm-user-manager.c	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user-manager.c	2009-10-14 18:31:03.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.new/daemon/gdm-user-manager.c
+--- gdm-2.28.1/daemon/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user-manager.c	2009-11-26 17:07:31.437723273 +0100
 @@ -0,0 +1,1538 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2236,9 +2236,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.ne
 +        *is_loaded = user_manager->priv->loaded_passwd;
 +        return TRUE;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.h gdm-2.28.0.new/daemon/gdm-user-manager.h
---- gdm-2.28.0/daemon/gdm-user-manager.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user-manager.h	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.h gdm-2.28.1.new/daemon/gdm-user-manager.h
+--- gdm-2.28.1/daemon/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user-manager.h	2009-11-26 17:07:31.437723273 +0100
 @@ -0,0 +1,93 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2333,9 +2333,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.h gdm-2.28.0.ne
 +G_END_DECLS
 +
 +#endif /* __GDM_USER_MANAGER_H */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.xml gdm-2.28.0.new/daemon/gdm-user-manager.xml
---- gdm-2.28.0/daemon/gdm-user-manager.xml	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user-manager.xml	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.xml gdm-2.28.1.new/daemon/gdm-user-manager.xml
+--- gdm-2.28.1/daemon/gdm-user-manager.xml	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user-manager.xml	2009-11-26 17:07:31.437723273 +0100
 @@ -0,0 +1,56 @@
 +<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 +<node name="/org/gnome/DisplayManager/UserManager">
@@ -2393,9 +2393,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.xml gdm-2.28.0.
 +    
 +  </interface>
 +</node>
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-private.h gdm-2.28.0.new/daemon/gdm-user-private.h
---- gdm-2.28.0/daemon/gdm-user-private.h	1970-01-01 10:00:00.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-user-private.h	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-private.h gdm-2.28.1.new/daemon/gdm-user-private.h
+--- gdm-2.28.1/daemon/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.28.1.new/daemon/gdm-user-private.h	2009-11-26 17:07:31.437723273 +0100
 @@ -0,0 +1,42 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2439,9 +2439,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-private.h gdm-2.28.0.ne
 +G_END_DECLS
 +
 +#endif /* !__GDM_USER_PRIVATE__ */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/main.c gdm-2.28.0.new/daemon/main.c
---- gdm-2.28.0/daemon/main.c	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/main.c	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/main.c gdm-2.28.1.new/daemon/main.c
+--- gdm-2.28.1/daemon/main.c	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1.new/daemon/main.c	2009-11-26 17:07:31.437723273 +0100
 @@ -43,6 +43,7 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
@@ -2458,7 +2458,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/main.c gdm-2.28.0.new/daemon/mai
  static GdmManager      *manager       = NULL;
  static GdmSettings     *settings      = NULL;
  static uid_t            gdm_uid       = -1;
-@@ -576,6 +578,12 @@
+@@ -580,6 +582,12 @@
                  goto out;
          }
  
@@ -2471,9 +2471,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/main.c gdm-2.28.0.new/daemon/mai
          if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
                  g_warning ("Unable to initialize settings");
                  goto out;
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/Makefile.am gdm-2.28.0.new/daemon/Makefile.am
---- gdm-2.28.0/daemon/Makefile.am	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/Makefile.am	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemon/Makefile.am
+--- gdm-2.28.1/daemon/Makefile.am	2009-11-26 17:07:26.267716612 +0100
++++ gdm-2.28.1.new/daemon/Makefile.am	2009-11-26 17:07:31.437723273 +0100
 @@ -9,6 +9,7 @@
  	-DDATADIR=\"$(datadir)\"			\
  	-DDMCONFDIR=\"$(dmconfdir)\"			\
@@ -2499,7 +2499,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/Makefile.am gdm-2.28.0.new/daemo
  gdm-slave-glue.h: gdm-slave.xml Makefile.am
  	dbus-binding-tool --prefix=gdm_slave --mode=glib-server --output=gdm-slave-glue.h $(srcdir)/gdm-slave.xml
  gdm-simple-slave-glue.h: gdm-simple-slave.xml Makefile.am
-@@ -303,6 +307,11 @@
+@@ -306,6 +310,11 @@
  	gdm-product-display.h		\
  	gdm-manager.c			\
  	gdm-manager.h			\
@@ -2511,7 +2511,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/Makefile.am gdm-2.28.0.new/daemo
  	gdm-slave-proxy.c		\
  	gdm-slave-proxy.h		\
  	$(NULL)
-@@ -365,6 +374,7 @@
+@@ -368,6 +377,7 @@
  	gdm-session-direct.xml		\
  	gdm-manager.xml			\
  	gdm-display.xml			\
@@ -2519,9 +2519,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/Makefile.am gdm-2.28.0.new/daemo
  	gdm-xdmcp-greeter-display.xml	\
  	gdm-xdmcp-chooser-display.xml	\
  	gdm-static-display.xml		\
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/gdm.conf.in gdm-2.28.0.new/data/gdm.conf.in
---- gdm-2.28.0/data/gdm.conf.in	2009-10-14 18:30:50.000000000 +1100
-+++ gdm-2.28.0.new/data/gdm.conf.in	2009-10-14 18:30:51.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/data/gdm.conf.in gdm-2.28.1.new/data/gdm.conf.in
+--- gdm-2.28.1/data/gdm.conf.in	2009-11-26 17:07:29.477742113 +0100
++++ gdm-2.28.1.new/data/gdm.conf.in	2009-11-26 17:07:31.437723273 +0100
 @@ -8,6 +8,8 @@
      <allow own="org.gnome.DisplayManager"/>
  
