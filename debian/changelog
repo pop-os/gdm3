@@ -1,4 +1,4 @@
-gdm (2.28.1-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.28.1-0ubuntu3) lucid; urgency=low
 
   * Replace 01_default_keyboard_layout_hal.patch with
     01_default_keyboard_layout.patch which uses libxklavier instead of hal to
@@ -6,7 +6,7 @@ gdm (2.28.1-0ubuntu3) UNRELEASED; urgency=low
     dependencies. (LP: #418981)
   * 16_gdmserver_user_manager.patch, 99_autoreconf.patch: Updated.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 26 Nov 2009 17:01:44 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 27 Nov 2009 09:25:31 +0100
 
 gdm (2.28.1-0ubuntu2) karmic-proposed; urgency=low
 
