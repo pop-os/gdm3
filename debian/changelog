@@ -1,9 +1,9 @@
-gdm (2.28.1-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.28.1-0ubuntu4) lucid; urgency=low
 
   * debian/gdm.upstart: Do not wait for hal, since we don't need it any more
     (and doesn't even need to be installed any more with a dehalified X.org).
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 27 Nov 2009 22:15:41 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 27 Nov 2009 22:16:26 +0100
 
 gdm (2.28.1-0ubuntu3) lucid; urgency=low
 
