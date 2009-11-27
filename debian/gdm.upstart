@@ -7,7 +7,6 @@ description	"GNOME Display Manager"
 author		"William Jon McCann <mccann@jhu.edu>"
 
 start on (filesystem
-	  and started hal
 	  and tty-device-added KERNEL=tty7
 	  and (graphics-device-added or stopped udevtrigger))
 stop on runlevel [016]
