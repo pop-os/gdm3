@@ -1,7 +1,8 @@
 Ubuntu hal patch translated to libxklavier.
 Always overrides keyboard layout variants: https://bugzilla.gnome.org/show_bug.cgi?id=572765
---- gdm-2.28.1.orig/daemon/gdm-session-direct.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/daemon/gdm-session-direct.c	2009-11-07 14:58:54.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-session-direct.c gdm-2.28.1.new/daemon/gdm-session-direct.c
+--- gdm-2.28.1/daemon/gdm-session-direct.c	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1.new/daemon/gdm-session-direct.c	2009-11-27 08:56:30.357591406 +0100
 @@ -42,6 +42,9 @@
  #include <glib/gstdio.h>
  #include <glib-object.h>
@@ -12,7 +13,7 @@ Always overrides keyboard layout variants: https://bugzilla.gnome.org/show_bug.c
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
  
-@@ -598,14 +601,41 @@
+@@ -598,14 +601,44 @@
      return setlocale (LC_MESSAGES, NULL);
  }
  
@@ -31,7 +32,10 @@ Always overrides keyboard layout variants: https://bugzilla.gnome.org/show_bug.c
 +        {
 +            XklConfigRec *config = xkl_config_rec_new ();
 +            if (xkl_config_rec_get_from_server (config, engine) && config->layouts && config->layouts[0]) {
-+                    result = g_strdup (config->layouts[0]);
++                    if (config->variants && config->variants[0] && config->variants[0][0])
++			    result = g_strdup_printf("%s\t%s", config->layouts[0], config->variants[0]);
++                    else
++			    result = g_strdup (config->layouts[0]);
 +            }
 +            g_object_unref (config);
 +        }
@@ -57,8 +61,9 @@ Always overrides keyboard layout variants: https://bugzilla.gnome.org/show_bug.c
  }
  
  static char *
---- gdm-2.28.1.orig/daemon/Makefile.am	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/daemon/Makefile.am	2009-11-08 11:25:30.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemon/Makefile.am
+--- gdm-2.28.1/daemon/Makefile.am	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1.new/daemon/Makefile.am	2009-11-27 08:55:14.640057134 +0100
 @@ -105,6 +105,7 @@
  	$(EXTRA_DAEMON_LIBS)	\
  	$(DAEMON_LIBS)		\
