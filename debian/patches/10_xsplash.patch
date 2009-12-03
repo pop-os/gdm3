@@ -10,10 +10,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/data/Init.in gdm-2.27.4.new/data/Init.i
  PATH=@X_PATH@:$PATH
  OLD_IFS=$IFS
  
-+if [ -x '/usr/bin/xsplash' ];
-+then
++#if [ -x '/usr/bin/xsplash' ];
++#then
 +#        /usr/bin/xsplash --gdm-session --daemon
-+fi
++#fi
 +
  gdmwhich () {
    COMMAND="$1"
@@ -26,10 +26,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/data/PreSession.in gdm-2.27.4.new/data/
  #
  PATH="@X_PATH@:$PATH:/bin:/usr/bin"
 +
-+if [ -x '/usr/bin/xsplash' ];
-+then
++#if [ -x '/usr/bin/xsplash' ];
++#then
 +#        /usr/bin/xsplash --daemon
-+fi
++#fi
 +
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/simple-greeter/gdm-greeter-session.c gdm-2.27.4.new/gui/simple-greeter/gdm-greeter-session.c
 --- gdm-2.27.4/gui/simple-greeter/gdm-greeter-session.c	2009-07-20 03:06:16.000000000 +0200
