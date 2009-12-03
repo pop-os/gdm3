@@ -12,7 +12,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/data/Init.in gdm-2.27.4.new/data/Init.i
  
 +if [ -x '/usr/bin/xsplash' ];
 +then
-+        /usr/bin/xsplash --gdm-session --daemon
++#        /usr/bin/xsplash --gdm-session --daemon
 +fi
 +
  gdmwhich () {
@@ -28,7 +28,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/data/PreSession.in gdm-2.27.4.new/data/
 +
 +if [ -x '/usr/bin/xsplash' ];
 +then
-+        /usr/bin/xsplash --daemon
++#        /usr/bin/xsplash --daemon
 +fi
 +
 diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/gui/simple-greeter/gdm-greeter-session.c gdm-2.27.4.new/gui/simple-greeter/gdm-greeter-session.c

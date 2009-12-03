@@ -1,3 +1,11 @@
+gdm (2.28.1-0ubuntu5) lucid; urgency=low
+
+  * debian/patches/10_xsplash.patch:
+    - don't use xsplash by default for now, it uses lot of cpu and costs one
+      second to the current login, that will be reactivated later in lucid
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 03 Dec 2009 11:29:59 +0100
+
 gdm (2.28.1-0ubuntu4) lucid; urgency=low
 
   * debian/gdm.upstart: Do not wait for hal, since we don't need it any more
