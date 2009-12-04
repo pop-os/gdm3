@@ -1,0 +1,21 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/common/gdm-common.c gdm-2.29.1.new/common/gdm-common.c
+--- gdm-2.29.1/common/gdm-common.c	2009-11-16 22:37:43.000000000 +0000
++++ gdm-2.29.1.new/common/gdm-common.c	2009-12-04 17:16:15.774987257 +0000
+@@ -46,6 +46,7 @@
+ gboolean
+ gdm_is_version_unstable (void)
+ {
++#if 0
+         char   **versions;
+         gboolean unstable;
+ 
+@@ -62,6 +63,9 @@
+         g_strfreev (versions);
+ 
+         return unstable;
++#else
++        return FALSE;
++#endif
+ }
+ 
+ void

@@ -1,3 +1,11 @@
+gdm (2.29.1-0ubuntu2) UNRELEASED; urgency=low
+
+  * debian/patches/26_no_debug.patch:
+    - Turn off debugging for unstable versions by default. Logging to
+      syslog will slow down loading
+
+ -- Chris Coulson <chrisccoulson@ubuntu.com>  Fri, 04 Dec 2009 17:16:27 +0000
+
 gdm (2.29.1-0ubuntu1) lucid; urgency=low
 
   * New upstream release:
