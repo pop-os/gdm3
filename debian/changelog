@@ -31,6 +31,13 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
     - Added to only show frequent users in greeter that logged in with GDM.
     - TODO: 03_hide_system_users.patch to avoid showing system users in recent
       connections
+  * debian/default.desktop, debian/gdm.install, debian/gdm.dirs,
+    debian/patches/09_default_session.patch:
+    - Ubuntu patch to use default.desktop instead of gnome.desktop as default
+      session.
+    - Install our default.desktop under /usr/share/gdm/BuiltInSessions,
+      Xsession.d scripts will start the system default session.
+    - TODO: The default session is always GNOME
   * debian/patches/90_relibtoolize.patch:
     - Update for 05_default_keyboard_layout_xkl.patch libxklavier changes to
       Makefile.am.
@@ -46,7 +53,7 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/TODO:
     - gdmflexiserver is ignoring many options, including xnest.
 
- -- Luca Bruno <lethalman88@gmail.com>  Sat, 21 Nov 2009 13:01:41 +0100
+ -- Luca Bruno <lethalman88@gmail.com>  Fri, 04 Dec 2009 14:24:12 +0100
 
 gdm (2.26.1-1) UNRELEASED; urgency=low
 

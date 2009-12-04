@@ -6,4 +6,5 @@
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch
+09_default_session.patch
 90_relibtoolize.patch

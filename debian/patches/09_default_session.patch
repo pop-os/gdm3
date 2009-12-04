@@ -1,0 +1,15 @@
+Description: Prefer "default.desktop", so that other desktop environments like XFCE can use gdm, too, without being forced to start GNOME.
+Ubuntu: https://launchpad.net/bugs/403291
+Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=594733
+diff -urN gdm-2.28.1.orig/daemon/gdm-session-direct.c gdm-2.28.1/daemon/gdm-session-direct.c
+--- gdm-2.28.1.orig/daemon/gdm-session-direct.c	2009-10-20 00:12:45.000000000 +0200
++++ gdm-2.28.1/daemon/gdm-session-direct.c	2009-12-04 14:18:27.000000000 +0100
+@@ -615,7 +615,7 @@
+         int           i;
+         char         *name;
+ 
+-        name = g_strdup ("gnome");
++        name = g_strdup ("default");
+         if (get_session_command_for_name (name, NULL)) {
+                 return name;
+         }

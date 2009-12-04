@@ -5,9 +5,6 @@ lot of bugs remaining after that, these are only the blockers.
    => There are so many regressions, we probably need to ship the new 
       version in a new package named e.g. gdm3.
  
- * The default session is always GNOME
-   => Fixed by Ubuntu’s 15_default_session.patch
-
  * There is no configuration GUI
    => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
       09_gdmsetup.patch.
