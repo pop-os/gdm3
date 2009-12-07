@@ -1,9 +1,9 @@
-gdm (2.29.1-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu3) lucid; urgency=low
 
   * debian/gdm.upstart: Do not fail with exit status !=0 on startup 
     when disabled. LP: #491483
 
- -- Philip Muskovac <yofel@gmx.net>  Mon, 07 Dec 2009 16:40:43 +0100
+ -- Philip Muskovac <yofel@gmx.net>  Mon, 07 Dec 2009 19:33:05 +0100
 
 gdm (2.29.1-0ubuntu2) lucid; urgency=low
 
