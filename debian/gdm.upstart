@@ -37,7 +37,5 @@ script
     fi
     export XORGCONFIG
 
-    initctl emit starting-dm DM=gdm
-
     exec gdm-binary $CONFIG_FILE
 end script

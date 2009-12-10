@@ -52,6 +52,7 @@ Suggests: locales,
           gok,
           gnome-mag
 Provides: x-display-manager
+Breaks: usplash
 Description: GNOME Display Manager
  gdm provides the equivalent of a "login:" prompt for X displays- it
  pops up a login window and starts an X session.

@@ -1,3 +1,13 @@
+gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
+
+  * debian/gdm.upstart:
+    - Remove "starting-dm" event; since the splash screens need to know
+      when they stop as well, we always had to list them all - so this
+      doesn't buy us anything that "starting gdm" doesn't already, and
+      is rather more expensive.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
+
 gdm (2.29.1-0ubuntu3) lucid; urgency=low
 
   * debian/gdm.upstart: Do not fail with exit status !=0 on startup 
