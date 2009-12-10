@@ -11,6 +11,10 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
       never broke in the real world, because we always have standard
       input set to something, but it's worth fixing bugs when you find
       them ;-)
+  * debian/patches/27_save_root_window.patch:
+    - Patch taken from the plymouth-integration branch of Upstream GIT
+      to save the root window pixmap in a property for other things to
+      pick up. 
 
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 
