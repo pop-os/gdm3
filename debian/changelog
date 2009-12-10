@@ -5,6 +5,12 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
       when they stop as well, we always had to list them all - so this
       doesn't buy us anything that "starting gdm" doesn't already, and
       is rather more expensive.
+  * debian/patches/05_initial_server_on_vt7.patch:
+    - Fix a bug in the patch: the return value of open() can be zero on
+      success, because zero is a valid file descriptor!  This probably
+      never broke in the real world, because we always have standard
+      input set to something, but it's worth fixing bugs when you find
+      them ;-)
 
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 

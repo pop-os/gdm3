@@ -14,12 +14,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.26.1/daemon/gdm-server.c gdm-2.26.1.new/daem
 +        /* HACK: force initial server to go on vt7, since 1 to 6 usually get
 +         * gettys after gdm startup, which interfere with X */
 +        f = open ("/var/run/gdm/firstserver.stamp", O_CREAT|O_WRONLY|O_EXCL, 0666);
-+        if (f > 0)
++        if (f >= 0)
 +                close (f);
  
          /* fork X server process */
 -        res = gdm_server_spawn (server, NULL);
-+        res = gdm_server_spawn (server, (f > 0) ? "vt7" : NULL);
++        res = gdm_server_spawn (server, (f >= 0) ? "vt7" : NULL);
  
          return res;
  }
