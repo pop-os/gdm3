@@ -21,6 +21,10 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
       it.
     - Only look at /etc/X11/default-display-manager and /proc/cmdline
       when started automatically; always allow "start gdm" to work.
+    - Use the PRIMARY_DEVICE_FOR_DISPLAY tag on the framebuffer or
+      drm card devices to start the X server, still falling back on
+      end of udev probing (we may have neither).  Drop the tty
+      part, we need both more and less than this.  LP: #491162.
 
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 

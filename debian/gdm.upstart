@@ -7,8 +7,9 @@ description	"GNOME Display Manager"
 author		"William Jon McCann <mccann@jhu.edu>"
 
 start on (filesystem
-	  and tty-device-added KERNEL=tty7
-	  and (graphics-device-added or stopped udevtrigger))
+          and (graphics-device-added fb0 PRIMARY_DEVICE_FOR_DISPLAY=1
+               or drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
+               or stopped udevtrigger))
 stop on runlevel [016]
 
 emits starting-dm

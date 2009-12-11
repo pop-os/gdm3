@@ -40,7 +40,8 @@ Depends: ${shlibs:Depends},
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin,
-         kbd | console-tools
+         kbd | console-tools,
+         udev (>= 149-2)
 Recommends: xserver-xorg,
          metacity | x-window-manager,
          gnome-settings-daemon | xfconf
