@@ -16,17 +16,20 @@ emits starting-dm
 env XORGCONFIG=/etc/X11/xorg.conf
 
 script
-    [ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
+    if [ -n "$UPSTART_EVENTS" ]
+    then
+	[ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
 
-    # Check kernel command-line for inhibitors
-    for ARG in $(cat /proc/cmdline)
-    do
-        case "${ARG}" in
-            text|-s|s|S|single)
-                exit 0
-                ;;
-        esac
-    done
+	# Check kernel command-line for inhibitors
+	for ARG in $(cat /proc/cmdline)
+	do
+	    case "${ARG}" in
+		text|-s|s|S|single)
+		    exit 0
+		    ;;
+	    esac
+	done
+    fi
 
     if [ -r /etc/default/locale ]; then
 	. /etc/default/locale

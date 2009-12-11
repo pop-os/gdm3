@@ -19,7 +19,9 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
     - Remove "starting-dm" event; the above patch means we handle
       stopping the splash screen gracefully by ourselves so don't need
       it.
- 
+    - Only look at /etc/X11/default-display-manager and /proc/cmdline
+      when started automatically; always allow "start gdm" to work.
+
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 
 gdm (2.29.1-0ubuntu3) lucid; urgency=low
