@@ -15,6 +15,11 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
     - Patch taken from the plymouth-integration branch of Upstream GIT
       to save the root window pixmap in a property for other things to
       pick up. 
+  * debian/patches/28_plymouth_transition.patch:
+    - Patch taken from the plymouth-integration branch of Upstream GIT,
+      makes gdm check whether plymouth is running on startup; if it is,
+      actively arranges for a smooth transition.  Also handles getting
+      plymouth out of thew way in case the X server doesn't start.
 
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 
