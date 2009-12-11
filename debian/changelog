@@ -1,4 +1,4 @@
-gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu4) lucid; urgency=low
 
   * debian/patches/05_initial_server_on_vt7.patch:
     - Fix a bug in the patch: the return value of open() can be zero on
@@ -26,7 +26,7 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
       end of udev probing (we may have neither).  Drop the tty
       part, we need both more and less than this.  LP: #491162.
 
- -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
+ -- Scott James Remnant <scott@ubuntu.com>  Fri, 11 Dec 2009 06:00:05 +0000
 
 gdm (2.29.1-0ubuntu3) lucid; urgency=low
 
