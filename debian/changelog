@@ -1,10 +1,5 @@
 gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
 
-  * debian/gdm.upstart:
-    - Remove "starting-dm" event; since the splash screens need to know
-      when they stop as well, we always had to list them all - so this
-      doesn't buy us anything that "starting gdm" doesn't already, and
-      is rather more expensive.
   * debian/patches/05_initial_server_on_vt7.patch:
     - Fix a bug in the patch: the return value of open() can be zero on
       success, because zero is a valid file descriptor!  This probably
@@ -19,8 +14,12 @@ gdm (2.29.1-0ubuntu4) UNRELEASED; urgency=low
     - Patch taken from the plymouth-integration branch of Upstream GIT,
       makes gdm check whether plymouth is running on startup; if it is,
       actively arranges for a smooth transition.  Also handles getting
-      plymouth out of thew way in case the X server doesn't start.
-
+      plymouth out of the way in case the X server doesn't start.
+  * debian/gdm.upstart:
+    - Remove "starting-dm" event; the above patch means we handle
+      stopping the splash screen gracefully by ourselves so don't need
+      it.
+ 
  -- Scott James Remnant <scott@ubuntu.com>  Thu, 10 Dec 2009 20:42:51 +0000
 
 gdm (2.29.1-0ubuntu3) lucid; urgency=low
