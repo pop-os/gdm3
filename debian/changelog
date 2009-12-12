@@ -6,9 +6,12 @@ gdm (2.29.1-0ubuntu5) UNRELEASED; urgency=low
     - Add /usr/lib/gdm-set-default-session to properly define default session:
       use DBus when gdm daemon is on and filing the file when it's off. This
       script can be called in postinst file of ubuntu derivatives.
+  * debian/60xdg_path-on-session:
+    - Add xdg path depending on GDM selected session. This enables starting
+      desired applications depending on session
   * debian/patches/99_autoreconf.patch: refreshed
 
- -- Didier Roche <didrocks@ubuntu.com>  Sat, 12 Dec 2009 20:38:23 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Sat, 12 Dec 2009 21:28:52 +0100
 
 gdm (2.29.1-0ubuntu4) lucid; urgency=low
 
