@@ -1,4 +1,4 @@
-gdm (2.29.1-0ubuntu5) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu5) lucid; urgency=low
 
   * debian/patches/15_default_session.patch: (LP: #403291)
     - Choose default session in /etc/gdm/custom.conf using DBus. Removed
@@ -11,7 +11,7 @@ gdm (2.29.1-0ubuntu5) UNRELEASED; urgency=low
       desired applications depending on session
   * debian/patches/99_autoreconf.patch: refreshed
 
- -- Didier Roche <didrocks@ubuntu.com>  Sat, 12 Dec 2009 21:28:52 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Sat, 12 Dec 2009 22:55:06 +0100
 
 gdm (2.29.1-0ubuntu4) lucid; urgency=low
 
