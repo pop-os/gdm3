@@ -1,3 +1,14 @@
+gdm (2.29.1-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/patches/15_default_session.patch: (LP: #403291)
+    - Choose default session in /etc/gdm/custom.conf using DBus. Removed
+      default.desktop hack.
+    - Add /usr/lib/gdm-set-default-session to properly define default session:
+      use DBus when gdm daemon is on and filing the file when it's off. This
+      script can be called in postinst file of ubuntu derivatives.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Sat, 12 Dec 2009 20:34:55 +0100
+
 gdm (2.29.1-0ubuntu4) lucid; urgency=low
 
   * debian/patches/05_initial_server_on_vt7.patch:
