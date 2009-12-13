@@ -1,11 +1,20 @@
 #
-# Description:  Ignore users with UID < 1000
+# Description:  Ignore users with UID below system configured minimum.
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/427462
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/459199
 #
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.new/daemon/gdm-user-manager.c
---- gdm-2.28.0/daemon/gdm-user-manager.c	2009-10-14 18:31:35.000000000 +1100
-+++ gdm-2.28.0.new/daemon/gdm-user-manager.c	2009-10-14 18:34:59.000000000 +1100
-@@ -66,7 +66,7 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.new/daemon/gdm-user-manager.c
+--- gdm-2.29.1/daemon/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
++++ gdm-2.29.1.new/daemon/gdm-user-manager.c	2009-12-13 01:46:53.000000000 -0800
+@@ -29,6 +29,7 @@
+ #include <errno.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <ctype.h>
+ 
+ #ifdef HAVE_PATHS_H
+ #include <paths.h>
+@@ -66,7 +67,7 @@
  #ifdef __sun
  #define DEFAULT_MINIMAL_UID     100
  #else
@@ -14,21 +23,112 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-user-manager.c gdm-2.28.0.ne
  #endif
  
  #ifndef _PATH_SHELLS
-@@ -539,6 +539,10 @@
+@@ -114,6 +115,7 @@
+ 
+         guint                  reload_id;
+         guint                  ck_history_id;
++        guint                  minimal_uid;
+ 
+         guint8                 loaded_passwd : 1;    
+         guint8                 loaded_cache : 1;
+@@ -539,6 +541,10 @@
                  return;
          }
  
-+        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
 +                return;
 +        }
 +
          /* check exclusions up front */
          if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c
---- gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c	2009-10-14 18:31:34.000000000 +1100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c	2009-10-14 18:33:38.000000000 +1100
-@@ -66,7 +66,7 @@
+@@ -857,7 +863,7 @@
+                 g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
+                 return;
+         }
+-        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
+                 g_debug ("GdmUserManager: excluding user '%s'", username);
+                 return;
+         }
+@@ -1010,6 +1016,7 @@
+         g_free (command);
+ }
+ 
++
+ static void
+ reload_passwd (GdmUserManager *manager)
+ {
+@@ -1046,7 +1053,7 @@
+                 user = NULL;
+ 
+                 /* Skip users below MinimalUID... */
+-                if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                if (pwent->pw_uid < manager->priv->minimal_uid) {
+                         continue;
+                 }
+ 
+@@ -1266,6 +1273,39 @@
+         dbus_g_object_type_install_info (GDM_TYPE_USER_MANAGER, &dbus_glib_gdm_user_manager_object_info);
+ }
+ 
++
++static guint
++system_minimal_uid (void)
++{
++        guint  uid = DEFAULT_MINIMAL_UID;
++#ifndef __sun
++        char *defspath = "/etc/login.defs";
++        FILE *fp;
++        char line[128];
++
++        errno = 0;
++        fp = fopen (defspath, "r");
++        if (fp == NULL) {
++                g_warning ("Unable to open %s: %s", defspath, g_strerror (errno));
++                goto out;
++        }
++        while (fgets (line, sizeof(line), fp)) {
++            if (strncmp (line, "UID_MIN", 7) == 0) {
++                char *ptr = line + 7;
++                int  value;
++                while (*ptr && isblank (*ptr)) { ptr++; }
++                value = atoi (ptr);
++                if (value) uid = value;
++                break;
++            }
++        }
++        fclose (fp);
++#endif
++out:
++        return uid;
++}
++
++
+ static void
+ gdm_user_manager_init (GdmUserManager *manager)
+ {
+@@ -1276,6 +1316,8 @@
+ 
+         manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
+ 
++        manager->priv->minimal_uid = system_minimal_uid ();
++
+         /* sessions */
+         manager->priv->sessions = g_hash_table_new_full (g_str_hash,
+                                                          g_str_equal,
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/gdmsetup/gdm-user-manager.c gdm-2.29.1.new/gui/gdmsetup/gdm-user-manager.c
+--- gdm-2.29.1/gui/gdmsetup/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
++++ gdm-2.29.1.new/gui/gdmsetup/gdm-user-manager.c	2009-12-13 01:47:05.000000000 -0800
+@@ -29,6 +29,7 @@
+ #include <errno.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <ctype.h>
+ 
+ #ifdef HAVE_PATHS_H
+ #include <paths.h>
+@@ -66,7 +67,7 @@
  #ifdef __sun
  #define DEFAULT_MINIMAL_UID     100
  #else
@@ -37,21 +137,104 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c gdm-2.2
  #endif
  
  #ifndef _PATH_SHELLS
-@@ -835,6 +835,10 @@
+@@ -112,6 +113,7 @@
+ 
+         guint                  reload_id;
+         guint                  ck_history_id;
++        guint                  minimal_uid;
+ 
+         guint8                 users_dirty : 1;
+ };
+@@ -835,6 +837,10 @@
                  return;
          }
  
-+        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
 +                return;
 +        }
 +
          /* check exclusions up front */
          if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-user-manager.c gdm-2.28.0.new/gui/simple-greeter/gdm-user-manager.c
---- gdm-2.28.0/gui/simple-greeter/gdm-user-manager.c	2009-10-14 18:31:35.000000000 +1100
-+++ gdm-2.28.0.new/gui/simple-greeter/gdm-user-manager.c	2009-10-14 18:34:14.000000000 +1100
-@@ -66,7 +66,7 @@
+@@ -1154,7 +1160,7 @@
+                 g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
+                 return;
+         }
+-        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
+                 g_debug ("GdmUserManager: excluding user '%s'", username);
+                 return;
+         }
+@@ -1317,7 +1323,7 @@
+                 user = NULL;
+ 
+                 /* Skip users below MinimalUID... */
+-                if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                if (pwent->pw_uid < manager->priv->minimal_uid) {
+                         continue;
+                 }
+ 
+@@ -1525,6 +1531,39 @@
+         g_type_class_add_private (klass, sizeof (GdmUserManagerPrivate));
+ }
+ 
++
++static guint
++system_minimal_uid (void)
++{
++        guint  uid = DEFAULT_MINIMAL_UID;
++#ifndef __sun
++        char *defspath = "/etc/login.defs";
++        FILE *fp;
++        char line[128];
++
++        errno = 0;
++        fp = fopen (defspath, "r");
++        if (fp == NULL) {
++                g_warning ("Unable to open %s: %s", defspath, g_strerror (errno));
++                goto out;
++        }
++        while (fgets (line, sizeof(line), fp)) {
++            if (strncmp (line, "UID_MIN", 7) == 0) {
++                char *ptr = line + 7;
++                int  value;
++                while (*ptr && isblank (*ptr)) { ptr++; }
++                value = atoi (ptr);
++                if (value) uid = value;
++                break;
++            }
++        }
++        fclose (fp);
++#endif
++out:
++        return uid;
++}
++
++
+ static void
+ gdm_user_manager_init (GdmUserManager *manager)
+ {
+@@ -1535,6 +1574,8 @@
+ 
+         manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
+ 
++        manager->priv->minimal_uid = system_minimal_uid ();
++
+         /* sessions */
+         manager->priv->sessions = g_hash_table_new_full (g_str_hash,
+                                                          g_str_equal,
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c gdm-2.29.1.new/gui/simple-greeter/gdm-user-manager.c
+--- gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
++++ gdm-2.29.1.new/gui/simple-greeter/gdm-user-manager.c	2009-12-13 01:45:26.000000000 -0800
+@@ -29,6 +29,7 @@
+ #include <errno.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <ctype.h>
+ 
+ #ifdef HAVE_PATHS_H
+ #include <paths.h>
+@@ -67,7 +68,7 @@
  #ifdef __sun
  #define DEFAULT_MINIMAL_UID     100
  #else
@@ -60,14 +243,88 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/simple-greeter/gdm-user-manager.c g
  #endif
  
  #ifndef _PATH_SHELLS
-@@ -909,6 +909,10 @@
+@@ -98,6 +99,7 @@
+ 
+         guint                  reload_id;
+         guint                  ck_history_id;
++        guint                  minimal_uid;
+ 
+         guint8                 users_dirty : 1;
+         guint8                 loaded_cache : 1;
+@@ -928,6 +930,10 @@
                  return;
          }
  
-+        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
 +                return;
 +        }
 +
          /* check exclusions up front */
-         if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
+         if (user_in_exclude_list (manager, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
+@@ -1259,7 +1265,7 @@
+                 g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
+                 return;
+         }
+-        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++        if (pwent->pw_uid < manager->priv->minimal_uid) {
+                 g_debug ("GdmUserManager: excluding user '%s'", username);
+                 return;
+         }
+@@ -1491,7 +1497,7 @@
+                         user = NULL;
+ 
+                         /* Skip users below MinimalUID... */
+-                        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                        if (pwent->pw_uid < manager->priv->minimal_uid) {
+                                 continue;
+                         }
+ 
+@@ -1765,6 +1771,38 @@
+ }
+ 
+ 
++static guint
++system_minimal_uid (void)
++{
++        guint  uid = DEFAULT_MINIMAL_UID;
++#ifndef __sun
++        char *defspath = "/etc/login.defs";
++        FILE *fp;
++        char line[128];
++
++        errno = 0;
++        fp = fopen (defspath, "r");
++        if (fp == NULL) {
++                g_warning ("Unable to open %s: %s", defspath, g_strerror (errno));
++                goto out;
++        }
++        while (fgets (line, sizeof(line), fp)) {
++            if (strncmp (line, "UID_MIN", 7) == 0) {
++                char *ptr = line + 7;
++                int  value;
++                while (*ptr && isblank (*ptr)) { ptr++; }
++                value = atoi (ptr);
++                if (value) uid = value;
++                break;
++            }
++        }
++        fclose (fp);
++#endif
++out:
++        return uid;
++}
++
++
+ static void
+ gdm_user_manager_init (GdmUserManager *manager)
+ {
+@@ -1776,6 +1814,8 @@
+ 
+         manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
+ 
++        manager->priv->minimal_uid = system_minimal_uid ();
++
+         /* exclude/include */
+         g_debug ("Setting users to include:");
+         res = gdm_settings_client_get_string  (GDM_KEY_INCLUDE,

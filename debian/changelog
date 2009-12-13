@@ -1,3 +1,10 @@
+gdm (2.29.1-0ubuntu6) UNRELEASED; urgency=low
+
+  * debian/patches/24_system_uid.patch: use configured system UID
+    minimum instead of hard-coded value (LP: #459199).
+
+ -- Kees Cook <kees@ubuntu.com>  Sun, 13 Dec 2009 01:51:34 -0800
+
 gdm (2.29.1-0ubuntu5) lucid; urgency=low
 
   * debian/patches/15_default_session.patch: (LP: #403291)
