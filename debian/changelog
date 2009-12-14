@@ -1,11 +1,11 @@
-gdm (2.29.1-0ubuntu7) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu7) lucid; urgency=low
 
   * debian/60xdg_path-on-session:
     - Add xdg path depending on GDM selected session. This enables starting
       desired applications depending on session
   * debian/gdm.install: install previous file in /etc/X11/Xsession.d
 
- -- Didier Roche <didrocks@ubuntu.com>  Mon, 14 Dec 2009 21:19:19 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 14 Dec 2009 21:20:06 +0100
 
 gdm (2.29.1-0ubuntu6) lucid; urgency=low
 
