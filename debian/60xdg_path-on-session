@@ -1,0 +1,12 @@
+# This file is sourced by Xsession(5), not executed.
+# Add additionnal xdg path depending on selected desktop session
+
+DEFAULT_XDG_CONFIG_DIRS='/etc/xdg'
+if [ -n "$GDMSESSION" ]; then
+  # readd default if was empty
+  if [ -z "$XDG_CONFIG_DIRS" ]; then
+    XDG_CONFIG_DIRS=$DEFAULT_XDG_CONFIG_DIRS
+  fi
+  export XDG_CONFIG_DIRS=${DEFAULT_XDG_CONFIG_DIRS}/xdg-${GDMSESSION}:$XDG_CONFIG_DIRS
+fi
+
