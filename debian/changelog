@@ -1,3 +1,16 @@
+gdm (2.29.1-0ubuntu6) UNRELEASED; urgency=low
+
+  * debian/gdm.upstart (LP: #453365)
+    - Start on built-successful signal for fglrx or nvidia modules.
+    - If dkms is available on the system, use it to check the status
+      of fglrx or nvidia.  
+    - If they're in the DKMS tree but not built, exit the gdm task
+      and wait for the build-successful signal.  If they don't build,
+      the failsafe-x task will receive a build-failed and can start
+      BulletProof-X.
+
+ -- Mario Limonciello <mario_limonciello@dell.com>  Mon, 14 Dec 2009 14:09:14 -0600
+
 gdm (2.29.1-0ubuntu5) lucid; urgency=low
 
   * debian/patches/15_default_session.patch: (LP: #403291)

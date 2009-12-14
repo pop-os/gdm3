@@ -9,7 +9,9 @@ author		"William Jon McCann <mccann@jhu.edu>"
 start on (filesystem
           and (graphics-device-added fb0 PRIMARY_DEVICE_FOR_DISPLAY=1
                or drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
-               or stopped udevtrigger))
+               or stopped udevtrigger)
+          or build-successful MODULE=nvidia
+          or build-successful MODULE=fglrx)
 stop on runlevel [016]
 
 emits starting-dm
@@ -20,6 +22,19 @@ script
     if [ -n "$UPSTART_EVENTS" ]
     then
 	[ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
+
+	#If DKMS is available, check binary graphics drivers
+	#If failure, we'll respawn when we receive the build-successful signal
+	if [ -x /usr/sbin/dkms ]; then
+		for MODULE in nvidia fglrx
+		do
+			STATUS=$(dkms status -m $MODULE)
+			[ -z "$STATUS" ] && continue
+			[ -z "$KERNEL" ] && KERNEL=$(uname -r) || true
+			echo "$STATUS" | grep "$KERNEL.*installed">/dev/null && break
+			exit 0
+		done
+	fi
 
 	# Check kernel command-line for inhibitors
 	for ARG in $(cat /proc/cmdline)
