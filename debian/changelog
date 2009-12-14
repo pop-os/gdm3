@@ -1,4 +1,4 @@
-gdm (2.29.1-0ubuntu6) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu6) lucid; urgency=low
 
   * debian/gdm.upstart (LP: #453365)
     - Start on built-successful signal for fglrx or nvidia modules.
