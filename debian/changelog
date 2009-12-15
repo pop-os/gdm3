@@ -1,10 +1,10 @@
-gdm (2.29.1-0ubuntu8) UNRELEASED; urgency=low
+gdm (2.29.1-0ubuntu8) lucid; urgency=low
 
   * debian/gdm.upstart:
     - Revert Mario's changes which prevent gdm from starting for most people,
       and introduce expensive dkms integration code in the non-dkms case!
 
- -- Scott James Remnant <scott@ubuntu.com>  Tue, 15 Dec 2009 09:36:00 +0000
+ -- Scott James Remnant <scott@ubuntu.com>  Tue, 15 Dec 2009 09:37:02 +0000
 
 gdm (2.29.1-0ubuntu7) lucid; urgency=low
 
