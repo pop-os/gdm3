@@ -1,3 +1,20 @@
+gdm (2.29.4-0ubuntu1) lucid; urgency=low
+
+  * New upstream version:
+    - Remove deprecated function g_mapped_file_free
+    - Fix option widgets to work better with orca
+    - make --with-custom-conf work
+    - Don't hard code path to policykit agent
+    - Don't backup xkb configuration before login
+  * debian/control:
+    - updated libglib requirement
+  * debian/patches/08_use_polkit_for_settings.patch:
+    - new version update
+  * debian/patches/99_autoreconf.patch:
+    - new version update
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 07 Jan 2010 17:05:51 +0100
+
 gdm (2.29.1-0ubuntu9) lucid; urgency=low
 
   * debian/patches/24_system_uid.patch: use configured system UID
