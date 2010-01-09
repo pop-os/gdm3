@@ -1,3 +1,10 @@
+gdm (2.29.4-0ubuntu2) UNRELEASED; urgency=low
+
+  * debian/gdm.upstart: Wait for D-Bus to be ready, to avoid failure if gdm
+    starts too early. Thanks to Robert Hooker! (LP: #502838)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Sat, 09 Jan 2010 17:30:09 +0100
+
 gdm (2.29.4-0ubuntu1) lucid; urgency=low
 
   * New upstream version:
