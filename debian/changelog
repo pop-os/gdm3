@@ -1,4 +1,4 @@
-gdm (2.29.5-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.29.5-0ubuntu1) lucid; urgency=low
 
   [ Robert Ancell ]
   * debian/patches/29_switch_user.patch:
@@ -30,7 +30,7 @@ gdm (2.29.5-0ubuntu1) UNRELEASED; urgency=low
   * Add 00git-add-missing-locale-alias.patch: Add missing locale.alias file
     (taken from upstream git head).
 
- -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:33:24 +1100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 14 Jan 2010 17:07:34 +0100
 
 gdm (2.29.4-0ubuntu3) lucid; urgency=low
 
