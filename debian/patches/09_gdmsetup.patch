@@ -3,12 +3,12 @@
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 #
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.ac
---- gdm-2.28.0/configure.ac	2009-09-22 16:42:24.000000000 +0200
-+++ gdm-2.28.0.new/configure.ac	2009-09-22 16:42:25.000000000 +0200
-@@ -107,6 +107,14 @@
- AC_SUBST(GCONF_CFLAGS)
- AC_SUBST(GCONF_LIBS)
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/configure.ac gdm-2.29.5.new/configure.ac
+--- gdm-2.29.5/configure.ac	2010-01-14 16:27:51.252956742 +0100
++++ gdm-2.29.5.new/configure.ac	2010-01-14 16:27:52.452952268 +0100
+@@ -118,6 +118,14 @@
+ AC_SUBST(DEVKIT_POWER_CFLAGS)
+ AC_SUBST(DEVKIT_POWER_LIBS)
  
 +PKG_CHECK_MODULES(GDMSETUP,
 +        dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
@@ -21,7 +21,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.a
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-@@ -1352,12 +1360,14 @@
+@@ -1390,12 +1398,14 @@
  daemon/Makefile
  docs/Makefile
  gui/Makefile
@@ -36,9 +36,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/configure.ac gdm-2.28.0.new/configure.a
  data/Makefile
  data/faces/Makefile
  data/greeter-autostart/Makefile
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.c gdm-2.28.0.new/gui/gdmsetup/gdmsetup.c
---- gdm-2.28.0/gui/gdmsetup/gdmsetup.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdmsetup.c	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdmsetup.c gdm-2.29.5.new/gui/gdmsetup/gdmsetup.c
+--- gdm-2.29.5/gui/gdmsetup/gdmsetup.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdmsetup.c	2010-01-14 16:27:52.452952268 +0100
 @@ -0,0 +1,484 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -524,9 +524,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.c gdm-2.28.0.new/
 +    
 +    return 0;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.desktop.in gdm-2.28.0.new/gui/gdmsetup/gdmsetup.desktop.in
---- gdm-2.28.0/gui/gdmsetup/gdmsetup.desktop.in	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdmsetup.desktop.in	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdmsetup.desktop.in gdm-2.29.5.new/gui/gdmsetup/gdmsetup.desktop.in
+--- gdm-2.29.5/gui/gdmsetup/gdmsetup.desktop.in	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdmsetup.desktop.in	2010-01-14 16:27:52.452952268 +0100
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -540,9 +540,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.desktop.in gdm-2.
 +X-GNOME-Bugzilla-Bugzilla=GNOME
 +X-GNOME-Bugzilla-Product=gdm
 +X-GNOME-Bugzilla-Component=general
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.ui gdm-2.28.0.new/gui/gdmsetup/gdmsetup.ui
---- gdm-2.28.0/gui/gdmsetup/gdmsetup.ui	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdmsetup.ui	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdmsetup.ui gdm-2.29.5.new/gui/gdmsetup/gdmsetup.ui
+--- gdm-2.29.5/gui/gdmsetup/gdmsetup.ui	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdmsetup.ui	2010-01-14 16:27:52.452952268 +0100
 @@ -0,0 +1,271 @@
 +<?xml version="1.0"?>
 +<interface>
@@ -815,9 +815,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdmsetup.ui gdm-2.28.0.new
 +    <property name="step_increment">1</property>
 +  </object>
 +</interface>
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user.c gdm-2.28.0.new/gui/gdmsetup/gdm-user.c
---- gdm-2.28.0/gui/gdmsetup/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user.c	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-user.c gdm-2.29.5.new/gui/gdmsetup/gdm-user.c
+--- gdm-2.29.5/gui/gdmsetup/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-user.c	2010-01-14 16:27:52.452952268 +0100
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -1991,9 +1991,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user.c gdm-2.28.0.new/
 +
 +        return pixbuf;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user.h gdm-2.28.0.new/gui/gdmsetup/gdm-user.h
---- gdm-2.28.0/gui/gdmsetup/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user.h	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-user.h gdm-2.29.5.new/gui/gdmsetup/gdm-user.h
+--- gdm-2.29.5/gui/gdmsetup/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-user.h	2010-01-14 16:27:52.452952268 +0100
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2054,9 +2054,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user.h gdm-2.28.0.new/
 +G_END_DECLS
 +
 +#endif
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c
---- gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.c	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-user-manager.c gdm-2.29.5.new/gui/gdmsetup/gdm-user-manager.c
+--- gdm-2.29.5/gui/gdmsetup/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-user-manager.c	2010-01-14 16:27:52.462957101 +0100
 @@ -0,0 +1,1658 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3716,9 +3716,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.c gdm-2.2
 +
 +        return GDM_USER_MANAGER (user_manager_object);
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.h gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.h
---- gdm-2.28.0/gui/gdmsetup/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user-manager.h	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-user-manager.h gdm-2.29.5.new/gui/gdmsetup/gdm-user-manager.h
+--- gdm-2.29.5/gui/gdmsetup/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-user-manager.h	2010-01-14 16:27:52.462957101 +0100
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3807,9 +3807,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-manager.h gdm-2.2
 +G_END_DECLS
 +
 +#endif /* __GDM_USER_MANAGER_H */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-private.h gdm-2.28.0.new/gui/gdmsetup/gdm-user-private.h
---- gdm-2.28.0/gui/gdmsetup/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/gdm-user-private.h	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-user-private.h gdm-2.29.5.new/gui/gdmsetup/gdm-user-private.h
+--- gdm-2.29.5/gui/gdmsetup/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-user-private.h	2010-01-14 16:27:52.462957101 +0100
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -3855,9 +3855,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/gdm-user-private.h gdm-2.2
 +G_END_DECLS
 +
 +#endif /* !__GDM_USER_PRIVATE__ */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/Makefile.am gdm-2.28.0.new/gui/gdmsetup/Makefile.am
---- gdm-2.28.0/gui/gdmsetup/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.0.new/gui/gdmsetup/Makefile.am	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/Makefile.am gdm-2.29.5.new/gui/gdmsetup/Makefile.am
+--- gdm-2.29.5/gui/gdmsetup/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/Makefile.am	2010-01-14 16:27:52.462957101 +0100
 @@ -0,0 +1,38 @@
 +NULL =
 +
@@ -3897,9 +3897,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/gdmsetup/Makefile.am gdm-2.28.0.new
 +	$(ui_DATA)		\
 +	$(Utilities_in_files)	\
 +	$(NULL)
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/Makefile.am gdm-2.28.0.new/gui/Makefile.am
---- gdm-2.28.0/gui/Makefile.am	2009-09-21 22:05:27.000000000 +0200
-+++ gdm-2.28.0.new/gui/Makefile.am	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/Makefile.am gdm-2.29.5.new/gui/Makefile.am
+--- gdm-2.29.5/gui/Makefile.am	2009-12-08 16:20:18.000000000 +0100
++++ gdm-2.29.5.new/gui/Makefile.am	2010-01-14 16:27:52.462957101 +0100
 @@ -1,6 +1,7 @@
  NULL =
  
@@ -3908,13 +3908,13 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/gui/Makefile.am gdm-2.28.0.new/gui/Make
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/po/POTFILES.in gdm-2.28.0.new/po/POTFILES.in
---- gdm-2.28.0/po/POTFILES.in	2009-09-22 16:42:24.000000000 +0200
-+++ gdm-2.28.0.new/po/POTFILES.in	2009-09-22 16:42:25.000000000 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/po/POTFILES.in gdm-2.29.5.new/po/POTFILES.in
+--- gdm-2.29.5/po/POTFILES.in	2010-01-14 16:27:51.252956742 +0100
++++ gdm-2.29.5.new/po/POTFILES.in	2010-01-14 16:28:20.105005039 +0100
 @@ -60,6 +60,9 @@
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
- data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in
+ data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
 +gui/gdmsetup/gdmsetup.desktop.in
 +gui/gdmsetup/gdmsetup.c
 +[type: gettext/glade]gui/gdmsetup/gdmsetup.ui

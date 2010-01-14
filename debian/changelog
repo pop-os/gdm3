@@ -1,4 +1,4 @@
-gdm (2.29.4-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.29.5-0ubuntu1) UNRELEASED; urgency=low
 
   [ Robert Ancell ]
   * debian/patches/29_switch_user.patch:
@@ -10,6 +10,20 @@ gdm (2.29.4-0ubuntu4) UNRELEASED; urgency=low
     include such an option in 2.27.
   * debian/gdm.postinst: create this group on install, which enables that
     feature in the g-s-t.
+
+  [ Martin Pitt ]
+  * New upstream release:
+    - XDMCP fixes on Solaris
+    - run PostLogin script as user instead of gdm
+    - Fix ellipses usage on User Switch Applet
+    - Add ability to customize system language list
+    - Solaris NULL printf fixes
+    - Convert from glade to gtkbuilder
+    - Detect default keyboard layout better
+    - Ignore executable subfolders of xinitrc.d
+    - Don't reveal valid usernames when authenticating
+  * Drop 01_default_keyboard_layout.patch, accepted upstream.
+  * Refresh patches for new upstream version.
 
  -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:33:24 +1100
 
