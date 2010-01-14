@@ -1,7 +1,15 @@
 gdm (2.29.4-0ubuntu4) UNRELEASED; urgency=low
 
+  [ Robert Ancell ]
   * debian/patches/29_switch_user.patch:
     - Add bug link
+
+  [ Milan Bouchet-Valat ]
+  * debian/gdm.pam: allow members or the 'nopasswdlogin' group to log in
+    without password. This integrates with the gnome-system-tools, which
+    include such an option in 2.27.
+  * debian/gdm.postinst: create this group on install, which enables that
+    feature in the g-s-t.
 
  -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:33:24 +1100
 

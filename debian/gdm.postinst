@@ -21,6 +21,14 @@ if ! getent passwd gdm >/dev/null; then
         usermod -s "/bin/false"            gdm
 fi
 
+# Creating nopasswdlogin group if he isn't already there.
+# That enables the password-less login feature in the users-admin
+# tool of the gnome-system-tools for users that belong to it,
+# and which is working thanks to GDM's PAM policy.
+if ! getent group nopasswdlogin >/dev/null; then
+        addgroup --system nopasswdlogin
+fi
+
 if [ -d /var/lib/gdm ]; then
   chown gdm:gdm /var/lib/gdm
   chown -R gdm:gdm /var/lib/gdm/.gconf*
