@@ -2,7 +2,7 @@ From 7e4878cea1504420911b7672f81f9221c6e1d65a Mon Sep 17 00:00:00 2001
 From: Robert Ancell <robert.ancell@gmail.com>
 Date: Wed, 13 Jan 2010 16:30:49 +1100
 Subject: [PATCH] Add SwitchToUser() method which automatically selects that user in the greeter or switches to an already open session
-Bug: 
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=606923
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-display.c gdm-2.29.4.new/daemon/gdm-display.c
 --- gdm-2.29.4/daemon/gdm-display.c	2009-12-22 03:36:30.000000000 +1100

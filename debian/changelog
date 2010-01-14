@@ -1,3 +1,10 @@
+gdm (2.29.4-0ubuntu4) UNRELEASED; urgency=low
+
+  * debian/patches/29_switch_user.patch:
+    - Add bug link
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:33:24 +1100
+
 gdm (2.29.4-0ubuntu3) lucid; urgency=low
 
   * debian/patches/29_switch_user.patch:
