@@ -27,6 +27,8 @@ gdm (2.29.5-0ubuntu1) UNRELEASED; urgency=low
   * Add 01_disable_hal.patch: Don't attempt to connect to Hal. The hal-using
     code is already commented out, and this just needlessly triggers Hal
     startup during boot.
+  * Add 00git-add-missing-locale-alias.patch: Add missing locale.alias file
+    (taken from upstream git head).
 
  -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:33:24 +1100
 
