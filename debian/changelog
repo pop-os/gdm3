@@ -1,3 +1,10 @@
+gdm (2.29.4-0ubuntu3) lucid; urgency=low
+
+  * debian/patches/29_switch_user.patch:
+    - Add SwitchToUser() method call
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Thu, 14 Jan 2010 13:11:06 +1100
+
 gdm (2.29.4-0ubuntu2) lucid; urgency=low
 
   * debian/gdm.upstart: Wait for D-Bus to be ready, to avoid failure if gdm
