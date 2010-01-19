@@ -1,9 +1,9 @@
-gdm (2.29.5-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.29.5-0ubuntu3) lucid; urgency=low
 
   * debian/patches/15_default_session.patch: use gpointer* instead of
     GObject* (as a parameter can be a GType)
 
- -- Didier Roche <didrocks@ubuntu.com>  Tue, 19 Jan 2010 10:07:32 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 19 Jan 2010 10:57:14 +0100
 
 gdm (2.29.5-0ubuntu2) lucid; urgency=low
 
