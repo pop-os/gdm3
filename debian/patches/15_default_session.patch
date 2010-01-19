@@ -5,10 +5,10 @@
 # Ubuntu: https://launchpad.net/bugs/403291
 # Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=594733
 #
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/configure.ac gdm-2.29.1.new/configure.ac
---- gdm-2.29.1/configure.ac	2009-12-12 20:30:39.770336961 +0100
-+++ gdm-2.29.1.new/configure.ac	2009-12-12 20:30:40.583356564 +0100
-@@ -127,6 +127,13 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/configure.ac gdm-2.29.5.new/configure.ac
+--- gdm-2.29.5/configure.ac	2010-01-19 09:51:38.222451637 +0100
++++ gdm-2.29.5.new/configure.ac	2010-01-19 09:51:39.489451835 +0100
+@@ -126,6 +126,13 @@
  AC_SUBST(GDMSETUP_CFLAGS)
  AC_SUBST(GDMSETUP_LIBS)
  
@@ -22,9 +22,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/configure.ac gdm-2.29.1.new/configure.a
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-session-direct.c gdm-2.29.1.new/daemon/gdm-session-direct.c
---- gdm-2.29.1/daemon/gdm-session-direct.c	2009-12-12 20:30:39.534337699 +0100
-+++ gdm-2.29.1.new/daemon/gdm-session-direct.c	2009-12-12 20:34:14.134355706 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-direct.c gdm-2.29.5.new/daemon/gdm-session-direct.c
+--- gdm-2.29.5/daemon/gdm-session-direct.c	2010-01-19 09:51:37.853462132 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-direct.c	2010-01-19 09:51:39.489451835 +0100
 @@ -60,6 +60,10 @@
  #define GDM_SESSION_DBUS_INTERFACE    "org.gnome.DisplayManager.Session"
  #define GDM_SESSION_DBUS_ERROR_CANCEL "org.gnome.DisplayManager.Session.Error.Cancel"
@@ -36,7 +36,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-session-direct.c gdm-2.29.1.
  #ifndef GDM_SESSION_DEFAULT_PATH
  #define GDM_SESSION_DEFAULT_PATH "/usr/local/bin:/usr/bin:/bin"
  #endif
-@@ -639,11 +643,31 @@
+@@ -640,11 +644,31 @@
  }
  
  static char *
@@ -69,7 +69,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-session-direct.c gdm-2.29.1.
  
          name = g_strdup ("gnome");
          if (get_session_command_for_name (name, NULL)) {
-@@ -695,7 +719,7 @@
+@@ -696,7 +720,7 @@
                  return session->priv->saved_session;
          }
  
@@ -78,9 +78,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-session-direct.c gdm-2.29.1.
  }
  
  static void
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/gdm-set-default-session.c gdm-2.29.1.new/utils/gdm-set-default-session.c
---- gdm-2.29.1/utils/gdm-set-default-session.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.29.1.new/utils/gdm-set-default-session.c	2009-12-12 20:30:40.587351694 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/utils/gdm-set-default-session.c gdm-2.29.5.new/utils/gdm-set-default-session.c
+--- gdm-2.29.5/utils/gdm-set-default-session.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/utils/gdm-set-default-session.c	2010-01-19 09:54:39.274255062 +0100
 @@ -0,0 +1,271 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -196,7 +196,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/gdm-set-default-session.c gdm-2.2
 +}
 +
 +int
-+update_session_if_needed(gchar *default_session, gchar *proposed_session, gboolean dbusupdate, GObject *parameter)
++update_session_if_needed(gchar *default_session, gchar *proposed_session, gboolean dbusupdate, gpointer *parameter)
 +{
 +    DBusGProxy      *proxy = NULL;
 +    GKeyFile        *keyfile = NULL;
@@ -306,7 +306,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/gdm-set-default-session.c gdm-2.2
 +            dbus_connexion_ok = TRUE;
 +            if (return_dbus_code == HASNOVALUE)
 +                default_session = NULL;
-+            return_code = update_session_if_needed (default_session, proposed_session, TRUE, (GObject *) proxy);
++            return_code = update_session_if_needed (default_session, proposed_session, TRUE, (gpointer *) proxy);
 +        }
 +    }
 +    if (proxy)
@@ -327,7 +327,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/gdm-set-default-session.c gdm-2.2
 +        }
 +        // try to get the right key
 +        default_session = g_key_file_get_string (keyfile, SESSION_KEY_GROUP, SESSION_KEY_NAME, NULL);
-+        return_code = update_session_if_needed (default_session, proposed_session, FALSE, (GObject *) keyfile);
++        return_code = update_session_if_needed (default_session, proposed_session, FALSE, (gpointer *) keyfile);
 +        if(return_code == 0) {
 +            s_data = g_key_file_to_data (keyfile, &size, &error);
 +            if (!s_data) {
@@ -353,9 +353,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/gdm-set-default-session.c gdm-2.2
 +    exit(return_code);
 +
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/utils/Makefile.am gdm-2.29.1.new/utils/Makefile.am
---- gdm-2.29.1/utils/Makefile.am	2009-11-16 23:37:44.000000000 +0100
-+++ gdm-2.29.1.new/utils/Makefile.am	2009-12-12 20:30:40.587351694 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/utils/Makefile.am gdm-2.29.5.new/utils/Makefile.am
+--- gdm-2.29.5/utils/Makefile.am	2010-01-12 17:36:37.000000000 +0100
++++ gdm-2.29.5.new/utils/Makefile.am	2010-01-19 09:51:39.489451835 +0100
 @@ -6,10 +6,12 @@
  	-DLOCALSTATEDIR=\""$(localstatedir)"\" 		\
  	-DGDM_SCREENSHOT_DIR=\""$(GDM_SCREENSHOT_DIR)"\"\
