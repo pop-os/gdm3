@@ -1,3 +1,10 @@
+gdm (2.29.5-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/patches/15_gdmsetup_default_session.patch:
+    Provide default session choice in gdmsetup
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 20 Jan 2010 14:59:10 +0100
+
 gdm (2.29.5-0ubuntu4) lucid; urgency=low
 
   * debian/patches/18_do_not_double_free_exec_variable.patch:

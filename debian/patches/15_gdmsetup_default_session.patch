@@ -1,0 +1,608 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-sessions.c gdm-2.29.5.new/gui/gdmsetup/gdm-sessions.c
+--- gdm-2.29.5/gui/gdmsetup/gdm-sessions.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-sessions.c	2010-01-20 15:01:44.875932284 +0100
+@@ -0,0 +1,265 @@
++/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
++ *
++ * Copyright 2008 Red Hat, Inc,
++ *           2007 William Jon McCann <mccann@jhu.edu>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ * Written by : William Jon McCann <mccann@jhu.edu>
++ *              Ray Strode <rstrode@redhat.com>
++ */
++
++#include "config.h"
++
++#include <stdlib.h>
++#include <stdio.h>
++#include <unistd.h>
++#include <string.h>
++#include <errno.h>
++#include <dirent.h>
++#include <sys/stat.h>
++
++#include <glib.h>
++#include <glib/gi18n.h>
++#include <glib/gstdio.h>
++
++#include "gdm-sessions.h"
++
++typedef struct _GdmSessionFile {
++        char    *id;
++        char    *path;
++        char    *translated_name;
++        char    *translated_comment;
++} GdmSessionFile;
++
++static GHashTable *gdm_available_sessions_map;
++
++static gboolean gdm_sessions_map_is_initialized = FALSE;
++
++/* adapted from gnome-menus desktop-entries.c */
++static gboolean
++key_file_is_relevant (GKeyFile     *key_file)
++{
++        GError    *error;
++        gboolean   no_display;
++        gboolean   hidden;
++        gboolean   tryexec_failed;
++        char      *tryexec;
++
++        error = NULL;
++        no_display = g_key_file_get_boolean (key_file,
++                                             G_KEY_FILE_DESKTOP_GROUP,
++                                             "NoDisplay",
++                                             &error);
++        if (error) {
++                no_display = FALSE;
++                g_error_free (error);
++        }
++
++        error = NULL;
++        hidden = g_key_file_get_boolean (key_file,
++                                         G_KEY_FILE_DESKTOP_GROUP,
++                                         "Hidden",
++                                         &error);
++        if (error) {
++                hidden = FALSE;
++                g_error_free (error);
++        }
++
++        tryexec_failed = FALSE;
++        tryexec = g_key_file_get_string (key_file,
++                                         G_KEY_FILE_DESKTOP_GROUP,
++                                         "TryExec",
++                                         NULL);
++        if (tryexec) {
++                char *path;
++
++                path = g_find_program_in_path (g_strstrip (tryexec));
++
++                tryexec_failed = (path == NULL);
++
++                g_free (path);
++                g_free (tryexec);
++        }
++
++        if (no_display || hidden || tryexec_failed) {
++                return FALSE;
++        }
++
++        return TRUE;
++}
++
++static void
++load_session_file (const char              *id,
++                   const char              *path)
++{
++        GKeyFile          *key_file;
++        GError            *error;
++        gboolean           res;
++        GdmSessionFile    *session;
++
++        key_file = g_key_file_new ();
++
++        error = NULL;
++        res = g_key_file_load_from_file (key_file, path, 0, &error);
++
++        if (!res) {
++                g_debug ("Failed to load \"%s\": %s\n", path, error->message);
++                g_error_free (error);
++                goto out;
++        }
++
++        if (! g_key_file_has_group (key_file, G_KEY_FILE_DESKTOP_GROUP)) {
++                goto out;
++        }
++
++        res = g_key_file_has_key (key_file, G_KEY_FILE_DESKTOP_GROUP, "Name", NULL);
++        if (! res) {
++                g_debug ("\"%s\" contains no \"Name\" key\n", path);
++                goto out;
++        }
++
++        if (!key_file_is_relevant (key_file)) {
++                g_debug ("\"%s\" is hidden or contains non-executable TryExec program\n", path);
++                goto out;
++        }
++
++        session = g_new0 (GdmSessionFile, 1);
++
++        session->id = g_strdup (id);
++        session->path = g_strdup (path);
++
++        session->translated_name = g_key_file_get_locale_string (key_file, G_KEY_FILE_DESKTOP_GROUP, "Name", NULL, NULL);
++        session->translated_comment = g_key_file_get_locale_string (key_file, G_KEY_FILE_DESKTOP_GROUP, "Comment", NULL, NULL);
++
++        g_hash_table_insert (gdm_available_sessions_map,
++                             g_strdup (id),
++                             session);
++ out:
++        g_key_file_free (key_file);
++}
++
++static void
++collect_sessions_from_directory (const char *dirname)
++{
++        GDir       *dir;
++        const char *filename;
++
++        /* FIXME: add file monitor to directory */
++
++        dir = g_dir_open (dirname, 0, NULL);
++        if (dir == NULL) {
++                return;
++        }
++
++        while ((filename = g_dir_read_name (dir))) {
++                char *id;
++                char *full_path;
++
++                if (! g_str_has_suffix (filename, ".desktop")) {
++                        continue;
++                }
++                id = g_strndup (filename, strlen (filename) - strlen (".desktop"));
++
++                full_path = g_build_filename (dirname, filename, NULL);
++
++                load_session_file (id, full_path);
++
++                g_free (id);
++                g_free (full_path);
++        }
++
++        g_dir_close (dir);
++}
++
++static void
++collect_sessions (void)
++{
++        int         i;
++        const char *search_dirs[] = {
++                "/etc/X11/sessions/",
++                DMCONFDIR "/Sessions/",
++                DATADIR "/gdm/BuiltInSessions/",
++                DATADIR "/xsessions/",
++                NULL
++        };
++
++        if (gdm_available_sessions_map == NULL) {
++                gdm_available_sessions_map = g_hash_table_new_full (g_str_hash, g_str_equal,
++                                                                    g_free, g_free);
++        }
++
++        for (i = 0; search_dirs [i] != NULL; i++) {
++                collect_sessions_from_directory (search_dirs [i]);
++        }
++}
++
++char **
++gdm_get_all_sessions (void)
++{
++        GHashTableIter iter;
++        gpointer key, value;
++        GPtrArray *array;
++
++        if (!gdm_sessions_map_is_initialized) {
++                collect_sessions ();
++
++                gdm_sessions_map_is_initialized = TRUE;
++        }
++
++        array = g_ptr_array_new ();
++        g_hash_table_iter_init (&iter, gdm_available_sessions_map);
++        while (g_hash_table_iter_next (&iter, &key, &value)) {
++                GdmSessionFile *session;
++
++                session = (GdmSessionFile *) value;
++
++                g_ptr_array_add (array, g_strdup (session->id));
++        }
++        g_ptr_array_add (array, NULL);
++
++        return (char **) g_ptr_array_free (array, FALSE);
++}
++
++gboolean
++gdm_get_details_for_session (const char  *id,
++                             char       **name,
++                             char       **comment)
++{
++        GdmSessionFile *session;
++
++        if (!gdm_sessions_map_is_initialized) {
++                collect_sessions ();
++
++                gdm_sessions_map_is_initialized = TRUE;
++        }
++
++        session = (GdmSessionFile *) g_hash_table_lookup (gdm_available_sessions_map,
++                                                          id);
++
++        if (session == NULL) {
++                return FALSE;
++        }
++
++        if (name != NULL) {
++                *name = g_strdup (session->translated_name);
++        }
++
++        if (comment != NULL) {
++                *comment = g_strdup (session->translated_comment);
++        }
++
++        return TRUE;
++}
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdm-sessions.h gdm-2.29.5.new/gui/gdmsetup/gdm-sessions.h
+--- gdm-2.29.5/gui/gdmsetup/gdm-sessions.h	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdm-sessions.h	2010-01-20 15:01:44.875932284 +0100
+@@ -0,0 +1,38 @@
++/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
++ *
++ * Copyright 2008 Red Hat, Inc.
++ * Copyright 2007 William Jon McCann <mccann@jhu.edu>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ *
++ * Written by: Ray Strode
++ *             William Jon McCann
++ */
++
++#ifndef __GDM_SESSIONS_H
++#define __GDM_SESSIONS_H
++
++#include <glib.h>
++
++G_BEGIN_DECLS
++
++char **                gdm_get_all_sessions (void);
++gboolean               gdm_get_details_for_session (const char  *id,
++                                                    char       **name,
++                                                    char       **comment);
++
++G_END_DECLS
++
++#endif /* __GDM_SESSION_H */
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdmsetup.c gdm-2.29.5.new/gui/gdmsetup/gdmsetup.c
+--- gdm-2.29.5/gui/gdmsetup/gdmsetup.c	2010-01-20 15:01:43.906932384 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdmsetup.c	2010-01-20 15:01:44.875932284 +0100
+@@ -10,6 +10,7 @@
+ #include <glib/gi18n.h>
+ 
+ #include "gdm-user-manager.h"
++#include "gdm-sessions.h"
+ 
+ #define MAX_USERS_IN_COMBO_BOX 20
+ 
+@@ -17,6 +18,7 @@
+ static GtkBuilder *ui;
+ static GtkWidget *dialog, *unlock_button, *option_vbox;
+ static GtkWidget *user_combo, *user_entry, *delay_spin;
++static GtkWidget *session_combo;
+ static GtkWidget *auto_login_radio, *login_delay_box, *login_delay_check;
+ 
+ /* Timer to delay application of configuration */
+@@ -133,6 +135,7 @@
+     gchar *user = NULL;
+     gint delay = 0;
+     gboolean auto_login = FALSE, timed_login = FALSE, error = FALSE;
++    gchar *default_session = NULL;
+     
+     if (apply_timeout != 0) {
+         g_source_remove (apply_timeout);
+@@ -147,6 +150,10 @@
+     else
+         user = g_strdup (gtk_entry_get_text (GTK_ENTRY (user_entry)));
+ 
++    model = gtk_combo_box_get_model (GTK_COMBO_BOX (session_combo));
++    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (session_combo), &iter))
++        gtk_tree_model_get (model, &iter, 1, &default_session, -1);
++
+     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auto_login_radio))) {
+         if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (login_delay_check)))
+             timed_login = TRUE;
+@@ -156,16 +163,18 @@
+     
+     delay = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (delay_spin));
+ 
+-    g_debug ("set user='%s', auto=%s, timed=%s, delay=%d",
++    g_debug ("set user='%s', auto=%s, timed=%s, delay=%d, default_session=%s",
+              user,
+              auto_login ? "True" : "False",
+-             timed_login ? "True" : "False", delay);
++             timed_login ? "True" : "False", delay,
++             default_session);
+     
+     if (!set_boolean_value ("daemon/TimedLoginEnable", timed_login) ||
+         !set_boolean_value ("daemon/AutomaticLoginEnable", auto_login) ||
+         !set_value ("daemon/TimedLogin", user) ||
+         !set_value ("daemon/AutomaticLogin", user) ||    
+-        !set_integer_value ("daemon/TimedLoginDelay", delay))
++        !set_integer_value ("daemon/TimedLoginDelay", delay) ||
++        !set_value ("daemon/DefaultSession", default_session))
+         error = FALSE;
+ 
+     if (user)
+@@ -288,6 +297,13 @@
+     }
+ }
+ 
++G_MODULE_EXPORT
++void
++default_session_combo_box_changed_cb (void)
++{
++    update_config ();
++}
++
+ 
+ static void
+ init_default_user (void)
+@@ -345,6 +361,43 @@
+ }
+ 
+ 
++static void
++init_default_session (void)
++{
++    GtkTreeModel *model;
++    GtkTreeIter iter;
++    gboolean active;
++    gchar *default_session = NULL;
++
++    default_session = get_value ("daemon/DefaultSession", NULL);
++    g_debug ("Init default session found:'%s'", default_session);
++
++    model = gtk_combo_box_get_model (GTK_COMBO_BOX (session_combo));
++    active = gtk_tree_model_get_iter_first (model, &iter);
++
++    /* If no default session then use gnome one */
++    if (default_session == NULL || strlen(default_session) == 0)
++        default_session = g_strdup("gnome");
++
++    while (active) {
++        gchar *u;
++        gboolean matched;
++
++        gtk_tree_model_get (model, &iter, 1, &u, -1);
++        matched = strcmp (default_session, u) == 0;
++        g_free (u);
++        if (matched) {
++            gtk_combo_box_set_active_iter (GTK_COMBO_BOX (session_combo), &iter);
++            break;
++        }
++
++        active = gtk_tree_model_iter_next (model, &iter);
++    }
++
++    g_free (default_session);
++}
++
++
+ static void add_user (GdmUser *user)
+ {
+     GtkListStore *model;
+@@ -363,6 +416,24 @@
+ }
+ 
+ 
++static void add_session (gchar *session_id, gchar *name, gchar *comment)
++{
++    GtkListStore *model;
++    GtkTreeIter iter;
++    GString *label;    
++
++    model = GTK_LIST_STORE (gtk_builder_get_object (ui, "session_model"));
++    gtk_list_store_append (model, &iter);
++    label = g_string_new("");
++    g_string_printf (label, "%s (%s)", name, comment);
++    gtk_list_store_set (model, &iter,
++                        0, label->str,
++                        1, session_id,
++                        -1);
++    g_string_free (label, TRUE);
++}
++
++
+ static void
+ users_loaded_cb(GdmUserManager *manager)
+ {
+@@ -396,6 +467,31 @@
+ 
+ 
+ static void
++load_sessions_cb(void)
++{
++    gchar     **session_ids;
++    int        i;
++
++    session_ids = gdm_get_all_sessions ();
++
++    for (i = 0; session_ids[i] != NULL; i++) {
++        gchar *name;
++        gchar *comment;
++        if (!gdm_get_details_for_session (session_ids[i],
++                                          &name, &comment)) {
++            continue;
++        }
++        add_session (session_ids[i], name, comment);
++            g_free (name);
++            g_free (comment);
++    }
++    g_strfreev (session_ids);
++
++    init_default_session();
++}
++
++
++static void
+ split_text (const gchar *text, const gchar *prefix_label_name, const gchar *suffix_label_name)
+ {
+     gchar **tokens;
+@@ -421,7 +517,7 @@
+ 
+ int main (int argc, char **argv)
+ {
+-    GtkCellRenderer *renderer;
++    GtkCellRenderer *renderer, *session_renderer;
+     DBusGConnection *connection;    
+     GError *error = NULL;
+     
+@@ -451,6 +547,7 @@
+     unlock_button = GTK_WIDGET (gtk_builder_get_object (ui, "unlock_button"));
+     option_vbox = GTK_WIDGET (gtk_builder_get_object (ui, "gdm_capplet_vbox"));
+     user_combo = GTK_WIDGET (gtk_builder_get_object (ui, "default_user_combo_box"));
++    session_combo = GTK_WIDGET (gtk_builder_get_object (ui, "default_session_combo_box"));
+     user_entry = GTK_WIDGET (gtk_builder_get_object (ui, "default_user_entry"));
+     delay_spin = GTK_WIDGET (gtk_builder_get_object (ui, "login_delay_spin"));
+     auto_login_radio = GTK_WIDGET (gtk_builder_get_object (ui, "automatic_login_radio"));
+@@ -462,13 +559,20 @@
+     split_text (_("Log in as %s automatically"), "user_prefix_label", "user_suffix_label");
+     /* Translators: Label for choosing the login delay. '%s' is replaced with an input field. */
+     split_text (_("Allow %s seconds for anyone else to log in first"), "delay_prefix_label", "delay_suffix_label");
++    /* Translators: Label for choosing the default session. '%s' is replaced with an input field. */
++    split_text (_("Select %s as default session"), "session_prefix_label", "session_suffix_label");
+     
+     init_login_delay ();
++    load_sessions_cb();
+ 
+     renderer = gtk_cell_renderer_text_new ();
+     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (user_combo), renderer, TRUE);
+     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (user_combo), renderer, "text", 0);
+ 
++    session_renderer = gtk_cell_renderer_text_new ();
++    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (session_combo), session_renderer, TRUE);
++    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (session_combo), session_renderer, "text", 0);
++
+     user_manager = gdm_user_manager_ref_default ();
+     g_signal_connect (user_manager, "users-loaded", G_CALLBACK (users_loaded_cb), NULL);
+     g_signal_connect (user_manager, "user-added", G_CALLBACK (user_added_cb), NULL);
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/gdmsetup.ui gdm-2.29.5.new/gui/gdmsetup/gdmsetup.ui
+--- gdm-2.29.5/gui/gdmsetup/gdmsetup.ui	2010-01-20 15:01:43.906932384 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/gdmsetup.ui	2010-01-20 15:01:44.875932284 +0100
+@@ -12,6 +12,16 @@
+       <column type="GdkPixbuf"/>
+     </columns>
+   </object>
++  <object class="GtkListStore" id="session_model">
++    <columns>
++      <!-- column-name user and comment -->
++      <column type="gchararray"/>
++      <!-- column-name session_id -->
++      <column type="gchararray"/>
++      <!-- column-name icon -->
++      <column type="GdkPixbuf"/>
++    </columns>
++  </object>
+   <object class="GtkDialog" id="gdm_capplet">
+     <property name="border_width">5</property>
+     <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
+@@ -198,6 +208,44 @@
+                     <property name="position">1</property>
+                   </packing>
+                 </child>
++                <child>
++                  <object class="GtkHBox" id="hbox2">
++                    <property name="visible">True</property>
++                    <property name="spacing">6</property>
++                    <child>
++                      <object class="GtkLabel" id="session_prefix_label">
++                        <property name="visible">True</property>
++                        <property name="label">Use</property>
++                        <property name="use_underline">True</property>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="position">0</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkComboBox" id="default_session_combo_box">
++                        <property name="visible">True</property>
++                        <property name="model">session_model</property>
++                        <signal name="changed" handler="default_session_combo_box_changed_cb"/>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="position">1</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkLabel" id="session_suffix_label">
++                        <property name="visible">True</property>
++                        <property name="label">as default session</property>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="position">2</property>
++                      </packing>
++                    </child>
++                  </object>
++                </child>
+               </object>
+               <packing>
+                 <property name="expand">False</property>
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/gdmsetup/Makefile.am gdm-2.29.5.new/gui/gdmsetup/Makefile.am
+--- gdm-2.29.5/gui/gdmsetup/Makefile.am	2010-01-20 15:01:43.910931217 +0100
++++ gdm-2.29.5.new/gui/gdmsetup/Makefile.am	2010-01-20 15:02:27.634946562 +0100
+@@ -2,6 +2,7 @@
+ 
+ AM_CPPFLAGS = \
+ 	-I$(top_srcdir)/common		\
++	-DDMCONFDIR=\""$(dmconfdir)"\"                  \
+ 	-DDATADIR=\""$(datadir)"\"	\
+ 	-DUIDIR=\""$(uidir)"\" 	\
+ 	-DGNOMELOCALEDIR=\""$(gdmlocaledir)"\" 	\
+@@ -16,6 +17,7 @@
+ 	gdmsetup.c 		\
+ 	gdm-user.c 		\
+ 	gdm-user-manager.c	\
++	gdm-sessions.c           \
+ 	$(NULL)
+ 
+ gdmsetup_LDADD =		\
