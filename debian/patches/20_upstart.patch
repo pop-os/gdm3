@@ -8,7 +8,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.i
  #        /usr/bin/xsplash --gdm-session --daemon
  #fi
  
-+initctl -q emit login-session-start DISPLAY_MANAGER=gdm
++/sbin/initctl -q emit login-session-start DISPLAY_MANAGER=gdm
 +
  gdmwhich () {
    COMMAND="$1"
@@ -21,4 +21,4 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/PreSession.in gdm-2.29.5.new/data/
  #        /usr/bin/xsplash --daemon
  #fi
 +
-+initctl -q emit desktop-session-start DISPLAY_MANAGER=gdm
++/sbin/initctl -q emit desktop-session-start DISPLAY_MANAGER=gdm

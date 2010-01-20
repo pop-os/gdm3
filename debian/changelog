@@ -1,3 +1,14 @@
+gdm (2.29.5-0ubuntu4) lucid; urgency=low
+
+  * debian/patches/18_do_not_double_free_exec_variable.patch:
+    - don't free the exec variable twice, thank Colin Gibbs for the detailled 
+      bug description (lp: #505051)
+  * debian/patches/20_upstart.patch:
+    - specify the initctl path to avoid command not found errors which break
+      user switching and guest session
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 19 Jan 2010 23:42:30 +0100
+
 gdm (2.29.5-0ubuntu3) lucid; urgency=low
 
   * debian/patches/15_default_session.patch: use gpointer* instead of

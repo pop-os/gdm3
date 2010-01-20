@@ -1,0 +1,18 @@
+# Description: don't free the exec variable twice
+# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=607505
+# Ubuntu: https://bugs.launchpad.net/gdm/+bug/505051
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-direct.c gdm-2.29.5.new/daemon/gdm-session-direct.c
+--- gdm-2.29.5/daemon/gdm-session-direct.c	2010-01-20 00:06:30.000000000 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-direct.c	2010-01-20 00:08:09.000000000 +0100
+@@ -569,10 +569,9 @@
+                 *command = g_strdup (exec);
+         }
+         ret = TRUE;
+-
+-out:
+         g_free (exec);
+ 
++out:
+         return ret;
+ }
+ 
