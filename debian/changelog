@@ -2,6 +2,8 @@ gdm (2.29.5-0ubuntu5) UNRELEASED; urgency=low
 
   * debian/patches/15_gdmsetup_default_session.patch:
     Provide default session choice in gdmsetup
+  * debian/patches/99_autoreconf.patch: refresh to take into account
+    new files in previous file
 
  -- Didier Roche <didrocks@ubuntu.com>  Wed, 20 Jan 2010 14:59:10 +0100
 
