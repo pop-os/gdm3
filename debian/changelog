@@ -1,9 +1,9 @@
-gdm (2.29.5-0ubuntu6) UNRELEASED; urgency=low
+gdm (2.29.5-0ubuntu6) lucid; urgency=low
 
   * add debian/patches/30_don_t_save_failsafe_session.patch:
     Don't set failsafe session as default when user select it (LP: #509182)
 
- -- Didier Roche <didrocks@ubuntu.com>  Thu, 21 Jan 2010 20:43:36 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 21 Jan 2010 20:45:19 +0100
 
 gdm (2.29.5-0ubuntu5) lucid; urgency=low
 
