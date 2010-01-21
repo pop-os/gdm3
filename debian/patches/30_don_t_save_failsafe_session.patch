@@ -1,0 +1,340 @@
+#
+# Description: Don't save failsafe session in .dmrc.
+# "Failsafe" means either failsafe in session name or in session comment
+# (case unsensitive)
+# Ubuntu: https://launchpad.net/bugs/509182
+# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=607703
+#
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-direct.c gdm-2.29.5.new/daemon/gdm-session-direct.c
+--- gdm-2.29.5/daemon/gdm-session-direct.c	2010-01-21 20:20:02.521354911 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-direct.c	2010-01-21 20:20:21.232354118 +0100
+@@ -172,6 +172,32 @@
+ }
+ 
+ static void
++send_dbus_bool_signal (GdmSessionDirect *session,
++                       const char *name,
++                       const gboolean value)
++{
++        DBusMessage    *message;
++        DBusMessageIter iter;
++
++        g_return_if_fail (session != NULL);
++
++        message = dbus_message_new_signal (GDM_SESSION_DBUS_PATH,
++                                           GDM_SESSION_DBUS_INTERFACE,
++                                           name);
++
++        dbus_message_iter_init_append (message, &iter);
++        dbus_message_iter_append_basic (&iter, DBUS_TYPE_BOOLEAN, &value);
++
++        if (! send_dbus_message (session->priv->worker_connection, message)) {
++                g_debug ("GdmSessionDirect: Could not send %s signal",
++                         name ? name : "(null)");
++        }
++
++         dbus_message_unref (message);
++}
++
++
++static void
+ send_dbus_void_signal (GdmSessionDirect *session,
+                        const char       *name)
+ {
+@@ -576,6 +602,61 @@
+ }
+ 
+ static gboolean
++get_session_comment_for_file (const char *file,
++                              char      **comment)
++{
++        GKeyFile   *key_file;
++        GError     *error;
++        char       *full_path;
++        gboolean    ret;
++        gboolean    res;
++
++        ret = FALSE;
++        if (comment != NULL) {
++                *comment = NULL;
++        }
++
++        key_file = g_key_file_new ();
++
++        g_debug ("GdmSessionDirect: looking for session file '%s'", file);
++
++        error = NULL;
++        full_path = NULL;
++        res = g_key_file_load_from_dirs (key_file,
++                                         file,
++                                         get_system_session_dirs (),
++                                         &full_path,
++                                         G_KEY_FILE_NONE,
++                                         &error);
++        if (! res) {
++                g_debug ("GdmSessionDirect: File '%s' not found: %s", file, error->message);
++                g_error_free (error);
++                if (comment != NULL) {
++                        *comment = NULL;
++                }
++                goto out;
++        }
++
++        error = NULL;
++        *comment = g_key_file_get_string (key_file,
++                                      G_KEY_FILE_DESKTOP_GROUP,
++                                      "Comment",
++                                      &error);
++        if (error != NULL) {
++                g_debug ("GdmSessionDirect: %s key not found: %s",
++                         "Comment",
++                         error->message);
++                g_error_free (error);
++                goto out;
++        }
++
++        ret = TRUE;
++
++out:
++        return ret;
++}
++                                                               
++static gboolean
+ get_session_command_for_name (const char *name,
+                               char      **command)
+ {
+@@ -1351,6 +1432,9 @@
+                                "    <signal name=\"SetSessionName\">\n"
+                                "      <arg name=\"session_name\" type=\"s\"/>\n"
+                                "    </signal>\n"
++                               "    <signal name=\"SetIsFailsafe\">\n"
++                               "      <arg name=\"is_failsafe\" type=\"i\"/>\n"
++                               "    </signal>\n"
+                                "    <signal name=\"StartProgram\">\n"
+                                "      <arg name=\"command\" type=\"s\"/>\n"
+                                "    </signal>\n"
+@@ -1937,6 +2021,32 @@
+         return get_default_session_name (session);
+ }
+ 
++static gboolean
++get_is_session_failsafe (GdmSessionDirect *session)
++{
++        gboolean res;
++        char    *comment;
++        char    *filename;
++        char    *p;
++
++        filename = g_strdup_printf ("%s.desktop", get_session_name (session));
++
++        comment = NULL;
++        res = get_session_comment_for_file (filename, &comment);
++        if (! res) {
++                g_critical ("Cannot read specified session file: %s", filename);
++                g_free (filename);
++                exit (1);
++        }
++        g_free (filename);
++
++        p = strstr(g_ascii_strdown (comment, -1), "failsafe") || strstr(g_ascii_strdown (filename, -1), "failsafe");
++        if (p != NULL)
++                return TRUE;
++
++        return FALSE;
++}
++
+ static char *
+ get_session_command (GdmSessionDirect *session)
+ {
+@@ -2190,6 +2300,10 @@
+ 
+         send_dbus_string_signal (impl, "SetSessionName",
+                                  get_session_name (impl));
++
++        send_dbus_bool_signal (impl, "SetIsFailsafe",
++                                 get_is_session_failsafe(impl));
++
+ }
+ 
+ static void
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-settings.c gdm-2.29.5.new/daemon/gdm-session-settings.c
+--- gdm-2.29.5/daemon/gdm-session-settings.c	2010-01-12 17:36:37.000000000 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-settings.c	2010-01-21 20:20:03.340363314 +0100
+@@ -35,6 +35,7 @@
+ struct _GdmSessionSettingsPrivate
+ {
+         char *session_name;
++        gboolean failsafe;
+         char *language_name;
+         char *layout_name;
+ };
+@@ -57,6 +58,7 @@
+         PROP_SESSION_NAME,
+         PROP_LANGUAGE_NAME,
+         PROP_LAYOUT_NAME,
++        PROP_IS_FAILSAFE,
+ };
+ 
+ G_DEFINE_TYPE (GdmSessionSettings, gdm_session_settings, G_TYPE_OBJECT)
+@@ -100,6 +102,11 @@
+                                         NULL,
+                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+         g_object_class_install_property (object_class, PROP_LAYOUT_NAME, param_spec);
++        param_spec = g_param_spec_string ("is-failsafe", "Failsafe Session",
++                                        "Whether the session is a failsafe one",
++                                        NULL,
++                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
++        g_object_class_install_property (object_class, PROP_IS_FAILSAFE, param_spec);
+ }
+ 
+ static void
+@@ -169,6 +176,18 @@
+         }
+ }
+ 
++void
++gdm_session_settings_set_is_failsafe (GdmSessionSettings *settings,
++                                      gboolean            failsafe)
++{
++        g_return_if_fail (GDM_IS_SESSION_SETTINGS (settings));
++
++        if (settings->priv->failsafe != failsafe) {
++                settings->priv->failsafe = failsafe;
++                g_object_notify (G_OBJECT (settings), "is-failsafe");
++        }
++}
++
+ char *
+ gdm_session_settings_get_language_name (GdmSessionSettings *settings)
+ {
+@@ -190,6 +209,13 @@
+         return g_strdup (settings->priv->session_name);
+ }
+ 
++gboolean
++gdm_session_settings_get_is_failsafe (GdmSessionSettings *settings)
++{
++        g_return_val_if_fail (GDM_IS_SESSION_SETTINGS (settings), FALSE);
++        return settings->priv->failsafe;
++}
++
+ static void
+ gdm_session_settings_set_property (GObject      *object,
+                                   guint         prop_id,
+@@ -213,6 +239,10 @@
+                         gdm_session_settings_set_session_name (settings, g_value_get_string (value));
+                 break;
+ 
++                case PROP_IS_FAILSAFE:
++                        gdm_session_settings_set_is_failsafe (settings, g_value_get_boolean (value));
++                break;
++
+                 default:
+                         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+         }
+@@ -241,6 +271,10 @@
+                         g_value_set_string (value, settings->priv->layout_name);
+                 break;
+ 
++                case PROP_IS_FAILSAFE:
++                        g_value_set_boolean (value, settings->priv->failsafe);
++                break;
++
+                 default:
+                         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+     }
+@@ -336,6 +370,8 @@
+                 goto out;
+         }
+ 
++        gdm_session_settings_set_is_failsafe (settings, FALSE);
++
+         is_loaded = TRUE;
+ out:
+         g_key_file_free (key_file);
+@@ -362,6 +398,10 @@
+         filename = g_build_filename (home_directory, ".dmrc", NULL);
+ 
+         is_saved = FALSE;
++
++        if (settings->priv->failsafe) 
++                return TRUE;
++ 
+         key_file = g_key_file_new ();
+ 
+         file_error = NULL;
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-settings.h gdm-2.29.5.new/daemon/gdm-session-settings.h
+--- gdm-2.29.5/daemon/gdm-session-settings.h	2010-01-12 17:36:37.000000000 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-settings.h	2010-01-21 20:20:03.340363314 +0100
+@@ -63,12 +63,15 @@
+ char               *gdm_session_settings_get_language_name  (GdmSessionSettings *settings);
+ char               *gdm_session_settings_get_layout_name    (GdmSessionSettings *settings);
+ char               *gdm_session_settings_get_session_name   (GdmSessionSettings *settings);
++gboolean            gdm_session_settings_get_is_failsafe    (GdmSessionSettings *settings);
+ void                gdm_session_settings_set_language_name  (GdmSessionSettings *settings,
+                                                              const char         *language_name);
+ void                gdm_session_settings_set_layout_name    (GdmSessionSettings *settings,
+                                                              const char         *layout_name);
+ void                gdm_session_settings_set_session_name   (GdmSessionSettings *settings,
+                                                              const char         *session_name);
++void                gdm_session_settings_set_is_failsafe    (GdmSessionSettings *settings,
++                                                             gboolean           is_failsafe);
+ 
+ G_END_DECLS
+ #endif /* GDM_SESSION_SETTINGS_H */
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-worker.c gdm-2.29.5.new/daemon/gdm-session-worker.c
+--- gdm-2.29.5/daemon/gdm-session-worker.c	2010-01-12 17:44:17.000000000 +0100
++++ gdm-2.29.5.new/daemon/gdm-session-worker.c	2010-01-21 20:20:03.340363314 +0100
+@@ -2190,6 +2190,14 @@
+ }
+ 
+ static void
++gdm_session_worker_set_is_failsafe (GdmSessionWorker *worker,
++                                    gboolean         is_failsafe)
++{
++        gdm_session_settings_set_is_failsafe (worker->priv->user_settings,
++                                              is_failsafe);
++}
++
++static void
+ on_set_session_name (GdmSessionWorker *worker,
+                      DBusMessage      *message)
+ {
+@@ -2212,6 +2220,28 @@
+ }
+ 
+ static void
++on_set_is_session_failsafe (GdmSessionWorker *worker,
++                            DBusMessage      *message)
++{
++        DBusError   error;
++        const gboolean is_failsafe;
++        dbus_bool_t res;
++
++        dbus_error_init (&error);
++        res = dbus_message_get_args (message,
++                                     &error,
++                                     DBUS_TYPE_BOOLEAN, &is_failsafe,
++                                     DBUS_TYPE_INVALID);
++        if (res) {
++                g_debug ("GdmSessionWorker: is_failsafe for this session set to %i", is_failsafe);
++                gdm_session_worker_set_is_failsafe (worker, is_failsafe);
++        } else {
++                g_warning ("Unable to get arguments: %s", error.message);
++                dbus_error_free (&error);
++        }
++}
++
++static void
+ gdm_session_worker_set_language_name (GdmSessionWorker *worker,
+                                       const char       *language_name)
+ {
+@@ -2818,6 +2848,8 @@
+                 on_set_layout_name (worker, message);
+         } else if (dbus_message_is_signal (message, GDM_SESSION_DBUS_INTERFACE, "SetSessionName")) {
+                 on_set_session_name (worker, message);
++        } else if (dbus_message_is_signal (message, GDM_SESSION_DBUS_INTERFACE, "SetIsFailsafe")) {
++                on_set_is_session_failsafe (worker, message);
+         } else {
+                 return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+         }
