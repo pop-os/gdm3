@@ -1,3 +1,24 @@
+gdm (2.29.6-0ubuntu1) lucid; urgency=low
+
+  * New upstream version:
+    - Various build fixes
+    - Crash fix in layout detection
+    - Crash fix in session list detection
+    - Remove timeout for interacting with PAM
+    - Fix compile with --no-as-needed
+    - Add debug message if system lacks fonts
+    - Disable switch user item if user switching won't work
+  * debian/patches/01_disable_hal.patch,
+    debian/patches/00git-add-missing-locale-alias.patch,
+    debian/patches/00git-keyboard-layout-crash.patch,
+    debian/patches/18_do_not_double_free_exec_variable.patch:
+    - those changes are in the new version
+  * debian/patches/15_default_session.patch,
+    debian/patches/99_autoreconf.patch:
+    - new version update
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 28 Jan 2010 17:10:32 +0100
+
 gdm (2.29.5-0ubuntu6) lucid; urgency=low
 
   * add debian/patches/30_don_t_save_failsafe_session.patch:
