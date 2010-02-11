@@ -1,3 +1,10 @@
+gdm (2.29.6-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/patches/15_gdmsetup_default_session.patch: fix bug asking
+    polkit write access on load and erasing autologin
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 11 Feb 2010 12:09:36 +0100
+
 gdm (2.29.6-0ubuntu2) lucid; urgency=low
 
   * debian/rules: Enable --with-incomplete-locales, so that the language
