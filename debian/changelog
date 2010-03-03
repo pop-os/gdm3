@@ -1,3 +1,13 @@
+gdm (2.29.6-0ubuntu4) UNRELEASED; urgency=low
+
+  * 05_initial_server_on_vt7.patch: Move the actual stamp file creation into
+    gdm_server_spawn(), so that the stamp file is also created when not using
+    gdm_server_start(). This happens when booting with Plymouth, since
+    28_plymouth_transition.patch introduces an alternative startup function.
+    (LP: #511134)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 03 Mar 2010 11:57:44 +0100
+
 gdm (2.29.6-0ubuntu3) lucid; urgency=low
 
   * debian/patches/15_gdmsetup_default_session.patch: fix bug asking
