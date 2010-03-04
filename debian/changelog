@@ -1,3 +1,11 @@
+gdm (2.29.6-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/patches/31-unify-power-strings.patch:
+    - Patch from Ted Gould to change "Shut down" and "Suspend" to
+      "Switch off" and "Sleep" (LP: #531493) 
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Thu, 04 Mar 2010 18:48:14 +0000
+
 gdm (2.29.6-0ubuntu4) lucid; urgency=low
 
   * 05_initial_server_on_vt7.patch: Move the actual stamp file creation into
