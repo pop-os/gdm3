@@ -1,9 +1,9 @@
-gdm (2.29.6-0ubuntu7) UNRELEASED; urgency=low
+gdm (2.29.6-0ubuntu7) lucid; urgency=low
 
   * Add debian/patches/32-hide-mouse-cursor.patch: Hide the mouse cursor on
     startup and when starting an user session.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 05 Mar 2010 10:18:21 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 05 Mar 2010 11:03:55 +0100
 
 gdm (2.29.6-0ubuntu6) lucid; urgency=low
 
