@@ -1,4 +1,4 @@
-gdm (2.29.92-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu1) UNRELEASED; urgency=low
 
   * New upsteam release:
     - The greeter is not torn down until pam_open_session finishes since
@@ -9,6 +9,8 @@ gdm (2.29.92-0ubuntu2) UNRELEASED; urgency=low
   * debian/patches/04_fix_external_program_directories.patch: adapt to
     last upstream version
   * debian/patches/99_autoreconf.patch: refreshed
+  * debian/control.in:
+    - bump Standards-Version to latest
 
  -- Didier Roche <didrocks@ubuntu.com>  Tue, 09 Mar 2010 12:40:04 +0100
 
