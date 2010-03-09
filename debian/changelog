@@ -1,4 +1,4 @@
-gdm (2.29.92-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu1) lucid; urgency=low
 
   * New upsteam release:
     - The greeter is not torn down until pam_open_session finishes since
@@ -12,7 +12,7 @@ gdm (2.29.92-0ubuntu1) UNRELEASED; urgency=low
   * debian/control.in:
     - bump Standards-Version to latest
 
- -- Didier Roche <didrocks@ubuntu.com>  Tue, 09 Mar 2010 12:40:04 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 09 Mar 2010 12:45:39 +0100
 
 gdm (2.29.6-0ubuntu7) lucid; urgency=low
 
