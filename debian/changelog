@@ -1,3 +1,10 @@
+gdm (2.29.92-0ubuntu1) UNRELEASED; urgency=low
+
+  * debian/patches/04_fix_external_program_directories.patch: adapt to
+    last upstream version
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 09 Mar 2010 10:53:43 +0100
+
 gdm (2.29.6-0ubuntu7) lucid; urgency=low
 
   * Add debian/patches/32-hide-mouse-cursor.patch: Hide the mouse cursor on
