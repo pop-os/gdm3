@@ -2,6 +2,7 @@ gdm (2.29.92-0ubuntu1) UNRELEASED; urgency=low
 
   * debian/patches/04_fix_external_program_directories.patch: adapt to
     last upstream version
+  * debian/patches/99_autoreconf.patch: refreshed
 
  -- Didier Roche <didrocks@ubuntu.com>  Tue, 09 Mar 2010 10:53:43 +0100
 
