@@ -1,7 +1,7 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          gdm
-# Should-Start:      console-screen acpid dbus hal network-manager
+# Provides:          gdm3
+# Should-Start:      console-screen acpid bootlogs dbus hal network-manager
 # Required-Start:    $local_fs $remote_fs
 # Required-Stop:     $local_fs $remote_fs
 # Default-Start:     2 3 4 5
@@ -15,7 +15,7 @@
 set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/gdm
+DAEMON=/usr/sbin/gdm3
 
 test -x $DAEMON || exit 0
 
@@ -32,10 +32,10 @@ HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 gen_config() {
-  if [ -d /var/lib/gdm/.gconf.mandatory ]; then
+  if [ -d /var/lib/gdm3/.gconf.mandatory ]; then
     update-gconf-defaults \
 	--source=/usr/share/gdm/greeter-config \
-	--destination=/var/lib/gdm/.gconf.mandatory \
+	--destination=/var/lib/gdm3/.gconf.mandatory \
 	--no-signal \
 	--only-if-changed
   fi
@@ -45,47 +45,47 @@ case "$1" in
   start)
         CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
         if grep -wqs text /proc/cmdline; then
-            log_warning_msg "Not starting GNOME Display Manager (gdm); found 'text' in kernel commandline."
+            log_warning_msg "Not starting GNOME Display Manager; found 'text' in kernel commandline."
         elif [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
            [ "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" ] && \
-           [ "$CONFIGURED_DAEMON" != gdm ] ; then
+           [ "$CONFIGURED_DAEMON" != gdm3 ] ; then
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
-                log_daemon_msg "Starting GNOME Display Manager" "gdm"
+                log_daemon_msg "Starting GNOME Display Manager" "gdm3"
                 gen_config
-                start-stop-daemon --start --quiet --pidfile /var/run/gdm.pid \
+                start-stop-daemon --start --quiet --pidfile /var/run/gdm3.pid \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
         fi
   ;;
   stop)
-        log_daemon_msg "Stopping GNOME Display Manager" "gdm"
+        log_daemon_msg "Stopping GNOME Display Manager" "gdm3"
         set +e
-        start-stop-daemon --stop --quiet --pidfile /var/run/gdm.pid \
-                --name gdm --retry 5
+        start-stop-daemon --stop --quiet --pidfile /var/run/gdm3.pid \
+                --name gdm3 --retry 5
         set -e
         log_end_msg $?
   ;;
   reload)
-        log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm"
+        log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
         set +e
         gen_config
         start-stop-daemon --stop --signal USR1 --quiet --pidfile \
-                /var/run/gdm.pid --name gdm
+                /var/run/gdm3.pid --name gdm3
         start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
-                --user gdm --oknodo
+                --user gdm3 --oknodo
         set -e
         log_end_msg $?
   ;;
   status)
-        status_of_proc -p "$PIDFILE" "$DAEMON" gdm && exit 0 || exit $?
+        status_of_proc -p "$PIDFILE" "$DAEMON" gdm3 && exit 0 || exit $?
   ;;
   restart|force-reload)
         $0 stop
         $0 start
   ;;
   *)
-        echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload|status}"
+        echo "Usage: /etc/init.d/gdm3 {start|stop|restart|reload|force-reload|status}"
         exit 1
   ;;
 esac

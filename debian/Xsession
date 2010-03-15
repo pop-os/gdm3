@@ -32,7 +32,7 @@ message () {
   echo "$MESSAGE" | fold -s -w ${COLUMNS:-80} >&2
   if [ -n "$DISPLAY" ]; then
     if [ -n "$zenity" ]; then
-      "$zenity" --info --text "`gettextfunc "$MESSAGE"`"
+      "$zenity" --info --text "$MESSAGE"
     elif [ -n "$xmessage" ]; then
       echo "$MESSAGE" | fold -s -w ${COLUMNS:-80} | $xmessage -center -file -
     fi
@@ -46,7 +46,7 @@ message_nonl () {
   echo -n "$MESSAGE" | fold -s -w ${COLUMNS:-80} >&2;
   if [ -n "$DISPLAY" ]; then
     if [ -n "$zenity" ]; then
-      "$zenity" --info --text "`gettextfunc "$MESSAGE"`"
+      "$zenity" --info --text "$MESSAGE"
     elif [ -n "$xmessage" ]; then
       echo -n "$MESSAGE" | fold -s -w ${COLUMNS:-80} | $xmessage -center -file -
     fi
@@ -110,22 +110,6 @@ test -f "$HOME/.profile" && . "$HOME/.profile"
 test -f /etc/xprofile && . /etc/xprofile
 test -f "$HOME/.xprofile" && . "$HOME/.xprofile"
 
-# Translation stuff
-if [ -x "/usr/lib/gdm/gdmtranslate" ] ; then
-  gdmtranslate="/usr/lib/gdm/gdmtranslate"
-else
-  gdmtranslate=
-fi
-
-# Note that this should only go to zenity dialogs which always expect utf8
-gettextfunc () {
-  if [ "x$gdmtranslate" != "x" ] ; then
-    "$gdmtranslate" --utf8 "$1"
-  else
-    echo "$1"
-  fi
-}
-
 zenity=`which zenity 2>/dev/null`
 xmessage=`which xmessage 2>/dev/null`
 
@@ -137,7 +121,7 @@ fi
 
 if [ x"$command" = xfailsafe ] ; then
   if [ -n "$zenity" ] ; then
-    "$zenity" --info --text "`gettextfunc "This is the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"`"
+    "$zenity" --info --text "This is the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"
   else
     echo "$0: Starting the failsafe xterm session."
   fi
@@ -207,7 +191,7 @@ fi
 echo "$0: Executing $command failed, will try to run x-terminal-emulator"
 
 if [ -n "$zenity" ] ; then
-        "$zenity" --info --text "`gettextfunc "I could not start your session and so I have started the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"`"
+        "$zenity" --info --text "I could not start your session and so I have started the failsafe xterm session.  Windows now have focus only if you have your cursor above them.  To get out of this mode type 'exit' in the window in the upper left corner"
 fi
 
 exec x-terminal-emulator -geometry 80x24+0+0

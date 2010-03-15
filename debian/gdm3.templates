@@ -1,6 +1,6 @@
-Template: gdm/daemon_name
+Template: gdm3/daemon_name
 Type: string
-Default: /usr/bin/gdm
+Default: /usr/sbin/gdm3
 Description: for internal use only
 
 Template: shared/default-x-display-manager

@@ -7,7 +7,7 @@
 
 set -e
 
-THIS_PACKAGE=gdm
+THIS_PACKAGE=gdm3
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 if [ "$1" = "remove" -o "$1" = "deconfigure" ]; then
@@ -46,7 +46,7 @@ if [ "$1" = "remove" -o "$1" = "deconfigure" ]; then
 fi
 
 if [ "$1" = "remove" ]; then
-  if [ -x /etc/init.d/gdm ]; then
+  if [ -x /etc/init.d/gdm3 ]; then
     nostop=
     for hostname in "" "localhost" "$(hostname)" "$(hostname -f)"; do
       if echo $DISPLAY | grep -q "^$hostname:0.*"; then
@@ -54,7 +54,7 @@ if [ "$1" = "remove" ]; then
       fi
     done
     if [ -z $nostop ]; then
-      invoke-rc.d gdm stop
+      invoke-rc.d gdm3 stop
     fi
   fi
 fi

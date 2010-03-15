@@ -1,4 +1,4 @@
-gdm (2.28.1-1) UNRELEASED; urgency=low
+gdm3 (2.28.1-1) UNRELEASED; urgency=low
 
   [ Josselin Mouette ]
   * New upstream release.
@@ -53,7 +53,20 @@ gdm (2.28.1-1) UNRELEASED; urgency=low
   * debian/TODO:
     - gdmflexiserver is ignoring many options, including xnest.
 
- -- Luca Bruno <lethalman88@gmail.com>  Fri, 04 Dec 2009 14:24:12 +0100
+  [ Josselin Mouette ]
+  * Rename the package to gdm3. Conflict with gdm.
+  * Rework package description a bit.
+  * Translate default.desktop.
+  * Remove useless extract-locales.
+  * Rename all configuration files and main binaries so that it does not 
+    cause upgrade trouble with good old gdm.
+  * Require upower instead of dk-power.
+  * 10_gdm3_pam.patch: new patch. Allow to look for PAM files named 
+    differently from the default.
+  * gdm3.postinst: add some code to handle the need to reload the old 
+    version of gdm if it is still running.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 15 Mar 2010 21:27:29 +0100
 
 gdm (2.26.1-1) UNRELEASED; urgency=low
 

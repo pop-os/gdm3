@@ -1,0 +1,66 @@
+Index: gdm-2.28.1/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.28.1.orig/daemon/gdm-simple-slave.c	2010-03-15 21:57:08.069093462 +0100
++++ gdm-2.28.1/daemon/gdm-simple-slave.c	2010-03-15 21:58:42.657094932 +0100
+@@ -512,7 +512,7 @@ on_session_opened (GdmSession     *sessi
+         } else {
+                 g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
+                 gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
+-                                            "gdm-autologin",
++                                            GDM_PAM_DOMAIN "-autologin",
+                                             username);
+         }
+ 
+@@ -741,7 +741,7 @@ on_greeter_begin_verification (GdmGreete
+ {
+         g_debug ("GdmSimpleSlave: begin verification");
+         gdm_session_setup (GDM_SESSION (slave->priv->session),
+-                           "gdm");
++                           GDM_PAM_DOMAIN);
+ }
+ 
+ static void
+@@ -751,7 +751,7 @@ on_greeter_begin_auto_login (GdmGreeterS
+ {
+         g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
+         gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
+-                                    "gdm-autologin",
++                                    GDM_PAM_DOMAIN "-autologin",
+                                     username);
+ }
+ 
+@@ -762,7 +762,7 @@ on_greeter_begin_verification_for_user (
+ {
+         g_debug ("GdmSimpleSlave: begin verification");
+         gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
+-                                    "gdm",
++                                    GDM_PAM_DOMAIN,
+                                     username);
+ }
+ 
+Index: gdm-2.28.1/configure.ac
+===================================================================
+--- gdm-2.28.1.orig/configure.ac	2010-03-15 21:58:55.273095793 +0100
++++ gdm-2.28.1/configure.ac	2010-03-15 22:03:37.873093743 +0100
+@@ -454,6 +454,21 @@ else
+ fi
+ AC_SUBST(PAM_PREFIX)
+ 
++AC_ARG_WITH(pam-domain,
++            AS_HELP_STRING([--with-pam-domain=<domain>],
++                           [specify the naming scheme of pam files]),
++            [if test x$withval != x; then
++               AC_MSG_RESULT("PAM files will be named ${withval} and ${withval}-autologin.")
++             fi])
++
++if test x$withval != x; then
++	GDM_PAM_DOMAIN="$withval"
++else
++	GDM_PAM_DOMAIN=gdm
++fi
++AC_SUBST(GDM_PAM_DOMAIN)
++AC_DEFINE_UNQUOTED([GDM_PAM_DOMAIN], "$GDM_PAM_DOMAIN", [Naming scheme for PAM files])
++
+ have_pam=no
+ AC_CHECK_LIB(pam, pam_start, have_pam=yes)
+ 

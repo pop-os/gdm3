@@ -1,0 +1,4 @@
+?package(gdm3):needs="X11" section="Applications/System/Administration" \
+  title="GDM flexiserver" command="gdmflexiserver"\
+  hints="Display Manager"\
+  longtitle="New GDM Session"

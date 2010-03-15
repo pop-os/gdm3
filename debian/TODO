@@ -1,14 +1,12 @@
 This file lists the most obvious breakages in GDM. There are probably a 
 lot of bugs remaining after that, these are only the blockers.
 
- * Settings are not migrated.
-   => There are so many regressions, we probably need to ship the new 
-      version in a new package named e.g. gdm3.
- 
+ * The infamous "no default keyboard" bug is back.
+
  * There is no configuration GUI
    => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
       09_gdmsetup.patch.
-   => Not that urgent if we rename the package.
+   => Not that urgent.
 
  * gdmflexiserver is missing many options, including xnest.
    => Looks like Ubuntu has no bugs and GNOME has a sort of feature request,
@@ -17,7 +15,7 @@ lot of bugs remaining after that, these are only the blockers.
    => It is easy to implement, but it will require extending the D-Bus 
       API so that gdmflexiserver has a way to communicate Xephyr’s 
       $DISPLAY to gdm.
-   => Can probably wait if we rename the package.
+   => Can probably wait.
 
  * Other Ubuntu patches we need
    - 13_cache_ck_history.patch for speed improvement

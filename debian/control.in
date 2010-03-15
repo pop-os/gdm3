@@ -1,4 +1,4 @@
-Source: gdm
+Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
@@ -38,7 +38,7 @@ Build-Depends: gnome-pkg-tools,
                xserver-xorg
 Standards-Version: 3.8.3
 
-Package: gdm
+Package: gdm3
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -48,7 +48,7 @@ Depends: ${shlibs:Depends},
          gnome-session-bin,
          metacity,
          policykit-1-gnome,
-         devicekit-power (>= 008),
+         upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
          lsb-base (>= 3.2-14),
          librsvg2-common,
@@ -65,19 +65,22 @@ Suggests: libpam-gnome-keyring,
           gnome-orca
 Provides: x-display-manager,
           fast-user-switch-applet
-Conflicts: fast-user-switch-applet
+Conflicts: fast-user-switch-applet,
+           gdm
 Replaces: fast-user-switch-applet
 Breaks: gnome-session (<< 2.26),
         gnome-panel (<< 2.26),
         gnome-screensaver (<< 2.17.7)
-Description: GNOME Display Manager
- gdm provides the equivalent of a "login:" prompt for X displays- it
- pops up a login window and starts an X session.
+Description: Next generation GNOME Display Manager
+ GDM provides the equivalent of a "login:" prompt for X displays: it 
+ asks for a login and starts X sessions.
  .
- It provides all the functionality of xdm, including XDMCP support for
- managing remote displays.
+ It provides all the functionality of XDM, including XDMCP support for
+ managing remote displays, and extends it with the ability to start X 
+ servers on demand.
  .
- The greeting window is written using the GNOME libraries and hence
- looks like a GNOME application- even to the extent of supporting
- themes! By default, the greeter is run as an unprivileged user for
- security.
+ The greeter is written using the GNOME libraries and hence looks like a 
+ GNOME application - even to the extent of supporting themes! 
+ .
+ This package contains the next generation GDM, which was developed 
+ using the technologies on which GNOME 3 is based.

@@ -1,0 +1,6 @@
+etc/pam.d
+etc/gdm3/Init
+etc/gdm3/PreSession
+etc/gdm3/PostSession
+usr/share/gdm/BuiltInSessions
+var/lib/gdm3

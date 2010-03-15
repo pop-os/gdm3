@@ -5,7 +5,7 @@ mechanism, or in B<Xnest>
 
 =head1 SYNOPSIS
 
-B<gdmflexiserver>       GNOME options   gdmflexiserver options
+B<gdm3flexiserver>       GNOME options   gdmflexiserver options
 
 =head1 DESCRIPTION
 
@@ -32,7 +32,7 @@ Show help options and exit
 
 =head1 SEE ALSO
 
-gdm(8).
+gdm3(8).
 
 =head1 AUTHORS
 

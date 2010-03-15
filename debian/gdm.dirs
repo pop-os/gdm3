@@ -1,7 +1,0 @@
-var/log/gdm
-var/lib/gdm
-etc/pam.d
-etc/gdm/Init
-etc/gdm/PreSession
-etc/gdm/PostSession
-usr/share/gdm/BuiltInSessions
