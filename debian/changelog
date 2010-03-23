@@ -1,4 +1,4 @@
-gdm (2.29.92-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu2) lucid; urgency=low
 
   * debian/patches/28_plymouth_transition.patch:
     - After deactivating plymouth, call plymouth --has-active-vt and if not,
