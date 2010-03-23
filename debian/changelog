@@ -1,3 +1,13 @@
+gdm (2.29.92-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/gdm.upstart:
+    - Now we've inhibited rc2 from stopping plymouth once gdm has been
+      started, this script is responsible for stopping plymouth itself,
+      even if it doesn't start gdm.  Add a "plymouth quit || true" in
+      the "text" path.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Wed, 17 Mar 2010 00:53:30 +0000
+
 gdm (2.29.92-0ubuntu2) lucid; urgency=low
 
   * debian/patches/28_plymouth_transition.patch:

@@ -27,6 +27,7 @@ script
 	do
 	    case "${ARG}" in
 		text|-s|s|S|single)
+		    plymouth quit || :  # We have the ball here
 		    exit 0
 		    ;;
 	    esac
