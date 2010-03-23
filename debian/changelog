@@ -1,4 +1,4 @@
-gdm (2.29.92-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu3) lucid; urgency=low
 
   * debian/gdm.upstart:
     - Now we've inhibited rc2 from stopping plymouth once gdm has been
