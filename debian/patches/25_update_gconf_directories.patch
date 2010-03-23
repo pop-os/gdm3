@@ -7,7 +7,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/data/gconf.path gdm-2.29.92.new/data/g
  xml:readonly:$(HOME)/.gconf.mandatory
 +
 +# user values
-+xml:readonly:$(HOME)/.gconf
++xml:readwrite:$(HOME)/.gconf
 +
 +# distribution default values
 +xml:readwrite:$(HOME)/.gconf.defaults
