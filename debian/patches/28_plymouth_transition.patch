@@ -1,6 +1,3 @@
-#
-# Description: Transition smoothly from plymouth when its running.  Taken from the plymouth-integration branch of Upstream GIT.
-#
 From 2343620d464b93cfa46abddf8af14c7268f17df2 Mon Sep 17 00:00:00 2001
 From: Ray Strode <rstrode@redhat.com>
 Date: Fri, 27 Nov 2009 23:52:54 +0000
@@ -8,11 +5,9 @@ Subject: Enable smooth transition between plymouth and X
 
 This commit checks if plymouth is running, and if so,
 turns on the smooth transition between plymouth and X.
----
-diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
-index ba10386..3ec21e9 100644
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
+diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.c gdm.new/daemon/gdm-server.c
+--- gdm/daemon/gdm-server.c	2010-03-11 20:04:29.713911923 +0000
++++ gdm.new/daemon/gdm-server.c	2010-03-11 20:04:35.660911091 +0000
 @@ -32,8 +32,11 @@
  #include <pwd.h>
  #include <grp.h>
@@ -25,7 +20,7 @@ index ba10386..3ec21e9 100644
  #include <glib.h>
  #include <glib/gi18n.h>
  #include <glib/gstdio.h>
-@@ -663,6 +666,44 @@ gdm_server_spawn (GdmServer  *server,
+@@ -670,6 +673,44 @@
          return ret;
  }
  
@@ -70,7 +65,7 @@ index ba10386..3ec21e9 100644
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -681,6 +722,21 @@ gdm_server_start (GdmServer *server)
+@@ -693,6 +734,21 @@
          return res;
  }
  
@@ -92,11 +87,10 @@ index ba10386..3ec21e9 100644
  static void
  server_died (GdmServer *server)
  {
-diff --git a/daemon/gdm-server.h b/daemon/gdm-server.h
-index 535a69a..bd6c60a 100644
---- a/daemon/gdm-server.h
-+++ b/daemon/gdm-server.h
-@@ -56,6 +56,7 @@ GType               gdm_server_get_type  (void);
+diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.h gdm.new/daemon/gdm-server.h
+--- gdm/daemon/gdm-server.h	2010-03-11 19:46:50.755211000 +0000
++++ gdm.new/daemon/gdm-server.h	2010-03-11 20:04:35.660911091 +0000
+@@ -56,6 +56,7 @@
  GdmServer *         gdm_server_new       (const char *display_id,
                                            const char *auth_file);
  gboolean            gdm_server_start     (GdmServer   *server);
@@ -104,11 +98,10 @@ index 535a69a..bd6c60a 100644
  gboolean            gdm_server_stop      (GdmServer   *server);
  char *              gdm_server_get_display_device (GdmServer *server);
  
-diff --git a/daemon/gdm-simple-slave.c b/daemon/gdm-simple-slave.c
-index 66d1c77..4703537 100644
---- a/daemon/gdm-simple-slave.c
-+++ b/daemon/gdm-simple-slave.c
-@@ -84,6 +84,7 @@ struct GdmSimpleSlavePrivate
+diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-simple-slave.c
+--- gdm/daemon/gdm-simple-slave.c	2010-03-11 20:04:30.285908021 +0000
++++ gdm.new/daemon/gdm-simple-slave.c	2010-03-11 20:05:15.296908720 +0000
+@@ -84,6 +84,7 @@
  
          guint              start_session_when_ready : 1;
          guint              waiting_to_start_session : 1;
@@ -116,7 +109,7 @@ index 66d1c77..4703537 100644
  };
  
  enum {
-@@ -858,6 +859,72 @@ on_start_session_later (GdmGreeterServer *session,
+@@ -894,6 +895,91 @@
          slave->priv->start_session_when_ready = FALSE;
  }
  
@@ -132,6 +125,25 @@ index 66d1c77..4703537 100644
 +                                         NULL, NULL, &status, &error);
 +        if (! res) {
 +                g_debug ("Could not ping plymouth: %s", error->message);
++                g_error_free (error);
++                return FALSE;
++        }
++
++        return WIFEXITED (status) && WEXITSTATUS (status) == 0;
++}
++
++static gboolean
++plymouth_has_active_vt (void)
++{
++        int      status;
++        gboolean res;
++        GError  *error;
++
++        error = NULL;
++        res = g_spawn_command_line_sync ("/bin/plymouth --has-active-vt",
++                                         NULL, NULL, &status, &error);
++        if (! res) {
++                g_debug ("Could not ask plymouth: %s", error->message);
 +                g_error_free (error);
 +                return FALSE;
 +        }
@@ -189,7 +201,7 @@ index 66d1c77..4703537 100644
  static void
  setup_server (GdmSimpleSlave *slave)
  {
-@@ -872,6 +939,10 @@ setup_server (GdmSimpleSlave *slave)
+@@ -908,6 +994,10 @@
           */
          gdm_slave_save_root_windows (GDM_SLAVE (slave));
  
@@ -200,7 +212,7 @@ index 66d1c77..4703537 100644
  }
  
  static void
-@@ -1063,6 +1134,10 @@ on_server_exited (GdmServer      *server,
+@@ -1101,6 +1191,10 @@
          g_debug ("GdmSimpleSlave: server exited with code %d\n", exit_code);
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -211,7 +223,7 @@ index 66d1c77..4703537 100644
  }
  
  static void
-@@ -1075,6 +1150,10 @@ on_server_died (GdmServer      *server,
+@@ -1113,6 +1207,10 @@
                   g_strsignal (signal_number));
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -222,7 +234,7 @@ index 66d1c77..4703537 100644
  }
  
  static gboolean
-@@ -1119,7 +1198,14 @@ gdm_simple_slave_run (GdmSimpleSlave *slave)
+@@ -1157,7 +1255,21 @@
                                    G_CALLBACK (on_server_ready),
                                    slave);
  
@@ -231,14 +243,21 @@ index 66d1c77..4703537 100644
 +
 +                if (slave->priv->plymouth_is_running) {
 +                        plymouth_prepare_for_transition (slave);
-+                        res = gdm_server_start_on_active_vt (slave->priv->server);
++
++			if (plymouth_has_active_vt ()) {
++				res = gdm_server_start_on_active_vt (slave->priv->server);
++			} else {
++                                plymouth_quit_without_transition (slave);
++				slave->priv->plymouth_is_running = 0;
++				res = gdm_server_start (slave->priv->server);
++			}
 +                } else {
 +                        res = gdm_server_start (slave->priv->server);
 +                }
                  if (! res) {
                          g_warning (_("Could not start the X "
                                       "server (your graphical environment) "
-@@ -1129,6 +1215,9 @@ gdm_simple_slave_run (GdmSimpleSlave *slave)
+@@ -1167,6 +1279,9 @@
                                       "In the meantime this display will be "
                                       "disabled.  Please restart GDM when "
                                       "the problem is corrected."));
@@ -248,5 +267,3 @@ index 66d1c77..4703537 100644
                          exit (1);
                  }
  
---
-cgit v0.8.2
