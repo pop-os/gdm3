@@ -1,0 +1,76 @@
+From ee39d4f913d1133a7e910e7ae686e7459d3a652d Mon Sep 17 00:00:00 2001
+From: Martin Pitt <martin.pitt@ubuntu.com>
+Date: Tue, 23 Mar 2010 12:47:59 +0100
+Subject: [PATCH 2/2] Keep multiple system keyboard layouts for session
+
+gdm_layout_activate() overwrites the system-wide configured keyboard layouts
+(which end up in the X root window property _XKB_RULES_NAMES) with one
+configuration that was selected in the keyboard layout picker.
+
+This breaks situations where the system configures multiple layouts by default
+(like "us,gr"). This is important for non-Latin languages. E. g. if you
+normally use a Russian,Greek, or Hebrew layout, you always need an additional
+alternative Latin layout (usually US) to be able to enter URLs, use keyboard
+shortcuts and the like.
+
+Now, just ensure that the selected one becomes the first one, and the other
+configured system layouts are retained.
+
+With that, gnome-settings-daemon can do the right thing and make all those
+layouts available if /desktop/gnome/peripherals/keyboard/kbd/layouts is empty
+(i. e. if the user didn't manually configure layouts in the session again).
+
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=613681
+Bug-Ubuntu: https://launchpad.net/bugs/460328
+---
+ gui/simple-greeter/gdm-layouts.c |   19 ++++++++++++++++++-
+ 1 files changed, 18 insertions(+), 1 deletions(-)
+
+diff --git a/gui/simple-greeter/gdm-layouts.c b/gui/simple-greeter/gdm-layouts.c
+index 5f9aea2..0a269cf 100644
+--- a/gui/simple-greeter/gdm-layouts.c
++++ b/gui/simple-greeter/gdm-layouts.c
+@@ -244,6 +244,7 @@ gdm_layout_activate (const char *layout)
+ #ifdef HAVE_LIBXKLAVIER
+         XklConfigRec *config;
+         char         *p;
++        int          ii, ic;
+ 
+         init_xkl ();
+ 
+@@ -255,7 +256,8 @@ gdm_layout_activate (const char *layout)
+                 config->variants = g_strdupv (initial_config->variants);
+                 config->options = g_strdupv (initial_config->options);
+         } else {
+-                config->layouts = g_new0 (char *, 2);
++                config->layouts = g_new0 (char *, g_strv_length (initial_config->layouts) + 2);
++                config->variants = g_new0 (char *, g_strv_length (initial_config->variants) + 2);
+                 config->layouts[0] = g_strdup (layout);
+ 
+                 p = strchr (config->layouts[0], '\t');
+@@ -263,7 +265,22 @@ gdm_layout_activate (const char *layout)
+                         config->variants = g_new0 (char *, 2);
+                         config->layouts[0][p - config->layouts[0]] = 0;
+                         config->variants[0] = g_strdup (p + 1);
++                } else {
++                        config->variants[0] = g_strdup ("");
+                 }
++
++                /* append other layouts from the initial configuration, so that
++                 * the session gets all of them */
++                ic = 1;
++                for (ii = 0; ii < g_strv_length (initial_config->layouts); ++ii) {
++                        if (g_strcmp0 (config->layouts[0], initial_config->layouts[ii]) ||
++                            g_strcmp0 (config->variants[0], initial_config->variants[ii])) {
++                                config->layouts[ic] = g_strdup (initial_config->layouts[ii]);
++                                config->variants[ic] = g_strdup (initial_config->variants[ii]);
++                                ++ic;
++                        }
++                }
++                config->options = g_strdupv (initial_config->options);
+         }
+ 
+         xkl_config_rec_activate (config, engine);
+-- 
+1.7.0
+
