@@ -1,3 +1,13 @@
+gdm (2.29.92-0ubuntu4) UNRELEASED; urgency=low
+
+  * debian/patches/09_gdmsetup.patch:
+  * debian/patches/15_gdmsetup_default_session.patch:
+  * debian/patches/09_gdmserver_sound_settings.patch:
+    - Add startup sound configuration
+    - Merged 15_gdmsetup_default_session.patch into 09_gdmsetup.patch
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Thu, 11 Mar 2010 17:02:40 +1100
+
 gdm (2.29.92-0ubuntu3) lucid; urgency=low
 
   * debian/gdm.upstart:

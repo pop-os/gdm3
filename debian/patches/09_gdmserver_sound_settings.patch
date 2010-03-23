@@ -1,0 +1,161 @@
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
+--- gdm-2.29.92/common/gdm-settings.c	2010-03-11 16:52:27.002994993 +1100
++++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-11 16:54:23.555535542 +1100
+@@ -111,6 +111,25 @@
+         return res;
+ }
+ 
++
++/*
++dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.GetSoundEnabled
++*/
++
++gboolean
++gdm_settings_get_sound_enabled (GdmSettings *settings,
++                                gboolean    *enabled,
++                                GError     **error)
++{
++        gboolean res = TRUE;
++
++        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
++
++        *enabled = FALSE;
++
++        return res;
++}
++
+ static void
+ unlock_auth_cb (PolkitAuthority *authority,
+                 GAsyncResult *result,
+@@ -155,6 +174,12 @@
+         gchar *key, *value;
+ } SetValueData;
+ 
++typedef struct
++{
++        DBusGMethodInvocation *context;
++        gboolean enabled;
++} SetSoundEnabledData;
++
+ static void
+ set_value_auth_cb (PolkitAuthority *authority,
+                    GAsyncResult *result,
+@@ -229,6 +254,69 @@
+         return TRUE;
+ }
+ 
++static void
++set_sound_enabled_auth_cb (PolkitAuthority *authority,
++                           GAsyncResult *result,
++                           SetSoundEnabledData *data)
++{
++        PolkitAuthorizationResult *auth_result;
++        gboolean enabled;
++        GError  *error = NULL;
++  
++        auth_result = polkit_authority_check_authorization_finish (authority, result, &error);
++
++        if (!auth_result)
++                dbus_g_method_return_error (data->context, error);
++        else {
++                if (polkit_authorization_result_get_is_authorized (auth_result)) {
++                        // ... data->enabled
++                        dbus_g_method_return (data->context);
++                }
++                else {
++                        error = g_error_new (DBUS_GERROR_REMOTE_EXCEPTION, 0, "Not authorized");
++                        dbus_g_method_return_error (data->context, error);
++                }
++        }
++    
++        if (auth_result)
++                g_object_unref (auth_result);
++        if (error)
++                g_error_free (error);
++
++        g_free (data);
++}
++
++/*
++dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.SetValue string:"xdmcp/Enable" string:"false"
++*/
++
++gboolean
++gdm_settings_set_sound_enabled (GdmSettings *settings,
++                                gboolean     enabled,
++                                DBusGMethodInvocation *context)
++{
++        SetSoundEnabledData *data;
++    
++        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
++
++
++        g_debug ("Setting sound enabled to %s", enabled ? "true" : "false");
++    
++        /* Authorize with PolicyKit */
++        data = g_malloc (sizeof(SetSoundEnabledData));
++        data->context = context;
++        data->enabled = enabled;
++        polkit_authority_check_authorization (polkit_authority_get (),
++                                              polkit_system_bus_name_new (dbus_g_method_get_sender (context)),
++                                              "org.gnome.displaymanager.settings.write",
++                                              NULL,
++                                              POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION,
++                                              NULL,
++                                              (GAsyncReadyCallback) set_sound_enabled_auth_cb,
++                                              data);
++        return TRUE;
++}
++
+ static gboolean
+ register_settings (GdmSettings *settings)
+ {
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/common/gdm-settings.h
+--- gdm-2.29.92/common/gdm-settings.h	2010-03-11 16:52:27.002994993 +1100
++++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-11 16:52:27.512996055 +1100
+@@ -71,12 +71,18 @@
+                                                                  const char  *key,
+                                                                  char       **value,
+                                                                  GError     **error);
++gboolean            gdm_settings_get_sound_enabled              (GdmSettings *settings,
++                                                                 gboolean    *value,
++                                                                 GError     **error);
+ gboolean            gdm_settings_unlock                         (GdmSettings *settings,
+                                                                  DBusGMethodInvocation *context);
+ gboolean            gdm_settings_set_value                      (GdmSettings *settings,
+                                                                  const char  *key,
+                                                                  const char  *value,
+                                                                  DBusGMethodInvocation *context);
++gboolean            gdm_settings_set_sound_enabled              (GdmSettings *settings,
++                                                                 gboolean     value,
++                                                                 DBusGMethodInvocation *context);
+ 
+ G_END_DECLS
+ 
+diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.xml gdm-2.29.92.new/common/gdm-settings.xml
+--- gdm-2.29.92/common/gdm-settings.xml	2010-03-11 16:52:27.002994993 +1100
++++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-11 16:52:27.512996055 +1100
+@@ -5,6 +5,9 @@
+       <arg name="key" direction="in" type="s"/>
+       <arg name="value" direction="out" type="s"/>
+     </method>
++    <method name="GetSoundEnabled">
++      <arg name="enabled" direction="out" type="b"/>
++    </method>
+     <method name="Unlock">
+       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+       <arg name="is_unlocked" direction="out" type="b"/>
+@@ -14,6 +17,10 @@
+       <arg name="key" direction="in" type="s"/>
+       <arg name="value" direction="in" type="s"/>
+     </method>
++    <method name="SetSoundEnabled">
++      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
++      <arg name="enabled" direction="in" type="b"/>
++    </method>
+     <signal name="ValueChanged">
+       <arg name="key" type="s"/>
+       <arg name="old_value" type="s"/>
