@@ -1,8 +1,6 @@
 This file lists the most obvious breakages in GDM. There are probably a 
 lot of bugs remaining after that, these are only the blockers.
 
- * The infamous "no default keyboard" bug is back.
-
  * There is no configuration GUI
    => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
       09_gdmsetup.patch.
