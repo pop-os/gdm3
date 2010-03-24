@@ -2,8 +2,8 @@
 ## Origin/Author: add some origin or author
 ## Bug: bug URL
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
---- gdm-2.29.92/common/gdm-settings.c	2010-03-23 11:06:09.154438856 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-23 11:17:59.961436592 +0100
+--- gdm-2.29.92/common/gdm-settings.c	2010-03-24 08:53:44.309624929 +0100
++++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-24 09:52:50.293626317 +0100
 @@ -28,6 +28,7 @@
  #include <signal.h>
  #include <sys/stat.h>
@@ -21,7 +21,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  #define GDM_SETTINGS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SETTINGS, GdmSettingsPrivate))
  
  struct GdmSettingsPrivate
-@@ -83,6 +86,197 @@
+@@ -83,6 +86,188 @@
          return ret;
  }
  
@@ -47,8 +47,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +gdm_settings_get_gconf_value (gchar *gconf_key, gchar **value) {
 +
 +        GError  *error = NULL;
-+        char    *shutdown_command[] = { "gconftool-2", "--shutdown" };
-+        char    *get_command[]  =  { "gconftool-2", "--direct", "-g", gconf_key, "--config-source", NULL };
++        char    *shutdown_command[] = { "gconftool-2", "--shutdown", NULL };
++        char    *get_command[]  =  { "gconftool-2", "--direct", "-g", gconf_key, "--config-source", NULL, NULL };
 +        gboolean res;
 +        struct passwd *pwent;
 +        gboolean success = FALSE;
@@ -58,27 +58,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                g_warning ("Can't access to 'gdm' user name in passwd");
 +        else {
 +                get_command[5] = g_strdup_printf("xml:readwrite:%s/.gconf", pwent->pw_dir);
-+                g_debug ("file looked is: %s", get_command[5]);
-+
-+                /* DEBUGGING */
-+                char *id_command[] = { "id" };
-+                gchar *valuee;
-+                res = g_spawn_sync (NULL,
-+                                    id_command,
-+                                    NULL,
-+                                    G_SPAWN_SEARCH_PATH,
-+                                    (GSpawnChildSetupFunc)set_gdm_uid_child_setup,
-+                                    NULL,
-+                                    &valuee,
-+                                    NULL,
-+                                    NULL,
-+                                    &error);
-+                if (valuee) {
-+                    g_debug ("YYYYY id: %s", valuee);
-+                    g_free (valuee);
-+                }
-+                /*************/
-+
 +                res = g_spawn_sync (NULL,
 +                                    shutdown_command,
 +                                    NULL,
@@ -141,7 +120,6 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +        gboolean result = FALSE;
 +
 +        if (gdm_settings_get_gconf_value(gconf_key, &value)) {
-+                g_debug ("sound value returned: %s", value);
 +                if (strcmp(value, "false\n") == 0)
 +                        *enabled = FALSE;
 +                else
@@ -155,30 +133,26 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +
 +}
 +
-+
-+static void
-+gdm_settings_set_gconf_sound_value (gboolean enabled) {
++static gboolean
++gdm_settings_set_gconf_value (gchar *gconf_key, gchar *type, gchar *value) {
 +
 +        GError  *error = NULL;
-+        char   *shutdown_command[] = { "gconftool-2", "--shutdown" };
-+        char   *set_command[]  =  { "gconftool-2", "--direct", "-s", GCONF_SOUND_EVENT_KEY, "-t", "boolean", (gchar *) enabled, "--config-source", NULL };
++        char    *shutdown_command[] = { "gconftool-2", "--shutdown", NULL };
++        char    *set_command[]  =  { "gconftool-2", "--direct", "-s", gconf_key, "--config-source", NULL, "-t", type, value, NULL };
 +        gboolean res;
 +        struct passwd *pwent;
-+        uid_t          gdm_uid;
-+        uid_t          current_uid;
++        gboolean success = FALSE;
 +
-+        current_uid = geteuid ();
 +        pwent = getpwnam (GDM_USERNAME);
 +        if G_UNLIKELY (pwent == NULL)
 +                g_warning ("Can't access to 'gdm' user name in passwd");
 +        else {
-+                gdm_uid = pwent->pw_uid;
-+                seteuid (gdm_uid);
++                set_command[5] = g_strdup_printf("xml:readwrite:%s/.gconf", pwent->pw_dir);
 +                res = g_spawn_sync (NULL,
 +                                    shutdown_command,
 +                                    NULL,
 +                                    G_SPAWN_SEARCH_PATH,
-+                                    NULL,
++                                    (GSpawnChildSetupFunc)set_gdm_uid_child_setup,
 +                                    NULL,
 +                                    NULL,
 +                                    NULL,
@@ -199,7 +173,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                                             G_SPAWN_SEARCH_PATH
 +                                             | G_SPAWN_STDOUT_TO_DEV_NULL
 +                                             | G_SPAWN_STDERR_TO_DEV_NULL,
-+                                             NULL,
++                                             (GSpawnChildSetupFunc)set_gdm_uid_child_setup,
 +                                             NULL,
 +                                             NULL,
 +                                             &error);
@@ -211,15 +185,32 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                                 else
 +                                        g_warning ("Unable to set event key to gconf: unknown error");
 +                        }
++                        else
++                                 success = TRUE;
 +                }
 +        }
-+        seteuid(current_uid);
 +
++        return success;
 +}
++
++static gboolean
++gdm_settings_set_bool_gconf_value (gchar *gconf_key, gboolean enabled) {
++
++        gchar *value = g_strdup_printf ("%i", enabled);
++        gboolean result;
++
++        result = gdm_settings_set_gconf_value (gconf_key, "bool", value);
++
++        if (value)
++                g_free (value);
++        return result;
++}
++
++
  /*
  dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.GetValue string:"xdmcp/Enable"
  */
-@@ -111,6 +305,28 @@
+@@ -111,6 +296,28 @@
          return res;
  }
  
@@ -248,7 +239,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  static void
  unlock_auth_cb (PolkitAuthority *authority,
                  GAsyncResult *result,
-@@ -155,6 +371,12 @@
+@@ -155,6 +362,12 @@
          gchar *key, *value;
  } SetValueData;
  
@@ -261,7 +252,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  static void
  set_value_auth_cb (PolkitAuthority *authority,
                     GAsyncResult *result,
-@@ -229,6 +451,68 @@
+@@ -229,6 +442,69 @@
          return TRUE;
  }
  
@@ -279,7 +270,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                dbus_g_method_return_error (data->context, error);
 +        else {
 +                if (polkit_authorization_result_get_is_authorized (auth_result)) {
-+                        gdm_settings_set_gconf_sound_value (data->enabled);
++                        if (!gdm_settings_set_bool_gconf_value (GCONF_SOUND_EVENT_KEY, data->enabled))
++                                g_warning ("set new value for sound failed");
 +                        dbus_g_method_return (data->context);
 +                }
 +                else {
@@ -331,8 +323,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  register_settings (GdmSettings *settings)
  {
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/common/gdm-settings.h
---- gdm-2.29.92/common/gdm-settings.h	2010-03-23 11:06:09.158437199 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-23 11:06:09.869449480 +0100
+--- gdm-2.29.92/common/gdm-settings.h	2010-03-24 08:53:44.309624929 +0100
++++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-24 08:53:44.957626217 +0100
 @@ -71,12 +71,18 @@
                                                                   const char  *key,
                                                                   char       **value,
@@ -353,8 +345,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/
  G_END_DECLS
  
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.xml gdm-2.29.92.new/common/gdm-settings.xml
---- gdm-2.29.92/common/gdm-settings.xml	2010-03-23 11:06:09.158437199 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-23 11:06:09.869449480 +0100
+--- gdm-2.29.92/common/gdm-settings.xml	2010-03-24 08:53:44.309624929 +0100
++++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-24 08:53:44.957626217 +0100
 @@ -5,6 +5,9 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
