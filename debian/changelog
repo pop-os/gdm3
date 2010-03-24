@@ -2,7 +2,9 @@ gdm (2.29.92-0ubuntu4) UNRELEASED; urgency=low
 
    [ Didier Roche ]
    * debian/patches/09_gdmserver_sound_settings.patch:
+   * debian/patches/15_gdmsetup_default_session.patch:
      - add gconftool calls to get/set sound parameter
+     - fix some wrong signal call and missing callback function
    * debian/patches/25_update_gconf_directories.patch:
      - readd $HOME/.gconf between default and mandatory to take changes
        into account

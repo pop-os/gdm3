@@ -2,8 +2,8 @@
 ## Origin/Author: add some origin or author
 ## Bug: bug URL
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
---- gdm-2.29.92/common/gdm-settings.c	2010-03-24 08:53:44.309624929 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-24 09:52:50.293626317 +0100
+--- gdm-2.29.92/common/gdm-settings.c	2010-03-24 10:52:11.038624783 +0100
++++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-24 10:53:17.813626973 +0100
 @@ -28,6 +28,7 @@
  #include <signal.h>
  #include <sys/stat.h>
@@ -323,8 +323,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  register_settings (GdmSettings *settings)
  {
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/common/gdm-settings.h
---- gdm-2.29.92/common/gdm-settings.h	2010-03-24 08:53:44.309624929 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-24 08:53:44.957626217 +0100
+--- gdm-2.29.92/common/gdm-settings.h	2010-03-24 10:52:11.038624783 +0100
++++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-24 10:52:11.769625707 +0100
 @@ -71,12 +71,18 @@
                                                                   const char  *key,
                                                                   char       **value,
@@ -345,8 +345,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/
  G_END_DECLS
  
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.xml gdm-2.29.92.new/common/gdm-settings.xml
---- gdm-2.29.92/common/gdm-settings.xml	2010-03-24 08:53:44.309624929 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-24 08:53:44.957626217 +0100
+--- gdm-2.29.92/common/gdm-settings.xml	2010-03-24 10:52:11.038624783 +0100
++++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-24 10:52:11.769625707 +0100
 @@ -5,6 +5,9 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
