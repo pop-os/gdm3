@@ -1,4 +1,4 @@
-gdm (2.29.92-0ubuntu5) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu5) lucid; urgency=low
 
   [ Robert Ancell ]
   * debian/patches/09_gdmsetup.patch:
@@ -16,7 +16,7 @@ gdm (2.29.92-0ubuntu5) UNRELEASED; urgency=low
      - readd $HOME/.gconf between default and mandatory to take changes
        into account
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 24 Mar 2010 10:59:40 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 24 Mar 2010 11:11:33 +0100
 
 gdm (2.29.92-0ubuntu4) lucid; urgency=low
 
