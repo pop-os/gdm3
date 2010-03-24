@@ -1,7 +1,6 @@
-diff -urN gdm-2.28.1.orig/daemon/gdm-server.c gdm-2.28.1/daemon/gdm-server.c
---- gdm-2.28.1.orig/daemon/gdm-server.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/daemon/gdm-server.c	2009-11-20 23:21:09.000000000 +0100
-@@ -127,7 +127,7 @@
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -130,7 +130,7 @@
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
          error = NULL;
@@ -10,22 +9,8 @@ diff -urN gdm-2.28.1.orig/daemon/gdm-server.c gdm-2.28.1/daemon/gdm-server.c
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
-diff -urN gdm-2.28.1.orig/data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in gdm-2.28.1/data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in
---- gdm-2.28.1.orig/data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in	2009-11-20 23:12:29.000000000 +0100
-@@ -1,7 +1,8 @@
- [Desktop Entry]
- Type=Application
- _Name=AT SPI Registry Wrapper
--Exec=/usr/libexec/at-spi-registryd
-+TryExec=@AT_SPI_REGISTRYD_DIR@/at-spi-registryd
-+Exec=@AT_SPI_REGISTRYD_DIR@/at-spi-registryd
- OnlyShowIn=GNOME;
- AutostartCondition=GNOME /desktop/gnome/interface/accessibility
- X-GNOME-Autostart-Phase=Initialization
-diff -urN gdm-2.28.1.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in gdm-2.28.1/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
---- gdm-2.28.1.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2009-11-20 23:07:08.000000000 +0100
+--- a/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
++++ b/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
@@ -37,19 +22,8 @@ diff -urN gdm-2.28.1.orig/data/greeter-autostart/gnome-settings-daemon.desktop.i
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-diff -urN gdm-2.28.1.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in gdm-2.28.1/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in
---- gdm-2.28.1.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in	2009-11-20 23:10:47.000000000 +0100
-@@ -1,5 +1,5 @@
- [Desktop Entry]
- Type=Application
- _Name=PolicyKit Authentication Agent
--Exec=/usr/libexec/polkit-gnome-authentication-agent-1
-+Exec=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
- OnlyShowIn=GNOME;
-diff -urN gdm-2.28.1.orig/gui/simple-chooser/gdm-chooser-session.c gdm-2.28.1/gui/simple-chooser/gdm-chooser-session.c
---- gdm-2.28.1.orig/gui/simple-chooser/gdm-chooser-session.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/gui/simple-chooser/gdm-chooser-session.c	2009-11-20 23:21:26.000000000 +0100
+--- a/gui/simple-chooser/gdm-chooser-session.c
++++ b/gui/simple-chooser/gdm-chooser-session.c
 @@ -131,7 +131,7 @@
          ret = FALSE;
  
@@ -59,3 +33,12 @@ diff -urN gdm-2.28.1.orig/gui/simple-chooser/gdm-chooser-session.c gdm-2.28.1/gu
          if (error != NULL) {
                  g_warning ("Error starting settings daemon: %s", error->message);
                  g_error_free (error);
+--- a/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
++++ b/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
+@@ -1,5 +1,5 @@
+ [Desktop Entry]
+ Type=Application
+ _Name=PolicyKit Authentication Agent
+-Exec=@LIBEXECDIR@/polkit-gnome-authentication-agent-1
++Exec=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+ OnlyShowIn=GNOME;

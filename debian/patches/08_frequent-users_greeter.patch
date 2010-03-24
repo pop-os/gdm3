@@ -1,6 +1,5 @@
-diff -urN gdm-2.28.1.orig/daemon/ck-connector.c gdm-2.28.1/daemon/ck-connector.c
---- gdm-2.28.1.orig/daemon/ck-connector.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/daemon/ck-connector.c	2009-11-21 12:56:23.000000000 +0100
+--- a/daemon/ck-connector.c
++++ b/daemon/ck-connector.c
 @@ -430,6 +430,14 @@
                  name = va_arg (var_args, char *);
          }
@@ -16,10 +15,9 @@ diff -urN gdm-2.28.1.orig/daemon/ck-connector.c gdm-2.28.1/daemon/ck-connector.c
          if (! dbus_message_iter_close_container (&iter, &iter_array)) {
                  goto out;
          }
-diff -urN gdm-2.28.1.orig/gui/simple-greeter/gdm-user-manager.c gdm-2.28.1/gui/simple-greeter/gdm-user-manager.c
---- gdm-2.28.1.orig/gui/simple-greeter/gdm-user-manager.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/gui/simple-greeter/gdm-user-manager.c	2009-11-21 10:16:40.000000000 +0100
-@@ -1306,7 +1306,7 @@
+--- a/gui/simple-greeter/gdm-user-manager.c
++++ b/gui/simple-greeter/gdm-user-manager.c
+@@ -1322,7 +1322,7 @@
                  return;
          }
  

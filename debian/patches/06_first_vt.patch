@@ -1,19 +1,17 @@
 It's almost the same tty manager of gdm 2.20, except we don't support Sun VTs,
 only Linux and FreeBSD.
-diff -urN gdm-2.28.1.orig/common/gdm-settings-keys.h gdm-2.28.1/common/gdm-settings-keys.h
---- gdm-2.28.1.orig/common/gdm-settings-keys.h	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/common/gdm-settings-keys.h	2009-11-17 23:55:18.000000000 +0100
+--- a/common/gdm-settings-keys.h
++++ b/common/gdm-settings-keys.h
 @@ -32,6 +32,7 @@
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
  #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
 +#define GDM_KEY_FIRST_VT "daemon/FirstVT"
  
- #define GDM_KEY_DISALLOW_TCP "security/DisallowTCP"
+ #define GDM_KEY_DEBUG "debug/Enable"
  
-diff -urN gdm-2.28.1.orig/daemon/gdm-server.c gdm-2.28.1/daemon/gdm-server.c
---- gdm-2.28.1.orig/daemon/gdm-server.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/daemon/gdm-server.c	2009-11-18 00:14:19.000000000 +0100
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
 @@ -44,6 +44,9 @@
  #include "gdm-common.h"
  #include "gdm-signal-handler.h"
@@ -87,7 +85,7 @@ diff -urN gdm-2.28.1.orig/daemon/gdm-server.c gdm-2.28.1/daemon/gdm-server.c
 +
 +#if defined (GDM_USE_SYS_VT)
 +
-+static int 
++static int
 +get_free_vt_sys (void)
 +{
 +        int fd, fdv;
@@ -228,9 +226,8 @@ diff -urN gdm-2.28.1.orig/daemon/gdm-server.c gdm-2.28.1/daemon/gdm-server.c
          return res;
  }
  
-diff -urN gdm-2.28.1.orig/data/gdm.schemas.in.in gdm-2.28.1/data/gdm.schemas.in.in
---- gdm-2.28.1.orig/data/gdm.schemas.in.in	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1/data/gdm.schemas.in.in	2009-11-17 23:47:19.000000000 +0100
+--- a/data/gdm.schemas.in.in
++++ b/data/gdm.schemas.in.in
 @@ -47,6 +47,11 @@
        <signature>i</signature>
        <default>30</default>
@@ -242,4 +239,4 @@ diff -urN gdm-2.28.1.orig/data/gdm.schemas.in.in gdm-2.28.1/data/gdm.schemas.in.
 +    </schema>
  
      <schema>
-       <key>security/DisallowTCP</key>
+       <key>debug/Enable</key>

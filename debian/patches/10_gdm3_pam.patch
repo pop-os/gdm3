@@ -1,8 +1,6 @@
-Index: gdm-2.28.1/daemon/gdm-simple-slave.c
-===================================================================
---- gdm-2.28.1.orig/daemon/gdm-simple-slave.c	2010-03-15 21:57:08.069093462 +0100
-+++ gdm-2.28.1/daemon/gdm-simple-slave.c	2010-03-15 21:58:42.657094932 +0100
-@@ -512,7 +512,7 @@ on_session_opened (GdmSession     *sessi
+--- a/daemon/gdm-simple-slave.c
++++ b/daemon/gdm-simple-slave.c
+@@ -544,7 +544,7 @@
          } else {
                  g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
                  gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
@@ -11,7 +9,7 @@ Index: gdm-2.28.1/daemon/gdm-simple-slave.c
                                              username);
          }
  
-@@ -741,7 +741,7 @@ on_greeter_begin_verification (GdmGreete
+@@ -781,7 +781,7 @@
  {
          g_debug ("GdmSimpleSlave: begin verification");
          gdm_session_setup (GDM_SESSION (slave->priv->session),
@@ -20,7 +18,7 @@ Index: gdm-2.28.1/daemon/gdm-simple-slave.c
  }
  
  static void
-@@ -751,7 +751,7 @@ on_greeter_begin_auto_login (GdmGreeterS
+@@ -791,7 +791,7 @@
  {
          g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
          gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
@@ -29,7 +27,7 @@ Index: gdm-2.28.1/daemon/gdm-simple-slave.c
                                      username);
  }
  
-@@ -762,7 +762,7 @@ on_greeter_begin_verification_for_user (
+@@ -802,7 +802,7 @@
  {
          g_debug ("GdmSimpleSlave: begin verification");
          gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
@@ -38,11 +36,9 @@ Index: gdm-2.28.1/daemon/gdm-simple-slave.c
                                      username);
  }
  
-Index: gdm-2.28.1/configure.ac
-===================================================================
---- gdm-2.28.1.orig/configure.ac	2010-03-15 21:58:55.273095793 +0100
-+++ gdm-2.28.1/configure.ac	2010-03-15 22:03:37.873093743 +0100
-@@ -454,6 +454,21 @@ else
+--- a/configure.ac
++++ b/configure.ac
+@@ -465,6 +465,21 @@
  fi
  AC_SUBST(PAM_PREFIX)
  

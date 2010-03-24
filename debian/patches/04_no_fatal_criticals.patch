@@ -1,0 +1,15 @@
+Temporarly disable fatal-criticals.
+libxklavier bug: http://bugs.freedesktop.org/show_bug.cgi?id=22881
+--- a/common/gdm-common.c
++++ b/common/gdm-common.c
+@@ -68,8 +68,8 @@
+ gdm_set_fatal_warnings_if_unstable (void)
+ {
+         if (gdm_is_version_unstable ()) {
+-                g_setenv ("G_DEBUG", "fatal_criticals", FALSE);
+-                g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL);
++                //g_setenv ("G_DEBUG", "fatal_criticals", FALSE);
++                //g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL);
+         }
+ }
+ 

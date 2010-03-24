@@ -1,8 +1,7 @@
 01_minimal_uid.patch
 02_xnest-wrapper.patch
 03_authdir.patch
-04_custom-conf.patch
-05_default_keyboard_layout_xkl.patch
+04_no_fatal_criticals.patch
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch
