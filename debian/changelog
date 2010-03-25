@@ -22,6 +22,7 @@ gdm3 (2.29.92-1) experimental; urgency=low
   * Pass --with-screenshot-dir, newly introduced.
   * Name the user Debian-gdm instead of gdm3, it’s better for the long 
     term.
+  * Update list of copyright holders.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 25 Mar 2010 20:02:20 +0100
 
