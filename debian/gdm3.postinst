@@ -9,12 +9,12 @@ DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 # creating Debian-gdm group if it isn't already there
 if ! getent group Debian-gdm >/dev/null; then
-        addgroup --system Debian-gdm
+        addgroup --system --force-badname Debian-gdm
 fi
 
 # creating Debian-gdm user if it isn't already there
 if ! getent passwd Debian-gdm >/dev/null; then
-        adduser --system \
+        adduser --system --force-badname \
             --ingroup Debian-gdm \
             --home /var/lib/gdm3 \
             --shell /bin/false \
