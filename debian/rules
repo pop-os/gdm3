@@ -19,8 +19,9 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-xauth-dir=/var/run/gdm3 \
 		--with-pid-file=/var/run/gdm3.pid \
 		--with-log-dir=/var/log/gdm3 \
+		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
-		--with-user=gdm3 --with-group=gdm3 \
+		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-pam-domain=gdm3
 
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3

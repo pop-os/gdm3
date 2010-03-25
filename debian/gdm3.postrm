@@ -15,14 +15,14 @@ if [ "$1" = "purge" ] ; then
 	rm -rf /var/run/gdm3
 	rm -rf /var/log/gdm3
 	rm -rf /var/cache/gdm
-        if getent passwd gdm3 >/dev/null; then
+        if getent passwd Debian-gdm >/dev/null; then
                 if [ -x /usr/sbin/deluser ]; then
-                        deluser --system gdm3
+                        deluser --system Debian-gdm
                 fi
         fi
-        if getent group gdm3 >/dev/null; then
+        if getent group Debian-gdm >/dev/null; then
                 if [ -x /usr/sbin/delgroup ]; then
-                        delgroup --system gdm3
+                        delgroup --system Debian-gdm
                 fi
         fi
 fi

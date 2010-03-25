@@ -73,7 +73,7 @@ case "$1" in
         start-stop-daemon --stop --signal USR1 --quiet --pidfile \
                 /var/run/gdm3.pid --name gdm3
         start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
-                --user gdm3 --oknodo
+                --user Debian-gdm --oknodo
         set -e
         log_end_msg $?
   ;;

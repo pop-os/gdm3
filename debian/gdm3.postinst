@@ -7,18 +7,19 @@ set -e
 THIS_PACKAGE=gdm3
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
-# creating gdm3 group if it isn't already there
-if ! getent group gdm3 >/dev/null; then
-        addgroup --system gdm3
+# creating Debian-gdm group if it isn't already there
+if ! getent group Debian-gdm >/dev/null; then
+        addgroup --system Debian-gdm
 fi
 
-# creating gdm3 user if it isn't already there
-if ! getent passwd gdm3 >/dev/null; then
-        adduser --system --ingroup gdm3 --home /var/lib/gdm3 gdm3
-        usermod -c "Gnome Display Manager" gdm3
-        usermod -d "/var/lib/gdm3"         gdm3
-        usermod -g "gdm3"                  gdm3
-        usermod -s "/bin/false"            gdm3
+# creating Debian-gdm user if it isn't already there
+if ! getent passwd Debian-gdm >/dev/null; then
+        adduser --system \
+            --ingroup Debian-gdm \
+            --home /var/lib/gdm3 \
+            --shell /bin/false \
+            Debian-gdm
+        usermod -c "Gnome Display Manager" Debian-gdm
 fi
 
 # debconf is not a registry, so we only fiddle with the default file if it
@@ -50,7 +51,7 @@ update-gconf-defaults \
 	--source=/usr/share/gdm/greeter-config \
 	--destination=/var/lib/gdm3/.gconf.mandatory \
 	--no-signal
-chown -R gdm3:gdm3 /var/lib/gdm3
+chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
 #DEBHELPER#
 

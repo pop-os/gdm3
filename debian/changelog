@@ -1,5 +1,6 @@
 gdm3 (2.29.92-1) UNRELEASED; urgency=low
 
+  [ Luca Bruno ]
   * New upstream release.
   * debian/control.in:
     - Bump libglib2.0-dev build-depend to 2.22.0 and
@@ -14,6 +15,11 @@ gdm3 (2.29.92-1) UNRELEASED; urgency=low
     - Added, workaround until libxklavier bug gets fixed.
   * debian/patches/05_stop_welcome_session.patch:
     - Added, really stop the welcome session.
+
+  [ Josselin Mouette ]
+  * Pass --with-screenshot-dir, newly introduced.
+  * Name the user Debian-gdm instead of gdm3, it’s better for the long 
+    term.
 
  -- Luca Bruno <lethalman88@gmail.com>  Wed, 24 Mar 2010 12:11:35 +0100
 
