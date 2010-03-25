@@ -2,6 +2,7 @@
 02_xnest-wrapper.patch
 03_authdir.patch
 04_no_fatal_criticals.patch
+05_stop_welcome_session.patch
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch

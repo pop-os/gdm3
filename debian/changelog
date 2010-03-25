@@ -12,6 +12,8 @@ gdm3 (2.29.92-1) UNRELEASED; urgency=low
     - Refreshed, upstream fixed at-spi-registryd path.
   * debian/patches/04_no_fatal_criticals.patch:
     - Added, workaround until libxklavier bug gets fixed.
+  * debian/patches/05_stop_welcome_session.patch:
+    - Added, really stop the welcome session.
 
  -- Luca Bruno <lethalman88@gmail.com>  Wed, 24 Mar 2010 12:11:35 +0100
 
