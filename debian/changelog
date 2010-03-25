@@ -1,3 +1,12 @@
+gdm (2.29.92-0ubuntu6) lucid; urgency=low
+
+  * debian/patches/31-unify-power-strings.patch:
+    - drop the change for lucid it requires documentation update
+      which has not been taken into account there, similar changes are done on
+      the other desktop components too now
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 25 Mar 2010 11:26:02 +0100
+
 gdm (2.29.92-0ubuntu5) lucid; urgency=low
 
   [ Robert Ancell ]
