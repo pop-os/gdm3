@@ -1,3 +1,11 @@
+gdm (2.29.92-0ubuntu7) lucid; urgency=low
+
+  * debian/patches/09_gdmserver_gconf_settings.patch:
+  * debian/patches/09_gdmsetup.patch:
+    - Add face browser checkbutton to gdmsetup (LP: #445123)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 26 Mar 2010 15:45:20 +1100
+
 gdm (2.29.92-0ubuntu6) lucid; urgency=low
 
   * debian/patches/31-unify-power-strings.patch:

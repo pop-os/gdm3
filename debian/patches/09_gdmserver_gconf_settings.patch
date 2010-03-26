@@ -2,8 +2,8 @@
 ## Origin/Author: add some origin or author
 ## Bug: bug URL
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
---- gdm-2.29.92/common/gdm-settings.c	2010-03-24 10:52:11.038624783 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-24 10:53:17.813626973 +0100
+--- gdm-2.29.92/common/gdm-settings.c	2010-03-26 15:56:58.372792109 +1100
++++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-26 15:57:29.922783377 +1100
 @@ -28,6 +28,7 @@
  #include <signal.h>
  #include <sys/stat.h>
@@ -12,16 +12,17 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  
  #include <glib.h>
  #include <glib/gi18n.h>
-@@ -49,6 +50,8 @@
+@@ -49,6 +50,9 @@
  #define GDM_SETTINGS_DBUS_PATH GDM_DBUS_PATH "/Settings"
  #define GDM_SETTINGS_DBUS_NAME "org.gnome.DisplayManager.Settings"
  
 +#define GCONF_SOUND_EVENT_KEY "/desktop/gnome/sound/event_sounds"
++#define GCONF_FACE_BROWSER_DISABLE_KEY "/apps/gdm/simple-greeter/disable_user_list"
 +
  #define GDM_SETTINGS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SETTINGS, GdmSettingsPrivate))
  
  struct GdmSettingsPrivate
-@@ -83,6 +86,188 @@
+@@ -83,6 +87,188 @@
          return ret;
  }
  
@@ -210,7 +211,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  /*
  dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.GetValue string:"xdmcp/Enable"
  */
-@@ -111,6 +296,28 @@
+@@ -111,6 +297,49 @@
          return res;
  }
  
@@ -236,10 +237,31 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +        return res;
 +}
 +
++
++/*
++dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.GetFaceBrowserEnabled
++*/
++
++gboolean
++gdm_settings_get_face_browser_enabled (GdmSettings *settings,
++                                       gboolean    *enabled,
++                                       GError     **error)
++{
++        gboolean res;
++
++        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
++
++        res = gdm_settings_get_bool_gconf_value (GCONF_FACE_BROWSER_DISABLE_KEY, enabled);
++        if (res && enabled)
++            *enabled = !*enabled;
++
++        return res;
++}
++
  static void
  unlock_auth_cb (PolkitAuthority *authority,
                  GAsyncResult *result,
-@@ -155,6 +362,12 @@
+@@ -155,6 +384,12 @@
          gchar *key, *value;
  } SetValueData;
  
@@ -247,19 +269,19 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +{
 +        DBusGMethodInvocation *context;
 +        gboolean enabled;
-+} SetSoundEnabledData;
++} SetGConfBooleanData;
 +
  static void
  set_value_auth_cb (PolkitAuthority *authority,
                     GAsyncResult *result,
-@@ -229,6 +442,69 @@
+@@ -229,6 +464,129 @@
          return TRUE;
  }
  
 +static void
 +set_sound_enabled_auth_cb (PolkitAuthority *authority,
 +                           GAsyncResult *result,
-+                           SetSoundEnabledData *data)
++                           SetGConfBooleanData *data)
 +{
 +        PolkitAuthorizationResult *auth_result;
 +        GError  *error = NULL;
@@ -289,7 +311,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +}
 +
 +/*
-+dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.SetValue string:"xdmcp/Enable" string:"false"
++dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.SetSoundEnabled boolean:false
 +*/
 +
 +gboolean
@@ -297,7 +319,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                                gboolean     enabled,
 +                                DBusGMethodInvocation *context)
 +{
-+        SetSoundEnabledData *data;
++        SetGConfBooleanData *data;
 +    
 +        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
 +
@@ -305,7 +327,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +        g_debug ("Setting sound enabled to %s", enabled ? "true" : "false");
 +    
 +        /* Authorize with PolicyKit */
-+        data = g_malloc (sizeof(SetSoundEnabledData));
++        data = g_malloc (sizeof(SetGConfBooleanData));
 +        data->context = context;
 +        data->enabled = enabled;
 +        polkit_authority_check_authorization (polkit_authority_get (),
@@ -319,17 +341,80 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +        return TRUE;
 +}
 +
++static void
++set_face_browser_enabled_auth_cb (PolkitAuthority *authority,
++                                  GAsyncResult *result,
++                                  SetGConfBooleanData *data)
++{
++        PolkitAuthorizationResult *auth_result;
++        GError  *error = NULL;
++        
++        auth_result = polkit_authority_check_authorization_finish (authority, result, &error);
++
++        if (!auth_result)
++                dbus_g_method_return_error (data->context, error);
++        else {
++                if (polkit_authorization_result_get_is_authorized (auth_result)) {
++                        if (!gdm_settings_set_bool_gconf_value (GCONF_FACE_BROWSER_DISABLE_KEY, !data->enabled))
++                                g_warning ("set new value for face browser failed");
++                        dbus_g_method_return (data->context);
++                }
++                else {
++                        error = g_error_new (DBUS_GERROR_REMOTE_EXCEPTION, 0, "Not authorized");
++                        dbus_g_method_return_error (data->context, error);
++                }
++        }
++    
++        if (auth_result)
++                g_object_unref (auth_result);
++        if (error)
++                g_error_free (error);
++
++        g_free (data);
++}
++
++/*
++dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.SetFaceBrowserEnabled boolean:true
++*/
++
++gboolean
++gdm_settings_set_face_browser_enabled (GdmSettings *settings,
++                                       gboolean     enabled,
++                                       DBusGMethodInvocation *context)
++{
++        SetGConfBooleanData *data;
++    
++        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
++    
++        /* Authorize with PolicyKit */
++        data = g_malloc (sizeof(SetGConfBooleanData));
++        data->context = context;
++        data->enabled = enabled;
++        polkit_authority_check_authorization (polkit_authority_get (),
++                                              polkit_system_bus_name_new (dbus_g_method_get_sender (context)),
++                                              "org.gnome.displaymanager.settings.write",
++                                              NULL,
++                                              POLKIT_CHECK_AUTHORIZATION_FLAGS_ALLOW_USER_INTERACTION,
++                                              NULL,
++                                              (GAsyncReadyCallback) set_face_browser_enabled_auth_cb,
++                                              data);
++        return TRUE;
++}
++
  static gboolean
  register_settings (GdmSettings *settings)
  {
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/common/gdm-settings.h
---- gdm-2.29.92/common/gdm-settings.h	2010-03-24 10:52:11.038624783 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-24 10:52:11.769625707 +0100
-@@ -71,12 +71,18 @@
+--- gdm-2.29.92/common/gdm-settings.h	2010-03-26 15:56:58.372792109 +1100
++++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-26 15:56:58.872791201 +1100
+@@ -71,12 +71,24 @@
                                                                   const char  *key,
                                                                   char       **value,
                                                                   GError     **error);
 +gboolean            gdm_settings_get_sound_enabled              (GdmSettings *settings,
++                                                                 gboolean    *value,
++                                                                 GError     **error);
++gboolean            gdm_settings_get_face_browser_enabled       (GdmSettings *settings,
 +                                                                 gboolean    *value,
 +                                                                 GError     **error);
  gboolean            gdm_settings_unlock                         (GdmSettings *settings,
@@ -341,27 +426,37 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/
 +gboolean            gdm_settings_set_sound_enabled              (GdmSettings *settings,
 +                                                                 gboolean     value,
 +                                                                 DBusGMethodInvocation *context);
++gboolean            gdm_settings_set_face_browser_enabled       (GdmSettings *settings,
++                                                                 gboolean     value,
++                                                                 DBusGMethodInvocation *context);
  
  G_END_DECLS
  
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.xml gdm-2.29.92.new/common/gdm-settings.xml
---- gdm-2.29.92/common/gdm-settings.xml	2010-03-24 10:52:11.038624783 +0100
-+++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-24 10:52:11.769625707 +0100
-@@ -5,6 +5,9 @@
+--- gdm-2.29.92/common/gdm-settings.xml	2010-03-26 15:56:58.372792109 +1100
++++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-26 15:56:58.872791201 +1100
+@@ -5,6 +5,12 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
      </method>
 +    <method name="GetSoundEnabled">
 +      <arg name="enabled" direction="out" type="b"/>
 +    </method>
++    <method name="GetFaceBrowserEnabled">
++      <arg name="enabled" direction="out" type="b"/>
++    </method>
      <method name="Unlock">
        <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
        <arg name="is_unlocked" direction="out" type="b"/>
-@@ -14,6 +17,10 @@
+@@ -14,6 +20,14 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="in" type="s"/>
      </method>
 +    <method name="SetSoundEnabled">
++      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
++      <arg name="enabled" direction="in" type="b"/>
++    </method>
++    <method name="SetFaceBrowserEnabled">
 +      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
 +      <arg name="enabled" direction="in" type="b"/>
 +    </method>
