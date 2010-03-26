@@ -1,10 +1,10 @@
-gdm (2.29.92-0ubuntu8) UNRELEASED; urgency=low
+gdm (2.29.92-0ubuntu8) lucid; urgency=low
 
   * debian/patches/09_gdmsetup.patch:
     - reintegrate the needed bits lost in the merge in 2.29.92-0ubuntu5:
       select default session is back! (LP: #548417)
 
- -- Didier Roche <didrocks@ubuntu.com>  Fri, 26 Mar 2010 09:57:50 +0100
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 26 Mar 2010 10:19:17 +0100
 
 gdm (2.29.92-0ubuntu7) lucid; urgency=low
 
