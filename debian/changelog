@@ -1,3 +1,10 @@
+gdm (2.29.92-0ubuntu9) UNRELEASED; urgency=low
+
+  * 33-multi-keyboard-layouts.patch: Fix duplication of layouts by treating ""
+    and NULL variants equally. (LP: #548778)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 29 Mar 2010 10:04:50 +0200
+
 gdm (2.29.92-0ubuntu8) lucid; urgency=low
 
   * debian/patches/09_gdmsetup.patch:

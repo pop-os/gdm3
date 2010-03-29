@@ -1,4 +1,4 @@
-From ee39d4f913d1133a7e910e7ae686e7459d3a652d Mon Sep 17 00:00:00 2001
+From 35b9f237ef751330d7d87788e1a44d7971d7a9ae Mon Sep 17 00:00:00 2001
 From: Martin Pitt <martin.pitt@ubuntu.com>
 Date: Tue, 23 Mar 2010 12:47:59 +0100
 Subject: [PATCH 2/2] Keep multiple system keyboard layouts for session
@@ -23,14 +23,27 @@ layouts available if /desktop/gnome/peripherals/keyboard/kbd/layouts is empty
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=613681
 Bug-Ubuntu: https://launchpad.net/bugs/460328
 ---
- gui/simple-greeter/gdm-layouts.c |   19 ++++++++++++++++++-
- 1 files changed, 18 insertions(+), 1 deletions(-)
+ gui/simple-greeter/gdm-layouts.c |   26 +++++++++++++++++++++++++-
+ 1 files changed, 25 insertions(+), 1 deletions(-)
 
 diff --git a/gui/simple-greeter/gdm-layouts.c b/gui/simple-greeter/gdm-layouts.c
-index 5f9aea2..0a269cf 100644
+index 5f9aea2..10116f5 100644
 --- a/gui/simple-greeter/gdm-layouts.c
 +++ b/gui/simple-greeter/gdm-layouts.c
-@@ -244,6 +244,7 @@ gdm_layout_activate (const char *layout)
+@@ -238,12 +238,20 @@ gdm_layout_get_default_layout (void)
+ #endif
+ }
+ 
++/* strcmp() with treating NULL and "" as equal */
++static int
++strcmp_null_empty (const char* s1, const char* s2)
++{
++        return strcmp (s1 ? s1 : "", s2 ? s2 : "");
++}
++
+ void
+ gdm_layout_activate (const char *layout)
+ {
  #ifdef HAVE_LIBXKLAVIER
          XklConfigRec *config;
          char         *p;
@@ -38,7 +51,7 @@ index 5f9aea2..0a269cf 100644
  
          init_xkl ();
  
-@@ -255,7 +256,8 @@ gdm_layout_activate (const char *layout)
+@@ -255,7 +263,8 @@ gdm_layout_activate (const char *layout)
                  config->variants = g_strdupv (initial_config->variants);
                  config->options = g_strdupv (initial_config->options);
          } else {
@@ -48,7 +61,7 @@ index 5f9aea2..0a269cf 100644
                  config->layouts[0] = g_strdup (layout);
  
                  p = strchr (config->layouts[0], '\t');
-@@ -263,7 +265,22 @@ gdm_layout_activate (const char *layout)
+@@ -263,7 +272,22 @@ gdm_layout_activate (const char *layout)
                          config->variants = g_new0 (char *, 2);
                          config->layouts[0][p - config->layouts[0]] = 0;
                          config->variants[0] = g_strdup (p + 1);
@@ -61,7 +74,7 @@ index 5f9aea2..0a269cf 100644
 +                ic = 1;
 +                for (ii = 0; ii < g_strv_length (initial_config->layouts); ++ii) {
 +                        if (g_strcmp0 (config->layouts[0], initial_config->layouts[ii]) ||
-+                            g_strcmp0 (config->variants[0], initial_config->variants[ii])) {
++                            strcmp_null_empty (config->variants[0], initial_config->variants[ii])) {
 +                                config->layouts[ic] = g_strdup (initial_config->layouts[ii]);
 +                                config->variants[ic] = g_strdup (initial_config->variants[ii]);
 +                                ++ic;
