@@ -1,4 +1,4 @@
-From 35b9f237ef751330d7d87788e1a44d7971d7a9ae Mon Sep 17 00:00:00 2001
+From ca4d405b1087c30a1bd764937dbc0b66b0473032 Mon Sep 17 00:00:00 2001
 From: Martin Pitt <martin.pitt@ubuntu.com>
 Date: Tue, 23 Mar 2010 12:47:59 +0100
 Subject: [PATCH 2/2] Keep multiple system keyboard layouts for session
@@ -23,11 +23,11 @@ layouts available if /desktop/gnome/peripherals/keyboard/kbd/layouts is empty
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=613681
 Bug-Ubuntu: https://launchpad.net/bugs/460328
 ---
- gui/simple-greeter/gdm-layouts.c |   26 +++++++++++++++++++++++++-
- 1 files changed, 25 insertions(+), 1 deletions(-)
+ gui/simple-greeter/gdm-layouts.c |   30 ++++++++++++++++++++++++++++--
+ 1 files changed, 28 insertions(+), 2 deletions(-)
 
 diff --git a/gui/simple-greeter/gdm-layouts.c b/gui/simple-greeter/gdm-layouts.c
-index 5f9aea2..10116f5 100644
+index 5f9aea2..2cea93e 100644
 --- a/gui/simple-greeter/gdm-layouts.c
 +++ b/gui/simple-greeter/gdm-layouts.c
 @@ -238,12 +238,20 @@ gdm_layout_get_default_layout (void)
@@ -51,7 +51,7 @@ index 5f9aea2..10116f5 100644
  
          init_xkl ();
  
-@@ -255,7 +263,8 @@ gdm_layout_activate (const char *layout)
+@@ -255,15 +263,33 @@ gdm_layout_activate (const char *layout)
                  config->variants = g_strdupv (initial_config->variants);
                  config->options = g_strdupv (initial_config->options);
          } else {
@@ -61,8 +61,8 @@ index 5f9aea2..10116f5 100644
                  config->layouts[0] = g_strdup (layout);
  
                  p = strchr (config->layouts[0], '\t');
-@@ -263,7 +272,22 @@ gdm_layout_activate (const char *layout)
-                         config->variants = g_new0 (char *, 2);
+                 if (p != NULL) {
+-                        config->variants = g_new0 (char *, 2);
                          config->layouts[0][p - config->layouts[0]] = 0;
                          config->variants[0] = g_strdup (p + 1);
 +                } else {
@@ -76,7 +76,10 @@ index 5f9aea2..10116f5 100644
 +                        if (g_strcmp0 (config->layouts[0], initial_config->layouts[ii]) ||
 +                            strcmp_null_empty (config->variants[0], initial_config->variants[ii])) {
 +                                config->layouts[ic] = g_strdup (initial_config->layouts[ii]);
-+                                config->variants[ic] = g_strdup (initial_config->variants[ii]);
++                                if (initial_config->variants[ii] != NULL)
++                                        config->variants[ic] = g_strdup (initial_config->variants[ii]);
++                                else
++                                        config->variants[ic] = g_strdup ("");
 +                                ++ic;
 +                        }
 +                }
