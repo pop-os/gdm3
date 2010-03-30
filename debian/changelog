@@ -1,11 +1,11 @@
-gdm (2.30.0-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.30.0-0ubuntu2) lucid; urgency=low
 
   * 33-multi-keyboard-layouts.patch: Work around strange libxklavier behaviour
     (which returns NULL for empty variants, but does not accept NULL when
     setting a configuration). This fixes broken variant setting in some cases.
     (LP: #550887)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 30 Mar 2010 22:14:31 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 30 Mar 2010 22:29:15 +0200
 
 gdm (2.30.0-0ubuntu1) lucid; urgency=low
 
