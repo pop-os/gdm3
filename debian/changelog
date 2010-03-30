@@ -1,3 +1,12 @@
+gdm (2.30.0-0ubuntu1) lucid; urgency=low
+
+  * New upstream release:
+    - Translation improvements
+  * debian/patches/09_gdmsetup.patch:
+    - Disable broken face browser checkbutton
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 30 Mar 2010 12:56:00 +1100
+
 gdm (2.29.92-0ubuntu9) lucid; urgency=low
 
   * 33-multi-keyboard-layouts.patch: Fix duplication of layouts by treating ""
