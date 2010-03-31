@@ -6,8 +6,8 @@
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 #
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/configure.ac gdm-2.30.0.new/configure.ac
---- gdm-2.30.0/configure.ac	2010-03-31 18:10:41.783549376 +0200
-+++ gdm-2.30.0.new/configure.ac	2010-03-31 18:10:42.492546467 +0200
+--- gdm-2.30.0/configure.ac	2010-03-31 18:45:09.095560322 +0200
++++ gdm-2.30.0.new/configure.ac	2010-03-31 18:45:09.815545484 +0200
 @@ -118,6 +118,14 @@
  AC_SUBST(DEVKIT_POWER_CFLAGS)
  AC_SUBST(DEVKIT_POWER_LIBS)
@@ -40,7 +40,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/configure.ac gdm-2.30.0.new/configure.a
  data/greeter-autostart/Makefile
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-sessions.c gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.c
 --- gdm-2.30.0/gui/gdmsetup/gdm-sessions.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.c	2010-03-31 18:10:42.492546467 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.c	2010-03-31 18:45:09.815545484 +0200
 @@ -0,0 +1,265 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -309,7 +309,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-sessions.c gdm-2.30.0.
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-sessions.h gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.h
 --- gdm-2.30.0/gui/gdmsetup/gdm-sessions.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.h	2010-03-31 18:10:42.492546467 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-sessions.h	2010-03-31 18:45:09.815545484 +0200
 @@ -0,0 +1,38 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -351,8 +351,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-sessions.h gdm-2.30.0.
 +#endif /* __GDM_SESSION_H */
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.c gdm-2.30.0.new/gui/gdmsetup/gdmsetup.c
 --- gdm-2.30.0/gui/gdmsetup/gdmsetup.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.c	2010-03-31 18:11:37.375564706 +0200
-@@ -0,0 +1,711 @@
++++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.c	2010-03-31 18:47:55.539569268 +0200
+@@ -0,0 +1,716 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
 +#endif
@@ -853,6 +853,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.c gdm-2.30.0.new/
 +    GString *encryption_mount;
 +    gboolean using_encryption = FALSE;
 +
++    /* don't enable autologin for user having encrypted home dir
++       there are some corner case if gdmsetup isn't run as root and another user
++       than the current one is using encrypted dir: you can't check for them if
++       they access to it. The solution is the server to refuse the change then
++       (too late in the cycle for such changes). */
 +    home_user_dir = gdm_user_get_home_directory (user);
 +    encryption_path = g_build_filename (home_user_dir, ".ecryptfs", "Private.mnt", NULL);
 +    encryption_file = g_file_new_for_path (encryption_path);
@@ -1066,7 +1071,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.c gdm-2.30.0.new/
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in gdm-2.30.0.new/gui/gdmsetup/gdmsetup.desktop.in
 --- gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.desktop.in	2010-03-31 18:10:42.492546467 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.desktop.in	2010-03-31 18:45:09.815545484 +0200
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -1082,7 +1087,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in gdm-2.
 +X-GNOME-Bugzilla-Component=general
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.ui gdm-2.30.0.new/gui/gdmsetup/gdmsetup.ui
 --- gdm-2.30.0/gui/gdmsetup/gdmsetup.ui	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.ui	2010-03-31 18:10:42.492546467 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdmsetup.ui	2010-03-31 18:45:09.815545484 +0200
 @@ -0,0 +1,358 @@
 +<?xml version="1.0"?>
 +<interface>
@@ -1444,7 +1449,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.ui gdm-2.30.0.new
 +</interface>
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user.c gdm-2.30.0.new/gui/gdmsetup/gdm-user.c
 --- gdm-2.30.0/gui/gdmsetup/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-user.c	2010-03-31 18:10:42.496555914 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user.c	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2620,7 +2625,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user.c gdm-2.30.0.new/
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user.h gdm-2.30.0.new/gui/gdmsetup/gdm-user.h
 --- gdm-2.30.0/gui/gdmsetup/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-user.h	2010-03-31 18:10:42.496555914 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user.h	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2683,7 +2688,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user.h gdm-2.30.0.new/
 +#endif
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-manager.c gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.c
 --- gdm-2.30.0/gui/gdmsetup/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.c	2010-03-31 18:10:42.496555914 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.c	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,1658 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4345,7 +4350,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-manager.c gdm-2.3
 +}
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-manager.h gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.h
 --- gdm-2.30.0/gui/gdmsetup/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.h	2010-03-31 18:10:42.496555914 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.h	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4436,7 +4441,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-manager.h gdm-2.3
 +#endif /* __GDM_USER_MANAGER_H */
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-private.h gdm-2.30.0.new/gui/gdmsetup/gdm-user-private.h
 --- gdm-2.30.0/gui/gdmsetup/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-private.h	2010-03-31 18:10:42.496555914 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-private.h	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4484,7 +4489,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-private.h gdm-2.3
 +#endif /* !__GDM_USER_PRIVATE__ */
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/Makefile.am gdm-2.30.0.new/gui/gdmsetup/Makefile.am
 --- gdm-2.30.0/gui/gdmsetup/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.30.0.new/gui/gdmsetup/Makefile.am	2010-03-31 18:10:42.500545458 +0200
++++ gdm-2.30.0.new/gui/gdmsetup/Makefile.am	2010-03-31 18:45:09.819557447 +0200
 @@ -0,0 +1,40 @@
 +NULL =
 +
@@ -4528,7 +4533,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/Makefile.am gdm-2.30.0.new
 +	$(NULL)
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/Makefile.am gdm-2.30.0.new/gui/Makefile.am
 --- gdm-2.30.0/gui/Makefile.am	2010-03-29 23:42:03.000000000 +0200
-+++ gdm-2.30.0.new/gui/Makefile.am	2010-03-31 18:10:42.500545458 +0200
++++ gdm-2.30.0.new/gui/Makefile.am	2010-03-31 18:45:09.819557447 +0200
 @@ -1,6 +1,7 @@
  NULL =
  
@@ -4538,8 +4543,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/Makefile.am gdm-2.30.0.new/gui/Make
  	simple-greeter		\
  	user-switch-applet	\
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/po/POTFILES.in gdm-2.30.0.new/po/POTFILES.in
---- gdm-2.30.0/po/POTFILES.in	2010-03-31 18:10:41.787547091 +0200
-+++ gdm-2.30.0.new/po/POTFILES.in	2010-03-31 18:10:42.500545458 +0200
+--- gdm-2.30.0/po/POTFILES.in	2010-03-31 18:45:09.095560322 +0200
++++ gdm-2.30.0.new/po/POTFILES.in	2010-03-31 18:45:09.819557447 +0200
 @@ -60,6 +60,9 @@
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
