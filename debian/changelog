@@ -1,3 +1,11 @@
+gdm (2.30.0-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/patches/09_gdmsetup.patch:
+    - do not list users who have an encrypted home directory for autologin
+      candidate. (LP: #353446)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 31 Mar 2010 18:12:06 +0200
+
 gdm (2.30.0-0ubuntu2) lucid; urgency=low
 
   * 33-multi-keyboard-layouts.patch: Work around strange libxklavier behaviour
