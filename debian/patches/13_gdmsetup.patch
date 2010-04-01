@@ -1,0 +1,774 @@
+Update in Debian:
+- Get rid of sessions, they're chosen in the greeter.
+- Get rid of sound and face browser, they are not gdm options.
+- Get rid of dbus, use GdmSettingsClient instead.
+- Use libgdmuser of simple-greeter instead of copying gdm-user* code.
+- Use PolkitLockButton.
+
+# Description: Add GDM Setup
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
+# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
+# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
+#
+--- a/configure.ac
++++ b/configure.ac
+@@ -41,6 +41,7 @@
+ 
+ DBUS_GLIB_REQUIRED_VERSION=0.74
+ POLKIT_GOBJECT_REQUIRED_VERSION=0.92
++POLKIT_GTK_REQUIRED_VERSION=0.92
+ GLIB_REQUIRED_VERSION=2.22.0
+ GTK_REQUIRED_VERSION=2.12.0
+ PANGO_REQUIRED_VERSION=1.3.0
+@@ -118,6 +119,14 @@
+ AC_SUBST(DEVKIT_POWER_CFLAGS)
+ AC_SUBST(DEVKIT_POWER_LIBS)
+ 
++PKG_CHECK_MODULES(GDMSETUP,
++        polkit-gtk-1 >= $POLKIT_GTK_REQUIRED_VERSION
++        gtk+-2.0 >= $GTK_REQUIRED_VERSION
++        gmodule-2.0
++)
++AC_SUBST(GDMSETUP_CFLAGS)
++AC_SUBST(GDMSETUP_LIBS)
++
+ PKG_CHECK_MODULES(SIMPLE_GREETER,
+         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
+         gtk+-2.0 >= $GTK_REQUIRED_VERSION
+@@ -1389,6 +1398,7 @@
+ daemon/Makefile
+ docs/Makefile
+ gui/Makefile
++gui/gdmsetup/Makefile
+ gui/simple-greeter/Makefile
+ gui/simple-greeter/libnotificationarea/Makefile
+ gui/simple-chooser/Makefile
+--- /dev/null
++++ b/gui/gdmsetup/gdmsetup.c
+@@ -0,0 +1,370 @@
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#include <string.h>
++#include <stdlib.h>
++#include <gtk/gtk.h>
++#include <gdk/gdkkeysyms.h>
++#include <polkitgtk/polkitgtk.h>
++#include <glib/gi18n.h>
++
++#include "gdm-user-manager.h"
++#include "gdm-settings-client.h"
++#include "gdm-settings-keys.h"
++
++#define MAX_USERS_IN_COMBO_BOX 20
++
++/* User interface */
++static GtkBuilder *ui;
++static GtkWidget *dialog, *unlock_button, *option_vbox;
++static GtkWidget *user_combo, *user_entry, *delay_spin;
++static GtkWidget *auto_login_radio, *login_delay_box, *login_delay_check;
++
++/* Timer to delay application of configuration */
++static guint apply_timeout = 0;
++
++/* Flag to show when information is user_login_loaded */
++static gboolean user_login_loaded = FALSE;
++
++/* Flag to show when user is authorized to change settings */
++static gboolean authorized = FALSE;
++
++/* True if the user selection method is a combo box, False if an entry */
++static gboolean user_list_is_combo = TRUE;
++
++/* User information */
++static GdmUserManager *user_manager;
++
++static void
++update_config ()
++{
++    GtkTreeModel *model;
++    GtkTreeIter iter;
++    gchar *user = NULL;
++    gint delay = 0;
++    gboolean auto_login = FALSE, timed_login = FALSE, error = FALSE;
++
++    if (apply_timeout != 0) {
++        g_source_remove (apply_timeout);
++        apply_timeout = 0;
++    }
++
++    if (user_list_is_combo) {
++        model = gtk_combo_box_get_model (GTK_COMBO_BOX (user_combo));
++        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (user_combo), &iter))
++            gtk_tree_model_get (model, &iter, 1, &user, -1);
++    }
++    else
++        user = g_strdup (gtk_entry_get_text (GTK_ENTRY (user_entry)));
++
++    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auto_login_radio))) {
++        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (login_delay_check)))
++            timed_login = TRUE;
++        else
++            auto_login = TRUE;
++    }
++
++    delay = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (delay_spin));
++
++    g_debug ("set user='%s', auto=%s, timed=%s, delay=%d",
++             user,
++             auto_login ? "True" : "False",
++             timed_login ? "True" : "False", delay);
++
++    if (!gdm_settings_client_set_boolean (GDM_KEY_TIMED_LOGIN_ENABLE, timed_login) ||
++        !gdm_settings_client_set_boolean (GDM_KEY_AUTO_LOGIN_ENABLE, auto_login) ||
++        !gdm_settings_client_set_string (GDM_KEY_TIMED_LOGIN_USER, user) ||
++        !gdm_settings_client_set_string (GDM_KEY_AUTO_LOGIN_USER, user) ||
++        !gdm_settings_client_set_int (GDM_KEY_TIMED_LOGIN_DELAY, delay))
++        error = TRUE;
++
++    if (user)
++        g_free (user);
++}
++
++
++G_MODULE_EXPORT
++void
++gdm_capplet_response_cb (GtkWidget *widget, gint response_id)
++{
++    if (response_id != 1)
++        gtk_main_quit ();
++}
++
++
++static void
++unlock_changed (PolkitLockButton *button,
++                void             *user_data)
++{
++    authorized = polkit_lock_button_get_is_authorized (button);
++    gtk_widget_set_sensitive (option_vbox, user_login_loaded && authorized);
++}
++
++
++G_MODULE_EXPORT
++void
++login_delay_check_toggled_cb (GtkWidget *widget)
++{
++    gtk_widget_set_sensitive (delay_spin,
++                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (login_delay_check)));
++
++    if (user_login_loaded)
++        update_config ();
++}
++
++static gboolean
++delayed_apply_cb ()
++{
++    update_config ();
++    return FALSE;
++}
++
++G_MODULE_EXPORT
++void
++apply_config_cb (GtkWidget *widget)
++{
++    if (user_login_loaded) {
++        if (apply_timeout != 0)
++            g_source_remove (apply_timeout);
++        apply_timeout = g_timeout_add (200, (GSourceFunc)delayed_apply_cb, NULL);
++    }
++}
++
++
++static void
++init_login_delay ()
++{
++    gint delay;
++    gboolean timed_login_enable;
++
++    if (gdm_settings_client_get_boolean (GDM_KEY_TIMED_LOGIN_ENABLE, &timed_login_enable))
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (login_delay_check), timed_login_enable);
++    else
++        g_warning ("Unable to get setting " GDM_KEY_TIMED_LOGIN_ENABLE);
++
++    if (!gdm_settings_client_get_int (GDM_KEY_TIMED_LOGIN_DELAY, &delay))
++        g_warning ("Unable to get setting " GDM_KEY_TIMED_LOGIN_DELAY);
++
++    g_debug ("init delay=%d", delay);
++
++    gtk_spin_button_set_value (GTK_SPIN_BUTTON (delay_spin), delay);
++}
++
++
++G_MODULE_EXPORT
++void
++automatic_login_toggle_cb (GtkWidget *automatic_login_toggle)
++{
++    gboolean automatic_login;
++
++    automatic_login = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (automatic_login_toggle));
++    gtk_widget_set_sensitive (login_delay_box, automatic_login);
++    gtk_widget_set_sensitive (user_combo, automatic_login);
++    gtk_widget_set_sensitive (user_entry, automatic_login);
++
++    if (user_login_loaded)
++        update_config ();
++}
++
++
++G_MODULE_EXPORT
++void
++default_user_combo_box_changed_cb (void)
++{
++    if (user_login_loaded) {
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auto_login_radio), TRUE);
++        update_config ();
++    }
++}
++
++static void
++init_default_user (void)
++{
++    GtkTreeModel *model;
++    GtkTreeIter iter;
++    gboolean auto_login, timed_login, active;
++    gchar *user = NULL;
++
++    if (!gdm_settings_client_get_boolean (GDM_KEY_AUTO_LOGIN_ENABLE, &auto_login))
++        g_warning ("Unable to get setting " GDM_KEY_AUTO_LOGIN_ENABLE);
++    if (!gdm_settings_client_get_boolean (GDM_KEY_TIMED_LOGIN_ENABLE, &timed_login))
++        g_warning ("Unable to get setting " GDM_KEY_TIMED_LOGIN_ENABLE);
++
++    if (auto_login)
++        gdm_settings_client_get_string (GDM_KEY_AUTO_LOGIN_USER, &user);
++    if (user == NULL)
++        gdm_settings_client_get_string (GDM_KEY_TIMED_LOGIN_USER, &user);
++
++    g_debug ("init user='%s' auto=%s", user, auto_login || timed_login ? "True" : "False");
++
++    if (auto_login || timed_login)
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auto_login_radio), TRUE);
++
++    if (!user_list_is_combo) {
++        if (user != NULL)
++            gtk_entry_set_text (GTK_ENTRY (user_entry), user);
++    }
++    else {
++        model = gtk_combo_box_get_model (GTK_COMBO_BOX (user_combo));
++        active = gtk_tree_model_get_iter_first (model, &iter);
++
++        /* If no user then use first available */
++        if (user == NULL) {
++            if (active)
++                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (user_combo), &iter);
++        }
++        else {
++            while (user != NULL && active) {
++                gchar *u;
++                gboolean matched;
++
++                gtk_tree_model_get (model, &iter, 1, &u, -1);
++                matched = strcmp (user, u) == 0;
++                g_free (u);
++                if (matched) {
++                    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (user_combo), &iter);
++                    break;
++                }
++
++                active = gtk_tree_model_iter_next (model, &iter);
++            }
++        }
++    }
++
++    g_free (user);
++}
++
++static void add_user (GdmUser *user)
++{
++    GtkListStore *model;
++    GtkTreeIter iter;
++    GString *label;
++
++    model = GTK_LIST_STORE (gtk_builder_get_object (ui, "login_user_model"));
++    gtk_list_store_append (model, &iter);
++    label = g_string_new("");
++    g_string_printf (label, "%s (%s)", gdm_user_get_real_name (user), gdm_user_get_user_name (user));
++    gtk_list_store_set (model, &iter,
++                        0, label->str,
++                        1, gdm_user_get_user_name (user),
++                        -1);
++    g_string_free (label, TRUE);
++}
++
++
++static void
++users_loaded_cb(GdmUserManager *manager)
++{
++    GSList *users, *item;
++
++    users = gdm_user_manager_list_users (user_manager);
++
++    if (g_slist_length (users) > MAX_USERS_IN_COMBO_BOX) {
++        user_list_is_combo = FALSE;
++        gtk_widget_hide (user_combo);
++        gtk_widget_show (user_entry);
++    }
++    else {
++        for (item = users; item; item = item->next)
++            add_user ((GdmUser *) item->data);
++    }
++
++    init_default_user ();
++
++    user_login_loaded = TRUE;
++    gtk_widget_set_sensitive (option_vbox, user_login_loaded && authorized);
++}
++
++
++static void
++user_added_cb (GdmUserManager *manager, GdmUser *user)
++{
++    if (user_login_loaded)
++        add_user (user);
++}
++
++static void
++split_text (const gchar *text, const gchar *prefix_label_name, const gchar *suffix_label_name)
++{
++    gchar **tokens;
++    GtkWidget *prefix_label, *suffix_label;
++
++    prefix_label = GTK_WIDGET (gtk_builder_get_object (ui, prefix_label_name));
++    suffix_label = GTK_WIDGET (gtk_builder_get_object (ui, suffix_label_name));
++
++    tokens = g_strsplit (text, "%s", 2);
++    if (tokens[0] != NULL && tokens[1] != NULL) {
++        if (tokens[0][0] != '\0')
++            gtk_label_set_text (GTK_LABEL (prefix_label), g_strstrip (tokens[0]));
++        else
++            gtk_widget_hide (prefix_label);
++        if (tokens[1][0] != '\0')
++            gtk_label_set_text (GTK_LABEL (suffix_label), g_strstrip (tokens[1]));
++        else
++            gtk_widget_hide (suffix_label);
++    }
++    g_strfreev (tokens);
++}
++
++
++int main (int argc, char **argv)
++{
++    GtkCellRenderer *renderer;
++    GError *error = NULL;
++
++    bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
++    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
++    textdomain (GETTEXT_PACKAGE);
++
++    gtk_init (&argc, &argv);
++
++    if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/"))
++        g_error ("Unable to initialize settings client");
++
++    ui = gtk_builder_new ();
++    gtk_builder_add_from_file (ui, UIDIR "/gdmsetup.ui", &error);
++    if (error)
++        g_error ("Failed to load UI: %s", error->message);
++
++    dialog = GTK_WIDGET (gtk_builder_get_object (ui, "gdm_capplet"));
++    option_vbox = GTK_WIDGET (gtk_builder_get_object (ui, "gdm_capplet_vbox"));
++    user_combo = GTK_WIDGET (gtk_builder_get_object (ui, "default_user_combo_box"));
++    user_entry = GTK_WIDGET (gtk_builder_get_object (ui, "default_user_entry"));
++    delay_spin = GTK_WIDGET (gtk_builder_get_object (ui, "login_delay_spin"));
++    auto_login_radio = GTK_WIDGET (gtk_builder_get_object (ui, "automatic_login_radio"));
++    login_delay_box = GTK_WIDGET (gtk_builder_get_object (ui, "login_delay_box"));
++    login_delay_check = GTK_WIDGET (gtk_builder_get_object (ui, "login_delay_check"));
++
++    gtk_builder_connect_signals (ui, NULL);
++
++    /* unlock button */
++    unlock_button = GTK_WIDGET (polkit_lock_button_new ("org.gnome.displaymanager.settings.set"));
++    gtk_widget_show (unlock_button);
++    gtk_box_pack_start_defaults (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), unlock_button);
++    g_signal_connect (unlock_button, "changed", G_CALLBACK (unlock_changed), NULL);
++
++    /* Translators: Label for choosing which user to log in as. '%s' is replaced with an input field. */
++    split_text (_("Log in as %s automatically"), "user_prefix_label", "user_suffix_label");
++    /* Translators: Label for choosing the login delay. '%s' is replaced with an input field. */
++    split_text (_("Allow %s seconds for anyone else to log in first"), "delay_prefix_label", "delay_suffix_label");
++
++    init_login_delay ();
++
++    renderer = gtk_cell_renderer_text_new ();
++    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (user_combo), renderer, TRUE);
++    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (user_combo), renderer, "text", 0);
++
++    user_manager = gdm_user_manager_ref_default ();
++    g_signal_connect (user_manager, "users-loaded", G_CALLBACK (users_loaded_cb), NULL);
++    g_signal_connect (user_manager, "user-added", G_CALLBACK (user_added_cb), NULL);
++
++    gtk_widget_hide (user_entry);
++
++    gtk_widget_set_sensitive (option_vbox, FALSE);
++    gtk_widget_show (dialog);
++
++    gtk_main ();
++
++    return 0;
++}
+--- /dev/null
++++ b/gui/gdmsetup/gdmsetup.desktop.in
+@@ -0,0 +1,12 @@
++[Desktop Entry]
++_Name=Login Screen
++_Comment=Configure login screen behavior
++Exec=gdmsetup
++Icon=gdmsetup
++StartupNotify=true
++Terminal=false
++Type=Application
++Categories=GNOME;GTK;Settings;System;
++X-GNOME-Bugzilla-Bugzilla=GNOME
++X-GNOME-Bugzilla-Product=gdm
++X-GNOME-Bugzilla-Component=general
+--- /dev/null
++++ b/gui/gdmsetup/gdmsetup.ui
+@@ -0,0 +1,271 @@
++<?xml version="1.0"?>
++<interface>
++  <requires lib="gtk+" version="2.16"/>
++  <!-- interface-naming-policy project-wide -->
++  <object class="GtkListStore" id="login_user_model">
++    <columns>
++      <!-- column-name label -->
++      <column type="gchararray"/>
++      <!-- column-name user -->
++      <column type="gchararray"/>
++      <!-- column-name icon -->
++      <column type="GdkPixbuf"/>
++    </columns>
++  </object>
++  <object class="GtkDialog" id="gdm_capplet">
++    <property name="border_width">5</property>
++    <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
++    <property name="resizable">False</property>
++    <property name="window_position">center</property>
++    <property name="icon_name">gdm-setup</property>
++    <property name="type_hint">normal</property>
++    <property name="has_separator">False</property>
++    <signal name="response" handler="gdm_capplet_response_cb"/>
++    <child internal-child="vbox">
++      <object class="GtkVBox" id="dialog-vbox1">
++        <property name="visible">True</property>
++        <property name="orientation">vertical</property>
++        <property name="spacing">12</property>
++        <child>
++          <object class="GtkFrame" id="frame2">
++            <property name="visible">True</property>
++            <property name="label_xalign">0</property>
++            <property name="shadow_type">none</property>
++            <child>
++              <object class="GtkAlignment" id="alignment2">
++                <property name="visible">True</property>
++                <property name="left_padding">12</property>
++                <child>
++                  <object class="GtkVBox" id="gdm_capplet_vbox">
++                    <property name="visible">True</property>
++                    <property name="orientation">vertical</property>
++                    <property name="spacing">12</property>
++                    <child>
++                      <object class="GtkVBox" id="vbox3">
++                        <property name="visible">True</property>
++                        <property name="orientation">vertical</property>
++                        <property name="spacing">12</property>
++                        <child>
++                          <object class="GtkVBox" id="vbox1">
++                            <property name="visible">True</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">6</property>
++                            <child>
++                              <object class="GtkRadioButton" id="manual_login_radio">
++                                <property name="label" translatable="yes" comments="Radio option to set login screen to prompt for user">_Show the screen for choosing who will log in</property>
++                                <property name="visible">True</property>
++                                <property name="can_focus">True</property>
++                                <property name="receives_default">False</property>
++                                <property name="use_underline">True</property>
++                                <property name="active">True</property>
++                                <property name="draw_indicator">True</property>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">0</property>
++                              </packing>
++                            </child>
++                          </object>
++                          <packing>
++                            <property name="expand">False</property>
++                            <property name="position">2</property>
++                          </packing>
++                        </child>
++                        <child>
++                          <object class="GtkVBox" id="vbox4">
++                            <property name="visible">True</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">6</property>
++                            <child>
++                              <object class="GtkHBox" id="hbox1">
++                                <property name="visible">True</property>
++                                <property name="spacing">6</property>
++                                <child>
++                                  <object class="GtkRadioButton" id="automatic_login_radio">
++                                    <property name="visible">True</property>
++                                    <property name="can_focus">True</property>
++                                    <property name="receives_default">False</property>
++                                    <property name="draw_indicator">True</property>
++                                    <property name="group">manual_login_radio</property>
++                                    <signal name="toggled" handler="automatic_login_toggle_cb"/>
++                                    <child>
++                                      <object class="GtkLabel" id="user_prefix_label">
++                                        <property name="visible">True</property>
++                                        <property name="label">_Log in as</property>
++                                        <property name="use_underline">True</property>
++                                      </object>
++                                    </child>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkComboBox" id="default_user_combo_box">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="model">login_user_model</property>
++                                    <signal name="changed" handler="default_user_combo_box_changed_cb"/>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">1</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkEntry" id="default_user_entry">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="can_focus">True</property>
++                                    <property name="invisible_char">&#x2022;</property>
++                                    <signal name="changed" handler="apply_config_cb"/>
++                                  </object>
++                                  <packing>
++                                    <property name="position">2</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkLabel" id="user_suffix_label">
++                                    <property name="visible">True</property>
++                                    <property name="label">automatically</property>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">3</property>
++                                  </packing>
++                                </child>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">0</property>
++                              </packing>
++                            </child>
++                            <child>
++                              <object class="GtkAlignment" id="alignment1">
++                                <property name="visible">True</property>
++                                <property name="left_padding">16</property>
++                                <child>
++                                  <object class="GtkHBox" id="login_delay_box">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="spacing">6</property>
++                                    <child>
++                                      <object class="GtkCheckButton" id="login_delay_check">
++                                        <property name="visible">True</property>
++                                        <property name="can_focus">True</property>
++                                        <property name="receives_default">False</property>
++                                        <property name="draw_indicator">True</property>
++                                        <signal name="toggled" handler="login_delay_check_toggled_cb"/>
++                                        <child>
++                                          <object class="GtkLabel" id="delay_prefix_label">
++                                            <property name="visible">True</property>
++                                            <property name="label">_Allow</property>
++                                            <property name="use_underline">True</property>
++                                          </object>
++                                        </child>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">0</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkSpinButton" id="login_delay_spin">
++                                        <property name="visible">True</property>
++                                        <property name="sensitive">False</property>
++                                        <property name="can_focus">True</property>
++                                        <property name="invisible_char">&#x2022;</property>
++                                        <property name="adjustment">adjustment1</property>
++                                        <signal name="value_changed" handler="apply_config_cb"/>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">1</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkLabel" id="delay_suffix_label">
++                                        <property name="visible">True</property>
++                                        <property name="label">seconds for anyone else to log in first</property>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">2</property>
++                                      </packing>
++                                    </child>
++                                  </object>
++                                </child>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">1</property>
++                              </packing>
++                            </child>
++                          </object>
++                          <packing>
++                            <property name="expand">False</property>
++                            <property name="position">3</property>
++                          </packing>
++                        </child>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="position">0</property>
++                      </packing>
++                    </child>
++                  </object>
++                </child>
++              </object>
++            </child>
++            <child type="label">
++              <object class="GtkLabel" id="label2">
++                <property name="visible">True</property>
++                <property name="label" translatable="yes">&lt;b&gt;When the computer starts up&lt;/b&gt;</property>
++                <property name="use_markup">True</property>
++              </object>
++            </child>
++          </object>
++          <packing>
++            <property name="position">1</property>
++          </packing>
++        </child>
++        <child internal-child="action_area">
++          <object class="GtkHButtonBox" id="dialog-action_area1">
++            <property name="visible">True</property>
++            <property name="layout_style">end</property>
++            <child>
++              <object class="GtkButton" id="close_button">
++                <property name="label">gtk-close</property>
++                <property name="visible">True</property>
++                <property name="can_focus">True</property>
++                <property name="receives_default">True</property>
++                <property name="use_stock">True</property>
++              </object>
++              <packing>
++                <property name="expand">False</property>
++                <property name="fill">False</property>
++                <property name="position">0</property>
++              </packing>
++            </child>
++          </object>
++          <packing>
++            <property name="expand">False</property>
++            <property name="pack_type">end</property>
++            <property name="position">0</property>
++          </packing>
++        </child>
++      </object>
++    </child>
++    <action-widgets>
++      <action-widget response="-7">close_button</action-widget>
++    </action-widgets>
++  </object>
++  <object class="GtkSizeGroup" id="combo_size_group"/>
++  <object class="GtkSizeGroup" id="radio_size_group"/>
++  <object class="GtkAdjustment" id="adjustment1">
++    <property name="lower">1</property>
++    <property name="upper">600</property>
++    <property name="step_increment">1</property>
++  </object>
++</interface>
+--- /dev/null
++++ b/gui/gdmsetup/Makefile.am
+@@ -0,0 +1,42 @@
++NULL =
++
++AM_CPPFLAGS = \
++	-I$(top_srcdir)/common			\
++	-I$(top_srcdir)/gui/simple-greeter	\
++	-DGDMCONFDIR=\"$(gdmconfdir)\"		\
++	-DDMCONFDIR=\""$(dmconfdir)"\"		\
++	-DDATADIR=\""$(datadir)"\"		\
++	-DUIDIR=\""$(uidir)"\"			\
++	-DGNOMELOCALEDIR=\""$(gdmlocaledir)"\" 	\
++	$(DISABLE_DEPRECATED_CFLAGS)		\
++	$(GDMSETUP_CFLAGS)			\
++	$(NULL)
++
++bin_PROGRAMS =			\
++	gdmsetup		\
++	$(NULL)
++
++gdmsetup_SOURCES =		\
++	gdmsetup.c		\
++	$(NULL)
++
++gdmsetup_LDADD =						\
++	$(top_builddir)/common/libgdmcommon.la			\
++	$(top_builddir)/gui/simple-greeter/libgdmuser.la	\
++	$(GDMSETUP_LIBS)					\
++	$(NULL)
++
++uidir = $(pkgdatadir)
++ui_DATA = 			\
++	gdmsetup.ui		\
++	$(NULL)
++
++Systemdir = $(datadir)/applications
++System_in_files = gdmsetup.desktop.in
++System_DATA = $(System_in_files:.desktop.in=.desktop)
++@INTLTOOL_DESKTOP_RULE@
++
++EXTRA_DIST = 			\
++	$(ui_DATA)		\
++	$(System_in_files)	\
++	$(NULL)
+--- a/gui/Makefile.am
++++ b/gui/Makefile.am
+@@ -4,4 +4,5 @@
+ 	simple-chooser		\
+ 	simple-greeter		\
+ 	user-switch-applet	\
++	gdmsetup		\
+ 	$(NULL)
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -60,6 +60,9 @@
+ data/greeter-autostart/metacity.desktop.in
+ data/greeter-autostart/orca-screen-reader.desktop.in
+ data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
++gui/gdmsetup/gdmsetup.desktop.in
++gui/gdmsetup/gdmsetup.c
++[type: gettext/glade]gui/gdmsetup/gdmsetup.ui
+ gui/simple-chooser/gdm-host-chooser-dialog.c
+ gui/simple-chooser/gdm-host-chooser-widget.c
+ gui/simple-greeter/gdm-cell-renderer-timer.c

@@ -6,5 +6,6 @@ debian/gdmflexiserver.desktop		usr/share/gdm/applications
 debian/gdmflexiserver.svg		usr/share/icons/hicolor/scalable/apps
 debian/gdmflexiserver-xnest.desktop     usr/share/gdm/applications
 debian/gdm-xnest.svg                    usr/share/icons/hicolor/scalable/apps
+debian/gdmsetup.svg                     usr/share/icons/hicolor/scalable/apps
 debian/default.desktop			usr/share/gdm/BuiltInSessions
 data/session-setup.entries		usr/share/gdm/greeter-config

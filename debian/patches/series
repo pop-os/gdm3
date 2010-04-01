@@ -9,4 +9,6 @@
 09_default_session.patch
 10_gdm3_pam.patch
 11_xephyr_nested.patch
+12_polkit_settings.patch
+13_gdmsetup.patch
 90_relibtoolize.patch

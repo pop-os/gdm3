@@ -1,10 +1,20 @@
 gdm3 (2.30.0-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * debian/control.in:
+    - Added libpolkit-gobject-1-dev and libpolkit-gtk-1-dev build-depends
+      for gdmsetup patch.
   * debian/patches/11_xephyr_nested.patch:
     - Added, support running gdm in a nested window.
+  * debian/patches/12_polkit_settings.patch:
+    - Added, make it possible for users to change gdm system settings.
+  * debian/patches/13_gdmsetup.patch:
+    - Added a modified version of Ubuntu patch, brings back the gdmsetup
+      binary for changing gdm system settings.
+  * debian/gdmsetup.svg:
+    - Added, use this icon instead of old gdm-setup.png.
 
- -- Luca Bruno <lethalman88@gmail.com>  Thu, 01 Apr 2010 12:51:39 +0200
+ -- Luca Bruno <lethalman88@gmail.com>  Thu, 01 Apr 2010 21:07:25 +0200
 
 gdm3 (2.29.92-1) experimental; urgency=low
 
