@@ -8,4 +8,5 @@
 08_frequent-users_greeter.patch
 09_default_session.patch
 10_gdm3_pam.patch
+11_xephyr_nested.patch
 90_relibtoolize.patch

@@ -1,0 +1,1391 @@
+Debian: add CreateNestedDisplay(parent_display_id) dbus method.
+--- a/daemon/gdm-display.c
++++ b/daemon/gdm-display.c
+@@ -52,6 +52,7 @@
+ {
+         char                 *id;
+         char                 *seat_id;
++        GdmDisplay           *parent_display;
+ 
+         char                 *remote_hostname;
+         int                   x11_display_number;
+@@ -66,6 +67,7 @@
+         GdmDisplayAccessFile *access_file;
+ 
+         gboolean              is_local;
++        gboolean              is_nested;
+         guint                 finish_idle_id;
+ 
+         GdmSlaveProxy        *slave_proxy;
+@@ -78,12 +80,14 @@
+         PROP_ID,
+         PROP_STATUS,
+         PROP_SEAT_ID,
++        PROP_PARENT_DISPLAY,
+         PROP_REMOTE_HOSTNAME,
+         PROP_X11_DISPLAY_NUMBER,
+         PROP_X11_DISPLAY_NAME,
+         PROP_X11_COOKIE,
+         PROP_X11_AUTHORITY_FILE,
+         PROP_IS_LOCAL,
++        PROP_IS_NESTED,
+         PROP_SLAVE_COMMAND,
+ };
+ 
+@@ -275,6 +279,33 @@
+         return ret;
+ }
+ 
++gboolean
++gdm_display_get_user_authorization (GdmDisplay *display,
++                                    char      **username,
++                                    char      **filename,
++                                    GError    **error)
++{
++        gboolean ret;
++
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        ret = FALSE;
++
++        if (display->priv->user_access_file != NULL) {
++                if (username)
++                        g_object_get (display->priv->user_access_file,
++                                      "username", username,
++                                      NULL);
++                if (filename)
++                        g_object_get (display->priv->user_access_file,
++                                      "path", filename,
++                                      NULL);
++                ret = TRUE;
++        }
++
++        return ret;
++}
++
+ static gboolean
+ gdm_display_real_set_slave_bus_name (GdmDisplay *display,
+                                      const char *name,
+@@ -742,6 +773,24 @@
+ }
+ 
+ gboolean
++gdm_display_get_parent_id (GdmDisplay         *display,
++                           char              **parent_id,
++                           GError            **error)
++{
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        gboolean ret = TRUE;
++        if (parent_id != NULL) {
++                ret = FALSE;
++                if (display->priv->parent_display != NULL) {
++                        ret = gdm_display_get_id (display->priv->parent_display, parent_id, error);
++                }
++        }
++
++        return ret;
++}
++
++gboolean
+ gdm_display_get_x11_display_name (GdmDisplay   *display,
+                                   char        **x11_display,
+                                   GError      **error)
+@@ -769,6 +818,20 @@
+         return TRUE;
+ }
+ 
++gboolean
++gdm_display_is_nested (GdmDisplay *display,
++                       gboolean   *nested,
++                       GError    **error)
++{
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        if (nested != NULL) {
++                *nested = display->priv->is_nested;
++        }
++
++        return TRUE;
++}
++
+ static void
+ _gdm_display_set_id (GdmDisplay     *display,
+                      const char     *id)
+@@ -786,6 +849,18 @@
+ }
+ 
+ static void
++_gdm_display_set_parent_display (GdmDisplay     *display,
++                                 GdmDisplay     *parent_display)
++{
++        if (display->priv->parent_display != NULL)
++                g_object_remove_weak_pointer (display, &display->priv->parent_display);
++
++        display->priv->parent_display = parent_display;
++        if (parent_display != NULL)
++                g_object_add_weak_pointer (display, &display->priv->parent_display);
++}
++
++static void
+ _gdm_display_set_remote_hostname (GdmDisplay     *display,
+                                   const char     *hostname)
+ {
+@@ -824,6 +899,13 @@
+ }
+ 
+ static void
++_gdm_display_set_is_nested (GdmDisplay     *display,
++                            gboolean        is_nested)
++{
++        display->priv->is_nested = is_nested;
++}
++
++static void
+ _gdm_display_set_slave_command (GdmDisplay     *display,
+                                 const char     *command)
+ {
+@@ -845,6 +927,9 @@
+         case PROP_ID:
+                 _gdm_display_set_id (self, g_value_get_string (value));
+                 break;
++        case PROP_PARENT_DISPLAY:
++                _gdm_display_set_parent_display (self, g_value_get_object (value));
++                break;
+         case PROP_STATUS:
+                 _gdm_display_set_status (self, g_value_get_int (value));
+                 break;
+@@ -866,6 +951,9 @@
+         case PROP_IS_LOCAL:
+                 _gdm_display_set_is_local (self, g_value_get_boolean (value));
+                 break;
++        case PROP_IS_NESTED:
++                _gdm_display_set_is_nested (self, g_value_get_boolean (value));
++                break;
+         case PROP_SLAVE_COMMAND:
+                 _gdm_display_set_slave_command (self, g_value_get_string (value));
+                 break;
+@@ -889,6 +977,9 @@
+         case PROP_ID:
+                 g_value_set_string (value, self->priv->id);
+                 break;
++        case PROP_PARENT_DISPLAY:
++                g_value_set_object (value, self->priv->parent_display);
++                break;
+         case PROP_STATUS:
+                 g_value_set_int (value, self->priv->status);
+                 break;
+@@ -914,6 +1005,9 @@
+         case PROP_IS_LOCAL:
+                 g_value_set_boolean (value, self->priv->is_local);
+                 break;
++        case PROP_IS_NESTED:
++                g_value_set_boolean (value, self->priv->is_nested);
++                break;
+         case PROP_SLAVE_COMMAND:
+                 g_value_set_string (value, self->priv->slave_command);
+                 break;
+@@ -979,6 +1073,11 @@
+ 
+         g_debug ("GdmDisplay: Disposing display");
+ 
++        if (display->priv->parent_display != NULL) {
++                g_object_remove_weak_pointer (display->priv->parent_display, &display->priv->parent_display);
++                display->priv->parent_display = NULL;
++        }
++
+         if (display->priv->finish_idle_id > 0) {
+                 g_source_remove (display->priv->finish_idle_id);
+                 display->priv->finish_idle_id = 0;
+@@ -1032,6 +1131,15 @@
+                                                               "id",
+                                                               NULL,
+                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY,
++                                         g_param_spec_object ("parent-display",
++                                                              "parent display",
++                                                              "parent display",
++                                                              GDM_TYPE_DISPLAY,
++                                                              G_PARAM_READWRITE));
++
+         g_object_class_install_property (object_class,
+                                          PROP_REMOTE_HOSTNAME,
+                                          g_param_spec_string ("remote-hostname",
+@@ -1086,6 +1194,14 @@
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+ 
+         g_object_class_install_property (object_class,
++                                         PROP_IS_NESTED,
++                                         g_param_spec_boolean ("is-nested",
++                                                               "display is nested",
++                                                               "display is nested",
++                                                               FALSE,
++                                                               G_PARAM_READWRITE));
++
++        g_object_class_install_property (object_class,
+                                          PROP_SLAVE_COMMAND,
+                                          g_param_spec_string ("slave-command",
+                                                               "slave command",
+@@ -1137,6 +1253,10 @@
+         g_free (display->priv->x11_cookie);
+         g_free (display->priv->slave_command);
+ 
++        if (display->priv->parent_display != NULL) {
++                g_object_remove_weak_pointer (display->priv->parent_display, &display->priv->parent_display);
++        }
++
+         if (display->priv->access_file != NULL) {
+                 g_object_unref (display->priv->access_file);
+         }
+--- a/daemon/gdm-display.h
++++ b/daemon/gdm-display.h
+@@ -102,6 +102,9 @@
+ gboolean            gdm_display_get_id                         (GdmDisplay *display,
+                                                                 char      **id,
+                                                                 GError    **error);
++gboolean            gdm_display_get_parent_id                  (GdmDisplay *display,
++                                                                char      **parent_id,
++                                                                GError    **error);
+ gboolean            gdm_display_get_remote_hostname            (GdmDisplay *display,
+                                                                 char      **hostname,
+                                                                 GError    **error);
+@@ -117,6 +120,9 @@
+ gboolean            gdm_display_is_local                       (GdmDisplay *display,
+                                                                 gboolean   *local,
+                                                                 GError    **error);
++gboolean            gdm_display_is_nested                      (GdmDisplay *display,
++                                                                gboolean   *nested,
++                                                                GError    **error);
+ gboolean            gdm_display_get_timed_login_details        (GdmDisplay *display,
+                                                                 gboolean   *enabled,
+                                                                 char      **username,
+@@ -137,6 +143,10 @@
+ gboolean            gdm_display_remove_user_authorization      (GdmDisplay *display,
+                                                                 const char *username,
+                                                                 GError    **error);
++gboolean            gdm_display_get_user_authorization         (GdmDisplay *display,
++                                                                char      **username,
++                                                                char      **filename,
++                                                                GError    **error);
+ gboolean            gdm_display_set_slave_bus_name             (GdmDisplay *display,
+                                                                 const char *name,
+                                                                 GError    **error);
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -22,6 +22,8 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <sys/types.h>
++#include <pwd.h>
+ 
+ #include <glib.h>
+ #include <glib/gi18n.h>
+@@ -274,6 +276,131 @@
+ 
+         return ret;
+ }
++
++static gboolean
++find_display_by_id (const char *id, GdmDisplay *display, gpointer    user_data)
++{
++        return !strcmp (id, (const char*)user_data);
++}
++
++gboolean
++gdm_local_display_factory_create_nested_display (GdmLocalDisplayFactory *factory,
++                                                 const char             *parent_display_id,
++                                                 DBusGMethodInvocation  *context)
++{
++        GdmDisplayStore *store;
++        GError     *error;
++        DBusGProxy *proxy;
++        gboolean    ret;
++        GdmDisplay *parent_display;
++        GdmDisplay *display;
++        char       *parent_username;
++        char       *sender;
++        uid_t      uid;
++        struct passwd *pw;
++        char       *id;
++        guint32     num;
++
++        g_return_val_if_fail (GDM_IS_LOCAL_DISPLAY_FACTORY (factory), FALSE);
++
++        ret = FALSE;
++        display = NULL;
++        sender = NULL;
++        proxy = NULL;
++        parent_username = NULL;
++        pw = NULL;
++        error = NULL;
++
++        g_debug ("GdmLocalDisplayFactory: Creating nested display parent %s", parent_display_id);
++
++        store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
++        parent_display = gdm_display_store_find (store, find_display_by_id, parent_display_id);
++        if (!parent_display)
++                goto out;
++
++        if (!gdm_display_get_user_authorization (parent_display, &parent_username, NULL, &error))
++                goto out;
++
++        sender = dbus_g_method_get_sender (context);
++        if (!sender) {
++                g_debug ("GdmLocalDisplayFactory: Unable to get sender");
++                goto out;
++        }
++
++        proxy = dbus_g_proxy_new_for_name_owner (factory->priv->connection,
++                                                 "org.freedesktop.DBus",
++                                                 "/",
++                                                 "org.freedesktop.DBus",
++                                                 &error);
++        if (!proxy)
++                goto out;
++
++        if (!dbus_g_proxy_call (proxy,
++                                "GetConnectionUnixUser",
++                                &error,
++                                G_TYPE_STRING, sender,
++                                G_TYPE_INVALID,
++                                G_TYPE_UINT, &uid,
++                                G_TYPE_INVALID)) {
++                g_debug ("GdmLocalDisplayFactory: Unable to get unix user: %s", error->message);
++                goto out;
++        }
++
++        pw = getpwuid (uid);
++        if (pw == NULL) {
++                g_warning ("GdmLocalDisplayFactory: Can't get passwd for uid: %u", uid);
++                goto out;
++        }
++
++        if (!pw->pw_name || strcmp (pw->pw_name, parent_username)) {
++                g_warning ("GdmLocalDisplayFactory: Invalid attempt to create nested display for parent %s user %u", parent_display_id, uid);
++                goto out;
++        }
++
++        num = take_next_display_number (factory);
++
++        g_debug ("GdmLocalDisplayFactory: got display num %u", num);
++
++        display = gdm_transient_display_new (num);
++
++        /* FIXME: don't hardcode seat1? */
++        g_object_set (display,
++                      "seat-id", CK_SEAT1_PATH,
++                      "parent-display", parent_display,
++                      "is-nested", TRUE,
++                      NULL);
++
++        store_display (factory, num, display);
++
++        if (! gdm_display_manage (display)) {
++                display = NULL;
++                goto out;
++        }
++
++        if (! gdm_display_get_id (display, &id, &error)) {
++                display = NULL;
++                goto out;
++        }
++
++        g_debug ("GdmLocalDisplayFactory: Created nested display :%d for user %s", num, parent_username);
++        ret = TRUE;
++ out:
++        /* ref either held by store or not at all */
++        g_object_unref (display);
++        g_object_unref (proxy);
++        g_free (parent_username);
++        g_free (sender);
++
++        if (ret) {
++                dbus_g_method_return (context, id);
++        } else {
++                dbus_g_method_return_error (context, error);
++                if (error)
++                        g_error_free (error);
++        }
++
++        return ret;
++}
+ 
+ static void
+ on_static_display_status_changed (GdmDisplay             *display,
+--- a/daemon/gdm-local-display-factory.h
++++ b/daemon/gdm-local-display-factory.h
+@@ -65,6 +65,10 @@
+                                                                                char                  **id,
+                                                                                GError                **error);
+ 
++gboolean                   gdm_local_display_factory_create_nested_display (GdmLocalDisplayFactory *factory,
++                                                                            const char             *parent_display_id,
++                                                                            DBusGMethodInvocation  *context);
++
+ gboolean                   gdm_local_display_factory_create_product_display   (GdmLocalDisplayFactory *factory,
+                                                                                const char             *parent_display_id,
+                                                                                const char             *relay_address,
+--- a/daemon/gdm-local-display-factory.xml
++++ b/daemon/gdm-local-display-factory.xml
+@@ -9,5 +9,10 @@
+     <method name="CreateTransientDisplay">
+       <arg name="id" direction="out" type="o"/>
+     </method>
++    <method name="CreateNestedDisplay">
++      <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
++      <arg name="parent_display_id" direction="in" type="o"/>
++      <arg name="id" direction="out" type="o"/>
++    </method>
+   </interface>
+ </node>
+--- a/daemon/gdm-simple-slave.c
++++ b/daemon/gdm-simple-slave.c
+@@ -1043,6 +1043,9 @@
+ idle_connect_to_display (GdmSimpleSlave *slave)
+ {
+         gboolean res;
++        gboolean display_is_nested;
++
++        g_object_get (slave, "display-is-nested", &display_is_nested, NULL);
+ 
+         slave->priv->connection_attempts++;
+ 
+@@ -1053,7 +1056,8 @@
+ 
+                 /* FIXME: handle wait-for-go */
+ 
+-                setup_server (slave);
++                if (!display_is_nested)
++                        setup_server (slave);
+ 
+                 delay = 0;
+                 enabled = FALSE;
+@@ -1109,12 +1113,20 @@
+ {
+         char    *display_name;
+         char    *auth_file;
++        char    *parent_display_name;
++        char    *parent_user_auth_file;
++        char    *parent_username;
+         gboolean display_is_local;
++        gboolean display_is_nested;
+ 
+         g_object_get (slave,
+                       "display-is-local", &display_is_local,
++                      "display-is-nested", &display_is_nested,
+                       "display-name", &display_name,
+                       "display-x11-authority-file", &auth_file,
++                      "parent-display-name", &parent_display_name,
++                      "parent-display-user-auth-file", &parent_user_auth_file,
++                      "parent-display-username", &parent_username,
+                       NULL);
+ 
+         /* if this is local display start a server if one doesn't
+@@ -1133,6 +1145,16 @@
+                                       NULL);
+                 }
+ 
++                if (display_is_nested) {
++                        g_object_set (slave->priv->server,
++                                      "is-nested", TRUE,
++                                      "is-parented", TRUE,
++                                      "parent-display-name", parent_display_name,
++                                      "parent-auth-file", parent_user_auth_file,
++                                      "user-name", parent_username,
++                                      NULL);
++                }
++
+                 g_signal_connect (slave->priv->server,
+                                   "exited",
+                                   G_CALLBACK (on_server_exited),
+--- a/daemon/gdm-slave.c
++++ b/daemon/gdm-slave.c
+@@ -78,31 +78,41 @@
+ 
+         /* cached display values */
+         char            *display_id;
++        char            *display_parent_id;
+         char            *display_name;
+         int              display_number;
+         char            *display_hostname;
+         gboolean         display_is_local;
++        gboolean         display_is_nested;
+         gboolean         display_is_parented;
+         char            *display_seat_id;
+         char            *display_x11_authority_file;
+-        char            *parent_display_name;
+-        char            *parent_display_x11_authority_file;
+ 
+         GArray          *display_x11_cookie;
+ 
++        char            *parent_display_name;
++        char            *parent_display_user_auth_file;
++        char            *parent_display_username;
++
+         DBusGProxy      *display_proxy;
++        DBusGProxy      *parent_display_proxy;
+         DBusGConnection *connection;
+ };
+ 
+ enum {
+         PROP_0,
+         PROP_DISPLAY_ID,
++        PROP_DISPLAY_PARENT_ID,
+         PROP_DISPLAY_NAME,
+         PROP_DISPLAY_NUMBER,
+         PROP_DISPLAY_HOSTNAME,
+         PROP_DISPLAY_IS_LOCAL,
++        PROP_DISPLAY_IS_NESTED,
+         PROP_DISPLAY_SEAT_ID,
+-        PROP_DISPLAY_X11_AUTHORITY_FILE
++        PROP_DISPLAY_X11_AUTHORITY_FILE,
++        PROP_PARENT_DISPLAY_NAME,
++        PROP_PARENT_DISPLAY_USER_AUTH_FILE,
++        PROP_PARENT_DISPLAY_USERNAME
+ };
+ 
+ enum {
+@@ -378,6 +388,10 @@
+ 
+         g_debug ("GdmSlave: Server is ready - opening display %s", slave->priv->display_name);
+ 
++        /* don't let root connect to nested displays */
++        if (slave->priv->display_is_nested)
++                return TRUE;
++
+         g_setenv ("DISPLAY", slave->priv->display_name, TRUE);
+         g_setenv ("XAUTHORITY", slave->priv->display_x11_authority_file, TRUE);
+ 
+@@ -446,6 +460,15 @@
+         slave->priv->display_proxy = NULL;
+ }
+ 
++static void
++parent_display_proxy_destroyed_cb (DBusGProxy *parent_display_proxy,
++                                   GdmSlave   *slave)
++{
++        g_debug ("GdmSlave: Disconnected from parent display");
++
++        slave->priv->parent_display_proxy = NULL;
++}
++
+ static gboolean
+ gdm_slave_set_slave_bus_name (GdmSlave *slave)
+ {
+@@ -480,11 +503,13 @@
+ {
+         gboolean res;
+         char    *id;
++        char    *parent_id;
+         GError  *error;
+ 
+         g_debug ("GdmSlave: Starting slave");
+ 
+         g_assert (slave->priv->display_proxy == NULL);
++        g_assert (slave->priv->parent_display_proxy == NULL);
+ 
+         g_debug ("GdmSlave: Creating proxy for %s", slave->priv->display_id);
+         error = NULL;
+@@ -539,6 +564,134 @@
+         /* cache some values up front */
+         error = NULL;
+         res = dbus_g_proxy_call (slave->priv->display_proxy,
++                                 "IsNested",
++                                 &error,
++                                 G_TYPE_INVALID,
++                                 G_TYPE_BOOLEAN, &slave->priv->display_is_nested,
++                                 G_TYPE_INVALID);
++        if (! res) {
++                if (error != NULL) {
++                        g_warning ("Failed to get value: %s", error->message);
++                        g_error_free (error);
++                } else {
++                        g_warning ("Failed to get value");
++                }
++
++                return FALSE;
++        }
++
++        if (slave->priv->display_is_nested) {
++                /* parent display */
++                error = NULL;
++                res = dbus_g_proxy_call (slave->priv->display_proxy,
++                                         "GetParentId",
++                                         &error,
++                                         G_TYPE_INVALID,
++                                         DBUS_TYPE_G_OBJECT_PATH, &slave->priv->display_parent_id,
++                                         G_TYPE_INVALID);
++                if (! res) {
++                        if (error != NULL) {
++                                g_warning ("Failed to get display parent ID: %s", error->message);
++                                g_error_free (error);
++                        } else {
++                                g_warning ("Failed to get display parent ID");
++                        }
++
++                        return FALSE;
++                }
++        }
++
++        if (slave->priv->display_parent_id) {
++                g_debug ("GdmSlave: Got display parent ID: %s", slave->priv->display_parent_id);
++
++                g_debug ("GdmSlave: Creating proxy for parent %s", slave->priv->display_parent_id);
++                error = NULL;
++                slave->priv->parent_display_proxy = dbus_g_proxy_new_for_name_owner (slave->priv->connection,
++                                                                                     GDM_DBUS_NAME,
++                                                                                     slave->priv->display_parent_id,
++                                                                                     GDM_DBUS_DISPLAY_INTERFACE,
++                                                                                     &error);
++                g_signal_connect (slave->priv->parent_display_proxy,
++                                  "destroy",
++                                  G_CALLBACK (parent_display_proxy_destroyed_cb),
++                                  slave);
++
++                if (slave->priv->parent_display_proxy == NULL) {
++                        if (error != NULL) {
++                                g_warning ("Failed to create parent display proxy %s: %s", slave->priv->display_parent_id, error->message);
++                                g_error_free (error);
++                        } else {
++                                g_warning ("Unable to create parent display proxy");
++                        }
++                        return FALSE;
++                }
++
++                /* Make sure display parent ID works */
++                error = NULL;
++                res = dbus_g_proxy_call (slave->priv->parent_display_proxy,
++                                         "GetId",
++                                         &error,
++                                         G_TYPE_INVALID,
++                                         DBUS_TYPE_G_OBJECT_PATH, &parent_id,
++                                         G_TYPE_INVALID);
++                if (! res) {
++                        if (error != NULL) {
++                                g_warning ("Failed to get parent display ID %s: %s", slave->priv->display_parent_id, error->message);
++                                g_error_free (error);
++                        } else {
++                                g_warning ("Failed to get parent display ID %s", slave->priv->display_parent_id);
++                        }
++
++                        return FALSE;
++                }
++
++                g_debug ("GdmSlave: Got display parent ID: %s", parent_id);
++
++                if (strcmp (parent_id, slave->priv->display_parent_id) != 0) {
++                        g_critical ("Display parent ID doesn't match");
++                        exit (1);
++                }
++
++                error = NULL;
++                res = dbus_g_proxy_call (slave->priv->parent_display_proxy,
++                                         "GetX11DisplayName",
++                                         &error,
++                                         G_TYPE_INVALID,
++                                         G_TYPE_STRING, &slave->priv->parent_display_name,
++                                         G_TYPE_INVALID);
++                if (! res) {
++                        if (error != NULL) {
++                                g_warning ("Failed to get parent display value: %s", error->message);
++                                g_error_free (error);
++                        } else {
++                                g_warning ("Failed to get parent display value");
++                        }
++
++                        return FALSE;
++                }
++
++                error = NULL;
++                res = dbus_g_proxy_call (slave->priv->parent_display_proxy,
++                                         "GetUserAuthorization",
++                                         &error,
++                                         G_TYPE_INVALID,
++                                         G_TYPE_STRING, &slave->priv->parent_display_username,
++                                         G_TYPE_STRING, &slave->priv->parent_display_user_auth_file,
++                                         G_TYPE_INVALID);
++                if (! res) {
++                        if (error != NULL) {
++                                g_warning ("Failed to get parent display value: %s", error->message);
++                                g_error_free (error);
++                        } else {
++                                g_warning ("Failed to get parent display value");
++                        }
++
++                        return FALSE;
++                }
++        }
++
++        error = NULL;
++        res = dbus_g_proxy_call (slave->priv->display_proxy,
+                                  "IsLocal",
+                                  &error,
+                                  G_TYPE_INVALID,
+@@ -1284,6 +1437,14 @@
+ }
+ 
+ static void
++_gdm_slave_set_display_parent_id (GdmSlave   *slave,
++                                  const char *id)
++{
++        g_free (slave->priv->display_parent_id);
++        slave->priv->display_parent_id = g_strdup (id);
++}
++
++static void
+ _gdm_slave_set_display_name (GdmSlave   *slave,
+                              const char *name)
+ {
+@@ -1330,6 +1491,37 @@
+ }
+ 
+ static void
++_gdm_slave_set_display_is_nested (GdmSlave   *slave,
++                                  gboolean    is_nested)
++{
++        slave->priv->display_is_nested = is_nested;
++}
++
++static void
++_gdm_slave_set_parent_display_name (GdmSlave   *slave,
++                                    const char *name)
++{
++        g_free (slave->priv->parent_display_name);
++        slave->priv->parent_display_name = g_strdup (name);
++}
++
++static void
++_gdm_slave_set_parent_display_user_auth_file (GdmSlave   *slave,
++                                              const char *auth_file)
++{
++        g_free (slave->priv->parent_display_user_auth_file);
++        slave->priv->parent_display_user_auth_file = g_strdup (auth_file);
++}
++
++static void
++_gdm_slave_set_parent_display_username (GdmSlave   *slave,
++                                        const char *name)
++{
++        g_free (slave->priv->parent_display_username);
++        slave->priv->parent_display_username = g_strdup (name);
++}
++
++static void
+ gdm_slave_set_property (GObject      *object,
+                         guint         prop_id,
+                         const GValue *value,
+@@ -1343,6 +1535,9 @@
+         case PROP_DISPLAY_ID:
+                 _gdm_slave_set_display_id (self, g_value_get_string (value));
+                 break;
++        case PROP_DISPLAY_PARENT_ID:
++                _gdm_slave_set_display_parent_id (self, g_value_get_string (value));
++                break;
+         case PROP_DISPLAY_NAME:
+                 _gdm_slave_set_display_name (self, g_value_get_string (value));
+                 break;
+@@ -1361,6 +1556,18 @@
+         case PROP_DISPLAY_IS_LOCAL:
+                 _gdm_slave_set_display_is_local (self, g_value_get_boolean (value));
+                 break;
++        case PROP_DISPLAY_IS_NESTED:
++                _gdm_slave_set_display_is_nested (self, g_value_get_boolean (value));
++                break;
++        case PROP_PARENT_DISPLAY_NAME:
++                _gdm_slave_set_parent_display_name (self, g_value_get_string (value));
++                break;
++        case PROP_PARENT_DISPLAY_USER_AUTH_FILE:
++                _gdm_slave_set_parent_display_user_auth_file (self, g_value_get_string (value));
++                break;
++        case PROP_PARENT_DISPLAY_USERNAME:
++                _gdm_slave_set_parent_display_username (self, g_value_get_string (value));
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -1381,6 +1588,9 @@
+         case PROP_DISPLAY_ID:
+                 g_value_set_string (value, self->priv->display_id);
+                 break;
++        case PROP_DISPLAY_PARENT_ID:
++                g_value_set_string (value, self->priv->display_parent_id);
++                break;
+         case PROP_DISPLAY_NAME:
+                 g_value_set_string (value, self->priv->display_name);
+                 break;
+@@ -1399,6 +1609,18 @@
+         case PROP_DISPLAY_IS_LOCAL:
+                 g_value_set_boolean (value, self->priv->display_is_local);
+                 break;
++        case PROP_DISPLAY_IS_NESTED:
++                g_value_set_boolean (value, self->priv->display_is_nested);
++                break;
++        case PROP_PARENT_DISPLAY_NAME:
++                g_value_set_string (value, self->priv->parent_display_name);
++                break;
++        case PROP_PARENT_DISPLAY_USER_AUTH_FILE:
++                g_value_set_string (value, self->priv->parent_display_user_auth_file);
++                break;
++        case PROP_PARENT_DISPLAY_USERNAME:
++                g_value_set_string (value, self->priv->parent_display_username);
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -1480,6 +1702,13 @@
+                                                               NULL,
+                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+         g_object_class_install_property (object_class,
++                                         PROP_DISPLAY_PARENT_ID,
++                                         g_param_spec_string ("display-parent-id",
++                                                              "id",
++                                                              "id",
++                                                              NULL,
++                                                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++        g_object_class_install_property (object_class,
+                                          PROP_DISPLAY_NAME,
+                                          g_param_spec_string ("display-name",
+                                                               "display name",
+@@ -1523,6 +1752,34 @@
+                                                                "display is local",
+                                                                TRUE,
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++        g_object_class_install_property (object_class,
++                                         PROP_DISPLAY_IS_NESTED,
++                                         g_param_spec_boolean ("display-is-nested",
++                                                               "display is nested",
++                                                               "display is nested",
++                                                               FALSE,
++                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY_NAME,
++                                         g_param_spec_string ("parent-display-name",
++                                                              "parent display name",
++                                                              "parent display name",
++                                                              NULL,
++                                                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY_USER_AUTH_FILE,
++                                         g_param_spec_string ("parent-display-user-auth-file",
++                                                              "parent display user auth file",
++                                                              "parent display user auth file",
++                                                              NULL,
++                                                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY_USERNAME,
++                                         g_param_spec_string ("parent-display-username",
++                                                              "parent display authorized username",
++                                                              "parent display authorized username",
++                                                              NULL,
++                                                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+ 
+         signals [STOPPED] =
+                 g_signal_new ("stopped",
+@@ -1568,7 +1825,7 @@
+         g_free (slave->priv->display_seat_id);
+         g_free (slave->priv->display_x11_authority_file);
+         g_free (slave->priv->parent_display_name);
+-        g_free (slave->priv->parent_display_x11_authority_file);
++        g_free (slave->priv->parent_display_user_auth_file);
+         g_array_free (slave->priv->display_x11_cookie, TRUE);
+ 
+         G_OBJECT_CLASS (gdm_slave_parent_class)->finalize (object);
+--- a/daemon/gdm-display.xml
++++ b/daemon/gdm-display.xml
+@@ -4,6 +4,9 @@
+     <method name="GetId">
+       <arg name="id" direction="out" type="o"/>
+     </method>
++    <method name="GetParentId">
++      <arg name="parent_id" direction="out" type="o"/>
++    </method>
+     <method name="GetX11DisplayName">
+       <arg name="name" direction="out" type="s"/>
+     </method>
+@@ -25,6 +28,9 @@
+     <method name="IsLocal">
+       <arg name="local" direction="out" type="b"/>
+     </method>
++    <method name="IsNested">
++      <arg name="nested" direction="out" type="b"/>
++    </method>
+     <method name="AddUserAuthorization">
+       <arg name="username" direction="in" type="s"/>
+       <arg name="filename" direction="out" type="s"/>
+@@ -32,6 +38,10 @@
+     <method name="RemoveUserAuthorization">
+       <arg name="username" direction="in" type="s"/>
+     </method>
++    <method name="GetUserAuthorization">
++      <arg name="username" direction="out" type="s"/>
++      <arg name="filename" direction="out" type="s"/>
++    </method>
+     <method name="SetSlaveBusName">
+       <arg name="name" direction="in" type="s"/>
+     </method>
+--- a/data/gdm.conf.in
++++ b/data/gdm.conf.in
+@@ -62,10 +62,16 @@
+     <allow send_destination="org.gnome.DisplayManager"
+            send_interface="org.gnome.DisplayManager.Display"
+            send_member="IsLocal"/>
++    <allow send_destination="org.gnome.DisplayManager"
++           send_interface="org.gnome.DisplayManager.Display"
++           send_member="IsNested"/>
+ 
+     <allow send_destination="org.gnome.DisplayManager"
+            send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
+            send_member="CreateTransientDisplay"/>
++    <allow send_destination="org.gnome.DisplayManager"
++           send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
++           send_member="CreateNestedDisplay"/>
+ 
+     <allow send_destination="org.gnome.DisplayManager"
+            send_interface="org.gnome.DisplayManager.Manager"
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -76,11 +76,13 @@
+         char    *auth_file;
+ 
+         gboolean is_parented;
++        gboolean is_nested;
+         char    *parent_display_name;
+         char    *parent_auth_file;
+         char    *chosen_hostname;
+ 
+         guint    child_watch_id;
++        gboolean is_ready;
+ };
+ 
+ enum {
+@@ -89,6 +91,7 @@
+         PROP_DISPLAY_DEVICE,
+         PROP_AUTH_FILE,
+         PROP_IS_PARENTED,
++        PROP_IS_NESTED,
+         PROP_PARENT_DISPLAY_NAME,
+         PROP_PARENT_AUTH_FILE,
+         PROP_CHOSEN_HOSTNAME,
+@@ -166,9 +169,12 @@
+ static gboolean
+ emit_ready_idle (GdmServer *server)
+ {
+-        g_debug ("GdmServer: Got USR1 from X server - emitting READY");
++        if (!server->priv->is_ready) {
++                server->priv->is_ready = TRUE;
++                g_debug ("GdmServer: Got USR1 from X server - emitting READY");
+ 
+-        g_signal_emit (server, signals[READY], 0);
++                g_signal_emit (server, signals[READY], 0);
++        }
+         return FALSE;
+ }
+ 
+@@ -654,7 +660,13 @@
+         g_ptr_array_foreach (env, (GFunc)g_free, NULL);
+         g_ptr_array_free (env, TRUE);
+ 
+-        g_debug ("GdmServer: Started X server process %d - waiting for READY", (int)server->priv->pid);
++        if (server->priv->is_nested) {
++                // Xephyr doesn't send back any signal
++                g_debug ("GdmServer: Started Xephyr server process %d", (int)server->priv->pid);
++                g_timeout_add (500, (GSourceFunc)emit_ready_idle, server);
++        } else {
++                g_debug ("GdmServer: Started X server process %d - waiting for READY", (int)server->priv->pid);
++        }
+ 
+         server->priv->child_watch_id = g_child_watch_add (server->priv->pid,
+                                                           (GChildWatchFunc)server_child_watch,
+@@ -759,6 +771,41 @@
+ }
+ 
+ static void
++_gdm_server_set_parent_display_name (GdmServer  *server,
++                                     const char *name)
++{
++        g_free (server->priv->parent_display_name);
++        server->priv->parent_display_name = g_strdup (name);
++}
++
++static void
++_gdm_server_set_parent_auth_file (GdmServer  *server,
++                                  const char *auth_file)
++{
++        g_free (server->priv->parent_auth_file);
++        server->priv->parent_auth_file = g_strdup (auth_file);
++}
++
++static void
++_gdm_server_set_is_parented (GdmServer  *server,
++                             gboolean    is_parented)
++{
++        server->priv->is_parented = is_parented;
++}
++
++static void
++_gdm_server_set_is_nested (GdmServer  *server,
++                           gboolean    is_nested)
++{
++        server->priv->is_nested = is_nested;
++        g_free (server->priv->command);
++        if (is_nested)
++                server->priv->command = g_strdup (X_XNEST_CMD " " X_XNEST_CONFIG_OPTIONS " -br");
++        else
++                server->priv->command = g_strdup (X_SERVER " -br -verbose");
++}
++
++static void
+ _gdm_server_set_disable_tcp (GdmServer  *server,
+                              gboolean    disabled)
+ {
+@@ -785,9 +832,21 @@
+         case PROP_USER_NAME:
+                 _gdm_server_set_user_name (self, g_value_get_string (value));
+                 break;
++        case PROP_PARENT_DISPLAY_NAME:
++                _gdm_server_set_parent_display_name (self, g_value_get_string (value));
++                break;
++        case PROP_PARENT_AUTH_FILE:
++                _gdm_server_set_parent_auth_file (self, g_value_get_string (value));
++                break;
+         case PROP_DISABLE_TCP:
+                 _gdm_server_set_disable_tcp (self, g_value_get_boolean (value));
+                 break;
++        case PROP_IS_PARENTED:
++                _gdm_server_set_is_parented (self, g_value_get_boolean (value));
++                break;
++        case PROP_IS_NESTED:
++                _gdm_server_set_is_nested (self, g_value_get_boolean (value));
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -818,9 +877,21 @@
+         case PROP_USER_NAME:
+                 g_value_set_string (value, self->priv->user_name);
+                 break;
++        case PROP_PARENT_DISPLAY_NAME:
++                g_value_set_string (value, self->priv->parent_display_name);
++                break;
++        case PROP_PARENT_AUTH_FILE:
++                g_value_set_string (value, self->priv->parent_auth_file);
++                break;
+         case PROP_DISABLE_TCP:
+                 g_value_set_boolean (value, self->priv->disable_tcp);
+                 break;
++        case PROP_IS_PARENTED:
++                g_value_set_boolean (value, self->priv->is_parented);
++                break;
++        case PROP_IS_NESTED:
++                g_value_set_boolean (value, self->priv->is_nested);
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -921,6 +992,34 @@
+                                                                NULL,
+                                                                TRUE,
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
++        g_object_class_install_property (object_class,
++                                         PROP_IS_PARENTED,
++                                         g_param_spec_boolean ("is-parented",
++                                                               NULL,
++                                                               NULL,
++                                                               FALSE,
++                                                               G_PARAM_READWRITE));
++        g_object_class_install_property (object_class,
++                                         PROP_IS_NESTED,
++                                         g_param_spec_boolean ("is-nested",
++                                                               NULL,
++                                                               NULL,
++                                                               FALSE,
++                                                               G_PARAM_READWRITE));
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY_NAME,
++                                         g_param_spec_string ("parent-display-name",
++                                                              "parent name",
++                                                              "parent name",
++                                                              NULL,
++                                                              G_PARAM_READWRITE));
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_AUTH_FILE,
++                                         g_param_spec_string ("parent-auth-file",
++                                                              "parent auth file",
++                                                              "parent auth file",
++                                                              NULL,
++                                                              G_PARAM_READWRITE));
+ 
+ }
+ 
+@@ -933,6 +1032,7 @@
+         server->priv->pid = -1;
+         server->priv->command = g_strdup (X_SERVER " -br -verbose");
+         server->priv->log_dir = g_strdup (LOGDIR);
++        server->priv->is_ready = FALSE;
+ 
+         add_ready_handler (server);
+ }
+--- a/utils/gdmflexiserver.c
++++ b/utils/gdmflexiserver.c
+@@ -34,6 +34,9 @@
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+ #define GDM_DBUS_NAME                            "org.gnome.DisplayManager"
++#define GDM_DBUS_DISPLAY_INTERFACE               "org.gnome.DisplayManager.Display"
++#define GDM_DBUS_DISPLAY_MANAGER_PATH            "/org/gnome/DisplayManager/Manager"
++#define GDM_DBUS_DISPLAY_MANAGER_INTERFACE       "org.gnome.DisplayManager.Manager"
+ #define GDM_DBUS_LOCAL_DISPLAY_FACTORY_PATH      "/org/gnome/DisplayManager/LocalDisplayFactory"
+ #define GDM_DBUS_LOCAL_DISPLAY_FACTORY_INTERFACE "org.gnome.DisplayManager.LocalDisplayFactory"
+ 
+@@ -59,7 +62,7 @@
+ /* Keep all config options for compatibility even if they are noops */
+ GOptionEntry options [] = {
+         { "command", 'c', 0, G_OPTION_ARG_STRING, &send_command, N_("Only the VERSION command is supported"), N_("COMMAND") },
+-        { "xnest", 'n', 0, G_OPTION_ARG_NONE, &use_xnest, N_("Ignored - retained for compatibility"), NULL },
++        { "xnest", 'n', 0, G_OPTION_ARG_NONE, &use_xnest, N_("Run gdm in a nested window"), NULL },
+         { "no-lock", 'l', 0, G_OPTION_ARG_NONE, &no_lock, N_("Ignored - retained for compatibility"), NULL },
+         { "debug", 'd', 0, G_OPTION_ARG_NONE, &debug_in, N_("Debugging output"), NULL },
+         { "authenticate", 'a', 0, G_OPTION_ARG_NONE, &authenticate, N_("Ignored - retained for compatibility"), NULL },
+@@ -548,6 +551,216 @@
+ }
+ 
+ static char **
++get_displays (DBusConnection *connection)
++{
++        DBusError       error;
++        DBusMessage    *message;
++        DBusMessage    *reply;
++        DBusMessageIter iter_reply;
++        DBusMessageIter iter_array;
++        char           **displays;
++
++        displays = NULL;
++        message = NULL;
++        reply = NULL;
++
++        dbus_error_init (&error);
++        message = dbus_message_new_method_call (GDM_DBUS_NAME,
++                                                GDM_DBUS_DISPLAY_MANAGER_PATH,
++                                                GDM_DBUS_DISPLAY_MANAGER_INTERFACE,
++                                                "GetDisplays");
++        if (message == NULL) {
++                g_debug ("Couldn't allocate the D-Bus message");
++                goto out;
++        }
++
++        dbus_error_init (&error);
++        reply = dbus_connection_send_with_reply_and_block (connection,
++                                                           message,
++                                                           -1, &error);
++        dbus_connection_flush (connection);
++
++        if (dbus_error_is_set (&error)) {
++                g_debug ("Gdm %s raised:\n %s\n\n", error.name, error.message);
++                goto out;
++        }
++
++        if (reply == NULL) {
++                g_debug ("Gdm: No reply for GetDisplays");
++                goto out;
++        }
++
++        dbus_message_iter_init (reply, &iter_reply);
++        if (dbus_message_iter_get_arg_type (&iter_reply) != DBUS_TYPE_ARRAY) {
++                g_debug ("Gdm Wrong reply for GetDisplays - expecting an array.");
++                goto out;
++        }
++
++        dbus_message_iter_recurse (&iter_reply, &iter_array);
++        displays = get_path_array_from_iter (&iter_array, NULL);
++
++ out:
++        if (message != NULL) {
++                dbus_message_unref (message);
++        }
++        if (reply != NULL) {
++                dbus_message_unref (reply);
++        }
++
++        return displays;
++}
++
++static gboolean
++display_has_x11_name (DBusConnection *connection,
++                      const char *display_id,
++                      const char *display_name)
++{
++        DBusError       local_error;
++        DBusMessage    *message;
++        DBusMessage    *reply;
++        gboolean        ret;
++        DBusMessageIter iter;
++        const char     *value;
++
++        ret = FALSE;
++        reply = NULL;
++
++        dbus_error_init (&local_error);
++        message = dbus_message_new_method_call (GDM_DBUS_NAME,
++                                                display_id,
++                                                GDM_DBUS_DISPLAY_INTERFACE,
++                                                "GetX11DisplayName");
++        if (message == NULL) {
++                goto out;
++        }
++
++        dbus_error_init (&local_error);
++        reply = dbus_connection_send_with_reply_and_block (connection,
++                                                           message,
++                                                           -1,
++                                                           &local_error);
++        if (reply == NULL) {
++                if (dbus_error_is_set (&local_error)) {
++                        g_warning ("Unable to determine display name: %s", local_error.message);
++                        dbus_error_free (&local_error);
++                        goto out;
++                }
++        }
++
++        dbus_message_iter_init (reply, &iter);
++        dbus_message_iter_get_basic (&iter, &value);
++
++        if (value == NULL || value[0] == '\0' || strncmp (value, display_name, index(display_name,'.')-display_name) != 0) {
++                goto out;
++        }
++
++        ret = TRUE;
++ out:
++        if (message != NULL) {
++                dbus_message_unref (message);
++        }
++        if (reply != NULL) {
++                dbus_message_unref (reply);
++        }
++
++        return ret;
++}
++
++static char *
++get_current_display_id (DBusConnection *connection)
++{
++        const char *display_name;
++        char *display_id;
++        char **displays;
++        int i;
++
++        display_id = NULL;
++
++        display_name = g_getenv ("DISPLAY");
++        if (!display_name) {
++                g_warning ("DISPLAY environment variable not set. Can't start nested display without a parent display");
++                goto out;
++        }
++
++        displays = get_displays (connection);
++        for (i = 0; displays[i] != NULL; i++) {
++                if (display_has_x11_name (connection, displays[i], display_name)) {
++                        display_id = g_strdup (displays[i]);
++                        goto out;
++                }
++        }
++
++ out:
++        g_strfreev (displays);
++        return display_id;
++}
++
++static gboolean
++create_nested_display (DBusConnection *connection,
++                       GError        **error)
++{
++        DBusError       local_error;
++        DBusMessage    *message;
++        DBusMessage    *reply;
++        gboolean        ret;
++        DBusMessageIter iter;
++        const char     *value;
++        char           *display_id;
++
++        ret = FALSE;
++        reply = NULL;
++
++        display_id = get_current_display_id (connection);
++        if (display_id == NULL) {
++                g_set_error (error, GDM_FLEXISERVER_ERROR, 0, "Can't determine current display id.");
++                goto out;
++        }
++
++        dbus_error_init (&local_error);
++        message = dbus_message_new_method_call (GDM_DBUS_NAME,
++                                                GDM_DBUS_LOCAL_DISPLAY_FACTORY_PATH,
++                                                GDM_DBUS_LOCAL_DISPLAY_FACTORY_INTERFACE,
++                                                "CreateNestedDisplay");
++        if (message == NULL) {
++                g_set_error (error, GDM_FLEXISERVER_ERROR, 0, "Out of memory.");
++                goto out;
++        }
++
++        dbus_message_iter_init_append (message, &iter);
++        dbus_message_iter_append_basic (&iter, DBUS_TYPE_OBJECT_PATH, &display_id);
++
++        dbus_error_init (&local_error);
++        reply = dbus_connection_send_with_reply_and_block (connection,
++                                                           message,
++                                                           -1,
++                                                           &local_error);
++        if (reply == NULL) {
++                if (dbus_error_is_set (&local_error)) {
++                        g_warning ("Unable to create nested display: %s", local_error.message);
++                        g_set_error (error, GDM_FLEXISERVER_ERROR, 0, "%s", local_error.message);
++                        dbus_error_free (&local_error);
++                        goto out;
++                }
++        }
++
++        dbus_message_iter_init (reply, &iter);
++        dbus_message_iter_get_basic (&iter, &value);
++        g_debug ("Started %s", value);
++
++        ret = TRUE;
++ out:
++        if (message != NULL) {
++                dbus_message_unref (message);
++        }
++        if (reply != NULL) {
++                dbus_message_unref (reply);
++        }
++        g_free (display_id);
++
++        return ret;
++}
++
++static char **
+ seat_get_sessions (DBusConnection *connection,
+                    const char     *seat_id)
+ {
+@@ -666,6 +879,10 @@
+                 return FALSE;
+         }
+ 
++        if (use_xnest) {
++                return create_nested_display (connection, error);
++        }
++
+         /* First look for any existing LoginWindow sessions on the seat.
+            If none are found, create a new one. */
+ 
+@@ -742,11 +959,6 @@
+ 
+         }
+ 
+-        if (use_xnest) {
+-                g_warning ("Not yet implemented");
+-                return 1;
+-        }
+-
+         error = NULL;
+         res = goto_login_session (&error);
+         if (! res) {
