@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
 Build-Depends: gnome-pkg-tools,
-               quilt,
                debhelper (>= 5),
                cdbs,
                intltool (>= 0.40.0),
@@ -37,7 +36,7 @@ Build-Depends: gnome-pkg-tools,
                iso-codes,
                libaudit-dev,
                xserver-xorg
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 
 Package: gdm3
 Architecture: any

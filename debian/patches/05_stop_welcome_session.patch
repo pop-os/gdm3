@@ -9,12 +9,17 @@
  
  #define MAX_LOGS 5
  
-@@ -961,7 +961,7 @@
+@@ -961,10 +961,12 @@
  
          g_debug ("GdmWelcomeSession: Stopping welcome_session");
  
 -        res = gdm_signal_pid (welcome_session->priv->pid, SIGTERM);
-+        res = gdm_signal_pid (-welcome_session->priv->pid, SIGTERM);
++        res = gdm_signal_pid (-welcome_session->priv->pid, SIGKILL);
          if (res < 0) {
                  g_warning ("Unable to kill welcome session process");
          } else {
++                /* wait 200ms */
++                g_usleep (G_USEC_PER_SEC/10*2);
+                 welcome_session_died (welcome_session);
+         }
+ 

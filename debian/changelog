@@ -4,6 +4,13 @@ gdm3 (2.30.0-1) UNRELEASED; urgency=low
   * debian/control.in:
     - Added libpolkit-gobject-1-dev and libpolkit-gtk-1-dev build-depends
       for gdmsetup patch.
+    - Update to Standards-Version 3.8.4, no additional changes needed.
+  * Switch to source format 3.0 (quilt).
+    - Add debian/source/format.
+    - Drop quilt from Build-Depends.
+    - Remove /usr/share/cdbs/1/rules/patchsys-quilt.mk include.
+  * debian/patches/05_stop_welcome_session.patch:
+    - Kill process group with SIGKILL and wait 200ms.
   * debian/patches/11_xephyr_nested.patch:
     - Added, support running gdm in a nested window.
   * debian/patches/12_polkit_settings.patch:
