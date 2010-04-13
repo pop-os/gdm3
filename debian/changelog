@@ -32,8 +32,11 @@ gdm3 (2.30.0-1) experimental; urgency=low
     necessary with gnome-session 2.30.
   * Require gnome-session-bin 2.30.
   * Install gdmsetup.desktop in /usr/share/gdm/applications.
+  * 13_gdmsetup.patch: correctly pass the locale directory.
+  * 90_relibtoolize.patch: updated accordingly.
+  * Update TODO with the most obvious remaining bugs.
 
- -- Josselin Mouette <joss@debian.org>  Wed, 14 Apr 2010 00:03:39 +0200
+ -- Josselin Mouette <joss@debian.org>  Wed, 14 Apr 2010 00:57:23 +0200
 
 gdm3 (2.29.92-1) experimental; urgency=low
 

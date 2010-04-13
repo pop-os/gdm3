@@ -1,21 +1,10 @@
-This file lists the most obvious breakages in GDM. There are probably a 
-lot of bugs remaining after that, these are only the blockers.
+Remaining important issues with GDM3:
 
- * There is no configuration GUI
-   => Ubuntu has one, in 08_use_polkit_for_settings.patch and 
-      09_gdmsetup.patch.
-   => Not that urgent.
+ * The background picture and the bottom bar take ages to display.
 
- * gdmflexiserver is missing many options, including xnest.
-   => Looks like Ubuntu has no bugs and GNOME has a sort of feature request,
-      but no one replied for implementing it.
-      Is "Login in a nested window" going to die?
-   => It is easy to implement, but it will require extending the D-Bus 
-      API so that gdmflexiserver has a way to communicate Xephyr’s 
-      $DISPLAY to gdm.
-   => Can probably wait.
+ * There’s a race condition that will often prevent the xsettings 
+   manager in g-s-d to start up in the user’s session.
 
- * Other Ubuntu patches we need
-   - 13_cache_ck_history.patch for speed improvement
-   - 19_no_greeter_for_autologin.patch, already fixed in git master
-   - 23_login_window_hint.patch for a focus fix
+ * The screen locks when you launch a nested session.
+
+ * gdmsetup spews debug information.

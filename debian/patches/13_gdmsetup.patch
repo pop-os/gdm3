@@ -14,8 +14,8 @@ Update in Debian:
 #
 Index: gdm-2.30.0/configure.ac
 ===================================================================
---- gdm-2.30.0.orig/configure.ac	2010-04-13 23:55:12.673240111 +0200
-+++ gdm-2.30.0/configure.ac	2010-04-13 23:55:13.389737672 +0200
+--- gdm-2.30.0.orig/configure.ac	2010-04-14 00:52:54.469740508 +0200
++++ gdm-2.30.0/configure.ac	2010-04-14 00:52:54.505740821 +0200
 @@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
@@ -50,7 +50,7 @@ Index: gdm-2.30.0/configure.ac
 Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.0/gui/gdmsetup/gdmsetup.c	2010-04-13 23:55:13.389737672 +0200
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.c	2010-04-14 00:52:54.505740821 +0200
 @@ -0,0 +1,370 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -425,7 +425,7 @@ Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
 Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in	2010-04-13 23:55:13.389737672 +0200
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in	2010-04-14 00:52:54.505740821 +0200
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -442,7 +442,7 @@ Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in
 Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.0/gui/gdmsetup/Makefile.am	2010-04-13 23:55:13.389737672 +0200
++++ gdm-2.30.0/gui/gdmsetup/Makefile.am	2010-04-14 00:55:01.385238809 +0200
 @@ -0,0 +1,42 @@
 +NULL =
 +
@@ -453,7 +453,7 @@ Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 +	-DDMCONFDIR=\""$(dmconfdir)"\"		\
 +	-DDATADIR=\""$(datadir)"\"		\
 +	-DUIDIR=\""$(uidir)"\"			\
-+	-DGNOMELOCALEDIR=\""$(gdmlocaledir)"\" 	\
++	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 +	$(DISABLE_DEPRECATED_CFLAGS)		\
 +	$(GDMSETUP_CFLAGS)			\
 +	$(NULL)
@@ -488,8 +488,8 @@ Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 +	$(NULL)
 Index: gdm-2.30.0/gui/Makefile.am
 ===================================================================
---- gdm-2.30.0.orig/gui/Makefile.am	2010-04-13 23:54:51.793250131 +0200
-+++ gdm-2.30.0/gui/Makefile.am	2010-04-13 23:55:13.389737672 +0200
+--- gdm-2.30.0.orig/gui/Makefile.am	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0/gui/Makefile.am	2010-04-14 00:52:54.505740821 +0200
 @@ -4,4 +4,5 @@ SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
@@ -498,8 +498,8 @@ Index: gdm-2.30.0/gui/Makefile.am
  	$(NULL)
 Index: gdm-2.30.0/po/POTFILES.in
 ===================================================================
---- gdm-2.30.0.orig/po/POTFILES.in	2010-04-13 23:55:12.673240111 +0200
-+++ gdm-2.30.0/po/POTFILES.in	2010-04-13 23:55:13.389737672 +0200
+--- gdm-2.30.0.orig/po/POTFILES.in	2010-04-14 00:52:54.469740508 +0200
++++ gdm-2.30.0/po/POTFILES.in	2010-04-14 00:52:54.505740821 +0200
 @@ -60,6 +60,9 @@ data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
