@@ -1,0 +1,276 @@
+Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.ui
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.ui	2010-04-13 23:37:41.000000000 +0200
+@@ -0,0 +1,271 @@
++<?xml version="1.0"?>
++<interface>
++  <requires lib="gtk+" version="2.16"/>
++  <!-- interface-naming-policy project-wide -->
++  <object class="GtkListStore" id="login_user_model">
++    <columns>
++      <!-- column-name label -->
++      <column type="gchararray"/>
++      <!-- column-name user -->
++      <column type="gchararray"/>
++      <!-- column-name icon -->
++      <column type="GdkPixbuf"/>
++    </columns>
++  </object>
++  <object class="GtkDialog" id="gdm_capplet">
++    <property name="border_width">5</property>
++    <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
++    <property name="resizable">False</property>
++    <property name="window_position">center</property>
++    <property name="icon_name">gdm-setup</property>
++    <property name="type_hint">normal</property>
++    <property name="has_separator">False</property>
++    <signal name="response" handler="gdm_capplet_response_cb"/>
++    <child internal-child="vbox">
++      <object class="GtkVBox" id="dialog-vbox1">
++        <property name="visible">True</property>
++        <property name="orientation">vertical</property>
++        <property name="spacing">12</property>
++        <child>
++          <object class="GtkFrame" id="frame2">
++            <property name="visible">True</property>
++            <property name="label_xalign">0</property>
++            <property name="shadow_type">none</property>
++            <child>
++              <object class="GtkAlignment" id="alignment2">
++                <property name="visible">True</property>
++                <property name="left_padding">12</property>
++                <child>
++                  <object class="GtkVBox" id="gdm_capplet_vbox">
++                    <property name="visible">True</property>
++                    <property name="orientation">vertical</property>
++                    <property name="spacing">12</property>
++                    <child>
++                      <object class="GtkVBox" id="vbox3">
++                        <property name="visible">True</property>
++                        <property name="orientation">vertical</property>
++                        <property name="spacing">12</property>
++                        <child>
++                          <object class="GtkVBox" id="vbox1">
++                            <property name="visible">True</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">6</property>
++                            <child>
++                              <object class="GtkRadioButton" id="manual_login_radio">
++                                <property name="label" translatable="yes" comments="Radio option to set login screen to prompt for user">_Show the screen for choosing who will log in</property>
++                                <property name="visible">True</property>
++                                <property name="can_focus">True</property>
++                                <property name="receives_default">False</property>
++                                <property name="use_underline">True</property>
++                                <property name="active">True</property>
++                                <property name="draw_indicator">True</property>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">0</property>
++                              </packing>
++                            </child>
++                          </object>
++                          <packing>
++                            <property name="expand">False</property>
++                            <property name="position">2</property>
++                          </packing>
++                        </child>
++                        <child>
++                          <object class="GtkVBox" id="vbox4">
++                            <property name="visible">True</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">6</property>
++                            <child>
++                              <object class="GtkHBox" id="hbox1">
++                                <property name="visible">True</property>
++                                <property name="spacing">6</property>
++                                <child>
++                                  <object class="GtkRadioButton" id="automatic_login_radio">
++                                    <property name="visible">True</property>
++                                    <property name="can_focus">True</property>
++                                    <property name="receives_default">False</property>
++                                    <property name="draw_indicator">True</property>
++                                    <property name="group">manual_login_radio</property>
++                                    <signal name="toggled" handler="automatic_login_toggle_cb"/>
++                                    <child>
++                                      <object class="GtkLabel" id="user_prefix_label">
++                                        <property name="visible">True</property>
++                                        <property name="label">_Log in as</property>
++                                        <property name="use_underline">True</property>
++                                      </object>
++                                    </child>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkComboBox" id="default_user_combo_box">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="model">login_user_model</property>
++                                    <signal name="changed" handler="default_user_combo_box_changed_cb"/>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">1</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkEntry" id="default_user_entry">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="can_focus">True</property>
++                                    <property name="invisible_char">&#x2022;</property>
++                                    <signal name="changed" handler="apply_config_cb"/>
++                                  </object>
++                                  <packing>
++                                    <property name="position">2</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkLabel" id="user_suffix_label">
++                                    <property name="visible">True</property>
++                                    <property name="label">automatically</property>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="position">3</property>
++                                  </packing>
++                                </child>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">0</property>
++                              </packing>
++                            </child>
++                            <child>
++                              <object class="GtkAlignment" id="alignment1">
++                                <property name="visible">True</property>
++                                <property name="left_padding">16</property>
++                                <child>
++                                  <object class="GtkHBox" id="login_delay_box">
++                                    <property name="visible">True</property>
++                                    <property name="sensitive">False</property>
++                                    <property name="spacing">6</property>
++                                    <child>
++                                      <object class="GtkCheckButton" id="login_delay_check">
++                                        <property name="visible">True</property>
++                                        <property name="can_focus">True</property>
++                                        <property name="receives_default">False</property>
++                                        <property name="draw_indicator">True</property>
++                                        <signal name="toggled" handler="login_delay_check_toggled_cb"/>
++                                        <child>
++                                          <object class="GtkLabel" id="delay_prefix_label">
++                                            <property name="visible">True</property>
++                                            <property name="label">_Allow</property>
++                                            <property name="use_underline">True</property>
++                                          </object>
++                                        </child>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">0</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkSpinButton" id="login_delay_spin">
++                                        <property name="visible">True</property>
++                                        <property name="sensitive">False</property>
++                                        <property name="can_focus">True</property>
++                                        <property name="invisible_char">&#x2022;</property>
++                                        <property name="adjustment">adjustment1</property>
++                                        <signal name="value_changed" handler="apply_config_cb"/>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">1</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkLabel" id="delay_suffix_label">
++                                        <property name="visible">True</property>
++                                        <property name="label">seconds for anyone else to log in first</property>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="position">2</property>
++                                      </packing>
++                                    </child>
++                                  </object>
++                                </child>
++                              </object>
++                              <packing>
++                                <property name="expand">False</property>
++                                <property name="position">1</property>
++                              </packing>
++                            </child>
++                          </object>
++                          <packing>
++                            <property name="expand">False</property>
++                            <property name="position">3</property>
++                          </packing>
++                        </child>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="position">0</property>
++                      </packing>
++                    </child>
++                  </object>
++                </child>
++              </object>
++            </child>
++            <child type="label">
++              <object class="GtkLabel" id="label2">
++                <property name="visible">True</property>
++                <property name="label" translatable="yes">&lt;b&gt;When the computer starts up&lt;/b&gt;</property>
++                <property name="use_markup">True</property>
++              </object>
++            </child>
++          </object>
++          <packing>
++            <property name="position">1</property>
++          </packing>
++        </child>
++        <child internal-child="action_area">
++          <object class="GtkHButtonBox" id="dialog-action_area1">
++            <property name="visible">True</property>
++            <property name="layout_style">end</property>
++            <child>
++              <object class="GtkButton" id="close_button">
++                <property name="label">gtk-close</property>
++                <property name="visible">True</property>
++                <property name="can_focus">True</property>
++                <property name="receives_default">True</property>
++                <property name="use_stock">True</property>
++              </object>
++              <packing>
++                <property name="expand">False</property>
++                <property name="fill">False</property>
++                <property name="position">0</property>
++              </packing>
++            </child>
++          </object>
++          <packing>
++            <property name="expand">False</property>
++            <property name="pack_type">end</property>
++            <property name="position">0</property>
++          </packing>
++        </child>
++      </object>
++    </child>
++    <action-widgets>
++      <action-widget response="-7">close_button</action-widget>
++    </action-widgets>
++  </object>
++  <object class="GtkSizeGroup" id="combo_size_group"/>
++  <object class="GtkSizeGroup" id="radio_size_group"/>
++  <object class="GtkAdjustment" id="adjustment1">
++    <property name="lower">1</property>
++    <property name="upper">600</property>
++    <property name="step_increment">1</property>
++  </object>
++</interface>

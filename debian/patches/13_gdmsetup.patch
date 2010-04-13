@@ -12,9 +12,11 @@ Update in Debian:
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 #
---- a/configure.ac
-+++ b/configure.ac
-@@ -41,6 +41,7 @@
+Index: gdm-2.30.0/configure.ac
+===================================================================
+--- gdm-2.30.0.orig/configure.ac	2010-04-13 23:55:12.673240111 +0200
++++ gdm-2.30.0/configure.ac	2010-04-13 23:55:13.389737672 +0200
+@@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
  POLKIT_GOBJECT_REQUIRED_VERSION=0.92
@@ -22,7 +24,7 @@ Update in Debian:
  GLIB_REQUIRED_VERSION=2.22.0
  GTK_REQUIRED_VERSION=2.12.0
  PANGO_REQUIRED_VERSION=1.3.0
-@@ -118,6 +119,14 @@
+@@ -118,6 +119,14 @@ AC_SUBST(HAVE_DEVICEKIT_POWER)
  AC_SUBST(DEVKIT_POWER_CFLAGS)
  AC_SUBST(DEVKIT_POWER_LIBS)
  
@@ -37,7 +39,7 @@ Update in Debian:
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-@@ -1389,6 +1398,7 @@
+@@ -1389,6 +1398,7 @@ Makefile
  daemon/Makefile
  docs/Makefile
  gui/Makefile
@@ -45,8 +47,10 @@ Update in Debian:
  gui/simple-greeter/Makefile
  gui/simple-greeter/libnotificationarea/Makefile
  gui/simple-chooser/Makefile
---- /dev/null
-+++ b/gui/gdmsetup/gdmsetup.c
+Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.c	2010-04-13 23:55:13.389737672 +0200
 @@ -0,0 +1,370 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -418,8 +422,10 @@ Update in Debian:
 +
 +    return 0;
 +}
---- /dev/null
-+++ b/gui/gdmsetup/gdmsetup.desktop.in
+Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in	2010-04-13 23:55:13.389737672 +0200
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -433,282 +439,10 @@ Update in Debian:
 +X-GNOME-Bugzilla-Bugzilla=GNOME
 +X-GNOME-Bugzilla-Product=gdm
 +X-GNOME-Bugzilla-Component=general
---- /dev/null
-+++ b/gui/gdmsetup/gdmsetup.ui
-@@ -0,0 +1,271 @@
-+<?xml version="1.0"?>
-+<interface>
-+  <requires lib="gtk+" version="2.16"/>
-+  <!-- interface-naming-policy project-wide -->
-+  <object class="GtkListStore" id="login_user_model">
-+    <columns>
-+      <!-- column-name label -->
-+      <column type="gchararray"/>
-+      <!-- column-name user -->
-+      <column type="gchararray"/>
-+      <!-- column-name icon -->
-+      <column type="GdkPixbuf"/>
-+    </columns>
-+  </object>
-+  <object class="GtkDialog" id="gdm_capplet">
-+    <property name="border_width">5</property>
-+    <property name="title" translatable="yes" comments="Title of login screen settings dialog">Login Screen Settings</property>
-+    <property name="resizable">False</property>
-+    <property name="window_position">center</property>
-+    <property name="icon_name">gdm-setup</property>
-+    <property name="type_hint">normal</property>
-+    <property name="has_separator">False</property>
-+    <signal name="response" handler="gdm_capplet_response_cb"/>
-+    <child internal-child="vbox">
-+      <object class="GtkVBox" id="dialog-vbox1">
-+        <property name="visible">True</property>
-+        <property name="orientation">vertical</property>
-+        <property name="spacing">12</property>
-+        <child>
-+          <object class="GtkFrame" id="frame2">
-+            <property name="visible">True</property>
-+            <property name="label_xalign">0</property>
-+            <property name="shadow_type">none</property>
-+            <child>
-+              <object class="GtkAlignment" id="alignment2">
-+                <property name="visible">True</property>
-+                <property name="left_padding">12</property>
-+                <child>
-+                  <object class="GtkVBox" id="gdm_capplet_vbox">
-+                    <property name="visible">True</property>
-+                    <property name="orientation">vertical</property>
-+                    <property name="spacing">12</property>
-+                    <child>
-+                      <object class="GtkVBox" id="vbox3">
-+                        <property name="visible">True</property>
-+                        <property name="orientation">vertical</property>
-+                        <property name="spacing">12</property>
-+                        <child>
-+                          <object class="GtkVBox" id="vbox1">
-+                            <property name="visible">True</property>
-+                            <property name="orientation">vertical</property>
-+                            <property name="spacing">6</property>
-+                            <child>
-+                              <object class="GtkRadioButton" id="manual_login_radio">
-+                                <property name="label" translatable="yes" comments="Radio option to set login screen to prompt for user">_Show the screen for choosing who will log in</property>
-+                                <property name="visible">True</property>
-+                                <property name="can_focus">True</property>
-+                                <property name="receives_default">False</property>
-+                                <property name="use_underline">True</property>
-+                                <property name="active">True</property>
-+                                <property name="draw_indicator">True</property>
-+                              </object>
-+                              <packing>
-+                                <property name="expand">False</property>
-+                                <property name="position">0</property>
-+                              </packing>
-+                            </child>
-+                          </object>
-+                          <packing>
-+                            <property name="expand">False</property>
-+                            <property name="position">2</property>
-+                          </packing>
-+                        </child>
-+                        <child>
-+                          <object class="GtkVBox" id="vbox4">
-+                            <property name="visible">True</property>
-+                            <property name="orientation">vertical</property>
-+                            <property name="spacing">6</property>
-+                            <child>
-+                              <object class="GtkHBox" id="hbox1">
-+                                <property name="visible">True</property>
-+                                <property name="spacing">6</property>
-+                                <child>
-+                                  <object class="GtkRadioButton" id="automatic_login_radio">
-+                                    <property name="visible">True</property>
-+                                    <property name="can_focus">True</property>
-+                                    <property name="receives_default">False</property>
-+                                    <property name="draw_indicator">True</property>
-+                                    <property name="group">manual_login_radio</property>
-+                                    <signal name="toggled" handler="automatic_login_toggle_cb"/>
-+                                    <child>
-+                                      <object class="GtkLabel" id="user_prefix_label">
-+                                        <property name="visible">True</property>
-+                                        <property name="label">_Log in as</property>
-+                                        <property name="use_underline">True</property>
-+                                      </object>
-+                                    </child>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="position">0</property>
-+                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkComboBox" id="default_user_combo_box">
-+                                    <property name="visible">True</property>
-+                                    <property name="sensitive">False</property>
-+                                    <property name="model">login_user_model</property>
-+                                    <signal name="changed" handler="default_user_combo_box_changed_cb"/>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="position">1</property>
-+                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkEntry" id="default_user_entry">
-+                                    <property name="visible">True</property>
-+                                    <property name="sensitive">False</property>
-+                                    <property name="can_focus">True</property>
-+                                    <property name="invisible_char">&#x2022;</property>
-+                                    <signal name="changed" handler="apply_config_cb"/>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="position">2</property>
-+                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkLabel" id="user_suffix_label">
-+                                    <property name="visible">True</property>
-+                                    <property name="label">automatically</property>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="position">3</property>
-+                                  </packing>
-+                                </child>
-+                              </object>
-+                              <packing>
-+                                <property name="expand">False</property>
-+                                <property name="position">0</property>
-+                              </packing>
-+                            </child>
-+                            <child>
-+                              <object class="GtkAlignment" id="alignment1">
-+                                <property name="visible">True</property>
-+                                <property name="left_padding">16</property>
-+                                <child>
-+                                  <object class="GtkHBox" id="login_delay_box">
-+                                    <property name="visible">True</property>
-+                                    <property name="sensitive">False</property>
-+                                    <property name="spacing">6</property>
-+                                    <child>
-+                                      <object class="GtkCheckButton" id="login_delay_check">
-+                                        <property name="visible">True</property>
-+                                        <property name="can_focus">True</property>
-+                                        <property name="receives_default">False</property>
-+                                        <property name="draw_indicator">True</property>
-+                                        <signal name="toggled" handler="login_delay_check_toggled_cb"/>
-+                                        <child>
-+                                          <object class="GtkLabel" id="delay_prefix_label">
-+                                            <property name="visible">True</property>
-+                                            <property name="label">_Allow</property>
-+                                            <property name="use_underline">True</property>
-+                                          </object>
-+                                        </child>
-+                                      </object>
-+                                      <packing>
-+                                        <property name="expand">False</property>
-+                                        <property name="position">0</property>
-+                                      </packing>
-+                                    </child>
-+                                    <child>
-+                                      <object class="GtkSpinButton" id="login_delay_spin">
-+                                        <property name="visible">True</property>
-+                                        <property name="sensitive">False</property>
-+                                        <property name="can_focus">True</property>
-+                                        <property name="invisible_char">&#x2022;</property>
-+                                        <property name="adjustment">adjustment1</property>
-+                                        <signal name="value_changed" handler="apply_config_cb"/>
-+                                      </object>
-+                                      <packing>
-+                                        <property name="expand">False</property>
-+                                        <property name="position">1</property>
-+                                      </packing>
-+                                    </child>
-+                                    <child>
-+                                      <object class="GtkLabel" id="delay_suffix_label">
-+                                        <property name="visible">True</property>
-+                                        <property name="label">seconds for anyone else to log in first</property>
-+                                      </object>
-+                                      <packing>
-+                                        <property name="expand">False</property>
-+                                        <property name="position">2</property>
-+                                      </packing>
-+                                    </child>
-+                                  </object>
-+                                </child>
-+                              </object>
-+                              <packing>
-+                                <property name="expand">False</property>
-+                                <property name="position">1</property>
-+                              </packing>
-+                            </child>
-+                          </object>
-+                          <packing>
-+                            <property name="expand">False</property>
-+                            <property name="position">3</property>
-+                          </packing>
-+                        </child>
-+                      </object>
-+                      <packing>
-+                        <property name="expand">False</property>
-+                        <property name="position">0</property>
-+                      </packing>
-+                    </child>
-+                  </object>
-+                </child>
-+              </object>
-+            </child>
-+            <child type="label">
-+              <object class="GtkLabel" id="label2">
-+                <property name="visible">True</property>
-+                <property name="label" translatable="yes">&lt;b&gt;When the computer starts up&lt;/b&gt;</property>
-+                <property name="use_markup">True</property>
-+              </object>
-+            </child>
-+          </object>
-+          <packing>
-+            <property name="position">1</property>
-+          </packing>
-+        </child>
-+        <child internal-child="action_area">
-+          <object class="GtkHButtonBox" id="dialog-action_area1">
-+            <property name="visible">True</property>
-+            <property name="layout_style">end</property>
-+            <child>
-+              <object class="GtkButton" id="close_button">
-+                <property name="label">gtk-close</property>
-+                <property name="visible">True</property>
-+                <property name="can_focus">True</property>
-+                <property name="receives_default">True</property>
-+                <property name="use_stock">True</property>
-+              </object>
-+              <packing>
-+                <property name="expand">False</property>
-+                <property name="fill">False</property>
-+                <property name="position">0</property>
-+              </packing>
-+            </child>
-+          </object>
-+          <packing>
-+            <property name="expand">False</property>
-+            <property name="pack_type">end</property>
-+            <property name="position">0</property>
-+          </packing>
-+        </child>
-+      </object>
-+    </child>
-+    <action-widgets>
-+      <action-widget response="-7">close_button</action-widget>
-+    </action-widgets>
-+  </object>
-+  <object class="GtkSizeGroup" id="combo_size_group"/>
-+  <object class="GtkSizeGroup" id="radio_size_group"/>
-+  <object class="GtkAdjustment" id="adjustment1">
-+    <property name="lower">1</property>
-+    <property name="upper">600</property>
-+    <property name="step_increment">1</property>
-+  </object>
-+</interface>
---- /dev/null
-+++ b/gui/gdmsetup/Makefile.am
+Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.0/gui/gdmsetup/Makefile.am	2010-04-13 23:55:13.389737672 +0200
 @@ -0,0 +1,42 @@
 +NULL =
 +
@@ -752,17 +486,21 @@ Update in Debian:
 +	$(ui_DATA)		\
 +	$(System_in_files)	\
 +	$(NULL)
---- a/gui/Makefile.am
-+++ b/gui/Makefile.am
-@@ -4,4 +4,5 @@
+Index: gdm-2.30.0/gui/Makefile.am
+===================================================================
+--- gdm-2.30.0.orig/gui/Makefile.am	2010-04-13 23:54:51.793250131 +0200
++++ gdm-2.30.0/gui/Makefile.am	2010-04-13 23:55:13.389737672 +0200
+@@ -4,4 +4,5 @@ SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\
 +	gdmsetup		\
  	$(NULL)
---- a/po/POTFILES.in
-+++ b/po/POTFILES.in
-@@ -60,6 +60,9 @@
+Index: gdm-2.30.0/po/POTFILES.in
+===================================================================
+--- gdm-2.30.0.orig/po/POTFILES.in	2010-04-13 23:55:12.673240111 +0200
++++ gdm-2.30.0/po/POTFILES.in	2010-04-13 23:55:13.389737672 +0200
+@@ -60,6 +60,9 @@ data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
  data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in

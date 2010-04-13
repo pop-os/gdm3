@@ -11,4 +11,5 @@
 11_xephyr_nested.patch
 12_polkit_settings.patch
 13_gdmsetup.patch
+13_gdmsetup_ui.patch
 90_relibtoolize.patch

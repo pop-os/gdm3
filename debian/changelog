@@ -1,5 +1,6 @@
-gdm3 (2.30.0-1) UNRELEASED; urgency=low
+gdm3 (2.30.0-1) experimental; urgency=low
 
+  [ Luca Bruno ]
   * New upstream release.
   * debian/control.in:
     - Added libpolkit-gobject-1-dev and libpolkit-gtk-1-dev build-depends
@@ -21,7 +22,17 @@ gdm3 (2.30.0-1) UNRELEASED; urgency=low
   * debian/gdmsetup.svg:
     - Added, use this icon instead of old gdm-setup.png.
 
- -- Luca Bruno <lethalman88@gmail.com>  Thu, 01 Apr 2010 21:07:25 +0200
+  [ Josselin Mouette ]
+  * New German translation of the desktop file by Gert Michael Kulyk.
+  * Use patch-translations to translate patches that require it.
+  * Split the .ui file in a separate patch so that the format can be 
+    specified.
+  * Add French translation for the patches.
+  * 05_stop_welcome_session.patch: revert one of the changes, not 
+    necessary with gnome-session 2.30.
+  * Require gnome-session-bin 2.30.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 14 Apr 2010 00:03:39 +0200
 
 gdm3 (2.29.92-1) experimental; urgency=low
 

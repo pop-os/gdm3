@@ -8,8 +8,7 @@ Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>, Sebastian Dröge <slomo@debian.org>
-Build-Depends: gnome-pkg-tools,
-               quilt,
+Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 5),
                cdbs,
                intltool (>= 0.40.0),
@@ -42,7 +41,7 @@ Build-Depends: gnome-pkg-tools,
                iso-codes,
                libaudit-dev,
                xserver-xorg
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 
 Package: gdm3
 Architecture: any
@@ -51,7 +50,7 @@ Depends: ${shlibs:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
-         gnome-session-bin,
+         gnome-session-bin (>= 2.30),
          metacity,
          policykit-1-gnome,
          upower,

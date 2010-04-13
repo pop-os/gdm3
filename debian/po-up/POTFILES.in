@@ -1,0 +1,3 @@
+patches/11_xephyr_nested.patch
+patches/13_gdmsetup.patch
+[type: gettext/glade]patches/13_gdmsetup_ui.patch

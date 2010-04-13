@@ -1,5 +1,7 @@
---- a/daemon/gdm-welcome-session.c
-+++ b/daemon/gdm-welcome-session.c
+Index: gdm-2.30.0/daemon/gdm-welcome-session.c
+===================================================================
+--- gdm-2.30.0.orig/daemon/gdm-welcome-session.c	2010-04-13 23:55:36.713237666 +0200
++++ gdm-2.30.0/daemon/gdm-welcome-session.c	2010-04-14 00:05:56.241737918 +0200
 @@ -46,7 +46,7 @@
  
  #include "gdm-welcome-session.h"
@@ -8,18 +10,4 @@
 +#define DBUS_LAUNCH_COMMAND BINDIR "/dbus-launch"
  
  #define MAX_LOGS 5
- 
-@@ -961,10 +961,12 @@
- 
-         g_debug ("GdmWelcomeSession: Stopping welcome_session");
- 
--        res = gdm_signal_pid (welcome_session->priv->pid, SIGTERM);
-+        res = gdm_signal_pid (-welcome_session->priv->pid, SIGKILL);
-         if (res < 0) {
-                 g_warning ("Unable to kill welcome session process");
-         } else {
-+                /* wait 200ms */
-+                g_usleep (G_USEC_PER_SEC/10*2);
-                 welcome_session_died (welcome_session);
-         }
  
