@@ -1,12 +1,15 @@
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
 From 7e4878cea1504420911b7672f81f9221c6e1d65a Mon Sep 17 00:00:00 2001
 From: Robert Ancell <robert.ancell@gmail.com>
 Date: Wed, 13 Jan 2010 16:30:49 +1100
 Subject: [PATCH] Add SwitchToUser() method which automatically selects that user in the greeter or switches to an already open session
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=606923
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-display.c gdm-2.29.4.new/daemon/gdm-display.c
---- gdm-2.29.4/daemon/gdm-display.c	2009-12-22 03:36:30.000000000 +1100
-+++ gdm-2.29.4.new/daemon/gdm-display.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-display.c gdm-2.30.0.new/daemon/gdm-display.c
+--- gdm-2.30.0/daemon/gdm-display.c	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/daemon/gdm-display.c	2010-04-13 15:41:18.906768605 +0800
 @@ -60,6 +60,7 @@
          time_t                creation_time;
          GTimer               *slave_timer;
@@ -93,9 +96,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-display.c gdm-2.29.4.new/dae
                                           PROP_STATUS,
                                           g_param_spec_int ("status",
                                                             "status",
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-greeter-server.c gdm-2.29.4.new/daemon/gdm-greeter-server.c
---- gdm-2.29.4/daemon/gdm-greeter-server.c	2009-12-22 03:36:30.000000000 +1100
-+++ gdm-2.29.4.new/daemon/gdm-greeter-server.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-greeter-server.c gdm-2.30.0.new/daemon/gdm-greeter-server.c
+--- gdm-2.30.0/daemon/gdm-greeter-server.c	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/daemon/gdm-greeter-server.c	2010-04-13 15:41:18.916747038 +0800
 @@ -281,6 +281,14 @@
  }
  
@@ -121,9 +124,18 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-greeter-server.c gdm-2.29.4.
                                 "    <signal name=\"TimedLoginRequested\">\n"
                                 "      <arg name=\"username\" type=\"s\"/>\n"
                                 "      <arg name=\"delay\" type=\"i\"/>\n"
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-greeter-server.h gdm-2.29.4.new/daemon/gdm-greeter-server.h
---- gdm-2.29.4/daemon/gdm-greeter-server.h	2009-12-09 02:20:18.000000000 +1100
-+++ gdm-2.29.4.new/daemon/gdm-greeter-server.h	2010-01-14 13:00:54.886674032 +1100
+@@ -1107,7 +1118,7 @@
+                                                               "display id",
+                                                               NULL,
+                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+-         g_object_class_install_property (object_class,
++        g_object_class_install_property (object_class,
+                                          PROP_USER_NAME,
+                                          g_param_spec_string ("user-name",
+                                                               "user name",
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-greeter-server.h gdm-2.30.0.new/daemon/gdm-greeter-server.h
+--- gdm-2.30.0/daemon/gdm-greeter-server.h	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/daemon/gdm-greeter-server.h	2010-04-13 15:41:18.916747038 +0800
 @@ -95,6 +95,8 @@
  void                gdm_greeter_server_default_session_name_changed (GdmGreeterServer *greeter_server,
                                                                       const char       *text);
@@ -133,10 +145,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-greeter-server.h gdm-2.29.4.
  void                gdm_greeter_server_request_timed_login   (GdmGreeterServer *greeter_server,
                                                                const char       *username,
                                                                int               delay);
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.c gdm-2.29.4.new/daemon/gdm-local-display-factory.c
---- gdm-2.29.4/daemon/gdm-local-display-factory.c	2010-01-14 13:00:54.226667038 +1100
-+++ gdm-2.29.4.new/daemon/gdm-local-display-factory.c	2010-01-14 13:02:10.804200067 +1100
-@@ -501,6 +501,121 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.c gdm-2.30.0.new/daemon/gdm-local-display-factory.c
+--- gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-04-13 15:41:18.224255958 +0800
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.c	2010-04-13 15:41:18.916747038 +0800
+@@ -495,6 +495,121 @@
          }
  }
  
@@ -258,9 +270,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.c gdm-
  gboolean
  gdm_local_display_factory_create_product_display (GdmLocalDisplayFactory *factory,
                                                    const char             *parent_display_id,
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.h gdm-2.29.4.new/daemon/gdm-local-display-factory.h
---- gdm-2.29.4/daemon/gdm-local-display-factory.h	2010-01-14 13:00:54.226667038 +1100
-+++ gdm-2.29.4.new/daemon/gdm-local-display-factory.h	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.h gdm-2.30.0.new/daemon/gdm-local-display-factory.h
+--- gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-04-13 15:41:18.224255958 +0800
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.h	2010-04-13 15:41:18.916747038 +0800
 @@ -64,6 +64,10 @@
  gboolean                   gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *factory,
                                                                                 char                  **id,
@@ -272,9 +284,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.h gdm-
  
  gboolean                   gdm_local_display_factory_start_guest_session       (GdmLocalDisplayFactory *factory,
                                                                                  char                  **id,
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.xml gdm-2.29.4.new/daemon/gdm-local-display-factory.xml
---- gdm-2.29.4/daemon/gdm-local-display-factory.xml	2010-01-14 13:00:54.226667038 +1100
-+++ gdm-2.29.4.new/daemon/gdm-local-display-factory.xml	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.xml gdm-2.30.0.new/daemon/gdm-local-display-factory.xml
+--- gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-04-13 15:41:18.224255958 +0800
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.xml	2010-04-13 15:41:18.916747038 +0800
 @@ -12,5 +12,9 @@
      <method name="StartGuestSession">
        <arg name="id" direction="out" type="o"/>
@@ -285,9 +297,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-local-display-factory.xml gd
 +    </method>
    </interface>
  </node>
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.new/daemon/gdm-simple-slave.c
---- gdm-2.29.4/daemon/gdm-simple-slave.c	2010-01-14 13:00:54.386666699 +1100
-+++ gdm-2.29.4.new/daemon/gdm-simple-slave.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-simple-slave.c gdm-2.30.0.new/daemon/gdm-simple-slave.c
+--- gdm-2.30.0/daemon/gdm-simple-slave.c	2010-04-13 15:41:18.354254949 +0800
++++ gdm-2.30.0.new/daemon/gdm-simple-slave.c	2010-04-13 15:41:18.916747038 +0800
 @@ -85,10 +85,13 @@
          guint              start_session_when_ready : 1;
          guint              waiting_to_start_session : 1;
@@ -302,26 +314,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
  };
  
  static void     gdm_simple_slave_class_init     (GdmSimpleSlaveClass *klass);
-@@ -506,6 +509,18 @@
-                         g_warning ("Unable to send ready");
-                 }
-         }
-+   
-+        g_object_get (slave, "username", &username, NULL);
-+        if (username) {
-+                g_debug ("GdmSimpleSlave: **user '%s'", username);
-+                if (slave->priv->greeter_server != NULL) {
-+                        g_debug ("GdmSimpleSlave: begin login for user '%s'", username);
-+                        gdm_greeter_server_select_user (slave->priv->greeter_server, username);
-+                }
-+                g_free (username);
-+                return;
-+        }
-+        g_debug ("GdmSimpleSlave: **nouser");
- 
-         enabled = FALSE;
-         gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
-@@ -1272,12 +1287,29 @@
+@@ -518,6 +521,16 @@
  }
  
  static void
@@ -335,8 +328,30 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
 +}
 +
 +static void
- gdm_simple_slave_set_property (GObject      *object,
-                                guint          prop_id,
+ on_session_conversation_started (GdmSession     *session,
+                                  GdmSimpleSlave *slave)
+ {
+@@ -534,6 +547,19 @@
+                 }
+         }
+ 
++        g_object_get (slave, "username", &username, NULL);
++        if (username) {
++                g_debug ("GdmSimpleSlave: **user '%s'", username);
++                if (slave->priv->greeter_server != NULL) {
++                        g_debug ("GdmSimpleSlave: begin login for user '%s'", username);
++                        gdm_simple_slave_set_username (slave, NULL);
++                        gdm_greeter_server_select_user (slave->priv->greeter_server, username);
++                }
++                g_free (username);
++                return;
++        }
++        g_debug ("GdmSimpleSlave: **nouser");
++
+         enabled = FALSE;
+         gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
+         if (! enabled) {
+@@ -1338,7 +1364,14 @@
                                 const GValue *value,
                                 GParamSpec   *pspec)
  {
@@ -351,7 +366,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1290,7 +1322,14 @@
+@@ -1351,7 +1384,14 @@
                                 GValue      *value,
                                 GParamSpec *pspec)
  {
@@ -366,7 +381,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1327,6 +1366,14 @@
+@@ -1388,6 +1428,14 @@
  
          g_type_class_add_private (klass, sizeof (GdmSimpleSlavePrivate));
  
@@ -381,7 +396,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
          dbus_g_object_type_install_info (GDM_TYPE_SIMPLE_SLAVE, &dbus_glib_gdm_simple_slave_object_info);
  }
  
-@@ -1359,12 +1406,13 @@
+@@ -1420,12 +1468,13 @@
  }
  
  GdmSlave *
@@ -396,9 +411,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.c gdm-2.29.4.ne
                                 NULL);
  
          return GDM_SLAVE (object);
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.h gdm-2.29.4.new/daemon/gdm-simple-slave.h
---- gdm-2.29.4/daemon/gdm-simple-slave.h	2009-12-09 02:20:18.000000000 +1100
-+++ gdm-2.29.4.new/daemon/gdm-simple-slave.h	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-simple-slave.h gdm-2.30.0.new/daemon/gdm-simple-slave.h
+--- gdm-2.30.0/daemon/gdm-simple-slave.h	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/daemon/gdm-simple-slave.h	2010-04-13 15:41:18.916747038 +0800
 @@ -48,7 +48,8 @@
  } GdmSimpleSlaveClass;
  
@@ -409,9 +424,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/gdm-simple-slave.h gdm-2.29.4.ne
  
  G_END_DECLS
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/simple-slave-main.c gdm-2.29.4.new/daemon/simple-slave-main.c
---- gdm-2.29.4/daemon/simple-slave-main.c	2010-01-14 13:00:54.186666563 +1100
-+++ gdm-2.29.4.new/daemon/simple-slave-main.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/simple-slave-main.c gdm-2.30.0.new/daemon/simple-slave-main.c
+--- gdm-2.30.0/daemon/simple-slave-main.c	2010-04-13 15:41:18.194248305 +0800
++++ gdm-2.30.0.new/daemon/simple-slave-main.c	2010-04-13 15:41:18.916747038 +0800
 @@ -47,6 +47,7 @@
  #include "gdm-settings-direct.h"
  
@@ -441,9 +456,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/daemon/simple-slave-main.c gdm-2.29.4.n
          if (slave == NULL) {
                  goto out;
          }
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/data/gdm.conf.in gdm-2.29.4.new/data/gdm.conf.in
---- gdm-2.29.4/data/gdm.conf.in	2010-01-14 13:00:54.266675125 +1100
-+++ gdm-2.29.4.new/data/gdm.conf.in	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/data/gdm.conf.in gdm-2.30.0.new/data/gdm.conf.in
+--- gdm-2.30.0/data/gdm.conf.in	2010-04-13 15:41:18.254257675 +0800
++++ gdm-2.30.0.new/data/gdm.conf.in	2010-04-13 15:41:18.916747038 +0800
 @@ -74,6 +74,9 @@
             send_member="CreateTransientDisplay"/>
      <allow send_destination="org.gnome.DisplayManager"
@@ -454,9 +469,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/data/gdm.conf.in gdm-2.29.4.new/data/gd
             send_member="StartGuestSession"/>
  	   
      <allow send_destination="org.gnome.DisplayManager"
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.c gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-client.c
---- gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.c	2009-12-22 03:36:30.000000000 +1100
-+++ gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-client.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-greeter-client.c gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-client.c
+--- gdm-2.30.0/gui/simple-greeter/gdm-greeter-client.c	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-client.c	2010-04-13 15:41:18.916747038 +0800
 @@ -69,6 +69,7 @@
          DEFAULT_LANGUAGE_NAME_CHANGED,
          DEFAULT_LAYOUT_NAME_CHANGED,
@@ -507,9 +522,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.c
          gdm_greeter_client_signals[TIMED_LOGIN_REQUESTED] =
                  g_signal_new ("timed-login-requested",
                                G_OBJECT_CLASS_TYPE (object_class),
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.h gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-client.h
---- gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.h	2009-12-09 02:20:18.000000000 +1100
-+++ gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-client.h	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-greeter-client.h gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-client.h
+--- gdm-2.30.0/gui/simple-greeter/gdm-greeter-client.h	2010-04-13 15:41:16.724247508 +0800
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-client.h	2010-04-13 15:41:18.916747038 +0800
 @@ -66,6 +66,8 @@
                                                  const char        *language_name);
          void (* default_layout_name_changed) (GdmGreeterClient  *client,
@@ -519,10 +534,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-client.h
          void (* timed_login_requested)   (GdmGreeterClient  *client,
                                            const char        *username,
                                            int                delay);
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-login-window.c
---- gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-window.c	2010-01-14 13:00:54.316667091 +1100
-+++ gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-login-window.c	2010-01-14 13:00:54.886674032 +1100
-@@ -117,6 +117,8 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-greeter-login-window.c gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-login-window.c
+--- gdm-2.30.0/gui/simple-greeter/gdm-greeter-login-window.c	2010-04-13 15:41:18.294248302 +0800
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-login-window.c	2010-04-13 15:41:18.916747038 +0800
+@@ -116,6 +116,8 @@
  
          guint            login_button_handler_id;
          guint            start_session_handler_id;
@@ -531,7 +546,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-wi
  };
  
  enum {
-@@ -627,6 +629,24 @@
+@@ -624,6 +626,24 @@
          return TRUE;
  }
  
@@ -556,7 +571,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-wi
  void
  gdm_greeter_login_window_request_timed_login (GdmGreeterLoginWindow *login_window,
                                                const char            *username,
-@@ -839,6 +859,11 @@
+@@ -836,6 +856,11 @@
          adjust_other_login_visibility (login_window);
  
          gdm_chooser_widget_activate_if_one_item (GDM_CHOOSER_WIDGET (login_window->priv->user_chooser));
@@ -568,9 +583,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-wi
  }
  
  static void
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-window.h gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-login-window.h
---- gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-window.h	2009-12-09 02:20:18.000000000 +1100
-+++ gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-login-window.h	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-greeter-login-window.h gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-login-window.h
+--- gdm-2.30.0/gui/simple-greeter/gdm-greeter-login-window.h	2010-04-13 15:41:16.734247730 +0800
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-login-window.h	2010-04-13 15:41:18.916747038 +0800
 @@ -76,6 +76,8 @@
  gboolean            gdm_greeter_login_window_problem            (GdmGreeterLoginWindow *login_window,
                                                                   const char *text);
@@ -580,9 +595,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-login-wi
  void               gdm_greeter_login_window_request_timed_login (GdmGreeterLoginWindow *login_window,
                                                                   const char            *username,
                                                                   int                    delay);
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.4/gui/simple-greeter/gdm-greeter-session.c gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-session.c
---- gdm-2.29.4/gui/simple-greeter/gdm-greeter-session.c	2010-01-14 13:00:54.176672276 +1100
-+++ gdm-2.29.4.new/gui/simple-greeter/gdm-greeter-session.c	2010-01-14 13:00:54.886674032 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-greeter-session.c gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-session.c
+--- gdm-2.30.0/gui/simple-greeter/gdm-greeter-session.c	2010-04-13 15:41:18.184247662 +0800
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-greeter-session.c	2010-04-13 15:41:18.916747038 +0800
 @@ -153,6 +153,15 @@
  }
  

@@ -1,10 +1,18 @@
+gdm (2.30.0-0ubuntu4) lucid; urgency=low
+
+  * debian/patches/29_switch_user.patch:
+    - Deselect user when cancelling user switch (LP: #532531)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 13 Apr 2010 15:43:37 +0800
+
 gdm (2.30.0-0ubuntu3) lucid; urgency=low
 
+  [ Didier Roche ]
   * debian/patches/09_gdmsetup.patch:
     - do not list users who have an encrypted home directory for autologin
       candidate (still some corner case, see code comment). (LP: #353446)
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 31 Mar 2010 18:48:44 +0200
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 13 Apr 2010 15:43:27 +0800
 
 gdm (2.30.0-0ubuntu2) lucid; urgency=low
 
