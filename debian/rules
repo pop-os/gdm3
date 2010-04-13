@@ -68,10 +68,6 @@ common-build-arch:: $(MANPAGES)
 clean::
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
-	rm -f gui/gdmsetup/gdmsetup.ui
-
-post-patches::
-	cp debian/gdmsetup.ui gui/gdmsetup/
 
 %: %.pod
 	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
