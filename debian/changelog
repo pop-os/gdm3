@@ -31,6 +31,7 @@ gdm3 (2.30.0-1) experimental; urgency=low
   * 05_stop_welcome_session.patch: revert one of the changes, not 
     necessary with gnome-session 2.30.
   * Require gnome-session-bin 2.30.
+  * Install gdmsetup.desktop in /usr/share/gdm/applications.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 14 Apr 2010 00:03:39 +0200
 
