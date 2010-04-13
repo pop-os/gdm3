@@ -7,4 +7,6 @@ Remaining important issues with GDM3:
 
  * The screen locks when you launch a nested session.
 
+ * In a nested session, the greeter selects the US keyboard by default.
+
  * gdmsetup spews debug information.
