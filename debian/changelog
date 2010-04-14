@@ -1,11 +1,11 @@
-gdm (2.30.0-0ubuntu5) UNRELEASED; urgency=low
+gdm (2.30.0-0ubuntu5) lucid; urgency=low
 
   * debian/patches/14_guest_session.patch:
     - enable switching to guest session corresponsding to current one (ie UNE if
       you are in UNE session and gnome if you are in GNOME session)
       (LP: #562908)
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 14 Apr 2010 16:17:43 +0200
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 14 Apr 2010 16:36:26 +0200
 
 gdm (2.30.0-0ubuntu4) lucid; urgency=low
 
