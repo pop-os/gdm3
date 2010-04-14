@@ -8,9 +8,9 @@
 #  system) rules around it.
 # Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
 #
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-2.28.0.new/daemon/gdm-local-display-factory.c
---- gdm-2.28.0/daemon/gdm-local-display-factory.c	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-local-display-factory.c	2009-10-14 14:39:13.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.c gdm-2.30.0.new/daemon/gdm-local-display-factory.c
+--- gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.c	2010-04-14 14:51:08.306602571 +0200
 @@ -22,6 +22,8 @@
  
  #include <stdlib.h>
@@ -20,16 +20,16 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
  
  #include <glib.h>
  #include <glib/gi18n.h>
-@@ -51,6 +53,8 @@
- #define HAL_DBUS_DEVICE_INTERFACE               "org.freedesktop.Hal.Device"
- #define SEAT_PCI_DEVICE_CLASS                   3
+@@ -45,6 +47,8 @@
+ #define GDM_LOCAL_DISPLAY_FACTORY_DBUS_PATH GDM_DBUS_PATH "/LocalDisplayFactory"
+ #define GDM_MANAGER_DBUS_NAME               "org.gnome.DisplayManager.LocalDisplayFactory"
  
 +#define GUEST_USERNAME                          "guest"
 +
  #define MAX_DISPLAY_FAILURES 5
  
  struct GdmLocalDisplayFactoryPrivate
-@@ -234,6 +238,269 @@
+@@ -228,6 +232,270 @@
          return ret;
  }
  
@@ -130,7 +130,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
 +/* End GdmGuestDisplay */
 +
 +static gboolean
-+gdm_local_display_factory_setup_guest_account ()
++gdm_local_display_factory_setup_guest_account (const char *current_user_session)
 +{
 +        GError *err = NULL;
 +        gboolean result;
@@ -141,9 +141,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
 +        struct sigaction dfl, old_act;
 +        const char* argv[] = {
 +            "/usr/share/gdm/guest-session/guest-session-setup.sh",
-+            NULL, NULL}; /* leave enough room for one argument */
++            current_user_session, NULL, NULL}; /* leave enough room for a second argument */
 +        
-+        g_debug ("gdm_local_display_factory_setup_guest_account: Calling guest-session-setup.sh");
++        g_debug ("gdm_local_display_factory_setup_guest_account: Calling guest-session-setup.sh %s", current_user_session);
 +        
 +        /* temporarily reset SIGCHLD, we need it for g_spawn_sync */
 +        dfl.sa_handler = SIG_DFL;
@@ -251,6 +251,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
 +
 +gboolean
 +gdm_local_display_factory_start_guest_session (GdmLocalDisplayFactory *factory,
++                                               const char             *current_user_session,
 +                                               char                  **id,
 +                                               GError                **error)
 +{
@@ -273,13 +274,13 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
 +                return FALSE;
 +        }
 +
-+        if (!gdm_local_display_factory_setup_guest_account()) {
++        if (!gdm_local_display_factory_setup_guest_account(current_user_session)) {
 +                return FALSE;
 +        }
 +
 +        num = take_next_display_number (factory);
 +
-+        g_debug ("GdmLocalDisplayFactory: Starting Guest Session %d", num);
++        g_debug ("GdmLocalDisplayFactory: Starting Guest %s Session %d", current_user_session, num);
 +
 +        display = gdm_guest_display_new (num);
 +
@@ -299,35 +300,37 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.c gdm-
  gboolean
  gdm_local_display_factory_create_product_display (GdmLocalDisplayFactory *factory,
                                                    const char             *parent_display_id,
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.h gdm-2.28.0.new/daemon/gdm-local-display-factory.h
---- gdm-2.28.0/daemon/gdm-local-display-factory.h	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-local-display-factory.h	2009-10-14 14:34:31.000000000 +1100
-@@ -65,6 +65,10 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.h gdm-2.30.0.new/daemon/gdm-local-display-factory.h
+--- gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.h	2010-04-14 14:50:03.194778506 +0200
+@@ -65,6 +65,11 @@
                                                                                 char                  **id,
                                                                                 GError                **error);
  
 +gboolean                   gdm_local_display_factory_start_guest_session       (GdmLocalDisplayFactory *factory,
++                                                                                const char             *current_user_session,
 +                                                                                char                  **id,
 +                                                                                GError                **error);
 +
  gboolean                   gdm_local_display_factory_create_product_display   (GdmLocalDisplayFactory *factory,
                                                                                 const char             *parent_display_id,
                                                                                 const char             *relay_address,
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-local-display-factory.xml gdm-2.28.0.new/daemon/gdm-local-display-factory.xml
---- gdm-2.28.0/daemon/gdm-local-display-factory.xml	2009-09-22 06:05:27.000000000 +1000
-+++ gdm-2.28.0.new/daemon/gdm-local-display-factory.xml	2009-10-14 14:34:31.000000000 +1100
-@@ -9,5 +9,8 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.xml gdm-2.30.0.new/daemon/gdm-local-display-factory.xml
+--- gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0.new/daemon/gdm-local-display-factory.xml	2010-04-14 14:49:50.358604017 +0200
+@@ -9,5 +9,9 @@
      <method name="CreateTransientDisplay">
        <arg name="id" direction="out" type="o"/>
      </method>
 +    <method name="StartGuestSession">
++      <arg name="current_user_session" direction="in" type="s"/>
 +      <arg name="id" direction="out" type="o"/>
 +    </method>
    </interface>
  </node>
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/data/gdm.conf.in gdm-2.28.0.new/data/gdm.conf.in
---- gdm-2.28.0/data/gdm.conf.in	2009-10-14 14:34:30.000000000 +1100
-+++ gdm-2.28.0.new/data/gdm.conf.in	2009-10-14 14:34:31.000000000 +1100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/data/gdm.conf.in gdm-2.30.0.new/data/gdm.conf.in
+--- gdm-2.30.0/data/gdm.conf.in	2010-04-14 14:49:49.439607398 +0200
++++ gdm-2.30.0.new/data/gdm.conf.in	2010-04-14 14:49:50.358604017 +0200
 @@ -68,6 +68,9 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
