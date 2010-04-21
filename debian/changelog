@@ -14,6 +14,7 @@ gdm3 (2.30.0-2) unstable; urgency=low
   * Add missing build-dep on docbook-xml.
   * Dropped 11_xephyr_nested.patch, it’s not ready for prime time yet. 
     Let’s keep up the good work in experimental.
+  * Don’t install gdmflexiserver-xnest.desktop.
   * OMG UPLOAD TO UNSTABLE !!!1!!
 
  -- Josselin Mouette <joss@debian.org>  Wed, 21 Apr 2010 22:15:17 +0200
