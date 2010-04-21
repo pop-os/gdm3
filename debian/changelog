@@ -1,4 +1,4 @@
-gdm3 (2.30.0-2) UNRELEASED; urgency=low
+gdm3 (2.30.0-2) unstable; urgency=low
 
   * 11_xephyr_nested.patch: don’t lock the screen when you use Xnest. 
     Also handle correctly the -l option.
@@ -11,8 +11,11 @@ gdm3 (2.30.0-2) UNRELEASED; urgency=low
     again for translations.
   * debian/po-up/POTFILES.in: add it here.
   * debian/po-up/fr.po: updated accordingly.
+  * Dropped 11_xephyr_nested.patch, it’s not ready for prime time yet. 
+    Let’s keep up the good work in experimental.
+  * OMG UPLOAD TO UNSTABLE !!!1!!
 
- -- Josselin Mouette <joss@debian.org>  Wed, 21 Apr 2010 19:43:24 +0200
+ -- Josselin Mouette <joss@debian.org>  Wed, 21 Apr 2010 22:15:17 +0200
 
 gdm3 (2.30.0-1) experimental; urgency=low
 
