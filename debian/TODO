@@ -5,6 +5,10 @@ Remaining important issues with GDM3:
  * There’s a race condition that will often prevent the xsettings 
    manager in g-s-d to start up in the user’s session.
 
- * In a nested session, the greeter selects the US keyboard by default.
-
- * gdmsetup spews debug information.
+The current Xephyr patch is not usable and is disabled:
+ * It is *completely* insecure - anyone can connect to the Xephyr 
+   server.
+ * The greeter always selects the US keyboard by default.
+ * It proposes to reboot/shutdown instead of having an exit button.
+ * Closing the Xnest window doesn’t clean it up in the GDM internal 
+   status.

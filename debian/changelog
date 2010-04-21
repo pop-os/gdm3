@@ -3,6 +3,11 @@ gdm3 (2.30.0-2) UNRELEASED; urgency=low
   * 11_xephyr_nested.patch: don’t lock the screen when you use Xnest. 
     Also handle correctly the -l option.
   * debian/po-up/fr.po: updated accordingly.
+  * greeter.gconf-defaults: remove trailing whitespace.
+  * debian/gdm3.postinst: create a /var/lib/gdm3/.gconf.path that 
+    mentions the .gconf.mandatory where the settings live. This fixes 
+    all issues with g-s-d, which didn’t obtain the correct settings. 
+    Yay!
 
  -- Josselin Mouette <joss@debian.org>  Wed, 21 Apr 2010 19:43:24 +0200
 

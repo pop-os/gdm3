@@ -1,5 +1,5 @@
 # Use a specific background
-/desktop/gnome/background/picture_filename	/usr/share/images/desktop-base/moreblue-orbit-gdm.svg 
+/desktop/gnome/background/picture_filename	/usr/share/images/desktop-base/moreblue-orbit-gdm.svg
 /desktop/gnome/background/picture_options	stretched
 
 # Theming options
