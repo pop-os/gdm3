@@ -7,7 +7,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>, Sebastian Dröge <slomo@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Loic Minier <lool@dooz.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 5),
                cdbs,
@@ -40,7 +40,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libattr1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
                iso-codes,
                libaudit-dev,
-               xserver-xorg
+               xserver-xorg,
+               docbook-xml
 Standards-Version: 3.8.4
 
 Package: gdm3
