@@ -12,4 +12,5 @@
 12_polkit_settings.patch
 13_gdmsetup.patch
 13_gdmsetup_ui.patch
+13_gdmsetup_desktop.patch
 90_relibtoolize.patch
