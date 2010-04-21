@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 2.30.0-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-21 19:44+0200\n"
-"PO-Revision-Date: 2010-04-21 19:44+0200\n"
+"POT-Creation-Date: 2010-04-21 22:03+0200\n"
+"PO-Revision-Date: 2010-04-21 22:05+0200\n"
 "Last-Translator: Josselin Mouette <joss@debian.org>\n"
 "Language-Team: Debian-l10n-French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,3 +46,11 @@ msgstr "Paramètres de l’écran de connexion"
 #: ../patches/13_gdmsetup_ui.patch.h:5
 msgid "_Show the screen for choosing who will log in"
 msgstr "_Choisir l’utilisateur qui se connecte"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr "Configurer le comportement de l’écran de connexion"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
+msgstr "Écran de connexion"

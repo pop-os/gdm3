@@ -1,0 +1,17 @@
+Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.0/gui/gdmsetup/gdmsetup.desktop.in	2010-04-21 21:54:41.373693826 +0200
+@@ -0,0 +1,12 @@
++[Desktop Entry]
++_Name=Login Screen
++_Comment=Configure login screen behavior
++Exec=gdmsetup
++Icon=gdmsetup
++StartupNotify=true
++Terminal=false
++Type=Application
++Categories=GNOME;GTK;Settings;System;
++X-GNOME-Bugzilla-Bugzilla=GNOME
++X-GNOME-Bugzilla-Product=gdm
++X-GNOME-Bugzilla-Component=general

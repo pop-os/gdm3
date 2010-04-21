@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-21 19:44+0200\n"
+"POT-Creation-Date: 2010-04-21 22:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,4 +48,12 @@ msgstr ""
 #. Radio option to set login screen to prompt for user
 #: ../patches/13_gdmsetup_ui.patch.h:5
 msgid "_Show the screen for choosing who will log in"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
 msgstr ""
