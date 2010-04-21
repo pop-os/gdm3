@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 2.30.0-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-13 23:55+0200\n"
-"PO-Revision-Date: 2010-04-13 23:57+0200\n"
+"POT-Creation-Date: 2010-04-21 19:44+0200\n"
+"PO-Revision-Date: 2010-04-21 19:44+0200\n"
 "Last-Translator: Josselin Mouette <joss@debian.org>\n"
 "Language-Team: Debian-l10n-French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,10 @@ msgstr ""
 #: ../patches/11_xephyr_nested.patch:684
 msgid "Run gdm in a nested window"
 msgstr "Lancer GDM dans une fenêtre imbriquée"
+
+#: ../patches/11_xephyr_nested.patch:685
+msgid "Don't lock the screen on the current display"
+msgstr "Ne pas verrouiller l’écran"
 
 #. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
 #: ../patches/13_gdmsetup.patch:360

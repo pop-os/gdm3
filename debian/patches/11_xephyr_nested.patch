@@ -1,8 +1,8 @@
 Debian: add CreateNestedDisplay(parent_display_id) dbus method.
 Index: gdm-2.30.0/daemon/gdm-display.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.c	2010-04-13 23:54:54.333236999 +0200
-+++ gdm-2.30.0/daemon/gdm-display.c	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-display.c	2010-04-21 19:32:53.785691730 +0200
++++ gdm-2.30.0/daemon/gdm-display.c	2010-04-21 19:32:59.133691945 +0200
 @@ -52,6 +52,7 @@ struct GdmDisplayPrivate
  {
          char                 *id;
@@ -243,8 +243,8 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          }
 Index: gdm-2.30.0/daemon/gdm-display.h
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.h	2010-04-13 23:54:54.317236641 +0200
-+++ gdm-2.30.0/daemon/gdm-display.h	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-display.h	2010-04-21 19:32:53.773689506 +0200
++++ gdm-2.30.0/daemon/gdm-display.h	2010-04-21 19:32:59.133691945 +0200
 @@ -102,6 +102,9 @@ gboolean            gdm_display_unmanage
  gboolean            gdm_display_get_id                         (GdmDisplay *display,
                                                                  char      **id,
@@ -278,8 +278,8 @@ Index: gdm-2.30.0/daemon/gdm-display.h
                                                                  GError    **error);
 Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.c	2010-04-13 23:54:54.309237440 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-local-display-factory.c	2010-04-21 19:32:53.761689237 +0200
++++ gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-04-21 19:32:59.133691945 +0200
 @@ -22,6 +22,8 @@
  
  #include <stdlib.h>
@@ -423,8 +423,8 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
  on_static_display_status_changed (GdmDisplay             *display,
 Index: gdm-2.30.0/daemon/gdm-local-display-factory.h
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.h	2010-04-13 23:54:54.297235705 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-local-display-factory.h	2010-04-21 19:32:53.749689457 +0200
++++ gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-04-21 19:32:59.133691945 +0200
 @@ -65,6 +65,10 @@ gboolean                   gdm_local_dis
                                                                                 char                  **id,
                                                                                 GError                **error);
@@ -438,8 +438,8 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.h
                                                                                 const char             *relay_address,
 Index: gdm-2.30.0/daemon/gdm-local-display-factory.xml
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.xml	2010-04-13 23:54:54.285240325 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-local-display-factory.xml	2010-04-21 19:32:53.737689677 +0200
++++ gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-04-21 19:32:59.137689590 +0200
 @@ -9,5 +9,10 @@
      <method name="CreateTransientDisplay">
        <arg name="id" direction="out" type="o"/>
@@ -453,8 +453,8 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.xml
  </node>
 Index: gdm-2.30.0/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-simple-slave.c	2010-04-13 23:54:54.261239786 +0200
-+++ gdm-2.30.0/daemon/gdm-simple-slave.c	2010-04-13 23:54:55.869241009 +0200
+--- gdm-2.30.0.orig/daemon/gdm-simple-slave.c	2010-04-21 19:32:53.725694786 +0200
++++ gdm-2.30.0/daemon/gdm-simple-slave.c	2010-04-21 19:32:59.137689590 +0200
 @@ -1043,6 +1043,9 @@ static gboolean
  idle_connect_to_display (GdmSimpleSlave *slave)
  {
@@ -515,8 +515,8 @@ Index: gdm-2.30.0/daemon/gdm-simple-slave.c
                                    G_CALLBACK (on_server_exited),
 Index: gdm-2.30.0/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-slave.c	2010-04-13 23:54:54.233239647 +0200
-+++ gdm-2.30.0/daemon/gdm-slave.c	2010-04-13 23:54:55.873241587 +0200
+--- gdm-2.30.0.orig/daemon/gdm-slave.c	2010-04-21 19:32:53.701695226 +0200
++++ gdm-2.30.0/daemon/gdm-slave.c	2010-04-21 19:32:59.137689590 +0200
 @@ -78,31 +78,41 @@ struct GdmSlavePrivate
  
          /* cached display values */
@@ -909,8 +909,8 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          G_OBJECT_CLASS (gdm_slave_parent_class)->finalize (object);
 Index: gdm-2.30.0/daemon/gdm-display.xml
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.xml	2010-04-13 23:54:54.209242529 +0200
-+++ gdm-2.30.0/daemon/gdm-display.xml	2010-04-13 23:54:55.873241587 +0200
+--- gdm-2.30.0.orig/daemon/gdm-display.xml	2010-04-21 19:32:53.673698024 +0200
++++ gdm-2.30.0/daemon/gdm-display.xml	2010-04-21 19:32:59.137689590 +0200
 @@ -4,6 +4,9 @@
      <method name="GetId">
        <arg name="id" direction="out" type="o"/>
@@ -944,8 +944,8 @@ Index: gdm-2.30.0/daemon/gdm-display.xml
      </method>
 Index: gdm-2.30.0/data/gdm.conf.in
 ===================================================================
---- gdm-2.30.0.orig/data/gdm.conf.in	2010-04-13 23:54:54.157241855 +0200
-+++ gdm-2.30.0/data/gdm.conf.in	2010-04-13 23:54:55.873241587 +0200
+--- gdm-2.30.0.orig/data/gdm.conf.in	2010-04-21 19:32:53.617694821 +0200
++++ gdm-2.30.0/data/gdm.conf.in	2010-04-21 19:32:59.137689590 +0200
 @@ -62,10 +62,16 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Display"
@@ -965,8 +965,8 @@ Index: gdm-2.30.0/data/gdm.conf.in
             send_interface="org.gnome.DisplayManager.Manager"
 Index: gdm-2.30.0/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-server.c	2010-04-13 23:54:54.185246881 +0200
-+++ gdm-2.30.0/daemon/gdm-server.c	2010-04-13 23:54:55.873241587 +0200
+--- gdm-2.30.0.orig/daemon/gdm-server.c	2010-04-21 19:32:53.645694465 +0200
++++ gdm-2.30.0/daemon/gdm-server.c	2010-04-21 19:32:59.141689679 +0200
 @@ -79,11 +79,13 @@ struct GdmServerPrivate
          char    *auth_file;
  
@@ -1150,8 +1150,8 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  }
 Index: gdm-2.30.0/utils/gdmflexiserver.c
 ===================================================================
---- gdm-2.30.0.orig/utils/gdmflexiserver.c	2010-04-13 23:54:54.129241228 +0200
-+++ gdm-2.30.0/utils/gdmflexiserver.c	2010-04-13 23:54:55.873241587 +0200
+--- gdm-2.30.0.orig/utils/gdmflexiserver.c	2010-04-21 19:32:53.589693219 +0200
++++ gdm-2.30.0/utils/gdmflexiserver.c	2010-04-21 19:42:06.625188517 +0200
 @@ -34,6 +34,9 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
@@ -1162,15 +1162,17 @@ Index: gdm-2.30.0/utils/gdmflexiserver.c
  #define GDM_DBUS_LOCAL_DISPLAY_FACTORY_PATH      "/org/gnome/DisplayManager/LocalDisplayFactory"
  #define GDM_DBUS_LOCAL_DISPLAY_FACTORY_INTERFACE "org.gnome.DisplayManager.LocalDisplayFactory"
  
-@@ -59,7 +62,7 @@ static char      **args_remaining   = NU
+@@ -59,8 +62,8 @@ static char      **args_remaining   = NU
  /* Keep all config options for compatibility even if they are noops */
  GOptionEntry options [] = {
          { "command", 'c', 0, G_OPTION_ARG_STRING, &send_command, N_("Only the VERSION command is supported"), N_("COMMAND") },
 -        { "xnest", 'n', 0, G_OPTION_ARG_NONE, &use_xnest, N_("Ignored - retained for compatibility"), NULL },
+-        { "no-lock", 'l', 0, G_OPTION_ARG_NONE, &no_lock, N_("Ignored - retained for compatibility"), NULL },
 +        { "xnest", 'n', 0, G_OPTION_ARG_NONE, &use_xnest, N_("Run gdm in a nested window"), NULL },
-         { "no-lock", 'l', 0, G_OPTION_ARG_NONE, &no_lock, N_("Ignored - retained for compatibility"), NULL },
++        { "no-lock", 'l', 0, G_OPTION_ARG_NONE, &no_lock, N_("Don't lock the screen on the current display"), NULL },
          { "debug", 'd', 0, G_OPTION_ARG_NONE, &debug_in, N_("Debugging output"), NULL },
          { "authenticate", 'a', 0, G_OPTION_ARG_NONE, &authenticate, N_("Ignored - retained for compatibility"), NULL },
+         { "startnew", 's', 0, G_OPTION_ARG_NONE, &startnew, N_("Ignored - retained for compatibility"), NULL },
 @@ -548,6 +551,216 @@ oom:
  }
  
@@ -1411,3 +1413,12 @@ Index: gdm-2.30.0/utils/gdmflexiserver.c
          error = NULL;
          res = goto_login_session (&error);
          if (! res) {
+@@ -777,7 +989,7 @@ main (int argc, char *argv[])
+ 
+                 gtk_dialog_run (GTK_DIALOG (dialog));
+                 gtk_widget_destroy (dialog);
+-        } else {
++        } else if (!use_xnest && !no_lock) {
+                 maybe_lock_screen ();
+         }
+ 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-13 23:55+0200\n"
+"POT-Creation-Date: 2010-04-21 19:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 
 #: ../patches/11_xephyr_nested.patch:684
 msgid "Run gdm in a nested window"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:685
+msgid "Don't lock the screen on the current display"
 msgstr ""
 
 #. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
