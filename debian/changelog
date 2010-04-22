@@ -7,6 +7,7 @@ gdm3 (2.30.0-3) UNRELEASED; urgency=low
   * Don’t build-depend on libaudit-dev on !linux.
   * Only suggest metacity, the functionality loss is minimal.
   * Suggest gok.
+  * New Russian translations by Yuri Kozlov. Closes: #578775.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 22 Apr 2010 17:48:35 +0200
 
