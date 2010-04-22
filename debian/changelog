@@ -1,3 +1,12 @@
+gdm3 (2.30.0-3) UNRELEASED; urgency=low
+
+  * New Spanish translations by Francisco Javier Cuadrado.
+  * New Telugu translations by Veeven. Closes: #578713.
+  * New Gujarati translations by Kartik Mistry. Closes: #578716.
+  * New German translation by Gert Michael Kulyk. Closes: #578730.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 22 Apr 2010 14:16:18 +0200
+
 gdm3 (2.30.0-2) unstable; urgency=low
 
   * 11_xephyr_nested.patch: don’t lock the screen when you use Xnest. 

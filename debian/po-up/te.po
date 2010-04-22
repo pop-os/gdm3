@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-13 23:55+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Veeven <veeven@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Telugu\n"
+"X-Poedit-Country: INDIA\n"
+
+#: ../patches/11_xephyr_nested.patch:684
+msgid "Run gdm in a nested window"
+msgstr "GDMని అల్లిక కిటికీలో నడుపు"
+
+#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:360
+#, c-format
+msgid "Log in as %s automatically"
+msgstr "స్వయంచాలకంగా %s గా ప్రవేశించు"
+
+#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:362
+#, c-format
+msgid "Allow %s seconds for anyone else to log in first"
+msgstr "ఇతరులు మొదట ప్రవేశించడానికి  %s క్షణాల్లో అనుమతించు"
+
+#: ../patches/13_gdmsetup_ui.patch.h:1
+msgid "<b>When the computer starts up</b>"
+msgstr "<b>కంప్యూటరు మొదలవుతున్నప్పుడు</b>"
+
+#. Title of login screen settings dialog
+#: ../patches/13_gdmsetup_ui.patch.h:3
+msgid "Login Screen Settings"
+msgstr "ప్రవేశపు తెర అమరికలు"
+
+#. Radio option to set login screen to prompt for user
+#: ../patches/13_gdmsetup_ui.patch.h:5
+msgid "_Show the screen for choosing who will log in"
+msgstr "ఎవరు ప్రవేశించాలో ఎంచుకునేందుకు తెరని చూపించు (_S)"
+

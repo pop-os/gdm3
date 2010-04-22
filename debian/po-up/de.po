@@ -1,0 +1,58 @@
+# German translations for gdm3 package
+# Copyright (C) 2010 THE gdm3'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gdm3 package.
+# Gert Michael Kulyk <gkulyk@yahoo.de>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: gdm3 2.30.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-22 08:26+0200\n"
+"PO-Revision-Date: 2010-04-22 08:33+0200\n"
+"Last-Translator: Gert Michael Kulyk <gkulyk@yahoo.de>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../patches/11_xephyr_nested.patch:684
+msgid "Run gdm in a nested window"
+msgstr "Gdm in einem eingebetteten Fenster ausführen"
+
+#: ../patches/11_xephyr_nested.patch:685
+msgid "Don't lock the screen on the current display"
+msgstr "Bildschirm der aktuellen Anzeige nicht sperren"
+
+#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:360
+#, c-format
+msgid "Log in as %s automatically"
+msgstr "Automatisch als %s anmelden"
+
+#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:362
+#, c-format
+msgid "Allow %s seconds for anyone else to log in first"
+msgstr "Anderen Benutzern %s Sekunden Zeit geben, um sich zuerst anzumelden"
+
+#: ../patches/13_gdmsetup_ui.patch.h:1
+msgid "<b>When the computer starts up</b>"
+msgstr "<b>Beim Hochfahren des Rechners</b>"
+
+#. Title of login screen settings dialog
+#: ../patches/13_gdmsetup_ui.patch.h:3
+msgid "Login Screen Settings"
+msgstr "Einstellungen des Anmeldebildschirms"
+
+#. Radio option to set login screen to prompt for user
+#: ../patches/13_gdmsetup_ui.patch.h:5
+msgid "_Show the screen for choosing who will log in"
+msgstr "Bildschirm zur Benutzerauswahl an_zeigen"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr "Verhalten des Anmeldebildschirms konfigurieren"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
+msgstr "Anmeldebildschirm"
