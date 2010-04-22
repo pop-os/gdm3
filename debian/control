@@ -52,7 +52,6 @@ Depends: ${shlibs:Depends},
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin (>= 2.30),
-         metacity,
          policykit-1-gnome,
          upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
@@ -67,8 +66,10 @@ Recommends: zenity,
             gnome-settings-daemon,
             gnome-icon-theme
 Suggests: libpam-gnome-keyring,
+          metacity,
           gnome-mag,
-          gnome-orca
+          gnome-orca,
+          gok
 Provides: x-display-manager,
           fast-user-switch-applet
 Conflicts: fast-user-switch-applet,
