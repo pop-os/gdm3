@@ -1,4 +1,4 @@
-gdm3 (2.30.0-3) UNRELEASED; urgency=low
+gdm3 (2.30.0-3) unstable; urgency=low
 
   * New Spanish translations by Francisco Javier Cuadrado.
   * New Telugu translations by Veeven. Closes: #578713.
@@ -13,8 +13,11 @@ gdm3 (2.30.0-3) UNRELEASED; urgency=low
     give to translators.
   * New Asturian translations by maacub.
   * New Estonian translations by Mihkel.
+  * 06_first_vt.patch: fix a horrible bug that lead to re-use existing 
+    VTs, causing very ugly things happening when you tried to switch 
+    users.
 
- -- Josselin Mouette <joss@debian.org>  Thu, 22 Apr 2010 17:48:35 +0200
+ -- Josselin Mouette <joss@debian.org>  Fri, 23 Apr 2010 19:33:33 +0200
 
 gdm3 (2.30.0-2) unstable; urgency=low
 

@@ -1,8 +1,10 @@
 It's almost the same tty manager of gdm 2.20, except we don't support Sun VTs,
 only Linux and FreeBSD.
---- a/common/gdm-settings-keys.h
-+++ b/common/gdm-settings-keys.h
-@@ -32,6 +32,7 @@
+Index: gdm-2.30.0/common/gdm-settings-keys.h
+===================================================================
+--- gdm-2.30.0.orig/common/gdm-settings-keys.h	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0/common/gdm-settings-keys.h	2010-04-23 18:42:51.171351569 +0200
+@@ -32,6 +32,7 @@ G_BEGIN_DECLS
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
  #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
@@ -10,8 +12,10 @@ only Linux and FreeBSD.
  
  #define GDM_KEY_DEBUG "debug/Enable"
  
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
+Index: gdm-2.30.0/daemon/gdm-server.c
+===================================================================
+--- gdm-2.30.0.orig/daemon/gdm-server.c	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0/daemon/gdm-server.c	2010-04-23 19:30:43.834854732 +0200
 @@ -44,6 +44,9 @@
  #include "gdm-common.h"
  #include "gdm-signal-handler.h"
@@ -22,7 +26,7 @@ only Linux and FreeBSD.
  #include "gdm-server.h"
  
  extern char **environ;
-@@ -663,6 +666,187 @@
+@@ -663,6 +666,203 @@ gdm_server_spawn (GdmServer  *server,
          return ret;
  }
  
@@ -34,8 +38,24 @@ only Linux and FreeBSD.
 +#elif defined (__FreeBSD__)
 +#define GDM_USE_CONSIO_VT
 +#include <sys/consio.h>
++
++static const char*
++__itovty (int val)
++{
++	static char str[8];
++	char* next = str + sizeof (str) - 1;
++
++	*next = '\0';
++	do {
++		*--next = "0123456789abcdefghigklmnopqrstuv"[val % 32];
++	} while (val /= 32);
++
++	return next;
++}
 +#endif
++
 +#define GDMCONSOLEDEVICE "/dev/tty0"
++
 +
 +static gchar *
 +gdm_get_vt_device (int vtno)
@@ -110,7 +130,7 @@ only Linux and FreeBSD.
 +                return -1;
 +        }
 +
-+        for (vtno = get_first_vt (), vtmask = 1 << (vtno - 1); vtstat.v_state & vtmask; vtno++, vtmask <<= 1);
++        for (vtno = get_first_vt (), vtmask = 1 << vtno; vtstat.v_state & vtmask; vtno++, vtmask <<= 1);
 +        if (!vtmask) {
 +                VE_IGNORE_EINTR (close (fd));
 +                return -1;
@@ -210,7 +230,7 @@ only Linux and FreeBSD.
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -674,10 +858,14 @@
+@@ -674,10 +874,14 @@ gboolean
  gdm_server_start (GdmServer *server)
  {
          gboolean res;
@@ -226,8 +246,10 @@ only Linux and FreeBSD.
          return res;
  }
  
---- a/data/gdm.schemas.in.in
-+++ b/data/gdm.schemas.in.in
+Index: gdm-2.30.0/data/gdm.schemas.in.in
+===================================================================
+--- gdm-2.30.0.orig/data/gdm.schemas.in.in	2010-03-29 23:42:03.000000000 +0200
++++ gdm-2.30.0/data/gdm.schemas.in.in	2010-04-23 18:42:51.171351569 +0200
 @@ -47,6 +47,11 @@
        <signature>i</signature>
        <default>30</default>
