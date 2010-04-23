@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 new\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-21 22:03+0200\n"
+"POT-Creation-Date: 2010-04-23 18:16+0200\n"
 "PO-Revision-Date: 2010-04-22 20:14+0400\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -15,7 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../default.desktop.in.h:1
+msgid "System Default"
+msgstr "Системный по умолчанию"
+
+#: ../default.desktop.in.h:2
+msgid "The default session on the system"
+msgstr "Сеанс по умолчанию в системе"
 
 #: ../patches/11_xephyr_nested.patch:684
 msgid "Run gdm in a nested window"
@@ -58,4 +67,3 @@ msgstr "Настроить поведение экрана входа в сис�
 #: ../patches/13_gdmsetup_desktop.patch.h:2
 msgid "Login Screen"
 msgstr "Экран входа в систему"
-

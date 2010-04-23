@@ -54,15 +54,9 @@ INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
 
 %.desktop: %.desktop.in
-	intltool-merge -d debian/po $< $@
+	intltool-merge -d debian/po-up $< $@
 
 build/gdm3:: $(OUTFILES)
-
-update-po::
-	ls $(INFILES) | sed 's#^#../#' >debian/po/POTFILES.in
-	cd debian/po && intltool-update -g debian --pot && \
-		for i in *.po; do intltool-update -g debian --dist $${i%.po}; done
-	rm -f debian/po/POTFILES.in
 
 MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
 

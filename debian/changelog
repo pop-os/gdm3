@@ -9,6 +9,10 @@ gdm3 (2.30.0-3) UNRELEASED; urgency=low
   * Suggest gok.
   * New Russian translations by Yuri Kozlov. Closes: #578775.
   * 06_first_vt.patch: use /dev/tty0 instead of /dev/console.
+  * Merge all translations in debian/po-up to avoid having two files to 
+    give to translators.
+  * New Asturian translations by maacub.
+  * New Estonian translations by Mihkel.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 22 Apr 2010 17:48:35 +0200
 
