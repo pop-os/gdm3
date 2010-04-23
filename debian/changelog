@@ -8,6 +8,7 @@ gdm3 (2.30.0-3) UNRELEASED; urgency=low
   * Only suggest metacity, the functionality loss is minimal.
   * Suggest gok.
   * New Russian translations by Yuri Kozlov. Closes: #578775.
+  * 06_first_vt.patch: use /dev/tty0 instead of /dev/console.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 22 Apr 2010 17:48:35 +0200
 
