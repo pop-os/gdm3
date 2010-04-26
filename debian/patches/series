@@ -13,4 +13,6 @@
 13_gdmsetup.patch
 13_gdmsetup_ui.patch
 13_gdmsetup_desktop.patch
+14_bindv6only.patch
+15_kfreebsd.patch
 90_relibtoolize.patch
