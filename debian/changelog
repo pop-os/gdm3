@@ -9,6 +9,8 @@ gdm3 (2.30.0-4) UNRELEASED; urgency=low
     This fixes the current build issue and will probably not be enough.
     Closes: #579288.
   * Add Vcs-* fields.
+  * 06_first_vt.patch: hopefully fix the VT manager on kfreebsd. With 
+    user switching support, by selecting the correct device.
 
  -- Josselin Mouette <joss@debian.org>  Mon, 26 Apr 2010 23:04:18 +0200
 
