@@ -7,6 +7,7 @@ gdm3 (2.30.0-4) UNRELEASED; urgency=low
     chooser behavior with bindv6only=1. Closes: #579033.
   * 15_kfreebsd.patch: first attempt at making gdm3 build on kfreebsd.
     This fixes the current build issue and will probably not be enough.
+    Closes: #579288.
 
  -- Josselin Mouette <joss@debian.org>  Mon, 26 Apr 2010 23:04:18 +0200
 
