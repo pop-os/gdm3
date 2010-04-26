@@ -1,0 +1,68 @@
+# Vietnamese translation for GDM3.
+# Copyright © 2010 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gdm3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-23 18:16+0200\n"
+"PO-Revision-Date: 2010-04-26 21:03+0930\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.8\n"
+
+#: ../default.desktop.in.h:1
+msgid "System Default"
+msgstr "Mặc định Hệ thống"
+
+#: ../default.desktop.in.h:2
+msgid "The default session on the system"
+msgstr "Buổi hợp mặc định trên hệ thống"
+
+#: ../patches/11_xephyr_nested.patch:684
+msgid "Run gdm in a nested window"
+msgstr "Chạy gdm trong cửa sổ lồng nhau"
+
+#: ../patches/11_xephyr_nested.patch:685
+msgid "Don't lock the screen on the current display"
+msgstr "Đừng khoá màn hình trên thiết bị hiển thị hiện thời"
+
+#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:360
+#, c-format
+msgid "Log in as %s automatically"
+msgstr "Tự động đăng nhập dưới %s"
+
+#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:362
+#, c-format
+msgid "Allow %s seconds for anyone else to log in first"
+msgstr "Đợi %s giây để người khác đăng nhập trước"
+
+#: ../patches/13_gdmsetup_ui.patch.h:1
+msgid "<b>When the computer starts up</b>"
+msgstr "<b>Khi máy tính khởi động</b>"
+
+#. Title of login screen settings dialog
+#: ../patches/13_gdmsetup_ui.patch.h:3
+msgid "Login Screen Settings"
+msgstr "Thiết lập Màn hình Đăng nhập"
+
+#. Radio option to set login screen to prompt for user
+#: ../patches/13_gdmsetup_ui.patch.h:5
+msgid "_Show the screen for choosing who will log in"
+msgstr "Hiện màn hình chọn ai nên đăng nhập"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr "Cấu hình ứng xử của màn hình đăng nhập"
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
+msgstr "Màn hình Đăng nhập"
+

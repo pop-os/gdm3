@@ -2,8 +2,9 @@ gdm3 (2.30.0-4) UNRELEASED; urgency=low
 
   * Break orca < 2.30.0-2 just to be sure.
   * New Czech translation by Michal Šimůnek.
+  * New Vietnamese translation by Clytie Siddall. Closes: #579228.
 
- -- Josselin Mouette <joss@debian.org>  Mon, 26 Apr 2010 09:22:02 +0200
+ -- Josselin Mouette <joss@debian.org>  Mon, 26 Apr 2010 15:04:40 +0200
 
 gdm3 (2.30.0-3) unstable; urgency=low
 
