@@ -38,6 +38,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                xserver-xorg,
                docbook-xml
 Standards-Version: 3.8.4
+Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
 Architecture: any
