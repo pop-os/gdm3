@@ -1,4 +1,4 @@
-gdm3 (2.30.0-4) unstable; urgency=low
+gdm3 (2.30.2-1) unstable; urgency=low
 
   * Break orca < 2.30.0-2 just to be sure.
   * New Czech translation by Michal Šimůnek.
@@ -11,6 +11,8 @@ gdm3 (2.30.0-4) unstable; urgency=low
   * Add Vcs-* fields.
   * 06_first_vt.patch: hopefully fix the VT manager on kfreebsd. With 
     user switching support, by selecting the correct device.
+  * New upstream release.
+  * 90_relibtoolize.patch: updated for the new version.
 
  -- Josselin Mouette <joss@debian.org>  Tue, 27 Apr 2010 18:50:56 +0200
 
