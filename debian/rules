@@ -9,6 +9,11 @@ include /usr/share/gnome-pkg-tools/1/rules/patch-translations.mk
 
 GNOME_MODULE := gdm
 
+DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
+			    X_SERVER_PATH="/usr/bin" \
+			    X_SERVER="/usr/bin/Xorg" \
+			    X_CONFIG_OPTIONS="-audit 0"
+
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \

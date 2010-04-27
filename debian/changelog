@@ -1,3 +1,12 @@
+gdm3 (2.30.2-2) UNRELEASED; urgency=low
+
+  * Pass X_PATH et al. through DEB_CONFIGURE_SCRIPT_ENV.
+  * 16_xserver_path.patch: use the environment variables when they 
+    exist. Based on a patch by Julien Cristau.
+  * Stop build-depending on xserver-xorg.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 27 Apr 2010 21:26:58 +0200
+
 gdm3 (2.30.2-1) unstable; urgency=low
 
   * Break orca < 2.30.0-2 just to be sure.
