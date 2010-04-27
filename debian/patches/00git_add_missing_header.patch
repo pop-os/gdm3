@@ -1,0 +1,18 @@
+commit 111080b8d5c82b2c8e7a097db142061e29bfa382
+Author: Frederic Crozat <fcrozat@mandriva.com>
+Date:   Tue Apr 27 14:27:37 2010 +0200
+
+    Add missing header (fix GNOME bug #616888)
+
+diff --git a/daemon/gdm-slave.c b/daemon/gdm-slave.c
+index 73784dc..7acc5fb 100644
+--- a/daemon/gdm-slave.c
++++ b/daemon/gdm-slave.c
+@@ -22,6 +22,7 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <stdint.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+ #include <string.h>

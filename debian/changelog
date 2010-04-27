@@ -26,6 +26,8 @@ gdm (2.30.1-0ubuntu1) UNRELEASED; urgency=low
     - Minor doc corrections.
     - Translation updates.
   * 99_autoreconf.patch: Refresh.
+  * Add 00git_add_missing_header.patch: Add missing #include to fix build
+    (taken from upstream git head).
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 27 Apr 2010 14:44:38 +0200
 
