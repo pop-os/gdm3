@@ -1,0 +1,21 @@
+Index: gdm-2.30.2/daemon/gdm-manager.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-manager.c	2010-04-27 21:37:11.797532344 +0200
++++ gdm-2.30.2/daemon/gdm-manager.c	2010-04-27 21:38:46.621528329 +0200
+@@ -294,7 +294,7 @@ gdm_manager_set_xdmcp_enabled (GdmManage
+ 
+         if (manager->priv->xdmcp_enabled != enabled) {
+                 manager->priv->xdmcp_enabled = enabled;
+-
++#ifdef HAVE_LIBXDMCP
+                 if (manager->priv->xdmcp_enabled) {
+                         manager->priv->xdmcp_factory = gdm_xdmcp_display_factory_new (manager->priv->display_store);
+                         if (manager->priv->started) {
+@@ -308,6 +308,7 @@ gdm_manager_set_xdmcp_enabled (GdmManage
+                         g_object_unref (manager->priv->xdmcp_factory);
+                         manager->priv->xdmcp_factory = NULL;
+                 }
++#endif
+         }
+ 
+ }

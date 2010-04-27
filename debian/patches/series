@@ -16,4 +16,5 @@
 14_bindv6only.patch
 15_kfreebsd.patch
 16_xserver_path.patch
+17_no_libxdmcp.patch
 90_relibtoolize.patch
