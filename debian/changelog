@@ -25,7 +25,8 @@ gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
     - Remove duplicated strings for translation. (GNOME #609179)
     - Minor doc corrections.
     - Translation updates.
-  * 99_autoreconf.patch: Refresh.
+  * 04_fix_external_program_directories.patch, 99_autoreconf.patch: Refresh
+    for new upstream version.
   * Add 00git_add_missing_header.patch: Add missing #include to fix build
     (taken from upstream git head).
   * Add 34_disable_a11y_default.patch: Revert upstream change between 2.30.0
