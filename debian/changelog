@@ -1,3 +1,34 @@
+gdm (2.30.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream bug fix release:
+    - Accessibility is now enabled by default for the GDM login screen.
+    - When the face browser is disabled, the PAM conversation is started
+      immediately, so users do not need to click a button to start entering
+      the username and password.  (GNOME #591082, LP: #421292)
+    - Add label-for and labelled-by a11y relations to the entry field in the
+      login GUI.  This makes the login GUI more accessible when using AT programs.
+      (GNOME #613434).
+    - Fixed bugs that were causing XDMCP to not show the greeter again after
+      logout.  (GNOME #606724).
+    - The default XDMCP PingIntervalSeconds was increased from 15 to
+      60 seconds.
+    - The WINDOWPATH environment variable is now set for the user session.
+      (GNOME #609272)
+    - Ensure Init script is called when using Automatic Login. (GNOME #614488)
+    - Fix race condition with Timed Login. (GNOME #614062)
+    - Drop xhost localuser:gdm and localuser:root when the user session starts.
+      (GNOME #605350)
+    - Removed the icon monitor from the GDM login GUI since it was not functional
+      and was causing problems with automounting user's $HOME directories.
+      (GNOME #609321, LP: #518810)
+    - Do not mark "%x" for translation. (GNOME #613306)
+    - Remove duplicated strings for translation. (GNOME #609179)
+    - Minor doc corrections.
+    - Translation updates.
+  * 99_autoreconf.patch: Refresh.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 27 Apr 2010 14:44:38 +0200
+
 gdm (2.30.0-0ubuntu5) lucid; urgency=low
 
   * debian/patches/14_guest_session.patch:
