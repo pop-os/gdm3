@@ -30,6 +30,12 @@ gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
   * Add 34_disable_a11y_default.patch: Revert upstream change between 2.30.0
     and 2.30.1 to enable a11y by default. This wasn't tested and isn't
     appropriate for an SRU.
+  * 06_run_xsession.d.patch: Export $USERXSESSION, $USERXSESSIONRC, and
+    $ALTUSERXSESSION, so that running the "custom"/"default" sessions actually
+    works. Without those, /etc/X11/Xsession.d/50x11-common_determine-startup
+    decides to run the system default session even if we have the
+    "allow-user-xsession" option. This is a prerequisite for fixing LP#398300.
+    Also update the patch tag header to comply to DEP-3.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 27 Apr 2010 14:44:38 +0200
 
