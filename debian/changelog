@@ -4,7 +4,7 @@ gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
     - Accessibility is now enabled by default for the GDM login screen.
     - When the face browser is disabled, the PAM conversation is started
       immediately, so users do not need to click a button to start entering
-      the username and password.  (GNOME #591082, LP: #421292)
+      the username and password.  (GNOME #591082)
     - Add label-for and labelled-by a11y relations to the entry field in the
       login GUI.  This makes the login GUI more accessible when using AT programs.
       (GNOME #613434).
