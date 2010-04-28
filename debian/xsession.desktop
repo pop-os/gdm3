@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=~/.xsession
+Comment=Custom ~/.xsession script
+Exec=default

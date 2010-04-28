@@ -36,6 +36,11 @@ gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
     decides to run the system default session even if we have the
     "allow-user-xsession" option. This is a prerequisite for fixing LP#398300.
     Also update the patch tag header to comply to DEP-3.
+  * Add debian/xsession.desktop: Add a new session type "~/.xsession" which
+    will run ~/.xsession (Exec=default will be interpreted by the
+    20x11-common_process-args and 50x11-common_determine-startup Xsession.d
+    scripts). If the admin sets "allow-user-xsession" to False, this will
+    launch the system default session instead. (LP: #398300)
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 27 Apr 2010 14:44:38 +0200
 
