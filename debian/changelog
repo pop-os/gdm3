@@ -1,4 +1,4 @@
-gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.30.2-0ubuntu1) lucid-proposed; urgency=low
 
   * New upstream bug fix release:
     - Accessibility is now enabled by default for the GDM login screen.
@@ -42,7 +42,7 @@ gdm (2.30.2-0ubuntu1) UNRELEASED; urgency=low
     scripts). If the admin sets "allow-user-xsession" to False, this will
     launch the system default session instead. (LP: #398300)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 27 Apr 2010 14:44:38 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 28 Apr 2010 14:41:12 +0200
 
 gdm (2.30.0-0ubuntu5) lucid; urgency=low
 
