@@ -6,6 +6,7 @@ gdm3 (2.30.2-2) UNRELEASED; urgency=low
   * 90_relibtoolize.patch: updated accordingly.
   * Stop build-depending on xserver-xorg.
   * 17_no_libxdmcp.patch: fix build when there is no libxdmcp.
+  * Updated Czech translation by Michal Šimůnek.
 
  -- Josselin Mouette <joss@debian.org>  Tue, 27 Apr 2010 21:26:58 +0200
 

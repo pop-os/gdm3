@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gdm3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-23 18:16+0200\n"
-"PO-Revision-Date: 2010-04-25 13:02+0200\n"
+"PO-Revision-Date: 2010-05-03 18:02+0200\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr "_Ukazovat obrazovku s výběrem uživatele k přihlášení"
 
 #: ../patches/13_gdmsetup_desktop.patch.h:1
 msgid "Configure login screen behavior"
-msgstr "Nastavit příznak přihlašovací obrazovky"
+msgstr "Nastavit chování přihlašovací obrazovky"
 
 #: ../patches/13_gdmsetup_desktop.patch.h:2
 msgid "Login Screen"
