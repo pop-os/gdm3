@@ -1,0 +1,54 @@
+Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-05-07 21:02:21.096400430 +0200
++++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-05-07 21:24:37.872896540 +0200
+@@ -90,6 +90,7 @@ enum {
+         PROP_0,
+ };
+ 
++static gboolean gdm_simple_slave_stop           (GdmSlave *slave);
+ static void     gdm_simple_slave_class_init     (GdmSimpleSlaveClass *klass);
+ static void     gdm_simple_slave_init           (GdmSimpleSlave      *simple_slave);
+ static void     gdm_simple_slave_finalize       (GObject             *object);
+@@ -208,6 +209,23 @@ queue_greeter_reset (GdmSimpleSlave *sla
+         slave->priv->greeter_reset_id = g_timeout_add_seconds (2, (GSourceFunc)greeter_reset_timeout, slave);
+ }
+ 
++static gboolean
++greeter_stop_timeout (GdmSimpleSlave *slave)
++{
++        gdm_simple_slave_stop (GDM_SLAVE (slave));
++        return FALSE;
++}
++
++static void
++queue_greeter_stop (GdmSimpleSlave *slave)
++{
++        if (slave->priv->greeter_reset_id > 0) {
++                return;
++        }
++
++        slave->priv->greeter_reset_id = g_timeout_add_seconds (2, (GSourceFunc)greeter_stop_timeout, slave);
++}
++
+ static void
+ on_session_setup_complete (GdmSession     *session,
+                            GdmSimpleSlave *slave)
+@@ -380,7 +398,7 @@ start_session_timeout (GdmSimpleSlave *s
+                    when Xorg exits it switches to the VT it was
+                    started from.  That interferes with fast
+                    user switching. */
+-                queue_greeter_reset (slave);
++                queue_greeter_stop (slave);
+ 
+                 goto out;
+         }
+@@ -453,7 +471,7 @@ on_session_accreditation_failed (GdmSess
+            user switching. */
+         destroy_session (slave);
+ 
+-        queue_greeter_reset (slave);
++        queue_greeter_stop (slave);
+ }
+ 
+ static void
