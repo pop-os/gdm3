@@ -18,7 +18,7 @@
 16_xserver_path.patch
 17_no_libxdmcp.patch
 18_switch_kill_greeter.patch
-19_xserver_options.patch
+19_configure_xserver.patch
 20_endsession_respawn.patch
 21_schemas_usr.patch
 22_noconsole.patch

@@ -1,0 +1,129 @@
+GNOME #586777
+
+Index: gdm-2.30.2/common/gdm-settings-keys.h
+===================================================================
+--- gdm-2.30.2.orig/common/gdm-settings-keys.h	2010-05-08 14:46:42.000000000 +0200
++++ gdm-2.30.2/common/gdm-settings-keys.h	2010-05-08 14:49:12.457112035 +0200
+@@ -33,6 +33,7 @@ G_BEGIN_DECLS
+ #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
+ #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
+ #define GDM_KEY_FIRST_VT "daemon/FirstVT"
++#define GDM_KEY_LOCAL_XSERVER_COMMAND "daemon/LocalXserverCommand"
+ 
+ #define GDM_KEY_DEBUG "debug/Enable"
+ 
+Index: gdm-2.30.2/daemon/gdm-server.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-server.c	2010-05-08 14:46:48.000000000 +0200
++++ gdm-2.30.2/daemon/gdm-server.c	2010-05-08 14:50:14.433610793 +0200
+@@ -968,6 +968,14 @@ _gdm_server_set_disable_tcp (GdmServer
+ }
+ 
+ static void
++_gdm_server_set_command (GdmServer  *server,
++                         const char *command)
++{
++        g_free (server->priv->command);
++        server->priv->command = g_strdup (command);
++}
++
++static void
+ gdm_server_set_property (GObject      *object,
+                          guint         prop_id,
+                          const GValue *value,
+@@ -990,6 +998,9 @@ gdm_server_set_property (GObject      *o
+         case PROP_DISABLE_TCP:
+                 _gdm_server_set_disable_tcp (self, g_value_get_boolean (value));
+                 break;
++        case PROP_COMMAND:
++                _gdm_server_set_command (self, g_value_get_string (value));
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -1023,6 +1034,9 @@ gdm_server_get_property (GObject    *obj
+         case PROP_DISABLE_TCP:
+                 g_value_set_boolean (value, self->priv->disable_tcp);
+                 break;
++        case PROP_COMMAND:
++                g_value_set_string (value, self->priv->command);
++                break;
+         default:
+                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+                 break;
+@@ -1123,6 +1137,13 @@ gdm_server_class_init (GdmServerClass *k
+                                                                NULL,
+                                                                TRUE,
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
++        g_object_class_install_property (object_class,
++                                         PROP_COMMAND,
++                                         g_param_spec_string ("command",
++                                                              "Server startup command",
++                                                              "Server startup command",
++                                                              NULL,
++                                                              G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+ 
+ }
+ 
+@@ -1133,7 +1154,6 @@ gdm_server_init (GdmServer *server)
+         server->priv = GDM_SERVER_GET_PRIVATE (server);
+ 
+         server->priv->pid = -1;
+-        server->priv->command = g_strdup (X_SERVER " -br -verbose");
+         server->priv->log_dir = g_strdup (LOGDIR);
+ 
+         add_ready_handler (server);
+@@ -1165,6 +1185,7 @@ gdm_server_new (const char *display_name
+         GObject *object;
+ 
+         object = g_object_new (GDM_TYPE_SERVER,
++                               "command", X_SERVER " -br -verbose " X_CONFIG_OPTIONS,
+                                "display-name", display_name,
+                                "auth-file", auth_file,
+                                NULL);
+Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-05-08 14:46:45.000000000 +0200
++++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-05-08 14:48:35.533613174 +0200
+@@ -1142,6 +1142,7 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
+         if (display_is_local) {
+                 gboolean res;
+                 gboolean disable_tcp;
++                char    *server_command;
+ 
+                 slave->priv->server = gdm_server_new (display_name, auth_file);
+ 
+@@ -1153,6 +1154,17 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
+                                       NULL);
+                 }
+ 
++                server_command = NULL;
++                if (gdm_settings_client_get_string (GDM_KEY_LOCAL_XSERVER_COMMAND,
++                                                    &server_command) &&
++                    server_command != NULL &&
++                    server_command [0] != '\0') {
++                        g_object_set (slave->priv->server,
++                                      "command", server_command,
++                                      NULL);
++                        g_free (server_command);
++                }
++
+                 g_signal_connect (slave->priv->server,
+                                   "exited",
+                                   G_CALLBACK (on_server_exited),
+Index: gdm-2.30.2/data/gdm.schemas.in.in
+===================================================================
+--- gdm-2.30.2.orig/data/gdm.schemas.in.in	2010-05-08 14:46:42.000000000 +0200
++++ gdm-2.30.2/data/gdm.schemas.in.in	2010-05-08 14:50:42.425611096 +0200
+@@ -23,6 +23,11 @@
+       <default>@GDM_GROUPNAME@</default>
+     </schema>
+     <schema>
++      <key>daemon/LocalXserverCommand</key>
++      <signature>s</signature>
++      <default>@X_SERVER@ -br -verbose @X_CONFIG_OPTIONS@</default>
++    </schema>
++    <schema>
+       <key>daemon/AutomaticLoginEnable</key>
+       <signature>b</signature>
+       <default>false</default>

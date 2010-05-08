@@ -5,7 +5,9 @@ gdm3 (2.30.2-3) UNRELEASED; urgency=low
     of user switching which is the original upstream reason for 
     introducing the broken behavior we fixed with 
     18_switch_kill_greeter.patch.
-  * 19_xserver_options.patch: new patch. Don’t ignore X_SERVER_OPTIONS.
+  * 19_configure_xserver.patch: patch by Hans Petter Jansson to allow to 
+    set the local X server options in the configuration file.
+    Also make it use the default options the configure script sets.
   * 20_endsession_respawn.patch: new patch. Respawn transient displays 
     when the user session is finished. In combination with 
     -novtswitch, it allows a unified interface where exiting a session 
