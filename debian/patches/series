@@ -21,4 +21,5 @@
 19_xserver_options.patch
 20_endsession_respawn.patch
 21_schemas_usr.patch
+22_noconsole.patch
 90_relibtoolize.patch
