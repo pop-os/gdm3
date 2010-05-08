@@ -1,0 +1,191 @@
+Index: gdm-2.30.2/common/test-settings-client.c
+===================================================================
+--- gdm-2.30.2.orig/common/test-settings-client.c	2010-05-08 14:30:22.773612342 +0200
++++ gdm-2.30.2/common/test-settings-client.c	2010-05-08 14:30:41.317112066 +0200
+@@ -78,7 +78,7 @@ main (int argc, char **argv)
+ 
+         g_type_init ();
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 exit (1);
+         }
+ 
+Index: gdm-2.30.2/daemon/factory-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/factory-slave-main.c	2010-05-08 14:30:22.605612977 +0200
++++ gdm-2.30.2/daemon/factory-slave-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -205,7 +205,7 @@ main (int    argc,
+                 exit (1);
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 exit (1);
+         }
+Index: gdm-2.30.2/daemon/main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/main.c	2010-05-08 14:30:22.681609304 +0200
++++ gdm-2.30.2/daemon/main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -592,7 +592,7 @@ main (int    argc,
+                 goto out;
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 goto out;
+         }
+Index: gdm-2.30.2/daemon/product-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/product-slave-main.c	2010-05-08 14:30:22.633616539 +0200
++++ gdm-2.30.2/daemon/product-slave-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -209,7 +209,7 @@ main (int    argc,
+                 goto out;
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 goto out;
+         }
+Index: gdm-2.30.2/daemon/session-worker-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/session-worker-main.c	2010-05-08 14:30:22.581615862 +0200
++++ gdm-2.30.2/daemon/session-worker-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -167,7 +167,7 @@ main (int    argc,
+                 exit (1);
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 exit (1);
+         }
+Index: gdm-2.30.2/daemon/simple-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/simple-slave-main.c	2010-05-08 14:30:22.557614835 +0200
++++ gdm-2.30.2/daemon/simple-slave-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -212,7 +212,7 @@ main (int    argc,
+                 goto out;
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 goto out;
+         }
+@@ -224,7 +224,7 @@ main (int    argc,
+                 exit (1);
+         }
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/daemon/xdmcp-chooser-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/xdmcp-chooser-slave-main.c	2010-05-08 14:30:22.657616588 +0200
++++ gdm-2.30.2/daemon/xdmcp-chooser-slave-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -211,7 +211,7 @@ main (int    argc,
+                 goto out;
+         }
+ 
+-        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_warning ("Unable to initialize settings");
+                 goto out;
+         }
+Index: gdm-2.30.2/data/Makefile.am
+===================================================================
+--- gdm-2.30.2.orig/data/Makefile.am	2010-05-08 14:30:22.785607724 +0200
++++ gdm-2.30.2/data/Makefile.am	2010-05-08 14:30:41.317112066 +0200
+@@ -42,7 +42,7 @@ dbusconf_DATA = $(dbusconf_in_files:.con
+ 
+ @INTLTOOL_SCHEMAS_RULE@
+ 
+-schemasdir = $(gdmconfdir)
++schemasdir = $(datadir)/gdm
+ schemas_in_files = gdm.schemas.in
+ schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+ 
+Index: gdm-2.30.2/gui/simple-greeter/greeter-main.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/greeter-main.c	2010-05-08 14:30:22.733629535 +0200
++++ gdm-2.30.2/gui/simple-greeter/greeter-main.c	2010-05-08 14:30:41.317112066 +0200
+@@ -257,7 +257,7 @@ main (int argc, char *argv[])
+         g_type_init ();
+ 
+         gdm_profile_start ("Initializing settings client");
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/gui/simple-greeter/test-greeter-login-window.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/test-greeter-login-window.c	2010-05-08 14:30:22.713609043 +0200
++++ gdm-2.30.2/gui/simple-greeter/test-greeter-login-window.c	2010-05-08 14:30:41.317112066 +0200
+@@ -47,7 +47,7 @@ main (int argc, char *argv[])
+ 
+         gtk_init (&argc, &argv);
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/gui/simple-greeter/test-user-chooser.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/test-user-chooser.c	2010-05-08 14:30:22.705609352 +0200
++++ gdm-2.30.2/gui/simple-greeter/test-user-chooser.c	2010-05-08 14:30:41.317112066 +0200
+@@ -46,7 +46,7 @@ main (int argc, char *argv[])
+ 
+         gtk_init (&argc, &argv);
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/gui/simple-greeter/test-user-manager.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/test-user-manager.c	2010-05-08 14:30:22.693609572 +0200
++++ gdm-2.30.2/gui/simple-greeter/test-user-manager.c	2010-05-08 14:30:41.321110690 +0200
+@@ -79,7 +79,7 @@ main (int argc, char *argv[])
+ 
+         gtk_init (&argc, &argv);
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/gui/user-switch-applet/applet.c
+===================================================================
+--- gdm-2.30.2.orig/gui/user-switch-applet/applet.c	2010-05-08 14:30:22.745609759 +0200
++++ gdm-2.30.2/gui/user-switch-applet/applet.c	2010-05-08 14:30:41.321110690 +0200
+@@ -1426,7 +1426,7 @@ fill_applet (PanelApplet *applet)
+         adata->applet = applet;
+         adata->panel_size = 24;
+ 
+-        if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/")) {
++        if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/")) {
+                 g_critical ("Unable to initialize settings client");
+                 exit (1);
+         }
+Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.c
+===================================================================
+--- gdm-2.30.2.orig/gui/gdmsetup/gdmsetup.c	2010-05-08 14:31:12.737112712 +0200
++++ gdm-2.30.2/gui/gdmsetup/gdmsetup.c	2010-05-08 14:31:22.305109952 +0200
+@@ -319,7 +319,7 @@ int main (int argc, char **argv)
+ 
+     gtk_init (&argc, &argv);
+ 
+-    if (! gdm_settings_client_init (GDMCONFDIR "/gdm.schemas", "/"))
++    if (! gdm_settings_client_init (DATADIR "/gdm/gdm.schemas", "/"))
+         g_error ("Unable to initialize settings client");
+ 
+     ui = gtk_builder_new ();

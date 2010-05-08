@@ -14,6 +14,9 @@ gdm3 (2.30.2-3) UNRELEASED; urgency=low
   * 08_frequent-users_greeter.patch: updated with an improved logic, to 
     not use the same session type for the login window and the user 
     session.
+  * 21_schemas_usr.patch: new patch. Move gdm.schemas to /usr, it should 
+    certainly not be editable.
+  * 90_relibtoolize.patch: refreshed accordingly.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 10:24:52 +0200
 
