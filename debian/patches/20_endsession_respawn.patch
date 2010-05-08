@@ -1,0 +1,219 @@
+Index: gdm-2.30.2/daemon/gdm-display.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-display.c	2010-05-08 12:53:57.313609813 +0200
++++ gdm-2.30.2/daemon/gdm-display.c	2010-05-08 13:04:40.885109412 +0200
+@@ -302,6 +302,32 @@ gdm_display_set_slave_bus_name (GdmDispl
+         return ret;
+ }
+ 
++static gboolean
++gdm_display_real_set_needs_respawn (GdmDisplay *display,
++                                    gboolean    respawn,
++                                    GError    **error)
++{
++        return TRUE;
++}
++
++gboolean
++gdm_display_set_needs_respawn (GdmDisplay *display,
++                               gboolean    respawn,
++                               GError    **error)
++{
++        gboolean ret;
++
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        g_debug ("GdmDisplay: %s respawn on display %s", respawn?"Enabling":"Disabling", display->priv->x11_display_name);
++
++        g_object_ref (display);
++        ret = GDM_DISPLAY_GET_CLASS (display)->set_needs_respawn (display, respawn, error);
++        g_object_unref (display);
++
++        return ret;
++}
++
+ static void
+ gdm_display_real_get_timed_login_details (GdmDisplay *display,
+                                           gboolean   *enabledp,
+@@ -1019,6 +1045,7 @@ gdm_display_class_init (GdmDisplayClass
+         klass->add_user_authorization = gdm_display_real_add_user_authorization;
+         klass->remove_user_authorization = gdm_display_real_remove_user_authorization;
+         klass->set_slave_bus_name = gdm_display_real_set_slave_bus_name;
++        klass->set_needs_respawn = gdm_display_real_set_needs_respawn;
+         klass->get_timed_login_details = gdm_display_real_get_timed_login_details;
+         klass->prepare = gdm_display_real_prepare;
+         klass->manage = gdm_display_real_manage;
+Index: gdm-2.30.2/daemon/gdm-display.h
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-display.h	2010-05-08 12:53:57.357614223 +0200
++++ gdm-2.30.2/daemon/gdm-display.h	2010-05-08 13:41:13.865110143 +0200
+@@ -66,6 +66,9 @@ typedef struct
+         gboolean (*set_slave_bus_name)        (GdmDisplay *display,
+                                                const char *name,
+                                                GError    **error);
++        gboolean (*set_needs_respawn)         (GdmDisplay *display,
++                                               gboolean    respawn,
++                                               GError    **error);
+         gboolean (*prepare)                   (GdmDisplay *display);
+         gboolean (*manage)                    (GdmDisplay *display);
+         gboolean (*finish)                    (GdmDisplay *display);
+@@ -140,6 +143,9 @@ gboolean            gdm_display_remove_u
+ gboolean            gdm_display_set_slave_bus_name             (GdmDisplay *display,
+                                                                 const char *name,
+                                                                 GError    **error);
++gboolean            gdm_display_set_needs_respawn              (GdmDisplay *display,
++                                                                gboolean    respawn,
++                                                                GError    **error);
+ 
+ 
+ G_END_DECLS
+Index: gdm-2.30.2/daemon/gdm-display.xml
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-display.xml	2010-05-08 12:53:57.405619210 +0200
++++ gdm-2.30.2/daemon/gdm-display.xml	2010-05-08 13:04:56.369117621 +0200
+@@ -35,6 +35,9 @@
+     <method name="SetSlaveBusName">
+       <arg name="name" direction="in" type="s"/>
+     </method>
++    <method name="SetNeedsRespawn">
++      <arg name="respawn" direction="in" type="b"/>
++    </method>
+     <method name="GetTimedLoginDetails">
+       <arg name="enabled" direction="out" type="b"/>
+       <arg name="username" direction="out" type="s"/>
+Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-05-08 13:32:10.669607915 +0200
++++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-05-08 13:33:16.569611123 +0200
+@@ -109,6 +109,9 @@ on_session_started (GdmSession       *se
+ 
+         g_debug ("GdmSimpleSlave: session started %d", pid);
+ 
++        /* Respawn the display when the user session has finished */
++        gdm_slave_set_needs_respawn (GDM_SLAVE (slave), TRUE);
++
+         /* Run the PreSession script. gdmslave suspends until script has terminated */
+         username = gdm_session_direct_get_username (slave->priv->session);
+         gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/PreSession", username);
+Index: gdm-2.30.2/daemon/gdm-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-slave.c	2010-05-08 13:28:48.729109474 +0200
++++ gdm-2.30.2/daemon/gdm-slave.c	2010-05-08 13:29:04.081107426 +0200
+@@ -561,6 +561,33 @@ gdm_slave_set_slave_bus_name (GdmSlave *
+         return res;
+ }
+ 
++gboolean
++gdm_slave_set_needs_respawn (GdmSlave *slave,
++                             gboolean  respawn)
++{
++        gboolean    res;
++        GError     *error;
++
++        error = NULL;
++        res = dbus_g_proxy_call (slave->priv->display_proxy,
++                                 "SetNeedsRespawn",
++                                 &error,
++                                 G_TYPE_BOOLEAN, respawn,
++                                 G_TYPE_INVALID,
++                                 G_TYPE_INVALID);
++
++        if (! res) {
++                if (error != NULL) {
++                        g_warning ("Failed to set respawn on parent display: %s", error->message);
++                        g_error_free (error);
++                } else {
++                        g_warning ("Failed to set respawn on parent display");
++                }
++        }
++
++        return res;
++}
++
+ static gboolean
+ gdm_slave_real_start (GdmSlave *slave)
+ {
+Index: gdm-2.30.2/daemon/gdm-slave.h
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-slave.h	2010-05-08 13:29:19.385114088 +0200
++++ gdm-2.30.2/daemon/gdm-slave.h	2010-05-08 13:30:26.393122989 +0200
+@@ -72,6 +72,9 @@ gboolean            gdm_slave_add_user_a
+ gboolean            gdm_slave_switch_to_user_session (GdmSlave   *slave,
+                                                       const char *username);
+ 
++gboolean            gdm_slave_set_needs_respawn      (GdmSlave *slave,
++                                                      gboolean  respawn);
++
+ gboolean            gdm_slave_connect_to_x11_display (GdmSlave   *slave);
+ void                gdm_slave_set_busy_cursor        (GdmSlave   *slave);
+ gboolean            gdm_slave_run_script             (GdmSlave   *slave,
+Index: gdm-2.30.2/daemon/gdm-transient-display.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-transient-display.c	2010-05-08 13:08:26.685614561 +0200
++++ gdm-2.30.2/daemon/gdm-transient-display.c	2010-05-08 13:23:01.929109606 +0200
+@@ -45,7 +45,7 @@
+ 
+ struct GdmTransientDisplayPrivate
+ {
+-        gpointer dummy;
++        gboolean needs_respawn;
+ };
+ 
+ enum {
+@@ -86,6 +86,20 @@ gdm_transient_display_remove_user_author
+ }
+ 
+ static gboolean
++gdm_transient_display_set_needs_respawn (GdmDisplay *display,
++                                         gboolean    respawn,
++                                         GError    **error)
++{
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        GDM_DISPLAY_CLASS (gdm_transient_display_parent_class)->set_needs_respawn (display, respawn, error);
++
++        GDM_TRANSIENT_DISPLAY (display)->priv->needs_respawn = respawn;
++
++        return TRUE;
++}
++
++static gboolean
+ gdm_transient_display_manage (GdmDisplay *display)
+ {
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+@@ -100,10 +114,24 @@ gdm_transient_display_finish (GdmDisplay
+ {
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+ 
+-        GDM_DISPLAY_CLASS (gdm_transient_display_parent_class)->finish (display);
++        if (GDM_TRANSIENT_DISPLAY (display)->priv->needs_respawn) {
++                int status;
+ 
+-        /* we don't restart/remanage transient displays */
+-        gdm_display_unmanage (display);
++                /* If we were told to respawn, don't call parent's
++                   finish since we don't want to be put in the
++                   FINISHED state */
++
++                gdm_display_unmanage (display);
++
++                status = gdm_display_get_status (display);
++                if (status != GDM_DISPLAY_FAILED) {
++                        gdm_display_manage (display);
++                }
++        } else {
++                GDM_DISPLAY_CLASS (gdm_transient_display_parent_class)->finish (display);
++
++                gdm_display_unmanage (display);
++        }
+ 
+         return TRUE;
+ }
+@@ -168,6 +196,7 @@ gdm_transient_display_class_init (GdmTra
+         display_class->create_authority = gdm_transient_display_create_authority;
+         display_class->add_user_authorization = gdm_transient_display_add_user_authorization;
+         display_class->remove_user_authorization = gdm_transient_display_remove_user_authorization;
++        display_class->set_needs_respawn = gdm_transient_display_set_needs_respawn;
+         display_class->manage = gdm_transient_display_manage;
+         display_class->finish = gdm_transient_display_finish;
+         display_class->unmanage = gdm_transient_display_unmanage;

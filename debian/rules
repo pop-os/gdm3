@@ -12,7 +12,7 @@ GNOME_MODULE := gdm
 DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
 			    X_SERVER_PATH="/usr/bin" \
 			    X_SERVER="/usr/bin/Xorg" \
-			    X_CONFIG_OPTIONS="-audit 0"
+			    X_CONFIG_OPTIONS="-audit 0 -novtswitch"
 
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--enable-ipv6=yes \

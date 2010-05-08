@@ -1,3 +1,19 @@
+gdm3 (2.30.2-3) UNRELEASED; urgency=low
+
+  * Pass -novtswitch to the X server options, so that it doesn’t switch 
+    back to the original tty when being killed. This fixes a corner case 
+    of user switching which is the original upstream reason for 
+    introducing the broken behavior we fixed with 
+    18_switch_kill_greeter.patch.
+  * 19_xserver_options.patch: new patch. Don’t ignore X_SERVER_OPTIONS.
+  * 20_endsession_respawn.patch: new patch. Respawn transient displays 
+    when the user session is finished. In combination with 
+    -novtswitch, it allows a unified interface where exiting a session 
+    will always bring back to a login manager, without leaving unused 
+    displays either.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 10:24:52 +0200
+
 gdm3 (2.30.2-2) unstable; urgency=low
 
   * Pass X_PATH et al. through DEB_CONFIGURE_SCRIPT_ENV.

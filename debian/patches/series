@@ -18,4 +18,6 @@
 16_xserver_path.patch
 17_no_libxdmcp.patch
 18_switch_kill_greeter.patch
+19_xserver_options.patch
+20_endsession_respawn.patch
 90_relibtoolize.patch
