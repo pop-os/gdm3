@@ -23,6 +23,7 @@ gdm3 (2.30.2-3) unstable; urgency=low
     as a standalone XDMCP server.
   * 23_autologin_once.patch: patch from Vincent Untz. Do not autologin 
     again after the session has been closed. Closes: #578736.
+  * gdm3.preinst: remove the old gdm.schemas upon upgrade.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 14:59:06 +0200
 
