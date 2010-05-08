@@ -1,4 +1,4 @@
-gdm3 (2.30.2-3) UNRELEASED; urgency=low
+gdm3 (2.30.2-3) unstable; urgency=low
 
   * Pass -novtswitch to the X server options, so that it doesn’t switch 
     back to the original tty when being killed. This fixes a corner case 
@@ -21,8 +21,10 @@ gdm3 (2.30.2-3) UNRELEASED; urgency=low
   * 90_relibtoolize.patch: refreshed accordingly.
   * 22_noconsole.patch: patch from Patrick Monnerat to allow GDM to work 
     as a standalone XDMCP server.
+  * 23_autologin_once.patch: patch from Vincent Untz. Do not autologin 
+    again after the session has been closed. Closes: #578736.
 
- -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 10:24:52 +0200
+ -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 14:59:06 +0200
 
 gdm3 (2.30.2-2) unstable; urgency=low
 

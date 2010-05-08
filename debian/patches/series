@@ -22,4 +22,5 @@
 20_endsession_respawn.patch
 21_schemas_usr.patch
 22_noconsole.patch
+23_autologin_once.patch
 90_relibtoolize.patch

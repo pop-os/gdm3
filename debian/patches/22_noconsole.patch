@@ -2,20 +2,20 @@ GNOME #567522
 
 Index: gdm-2.30.2/common/gdm-settings-keys.h
 ===================================================================
---- gdm-2.30.2.orig/common/gdm-settings-keys.h	2010-05-08 10:32:52.000000000 +0200
-+++ gdm-2.30.2/common/gdm-settings-keys.h	2010-05-08 14:38:59.321611630 +0200
+--- gdm-2.30.2.orig/common/gdm-settings-keys.h	2010-05-08 14:49:12.457112035 +0200
++++ gdm-2.30.2/common/gdm-settings-keys.h	2010-05-08 14:57:27.285109455 +0200
 @@ -32,6 +32,7 @@ G_BEGIN_DECLS
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
  #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
 +#define GDM_KEY_NO_CONSOLE "daemon/NoConsole"
  #define GDM_KEY_FIRST_VT "daemon/FirstVT"
+ #define GDM_KEY_LOCAL_XSERVER_COMMAND "daemon/LocalXserverCommand"
  
- #define GDM_KEY_DEBUG "debug/Enable"
 Index: gdm-2.30.2/daemon/gdm-manager.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-manager.c	2010-05-08 14:30:39.000000000 +0200
-+++ gdm-2.30.2/daemon/gdm-manager.c	2010-05-08 14:38:13.725613897 +0200
+--- gdm-2.30.2.orig/daemon/gdm-manager.c	2010-05-08 14:46:42.981612567 +0200
++++ gdm-2.30.2/daemon/gdm-manager.c	2010-05-08 14:57:27.285109455 +0200
 @@ -71,7 +71,8 @@ struct GdmManagerPrivate
  
  enum {
@@ -83,8 +83,8 @@ Index: gdm-2.30.2/daemon/gdm-manager.c
                  break;
 Index: gdm-2.30.2/daemon/gdm-manager.h
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-manager.h	2010-03-17 22:27:16.000000000 +0100
-+++ gdm-2.30.2/daemon/gdm-manager.h	2010-05-08 14:38:13.729611542 +0200
+--- gdm-2.30.2.orig/daemon/gdm-manager.h	2010-05-08 14:46:42.969610832 +0200
++++ gdm-2.30.2/daemon/gdm-manager.h	2010-05-08 14:57:27.285109455 +0200
 @@ -69,6 +69,8 @@ void                gdm_manager_set_wait
  
  void                gdm_manager_set_xdmcp_enabled              (GdmManager *manager,
@@ -96,8 +96,8 @@ Index: gdm-2.30.2/daemon/gdm-manager.h
                                                                  GError    **error);
 Index: gdm-2.30.2/daemon/main.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/main.c	2010-05-08 14:30:41.000000000 +0200
-+++ gdm-2.30.2/daemon/main.c	2010-05-08 14:38:13.729611542 +0200
+--- gdm-2.30.2.orig/daemon/main.c	2010-05-08 14:57:26.257612530 +0200
++++ gdm-2.30.2/daemon/main.c	2010-05-08 14:57:27.285109455 +0200
 @@ -525,6 +525,7 @@ main (int    argc,
          int                 ret;
          gboolean            res;
@@ -119,9 +119,9 @@ Index: gdm-2.30.2/daemon/main.c
          gdm_manager_set_xdmcp_enabled (manager, xdmcp_enabled);
 Index: gdm-2.30.2/data/gdm.schemas.in.in
 ===================================================================
---- gdm-2.30.2.orig/data/gdm.schemas.in.in	2010-05-08 10:32:52.000000000 +0200
-+++ gdm-2.30.2/data/gdm.schemas.in.in	2010-05-08 14:38:13.729611542 +0200
-@@ -52,6 +52,11 @@
+--- gdm-2.30.2.orig/data/gdm.schemas.in.in	2010-05-08 14:50:42.425611096 +0200
++++ gdm-2.30.2/data/gdm.schemas.in.in	2010-05-08 14:57:27.289111012 +0200
+@@ -57,6 +57,11 @@
        <signature>i</signature>
        <default>7</default>
      </schema>
