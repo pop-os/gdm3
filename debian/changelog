@@ -11,6 +11,9 @@ gdm3 (2.30.2-3) UNRELEASED; urgency=low
     -novtswitch, it allows a unified interface where exiting a session 
     will always bring back to a login manager, without leaving unused 
     displays either.
+  * 08_frequent-users_greeter.patch: updated with an improved logic, to 
+    not use the same session type for the login window and the user 
+    session.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 08 May 2010 10:24:52 +0200
 

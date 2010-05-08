@@ -1,23 +1,8 @@
---- a/daemon/ck-connector.c
-+++ b/daemon/ck-connector.c
-@@ -430,6 +430,14 @@
-                 name = va_arg (var_args, char *);
-         }
- 
-+        const char *session_type = "gdm";
-+        if (! add_param_basic (&iter_array, "session-type", DBUS_TYPE_STRING, &session_type)) {
-+                dbus_set_error (error,
-+                                CK_CONNECTOR_ERROR,
-+                                "Error adding parameter: session-type");
-+                goto out;
-+        }
-+
-         if (! dbus_message_iter_close_container (&iter, &iter_array)) {
-                 goto out;
-         }
---- a/gui/simple-greeter/gdm-user-manager.c
-+++ b/gui/simple-greeter/gdm-user-manager.c
-@@ -1322,7 +1322,7 @@
+Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/gdm-user-manager.c	2010-05-08 10:32:50.377110691 +0200
++++ gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c	2010-05-08 10:32:52.285108835 +0200
+@@ -1311,7 +1311,7 @@ reload_ck_history (GdmUserManager *manag
                  return;
          }
  
@@ -26,3 +11,29 @@
                                     seat_id);
          g_debug ("GdmUserManager: running '%s'", command);
          error = NULL;
+Index: gdm-2.30.2/daemon/gdm-session-worker.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-session-worker.c	2010-05-08 14:10:34.221113757 +0200
++++ gdm-2.30.2/daemon/gdm-session-worker.c	2010-05-08 14:12:03.985108630 +0200
+@@ -179,10 +179,13 @@ open_ck_session (GdmSessionWorker  *work
+         const char     *display_name;
+         const char     *display_device;
+         const char     *display_hostname;
++        const char     *session_type;
+         gboolean        is_local;
+ 
+         ret = FALSE;
+ 
++        session_type = "gdm";
++
+         if (worker->priv->x11_display_name != NULL) {
+                 display_name = worker->priv->x11_display_name;
+         } else {
+@@ -225,6 +228,7 @@ open_ck_session (GdmSessionWorker  *work
+         res = ck_connector_open_session_with_parameters (worker->priv->ckc,
+                                                          &error,
+                                                          "unix-user", &pwent->pw_uid,
++                                                         "session-type", &session_type,
+                                                          "x11-display", &display_name,
+                                                          "x11-display-device", &display_device,
+                                                          "remote-host-name", &display_hostname,
