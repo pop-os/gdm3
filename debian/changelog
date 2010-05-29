@@ -1,3 +1,9 @@
+gdm3 (2.30.2-4) UNRELEASED; urgency=low
+
+  * Ship a file in insserv.conf.d. Closes: #583694.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 29 May 2010 18:31:24 +0200
+
 gdm3 (2.30.2-3) unstable; urgency=low
 
   * Pass -novtswitch to the X server options, so that it doesn’t switch 

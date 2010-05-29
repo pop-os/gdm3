@@ -8,3 +8,4 @@ debian/gdm-xnest.svg                    usr/share/icons/hicolor/scalable/apps
 debian/gdmsetup.svg                     usr/share/icons/hicolor/scalable/apps
 debian/default.desktop			usr/share/gdm/BuiltInSessions
 data/session-setup.entries		usr/share/gdm/greeter-config
+debian/insserv.conf.d			etc
