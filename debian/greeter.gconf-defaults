@@ -13,3 +13,6 @@
 #/apps/gdm/simple-greeter/banner_message_text		Welcome
 #/apps/gdm/simple-greeter/disable_restart_buttons	false
 #/apps/gdm/simple-greeter/disable_user_list		false
+
+# The lower panel doesn't work with the compositor
+/apps/metacity/general/compositing_manager		false
