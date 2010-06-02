@@ -8,7 +8,7 @@ The configuration for the GDM daemon has changed starting with version
 2.26.
  * For the daemon (automatic login options, XDMCP…) it is done in 
    /etc/gdm3/daemon.conf. The list of available options can be found in 
-   /etc/gdm3/gdm.schemas.
+   /usr/share/gdm/gdm.schemas.
  * The greeter (the interface that welcomes you on the computer) uses 
    regular programs that are configured through GConf. You can tune the 
    interface settings in /etc/gdm3/greeter.gconf-defaults.
