@@ -1,11 +1,14 @@
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
 Description: Ignore users with UID below system configured minimum.
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/427462
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/459199
 Author: Kees Cook <kees@ubuntu.com>
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.new/daemon/gdm-user-manager.c
---- gdm-2.29.1/daemon/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
-+++ gdm-2.29.1.new/daemon/gdm-user-manager.c	2009-12-13 01:46:53.000000000 -0800
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-user-manager.c gdm-2.30.0.new/daemon/gdm-user-manager.c
+--- gdm-2.30.0/daemon/gdm-user-manager.c	2010-06-09 12:54:15.284027933 +1000
++++ gdm-2.30.0.new/daemon/gdm-user-manager.c	2010-06-09 12:54:44.184063267 +1000
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -14,7 +17,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.ne
  
  #ifdef HAVE_PATHS_H
  #include <paths.h>
-@@ -66,7 +67,7 @@
+@@ -72,7 +73,7 @@
  #ifdef __sun
  #define DEFAULT_MINIMAL_UID     100
  #else
@@ -23,15 +26,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.ne
  #endif
  
  #ifndef _PATH_SHELLS
-@@ -114,6 +115,7 @@
+@@ -103,6 +104,7 @@
  
          guint                  reload_id;
          guint                  ck_history_id;
 +        guint                  minimal_uid;
  
-         guint8                 loaded_passwd : 1;    
-         guint8                 loaded_cache : 1;
-@@ -539,6 +541,10 @@
+         guint8                 loaded_passwd : 1;
+         guint8                 users_dirty : 1;
+@@ -598,6 +600,10 @@
                  return;
          }
  
@@ -40,9 +43,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.ne
 +        }
 +
          /* check exclusions up front */
-         if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
+         if (user_in_exclude_list (manager, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-@@ -857,7 +863,7 @@
+@@ -929,7 +935,7 @@
                  g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
                  return;
          }
@@ -51,25 +54,25 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.ne
                  g_debug ("GdmUserManager: excluding user '%s'", username);
                  return;
          }
-@@ -1010,6 +1016,7 @@
-         g_free (command);
+@@ -1116,6 +1122,7 @@
+         }
  }
  
 +
  static void
  reload_passwd (GdmUserManager *manager)
  {
-@@ -1046,7 +1053,7 @@
-                 user = NULL;
+@@ -1161,7 +1168,7 @@
+                         user = NULL;
  
-                 /* Skip users below MinimalUID... */
--                if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
-+                if (pwent->pw_uid < manager->priv->minimal_uid) {
-                         continue;
-                 }
+                         /* Skip users below MinimalUID... */
+-                        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                        if (pwent->pw_uid < manager->priv->minimal_uid) {
+                                 continue;
+                         }
  
-@@ -1266,6 +1273,39 @@
-         dbus_g_object_type_install_info (GDM_TYPE_USER_MANAGER, &dbus_glib_gdm_user_manager_object_info);
+@@ -1433,6 +1440,39 @@
+         g_strfreev (temp_array);
  }
  
 +
@@ -108,18 +111,18 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/daemon/gdm-user-manager.c gdm-2.29.1.ne
  static void
  gdm_user_manager_init (GdmUserManager *manager)
  {
-@@ -1276,6 +1316,8 @@
- 
-         manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
+@@ -1458,6 +1498,8 @@
+         res = gdm_settings_client_get_boolean (GDM_KEY_INCLUDE_ALL,
+                                                &manager->priv->include_all);
  
 +        manager->priv->minimal_uid = system_minimal_uid ();
 +
          /* sessions */
          manager->priv->sessions = g_hash_table_new_full (g_str_hash,
                                                           g_str_equal,
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/gdmsetup/gdm-user-manager.c gdm-2.29.1.new/gui/gdmsetup/gdm-user-manager.c
---- gdm-2.29.1/gui/gdmsetup/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
-+++ gdm-2.29.1.new/gui/gdmsetup/gdm-user-manager.c	2009-12-13 01:47:05.000000000 -0800
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdm-user-manager.c gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.c
+--- gdm-2.30.0/gui/gdmsetup/gdm-user-manager.c	2010-06-09 12:54:15.204017903 +1000
++++ gdm-2.30.0.new/gui/gdmsetup/gdm-user-manager.c	2010-06-09 12:54:15.826518388 +1000
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -223,9 +226,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/gdmsetup/gdm-user-manager.c gdm-2.2
          /* sessions */
          manager->priv->sessions = g_hash_table_new_full (g_str_hash,
                                                           g_str_equal,
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c gdm-2.29.1.new/gui/simple-greeter/gdm-user-manager.c
---- gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c	2009-12-13 01:44:20.000000000 -0800
-+++ gdm-2.29.1.new/gui/simple-greeter/gdm-user-manager.c	2009-12-13 01:45:26.000000000 -0800
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/simple-greeter/gdm-user-manager.c gdm-2.30.0.new/gui/simple-greeter/gdm-user-manager.c
+--- gdm-2.30.0/gui/simple-greeter/gdm-user-manager.c	2010-06-09 12:54:15.254019161 +1000
++++ gdm-2.30.0.new/gui/simple-greeter/gdm-user-manager.c	2010-06-09 12:54:15.826518388 +1000
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -251,7 +254,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c g
  
          guint8                 users_dirty : 1;
          guint8                 loaded_cache : 1;
-@@ -928,6 +930,10 @@
+@@ -925,6 +927,10 @@
                  return;
          }
  
@@ -262,7 +265,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c g
          /* check exclusions up front */
          if (user_in_exclude_list (manager, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-@@ -1259,7 +1265,7 @@
+@@ -1256,7 +1262,7 @@
                  g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
                  return;
          }
@@ -271,7 +274,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c g
                  g_debug ("GdmUserManager: excluding user '%s'", username);
                  return;
          }
-@@ -1491,7 +1497,7 @@
+@@ -1488,7 +1494,7 @@
                          user = NULL;
  
                          /* Skip users below MinimalUID... */
@@ -280,7 +283,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c g
                                  continue;
                          }
  
-@@ -1765,6 +1771,38 @@
+@@ -1762,6 +1768,38 @@
  }
  
  
@@ -319,7 +322,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/gui/simple-greeter/gdm-user-manager.c g
  static void
  gdm_user_manager_init (GdmUserManager *manager)
  {
-@@ -1776,6 +1814,8 @@
+@@ -1773,6 +1811,8 @@
  
          manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
  

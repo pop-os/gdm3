@@ -1,3 +1,11 @@
+gdm (2.30.2-0ubuntu2) lucid-proposed; urgency=low
+
+  * debian/patches/16_gdmserver_user_manager.patch:
+  * debian/patches/24_system_uid.patch:
+    - Update to match IncludeAll behaviour in greeter (LP: #471542)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 09 Jun 2010 11:09:11 +1000
+
 gdm (2.30.2-0ubuntu1) lucid-proposed; urgency=low
 
   * New upstream bug fix release:

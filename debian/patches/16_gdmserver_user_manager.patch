@@ -1,4 +1,7 @@
 #
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
 # Description: Add org.gnome.DisplayManager.UserManager interface to gdmserver to be shared between greeter, configuration applet and FUSA applet
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/423450
 # Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=593996
@@ -8,10 +11,10 @@ From: Robert Ancell <robert.ancell@canonical.com>
 Date: Fri, 11 Sep 2009 16:01:30 +1000
 Subject: [PATCH] Add org.gnome.DisplayManager.UserManager interface to gdmserver
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/configure.ac gdm-2.28.1.new/configure.ac
---- gdm-2.28.1/configure.ac	2009-11-26 17:07:28.317717514 +0100
-+++ gdm-2.28.1.new/configure.ac	2009-11-26 17:07:45.585319608 +0100
-@@ -65,6 +65,7 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/configure.ac gdm-2.30.2.new/configure.ac
+--- gdm-2.30.2/configure.ac	2010-06-09 14:09:07.617036046 +1000
++++ gdm-2.30.2.new/configure.ac	2010-06-09 14:09:08.137025806 +1000
+@@ -64,6 +64,7 @@
          polkit-gobject-1 >= $POLKIT_GOBJECT_REQUIRED_VERSION
          gobject-2.0 >= $GLIB_REQUIRED_VERSION
          gio-2.0 >= $GLIB_REQUIRED_VERSION
@@ -19,7 +22,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/configure.ac gdm-2.28.1.new/configure.a
  )
  AC_SUBST(COMMON_CFLAGS)
  AC_SUBST(COMMON_LIBS)
-@@ -961,6 +962,17 @@
+@@ -979,6 +980,17 @@
  fi
  AC_SUBST(logdir, $GDM_LOG_DIR)
  
@@ -37,10 +40,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/configure.ac gdm-2.28.1.new/configure.a
  withval=""
  AC_ARG_WITH(at-bindir,
              AS_HELP_STRING([--with-at-bindir=<PATH>]
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon/gdm-user.c
---- gdm-2.28.1/daemon/gdm-user.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user.c	2009-11-26 17:07:31.427725843 +0100
-@@ -0,0 +1,596 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user.c gdm-2.30.2.new/daemon/gdm-user.c
+--- gdm-2.30.2/daemon/gdm-user.c	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user.c	2010-06-09 14:09:08.137025806 +1000
+@@ -0,0 +1,747 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2004-2005 James M. Cape <jcape@ignore-your.tv>.
@@ -79,9 +82,16 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +#define GDM_IS_USER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GDM_TYPE_USER))
 +#define GDM_USER_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS ((object), GDM_TYPE_USER, GdmUserClass))
 +
++#define GLOBAL_FACEDIR    DATADIR "/faces"
++#define MAX_ICON_SIZE     128
++#define MAX_FILE_SIZE     65536
++#define MINIMAL_UID       100
++
 +enum {
 +        PROP_0,
++        PROP_MANAGER,
 +        PROP_REAL_NAME,
++        PROP_DISPLAY_NAME,
 +        PROP_USER_NAME,
 +        PROP_UID,
 +        PROP_HOME_DIR,
@@ -99,9 +109,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +struct _GdmUser {
 +        GObject         parent;
 +
++        GdmUserManager *manager;
++
 +        uid_t           uid;
 +        char           *user_name;
 +        char           *real_name;
++        char           *display_name;
 +        char           *home_dir;
 +        char           *shell;
 +        char           *icon_url;
@@ -190,6 +203,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +}
 +
 +static void
++_gdm_user_set_login_frequency (GdmUser *user,
++                               gulong   login_frequency)
++{
++        user->login_frequency = login_frequency;
++        g_object_notify (G_OBJECT (user), "login-frequency");
++}
++
++static void
 +gdm_user_set_property (GObject      *object,
 +                       guint         param_id,
 +                       const GValue *value,
@@ -200,9 +221,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +        user = GDM_USER (object);
 +
 +        switch (param_id) {
++        case PROP_MANAGER:
++                user->manager = g_value_get_object (value);
++                g_assert (user->manager);
++                break;
 +        case PROP_LOGIN_FREQUENCY:
-+                user->login_frequency = g_value_get_ulong (value);
-+                g_object_notify (G_OBJECT (user), "login-frequency");
++                _gdm_user_set_login_frequency (user, g_value_get_ulong (value));
 +                break;
 +        default:
 +                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -221,11 +245,17 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +        user = GDM_USER (object);
 +
 +        switch (param_id) {
++        case PROP_MANAGER:
++                g_value_set_object (value, user->manager);
++                break;
 +        case PROP_USER_NAME:
 +                g_value_set_string (value, user->user_name);
 +                break;
 +        case PROP_REAL_NAME:
 +                g_value_set_string (value, user->real_name);
++                break;
++        case PROP_DISPLAY_NAME:
++                g_value_set_string (value, user->display_name);
 +                break;
 +        case PROP_HOME_DIR:
 +                g_value_set_string (value, user->home_dir);
@@ -260,10 +290,27 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +        gobject_class->finalize = gdm_user_finalize;
 +
 +        g_object_class_install_property (gobject_class,
++                                         PROP_MANAGER,
++                                         g_param_spec_object ("manager",
++                                                              _("Manager"),
++                                                              _("The user manager object this user is controlled by."),
++                                                              GDM_TYPE_USER_MANAGER,
++                                                              (G_PARAM_READWRITE |
++                                                               G_PARAM_CONSTRUCT_ONLY)));
++
++        g_object_class_install_property (gobject_class,
 +                                         PROP_REAL_NAME,
 +                                         g_param_spec_string ("real-name",
 +                                                              "Real Name",
 +                                                              "The real name to display for this user.",
++                                                              NULL,
++                                                              G_PARAM_READABLE));
++
++        g_object_class_install_property (gobject_class,
++                                         PROP_DISPLAY_NAME,
++                                         g_param_spec_string ("display-name",
++                                                              "Display Name",
++                                                              "The unique name to display for this user.",
 +                                                              NULL,
 +                                                              G_PARAM_READABLE));
 +
@@ -345,38 +392,29 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +                return;
 +        }
 +
-+        g_signal_emit (user, signals[ICON_CHANGED], 0);
++        _gdm_user_icon_changed (user);
 +}
 +
 +static void
 +update_icon_monitor (GdmUser *user)
 +{
 +        GFile  *file;
-+        GError *error = NULL;
++        GError *error;
++        char   *path;
 +
-+        if (user->icon_url != NULL) {
-+                g_free (user->icon_url);
-+                user->icon_url = NULL;
++        if (user->home_dir == NULL) {
++                return;
 +        }
-+        if (user->home_dir != NULL) {
-+                gchar *filename;
-+                filename = g_build_filename (user->home_dir, ".face", NULL);
-+                user->icon_url = g_strjoin(NULL, "file://", filename, NULL);
-+                g_free (filename);
-+        }
-+        g_object_notify (G_OBJECT (user), "icon-url");
 +
 +        if (user->icon_monitor != NULL) {
 +                g_file_monitor_cancel (user->icon_monitor);
 +                user->icon_monitor = NULL;
 +        }
 +
-+        if (user->icon_url == NULL) {
-+                return;
-+        }
-+
-+        g_debug ("adding monitor for '%s'", user->icon_url);
-+        file = g_file_new_for_uri (user->icon_url);
++        path = g_build_filename (user->home_dir, ".face", NULL);
++        g_debug ("adding monitor for '%s'", path);
++        file = g_file_new_for_path (path);
++        error = NULL;
 +        user->icon_monitor = g_file_monitor_file (file,
 +                                                  G_FILE_MONITOR_NONE,
 +                                                  NULL,
@@ -387,18 +425,27 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +                                  G_CALLBACK (on_icon_monitor_changed),
 +                                  user);
 +        } else {
-+                g_warning ("Unable to monitor %s: %s", user->icon_url, error->message);
++                g_warning ("Unable to monitor %s: %s", path, error->message);
 +                g_error_free (error);
 +        }
 +        g_object_unref (file);
++
++        g_free (user->icon_url);
++        user->icon_url = g_strjoin(NULL, "file://", path, NULL);
++        g_object_notify (G_OBJECT (user), "icon-url");
++
++        g_free (path);
 +}
 +
 +static void
 +gdm_user_init (GdmUser *user)
 +{
++        user->manager = NULL;
 +        user->user_name = NULL;
 +        user->real_name = NULL;
++        user->display_name = NULL;
 +        user->sessions = NULL;
++        user->icon_url = NULL;
 +}
 +
 +static void
@@ -412,6 +459,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +
 +        g_free (user->user_name);
 +        g_free (user->real_name);
++        g_free (user->display_name);
++        g_free (user->icon_url);
 +
 +        if (G_OBJECT_CLASS (gdm_user_parent_class)->finalize)
 +                (*G_OBJECT_CLASS (gdm_user_parent_class)->finalize) (object);
@@ -430,7 +479,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +_gdm_user_update (GdmUser             *user,
 +                  const struct passwd *pwent)
 +{
-+        gchar *real_name;
++        gchar *real_name = NULL;
 +
 +        g_return_if_fail (GDM_IS_USER (user));
 +        g_return_if_fail (pwent != NULL);
@@ -439,20 +488,28 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +
 +        /* Display Name */
 +        if (pwent->pw_gecos && pwent->pw_gecos[0] != '\0') {
-+                gchar *first_comma;
-+                gchar *real_name_utf8;
++                gchar *first_comma = NULL;
++                gchar *valid_utf8_name = NULL;
 +
-+                real_name_utf8 = g_locale_to_utf8 (pwent->pw_gecos, -1, NULL, NULL, NULL);
-+
-+                first_comma = strchr (real_name_utf8, ',');
-+                if (first_comma) {
-+                        real_name = g_strndup (real_name_utf8, first_comma - real_name_utf8);
-+                        g_free (real_name_utf8);
++                if (g_utf8_validate (pwent->pw_gecos, -1, NULL)) {
++                        valid_utf8_name = pwent->pw_gecos;
++                        first_comma = g_utf8_strchr (valid_utf8_name, -1, ',');
 +                } else {
-+                        real_name = real_name_utf8;
++                        g_warning ("User %s has invalid UTF-8 in GECOS field. "
++                                   "It would be a good thing to check /etc/passwd.",
++                                   pwent->pw_name ? pwent->pw_name : "");
 +                }
 +
-+                if (real_name[0] == '\0') {
++                if (first_comma) {
++                        real_name = g_strndup (valid_utf8_name,
++                                                  (first_comma - valid_utf8_name));
++                } else if (valid_utf8_name) {
++                        real_name = g_strdup (valid_utf8_name);
++                } else {
++                        real_name = NULL;
++                }
++
++                if (real_name && real_name[0] == '\0') {
 +                        g_free (real_name);
 +                        real_name = NULL;
 +                }
@@ -470,6 +527,16 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +                g_object_notify (G_OBJECT (user), "real-name");
 +        } else {
 +                g_free (real_name);
++        }
++
++        /* Unique Display Name */
++        if ((!user->real_name && user->display_name) ||
++            (user->real_name &&
++             user->display_name &&
++             strncmp (user->real_name, user->display_name, strlen (user->real_name)) != 0)) {
++                g_free (user->display_name);
++                user->display_name = NULL;
++                g_object_notify (G_OBJECT (user), "display-name");
 +        }
 +
 +        /* UID */
@@ -516,6 +583,22 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +}
 +
 +/**
++ * _gdm_user_icon_changed:
++ * @user: the user to emit the signal for.
++ *
++ * Emits the "icon-changed" signal for @user.
++ *
++ * Since: 1.0
++ **/
++void
++_gdm_user_icon_changed (GdmUser *user)
++{
++        g_return_if_fail (GDM_IS_USER (user));
++
++        g_signal_emit (user, signals[ICON_CHANGED], 0);
++}
++
++/**
 + * gdm_user_get_uid:
 + * @user: the user object to examine.
 + *
@@ -552,6 +635,26 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +        g_return_val_if_fail (GDM_IS_USER (user), NULL);
 +
 +        return (user->real_name ? user->real_name : user->user_name);
++}
++
++/**
++ * gdm_user_get_display_name:
++ * @user: the user object to examine.
++ *
++ * Retrieves the unique display name of @user.
++ *
++ * Returns: a pointer to an array of characters which must not be modified or
++ *  freed, or %NULL.
++ *
++ * Since: 1.0
++ **/
++G_CONST_RETURN gchar *
++gdm_user_get_display_name (GdmUser *user)
++{
++        g_return_val_if_fail (GDM_IS_USER (user), NULL);
++
++        return (user->display_name ? user->display_name
++                : gdm_user_get_real_name (user));
 +}
 +
 +/**
@@ -622,7 +725,58 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +        return user->login_frequency;
 +}
 +
-+G_CONST_RETURN gchar *
++int
++gdm_user_collate (GdmUser *user1,
++                  GdmUser *user2)
++{
++        const char *str1;
++        const char *str2;
++        gulong      num1;
++        gulong      num2;
++
++        g_return_val_if_fail (GDM_IS_USER (user1), 0);
++        g_return_val_if_fail (GDM_IS_USER (user2), 0);
++
++        if (user1->real_name != NULL) {
++                str1 = user1->real_name;
++        } else {
++                str1 = user1->user_name;
++        }
++
++        if (user2->real_name != NULL) {
++                str2 = user2->real_name;
++        } else {
++                str2 = user2->user_name;
++        }
++
++        num1 = user1->login_frequency;
++        num2 = user2->login_frequency;
++        g_debug ("Login freq 1=%u 2=%u", (guint)num1, (guint)num2);
++        if (num1 > num2) {
++                return -1;
++        }
++
++        if (num1 < num2) {
++                return 1;
++        }
++
++        /* if login frequency is equal try names */
++        if (str1 == NULL && str2 != NULL) {
++                return -1;
++        }
++
++        if (str1 != NULL && str2 == NULL) {
++                return 1;
++        }
++
++        if (str1 == NULL && str2 == NULL) {
++                return 0;
++        }
++
++        return g_utf8_collate (str1, str2);
++}
++
++G_CONST_RETURN char *
 +gdm_user_get_icon_url (GdmUser *user)
 +{
 +        g_return_val_if_fail (GDM_IS_USER (user), NULL);
@@ -637,10 +791,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.c gdm-2.28.1.new/daemon
 +         */   
 +        return user->icon_url;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.h gdm-2.28.1.new/daemon/gdm-user.h
---- gdm-2.28.1/daemon/gdm-user.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user.h	2009-11-26 17:07:31.427725843 +0100
-@@ -0,0 +1,53 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user.h gdm-2.30.2.new/daemon/gdm-user.h
+--- gdm-2.30.2/daemon/gdm-user.h	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user.h	2010-06-09 14:09:08.137025806 +1000
+@@ -0,0 +1,57 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2004-2005 James M. Cape <jcape@ignore-your.tv>.
@@ -679,25 +833,29 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user.h gdm-2.28.1.new/daemon
 +
 +typedef struct _GdmUser GdmUser;
 +
-+GType                  gdm_user_get_type            (void) G_GNUC_CONST;
++GType                 gdm_user_get_type            (void) G_GNUC_CONST;
 +
-+uid_t                  gdm_user_get_uid             (GdmUser   *user);
-+G_CONST_RETURN gchar  *gdm_user_get_user_name       (GdmUser   *user);
-+G_CONST_RETURN gchar  *gdm_user_get_real_name       (GdmUser   *user);
-+G_CONST_RETURN gchar  *gdm_user_get_home_directory  (GdmUser   *user);
-+G_CONST_RETURN gchar  *gdm_user_get_shell           (GdmUser   *user);
-+guint                  gdm_user_get_num_sessions    (GdmUser   *user);
-+GList                 *gdm_user_get_sessions        (GdmUser   *user);
-+gulong                 gdm_user_get_login_frequency (GdmUser   *user);
-+G_CONST_RETURN gchar  *gdm_user_get_icon_url        (GdmUser   *user);
++uid_t                 gdm_user_get_uid             (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_user_name       (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_real_name       (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_display_name    (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_home_directory  (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_shell           (GdmUser   *user);
++guint                 gdm_user_get_num_sessions    (GdmUser   *user);
++GList                *gdm_user_get_sessions        (GdmUser   *user);
++gulong                gdm_user_get_login_frequency (GdmUser   *user);
++G_CONST_RETURN char  *gdm_user_get_icon_url        (GdmUser   *user);
++
++gint                  gdm_user_collate             (GdmUser   *user1,
++                                                    GdmUser   *user2);
 +
 +G_END_DECLS
 +
 +#endif
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.new/daemon/gdm-user-manager.c
---- gdm-2.28.1/daemon/gdm-user-manager.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user-manager.c	2009-11-26 17:07:31.437723273 +0100
-@@ -0,0 +1,1538 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user-manager.c gdm-2.30.2.new/daemon/gdm-user-manager.c
+--- gdm-2.30.2/daemon/gdm-user-manager.c	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user-manager.c	2010-06-09 14:09:31.967221528 +1000
+@@ -0,0 +1,1730 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2007-2008 William Jon McCann <mccann@jhu.edu>
@@ -747,6 +905,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +#include "gdm-user-manager.h"
 +#include "gdm-user-manager-glue.h"
 +#include "gdm-user-private.h"
++#include "gdm-settings-keys.h"
 +
 +#define GDM_USER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_USER_MANAGER, GdmUserManagerPrivate))
 +
@@ -763,6 +922,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +#define CK_SEAT_INTERFACE    "org.freedesktop.ConsoleKit.Seat"
 +#define CK_SESSION_INTERFACE "org.freedesktop.ConsoleKit.Session"
 +
++/* Prefs Defaults */
++#define DEFAULT_ALLOW_ROOT      TRUE
++#define DEFAULT_MAX_ICON_SIZE   128
++#define DEFAULT_USER_MAX_FILE   65536
++
 +#ifdef __sun
 +#define DEFAULT_MINIMAL_UID     100
 +#else
@@ -774,36 +938,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +#endif
 +#define PATH_PASSWD     "/etc/passwd"
 +
-+#define LOGIN_CACHE_FILE CACHEDIR "/login_frequency.cache"
++#define DEFAULT_GLOBAL_FACE_DIR DATADIR "/faces"
++#define DEFAULT_USER_ICON       "stock_person"
 +
-+#define DEFAULT_EXCLUDE         { "bin",        \
-+                                  "root",       \
-+                                  "daemon",     \
-+                                  "adm",        \
-+                                  "lp",         \
-+                                  "sync",       \
-+                                  "shutdown",   \
-+                                  "halt",       \
-+                                  "mail",       \
-+                                  "news",       \
-+                                  "uucp",       \
-+                                  "operator",   \
-+                                  "nobody",     \
-+                                  "nobody4",    \
-+                                  "noaccess",   \
-+                                  GDM_USERNAME, \
-+                                  "postgres",   \
-+                                  "pvm",        \
-+                                  "rpm",        \
-+                                  "nfsnobody",  \
-+                                  "pcap",       \
-+                                  NULL }
++#define LOGIN_CACHE_FILE CACHEDIR "/login_frequency.cache"
 +
 +struct GdmUserManagerPrivate
 +{
 +        GHashTable            *users;
 +        GHashTable            *sessions;
-+        GHashTable            *exclusions;
 +        GHashTable            *shells;
 +        DBusGConnection       *connection;
 +        DBusGProxy            *seat_proxy;
@@ -812,14 +955,21 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        GFileMonitor          *passwd_monitor;
 +        GFileMonitor          *shells_monitor;
 +
++        GSList                *exclude;
++        GSList                *include;
++        gboolean               include_all;
++
 +        guint                  reload_id;
 +        guint                  ck_history_id;
 +
-+        guint8                 loaded_passwd : 1;    
++        guint8                 loaded_passwd : 1;
++        guint8                 users_dirty : 1;
 +        guint8                 loaded_cache : 1;
++        guint8                 loading_users : 1;    
 +};
 +
 +enum {
++        LOADING_USERS,
 +        USERS_LOADED,
 +        USER_ADDED,
 +        USER_REMOVED,
@@ -832,6 +982,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +static void     gdm_user_manager_class_init (GdmUserManagerClass *klass);
 +static void     gdm_user_manager_init       (GdmUserManager      *user_manager);
 +static void     gdm_user_manager_finalize   (GObject             *object);
++
++static gpointer user_manager_object = NULL;
 +
 +G_DEFINE_TYPE (GdmUserManager, gdm_user_manager, G_TYPE_OBJECT)
 +
@@ -961,6 +1113,43 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        return x11_display;
 +}
 +
++static gint
++match_name_cmpfunc (gconstpointer a,
++                    gconstpointer b)
++{
++        if (a == NULL || b == NULL) {
++                return -1;
++        }
++
++        return g_strcmp0 ((char *) a,
++                          (char *) b);
++}
++
++static gboolean
++user_in_exclude_list (GdmUserManager *manager,
++                      const char *user)
++{
++        GSList   *found;
++        gboolean  ret = FALSE;
++
++        g_debug ("checking exclude list");
++
++        /* always exclude the "gdm" user. */
++        if (user == NULL || (strcmp (user, GDM_USERNAME) == 0)) {
++                return TRUE;
++        }
++
++        if (manager->priv->exclude != NULL) {
++                found = g_slist_find_custom (manager->priv->exclude,
++                                             user,
++                                             match_name_cmpfunc);
++                if (found != NULL) {
++                        ret = TRUE;
++                }
++        }
++        return ret;
++}
++
 +static gboolean
 +maybe_add_session_for_user (GdmUserManager *manager,
 +                            GdmUser        *user,
@@ -990,7 +1179,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                goto out;
 +        }
 +
-+        if (g_hash_table_lookup (manager->priv->exclusions, gdm_user_get_user_name (user))) {
++        if (user_in_exclude_list (manager, gdm_user_get_user_name (user))) {
 +                g_debug ("GdmUserManager: excluding user '%s'", gdm_user_get_user_name (user));
 +                goto out;
 +        }
@@ -1077,7 +1266,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +{
 +        GdmUser *user;
 +
-+        user = g_object_new (GDM_TYPE_USER, NULL);
++        user = g_object_new (GDM_TYPE_USER, "manager", manager, NULL);
 +        g_signal_connect (user,
 +                          "sessions-changed",
 +                          G_CALLBACK (on_user_sessions_changed),
@@ -1089,11 +1278,39 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        return user;
 +}
 +
++static gint
++match_real_name_cmpfunc (gconstpointer a,
++                         gconstpointer b)
++{
++        if (a == b)
++                return -1;
++
++        return g_strcmp0 (gdm_user_get_real_name ((GdmUser *) a),
++                          gdm_user_get_real_name ((GdmUser *) b));
++}
++
++static gboolean
++match_real_name_hrfunc (gpointer key,
++                        gpointer value,
++                        gpointer user_data)
++{
++        return (g_strcmp0 (user_data, gdm_user_get_real_name (value)) == 0);
++}
++
 +static void
 +add_user (GdmUserManager *manager,
 +          GdmUser        *user)
 +{
++        GdmUser *dup;
++
 +        add_sessions_for_user (manager, user);
++        dup = g_hash_table_find (manager->priv->users,
++                                 match_real_name_hrfunc,
++                                 (char *) gdm_user_get_real_name (user));
++        if (dup != NULL) {
++                //_gdm_user_show_full_display_name (user);
++                //_gdm_user_show_full_display_name (dup);
++        }
 +        g_hash_table_insert (manager->priv->users,
 +                             g_strdup (gdm_user_get_user_name (user)),
 +                             g_object_ref (user));
@@ -1235,12 +1452,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        errno = 0;
 +        pwent = getpwuid (uid);
 +        if (pwent == NULL) {
-+                g_warning ("Unable to lookup user id %d: %s", (int)uid, g_strerror (errno));
++                g_warning ("Unable to lookup user ID %d: %s", (int)uid, g_strerror (errno));
 +                return;
 +        }
 +
 +        /* check exclusions up front */
-+        if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
++        if (user_in_exclude_list (manager, pwent->pw_name)) {
 +                g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
 +                return;
 +        }
@@ -1384,7 +1601,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 + *
 + * Returns: a pointer to a #GdmUser object.
 + **/
-+static GdmUser *
++GdmUser *
 +gdm_user_manager_get_user (GdmUserManager *manager,
 +                           const char     *username)
 +{
@@ -1408,7 +1625,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        return user;
 +}
 +
-+static GdmUser *
++GdmUser *
 +gdm_user_manager_get_user_by_uid (GdmUserManager *manager,
 +                                  uid_t           uid)
 +{
@@ -1440,6 +1657,19 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        GSList **list = user_data;
 +
 +        *list = g_slist_prepend (*list, value);
++}
++
++GSList *
++gdm_user_manager_list_users (GdmUserManager *manager)
++{
++        GSList *retval;
++
++        g_return_val_if_fail (GDM_IS_USER_MANAGER (manager), NULL);
++
++        retval = NULL;
++        g_hash_table_foreach (manager->priv->users, listify_hash_values_hfunc, &retval);
++
++        return g_slist_sort (retval, (GCompareFunc) gdm_user_collate);
 +}
 +
 +static gboolean
@@ -1544,7 +1774,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                return;
 +        }
 +
-+        if (g_hash_table_lookup (manager->priv->exclusions, username)) {
++        if (user_in_exclude_list (manager, username)) {
 +                g_debug ("GdmUserManager: excluding user '%s'", username);
 +                g_free (username);
 +                return;
@@ -1627,6 +1857,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                }
 +                else
 +                        g_warning ("Unable to write to login cache file: %s", LOGIN_CACHE_FILE);
++
++                if (manager->priv->loading_users) {
++                        g_signal_emit (G_OBJECT (manager), signals[USERS_LOADED], 0);
++                        manager->priv->loading_users = FALSE;
++                }
 +
 +                manager->priv->ck_history_id = 0;
 +                return FALSE;
@@ -1711,12 +1946,42 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +}
 +
 +static void
++add_included_user (char *username, GdmUserManager *manager)
++{
++        GdmUser     *user;
++
++        g_debug ("Adding included user %s", username);
++        /*
++         * The call to gdm_user_manager_get_user will add the user if it is
++         * valid and not already in the hash.
++         */
++        user = gdm_user_manager_get_user (manager, username);
++        if (user == NULL) {
++                g_debug ("GdmUserManager: unable to lookup user '%s'", username);
++                g_free (username);
++                return;
++        }
++}
++
++static void
++add_included_users (GdmUserManager *manager)
++{
++        /* Add users who are specifically included */
++        if (manager->priv->include != NULL) {
++                g_slist_foreach (manager->priv->include,
++                                 (GFunc)add_included_user,
++                                 (gpointer)manager);
++        }
++}
++
++static void
 +reload_passwd (GdmUserManager *manager)
 +{
 +        struct passwd *pwent;
 +        GSList        *old_users;
 +        GSList        *new_users;
 +        GSList        *list;
++        GSList        *dup;
 +        FILE          *fp;
 +
 +        old_users = NULL;
@@ -1736,52 +2001,63 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        for (list = old_users; list; list = list->next) {
 +                if (gdm_user_get_num_sessions (list->data) > 0) {
 +                        g_object_freeze_notify (G_OBJECT (list->data));
++                        //_gdm_user_show_short_display_name (list->data);
 +                        new_users = g_slist_prepend (new_users, g_object_ref (list->data));
 +                }
 +        }
 +
-+        for (pwent = fgetpwent (fp); pwent != NULL; pwent = fgetpwent (fp)) {
-+                GdmUser *user;
++        if (manager->priv->include_all != TRUE) {
++                g_debug ("GdmUserManager: include_all is FALSE");
++        } else {
++                g_debug ("GdmUserManager: include_all is TRUE");
 +
-+                user = NULL;
++                for (pwent = fgetpwent (fp);
++                     pwent != NULL;
++                     pwent = fgetpwent (fp)) {
++                        GdmUser *user;
 +
-+                /* Skip users below MinimalUID... */
-+                if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
-+                        continue;
-+                }
++                        user = NULL;
 +
-+                /* ...And users w/ invalid shells... */
-+                if (pwent->pw_shell == NULL ||
-+                    !g_hash_table_lookup (manager->priv->shells, pwent->pw_shell)) {
-+                        g_debug ("GdmUserManager: skipping user with bad shell: %s", pwent->pw_name);
-+                        continue;
-+                }
++                        /* Skip users below MinimalUID... */
++                        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
++                                continue;
++                        }
 +
-+                /* ...And explicitly excluded users */
-+                if (g_hash_table_lookup (manager->priv->exclusions, pwent->pw_name)) {
-+                        g_debug ("GdmUserManager: explicitly skipping user: %s", pwent->pw_name);
-+                        continue;
-+                }
++                        /* ...And users w/ invalid shells... */
++                        if (pwent->pw_shell == NULL ||
++                            !g_hash_table_lookup (manager->priv->shells,
++                                                  pwent->pw_shell)) {
++                                g_debug ("GdmUserManager: skipping user with bad shell: %s", pwent->pw_name);
++                                continue;
++                        }
 +
-+                user = g_hash_table_lookup (manager->priv->users, pwent->pw_name);
++                        /* ...And explicitly excluded users */
++                        if (user_in_exclude_list (manager, pwent->pw_name)) {
++                                g_debug ("GdmUserManager: explicitly skipping user: %s", pwent->pw_name);
++                                continue;
++                        }
 +
-+                /* Update users already in the *new* list */
-+                if (g_slist_find (new_users, user)) {
++                        user = g_hash_table_lookup (manager->priv->users,
++                                                    pwent->pw_name);
++
++                        /* Update users already in the *new* list */
++                        if (g_slist_find (new_users, user)) {
++                                _gdm_user_update (user, pwent);
++                                continue;
++                        }
++
++                        if (user == NULL) {
++                                user = create_user (manager);
++                        } else {
++                                g_object_ref (user);
++                        }
++
++                        /* Freeze & update users not already in the new list */
++                        g_object_freeze_notify (G_OBJECT (user));
 +                        _gdm_user_update (user, pwent);
-+                        continue;
++
++                        new_users = g_slist_prepend (new_users, user);
 +                }
-+
-+                if (user == NULL) {
-+                        user = create_user (manager);
-+                } else {
-+                        g_object_ref (user);
-+                }
-+
-+                /* Freeze & update users not already in the new list */
-+                g_object_freeze_notify (G_OBJECT (user));
-+                _gdm_user_update (user, pwent);
-+
-+                new_users = g_slist_prepend (new_users, user);
 +        }
 +
 +        /* Go through and handle removed users */
@@ -1793,12 +2069,22 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                }
 +        }
 +
-+        /* Go through and handle added users */
++        /* Go through and handle added users or update display names */
 +        for (list = new_users; list; list = list->next) {
-+                if (!g_slist_find (old_users, list->data)) {
++                if (g_slist_find (old_users, list->data)) {
++                        dup = g_slist_find_custom (new_users,
++                                                   list->data,
++                                                   match_real_name_cmpfunc);
++                        if (dup != NULL) {
++                                //_gdm_user_show_full_display_name (list->data);
++                                //_gdm_user_show_full_display_name (dup->data);
++                        }
++                } else {
 +                        add_user (manager, list->data);
 +                }
 +        }
++
++        add_included_users (manager);
 +
 +        if (!manager->priv->loaded_passwd) {
 +                g_signal_emit (manager, signals[USERS_LOADED], 0);
@@ -1834,17 +2120,22 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        }
 +    
 +        g_io_channel_close (channel);
++    
++        if (manager->priv->loading_users) {
++                g_signal_emit (G_OBJECT (manager), signals[USERS_LOADED], 0);
++                manager->priv->loading_users = FALSE;
++        }    
 +}
 +
 +static void
 +reload_users (GdmUserManager *manager)
 +{
-+        reload_passwd (manager);
 +        if (!manager->priv->loaded_cache) {
 +                load_login_frequency_cache (manager);
 +                manager->priv->loaded_cache = TRUE;
 +        }
 +        reload_ck_history (manager);
++        reload_passwd (manager);
 +}
 +
 +static gboolean
@@ -1863,6 +2154,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                return;
 +        }
 +
++        g_signal_emit (G_OBJECT (manager), signals[LOADING_USERS], 0);
++        manager->priv->loading_users = TRUE;
 +        manager->priv->reload_id = g_idle_add ((GSourceFunc)reload_users_timeout, manager);
 +}
 +
@@ -1928,13 +2221,21 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +
 +        object_class->finalize = gdm_user_manager_finalize;
 +
++        signals [LOADING_USERS] =
++                g_signal_new ("loading-users",
++                              G_TYPE_FROM_CLASS (klass),
++                              G_SIGNAL_RUN_LAST,
++                              G_STRUCT_OFFSET (GdmUserManagerClass, loading_users),
++                              NULL, NULL,
++                              g_cclosure_marshal_VOID__VOID,
++                              G_TYPE_NONE, 0);
 +        signals [USERS_LOADED] =
 +                g_signal_new ("users-loaded",
 +                              G_TYPE_FROM_CLASS (klass),
 +                              G_SIGNAL_RUN_LAST,
 +                              G_STRUCT_OFFSET (GdmUserManagerClass, users_loaded),
 +                              NULL, NULL,
-+                              g_cclosure_marshal_VOID__OBJECT,
++                              g_cclosure_marshal_VOID__VOID,
 +                              G_TYPE_NONE, 0);
 +        signals [USER_ADDED] =
 +                g_signal_new ("user-added",
@@ -1967,14 +2268,53 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +}
 +
 +static void
++gdm_set_string_list (char *value, GSList **retval)
++{
++        char **temp_array;
++        int    i;
++
++        *retval = NULL;
++
++        if (value == NULL || *value == '\0') {
++                g_debug ("Not adding NULL user");
++                *retval = NULL;
++                return;
++        }
++
++        temp_array = g_strsplit (value, ",", 0);
++        for (i = 0; temp_array[i] != NULL; i++) {
++                g_debug ("Adding value %s", temp_array[i]);
++                g_strstrip (temp_array[i]);
++                *retval = g_slist_prepend (*retval, g_strdup (temp_array[i]));
++        }
++
++        g_strfreev (temp_array);
++}
++
++static void
 +gdm_user_manager_init (GdmUserManager *manager)
 +{
 +        int            i;
 +        GFile         *file;
 +        GError        *error;
-+        const char    *exclude_default[] = DEFAULT_EXCLUDE;
++        char          *temp;
++        gboolean       res;
 +
 +        manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
++
++        /* exclude/include */
++        g_debug ("Setting users to include:");
++        res = gdm_settings_direct_get_string  (GDM_KEY_INCLUDE,
++                                               &temp);
++        gdm_set_string_list (temp, &manager->priv->include);
++
++        g_debug ("Setting users to exclude:");
++        res = gdm_settings_direct_get_string  (GDM_KEY_EXCLUDE,
++                                               &temp);
++        gdm_set_string_list (temp, &manager->priv->exclude);
++
++        res = gdm_settings_direct_get_boolean (GDM_KEY_INCLUDE_ALL,
++                                               &manager->priv->include_all);
 +
 +        /* sessions */
 +        manager->priv->sessions = g_hash_table_new_full (g_str_hash,
@@ -1982,65 +2322,59 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +                                                         g_free,
 +                                                         g_free);
 +
-+        /* exclusions */
-+        manager->priv->exclusions = g_hash_table_new_full (g_str_hash,
-+                                                           g_str_equal,
-+                                                           g_free,
-+                                                           NULL);
-+        for (i = 0; exclude_default[i] != NULL; i++) {
-+                g_hash_table_insert (manager->priv->exclusions,
-+                                     g_strdup (exclude_default [i]),
-+                                     GUINT_TO_POINTER (TRUE));
-+        }
-+
-+        /* /etc/shells */
-+        manager->priv->shells = g_hash_table_new_full (g_str_hash,
-+                                                       g_str_equal,
-+                                                       g_free,
-+                                                       NULL);
-+        reload_shells (manager);
-+        file = g_file_new_for_path (_PATH_SHELLS);
-+        error = NULL;
-+        manager->priv->shells_monitor = g_file_monitor_file (file,
-+                                                             G_FILE_MONITOR_NONE,
-+                                                             NULL,
-+                                                             &error);
-+        if (manager->priv->shells_monitor != NULL) {
-+                g_signal_connect (manager->priv->shells_monitor,
-+                                  "changed",
-+                                  G_CALLBACK (on_shells_monitor_changed),
-+                                  manager);
-+        } else {
-+                g_warning ("Unable to monitor %s: %s", _PATH_SHELLS, error->message);
-+                g_error_free (error);
-+        }
-+        g_object_unref (file);
-+
-+        /* /etc/passwd */
++        /* users */
 +        manager->priv->users = g_hash_table_new_full (g_str_hash,
 +                                                      g_str_equal,
 +                                                      g_free,
 +                                                      (GDestroyNotify) g_object_run_dispose);
-+        file = g_file_new_for_path (PATH_PASSWD);
-+        manager->priv->passwd_monitor = g_file_monitor_file (file,
-+                                                             G_FILE_MONITOR_NONE,
-+                                                             NULL,
-+                                                             &error);
-+        if (manager->priv->passwd_monitor != NULL) {
-+                g_signal_connect (manager->priv->passwd_monitor,
-+                                  "changed",
-+                                  G_CALLBACK (on_passwd_monitor_changed),
-+                                  manager);
-+        } else {
-+                g_warning ("Unable to monitor %s: %s", PATH_PASSWD, error->message);
-+                g_error_free (error);
-+        }
-+        g_object_unref (file);
 +
++        if (manager->priv->include_all == TRUE) {
++                /* /etc/shells */
++                manager->priv->shells = g_hash_table_new_full (g_str_hash,
++                                                               g_str_equal,
++                                                               g_free,
++                                                               NULL);
++                reload_shells (manager);
++                file = g_file_new_for_path (_PATH_SHELLS);
++                error = NULL;
++                manager->priv->shells_monitor = g_file_monitor_file (file,
++                                                                     G_FILE_MONITOR_NONE,
++                                                                     NULL,
++                                                                     &error);
++                if (manager->priv->shells_monitor != NULL) {
++                        g_signal_connect (manager->priv->shells_monitor,
++                                          "changed",
++                                          G_CALLBACK (on_shells_monitor_changed),
++                                          manager);
++                } else {
++                        g_warning ("Unable to monitor %s: %s", _PATH_SHELLS, error->message);
++                        g_error_free (error);
++                }
++                g_object_unref (file);
++
++                /* /etc/passwd */
++                file = g_file_new_for_path (PATH_PASSWD);
++                manager->priv->passwd_monitor = g_file_monitor_file (file,
++                                                                     G_FILE_MONITOR_NONE,
++                                                                     NULL,
++                                                                     &error);
++                if (manager->priv->passwd_monitor != NULL) {
++                        g_signal_connect (manager->priv->passwd_monitor,
++                                          "changed",
++                                          G_CALLBACK (on_passwd_monitor_changed),
++                                          manager);
++                } else {
++                        g_warning ("Unable to monitor %s: %s", PATH_PASSWD, error->message);
++                        g_error_free (error);
++                }
++                g_object_unref (file);
++        }
 +
 +        get_seat_proxy (manager);
 +
 +        queue_reload_users (manager);
++
++        manager->priv->users_dirty = FALSE;
 +
 +        dbus_g_connection_register_g_object (manager->priv->connection, GDM_USER_MANAGER_DBUS_PATH, G_OBJECT (manager));
 +}
@@ -2056,6 +2390,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        manager = GDM_USER_MANAGER (object);
 +
 +        g_return_if_fail (manager->priv != NULL);
++
++        if (manager->priv->exclude != NULL) {
++                g_slist_free (manager->priv->exclude);
++        }
++
++        if (manager->priv->include != NULL) {
++                g_slist_free (manager->priv->include);
++        }
 +
 +        if (manager->priv->seat_proxy != NULL) {
 +                g_object_unref (manager->priv->seat_proxy);
@@ -2085,9 +2427,17 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +}
 +
 +GdmUserManager *
-+gdm_user_manager_new (void)
++gdm_user_manager_ref_default (void)
 +{
-+        return GDM_USER_MANAGER (g_object_new (GDM_TYPE_USER_MANAGER, NULL));
++        if (user_manager_object != NULL) {
++                g_object_ref (user_manager_object);
++        } else {
++                user_manager_object = g_object_new (GDM_TYPE_USER_MANAGER, NULL);
++                g_object_add_weak_pointer (user_manager_object,
++                                           (gpointer *) &user_manager_object);
++        }
++
++        return GDM_USER_MANAGER (user_manager_object);
 +}
 +
 +/*
@@ -2236,10 +2586,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.c gdm-2.28.1.ne
 +        *is_loaded = user_manager->priv->loaded_passwd;
 +        return TRUE;
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.h gdm-2.28.1.new/daemon/gdm-user-manager.h
---- gdm-2.28.1/daemon/gdm-user-manager.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user-manager.h	2009-11-26 17:07:31.437723273 +0100
-@@ -0,0 +1,93 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user-manager.h gdm-2.30.2.new/daemon/gdm-user-manager.h
+--- gdm-2.30.2/daemon/gdm-user-manager.h	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user-manager.h	2010-06-09 14:09:08.137025806 +1000
+@@ -0,0 +1,106 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
@@ -2288,6 +2638,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.h gdm-2.28.1.ne
 +{
 +        GObjectClass   parent_class;
 +
++        void          (* loading_users)             (GdmUserManager *user_manager);
 +        void          (* users_loaded)              (GdmUserManager *user_manager);
 +        void          (* user_added)                (GdmUserManager *user_manager,
 +                                                     gint64          uid);
@@ -2297,12 +2648,24 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.h gdm-2.28.1.ne
 +                                                     gint64          uid);
 +} GdmUserManagerClass;
 +
++typedef enum
++{
++        GDM_USER_MANAGER_ERROR_GENERAL,
++        GDM_USER_MANAGER_ERROR_KEY_NOT_FOUND
++} GdmUserManagerError;
++
 +#define GDM_USER_MANAGER_ERROR gdm_user_manager_error_quark ()
 +
 +GQuark              gdm_user_manager_error_quark           (void);
 +GType               gdm_user_manager_get_type              (void);
 +
-+GdmUserManager *    gdm_user_manager_new                   (void);
++GdmUserManager *    gdm_user_manager_ref_default           (void);
++
++GSList *            gdm_user_manager_list_users            (GdmUserManager *manager);
++GdmUser *           gdm_user_manager_get_user              (GdmUserManager *manager,
++                                                            const char     *user_name);
++GdmUser *           gdm_user_manager_get_user_by_uid       (GdmUserManager *manager,
++                                                            uid_t           uid);
 +
 +gboolean            gdm_user_manager_count_users           (GdmUserManager *user_manager,
 +                                                            gint           *user_count,
@@ -2333,9 +2696,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.h gdm-2.28.1.ne
 +G_END_DECLS
 +
 +#endif /* __GDM_USER_MANAGER_H */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.xml gdm-2.28.1.new/daemon/gdm-user-manager.xml
---- gdm-2.28.1/daemon/gdm-user-manager.xml	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user-manager.xml	2009-11-26 17:07:31.437723273 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user-manager.xml gdm-2.30.2.new/daemon/gdm-user-manager.xml
+--- gdm-2.30.2/daemon/gdm-user-manager.xml	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user-manager.xml	2010-06-09 14:09:08.137025806 +1000
 @@ -0,0 +1,56 @@
 +<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 +<node name="/org/gnome/DisplayManager/UserManager">
@@ -2393,10 +2756,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-manager.xml gdm-2.28.1.
 +    
 +  </interface>
 +</node>
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-private.h gdm-2.28.1.new/daemon/gdm-user-private.h
---- gdm-2.28.1/daemon/gdm-user-private.h	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-2.28.1.new/daemon/gdm-user-private.h	2009-11-26 17:07:31.437723273 +0100
-@@ -0,0 +1,42 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-user-private.h gdm-2.30.2.new/daemon/gdm-user-private.h
+--- gdm-2.30.2/daemon/gdm-user-private.h	1970-01-01 10:00:00.000000000 +1000
++++ gdm-2.30.2.new/daemon/gdm-user-private.h	2010-06-09 14:09:08.137025806 +1000
+@@ -0,0 +1,45 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
 + * Copyright (C) 2004-2005 James M. Cape <jcape@ignore-your.tv>.
@@ -2436,12 +2799,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/gdm-user-private.h gdm-2.28.1.ne
 +void _gdm_user_remove_session   (GdmUser             *user,
 +                                 const char          *session_id);
 +
++void _gdm_user_icon_changed     (GdmUser             *user);
++
++
 +G_END_DECLS
 +
 +#endif /* !__GDM_USER_PRIVATE__ */
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/main.c gdm-2.28.1.new/daemon/main.c
---- gdm-2.28.1/daemon/main.c	2009-10-20 00:12:45.000000000 +0200
-+++ gdm-2.28.1.new/daemon/main.c	2009-11-26 17:07:31.437723273 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/main.c gdm-2.30.2.new/daemon/main.c
+--- gdm-2.30.2/daemon/main.c	2010-03-18 08:27:16.000000000 +1100
++++ gdm-2.30.2.new/daemon/main.c	2010-06-09 14:09:08.137025806 +1000
 @@ -43,6 +43,7 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
@@ -2450,30 +2816,18 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/main.c gdm-2.28.1.new/daemon/mai
  #include "gdm-manager.h"
  #include "gdm-log.h"
  #include "gdm-common.h"
-@@ -59,6 +60,7 @@
- 
- extern char **environ;
- 
-+static GdmUserManager  *user_manager  = NULL;
- static GdmManager      *manager       = NULL;
- static GdmSettings     *settings      = NULL;
- static uid_t            gdm_uid       = -1;
-@@ -580,6 +582,12 @@
+@@ -597,6 +598,8 @@
                  goto out;
          }
  
-+        user_manager = gdm_user_manager_new ();
-+        if (user_manager == NULL) {
-+                g_warning ("Could not construct user manager object");
-+                exit (1);
-+        }
++        gdm_user_manager_ref_default ();
 +
-         if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
-                 g_warning ("Unable to initialize settings");
-                 goto out;
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemon/Makefile.am
---- gdm-2.28.1/daemon/Makefile.am	2009-11-26 17:07:26.267716612 +0100
-+++ gdm-2.28.1.new/daemon/Makefile.am	2009-11-26 17:07:31.437723273 +0100
+         gdm_log_set_debug (is_debug_set ());
+ 
+         gdm_daemon_change_user (&gdm_uid, &gdm_gid);
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/Makefile.am gdm-2.30.2.new/daemon/Makefile.am
+--- gdm-2.30.2/daemon/Makefile.am	2010-03-27 00:28:03.000000000 +1100
++++ gdm-2.30.2.new/daemon/Makefile.am	2010-06-09 14:09:08.137025806 +1000
 @@ -9,6 +9,7 @@
  	-DDATADIR=\"$(datadir)\"			\
  	-DDMCONFDIR=\"$(dmconfdir)\"			\
@@ -2482,7 +2836,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemo
  	-DLIBDIR=\"$(libdir)\"				\
  	-DLIBEXECDIR=\"$(libexecdir)\"			\
  	-DLOGDIR=\"$(logdir)\"				\
-@@ -34,6 +35,7 @@
+@@ -35,6 +36,7 @@
  	gdm-session-direct-glue.h		\
  	gdm-manager-glue.h			\
  	gdm-display-glue.h			\
@@ -2490,7 +2844,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemo
  	gdm-xdmcp-greeter-display-glue.h	\
  	gdm-xdmcp-chooser-display-glue.h	\
  	gdm-static-display-glue.h		\
-@@ -45,6 +47,8 @@
+@@ -46,6 +48,8 @@
  
  gdm-manager-glue.h: gdm-manager.xml Makefile.am
  	dbus-binding-tool --prefix=gdm_manager --mode=glib-server --output=gdm-manager-glue.h $(srcdir)/gdm-manager.xml
@@ -2499,7 +2853,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemo
  gdm-slave-glue.h: gdm-slave.xml Makefile.am
  	dbus-binding-tool --prefix=gdm_slave --mode=glib-server --output=gdm-slave-glue.h $(srcdir)/gdm-slave.xml
  gdm-simple-slave-glue.h: gdm-simple-slave.xml Makefile.am
-@@ -306,6 +310,11 @@
+@@ -298,6 +302,11 @@
  	gdm-product-display.h		\
  	gdm-manager.c			\
  	gdm-manager.h			\
@@ -2511,7 +2865,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemo
  	gdm-slave-proxy.c		\
  	gdm-slave-proxy.h		\
  	$(NULL)
-@@ -368,6 +377,7 @@
+@@ -360,6 +369,7 @@
  	gdm-session-direct.xml		\
  	gdm-manager.xml			\
  	gdm-display.xml			\
@@ -2519,9 +2873,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/daemon/Makefile.am gdm-2.28.1.new/daemo
  	gdm-xdmcp-greeter-display.xml	\
  	gdm-xdmcp-chooser-display.xml	\
  	gdm-static-display.xml		\
-diff -Nur -x '*.orig' -x '*~' gdm-2.28.1/data/gdm.conf.in gdm-2.28.1.new/data/gdm.conf.in
---- gdm-2.28.1/data/gdm.conf.in	2009-11-26 17:07:29.477742113 +0100
-+++ gdm-2.28.1.new/data/gdm.conf.in	2009-11-26 17:07:31.437723273 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/data/gdm.conf.in gdm-2.30.2.new/data/gdm.conf.in
+--- gdm-2.30.2/data/gdm.conf.in	2010-06-09 14:09:07.597026241 +1000
++++ gdm-2.30.2.new/data/gdm.conf.in	2010-06-09 14:09:08.137025806 +1000
 @@ -8,6 +8,8 @@
      <allow own="org.gnome.DisplayManager"/>
  
