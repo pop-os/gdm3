@@ -130,9 +130,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/daemon/gdm-session-direct.c gdm-2.29.5.
 +        comment = NULL;
 +        res = get_session_comment_for_file (filename, &comment);
 +        if (! res) {
-+                g_critical ("Cannot read specified session file: %s", filename);
++                g_warning ("Cannot read specified session file: %s", filename);
 +                g_free (filename);
-+                exit (1);
++                return FALSE;
 +        }
 +        g_free (filename);
 +

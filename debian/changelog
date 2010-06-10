@@ -1,3 +1,10 @@
+gdm (2.30.2-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/patches/30_don_t_save_failsafe_session.patch: (LP: #542345)
+    - return FALSE instead of exiting on .desktop file without a comment
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 10 Jun 2010 10:15:41 +0200
+
 gdm (2.30.2-0ubuntu2) lucid-proposed; urgency=low
 
   * debian/patches/16_gdmserver_user_manager.patch:
