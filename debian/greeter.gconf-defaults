@@ -16,3 +16,6 @@
 
 # The lower panel doesn't work with the compositor
 /apps/metacity/general/compositing_manager		false
+
+# Prevent the power management icon from showing up
+/apps/gnome-power-manager/ui/icon_policy		never

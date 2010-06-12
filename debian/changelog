@@ -1,3 +1,10 @@
+gdm3 (2.30.2-5) UNRELEASED; urgency=low
+
+  * greeter.gconf-defaults: disable the power management icon, it allows 
+    to change the power management settings. Closes: #580629.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 12 Jun 2010 15:26:51 +0200
+
 gdm3 (2.30.2-4) unstable; urgency=low
 
   [ Josselin Mouette ]
