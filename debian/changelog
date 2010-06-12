@@ -1,4 +1,4 @@
-gdm3 (2.30.2-4) UNRELEASED; urgency=low
+gdm3 (2.30.2-4) unstable; urgency=low
 
   [ Josselin Mouette ]
   * Ship a file in insserv.conf.d. Closes: #583694.
@@ -10,8 +10,15 @@ gdm3 (2.30.2-4) UNRELEASED; urgency=low
 
   [ Josselin Mouette ]
   * New Portuguese translation by Pedro Ribeiro. Closes: #581250.
+  * 24_show_user_other.patch: new patch. Always show the “Other…” user, 
+    even when there are no users in the list. Otherwise this breaks 
+    setups with no local user.
+  * gdm3.init: drop bootlogs from the requirements. Closes: #585512.
+  * rules: set default language file to /etc/default/locale.
+  * debian/Xsession: set LANG from GDM_LANG, which is the one set from 
+    GDM. Closes: #584231.
 
- -- Josselin Mouette <joss@debian.org>  Sat, 29 May 2010 18:31:24 +0200
+ -- Josselin Mouette <joss@debian.org>  Sat, 12 Jun 2010 11:16:04 +0200
 
 gdm3 (2.30.2-3) unstable; urgency=low
 

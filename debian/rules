@@ -32,7 +32,8 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
-		--with-pam-domain=gdm3
+		--with-pam-domain=gdm3 \
+		--with-lang-file=/etc/default/locale
 
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
