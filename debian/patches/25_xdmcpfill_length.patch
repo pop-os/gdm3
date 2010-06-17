@@ -1,0 +1,34 @@
+From 34a3c576fd7a15721765a43939f44978a93d43f9 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Wed, 16 Jun 2010 16:33:20 +0000
+Subject: Call XdmcpFill with properly initialized length
+
+commit e533f4b72568cdc3d7f7ec6cec09d9392b11d54c cleaned
+up various XDMCP issues, but it unfortunately also created
+a bug making XDMCP fail a high percentage of the time.
+
+XdmcpFill takes an in-out length argument.  This argument was getting
+passed an uninitialized variable.
+(cherry picked from commit 86ac166294f0fc8f662031167066acf1928cf139)
+---
+diff --git a/daemon/gdm-xdmcp-display-factory.c b/daemon/gdm-xdmcp-display-factory.c
+index 447833d..791bba3 100644
+--- a/daemon/gdm-xdmcp-display-factory.c
++++ b/daemon/gdm-xdmcp-display-factory.c
+@@ -2879,12 +2879,13 @@ decode_packet (GIOChannel             *source,
+                 return TRUE;
+         }
+ 
++        ss_len = (int)gdm_sockaddr_len (&clnt_ss);
++
+         res = XdmcpFill (factory->priv->socket_fd, &factory->priv->buf, (XdmcpNetaddr)&clnt_ss, &ss_len);
+         if G_UNLIKELY (! res) {
+                 g_debug ("GdmXdmcpDisplayFactory: Could not create XDMCP buffer!");
+                 return TRUE;
+         }
+-        ss_len = (int)gdm_sockaddr_len (&clnt_ss);
+ 
+         res = XdmcpReadHeader (&factory->priv->buf, &header);
+         if G_UNLIKELY (! res) {
+--
+cgit v0.8.3.1
