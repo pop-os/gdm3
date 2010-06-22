@@ -1,7 +1,6 @@
-#
-# Description: Revert upstream change to not use timed login after autologin session
-# Ubuntu: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/396489
-#
+Description: Revert upstream change to not use timed login after autologin session
+Bug: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/396489
+
 diff -Nur -x '*.orig' -x '*~' gdm-2.28.0/daemon/gdm-static-display.c gdm-2.28.0.new/daemon/gdm-static-display.c
 --- gdm-2.28.0/daemon/gdm-static-display.c	2009-09-21 22:05:27.000000000 +0200
 +++ gdm-2.28.0.new/daemon/gdm-static-display.c	2009-09-22 17:46:19.000000000 +0200

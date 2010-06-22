@@ -1,10 +1,15 @@
 #!/usr/bin/make -f
 
 include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/rules/simple-patchsys.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
+
+DEB_AUTO_UPDATE_LIBTOOL=pre
+DEB_AUTO_UPDATE_ACLOCAL=1.11
+DEB_AUTO_UPDATE_AUTOCONF=1
+DEB_AUTO_UPDATE_AUTOHEADER=1
+DEB_AUTO_UPDATE_AUTOMAKE=1.11
 
 #LDFLAGS += -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 

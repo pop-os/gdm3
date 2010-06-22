@@ -1,12 +1,12 @@
-#
-# Description: Do not show system users in the "frequent users" list
-# Ubuntu: https://launchpad.net/bugs/395281
-# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587708
-#
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/gdm-user-manager.c gdm-2.27.90.new/gui/simple-greeter/gdm-user-manager.c
---- gdm-2.27.90/gui/simple-greeter/gdm-user-manager.c	2009-08-25 05:31:18.000000000 +1000
-+++ gdm-2.27.90.new/gui/simple-greeter/gdm-user-manager.c	2009-08-25 14:35:01.000000000 +1000
-@@ -1160,6 +1160,7 @@
+Description: Do not show system users in the "frequent users" list
+Bug: http://bugzilla.gnome.org/show_bug.cgi?id=587708
+Bug-Ubuntu: https://launchpad.net/bugs/395281
+
+Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:07:34.344173947 +1000
++++ gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:07:39.296657921 +1000
+@@ -1218,6 +1218,7 @@
          gboolean res;
          char    *username;
          gulong   frequency;
@@ -14,7 +14,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/gui/simple-greeter/gdm-user-manager.c 
          GdmUser *user;
  
          frequency = 0;
-@@ -1175,6 +1176,18 @@
+@@ -1233,6 +1234,18 @@
                  return;
          }
  

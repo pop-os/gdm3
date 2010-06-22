@@ -1,13 +1,12 @@
-#
-# Description: Add a new D-Bus operation StartGuestSession().
-#  If setup/teardown scripts are available in
-#  /usr/share/gdm/guest-session/ (shipped by separate gdm-guest-user
-#  package), run a guest session without requiring a password. 
-#  Guest sessions call /usr/share/gdm/guest-session/Xsession instead of
-#  /etc/gdm/Xsession, so that we can wrap AppArmor (or other MAC
-#  system) rules around it.
-# Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
-#
+Description: Add a new D-Bus operation StartGuestSession().
+ If setup/teardown scripts are available in
+ /usr/share/gdm/guest-session/ (shipped by separate gdm-guest-user
+ package), run a guest session without requiring a password. 
+ Guest sessions call /usr/share/gdm/guest-session/Xsession instead of
+ /etc/gdm/Xsession, so that we can wrap AppArmor (or other MAC
+ system) rules around it.
+Bug: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
+
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.c gdm-2.30.0.new/daemon/gdm-local-display-factory.c
 --- gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-03-29 23:42:03.000000000 +0200
 +++ gdm-2.30.0.new/daemon/gdm-local-display-factory.c	2010-04-14 14:51:08.306602571 +0200

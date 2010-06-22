@@ -5,9 +5,10 @@ Subject: Enable smooth transition between plymouth and X
 
 This commit checks if plymouth is running, and if so,
 turns on the smooth transition between plymouth and X.
-diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.c gdm.new/daemon/gdm-server.c
---- gdm/daemon/gdm-server.c	2010-03-11 20:04:29.713911923 +0000
-+++ gdm.new/daemon/gdm-server.c	2010-03-11 20:04:35.660911091 +0000
+Index: gdm-2.30.2/daemon/gdm-server.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-server.c	2010-06-22 13:10:24.726655938 +1000
++++ gdm-2.30.2/daemon/gdm-server.c	2010-06-22 13:11:33.174166935 +1000
 @@ -32,8 +32,11 @@
  #include <pwd.h>
  #include <grp.h>
@@ -87,9 +88,10 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.c gdm.new/daemon/gdm-server.
  static void
  server_died (GdmServer *server)
  {
-diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.h gdm.new/daemon/gdm-server.h
---- gdm/daemon/gdm-server.h	2010-03-11 19:46:50.755211000 +0000
-+++ gdm.new/daemon/gdm-server.h	2010-03-11 20:04:35.660911091 +0000
+Index: gdm-2.30.2/daemon/gdm-server.h
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-server.h	2010-03-27 00:28:03.000000000 +1100
++++ gdm-2.30.2/daemon/gdm-server.h	2010-06-22 13:11:33.174166935 +1000
 @@ -56,6 +56,7 @@
  GdmServer *         gdm_server_new       (const char *display_id,
                                            const char *auth_file);
@@ -98,9 +100,10 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-server.h gdm.new/daemon/gdm-server.
  gboolean            gdm_server_stop      (GdmServer   *server);
  char *              gdm_server_get_display_device (GdmServer *server);
  
-diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-simple-slave.c
---- gdm/daemon/gdm-simple-slave.c	2010-03-11 20:04:30.285908021 +0000
-+++ gdm.new/daemon/gdm-simple-slave.c	2010-03-11 20:05:15.296908720 +0000
+Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-06-22 13:11:31.436659094 +1000
++++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-06-22 13:11:33.174166935 +1000
 @@ -84,6 +84,7 @@
  
          guint              start_session_when_ready : 1;
@@ -212,7 +215,7 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-s
  }
  
  static void
-@@ -1101,6 +1191,10 @@
+@@ -1103,6 +1193,10 @@
          g_debug ("GdmSimpleSlave: server exited with code %d\n", exit_code);
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -223,7 +226,7 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-s
  }
  
  static void
-@@ -1113,6 +1207,10 @@
+@@ -1115,6 +1209,10 @@
                   g_strsignal (signal_number));
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -234,7 +237,7 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-s
  }
  
  static gboolean
-@@ -1157,7 +1255,21 @@
+@@ -1159,7 +1257,21 @@
                                    G_CALLBACK (on_server_ready),
                                    slave);
  
@@ -257,7 +260,7 @@ diff -Nur -x '*.orig' -x '*~' gdm/daemon/gdm-simple-slave.c gdm.new/daemon/gdm-s
                  if (! res) {
                          g_warning (_("Could not start the X "
                                       "server (your graphical environment) "
-@@ -1167,6 +1279,9 @@
+@@ -1169,6 +1281,9 @@
                                       "In the meantime this display will be "
                                       "disabled.  Please restart GDM when "
                                       "the problem is corrected."));

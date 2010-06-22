@@ -1,3 +1,20 @@
+gdm (2.30.2-0ubuntu4) maverick; urgency=low
+
+  * debian/control:
+    - Build-depend on gnome-common for autotools
+  * debian/rules:
+    - Run autotools on build
+  * debian/source:
+    - Use source format 3.0
+  * debian/patches/*:
+    - Use quilt and fix patch headers
+  * debian/patches/09_gdmsetup.patch:
+    - Add checkbutton for enabling face browser (LP: #445123)
+  * debian/patches/99_autoreconf.patch:
+    - Removed, autotools now run from debian/rules
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 22 Jun 2010 13:26:45 +1000
+
 gdm (2.30.2-0ubuntu3) maverick; urgency=low
 
   * debian/patches/30_don_t_save_failsafe_session.patch: (LP: #542345)

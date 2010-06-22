@@ -1,13 +1,12 @@
-#
-# Description: Cache the result of ck-history so greeter shows user list immediately after login
-# Ubuntu: https://bugs.edge.launchpad.net/ubuntu/karmic/+source/gdm/+bug/400863
-# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=594344
-#
-diff --git a/gui/simple-greeter/Makefile.am b/gui/simple-greeter/Makefile.am
-index b36aa28..901a71b 100644
---- a/gui/simple-greeter/Makefile.am
-+++ b/gui/simple-greeter/Makefile.am
-@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
+Description: Cache the result of ck-history so greeter shows user list immediately after login
+Bug: http://bugzilla.gnome.org/show_bug.cgi?id=594344
+Bug-Ubuntu: https://bugs.edge.launchpad.net/ubuntu/karmic/+source/gdm/+bug/400863
+
+Index: gdm-2.30.2/gui/simple-greeter/Makefile.am
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/Makefile.am	2010-04-27 03:08:42.000000000 +1000
++++ gdm-2.30.2/gui/simple-greeter/Makefile.am	2010-06-22 13:11:02.694148945 +1000
+@@ -10,6 +10,7 @@
  	-DDMCONFDIR=\""$(dmconfdir)"\"			\
  	-DGDMCONFDIR=\"$(gdmconfdir)\"                  \
  	-DDATADIR=\""$(datadir)"\"		 	\
@@ -15,20 +14,20 @@ index b36aa28..901a71b 100644
  	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
  	-DLIBLOCALEDIR=\""$(prefix)/lib/locale"\"	\
  	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
-diff --git a/gui/simple-greeter/gdm-user-manager.c b/gui/simple-greeter/gdm-user-manager.c
-index 6c91b3b..3fb8423 100644
---- a/gui/simple-greeter/gdm-user-manager.c
-+++ b/gui/simple-greeter/gdm-user-manager.c
-@@ -99,6 +99,8 @@
-                                   "pcap",       \
-                                   NULL }
+Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:10:23.244157884 +1000
++++ gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:11:02.694148945 +1000
+@@ -78,6 +78,8 @@
+ #define DEFAULT_GLOBAL_FACE_DIR DATADIR "/faces"
+ #define DEFAULT_USER_ICON       "stock_person"
  
 +#define LOGIN_CACHE_FILE CACHEDIR "/login_frequency.cache"
 +
  struct GdmUserManagerPrivate
  {
          GHashTable            *users;
-@@ -116,6 +118,8 @@ struct GdmUserManagerPrivate
+@@ -98,6 +100,8 @@
          guint                  ck_history_id;
  
          guint8                 users_dirty : 1;
@@ -37,7 +36,7 @@ index 6c91b3b..3fb8423 100644
  };
  
  enum {
-@@ -1274,7 +1278,30 @@ ck_history_watch (GIOChannel     *source,
+@@ -1292,7 +1296,30 @@
          }
  
          if (done) {
@@ -69,7 +68,7 @@ index 6c91b3b..3fb8423 100644
  
                  manager->priv->ck_history_id = 0;
                  return FALSE;
-@@ -1472,8 +1499,35 @@ reload_passwd (GdmUserManager *manager)
+@@ -1531,8 +1558,35 @@
  }
  
  static void
@@ -105,7 +104,7 @@ index 6c91b3b..3fb8423 100644
          reload_ck_history (manager);
          reload_passwd (manager);
  }
-@@ -1495,6 +1549,7 @@ queue_reload_users (GdmUserManager *manager)
+@@ -1554,6 +1608,7 @@
          }
  
          g_signal_emit (G_OBJECT (manager), signals[LOADING_USERS], 0);
@@ -113,6 +112,3 @@ index 6c91b3b..3fb8423 100644
          manager->priv->reload_id = g_idle_add ((GSourceFunc)reload_users_timeout, manager);
  }
  
--- 
-1.6.3.3
-

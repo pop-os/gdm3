@@ -1,11 +1,11 @@
-#
-# Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
-# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=588848
-#
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
---- gdm-2.27.90/configure	2009-08-25 07:07:12.000000000 +1000
-+++ gdm-2.27.90.new/configure	2009-08-25 14:34:49.000000000 +1000
-@@ -34484,9 +34484,9 @@
+Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
+Bug: http://bugzilla.gnome.org/show_bug.cgi?id=588848
+
+Index: gdm-2.30.2/configure
+===================================================================
+--- gdm-2.30.2.orig/configure	2010-06-22 13:07:34.374144935 +1000
++++ gdm-2.30.2/configure	2010-06-22 13:07:36.154143442 +1000
+@@ -31735,9 +31735,9 @@
  else
     # what to do, what to do, this is wrong, but this just sets the
     # defaults, perhaps this user is cross compiling or some such
@@ -18,10 +18,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure gdm-2.27.90.new/configure
     X_CONFIG_OPTIONS="-audit 0"
  fi
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.90/configure.ac gdm-2.27.90.new/configure.ac
---- gdm-2.27.90/configure.ac	2009-08-25 14:34:48.000000000 +1000
-+++ gdm-2.27.90.new/configure.ac	2009-08-25 14:34:49.000000000 +1000
-@@ -1129,9 +1129,9 @@
+Index: gdm-2.30.2/configure.ac
+===================================================================
+--- gdm-2.30.2.orig/configure.ac	2010-06-22 13:07:34.374144935 +1000
++++ gdm-2.30.2/configure.ac	2010-06-22 13:07:36.154143442 +1000
+@@ -1153,9 +1153,9 @@
  else
     # what to do, what to do, this is wrong, but this just sets the
     # defaults, perhaps this user is cross compiling or some such

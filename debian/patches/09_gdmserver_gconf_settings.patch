@@ -1,6 +1,3 @@
-## Description: add some description
-## Origin/Author: add some origin or author
-## Bug: bug URL
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
 --- gdm-2.29.92/common/gdm-settings.c	2010-03-26 15:56:58.372792109 +1100
 +++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-26 15:57:29.922783377 +1100

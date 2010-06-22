@@ -1,10 +1,9 @@
-#
-# Description: Choose default session in /etc/gdm/custom.conf using DBus
-# Add /usr/lib/gdm-set-default-session to properly define default session:
-# Use DBus when gdm daemon is on and filing the file when it's off
-# Ubuntu: https://launchpad.net/bugs/403291
-# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=594733
-#
+Description: Choose default session in /etc/gdm/custom.conf using DBus
+ Add /usr/lib/gdm-set-default-session to properly define default session:
+ Use DBus when gdm daemon is on and filing the file when it's off
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=594733
+Bug-Ubuntu: https://launchpad.net/bugs/403291
+
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.6/configure.ac gdm-2.29.6.new/configure.ac
 --- gdm-2.29.6/configure.ac	2010-01-28 18:23:06.000000000 +0100
 +++ gdm-2.29.6.new/configure.ac	2010-01-28 18:23:06.000000000 +0100

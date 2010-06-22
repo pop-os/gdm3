@@ -1,7 +1,6 @@
-#
-# Description: Load xsplash on login
-# Ubuntu: https://wiki.ubuntu.com/DesktopTeam/Specs/Karmic/LoginExperience
-#
+Description: Load xsplash on login
+Bug: https://wiki.ubuntu.com/DesktopTeam/Specs/Karmic/LoginExperience
+
 === modified file 'data/Init.in'
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.in
 --- gdm-2.29.5/data/Init.in	2010-01-13 18:21:31.000000000 +0100

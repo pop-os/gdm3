@@ -1,6 +1,4 @@
-#
-# Description: Saves the root window background so that other things like gnome-settings-daemon can access it.  Taken from the plymouth-integration branch of Upstream GIT.
-#
+Description: Saves the root window background so that other things like gnome-settings-daemon can access it.  Taken from the plymouth-integration branch of Upstream GIT.
 From 9768d9e2783de7e836421d9645070bb1917800dd Mon Sep 17 00:00:00 2001
 From: Ray Strode <rstrode@redhat.com>
 Date: Fri, 27 Nov 2009 23:27:53 +0000
@@ -9,11 +7,11 @@ Subject: Save root window to pixmap at _XROOTPMAP_ID
 This combined with starting the X server with -nr
 will give us a nice fade transition when g-s-d starts
 ---
-diff --git a/daemon/gdm-simple-slave.c b/daemon/gdm-simple-slave.c
-index 2cbb568..66d1c77 100644
---- a/daemon/gdm-simple-slave.c
-+++ b/daemon/gdm-simple-slave.c
-@@ -863,6 +863,15 @@ setup_server (GdmSimpleSlave *slave)
+Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-06-22 13:11:22.424157016 +1000
++++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-06-22 13:11:31.436659094 +1000
+@@ -899,6 +899,15 @@
  {
          /* Set the busy cursor */
          gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
@@ -29,19 +27,19 @@ index 2cbb568..66d1c77 100644
  }
  
  static void
-diff --git a/daemon/gdm-slave.c b/daemon/gdm-slave.c
-index e11e16c..da86f77 100644
---- a/daemon/gdm-slave.c
-+++ b/daemon/gdm-slave.c
-@@ -42,6 +42,7 @@
+Index: gdm-2.30.2/daemon/gdm-slave.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-slave.c	2010-04-27 23:48:54.000000000 +1000
++++ gdm-2.30.2/daemon/gdm-slave.c	2010-06-22 13:11:31.436659094 +1000
+@@ -43,6 +43,7 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
  #include <X11/Xlib.h> /* for Display */
 +#include <X11/Xatom.h> /* for XA_PIXMAP */
  #include <X11/cursorfont.h> /* for watch cursor */
+ #include <X11/Xatom.h>
  
- #include "gdm-common.h"
-@@ -351,6 +352,77 @@ gdm_slave_run_script (GdmSlave   *slave,
+@@ -352,6 +353,77 @@
          return ret;
  }
  
@@ -119,11 +117,11 @@ index e11e16c..da86f77 100644
  void
  gdm_slave_set_busy_cursor (GdmSlave *slave)
  {
-diff --git a/daemon/gdm-slave.h b/daemon/gdm-slave.h
-index af28b00..1652457 100644
---- a/daemon/gdm-slave.h
-+++ b/daemon/gdm-slave.h
-@@ -74,6 +74,7 @@ gboolean            gdm_slave_switch_to_user_session (GdmSlave   *slave,
+Index: gdm-2.30.2/daemon/gdm-slave.h
+===================================================================
+--- gdm-2.30.2.orig/daemon/gdm-slave.h	2010-03-27 00:28:03.000000000 +1100
++++ gdm-2.30.2/daemon/gdm-slave.h	2010-06-22 13:11:31.436659094 +1000
+@@ -74,6 +74,7 @@
  
  gboolean            gdm_slave_connect_to_x11_display (GdmSlave   *slave);
  void                gdm_slave_set_busy_cursor        (GdmSlave   *slave);
@@ -131,5 +129,3 @@ index af28b00..1652457 100644
  gboolean            gdm_slave_run_script             (GdmSlave   *slave,
                                                        const char *dir,
                                                        const char *username);
---
-cgit v0.8.2

@@ -1,10 +1,7 @@
-# Description: Add GDM Setup
-## Description: add some description
-## Origin/Author: add some origin or author
-## Bug: bug URL
-# Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
-# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
-#
+Description: Add GDM Setup
+Bug: http://bugzilla.gnome.org/show_bug.cgi?id=587750
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
+
 diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/configure.ac gdm-2.30.0.new/configure.ac
 --- gdm-2.30.0/configure.ac	2010-03-31 18:45:09.095560322 +0200
 +++ gdm-2.30.0.new/configure.ac	2010-03-31 18:45:09.815545484 +0200
@@ -1032,8 +1029,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/gui/gdmsetup/gdmsetup.c gdm-2.30.0.new/
 +
 +    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sound_enable_check), get_sound_enabled ());
 +  
-+    // Disable face browser as not working
-+    //gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (face_browser_enable_check), get_face_browser_enabled ());
++  
++    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (face_browser_enable_check), get_face_browser_enabled ());
 +    gtk_widget_hide (face_browser_enable_check);
 +  
 +    gtk_builder_connect_signals (ui, NULL);

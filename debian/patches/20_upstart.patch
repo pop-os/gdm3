@@ -1,6 +1,5 @@
-#
-# Description: Emit Upstart events when starting the login session and desktop session
-#
+Description: Emit Upstart events when starting the login session and desktop session
+
 diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.in
 --- gdm-2.29.5/data/Init.in	2010-01-14 16:32:56.042957211 +0100
 +++ gdm-2.29.5.new/data/Init.in	2010-01-14 16:32:57.472974297 +0100

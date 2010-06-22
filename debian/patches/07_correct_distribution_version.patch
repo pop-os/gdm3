@@ -1,11 +1,12 @@
-#
-# Description: use lsb informations to correctly display the distribution
-# Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=589549
-# Ubuntu: https://bugs.launchpad.net/bugs/396805
-#
---- ./gdm-2.27.4/gui/simple-greeter/gdm-greeter-login-window.c.gnome	2009-07-23 23:12:50.000000000 +0200
-+++ ./gdm-2.27.4/gui/simple-greeter/gdm-greeter-login-window.c	2009-07-23 23:24:26.000000000 +0200
-@@ -1265,10 +1265,16 @@
+Description: use lsb informations to correctly display the distribution
+Bug: http://bugzilla.gnome.org/show_bug.cgi?id=589549
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/396805
+
+Index: gdm-2.30.2/gui/simple-greeter/gdm-greeter-login-window.c
+===================================================================
+--- gdm-2.30.2.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-04-27 03:08:42.000000000 +1000
++++ gdm-2.30.2/gui/simple-greeter/gdm-greeter-login-window.c	2010-06-22 13:10:49.934144597 +1000
+@@ -1022,10 +1022,16 @@
  static char *
  get_system_version (void)
  {
@@ -23,7 +24,7 @@
  
          for (i = 0; known_etc_info_files [i]; i++) {
                  char *path1;
-@@ -1289,8 +1295,6 @@
+@@ -1046,8 +1052,6 @@
          }
  
          if (version == NULL) {

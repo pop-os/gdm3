@@ -1,10 +1,10 @@
-#
-# Description: Don't catch crashes so apport can do its job
-#
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/factory-slave-main.c gdm-2.27.4.new/daemon/factory-slave-main.c
---- gdm-2.27.4/daemon/factory-slave-main.c	2009-06-23 08:05:32.000000000 +0200
-+++ gdm-2.27.4.new/daemon/factory-slave-main.c	2009-08-13 20:00:15.000000000 +0200
-@@ -212,7 +212,7 @@
+Description: Don't catch crashes so apport can do its job
+
+Index: gdm-2.30.2/daemon/factory-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/factory-slave-main.c	2010-03-18 08:27:16.000000000 +1100
++++ gdm-2.30.2/daemon/factory-slave-main.c	2010-06-22 13:10:57.736655391 +1000
+@@ -229,7 +229,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -13,10 +13,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/factory-slave-main.c gdm-2.27.4.
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/product-slave-main.c gdm-2.27.4.new/daemon/product-slave-main.c
---- gdm-2.27.4/daemon/product-slave-main.c	2009-05-19 17:18:12.000000000 +0200
-+++ gdm-2.27.4.new/daemon/product-slave-main.c	2009-08-13 20:00:36.000000000 +0200
-@@ -216,7 +216,7 @@
+Index: gdm-2.30.2/daemon/product-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/product-slave-main.c	2010-03-18 08:27:16.000000000 +1100
++++ gdm-2.30.2/daemon/product-slave-main.c	2010-06-22 13:10:57.736655391 +1000
+@@ -233,7 +233,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -25,10 +26,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/product-slave-main.c gdm-2.27.4.
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/session-worker-main.c gdm-2.27.4.new/daemon/session-worker-main.c
---- gdm-2.27.4/daemon/session-worker-main.c	2009-06-23 08:05:22.000000000 +0200
-+++ gdm-2.27.4.new/daemon/session-worker-main.c	2009-08-13 20:00:19.000000000 +0200
-@@ -175,7 +175,7 @@
+Index: gdm-2.30.2/daemon/session-worker-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/session-worker-main.c	2010-03-18 08:27:16.000000000 +1100
++++ gdm-2.30.2/daemon/session-worker-main.c	2010-06-22 13:10:57.736655391 +1000
+@@ -194,7 +194,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -37,10 +39,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/session-worker-main.c gdm-2.27.4
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/simple-slave-main.c gdm-2.27.4.new/daemon/simple-slave-main.c
---- gdm-2.27.4/daemon/simple-slave-main.c	2009-06-23 08:05:25.000000000 +0200
-+++ gdm-2.27.4.new/daemon/simple-slave-main.c	2009-08-13 20:00:29.000000000 +0200
-@@ -240,7 +240,7 @@
+Index: gdm-2.30.2/daemon/simple-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/simple-slave-main.c	2010-04-27 03:08:42.000000000 +1000
++++ gdm-2.30.2/daemon/simple-slave-main.c	2010-06-22 13:10:57.736655391 +1000
+@@ -241,7 +241,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -49,10 +52,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/simple-slave-main.c gdm-2.27.4.n
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-diff -Nur -x '*.orig' -x '*~' gdm-2.27.4/daemon/xdmcp-chooser-slave-main.c gdm-2.27.4.new/daemon/xdmcp-chooser-slave-main.c
---- gdm-2.27.4/daemon/xdmcp-chooser-slave-main.c	2009-06-23 08:05:29.000000000 +0200
-+++ gdm-2.27.4.new/daemon/xdmcp-chooser-slave-main.c	2009-08-13 20:00:10.000000000 +0200
-@@ -232,7 +232,7 @@
+Index: gdm-2.30.2/daemon/xdmcp-chooser-slave-main.c
+===================================================================
+--- gdm-2.30.2.orig/daemon/xdmcp-chooser-slave-main.c	2010-03-18 08:27:16.000000000 +1100
++++ gdm-2.30.2/daemon/xdmcp-chooser-slave-main.c	2010-06-22 13:10:57.736655391 +1000
+@@ -235,7 +235,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
