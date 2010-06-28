@@ -1,3 +1,11 @@
+gdm (2.30.2-0ubuntu5) maverick; urgency=low
+
+  * debian/patches/09_gdmserver_gconf_settings.patch:
+  * debian/patches/09_gdmsetup.patch:
+    - Fix face browser toggle
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Mon, 28 Jun 2010 10:03:02 +1000
+
 gdm (2.30.2-0ubuntu4) maverick; urgency=low
 
   * debian/control:

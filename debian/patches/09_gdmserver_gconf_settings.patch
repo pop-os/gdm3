@@ -1,6 +1,7 @@
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/common/gdm-settings.c
---- gdm-2.29.92/common/gdm-settings.c	2010-03-26 15:56:58.372792109 +1100
-+++ gdm-2.29.92.new/common/gdm-settings.c	2010-03-26 15:57:29.922783377 +1100
+Index: gdm-2.30.2/common/gdm-settings.c
+===================================================================
+--- gdm-2.30.2.orig/common/gdm-settings.c	2010-06-28 10:50:10.185624001 +1000
++++ gdm-2.30.2/common/gdm-settings.c	2010-06-28 10:51:03.925624002 +1000
 @@ -28,6 +28,7 @@
  #include <signal.h>
  #include <sys/stat.h>
@@ -19,7 +20,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  #define GDM_SETTINGS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SETTINGS, GdmSettingsPrivate))
  
  struct GdmSettingsPrivate
-@@ -83,6 +87,188 @@
+@@ -83,6 +87,190 @@
          return ret;
  }
  
@@ -118,11 +119,13 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +        gboolean result = FALSE;
 +
 +        if (gdm_settings_get_gconf_value(gconf_key, &value)) {
-+                if (strcmp(value, "false\n") == 0)
-+                        *enabled = FALSE;
-+                else
-+                        *enabled = TRUE;
 +                result = TRUE;
++                if (strstr(value, "false") != NULL)
++                        *enabled = FALSE;
++                else if (strstr(value, "true") != NULL)
++                        *enabled = TRUE;
++                else
++                    result = FALSE;
 +        }
 +
 +        if (value)
@@ -208,7 +211,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  /*
  dbus-send --system --print-reply --dest=org.gnome.DisplayManager /org/gnome/DisplayManager/Settings org.gnome.DisplayManager.Settings.GetValue string:"xdmcp/Enable"
  */
-@@ -111,6 +297,49 @@
+@@ -111,6 +299,51 @@
          return res;
  }
  
@@ -227,11 +230,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +
 +        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
 +
++        *enabled = FALSE;
 +        res = gdm_settings_get_bool_gconf_value (GCONF_SOUND_EVENT_KEY, enabled);
 +        if (res)
 +                  g_debug ("get sound returned: %i", *enabled);
 +
-+        return res;
++        return TRUE;
 +}
 +
 +
@@ -248,17 +252,18 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +
 +        g_return_val_if_fail (GDM_IS_SETTINGS (settings), FALSE);
 +
++        *enabled = TRUE;  
 +        res = gdm_settings_get_bool_gconf_value (GCONF_FACE_BROWSER_DISABLE_KEY, enabled);
-+        if (res && enabled)
++        if (res)
 +            *enabled = !*enabled;
 +
-+        return res;
++        return TRUE;
 +}
 +
  static void
  unlock_auth_cb (PolkitAuthority *authority,
                  GAsyncResult *result,
-@@ -155,6 +384,12 @@
+@@ -155,6 +388,12 @@
          gchar *key, *value;
  } SetValueData;
  
@@ -271,10 +276,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
  static void
  set_value_auth_cb (PolkitAuthority *authority,
                     GAsyncResult *result,
-@@ -229,6 +464,129 @@
+@@ -228,6 +467,129 @@
+                                               data);
          return TRUE;
  }
- 
++
 +static void
 +set_sound_enabled_auth_cb (PolkitAuthority *authority,
 +                           GAsyncResult *result,
@@ -397,13 +403,13 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.c gdm-2.29.92.new/
 +                                              data);
 +        return TRUE;
 +}
-+
+ 
  static gboolean
  register_settings (GdmSettings *settings)
- {
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/common/gdm-settings.h
---- gdm-2.29.92/common/gdm-settings.h	2010-03-26 15:56:58.372792109 +1100
-+++ gdm-2.29.92.new/common/gdm-settings.h	2010-03-26 15:56:58.872791201 +1100
+Index: gdm-2.30.2/common/gdm-settings.h
+===================================================================
+--- gdm-2.30.2.orig/common/gdm-settings.h	2010-06-28 10:50:10.185624001 +1000
++++ gdm-2.30.2/common/gdm-settings.h	2010-06-28 10:50:10.785624002 +1000
 @@ -71,12 +71,24 @@
                                                                   const char  *key,
                                                                   char       **value,
@@ -429,9 +435,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.h gdm-2.29.92.new/
  
  G_END_DECLS
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/common/gdm-settings.xml gdm-2.29.92.new/common/gdm-settings.xml
---- gdm-2.29.92/common/gdm-settings.xml	2010-03-26 15:56:58.372792109 +1100
-+++ gdm-2.29.92.new/common/gdm-settings.xml	2010-03-26 15:56:58.872791201 +1100
+Index: gdm-2.30.2/common/gdm-settings.xml
+===================================================================
+--- gdm-2.30.2.orig/common/gdm-settings.xml	2010-06-28 10:50:10.185624001 +1000
++++ gdm-2.30.2/common/gdm-settings.xml	2010-06-28 10:50:10.785624002 +1000
 @@ -5,6 +5,12 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
