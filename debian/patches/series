@@ -17,7 +17,7 @@
 18_locale_env_vars.patch
 19_no_greeter_for_autologin.patch
 20_upstart.patch
-#24_system_uid.patch
+24_system_uid.patch
 25_update_gconf_directories.patch
 26_no_debug.patch
 27_save_root_window.patch

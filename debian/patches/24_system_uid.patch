@@ -1,12 +1,13 @@
 Description: Ignore users with UID below system configured minimum.
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=623225
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/427462
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/459199
 Author: Kees Cook <kees@ubuntu.com>
 
 Index: gdm-2.30.4/daemon/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
-+++ gdm-2.30.4/daemon/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
+--- gdm-2.30.4.orig/daemon/gdm-user-manager.c	2010-06-30 10:06:23.127523597 -0700
++++ gdm-2.30.4/daemon/gdm-user-manager.c	2010-06-30 10:06:48.367818683 -0700
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -120,8 +121,8 @@ Index: gdm-2.30.4/daemon/gdm-user-manager.c
                                                           g_str_equal,
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.4.orig/gui/gdmsetup/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
+--- gdm-2.30.4.orig/gui/gdmsetup/gdm-user-manager.c	2010-06-30 10:06:23.027522430 -0700
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-06-30 10:06:48.367818683 -0700
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -227,8 +228,8 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
                                                           g_str_equal,
 Index: gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.4.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
-+++ gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c	2010-06-30 13:53:54.000000000 +0200
+--- gdm-2.30.4.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-30 10:06:22.917521143 -0700
++++ gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c	2010-06-30 10:14:32.703275441 -0700
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -274,7 +275,15 @@ Index: gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c
                  g_debug ("GdmUserManager: excluding user '%s'", username);
                  return;
          }
-@@ -1751,7 +1757,7 @@
+@@ -1673,6 +1679,7 @@
+ 
+ static void
+ reload_passwd_file (GHashTable *valid_shells,
++                    GdmUserManager *manager,
+                     GSList     *exclude_users,
+                     GSList     *include_users,
+                     gboolean    include_all,
+@@ -1751,7 +1758,7 @@
                       pwent = fgetpwent (fp)) {
  
                          /* Skip users below MinimalUID... */
@@ -283,7 +292,15 @@ Index: gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c
                                  continue;
                          }
  
-@@ -2020,6 +2026,38 @@
+@@ -1907,6 +1914,7 @@
+         g_debug ("GdmUserManager: reloading passwd file worker");
+ 
+         reload_passwd_file (data->shells,
++                            data->manager,
+                             data->exclude_users,
+                             data->include_users,
+                             data->include_all,
+@@ -2020,6 +2028,38 @@
          maybe_set_is_loaded (manager);
  }
  
@@ -322,7 +339,7 @@ Index: gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c
  static void
  load_sessions (GdmUserManager *manager)
  {
-@@ -2412,6 +2450,7 @@
+@@ -2412,6 +2452,7 @@
          GError        *error;
  
          manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);

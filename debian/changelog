@@ -1,5 +1,6 @@
 gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
 
+  [ Sebastien Bacher ]
   * New upstream versions:
     - Translation fixes
     - Many performance improvements for the greeter
@@ -42,10 +43,11 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
     - dropped since the new upstream version solves this issue differently
   * debian/patches/23_login_window_hint.patch:
     - dropped, the change is in the new version
-  * debian/patches/24_system_uid.patch:
-    - comment for now it needs to be update to the upstream code changes
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 30 Jun 2010 11:23:01 +0200
+  [ Kees Cook ]
+  * debian/patches/24_system_uid.patch: - updated for upstream code changes
+
+ -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
 
 gdm (2.30.2-0ubuntu5) maverick; urgency=low
 
