@@ -1,35 +1,60 @@
-Description: use lsb informations to correctly display the distribution
-Bug: http://bugzilla.gnome.org/show_bug.cgi?id=589549
-Bug-Ubuntu: https://bugs.launchpad.net/bugs/396805
+From 6ebab35125484d092745a1620021f7d40ff38187 Mon Sep 17 00:00:00 2001
+From: William Jon McCann <jmccann@redhat.com>
+Date: Thu, 17 Jun 2010 03:35:22 +0000
+Subject: Use lsb_release if available to determine system description
 
-Index: gdm-2.30.2/gui/simple-greeter/gdm-greeter-login-window.c
+https://bugzilla.gnome.org/show_bug.cgi?id=589549
+---
+Index: gdm-2.30.4/gui/simple-greeter/gdm-greeter-login-window.c
 ===================================================================
---- gdm-2.30.2.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-04-27 03:08:42.000000000 +1000
-+++ gdm-2.30.2/gui/simple-greeter/gdm-greeter-login-window.c	2010-06-22 13:10:49.934144597 +1000
-@@ -1022,10 +1022,16 @@
- static char *
+--- gdm-2.30.4.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-06-29 15:42:14.000000000 +0200
++++ gdm-2.30.4/gui/simple-greeter/gdm-greeter-login-window.c	2010-06-30 12:34:54.000000000 +0200
+@@ -82,6 +82,8 @@
+ #define KEY_LOGO                    KEY_GREETER_DIR "/logo_icon_name"
+ #define KEY_DISABLE_USER_LIST       "/apps/gdm/simple-greeter/disable_user_list"
+ 
++#define LSB_RELEASE_COMMAND "lsb_release -d"
++
+ #define GDM_GREETER_LOGIN_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_GREETER_LOGIN_WINDOW, GdmGreeterLoginWindowPrivate))
+ 
+ enum {
+@@ -1054,10 +1056,24 @@
  get_system_version (void)
  {
--        char *version;
-+        char *version, *output;
+         char *version;
++        char *output;
          int i;
  
          version = NULL;
-+        output = NULL;                
-+
-+        if (g_spawn_command_line_sync ("lsb_release -sd", &output, NULL, NULL, NULL)) {
-+                version = g_strchomp (output);
-+                return version;
-+        }    
  
++        output = NULL;
++        if (g_spawn_command_line_sync (LSB_RELEASE_COMMAND, &output, NULL, NULL, NULL)) {
++                if (g_str_has_prefix (output, "Description:")) {
++                        version = g_strdup (output + strlen ("Description:"));
++                } else {
++                        version = g_strdup (output);
++                }
++                version = g_strstrip (version);
++                g_free (output);
++
++                goto out;
++        }
++
          for (i = 0; known_etc_info_files [i]; i++) {
                  char *path1;
-@@ -1046,8 +1052,6 @@
+                 char *path2;
+@@ -1077,13 +1093,12 @@
          }
  
          if (version == NULL) {
 -                char *output;
--                output = NULL;
+                 output = NULL;
                  if (g_spawn_command_line_sync ("uname -sr", &output, NULL, NULL, NULL)) {
                          version = g_strchomp (output);
                  }
+         }
+-
++ out:
+         return version;
+ }
+ 

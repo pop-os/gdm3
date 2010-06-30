@@ -1,7 +1,7 @@
-Index: gdm-2.30.2/common/gdm-settings.c
+Index: gdm-2.30.4/common/gdm-settings.c
 ===================================================================
---- gdm-2.30.2.orig/common/gdm-settings.c	2010-06-28 10:50:10.185624001 +1000
-+++ gdm-2.30.2/common/gdm-settings.c	2010-06-28 10:51:03.925624002 +1000
+--- gdm-2.30.4.orig/common/gdm-settings.c	2010-06-30 12:35:02.000000000 +0200
++++ gdm-2.30.4/common/gdm-settings.c	2010-06-30 12:35:06.000000000 +0200
 @@ -28,6 +28,7 @@
  #include <signal.h>
  #include <sys/stat.h>
@@ -276,11 +276,10 @@ Index: gdm-2.30.2/common/gdm-settings.c
  static void
  set_value_auth_cb (PolkitAuthority *authority,
                     GAsyncResult *result,
-@@ -228,6 +467,129 @@
-                                               data);
+@@ -229,6 +468,129 @@
          return TRUE;
  }
-+
+ 
 +static void
 +set_sound_enabled_auth_cb (PolkitAuthority *authority,
 +                           GAsyncResult *result,
@@ -403,13 +402,14 @@ Index: gdm-2.30.2/common/gdm-settings.c
 +                                              data);
 +        return TRUE;
 +}
- 
++
  static gboolean
  register_settings (GdmSettings *settings)
-Index: gdm-2.30.2/common/gdm-settings.h
+ {
+Index: gdm-2.30.4/common/gdm-settings.h
 ===================================================================
---- gdm-2.30.2.orig/common/gdm-settings.h	2010-06-28 10:50:10.185624001 +1000
-+++ gdm-2.30.2/common/gdm-settings.h	2010-06-28 10:50:10.785624002 +1000
+--- gdm-2.30.4.orig/common/gdm-settings.h	2010-06-30 12:35:02.000000000 +0200
++++ gdm-2.30.4/common/gdm-settings.h	2010-06-30 12:35:06.000000000 +0200
 @@ -71,12 +71,24 @@
                                                                   const char  *key,
                                                                   char       **value,
@@ -435,10 +435,10 @@ Index: gdm-2.30.2/common/gdm-settings.h
  
  G_END_DECLS
  
-Index: gdm-2.30.2/common/gdm-settings.xml
+Index: gdm-2.30.4/common/gdm-settings.xml
 ===================================================================
---- gdm-2.30.2.orig/common/gdm-settings.xml	2010-06-28 10:50:10.185624001 +1000
-+++ gdm-2.30.2/common/gdm-settings.xml	2010-06-28 10:50:10.785624002 +1000
+--- gdm-2.30.4.orig/common/gdm-settings.xml	2010-06-30 12:35:02.000000000 +0200
++++ gdm-2.30.4/common/gdm-settings.xml	2010-06-30 12:35:06.000000000 +0200
 @@ -5,6 +5,12 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>

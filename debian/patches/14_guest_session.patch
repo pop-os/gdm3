@@ -7,9 +7,10 @@ Description: Add a new D-Bus operation StartGuestSession().
  system) rules around it.
 Bug: https://wiki.ubuntu.com/DesktopTeam/Specs/Intrepid/GuestAccount
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.c gdm-2.30.0.new/daemon/gdm-local-display-factory.c
---- gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-03-29 23:42:03.000000000 +0200
-+++ gdm-2.30.0.new/daemon/gdm-local-display-factory.c	2010-04-14 14:51:08.306602571 +0200
+Index: gdm-2.30.4/daemon/gdm-local-display-factory.c
+===================================================================
+--- gdm-2.30.4.orig/daemon/gdm-local-display-factory.c	2010-06-26 00:09:31.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-local-display-factory.c	2010-06-30 12:40:21.000000000 +0200
 @@ -22,6 +22,8 @@
  
  #include <stdlib.h>
@@ -299,9 +300,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.c gdm-
  gboolean
  gdm_local_display_factory_create_product_display (GdmLocalDisplayFactory *factory,
                                                    const char             *parent_display_id,
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.h gdm-2.30.0.new/daemon/gdm-local-display-factory.h
---- gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-03-29 23:42:03.000000000 +0200
-+++ gdm-2.30.0.new/daemon/gdm-local-display-factory.h	2010-04-14 14:50:03.194778506 +0200
+Index: gdm-2.30.4/daemon/gdm-local-display-factory.h
+===================================================================
+--- gdm-2.30.4.orig/daemon/gdm-local-display-factory.h	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-local-display-factory.h	2010-06-30 12:40:21.000000000 +0200
 @@ -65,6 +65,11 @@
                                                                                 char                  **id,
                                                                                 GError                **error);
@@ -314,9 +316,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.h gdm-
  gboolean                   gdm_local_display_factory_create_product_display   (GdmLocalDisplayFactory *factory,
                                                                                 const char             *parent_display_id,
                                                                                 const char             *relay_address,
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.xml gdm-2.30.0.new/daemon/gdm-local-display-factory.xml
---- gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-03-29 23:42:03.000000000 +0200
-+++ gdm-2.30.0.new/daemon/gdm-local-display-factory.xml	2010-04-14 14:49:50.358604017 +0200
+Index: gdm-2.30.4/daemon/gdm-local-display-factory.xml
+===================================================================
+--- gdm-2.30.4.orig/daemon/gdm-local-display-factory.xml	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-local-display-factory.xml	2010-06-30 12:40:21.000000000 +0200
 @@ -9,5 +9,9 @@
      <method name="CreateTransientDisplay">
        <arg name="id" direction="out" type="o"/>
@@ -327,9 +330,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/daemon/gdm-local-display-factory.xml gd
 +    </method>
    </interface>
  </node>
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.0/data/gdm.conf.in gdm-2.30.0.new/data/gdm.conf.in
---- gdm-2.30.0/data/gdm.conf.in	2010-04-14 14:49:49.439607398 +0200
-+++ gdm-2.30.0.new/data/gdm.conf.in	2010-04-14 14:49:50.358604017 +0200
+Index: gdm-2.30.4/data/gdm.conf.in
+===================================================================
+--- gdm-2.30.4.orig/data/gdm.conf.in	2010-06-30 12:40:21.000000000 +0200
++++ gdm-2.30.4/data/gdm.conf.in	2010-06-30 12:40:21.000000000 +0200
 @@ -68,6 +68,9 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.LocalDisplayFactory"

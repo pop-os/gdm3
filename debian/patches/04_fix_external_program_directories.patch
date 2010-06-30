@@ -1,9 +1,10 @@
 Description: Fix location of external programs.
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-server.c gdm-2.30.2.new/daemon/gdm-server.c
---- gdm-2.30.2/daemon/gdm-server.c	2010-04-26 19:08:42.000000000 +0200
-+++ gdm-2.30.2.new/daemon/gdm-server.c	2010-04-27 16:13:32.427398767 +0200
-@@ -127,7 +127,7 @@
+Index: gdm-2.30.4/daemon/gdm-server.c
+===================================================================
+--- gdm-2.30.4.orig/daemon/gdm-server.c	2010-06-30 12:29:43.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-server.c	2010-06-30 12:30:03.000000000 +0200
+@@ -131,7 +131,7 @@
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
          error = NULL;
@@ -12,9 +13,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/daemon/gdm-server.c gdm-2.30.2.new/daem
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/data/greeter-autostart/gnome-settings-daemon.desktop.in.in gdm-2.30.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
---- gdm-2.30.2/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2010-03-17 22:27:16.000000000 +0100
-+++ gdm-2.30.2.new/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2010-04-27 16:13:32.427398767 +0200
+Index: gdm-2.30.4/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
+===================================================================
+--- gdm-2.30.4.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2010-06-30 12:29:43.000000000 +0200
++++ gdm-2.30.4/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2010-06-30 12:30:03.000000000 +0200
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
@@ -26,19 +28,21 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/data/greeter-autostart/gnome-settings-d
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in gdm-2.30.2.new/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in
---- gdm-2.30.2/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in	2010-04-27 15:51:57.000000000 +0200
-+++ gdm-2.30.2.new/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in	2010-04-27 16:13:55.847455507 +0200
+Index: gdm-2.30.4/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
+===================================================================
+--- gdm-2.30.4.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2010-06-30 12:30:03.000000000 +0200
 @@ -1,5 +1,5 @@
  [Desktop Entry]
  Type=Application
  _Name=PolicyKit Authentication Agent
--Exec=/usr/libexec/polkit-gnome-authentication-agent-1
+-Exec=@LIBEXECDIR@/polkit-gnome-authentication-agent-1
 +Exec=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
  OnlyShowIn=GNOME;
-diff -Nur -x '*.orig' -x '*~' gdm-2.30.2/gui/simple-chooser/gdm-chooser-session.c gdm-2.30.2.new/gui/simple-chooser/gdm-chooser-session.c
---- gdm-2.30.2/gui/simple-chooser/gdm-chooser-session.c	2010-03-17 22:27:16.000000000 +0100
-+++ gdm-2.30.2.new/gui/simple-chooser/gdm-chooser-session.c	2010-04-27 16:13:32.427398767 +0200
+Index: gdm-2.30.4/gui/simple-chooser/gdm-chooser-session.c
+===================================================================
+--- gdm-2.30.4.orig/gui/simple-chooser/gdm-chooser-session.c	2010-06-30 12:29:43.000000000 +0200
++++ gdm-2.30.4/gui/simple-chooser/gdm-chooser-session.c	2010-06-30 12:30:03.000000000 +0200
 @@ -131,7 +131,7 @@
          ret = FALSE;
  

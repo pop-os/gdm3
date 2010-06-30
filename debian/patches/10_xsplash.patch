@@ -2,9 +2,10 @@ Description: Load xsplash on login
 Bug: https://wiki.ubuntu.com/DesktopTeam/Specs/Karmic/LoginExperience
 
 === modified file 'data/Init.in'
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.in
---- gdm-2.29.5/data/Init.in	2010-01-13 18:21:31.000000000 +0100
-+++ gdm-2.29.5.new/data/Init.in	2010-01-14 16:29:30.705472774 +0100
+Index: gdm-2.30.4/data/Init.in
+===================================================================
+--- gdm-2.30.4.orig/data/Init.in	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/data/Init.in	2010-06-30 12:38:38.000000000 +0200
 @@ -6,6 +6,11 @@
  PATH="@X_PATH@:$PATH"
  OLD_IFS=$IFS
@@ -17,9 +18,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.i
  gdmwhich () {
    COMMAND="$1"
    OUTPUT=
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/PreSession.in gdm-2.29.5.new/data/PreSession.in
---- gdm-2.29.5/data/PreSession.in	2010-01-13 18:21:31.000000000 +0100
-+++ gdm-2.29.5.new/data/PreSession.in	2010-01-14 16:29:47.914426562 +0100
+Index: gdm-2.30.4/data/PreSession.in
+===================================================================
+--- gdm-2.30.4.orig/data/PreSession.in	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/data/PreSession.in	2010-06-30 12:38:38.000000000 +0200
 @@ -7,3 +7,8 @@
  # Note that output goes into the .xsession-errors file for easy debugging
  #
@@ -29,10 +31,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/PreSession.in gdm-2.29.5.new/data/
 +#then
 +#        /usr/bin/xsplash --daemon
 +#fi
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/gui/simple-greeter/gdm-greeter-session.c gdm-2.29.5.new/gui/simple-greeter/gdm-greeter-session.c
---- gdm-2.29.5/gui/simple-greeter/gdm-greeter-session.c	2010-01-12 17:36:37.000000000 +0100
-+++ gdm-2.29.5.new/gui/simple-greeter/gdm-greeter-session.c	2010-01-14 16:29:30.705472774 +0100
-@@ -439,6 +439,13 @@
+Index: gdm-2.30.4/gui/simple-greeter/gdm-greeter-session.c
+===================================================================
+--- gdm-2.30.4.orig/gui/simple-greeter/gdm-greeter-session.c	2010-06-29 15:42:14.000000000 +0200
++++ gdm-2.30.4/gui/simple-greeter/gdm-greeter-session.c	2010-06-30 12:38:38.000000000 +0200
+@@ -428,6 +428,13 @@
          toggle_panel (session, TRUE);
          toggle_login_window (session, TRUE);
  

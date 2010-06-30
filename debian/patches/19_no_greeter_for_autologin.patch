@@ -2,11 +2,11 @@ Description: gdm_slave_get_timed_login_details() does not fill variables if user
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=596830
 Bug-Ubuntu: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/435801
 
-Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+Index: gdm-2.30.4/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-04-27 03:08:42.000000000 +1000
-+++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-06-22 13:11:22.424157016 +1000
-@@ -1050,6 +1050,7 @@
+--- gdm-2.30.4.orig/daemon/gdm-simple-slave.c	2010-06-29 15:42:14.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-simple-slave.c	2010-06-30 14:49:38.000000000 +0200
+@@ -1058,6 +1058,7 @@
          if (res) {
                  gboolean enabled;
                  int      delay;
@@ -14,7 +14,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  
                  /* FIXME: handle wait-for-go */
  
-@@ -1057,7 +1058,8 @@
+@@ -1065,7 +1066,8 @@
  
                  delay = 0;
                  enabled = FALSE;

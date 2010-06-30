@@ -16,11 +16,11 @@ Bug-Ubuntu: https://launchpad.net/bugs/407300
  data/Xsession.in |   28 ++--------------------------
  1 files changed, 2 insertions(+), 26 deletions(-)
 
-diff --git a/data/Xsession.in b/data/Xsession.in
-index 6c7761a..b2d98f2 100755
---- a/data/Xsession.in
-+++ b/data/Xsession.in
-@@ -146,35 +146,11 @@ fi
+Index: gdm-2.30.4/data/Xsession.in
+===================================================================
+--- gdm-2.30.4.orig/data/Xsession.in	2010-06-30 14:49:22.000000000 +0200
++++ gdm-2.30.4/data/Xsession.in	2010-06-30 14:49:31.000000000 +0200
+@@ -146,35 +146,11 @@
  
  unset XKB_IN_USE
  
@@ -58,6 +58,3 @@ index 6c7761a..b2d98f2 100755
  fi
  
  # run all system xinitrc shell scripts.
--- 
-1.7.0
-

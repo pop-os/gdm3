@@ -2,10 +2,10 @@ Description: Add GDM Setup
 Bug: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 
-Index: gdm-2.30.2/configure.ac
+Index: gdm-2.30.4/configure.ac
 ===================================================================
---- gdm-2.30.2.orig/configure.ac	2010-06-28 09:59:05.970279000 +1000
-+++ gdm-2.30.2/configure.ac	2010-06-28 09:59:08.370279000 +1000
+--- gdm-2.30.4.orig/configure.ac	2010-06-30 12:35:02.000000000 +0200
++++ gdm-2.30.4/configure.ac	2010-06-30 12:36:33.000000000 +0200
 @@ -118,6 +118,14 @@
  AC_SUBST(DEVKIT_POWER_CFLAGS)
  AC_SUBST(DEVKIT_POWER_LIBS)
@@ -21,7 +21,7 @@ Index: gdm-2.30.2/configure.ac
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-@@ -1392,12 +1400,14 @@
+@@ -1399,12 +1407,14 @@
  daemon/Makefile
  docs/Makefile
  gui/Makefile
@@ -36,10 +36,10 @@ Index: gdm-2.30.2/configure.ac
  data/Makefile
  data/faces/Makefile
  data/greeter-autostart/Makefile
-Index: gdm-2.30.2/gui/gdmsetup/gdm-sessions.c
+Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-sessions.c	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.c	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,265 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -306,10 +306,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-sessions.c
 +
 +        return TRUE;
 +}
-Index: gdm-2.30.2/gui/gdmsetup/gdm-sessions.h
+Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-sessions.h	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.h	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,38 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -349,10 +349,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-sessions.h
 +G_END_DECLS
 +
 +#endif /* __GDM_SESSION_H */
-Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.c
+Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdmsetup.c	2010-06-28 10:02:22.260279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.c	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,713 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -1067,10 +1067,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.c
 +    
 +    return 0;
 +}
-Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.desktop.in
+Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdmsetup.desktop.in	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -1084,10 +1084,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.desktop.in
 +X-GNOME-Bugzilla-Bugzilla=GNOME
 +X-GNOME-Bugzilla-Product=gdm
 +X-GNOME-Bugzilla-Component=general
-Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.ui
+Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.ui
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdmsetup.ui	2010-06-28 10:02:04.380279002 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.ui	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,345 @@
 +<?xml version="1.0"?>
 +<interface>
@@ -1434,10 +1434,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdmsetup.ui
 +    <property name="step_increment">1</property>
 +  </object>
 +</interface>
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user.c
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user.c	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-user.c	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2611,10 +2611,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user.c
 +
 +        return pixbuf;
 +}
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user.h
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user.h	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-user.h	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2675,10 +2675,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user.h
 +G_END_DECLS
 +
 +#endif
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,1658 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4338,10 +4338,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c
 +
 +        return GDM_USER_MANAGER (user_manager_object);
 +}
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.h
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user-manager.h	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4430,10 +4430,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.h
 +G_END_DECLS
 +
 +#endif /* __GDM_USER_MANAGER_H */
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user-private.h
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user-private.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user-private.h	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-private.h	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4479,10 +4479,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user-private.h
 +G_END_DECLS
 +
 +#endif /* !__GDM_USER_PRIVATE__ */
-Index: gdm-2.30.2/gui/gdmsetup/Makefile.am
+Index: gdm-2.30.4/gui/gdmsetup/Makefile.am
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.2/gui/gdmsetup/Makefile.am	2010-06-28 09:59:08.370279000 +1000
++++ gdm-2.30.4/gui/gdmsetup/Makefile.am	2010-06-30 12:36:33.000000000 +0200
 @@ -0,0 +1,40 @@
 +NULL =
 +
@@ -4524,22 +4524,10 @@ Index: gdm-2.30.2/gui/gdmsetup/Makefile.am
 +	$(ui_DATA)		\
 +	$(Utilities_in_files)	\
 +	$(NULL)
-Index: gdm-2.30.2/gui/Makefile.am
+Index: gdm-2.30.4/po/POTFILES.in
 ===================================================================
---- gdm-2.30.2.orig/gui/Makefile.am	2010-03-18 08:27:16.000000000 +1100
-+++ gdm-2.30.2/gui/Makefile.am	2010-06-28 09:59:08.370279000 +1000
-@@ -1,6 +1,7 @@
- NULL =
- 
- SUBDIRS =			\
-+	gdmsetup		\
- 	simple-chooser		\
- 	simple-greeter		\
- 	user-switch-applet	\
-Index: gdm-2.30.2/po/POTFILES.in
-===================================================================
---- gdm-2.30.2.orig/po/POTFILES.in	2010-06-28 09:59:05.970279000 +1000
-+++ gdm-2.30.2/po/POTFILES.in	2010-06-28 09:59:08.370279000 +1000
+--- gdm-2.30.4.orig/po/POTFILES.in	2010-06-30 12:35:02.000000000 +0200
++++ gdm-2.30.4/po/POTFILES.in	2010-06-30 12:36:33.000000000 +0200
 @@ -60,6 +60,9 @@
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
@@ -4550,3 +4538,15 @@ Index: gdm-2.30.2/po/POTFILES.in
  gui/simple-chooser/gdm-host-chooser-dialog.c
  gui/simple-chooser/gdm-host-chooser-widget.c
  gui/simple-greeter/gdm-cell-renderer-timer.c
+Index: gdm-2.30.4/gui/Makefile.am
+===================================================================
+--- gdm-2.30.4.orig/gui/Makefile.am	2010-06-30 12:36:39.000000000 +0200
++++ gdm-2.30.4/gui/Makefile.am	2010-06-30 12:36:59.000000000 +0200
+@@ -3,6 +3,7 @@
+ SUBDIRS =			\
+ 	simple-greeter		\
+ 	user-switch-applet	\
++	gdmsetup		\
+ 	$(NULL)
+ 
+ if XDMCP_SUPPORT

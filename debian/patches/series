@@ -10,7 +10,6 @@
 10_xsplash.patch
 11_crash_for_apport.patch
 12_fusa_name_change.patch
-13_cache_ck_history.patch
 14_guest_session.patch
 15_default_session.patch
 16_gdmserver_user_manager.patch
@@ -18,8 +17,7 @@
 18_locale_env_vars.patch
 19_no_greeter_for_autologin.patch
 20_upstart.patch
-23_login_window_hint.patch
-24_system_uid.patch
+#24_system_uid.patch
 25_update_gconf_directories.patch
 26_no_debug.patch
 27_save_root_window.patch

@@ -3,10 +3,10 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/427462
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/459199
 Author: Kees Cook <kees@ubuntu.com>
 
-Index: gdm-2.30.2/daemon/gdm-user-manager.c
+Index: gdm-2.30.4/daemon/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-user-manager.c	2010-06-22 13:11:07.000000000 +1000
-+++ gdm-2.30.2/daemon/gdm-user-manager.c	2010-06-22 13:11:28.306661913 +1000
+--- gdm-2.30.4.orig/daemon/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -118,10 +118,10 @@ Index: gdm-2.30.2/daemon/gdm-user-manager.c
          /* sessions */
          manager->priv->sessions = g_hash_table_new_full (g_str_hash,
                                                           g_str_equal,
-Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c
+Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.2.orig/gui/gdmsetup/gdm-user-manager.c	2010-06-22 13:10:56.364155605 +1000
-+++ gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c	2010-06-22 13:11:28.306661913 +1000
+--- gdm-2.30.4.orig/gui/gdmsetup/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -225,10 +225,10 @@ Index: gdm-2.30.2/gui/gdmsetup/gdm-user-manager.c
          /* sessions */
          manager->priv->sessions = g_hash_table_new_full (g_str_hash,
                                                           g_str_equal,
-Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
+Index: gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c
 ===================================================================
---- gdm-2.30.2.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:11:02.694148945 +1000
-+++ gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c	2010-06-22 13:11:28.306661913 +1000
+--- gdm-2.30.4.orig/gui/simple-greeter/gdm-user-manager.c	2010-06-30 13:51:46.000000000 +0200
++++ gdm-2.30.4/gui/simple-greeter/gdm-user-manager.c	2010-06-30 13:53:54.000000000 +0200
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -237,7 +237,7 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
  
  #ifdef HAVE_PATHS_H
  #include <paths.h>
-@@ -67,7 +68,7 @@
+@@ -63,7 +64,7 @@
  #ifdef __sun
  #define DEFAULT_MINIMAL_UID     100
  #else
@@ -246,16 +246,16 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
  #endif
  
  #ifndef _PATH_SHELLS
-@@ -98,6 +99,7 @@
+@@ -153,6 +154,7 @@
  
-         guint                  reload_id;
-         guint                  ck_history_id;
+         gboolean               is_loaded;
+         gboolean               has_multiple_users;
 +        guint                  minimal_uid;
+ };
  
-         guint8                 users_dirty : 1;
-         guint8                 loaded_cache : 1;
-@@ -914,6 +916,10 @@
-                 return;
+ enum {
+@@ -1016,6 +1018,10 @@
+                 goto failed;
          }
  
 +        if (pwent->pw_uid < manager->priv->minimal_uid) {
@@ -263,9 +263,9 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
 +        }
 +
          /* check exclusions up front */
-         if (user_in_exclude_list (manager, pwent->pw_name)) {
+         if (username_in_exclude_list (manager, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-@@ -1245,7 +1251,7 @@
+@@ -1446,7 +1452,7 @@
                  g_warning ("Unable to lookup user name %s: %s", username, g_strerror (errno));
                  return;
          }
@@ -274,8 +274,8 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
                  g_debug ("GdmUserManager: excluding user '%s'", username);
                  return;
          }
-@@ -1477,7 +1483,7 @@
-                         user = NULL;
+@@ -1751,7 +1757,7 @@
+                      pwent = fgetpwent (fp)) {
  
                          /* Skip users below MinimalUID... */
 -                        if (pwent->pw_uid < DEFAULT_MINIMAL_UID) {
@@ -283,9 +283,9 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
                                  continue;
                          }
  
-@@ -1751,6 +1757,38 @@
+@@ -2020,6 +2026,38 @@
+         maybe_set_is_loaded (manager);
  }
- 
  
 +static guint
 +system_minimal_uid (void)
@@ -320,14 +320,13 @@ Index: gdm-2.30.2/gui/simple-greeter/gdm-user-manager.c
 +
 +
  static void
- gdm_user_manager_init (GdmUserManager *manager)
+ load_sessions (GdmUserManager *manager)
  {
-@@ -1762,6 +1800,8 @@
+@@ -2412,6 +2450,7 @@
+         GError        *error;
  
          manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);
- 
 +        manager->priv->minimal_uid = system_minimal_uid ();
-+
-         /* exclude/include */
-         g_debug ("Setting users to include:");
-         res = gdm_settings_client_get_string  (GDM_KEY_INCLUDE,
+ 
+         /* sessions */
+         manager->priv->sessions = g_hash_table_new_full (g_str_hash,

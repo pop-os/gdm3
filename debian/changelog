@@ -1,3 +1,52 @@
+gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream versions:
+    - Translation fixes
+    - Many performance improvements for the greeter
+    - Various robustness fixes
+    - Fix XDMCP
+    - Fix switch user menu item detection
+    - Remove obsolete restart and stop scripts
+    - Fixed #618834, GdmProductSlave does not handle OpenSession 
+    - Fixed #342397, gdm doesn't respond to XDMCP querys if local X server fails
+      to start 
+    - Fixed #544730, XDMCP broadcast discovery not working on BSD w/ ipv6 
+      enabled (lp: #393835)
+    - Fixed #589536, gdm-simple-slave crashed with signal 5 in 
+      g_return_if_fail_warning (lp: #403441)
+    - Fixed #592183, GDM entry field loses focus after dialogs are presented 
+    - Fixed #594857, Warning when type 'gdm --version' in terminal in new GDM 
+    - Fixed #599683, xdmcp Queries from Older software 
+    - Fixed #610179, GDM patch for accounts dialogue 
+    - Fixed #616722, Xdmcp linking problem 
+    - Fixed #616730, user-switch-applet build failure: missing -I for dbus-glib 
+    - Fixed #617665, Panel doesn't shrink after disabling "high contrast" 
+    - Fixed #619588, User's Real names should be escaped against XML markup 
+      (lp: #499690, #585128)
+    - Fixed #620430, memory leaks in gdm 
+    - Fixed #620893, bottom panel is overlapping at smaller sizes 
+    - Fixed #620908, gdm user switch applet goes nuts while 
+      changing password file 
+    - Fixed #621045, Improve startup performance of the greeter 
+    - Fixed #621131, User switch applet performance issues 
+    - Fixed #621661, Make slaves more robust against crashes 
+    - Fixed #622069, greeter doesn't work when there's no local user 
+    - Fixed #622337, shows shutdown buttons when connecting over xdmcp 
+    - Fixed #622430, keyboard layout handling wonky 
+    - Fixed #622431, cancel button not shown during timed login 
+    - Fixed #601458, Add presence items to status menu and port to JS 
+  * Refresh distribution changes
+  * debian/patches/07_correct_distribution_version.patch:
+    - use upstream version
+  * debian/patches/13_cache_ck_history.patch:
+    - dropped since the new upstream version solves this issue differently
+  * debian/patches/23_login_window_hint.patch:
+    - dropped, the change is in the new version
+  * debian/patches/24_system_uid.patch:
+    - comment for now it needs to be update to the upstream code changes
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 30 Jun 2010 11:23:01 +0200
+
 gdm (2.30.2-0ubuntu5) maverick; urgency=low
 
   * debian/patches/09_gdmserver_gconf_settings.patch:

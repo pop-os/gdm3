@@ -1,11 +1,11 @@
 Description: Change Bonobo activation server name to avoid conflict with indicator-session
 Bug: https://bugs.edge.launchpad.net/ubuntu/+source/gdm/+bug/410498
 
-Index: gdm-2.30.2/gui/user-switch-applet/applet.c
+Index: gdm-2.30.4/gui/user-switch-applet/applet.c
 ===================================================================
---- gdm-2.30.2.orig/gui/user-switch-applet/applet.c	2010-03-27 00:28:03.000000000 +1100
-+++ gdm-2.30.2/gui/user-switch-applet/applet.c	2010-06-22 13:11:00.806662470 +1000
-@@ -103,7 +103,7 @@
+--- gdm-2.30.4.orig/gui/user-switch-applet/applet.c	2010-06-26 00:09:31.000000000 +0200
++++ gdm-2.30.4/gui/user-switch-applet/applet.c	2010-06-30 12:38:51.000000000 +0200
+@@ -101,7 +101,7 @@
                                  const char    *iid,
                                  gpointer       data);
  
@@ -14,7 +14,7 @@ Index: gdm-2.30.2/gui/user-switch-applet/applet.c
                               PANEL_TYPE_APPLET,
                               "gdm-user-switch-applet", "0",
                               (PanelAppletFactoryCallback)applet_factory,
-@@ -1644,7 +1644,7 @@
+@@ -1611,7 +1611,7 @@
  {
          gboolean ret;
          ret = FALSE;
@@ -23,10 +23,10 @@ Index: gdm-2.30.2/gui/user-switch-applet/applet.c
                  ret = fill_applet (applet);
          }
          return ret;
-Index: gdm-2.30.2/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in
+Index: gdm-2.30.4/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in
 ===================================================================
---- gdm-2.30.2.orig/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2010-03-18 08:27:16.000000000 +1100
-+++ gdm-2.30.2/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2010-06-22 13:11:00.806662470 +1000
+--- gdm-2.30.4.orig/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/gui/user-switch-applet/GNOME_FastUserSwitchApplet.server.in.in	2010-06-30 12:38:51.000000000 +0200
 @@ -1,5 +1,5 @@
  <oaf_info>
 -  <oaf_server iid="OAFIID:GNOME_FastUserSwitchApplet_Factory" type="exe"

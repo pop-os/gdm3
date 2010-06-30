@@ -5,23 +5,21 @@ Subject: Enable smooth transition between plymouth and X
 
 This commit checks if plymouth is running, and if so,
 turns on the smooth transition between plymouth and X.
-Index: gdm-2.30.2/daemon/gdm-server.c
+Index: gdm-2.30.4/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-server.c	2010-06-22 13:10:24.726655938 +1000
-+++ gdm-2.30.2/daemon/gdm-server.c	2010-06-22 13:11:33.174166935 +1000
-@@ -32,8 +32,11 @@
- #include <pwd.h>
- #include <grp.h>
+--- gdm-2.30.4.orig/daemon/gdm-server.c	2010-06-30 14:11:46.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-server.c	2010-06-30 14:12:30.000000000 +0200
+@@ -34,6 +34,9 @@
  #include <signal.h>
-+#include <sys/ioctl.h>
  #include <sys/resource.h>
  
++#include <sys/ioctl.h>
 +#include <linux/vt.h>
 +
- #include <glib.h>
- #include <glib/gi18n.h>
- #include <glib/gstdio.h>
-@@ -670,6 +673,44 @@
+ #ifdef HAVE_SYS_PRCTL_H
+ #include <sys/prctl.h>
+ #endif
+@@ -680,6 +683,44 @@
          return ret;
  }
  
@@ -66,7 +64,7 @@ Index: gdm-2.30.2/daemon/gdm-server.c
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -693,6 +734,21 @@
+@@ -703,6 +744,21 @@
          return res;
  }
  
@@ -88,10 +86,10 @@ Index: gdm-2.30.2/daemon/gdm-server.c
  static void
  server_died (GdmServer *server)
  {
-Index: gdm-2.30.2/daemon/gdm-server.h
+Index: gdm-2.30.4/daemon/gdm-server.h
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-server.h	2010-03-27 00:28:03.000000000 +1100
-+++ gdm-2.30.2/daemon/gdm-server.h	2010-06-22 13:11:33.174166935 +1000
+--- gdm-2.30.4.orig/daemon/gdm-server.h	2010-06-16 18:32:38.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-server.h	2010-06-30 14:11:46.000000000 +0200
 @@ -56,6 +56,7 @@
  GdmServer *         gdm_server_new       (const char *display_id,
                                            const char *auth_file);
@@ -100,10 +98,10 @@ Index: gdm-2.30.2/daemon/gdm-server.h
  gboolean            gdm_server_stop      (GdmServer   *server);
  char *              gdm_server_get_display_device (GdmServer *server);
  
-Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+Index: gdm-2.30.4/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-06-22 13:11:31.436659094 +1000
-+++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-06-22 13:11:33.174166935 +1000
+--- gdm-2.30.4.orig/daemon/gdm-simple-slave.c	2010-06-30 14:11:46.000000000 +0200
++++ gdm-2.30.4/daemon/gdm-simple-slave.c	2010-06-30 14:11:46.000000000 +0200
 @@ -84,6 +84,7 @@
  
          guint              start_session_when_ready : 1;
@@ -112,7 +110,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  };
  
  enum {
-@@ -894,6 +895,91 @@
+@@ -901,6 +902,91 @@
          slave->priv->start_session_when_ready = FALSE;
  }
  
@@ -204,7 +202,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  static void
  setup_server (GdmSimpleSlave *slave)
  {
-@@ -908,6 +994,10 @@
+@@ -915,6 +1001,10 @@
           */
          gdm_slave_save_root_windows (GDM_SLAVE (slave));
  
@@ -215,7 +213,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  }
  
  static void
-@@ -1103,6 +1193,10 @@
+@@ -1111,6 +1201,10 @@
          g_debug ("GdmSimpleSlave: server exited with code %d\n", exit_code);
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -226,7 +224,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  }
  
  static void
-@@ -1115,6 +1209,10 @@
+@@ -1123,6 +1217,10 @@
                   g_strsignal (signal_number));
  
          gdm_slave_stopped (GDM_SLAVE (slave));
@@ -237,7 +235,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  }
  
  static gboolean
-@@ -1159,7 +1257,21 @@
+@@ -1167,7 +1265,21 @@
                                    G_CALLBACK (on_server_ready),
                                    slave);
  
@@ -260,7 +258,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
                  if (! res) {
                          g_warning (_("Could not start the X "
                                       "server (your graphical environment) "
-@@ -1169,6 +1281,9 @@
+@@ -1177,6 +1289,9 @@
                                       "In the meantime this display will be "
                                       "disabled.  Please restart GDM when "
                                       "the problem is corrected."));
