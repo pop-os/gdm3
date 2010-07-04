@@ -31,12 +31,12 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libxft-dev,
                libxi-dev,
                libxinerama-dev,
-               libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
-               libattr1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
+               libselinux1-dev [linux-any],
+               libattr1-dev [linux-any],
                iso-codes,
-               libaudit-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
+               libaudit-dev [linux-any],
                docbook-xml
-Standards-Version: 3.8.4
+Standards-Version: 3.9.0
 Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
