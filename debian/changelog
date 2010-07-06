@@ -49,6 +49,17 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
 
  -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
 
+gdm (2.30.2.is.2.30.2-0ubuntu1) maverick; urgency=low
+
+  * Tweak the version number to be newer than the lucid-updates one
+  * debian/patches/94_git_null_free_crash.patch:
+    - git change to fix a crasher (lp: #403441)
+  * debian/patches/95_git_name_escaping.patch:
+    - git change to fix escaping issues leading to crashes (lp: #499690),
+      or to having incorrect usernames displayed (lp: #585128)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 06 Jul 2010 13:36:48 +0200
+
 gdm (2.30.2-0ubuntu5) maverick; urgency=low
 
   * debian/patches/09_gdmserver_gconf_settings.patch:
