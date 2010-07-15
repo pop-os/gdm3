@@ -900,7 +900,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.c
 +    model = GTK_LIST_STORE (gtk_builder_get_object (ui, "session_model"));
 +    gtk_list_store_append (model, &iter);
 +    label = g_string_new("");
-+    g_string_printf (label, "%s (%s)", name, comment);
++    g_string_printf (label, "%s", name);
 +    gtk_list_store_set (model, &iter,
 +                        0, label->str,
 +                        1, session_id,

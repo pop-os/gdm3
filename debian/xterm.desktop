@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=xterm
+Name=Recovery Console
 Comment=Failsafe session with only xterm
 Exec=xterm
 TryExec=xterm
