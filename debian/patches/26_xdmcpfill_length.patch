@@ -1,0 +1,31 @@
+From f7a7158efcaa3e113a02dd0f0bfdf22a253928e5 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Thu, 17 Jun 2010 15:59:36 +0000
+Subject: Call XdmcpFill with properly initialized length
+
+This is just like commit 86ac166294f0fc8f662031167066acf1928cf139,
+but in a different place in the code.
+
+Spotted by mariodebian <mariodebian@gmail.com>
+---
+diff --git a/gui/simple-chooser/gdm-host-chooser-widget.c b/gui/simple-chooser/gdm-host-chooser-widget.c
+index 0c8f46c..352c1e2 100644
+--- a/gui/simple-chooser/gdm-host-chooser-widget.c
++++ b/gui/simple-chooser/gdm-host-chooser-widget.c
+@@ -208,12 +208,13 @@ decode_packet (GIOChannel           *source,
+                 return TRUE;
+         }
+ 
++        ss_len = (int)gdm_sockaddr_len (&clnt_ss);
++
+         res = XdmcpFill (widget->priv->socket_fd, &buf, (XdmcpNetaddr)&clnt_ss, &ss_len);
+         if G_UNLIKELY (! res) {
+                 g_debug (_("XDMCP: Could not create XDMCP buffer!"));
+                 return TRUE;
+         }
+-        ss_len = (int)gdm_sockaddr_len (&clnt_ss);
+ 
+         res = XdmcpReadHeader (&buf, &header);
+         if G_UNLIKELY (! res) {
+--
+cgit v0.8.3.1
