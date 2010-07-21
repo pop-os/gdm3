@@ -56,6 +56,15 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
 
  -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
 
+gdm (2.30.2.is.2.30.2-0ubuntu3) maverick; urgency=low
+
+  * debian/patches/95_git_name_escaping.patch:
+    - updated to the current git version to fix escaping issues in the 
+      language selector list due the previous change
+      (lp: #603097)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 21 Jul 2010 11:43:52 +0200
+
 gdm (2.30.2.is.2.30.2-0ubuntu2) maverick; urgency=low
 
   * debian/60xdg_path-on-session:
