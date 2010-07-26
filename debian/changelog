@@ -54,6 +54,10 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
   * debian/patches/09_gdmsetup.patch:
     - Remove session comment from combo box to make it fit better
 
+  [ Martin Pitt ]
+  * 09_gdmsetup.patch: Only show "Play Login Sound" checkbox if we have
+    /usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop.
+
  -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
 
 gdm (2.30.2.is.2.30.2-0ubuntu3) maverick; urgency=low

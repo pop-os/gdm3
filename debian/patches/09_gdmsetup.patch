@@ -4,8 +4,8 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 
 Index: gdm-2.30.4/configure.ac
 ===================================================================
---- gdm-2.30.4.orig/configure.ac	2010-06-30 12:35:02.000000000 +0200
-+++ gdm-2.30.4/configure.ac	2010-06-30 12:36:33.000000000 +0200
+--- gdm-2.30.4.orig/configure.ac	2010-07-26 10:06:50.747094233 +0200
++++ gdm-2.30.4/configure.ac	2010-07-26 10:06:50.807094737 +0200
 @@ -118,6 +118,14 @@
  AC_SUBST(DEVKIT_POWER_CFLAGS)
  AC_SUBST(DEVKIT_POWER_LIBS)
@@ -39,7 +39,7 @@ Index: gdm-2.30.4/configure.ac
 Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.c	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.c	2010-07-26 10:06:50.807094737 +0200
 @@ -0,0 +1,265 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -309,7 +309,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.c
 Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.h	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-sessions.h	2010-07-26 10:06:50.807094737 +0200
 @@ -0,0 +1,38 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -352,8 +352,8 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-sessions.h
 Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdmsetup.c	2010-06-30 12:36:33.000000000 +0200
-@@ -0,0 +1,713 @@
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.c	2010-07-26 10:07:09.677098044 +0200
+@@ -0,0 +1,717 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
 +#endif
@@ -1031,7 +1031,11 @@ Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.c
 +    sound_enable_check = GTK_WIDGET (gtk_builder_get_object (ui, "sound_enable_check"));
 +    face_browser_enable_check = GTK_WIDGET (gtk_builder_get_object (ui, "face_browser_enable_check"));
 +
-+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sound_enable_check), get_sound_enabled ());
++    if (g_file_test ("/usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop", G_FILE_TEST_EXISTS))
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sound_enable_check), get_sound_enabled ());
++    else
++        gtk_widget_hide (GTK_WIDGET (sound_enable_check));
++
 +    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (face_browser_enable_check), get_face_browser_enabled ());
 +  
 +    gtk_builder_connect_signals (ui, NULL);
@@ -1070,7 +1074,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.c
 Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in	2010-07-26 10:06:50.817095729 +0200
 @@ -0,0 +1,12 @@
 +[Desktop Entry]
 +_Name=Login Screen
@@ -1087,7 +1091,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.desktop.in
 Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.ui
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdmsetup.ui	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdmsetup.ui	2010-07-26 10:06:50.817095729 +0200
 @@ -0,0 +1,345 @@
 +<?xml version="1.0"?>
 +<interface>
@@ -1437,7 +1441,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdmsetup.ui
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user.c	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user.c	2010-07-26 10:06:50.817095729 +0200
 @@ -0,0 +1,1172 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2614,7 +2618,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user.c
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user.h	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user.h	2010-07-26 10:06:50.817095729 +0200
 @@ -0,0 +1,59 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2678,7 +2682,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user.h
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c	2010-07-26 10:06:50.827091972 +0200
 @@ -0,0 +1,1658 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4341,7 +4345,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.c
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h	2010-07-26 10:06:50.827091972 +0200
 @@ -0,0 +1,87 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4433,7 +4437,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user-manager.h
 Index: gdm-2.30.4/gui/gdmsetup/gdm-user-private.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/gdm-user-private.h	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/gdm-user-private.h	2010-07-26 10:06:50.827091972 +0200
 @@ -0,0 +1,44 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -4482,7 +4486,7 @@ Index: gdm-2.30.4/gui/gdmsetup/gdm-user-private.h
 Index: gdm-2.30.4/gui/gdmsetup/Makefile.am
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.4/gui/gdmsetup/Makefile.am	2010-06-30 12:36:33.000000000 +0200
++++ gdm-2.30.4/gui/gdmsetup/Makefile.am	2010-07-26 10:06:50.827091972 +0200
 @@ -0,0 +1,40 @@
 +NULL =
 +
@@ -4526,8 +4530,8 @@ Index: gdm-2.30.4/gui/gdmsetup/Makefile.am
 +	$(NULL)
 Index: gdm-2.30.4/po/POTFILES.in
 ===================================================================
---- gdm-2.30.4.orig/po/POTFILES.in	2010-06-30 12:35:02.000000000 +0200
-+++ gdm-2.30.4/po/POTFILES.in	2010-06-30 12:36:33.000000000 +0200
+--- gdm-2.30.4.orig/po/POTFILES.in	2010-07-26 10:06:50.747094233 +0200
++++ gdm-2.30.4/po/POTFILES.in	2010-07-26 10:06:50.827091972 +0200
 @@ -60,6 +60,9 @@
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
@@ -4540,8 +4544,8 @@ Index: gdm-2.30.4/po/POTFILES.in
  gui/simple-greeter/gdm-cell-renderer-timer.c
 Index: gdm-2.30.4/gui/Makefile.am
 ===================================================================
---- gdm-2.30.4.orig/gui/Makefile.am	2010-06-30 12:36:39.000000000 +0200
-+++ gdm-2.30.4/gui/Makefile.am	2010-06-30 12:36:59.000000000 +0200
+--- gdm-2.30.4.orig/gui/Makefile.am	2010-06-26 00:09:31.000000000 +0200
++++ gdm-2.30.4/gui/Makefile.am	2010-07-26 10:06:50.827091972 +0200
 @@ -3,6 +3,7 @@
  SUBDIRS =			\
  	simple-greeter		\
