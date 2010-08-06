@@ -1,0 +1,162 @@
+From ac2948efe420f17c8a34c16fba33296d930f740d Mon Sep 17 00:00:00 2001
+From: Martin Pitt <martin.pitt@ubuntu.com>
+Date: Fri, 6 Aug 2010 12:21:47 +0200
+Subject: [PATCH 3/3] Port to UPower
+
+DeviceKit-Power has been renamed to UPower in January 2010.
+devkit-power-gobject is deprecated and will be removed in future versions of
+UPower.
+
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=626176
+---
+ configure.ac                           |   21 +++++++++++----------
+ gui/simple-greeter/Makefile.am         |    7 +++----
+ gui/simple-greeter/gdm-greeter-panel.c |   30 ++++++++++++++----------------
+ 3 files changed, 28 insertions(+), 30 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 09a052e..29d3c8c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -50,7 +50,7 @@ LIBXKLAVIER_REQUIRED_VERSION=4.0
+ LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
+ #FONTCONFIG_REQUIRED_VERSION=2.6.0
+ FONTCONFIG_REQUIRED_VERSION=2.5.0
+-DEVKIT_POWER_REQUIRED_VERSION=008
++UPOWER_REQUIRED_VERSION=0.9.0
+ 
+ EXTRA_COMPILE_WARNINGS(yes)
+ 
+@@ -106,17 +106,17 @@ AC_SUBST(GCONF_LIBS)
+ gconf_defaultpath=`pkg-config gconf-2.0 --variable=gconf_defaultpath`
+ AC_DEFINE_UNQUOTED([GCONF_DEFAULTPATH], "$gconf_defaultpath", [GConf Default Path])
+ 
+-PKG_CHECK_MODULES(DEVKIT_POWER,
+-        devkit-power-gobject >= $DEVKIT_POWER_REQUIRED_VERSION,
+-        have_devicekit_power=yes,
+-        have_devicekit_power=no
++PKG_CHECK_MODULES(UPOWER,
++        upower-glib >= $UPOWER_REQUIRED_VERSION,
++        have_upower=yes,
++        have_upower=no
+ )
+-if test "x$have_devicekit_power" = "xyes" ; then
+-  AC_DEFINE(HAVE_DEVICEKIT_POWER, [], [Define if we have DeviceKit-power])
++if test "x$have_upower" = "xyes" ; then
++  AC_DEFINE(HAVE_UPOWER, [], [Define if we have UPower])
+ fi
+-AC_SUBST(HAVE_DEVICEKIT_POWER)
+-AC_SUBST(DEVKIT_POWER_CFLAGS)
+-AC_SUBST(DEVKIT_POWER_LIBS)
++AC_SUBST(UPOWER)
++AC_SUBST(UPOWER_CFLAGS)
++AC_SUBST(UPOWER_LIBS)
+ 
+ PKG_CHECK_MODULES(SIMPLE_GREETER,
+         dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
+@@ -1466,5 +1466,6 @@ echo \
+         XDMCP support:            ${XDMCP_SUPPORT}
+         SELinux support:          ${with_selinux}
+         ConsoleKit support:       ${use_console_kit}
++        UPower support:           ${have_upower}
+         Build with RBAC:          ${msg_rbac_shutdown}
+ "
+diff --git a/gui/simple-greeter/Makefile.am b/gui/simple-greeter/Makefile.am
+index 564f95f..6f7f3ee 100644
+--- a/gui/simple-greeter/Makefile.am
++++ b/gui/simple-greeter/Makefile.am
+@@ -19,8 +19,7 @@ AM_CPPFLAGS = \
+ 	-DSBINDIR=\""$(sbindir)"\"		 	\
+ 	-DGDM_CACHE_DIR=\""$(localstatedir)/cache/gdm"\"	\
+ 	-DAT_SPI_REGISTRYD_DIR="\"$(AT_SPI_REGISTRYD_DIR)\""	\
+-	$(DEVKIT_POWER_CFLAGS)				\
+-	-DI_KNOW_THE_DEVICEKIT_POWER_API_IS_SUBJECT_TO_CHANGE	\
++	$(UPOWER_CFLAGS)				\
+ 	$(DISABLE_DEPRECATED_CFLAGS)			\
+ 	$(GTK_CFLAGS)					\
+ 	$(SIMPLE_GREETER_CFLAGS)			\
+@@ -144,7 +143,7 @@ test_greeter_panel_LDADD =	\
+ 	$(GTK_LIBS)			\
+ 	$(GCONF_LIBS)			\
+ 	$(LIBXKLAVIER_LIBS)		\
+-	$(DEVKIT_POWER_LIBS)		\
++	$(UPOWER_LIBS)		\
+ 	$(NULL)
+ 
+ test_remote_login_window_SOURCES = 	\
+@@ -332,7 +331,7 @@ gdm_simple_greeter_LDADD = 		\
+ 	$(SIMPLE_GREETER_LIBS)		\
+ 	$(RBAC_LIBS)			\
+ 	$(LIBXKLAVIER_LIBS)		\
+-	$(DEVKIT_POWER_LIBS)		\
++	$(UPOWER_LIBS)		\
+ 	$(NULL)
+ 
+ uidir = $(pkgdatadir)
+diff --git a/gui/simple-greeter/gdm-greeter-panel.c b/gui/simple-greeter/gdm-greeter-panel.c
+index 7513849..3614a88 100644
+--- a/gui/simple-greeter/gdm-greeter-panel.c
++++ b/gui/simple-greeter/gdm-greeter-panel.c
+@@ -40,8 +40,8 @@
+ #include <gconf/gconf-client.h>
+ #include <dbus/dbus-glib.h>
+ 
+-#ifdef HAVE_DEVICEKIT_POWER
+-#include <devkit-power-gobject/devicekit-power.h>
++#ifdef HAVE_UPOWER
++#include <upower.h>
+ #endif
+ 
+ #include "gdm-languages.h"
+@@ -552,15 +552,13 @@ can_suspend (void)
+ {
+         gboolean ret = FALSE;
+ 
+-#ifdef HAVE_DEVICEKIT_POWER
+-        DkpClient *dkp_client;
++#ifdef HAVE_UPOWER
++        UpClient *up_client;
+ 
+-        /* use DeviceKit-power to get data */
+-        dkp_client = dkp_client_new ();
+-        g_object_get (dkp_client,
+-                      "can-suspend", &ret,
+-                      NULL);
+-        g_object_unref (dkp_client);
++        /* use UPower to get data */
++        up_client = up_client_new ();
++	ret = up_client_get_can_suspend (up_client);
++        g_object_unref (up_client);
+ #endif
+ 
+         return ret;
+@@ -569,20 +567,20 @@ can_suspend (void)
+ static void
+ do_system_suspend (void)
+ {
+-#ifdef HAVE_DEVICEKIT_POWER
++#ifdef HAVE_UPOWER
+         gboolean ret;
+-        DkpClient *dkp_client;
++        UpClient *up_client;
+         GError *error = NULL;
+ 
+-        /* use DeviceKit-power to get data */
+-        dkp_client = dkp_client_new ();
+-        ret = dkp_client_suspend (dkp_client, &error);
++        /* use UPower to trigger suspend */
++        up_client = up_client_new ();
++        ret = up_client_suspend_sync (up_client, NULL, &error);
+         if (!ret) {
+                 g_warning ("Couldn't suspend: %s", error->message);
+                 g_error_free (error);
+                 return;
+         }
+-        g_object_unref (dkp_client);
++        g_object_unref (up_client);
+ #endif
+ }
+ 
+-- 
+1.7.1
+

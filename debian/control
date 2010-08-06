@@ -27,7 +27,7 @@ Build-Depends: cdbs,
                libcanberra-gtk-dev (>= 0.4),
                libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64], 
                iso-codes,
-               libdevkit-power-gobject-dev (>= 008)
+               libupower-glib-dev (>= 0.9.0)
 Standards-Version: 3.8.4
 Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 

@@ -57,6 +57,8 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
   [ Martin Pitt ]
   * 09_gdmsetup.patch: Only show "Play Login Sound" checkbox if we have
     /usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop.
+  * Add 01_upower.patch: Port to UPower.
+  * debian/control: libdevkit-power-gobject-dev → libupower-glib-dev.
 
  -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
 
