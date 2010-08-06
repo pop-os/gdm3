@@ -1,4 +1,4 @@
-gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.30.4-0ubuntu1) maverick; urgency=low
 
   [ Sebastien Bacher ]
   * New upstream versions:
@@ -60,7 +60,7 @@ gdm (2.30.4-0ubuntu1) UNRELEASED; urgency=low
   * Add 01_upower.patch: Port to UPower.
   * debian/control: libdevkit-power-gobject-dev → libupower-glib-dev.
 
- -- Kees Cook <kees@ubuntu.com>  Wed, 30 Jun 2010 10:19:17 -0700
+ -- Kees Cook <kees@ubuntu.com>  Fri, 06 Aug 2010 13:02:51 +0200
 
 gdm (2.30.2.is.2.30.2-0ubuntu3) maverick; urgency=low
 
