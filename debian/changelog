@@ -1,3 +1,12 @@
+gdm (2.30.5-0ubuntu1) maverick; urgency=low
+
+  * New upstream version:
+    - Retry getpw* calls if they return EINTR
+    - #619588, don't show markup tags in UI (lp: #603097)
+    - #626564, fix intermittent failure to load user list (lp: #614810) 
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 11 Aug 2010 21:50:35 +0200
+
 gdm (2.30.4-0ubuntu1) maverick; urgency=low
 
   [ Sebastien Bacher ]
