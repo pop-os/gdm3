@@ -1,3 +1,12 @@
+gdm (2.30.5-0ubuntu2) maverick; urgency=low
+
+  * debian/patches/09_gdmsetup.patch:
+    - don't list the policykit file in the configure, it's not required but
+      breaks the escaping and the strings listed in the authentification dialog
+      (lp: #617044)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 17 Aug 2010 21:47:44 +0200
+
 gdm (2.30.5-0ubuntu1) maverick; urgency=low
 
   * New upstream version:
