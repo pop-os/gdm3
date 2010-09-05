@@ -14,8 +14,8 @@ Update in Debian:
 #
 Index: gdm-2.30.5/configure.ac
 ===================================================================
---- gdm-2.30.5.orig/configure.ac	2010-09-05 21:55:28.617148739 +0200
-+++ gdm-2.30.5/configure.ac	2010-09-05 21:55:29.828652236 +0200
+--- gdm-2.30.5.orig/configure.ac	2010-09-05 21:59:30.960650360 +0200
++++ gdm-2.30.5/configure.ac	2010-09-05 21:59:59.969147105 +0200
 @@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
@@ -24,9 +24,9 @@ Index: gdm-2.30.5/configure.ac
  GLIB_REQUIRED_VERSION=2.22.0
  GTK_REQUIRED_VERSION=2.12.0
  PANGO_REQUIRED_VERSION=1.3.0
-@@ -118,6 +119,14 @@ AC_SUBST(UPOWER)
- AC_SUBST(UPOWER_CFLAGS)
- AC_SUBST(UPOWER_LIBS)
+@@ -118,6 +119,14 @@ AC_SUBST(HAVE_DEVICEKIT_POWER)
+ AC_SUBST(DEVKIT_POWER_CFLAGS)
+ AC_SUBST(DEVKIT_POWER_LIBS)
  
 +PKG_CHECK_MODULES(GDMSETUP,
 +        polkit-gtk-1 >= $POLKIT_GTK_REQUIRED_VERSION
@@ -50,7 +50,7 @@ Index: gdm-2.30.5/configure.ac
 Index: gdm-2.30.5/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2010-09-05 21:55:29.828652236 +0200
++++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2010-09-05 21:59:59.973145728 +0200
 @@ -0,0 +1,370 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -425,7 +425,7 @@ Index: gdm-2.30.5/gui/gdmsetup/gdmsetup.c
 Index: gdm-2.30.5/gui/gdmsetup/Makefile.am
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/gui/gdmsetup/Makefile.am	2010-09-05 21:55:29.828652236 +0200
++++ gdm-2.30.5/gui/gdmsetup/Makefile.am	2010-09-05 21:59:59.973145728 +0200
 @@ -0,0 +1,42 @@
 +NULL =
 +
@@ -471,8 +471,8 @@ Index: gdm-2.30.5/gui/gdmsetup/Makefile.am
 +	$(NULL)
 Index: gdm-2.30.5/gui/Makefile.am
 ===================================================================
---- gdm-2.30.5.orig/gui/Makefile.am	2010-09-05 21:52:30.592647525 +0200
-+++ gdm-2.30.5/gui/Makefile.am	2010-09-05 21:55:29.832646459 +0200
+--- gdm-2.30.5.orig/gui/Makefile.am	2010-09-05 21:59:30.888648755 +0200
++++ gdm-2.30.5/gui/Makefile.am	2010-09-05 21:59:59.973145728 +0200
 @@ -13,4 +13,5 @@ DIST_SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
@@ -481,8 +481,8 @@ Index: gdm-2.30.5/gui/Makefile.am
  	$(NULL)
 Index: gdm-2.30.5/po/POTFILES.in
 ===================================================================
---- gdm-2.30.5.orig/po/POTFILES.in	2010-09-05 21:55:28.617148739 +0200
-+++ gdm-2.30.5/po/POTFILES.in	2010-09-05 21:55:29.832646459 +0200
+--- gdm-2.30.5.orig/po/POTFILES.in	2010-09-05 21:59:30.856649996 +0200
++++ gdm-2.30.5/po/POTFILES.in	2010-09-05 21:59:59.973145728 +0200
 @@ -60,6 +60,9 @@ data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
