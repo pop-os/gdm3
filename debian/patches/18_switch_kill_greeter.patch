@@ -1,7 +1,7 @@
-Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+Index: gdm-2.30.5/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-05-07 21:02:21.096400430 +0200
-+++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-05-07 21:24:37.872896540 +0200
+--- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-09-05 19:40:42.124367749 +0200
++++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-09-05 19:42:38.676367792 +0200
 @@ -90,6 +90,7 @@ enum {
          PROP_0,
  };
@@ -10,8 +10,8 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  static void     gdm_simple_slave_class_init     (GdmSimpleSlaveClass *klass);
  static void     gdm_simple_slave_init           (GdmSimpleSlave      *simple_slave);
  static void     gdm_simple_slave_finalize       (GObject             *object);
-@@ -208,6 +209,23 @@ queue_greeter_reset (GdmSimpleSlave *sla
-         slave->priv->greeter_reset_id = g_timeout_add_seconds (2, (GSourceFunc)greeter_reset_timeout, slave);
+@@ -214,6 +215,23 @@ queue_greeter_reset (GdmSimpleSlave *sla
+         slave->priv->greeter_reset_id = g_idle_add ((GSourceFunc)greeter_reset_timeout, slave);
  }
  
 +static gboolean
@@ -34,7 +34,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  static void
  on_session_setup_complete (GdmSession     *session,
                             GdmSimpleSlave *slave)
-@@ -380,7 +398,7 @@ start_session_timeout (GdmSimpleSlave *s
+@@ -387,7 +405,7 @@ start_session_timeout (GdmSimpleSlave *s
                     when Xorg exits it switches to the VT it was
                     started from.  That interferes with fast
                     user switching. */
@@ -43,7 +43,7 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
  
                  goto out;
          }
-@@ -453,7 +471,7 @@ on_session_accreditation_failed (GdmSess
+@@ -460,7 +478,7 @@ on_session_accreditation_failed (GdmSess
             user switching. */
          destroy_session (slave);
  

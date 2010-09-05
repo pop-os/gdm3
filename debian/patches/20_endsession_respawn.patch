@@ -1,7 +1,7 @@
-Index: gdm-2.30.2/daemon/gdm-display.c
+Index: gdm-2.30.5/daemon/gdm-display.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-display.c	2010-05-08 12:53:57.313609813 +0200
-+++ gdm-2.30.2/daemon/gdm-display.c	2010-05-08 13:04:40.885109412 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.c	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.c	2010-09-05 19:44:01.988365617 +0200
 @@ -302,6 +302,32 @@ gdm_display_set_slave_bus_name (GdmDispl
          return ret;
  }
@@ -43,10 +43,10 @@ Index: gdm-2.30.2/daemon/gdm-display.c
          klass->get_timed_login_details = gdm_display_real_get_timed_login_details;
          klass->prepare = gdm_display_real_prepare;
          klass->manage = gdm_display_real_manage;
-Index: gdm-2.30.2/daemon/gdm-display.h
+Index: gdm-2.30.5/daemon/gdm-display.h
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-display.h	2010-05-08 12:53:57.357614223 +0200
-+++ gdm-2.30.2/daemon/gdm-display.h	2010-05-08 13:41:13.865110143 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.h	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.h	2010-09-05 19:44:01.988365617 +0200
 @@ -66,6 +66,9 @@ typedef struct
          gboolean (*set_slave_bus_name)        (GdmDisplay *display,
                                                 const char *name,
@@ -67,10 +67,10 @@ Index: gdm-2.30.2/daemon/gdm-display.h
  
  
  G_END_DECLS
-Index: gdm-2.30.2/daemon/gdm-display.xml
+Index: gdm-2.30.5/daemon/gdm-display.xml
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-display.xml	2010-05-08 12:53:57.405619210 +0200
-+++ gdm-2.30.2/daemon/gdm-display.xml	2010-05-08 13:04:56.369117621 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.xml	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.xml	2010-09-05 19:44:01.988365617 +0200
 @@ -35,6 +35,9 @@
      <method name="SetSlaveBusName">
        <arg name="name" direction="in" type="s"/>
@@ -81,10 +81,10 @@ Index: gdm-2.30.2/daemon/gdm-display.xml
      <method name="GetTimedLoginDetails">
        <arg name="enabled" direction="out" type="b"/>
        <arg name="username" direction="out" type="s"/>
-Index: gdm-2.30.2/daemon/gdm-simple-slave.c
+Index: gdm-2.30.5/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-simple-slave.c	2010-05-08 13:32:10.669607915 +0200
-+++ gdm-2.30.2/daemon/gdm-simple-slave.c	2010-05-08 13:33:16.569611123 +0200
+--- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-09-05 19:43:55.564366756 +0200
++++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-09-05 19:44:01.988365617 +0200
 @@ -109,6 +109,9 @@ on_session_started (GdmSession       *se
  
          g_debug ("GdmSimpleSlave: session started %d", pid);
@@ -94,12 +94,12 @@ Index: gdm-2.30.2/daemon/gdm-simple-slave.c
 +
          /* Run the PreSession script. gdmslave suspends until script has terminated */
          username = gdm_session_direct_get_username (slave->priv->session);
-         gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/PreSession", username);
-Index: gdm-2.30.2/daemon/gdm-slave.c
+         if (username != NULL) {
+Index: gdm-2.30.5/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-slave.c	2010-05-08 13:28:48.729109474 +0200
-+++ gdm-2.30.2/daemon/gdm-slave.c	2010-05-08 13:29:04.081107426 +0200
-@@ -561,6 +561,33 @@ gdm_slave_set_slave_bus_name (GdmSlave *
+--- gdm-2.30.5.orig/daemon/gdm-slave.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-slave.c	2010-09-05 19:44:01.996367261 +0200
+@@ -569,6 +569,33 @@ gdm_slave_set_slave_bus_name (GdmSlave *
          return res;
  }
  
@@ -133,10 +133,10 @@ Index: gdm-2.30.2/daemon/gdm-slave.c
  static gboolean
  gdm_slave_real_start (GdmSlave *slave)
  {
-Index: gdm-2.30.2/daemon/gdm-slave.h
+Index: gdm-2.30.5/daemon/gdm-slave.h
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-slave.h	2010-05-08 13:29:19.385114088 +0200
-+++ gdm-2.30.2/daemon/gdm-slave.h	2010-05-08 13:30:26.393122989 +0200
+--- gdm-2.30.5.orig/daemon/gdm-slave.h	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-slave.h	2010-09-05 19:44:01.996367261 +0200
 @@ -72,6 +72,9 @@ gboolean            gdm_slave_add_user_a
  gboolean            gdm_slave_switch_to_user_session (GdmSlave   *slave,
                                                        const char *username);
@@ -147,10 +147,10 @@ Index: gdm-2.30.2/daemon/gdm-slave.h
  gboolean            gdm_slave_connect_to_x11_display (GdmSlave   *slave);
  void                gdm_slave_set_busy_cursor        (GdmSlave   *slave);
  gboolean            gdm_slave_run_script             (GdmSlave   *slave,
-Index: gdm-2.30.2/daemon/gdm-transient-display.c
+Index: gdm-2.30.5/daemon/gdm-transient-display.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-transient-display.c	2010-05-08 13:08:26.685614561 +0200
-+++ gdm-2.30.2/daemon/gdm-transient-display.c	2010-05-08 13:23:01.929109606 +0200
+--- gdm-2.30.5.orig/daemon/gdm-transient-display.c	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-transient-display.c	2010-09-05 19:44:01.996367261 +0200
 @@ -45,7 +45,7 @@
  
  struct GdmTransientDisplayPrivate
