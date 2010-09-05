@@ -15,7 +15,7 @@ Update in Debian:
 Index: gdm-2.30.5/configure.ac
 ===================================================================
 --- gdm-2.30.5.orig/configure.ac	2010-09-05 21:59:30.960650360 +0200
-+++ gdm-2.30.5/configure.ac	2010-09-05 21:59:59.969147105 +0200
++++ gdm-2.30.5/configure.ac	2010-09-05 22:12:24.384647214 +0200
 @@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
@@ -50,7 +50,7 @@ Index: gdm-2.30.5/configure.ac
 Index: gdm-2.30.5/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2010-09-05 21:59:59.973145728 +0200
++++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2010-09-05 22:12:23.528645184 +0200
 @@ -0,0 +1,370 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -472,8 +472,16 @@ Index: gdm-2.30.5/gui/gdmsetup/Makefile.am
 Index: gdm-2.30.5/gui/Makefile.am
 ===================================================================
 --- gdm-2.30.5.orig/gui/Makefile.am	2010-09-05 21:59:30.888648755 +0200
-+++ gdm-2.30.5/gui/Makefile.am	2010-09-05 21:59:59.973145728 +0200
-@@ -13,4 +13,5 @@ DIST_SUBDIRS =			\
++++ gdm-2.30.5/gui/Makefile.am	2010-09-05 22:12:39.824647593 +0200
+@@ -3,6 +3,7 @@ NULL =
+ SUBDIRS =			\
+ 	simple-greeter		\
+ 	user-switch-applet	\
++	gdmsetup		\
+ 	$(NULL)
+ 
+ if XDMCP_SUPPORT
+@@ -13,4 +14,5 @@ DIST_SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\

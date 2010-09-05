@@ -8,8 +8,8 @@ rm -rf autom4te.cache/ config.h.in~
 
 Index: gdm-2.30.5/aclocal.m4
 ===================================================================
---- gdm-2.30.5.orig/aclocal.m4	2010-09-05 21:51:36.928643998 +0200
-+++ gdm-2.30.5/aclocal.m4	2010-09-05 21:56:48.493149950 +0200
+--- gdm-2.30.5.orig/aclocal.m4	2010-09-05 22:12:22.936645157 +0200
++++ gdm-2.30.5/aclocal.m4	2010-09-05 22:13:45.504645413 +0200
 @@ -13,8 +13,8 @@
  
  m4_ifndef([AC_AUTOCONF_VERSION],
@@ -8126,8 +8126,8 @@ Index: gdm-2.30.5/aclocal.m4
  m4_include([acinclude.m4])
 Index: gdm-2.30.5/common/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/common/Makefile.in	2010-09-05 21:51:36.916646175 +0200
-+++ gdm-2.30.5/common/Makefile.in	2010-09-05 21:58:11.057142801 +0200
+--- gdm-2.30.5.orig/common/Makefile.in	2010-09-05 22:12:22.920646757 +0200
++++ gdm-2.30.5/common/Makefile.in	2010-09-05 22:13:45.504645413 +0200
 @@ -43,8 +43,10 @@ noinst_PROGRAMS = test-settings-server$(
  subdir = common
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -8199,8 +8199,8 @@ Index: gdm-2.30.5/common/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/config.guess
 ===================================================================
---- gdm-2.30.5.orig/config.guess	2010-09-05 21:51:36.900644352 +0200
-+++ gdm-2.30.5/config.guess	2010-09-05 21:56:48.497145640 +0200
+--- gdm-2.30.5.orig/config.guess	2010-09-05 22:12:22.904647867 +0200
++++ gdm-2.30.5/config.guess	2010-09-05 22:13:45.504645413 +0200
 @@ -1,10 +1,10 @@
  #! /bin/sh
  # Attempt to guess a canonical system name.
@@ -8228,8 +8228,8 @@ Index: gdm-2.30.5/config.guess
  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
 Index: gdm-2.30.5/config.sub
 ===================================================================
---- gdm-2.30.5.orig/config.sub	2010-09-05 21:51:36.888647018 +0200
-+++ gdm-2.30.5/config.sub	2010-09-05 21:56:48.497145640 +0200
+--- gdm-2.30.5.orig/config.sub	2010-09-05 22:12:22.888645066 +0200
++++ gdm-2.30.5/config.sub	2010-09-05 22:13:45.508650880 +0200
 @@ -1,10 +1,10 @@
  #! /bin/sh
  # Configuration validation subroutine script.
@@ -8288,8 +8288,8 @@ Index: gdm-2.30.5/config.sub
  	*)
 Index: gdm-2.30.5/configure
 ===================================================================
---- gdm-2.30.5.orig/configure	2010-09-05 21:51:36.876648217 +0200
-+++ gdm-2.30.5/configure	2010-09-05 21:58:14.692642291 +0200
+--- gdm-2.30.5.orig/configure	2010-09-05 22:12:22.876647732 +0200
++++ gdm-2.30.5/configure	2010-09-05 22:13:45.576644092 +0200
 @@ -1,20 +1,24 @@
  #! /bin/sh
  # Guess values for system-dependent variables and create Makefiles.
@@ -35916,8 +35916,8 @@ Index: gdm-2.30.5/configure
  "
 Index: gdm-2.30.5/daemon/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/daemon/Makefile.in	2010-09-05 21:51:36.860646394 +0200
-+++ gdm-2.30.5/daemon/Makefile.in	2010-09-05 21:58:11.288645909 +0200
+--- gdm-2.30.5.orig/daemon/Makefile.in	2010-09-05 22:12:22.860649332 +0200
++++ gdm-2.30.5/daemon/Makefile.in	2010-09-05 22:13:45.580645160 +0200
 @@ -55,8 +55,10 @@ sbin_PROGRAMS = gdm-binary$(EXEEXT) $(am
  subdir = daemon
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -35989,8 +35989,8 @@ Index: gdm-2.30.5/daemon/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/faces/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/faces/Makefile.in	2010-09-05 21:51:36.844646525 +0200
-+++ gdm-2.30.5/data/faces/Makefile.in	2010-09-05 21:58:11.496643213 +0200
+--- gdm-2.30.5.orig/data/faces/Makefile.in	2010-09-05 22:12:22.844647996 +0200
++++ gdm-2.30.5/data/faces/Makefile.in	2010-09-05 22:13:45.580645160 +0200
 @@ -37,8 +37,10 @@ host_triplet = @host@
  subdir = data/faces
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36062,8 +36062,8 @@ Index: gdm-2.30.5/data/faces/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/greeter-autostart/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/greeter-autostart/Makefile.in	2010-09-05 21:51:36.832646746 +0200
-+++ gdm-2.30.5/data/greeter-autostart/Makefile.in	2010-09-05 21:58:11.588643805 +0200
+--- gdm-2.30.5.orig/data/greeter-autostart/Makefile.in	2010-09-05 22:12:22.820645505 +0200
++++ gdm-2.30.5/data/greeter-autostart/Makefile.in	2010-09-05 22:13:45.580645160 +0200
 @@ -38,8 +38,10 @@ subdir = data/greeter-autostart
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
  	$(srcdir)/at-spi-registryd-wrapper.desktop.in.in
@@ -36135,8 +36135,8 @@ Index: gdm-2.30.5/data/greeter-autostart/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/Makefile.in	2010-09-05 21:51:36.816645410 +0200
-+++ gdm-2.30.5/data/Makefile.in	2010-09-05 21:58:11.404643119 +0200
+--- gdm-2.30.5.orig/data/Makefile.in	2010-09-05 22:12:22.808645725 +0200
++++ gdm-2.30.5/data/Makefile.in	2010-09-05 22:13:45.584644272 +0200
 @@ -36,15 +36,17 @@ build_triplet = @build@
  host_triplet = @host@
  subdir = data
@@ -36365,8 +36365,8 @@ Index: gdm-2.30.5/data/Makefile.in
  	rm -f \
 Index: gdm-2.30.5/data/pixmaps/16x16/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/pixmaps/16x16/Makefile.in	2010-09-05 21:51:36.800646519 +0200
-+++ gdm-2.30.5/data/pixmaps/16x16/Makefile.in	2010-09-05 21:58:11.676644306 +0200
+--- gdm-2.30.5.orig/data/pixmaps/16x16/Makefile.in	2010-09-05 22:12:22.796646924 +0200
++++ gdm-2.30.5/data/pixmaps/16x16/Makefile.in	2010-09-05 22:13:45.584644272 +0200
 @@ -39,8 +39,10 @@ host_triplet = @host@
  subdir = data/pixmaps/16x16
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36438,8 +36438,8 @@ Index: gdm-2.30.5/data/pixmaps/16x16/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/pixmaps/32x32/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/pixmaps/32x32/Makefile.in	2010-09-05 21:51:36.784646650 +0200
-+++ gdm-2.30.5/data/pixmaps/32x32/Makefile.in	2010-09-05 21:58:11.768643437 +0200
+--- gdm-2.30.5.orig/data/pixmaps/32x32/Makefile.in	2010-09-05 22:12:22.780645588 +0200
++++ gdm-2.30.5/data/pixmaps/32x32/Makefile.in	2010-09-05 22:13:45.584644272 +0200
 @@ -39,8 +39,10 @@ host_triplet = @host@
  subdir = data/pixmaps/32x32
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36511,8 +36511,8 @@ Index: gdm-2.30.5/data/pixmaps/32x32/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/pixmaps/48x48/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/pixmaps/48x48/Makefile.in	2010-09-05 21:51:36.768646291 +0200
-+++ gdm-2.30.5/data/pixmaps/48x48/Makefile.in	2010-09-05 21:58:11.856643937 +0200
+--- gdm-2.30.5.orig/data/pixmaps/48x48/Makefile.in	2010-09-05 22:12:22.768647275 +0200
++++ gdm-2.30.5/data/pixmaps/48x48/Makefile.in	2010-09-05 22:13:45.584644272 +0200
 @@ -39,8 +39,10 @@ host_triplet = @host@
  subdir = data/pixmaps/48x48
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36584,8 +36584,8 @@ Index: gdm-2.30.5/data/pixmaps/48x48/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/data/pixmaps/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/data/pixmaps/Makefile.in	2010-09-05 21:51:36.744644775 +0200
-+++ gdm-2.30.5/data/pixmaps/Makefile.in	2010-09-05 21:58:11.952643140 +0200
+--- gdm-2.30.5.orig/data/pixmaps/Makefile.in	2010-09-05 22:12:22.752645449 +0200
++++ gdm-2.30.5/data/pixmaps/Makefile.in	2010-09-05 22:13:45.584644272 +0200
 @@ -37,8 +37,10 @@ host_triplet = @host@
  subdir = data/pixmaps
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36657,8 +36657,8 @@ Index: gdm-2.30.5/data/pixmaps/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/docs/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/docs/Makefile.in	2010-09-05 21:51:36.732647439 +0200
-+++ gdm-2.30.5/docs/Makefile.in	2010-09-05 21:58:12.080644043 +0200
+--- gdm-2.30.5.orig/docs/Makefile.in	2010-09-05 22:12:22.740642736 +0200
++++ gdm-2.30.5/docs/Makefile.in	2010-09-05 22:13:45.588646805 +0200
 @@ -61,8 +61,10 @@ DIST_COMMON = $(srcdir)/Makefile.am $(sr
  	$(top_srcdir)/gnome-doc-utils.make
  subdir = docs
@@ -36791,8 +36791,8 @@ Index: gdm-2.30.5/docs/Makefile.in
  	    echo "rm -f $$lc/.xml2po.mo"; \
 Index: gdm-2.30.5/gui/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/gui/Makefile.in	2010-09-05 21:51:36.720645703 +0200
-+++ gdm-2.30.5/gui/Makefile.in	2010-09-05 21:58:12.172643657 +0200
+--- gdm-2.30.5.orig/gui/Makefile.in	2010-09-05 22:12:22.724647266 +0200
++++ gdm-2.30.5/gui/Makefile.in	2010-09-05 22:14:05.180644675 +0200
 @@ -37,8 +37,10 @@ host_triplet = @host@
  subdir = gui
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36862,7 +36862,14 @@ Index: gdm-2.30.5/gui/Makefile.in
  USE_NLS = @USE_NLS@
  VERSION = @VERSION@
  WARN_CFLAGS = @WARN_CFLAGS@
-@@ -340,6 +348,7 @@ DIST_SUBDIRS = \
+@@ -335,11 +343,13 @@ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ NULL = 
+-SUBDIRS = simple-greeter user-switch-applet $(NULL) $(am__append_1)
++SUBDIRS = simple-greeter user-switch-applet gdmsetup $(NULL) \
++	$(am__append_1)
+ DIST_SUBDIRS = \
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\
@@ -36872,8 +36879,8 @@ Index: gdm-2.30.5/gui/Makefile.in
  all: all-recursive
 Index: gdm-2.30.5/gui/simple-chooser/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/gui/simple-chooser/Makefile.in	2010-09-05 21:51:36.704648277 +0200
-+++ gdm-2.30.5/gui/simple-chooser/Makefile.in	2010-09-05 21:58:12.416645692 +0200
+--- gdm-2.30.5.orig/gui/simple-chooser/Makefile.in	2010-09-05 22:12:22.700646238 +0200
++++ gdm-2.30.5/gui/simple-chooser/Makefile.in	2010-09-05 22:13:45.588646805 +0200
 @@ -39,8 +39,10 @@ libexec_PROGRAMS = gdm-simple-chooser$(E
  subdir = gui/simple-chooser
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -36945,8 +36952,8 @@ Index: gdm-2.30.5/gui/simple-chooser/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/gui/simple-greeter/libnotificationarea/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/gui/simple-greeter/libnotificationarea/Makefile.in	2010-09-05 21:51:36.692644585 +0200
-+++ gdm-2.30.5/gui/simple-greeter/libnotificationarea/Makefile.in	2010-09-05 21:58:12.748643827 +0200
+--- gdm-2.30.5.orig/gui/simple-greeter/libnotificationarea/Makefile.in	2010-09-05 22:12:22.688647435 +0200
++++ gdm-2.30.5/gui/simple-greeter/libnotificationarea/Makefile.in	2010-09-05 22:13:45.588646805 +0200
 @@ -39,8 +39,10 @@ noinst_PROGRAMS = testtray$(EXEEXT)
  subdir = gui/simple-greeter/libnotificationarea
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -37018,8 +37025,8 @@ Index: gdm-2.30.5/gui/simple-greeter/libnotificationarea/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/gui/simple-greeter/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/gui/simple-greeter/Makefile.in	2010-09-05 21:51:36.676643247 +0200
-+++ gdm-2.30.5/gui/simple-greeter/Makefile.in	2010-09-05 21:58:12.620644381 +0200
+--- gdm-2.30.5.orig/gui/simple-greeter/Makefile.in	2010-09-05 22:12:22.668645031 +0200
++++ gdm-2.30.5/gui/simple-greeter/Makefile.in	2010-09-05 22:13:45.592645917 +0200
 @@ -46,8 +46,10 @@ libexec_PROGRAMS = gdm-simple-greeter$(E
  subdir = gui/simple-greeter
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -37119,8 +37126,8 @@ Index: gdm-2.30.5/gui/simple-greeter/Makefile.in
  uidir = $(pkgdatadir)
 Index: gdm-2.30.5/gui/user-switch-applet/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/gui/user-switch-applet/Makefile.in	2010-09-05 21:51:36.660646312 +0200
-+++ gdm-2.30.5/gui/user-switch-applet/Makefile.in	2010-09-05 21:58:12.872643664 +0200
+--- gdm-2.30.5.orig/gui/user-switch-applet/Makefile.in	2010-09-05 22:12:22.656649651 +0200
++++ gdm-2.30.5/gui/user-switch-applet/Makefile.in	2010-09-05 22:13:45.592645917 +0200
 @@ -39,8 +39,10 @@ libexec_PROGRAMS = gdm-user-switch-apple
  subdir = gui/user-switch-applet
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -37192,8 +37199,8 @@ Index: gdm-2.30.5/gui/user-switch-applet/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/ltmain.sh
 ===================================================================
---- gdm-2.30.5.orig/ltmain.sh	2010-09-05 21:51:36.480649127 +0200
-+++ gdm-2.30.5/ltmain.sh	2010-09-05 21:56:48.580644944 +0200
+--- gdm-2.30.5.orig/ltmain.sh	2010-09-05 22:12:22.632647159 +0200
++++ gdm-2.30.5/ltmain.sh	2010-09-05 22:13:45.596651385 +0200
 @@ -65,7 +65,7 @@
  #       compiler:		$LTCC
  #       compiler flags:		$LTCFLAGS
@@ -37275,7 +37282,7 @@ Index: gdm-2.30.5/ltmain.sh
 Index: gdm-2.30.5/m4/libtool.m4
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/m4/libtool.m4	2010-09-05 21:56:48.596648236 +0200
++++ gdm-2.30.5/m4/libtool.m4	2010-09-05 22:13:45.613145032 +0200
 @@ -0,0 +1,7377 @@
 +# libtool.m4 - Configure libtool for the host system. -*-Autoconf-*-
 +#
@@ -44657,7 +44664,7 @@ Index: gdm-2.30.5/m4/libtool.m4
 Index: gdm-2.30.5/m4/lt~obsolete.m4
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/m4/lt~obsolete.m4	2010-09-05 21:56:48.596648236 +0200
++++ gdm-2.30.5/m4/lt~obsolete.m4	2010-09-05 22:13:45.613145032 +0200
 @@ -0,0 +1,92 @@
 +# lt~obsolete.m4 -- aclocal satisfying obsolete definitions.    -*-Autoconf-*-
 +#
@@ -44754,7 +44761,7 @@ Index: gdm-2.30.5/m4/lt~obsolete.m4
 Index: gdm-2.30.5/m4/ltoptions.m4
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/m4/ltoptions.m4	2010-09-05 21:56:48.596648236 +0200
++++ gdm-2.30.5/m4/ltoptions.m4	2010-09-05 22:13:45.617147566 +0200
 @@ -0,0 +1,368 @@
 +# Helper functions for option handling.                    -*- Autoconf -*-
 +#
@@ -45127,7 +45134,7 @@ Index: gdm-2.30.5/m4/ltoptions.m4
 Index: gdm-2.30.5/m4/ltsugar.m4
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/m4/ltsugar.m4	2010-09-05 21:56:48.596648236 +0200
++++ gdm-2.30.5/m4/ltsugar.m4	2010-09-05 22:13:45.617147566 +0200
 @@ -0,0 +1,123 @@
 +# ltsugar.m4 -- libtool m4 base layer.                         -*-Autoconf-*-
 +#
@@ -45255,7 +45262,7 @@ Index: gdm-2.30.5/m4/ltsugar.m4
 Index: gdm-2.30.5/m4/ltversion.m4
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/m4/ltversion.m4	2010-09-05 21:56:48.596648236 +0200
++++ gdm-2.30.5/m4/ltversion.m4	2010-09-05 22:13:45.617147566 +0200
 @@ -0,0 +1,23 @@
 +# ltversion.m4 -- version numbers			-*- Autoconf -*-
 +#
@@ -45282,8 +45289,8 @@ Index: gdm-2.30.5/m4/ltversion.m4
 +])
 Index: gdm-2.30.5/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/Makefile.in	2010-09-05 21:51:36.596647324 +0200
-+++ gdm-2.30.5/Makefile.in	2010-09-05 21:58:13.236643976 +0200
+--- gdm-2.30.5.orig/Makefile.in	2010-09-05 22:12:22.556654258 +0200
++++ gdm-2.30.5/Makefile.in	2010-09-05 22:13:45.617147566 +0200
 @@ -40,8 +40,10 @@ DIST_COMMON = README $(am__configure_dep
  	TODO acconfig.h compile config.guess config.sub depcomp \
  	install-sh ltmain.sh missing mkinstalldirs
@@ -45355,8 +45362,8 @@ Index: gdm-2.30.5/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/tests/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/tests/Makefile.in	2010-09-05 21:51:36.568648163 +0200
-+++ gdm-2.30.5/tests/Makefile.in	2010-09-05 21:58:13.012642870 +0200
+--- gdm-2.30.5.orig/tests/Makefile.in	2010-09-05 22:12:22.528648741 +0200
++++ gdm-2.30.5/tests/Makefile.in	2010-09-05 22:13:45.617147566 +0200
 @@ -39,8 +39,10 @@ TESTS = m-common$(EXEEXT) $(am__EXEEXT_1
  subdir = tests
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -45428,8 +45435,8 @@ Index: gdm-2.30.5/tests/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/utils/Makefile.in
 ===================================================================
---- gdm-2.30.5.orig/utils/Makefile.in	2010-09-05 21:51:36.536650867 +0200
-+++ gdm-2.30.5/utils/Makefile.in	2010-09-05 21:58:13.128643022 +0200
+--- gdm-2.30.5.orig/utils/Makefile.in	2010-09-05 22:12:22.492647449 +0200
++++ gdm-2.30.5/utils/Makefile.in	2010-09-05 22:13:45.621147166 +0200
 @@ -39,8 +39,10 @@ bin_PROGRAMS = gdmflexiserver$(EXEEXT) g
  subdir = utils
  DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -45501,8 +45508,8 @@ Index: gdm-2.30.5/utils/Makefile.in
  WARN_CFLAGS = @WARN_CFLAGS@
 Index: gdm-2.30.5/config.h.in
 ===================================================================
---- gdm-2.30.5.orig/config.h.in	2010-09-05 21:51:36.508651708 +0200
-+++ gdm-2.30.5/config.h.in	2010-09-05 21:57:18.668645175 +0200
+--- gdm-2.30.5.orig/config.h.in	2010-09-05 22:12:22.464649757 +0200
++++ gdm-2.30.5/config.h.in	2010-09-05 22:13:45.621147166 +0200
 @@ -71,6 +71,9 @@
  /* Group to use */
  #undef GDM_GROUPNAME
@@ -45546,7 +45553,7 @@ Index: gdm-2.30.5/config.h.in
 Index: gdm-2.30.5/gui/gdmsetup/Makefile.in
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.5/gui/gdmsetup/Makefile.in	2010-09-05 21:58:12.292643414 +0200
++++ gdm-2.30.5/gui/gdmsetup/Makefile.in	2010-09-05 22:13:45.625149211 +0200
 @@ -0,0 +1,767 @@
 +# Makefile.in generated by automake 1.11.1 from Makefile.am.
 +# @configure_input@
@@ -46317,8 +46324,8 @@ Index: gdm-2.30.5/gui/gdmsetup/Makefile.in
 +.NOEXPORT:
 Index: gdm-2.30.5/gnome-doc-utils.make
 ===================================================================
---- gdm-2.30.5.orig/gnome-doc-utils.make	2010-09-05 21:58:24.181144247 +0200
-+++ gdm-2.30.5/gnome-doc-utils.make	2010-09-05 21:58:00.892645753 +0200
+--- gdm-2.30.5.orig/gnome-doc-utils.make	2010-09-05 22:12:22.436655001 +0200
++++ gdm-2.30.5/gnome-doc-utils.make	2010-09-05 22:13:45.625149211 +0200
 @@ -266,6 +266,13 @@ _DOC_POFILES = $(if $(DOC_MODULE)$(DOC_I
  .PHONY: po
  po: $(_DOC_POFILES)

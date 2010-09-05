@@ -14,6 +14,8 @@ gdm3 (2.30.5-1) unstable; urgency=low
     21_schemas_usr.patch, 24_show_user_other.patch: refreshed.
   * 14_bindv6only.patch, 25_xdmcpfill_length.patch, 
     26_xdmcpfill_length.patch: dropped, merged upstream.
+  * 13_gdmsetup.patch: update gui/Makefile.am accordingly to upstream 
+    changes.
   * 25_upower.patch: stolen from upstream git. Use directly upower-glib 
     instead of devkit-power-gobject. Closes: #595087.
   * Update build-dependencies accordingly.
