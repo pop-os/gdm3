@@ -22,4 +22,5 @@
 22_noconsole.patch
 23_autologin_once.patch
 24_show_user_other.patch
+25_upower.patch
 90_relibtoolize.patch
