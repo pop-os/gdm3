@@ -1,3 +1,10 @@
+gdm (2.30.5-0ubuntu3) maverick; urgency=low
+
+  * debian/patches/90_git_name_escaping.patch:
+    - git change to correctly escape usernames (lp: #633050)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 08 Sep 2010 17:37:51 +0200
+
 gdm (2.30.5-0ubuntu2) maverick; urgency=low
 
   * debian/patches/09_gdmsetup.patch:

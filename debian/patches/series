@@ -28,3 +28,4 @@
 32-hide-mouse-cursor.patch
 33-multi-keyboard-layouts.patch
 34_disable_a11y_default.patch
+90_git_name_escaping.patch
