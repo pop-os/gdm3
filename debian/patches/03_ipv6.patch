@@ -24,3 +24,28 @@ Index: gdm-2.30.5/gui/simple-chooser/gdm-host-chooser-widget.c
  
          res = XdmcpFill (widget->priv->socket_fd, &buf, (XdmcpNetaddr)&clnt_ss, &ss_len);
          if G_UNLIKELY (! res) {
+Index: gdm-2.30.5/common/gdm-address.c
+===================================================================
+--- gdm-2.30.5.orig/common/gdm-address.c	2010-09-11 01:20:43.646556991 +0200
++++ gdm-2.30.5/common/gdm-address.c	2010-09-11 01:28:08.458051126 +0200
+@@ -330,10 +330,18 @@ gdm_address_get_numeric_info (GdmAddress
+         }
+ 
+         if (servp != NULL) {
+-                *servp = g_strdup (serv);
++                if (g_str_has_prefix (serv, "::ffff:")) {
++                        *servp = g_strdup (serv + 7);
++                } else {
++                        *servp = g_strdup (serv);
++                }
+         }
+         if (hostp != NULL) {
+-                *hostp = g_strdup (host);
++                if (g_str_has_prefix (host, "::ffff:")) {
++                        *hostp = g_strdup (host + 7);
++                } else {
++                        *hostp = g_strdup (host);
++                }
+         }
+ 
+         return ret;

@@ -1,7 +1,10 @@
 gdm3 (2.30.5-2) UNRELEASED; urgency=low
 
   * 03_ipv6.patch: new patch from Julien Cristau, thanks a lot for 
-    investigating! Hopefully fixes XDMCP support with IPv6 enabled.
+    investigating! Fix an allocation error that leads to passing garbage 
+    as addresses.
+    Add to that a stripping of ::ffff: from IPv4 mapped addresses, since 
+    this is not understood in $DISPLAY.
     Closes: #579033.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 10 Sep 2010 21:48:36 +0200
