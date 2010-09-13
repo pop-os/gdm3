@@ -1,10 +1,10 @@
-gdm (2.30.5-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.30.5-0ubuntu4) maverick; urgency=low
 
   * debian/gdm.upstart: Do not already fire on a framebuffer device. When a
     real DRM driver gets loaded later on, X will be started too early to catch
     it. This should go a long way towards fixing LP: #615549
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Sep 2010 15:22:08 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 13 Sep 2010 15:23:24 +0200
 
 gdm (2.30.5-0ubuntu3) maverick; urgency=low
 
