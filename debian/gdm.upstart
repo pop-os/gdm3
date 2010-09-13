@@ -8,8 +8,7 @@ author		"William Jon McCann <mccann@jhu.edu>"
 
 start on (filesystem
           and started dbus
-          and (graphics-device-added fb0 PRIMARY_DEVICE_FOR_DISPLAY=1
-               or drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
+          and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
                or stopped udevtrigger))
 stop on runlevel [016]
 
