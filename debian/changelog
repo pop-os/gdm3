@@ -6,6 +6,8 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     Add to that a stripping of ::ffff: from IPv4 mapped addresses, since 
     this is not understood in $DISPLAY.
     Closes: #579033.
+  * 14_pam_dialog.patch: show messages from PAM in a dialog so that the 
+    user can actually see them.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 10 Sep 2010 21:48:36 +0200
 

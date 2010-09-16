@@ -13,6 +13,7 @@
 13_gdmsetup.patch
 13_gdmsetup_ui.patch
 13_gdmsetup_desktop.patch
+14_pam_dialog.patch
 15_kfreebsd.patch
 16_xserver_path.patch
 17_no_libxdmcp.patch
