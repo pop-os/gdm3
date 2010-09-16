@@ -1,17 +1,18 @@
 Debian: add CreateNestedDisplay(parent_display_id) dbus method.
-Index: gdm-2.30.0/daemon/gdm-display.c
+Index: gdm-2.30.5/daemon/gdm-display.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.c	2010-04-21 19:32:53.785691730 +0200
-+++ gdm-2.30.0/daemon/gdm-display.c	2010-04-21 19:32:59.133691945 +0200
-@@ -52,6 +52,7 @@ struct GdmDisplayPrivate
+--- gdm-2.30.5.orig/daemon/gdm-display.c	2010-09-16 23:24:30.995561430 +0200
++++ gdm-2.30.5/daemon/gdm-display.c	2010-09-16 23:24:33.031566835 +0200
+@@ -52,6 +52,8 @@ struct GdmDisplayPrivate
  {
          char                 *id;
          char                 *seat_id;
 +        GdmDisplay           *parent_display;
++        char                 *parent_display_username;
  
          char                 *remote_hostname;
          int                   x11_display_number;
-@@ -66,6 +67,7 @@ struct GdmDisplayPrivate
+@@ -66,6 +68,7 @@ struct GdmDisplayPrivate
          GdmDisplayAccessFile *access_file;
  
          gboolean              is_local;
@@ -19,11 +20,12 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          guint                 finish_idle_id;
  
          GdmSlaveProxy        *slave_proxy;
-@@ -78,12 +80,14 @@ enum {
+@@ -78,12 +81,15 @@ enum {
          PROP_ID,
          PROP_STATUS,
          PROP_SEAT_ID,
 +        PROP_PARENT_DISPLAY,
++        PROP_PARENT_DISPLAY_USERNAME,
          PROP_REMOTE_HOSTNAME,
          PROP_X11_DISPLAY_NUMBER,
          PROP_X11_DISPLAY_NAME,
@@ -34,7 +36,26 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          PROP_SLAVE_COMMAND,
  };
  
-@@ -275,6 +279,33 @@ gdm_display_add_user_authorization (GdmD
+@@ -159,12 +165,17 @@ gdm_display_real_create_authority (GdmDi
+         GdmDisplayAccessFile *access_file;
+         GError               *error;
+         gboolean              res;
++        char                 *username;
+ 
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+         g_return_val_if_fail (display->priv->access_file == NULL, FALSE);
+ 
+         error = NULL;
+-        access_file = _create_access_file_for_user (display, GDM_USERNAME, &error);
++        if (display->priv->is_nested && display->priv->parent_display_username)
++                username = display->priv->parent_display_username;
++        else
++                username = GDM_USERNAME;
++        access_file = _create_access_file_for_user (display, username, &error);
+ 
+         if (access_file == NULL) {
+                 g_critical ("could not create display access file: %s", error->message);
+@@ -275,6 +286,33 @@ gdm_display_add_user_authorization (GdmD
          return ret;
  }
  
@@ -68,7 +89,7 @@ Index: gdm-2.30.0/daemon/gdm-display.c
  static gboolean
  gdm_display_real_set_slave_bus_name (GdmDisplay *display,
                                       const char *name,
-@@ -742,6 +773,24 @@ gdm_display_get_id (GdmDisplay         *
+@@ -742,6 +780,24 @@ gdm_display_get_id (GdmDisplay         *
  }
  
  gboolean
@@ -93,7 +114,7 @@ Index: gdm-2.30.0/daemon/gdm-display.c
  gdm_display_get_x11_display_name (GdmDisplay   *display,
                                    char        **x11_display,
                                    GError      **error)
-@@ -769,6 +818,20 @@ gdm_display_is_local (GdmDisplay *displa
+@@ -769,6 +825,20 @@ gdm_display_is_local (GdmDisplay *displa
          return TRUE;
  }
  
@@ -114,7 +135,7 @@ Index: gdm-2.30.0/daemon/gdm-display.c
  static void
  _gdm_display_set_id (GdmDisplay     *display,
                       const char     *id)
-@@ -786,6 +849,18 @@ _gdm_display_set_seat_id (GdmDisplay
+@@ -786,6 +856,26 @@ _gdm_display_set_seat_id (GdmDisplay
  }
  
  static void
@@ -130,10 +151,18 @@ Index: gdm-2.30.0/daemon/gdm-display.c
 +}
 +
 +static void
++_gdm_display_set_parent_display_username (GdmDisplay     *display,
++                                          const char     *username)
++{
++        g_free (display->priv->parent_display_username);
++        display->priv->parent_display_username = g_strdup (username);
++}
++
++static void
  _gdm_display_set_remote_hostname (GdmDisplay     *display,
                                    const char     *hostname)
  {
-@@ -824,6 +899,13 @@ _gdm_display_set_is_local (GdmDisplay
+@@ -824,6 +914,13 @@ _gdm_display_set_is_local (GdmDisplay
  }
  
  static void
@@ -147,17 +176,20 @@ Index: gdm-2.30.0/daemon/gdm-display.c
  _gdm_display_set_slave_command (GdmDisplay     *display,
                                  const char     *command)
  {
-@@ -845,6 +927,9 @@ gdm_display_set_property (GObject
+@@ -845,6 +942,12 @@ gdm_display_set_property (GObject
          case PROP_ID:
                  _gdm_display_set_id (self, g_value_get_string (value));
                  break;
 +        case PROP_PARENT_DISPLAY:
 +                _gdm_display_set_parent_display (self, g_value_get_object (value));
 +                break;
++        case PROP_PARENT_DISPLAY_USERNAME:
++                _gdm_display_set_parent_display_username (self, g_value_get_string (value));
++                break;
          case PROP_STATUS:
                  _gdm_display_set_status (self, g_value_get_int (value));
                  break;
-@@ -866,6 +951,9 @@ gdm_display_set_property (GObject
+@@ -866,6 +969,9 @@ gdm_display_set_property (GObject
          case PROP_IS_LOCAL:
                  _gdm_display_set_is_local (self, g_value_get_boolean (value));
                  break;
@@ -167,17 +199,20 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          case PROP_SLAVE_COMMAND:
                  _gdm_display_set_slave_command (self, g_value_get_string (value));
                  break;
-@@ -889,6 +977,9 @@ gdm_display_get_property (GObject
+@@ -889,6 +995,12 @@ gdm_display_get_property (GObject
          case PROP_ID:
                  g_value_set_string (value, self->priv->id);
                  break;
 +        case PROP_PARENT_DISPLAY:
 +                g_value_set_object (value, self->priv->parent_display);
 +                break;
++        case PROP_PARENT_DISPLAY_USERNAME:
++                g_value_set_string (value, self->priv->parent_display_username);
++                break;
          case PROP_STATUS:
                  g_value_set_int (value, self->priv->status);
                  break;
-@@ -914,6 +1005,9 @@ gdm_display_get_property (GObject
+@@ -914,6 +1026,9 @@ gdm_display_get_property (GObject
          case PROP_IS_LOCAL:
                  g_value_set_boolean (value, self->priv->is_local);
                  break;
@@ -187,7 +222,7 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          case PROP_SLAVE_COMMAND:
                  g_value_set_string (value, self->priv->slave_command);
                  break;
-@@ -979,6 +1073,11 @@ gdm_display_dispose (GObject *object)
+@@ -979,6 +1094,11 @@ gdm_display_dispose (GObject *object)
  
          g_debug ("GdmDisplay: Disposing display");
  
@@ -199,7 +234,7 @@ Index: gdm-2.30.0/daemon/gdm-display.c
          if (display->priv->finish_idle_id > 0) {
                  g_source_remove (display->priv->finish_idle_id);
                  display->priv->finish_idle_id = 0;
-@@ -1032,6 +1131,15 @@ gdm_display_class_init (GdmDisplayClass
+@@ -1032,6 +1152,23 @@ gdm_display_class_init (GdmDisplayClass
                                                                "id",
                                                                NULL,
                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
@@ -212,10 +247,18 @@ Index: gdm-2.30.0/daemon/gdm-display.c
 +                                                              GDM_TYPE_DISPLAY,
 +                                                              G_PARAM_READWRITE));
 +
++        g_object_class_install_property (object_class,
++                                         PROP_PARENT_DISPLAY_USERNAME,
++                                         g_param_spec_string ("parent-display-username",
++                                                              "parent display username",
++                                                              "parent display username",
++                                                              NULL,
++                                                              G_PARAM_READWRITE));
++
          g_object_class_install_property (object_class,
                                           PROP_REMOTE_HOSTNAME,
                                           g_param_spec_string ("remote-hostname",
-@@ -1086,6 +1194,14 @@ gdm_display_class_init (GdmDisplayClass
+@@ -1086,6 +1223,14 @@ gdm_display_class_init (GdmDisplayClass
                                                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
  
          g_object_class_install_property (object_class,
@@ -230,21 +273,22 @@ Index: gdm-2.30.0/daemon/gdm-display.c
                                           PROP_SLAVE_COMMAND,
                                           g_param_spec_string ("slave-command",
                                                                "slave command",
-@@ -1137,6 +1253,10 @@ gdm_display_finalize (GObject *object)
+@@ -1137,6 +1282,11 @@ gdm_display_finalize (GObject *object)
          g_free (display->priv->x11_cookie);
          g_free (display->priv->slave_command);
  
 +        if (display->priv->parent_display != NULL) {
 +                g_object_remove_weak_pointer (display->priv->parent_display, &display->priv->parent_display);
 +        }
++        g_free (display->priv->parent_display_username);
 +
          if (display->priv->access_file != NULL) {
                  g_object_unref (display->priv->access_file);
          }
-Index: gdm-2.30.0/daemon/gdm-display.h
+Index: gdm-2.30.5/daemon/gdm-display.h
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.h	2010-04-21 19:32:53.773689506 +0200
-+++ gdm-2.30.0/daemon/gdm-display.h	2010-04-21 19:32:59.133691945 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.h	2010-09-16 23:24:30.983561161 +0200
++++ gdm-2.30.5/daemon/gdm-display.h	2010-09-16 23:24:33.031566835 +0200
 @@ -102,6 +102,9 @@ gboolean            gdm_display_unmanage
  gboolean            gdm_display_get_id                         (GdmDisplay *display,
                                                                  char      **id,
@@ -276,10 +320,10 @@ Index: gdm-2.30.0/daemon/gdm-display.h
  gboolean            gdm_display_set_slave_bus_name             (GdmDisplay *display,
                                                                  const char *name,
                                                                  GError    **error);
-Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
+Index: gdm-2.30.5/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.c	2010-04-21 19:32:53.761689237 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.c	2010-04-21 19:32:59.133691945 +0200
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.c	2010-09-16 23:24:30.971561870 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.c	2010-09-16 23:24:33.031566835 +0200
 @@ -22,6 +22,8 @@
  
  #include <stdlib.h>
@@ -289,7 +333,7 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
  
  #include <glib.h>
  #include <glib/gi18n.h>
-@@ -274,6 +276,131 @@ gdm_local_display_factory_create_product
+@@ -274,6 +276,132 @@ gdm_local_display_factory_create_product
  
          return ret;
  }
@@ -384,6 +428,7 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
 +        g_object_set (display,
 +                      "seat-id", CK_SEAT1_PATH,
 +                      "parent-display", parent_display,
++                      "parent-display-username", parent_username,
 +                      "is-nested", TRUE,
 +                      NULL);
 +
@@ -421,10 +466,10 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.c
  
  static void
  on_static_display_status_changed (GdmDisplay             *display,
-Index: gdm-2.30.0/daemon/gdm-local-display-factory.h
+Index: gdm-2.30.5/daemon/gdm-local-display-factory.h
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.h	2010-04-21 19:32:53.749689457 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.h	2010-04-21 19:32:59.133691945 +0200
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.h	2010-09-16 23:24:30.959563557 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.h	2010-09-16 23:24:33.031566835 +0200
 @@ -65,6 +65,10 @@ gboolean                   gdm_local_dis
                                                                                 char                  **id,
                                                                                 GError                **error);
@@ -436,10 +481,10 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.h
  gboolean                   gdm_local_display_factory_create_product_display   (GdmLocalDisplayFactory *factory,
                                                                                 const char             *parent_display_id,
                                                                                 const char             *relay_address,
-Index: gdm-2.30.0/daemon/gdm-local-display-factory.xml
+Index: gdm-2.30.5/daemon/gdm-local-display-factory.xml
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-local-display-factory.xml	2010-04-21 19:32:53.737689677 +0200
-+++ gdm-2.30.0/daemon/gdm-local-display-factory.xml	2010-04-21 19:32:59.137689590 +0200
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.xml	2010-09-16 23:24:30.947561821 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.xml	2010-09-16 23:24:33.031566835 +0200
 @@ -9,5 +9,10 @@
      <method name="CreateTransientDisplay">
        <arg name="id" direction="out" type="o"/>
@@ -451,21 +496,21 @@ Index: gdm-2.30.0/daemon/gdm-local-display-factory.xml
 +    </method>
    </interface>
  </node>
-Index: gdm-2.30.0/daemon/gdm-simple-slave.c
+Index: gdm-2.30.5/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-simple-slave.c	2010-04-21 19:32:53.725694786 +0200
-+++ gdm-2.30.0/daemon/gdm-simple-slave.c	2010-04-21 19:32:59.137689590 +0200
-@@ -1043,6 +1043,9 @@ static gboolean
+--- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-09-16 23:24:30.935560574 +0200
++++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-09-16 23:24:33.031566835 +0200
+@@ -1051,6 +1051,9 @@ static gboolean
  idle_connect_to_display (GdmSimpleSlave *slave)
  {
          gboolean res;
-+        gboolean display_is_nested;
++        gboolean display_is_nested = FALSE;
 +
 +        g_object_get (slave, "display-is-nested", &display_is_nested, NULL);
  
          slave->priv->connection_attempts++;
  
-@@ -1053,7 +1056,8 @@ idle_connect_to_display (GdmSimpleSlave
+@@ -1061,7 +1064,8 @@ idle_connect_to_display (GdmSimpleSlave
  
                  /* FIXME: handle wait-for-go */
  
@@ -475,7 +520,7 @@ Index: gdm-2.30.0/daemon/gdm-simple-slave.c
  
                  delay = 0;
                  enabled = FALSE;
-@@ -1109,12 +1113,20 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
+@@ -1119,12 +1123,20 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
  {
          char    *display_name;
          char    *auth_file;
@@ -496,7 +541,7 @@ Index: gdm-2.30.0/daemon/gdm-simple-slave.c
                        NULL);
  
          /* if this is local display start a server if one doesn't
-@@ -1133,6 +1145,16 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
+@@ -1143,6 +1155,16 @@ gdm_simple_slave_run (GdmSimpleSlave *sl
                                        NULL);
                  }
  
@@ -513,11 +558,11 @@ Index: gdm-2.30.0/daemon/gdm-simple-slave.c
                  g_signal_connect (slave->priv->server,
                                    "exited",
                                    G_CALLBACK (on_server_exited),
-Index: gdm-2.30.0/daemon/gdm-slave.c
+Index: gdm-2.30.5/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-slave.c	2010-04-21 19:32:53.701695226 +0200
-+++ gdm-2.30.0/daemon/gdm-slave.c	2010-04-21 19:32:59.137689590 +0200
-@@ -78,31 +78,41 @@ struct GdmSlavePrivate
+--- gdm-2.30.5.orig/daemon/gdm-slave.c	2010-09-16 23:24:30.903567677 +0200
++++ gdm-2.30.5/daemon/gdm-slave.c	2010-09-16 23:28:58.811560929 +0200
+@@ -81,32 +81,42 @@ struct GdmSlavePrivate
  
          /* cached display values */
          char            *display_id;
@@ -532,6 +577,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          char            *display_x11_authority_file;
 -        char            *parent_display_name;
 -        char            *parent_display_x11_authority_file;
+         char            *windowpath;
  
          GArray          *display_x11_cookie;
  
@@ -562,18 +608,48 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  };
  
  enum {
-@@ -378,6 +388,10 @@ gdm_slave_connect_to_x11_display (GdmSla
+@@ -215,13 +225,12 @@ get_script_environment (GdmSlave   *slav
+                 }
+         }
+ 
+-#if 0
+-        if (display_is_parented) {
+-                g_hash_table_insert (hash, g_strdup ("GDM_PARENT_DISPLAY"), g_strdup (parent_display_name));
+-
+-                /*g_hash_table_insert (hash, "GDM_PARENT_XAUTHORITY"), slave->priv->parent_temp_auth_file));*/
++        if (slave->priv->display_is_nested) {
++                g_hash_table_insert (hash, g_strdup ("GDM_PARENT_DISPLAY"),
++                                     g_strdup (slave->priv->parent_display_name));
++                g_hash_table_insert (hash, g_strdup("GDM_PARENT_XAUTHORITY"),
++                                     g_strdup(slave->priv->parent_display_user_auth_file));
+         }
+-#endif
+ 
+         /* some env for use with the Pre and Post scripts */
+         temp = g_strconcat (slave->priv->display_name, ".Xservers", NULL);
+@@ -481,9 +490,21 @@ gdm_slave_connect_to_x11_display (GdmSla
  
          g_debug ("GdmSlave: Server is ready - opening display %s", slave->priv->display_name);
+ 
++        /* Nested displays are started with authorization for the parent
++         * user only. Add the GDM user. */
++        if (slave->priv->display_is_nested)
++                {
++                        g_free (slave->priv->display_x11_authority_file);
++                        gdm_slave_add_user_authorization (slave, GDM_USERNAME, &slave->priv->display_x11_authority_file);
++                }
++
+         g_setenv ("DISPLAY", slave->priv->display_name, TRUE);
+         g_setenv ("XAUTHORITY", slave->priv->display_x11_authority_file, TRUE);
  
 +        /* don't let root connect to nested displays */
 +        if (slave->priv->display_is_nested)
 +                return TRUE;
 +
-         g_setenv ("DISPLAY", slave->priv->display_name, TRUE);
-         g_setenv ("XAUTHORITY", slave->priv->display_x11_authority_file, TRUE);
- 
-@@ -446,6 +460,15 @@ display_proxy_destroyed_cb (DBusGProxy *
+         sigemptyset (&mask);
+         sigaddset (&mask, SIGCHLD);
+         sigprocmask (SIG_BLOCK, &mask, &omask);
+@@ -540,6 +561,15 @@ display_proxy_destroyed_cb (DBusGProxy *
          slave->priv->display_proxy = NULL;
  }
  
@@ -589,7 +665,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  static gboolean
  gdm_slave_set_slave_bus_name (GdmSlave *slave)
  {
-@@ -480,11 +503,13 @@ gdm_slave_real_start (GdmSlave *slave)
+@@ -574,11 +604,13 @@ gdm_slave_real_start (GdmSlave *slave)
  {
          gboolean res;
          char    *id;
@@ -603,7 +679,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  
          g_debug ("GdmSlave: Creating proxy for %s", slave->priv->display_id);
          error = NULL;
-@@ -539,6 +564,134 @@ gdm_slave_real_start (GdmSlave *slave)
+@@ -633,6 +665,135 @@ gdm_slave_real_start (GdmSlave *slave)
          /* cache some values up front */
          error = NULL;
          res = dbus_g_proxy_call (slave->priv->display_proxy,
@@ -620,7 +696,8 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
 +                        g_warning ("Failed to get value");
 +                }
 +
-+                return FALSE;
++                /* Ignore errors, they can be caused by upgrades */
++                slave->priv->display_is_nested = FALSE;
 +        }
 +
 +        if (slave->priv->display_is_nested) {
@@ -738,7 +815,16 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
                                   "IsLocal",
                                   &error,
                                   G_TYPE_INVALID,
-@@ -1284,6 +1437,14 @@ _gdm_slave_set_display_id (GdmSlave   *s
+@@ -857,6 +1018,8 @@ gdm_slave_add_user_authorization (GdmSla
+         }
+         g_free (filename);
+ 
++        if (slave->priv->display_is_nested)
++                return res;
+         /* Remove access for the programs run by slave and greeter now that the
+          * user session is starting.
+          */
+@@ -1405,6 +1568,14 @@ _gdm_slave_set_display_id (GdmSlave   *s
  }
  
  static void
@@ -753,7 +839,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  _gdm_slave_set_display_name (GdmSlave   *slave,
                               const char *name)
  {
-@@ -1330,6 +1491,37 @@ _gdm_slave_set_display_is_local (GdmSlav
+@@ -1451,6 +1622,37 @@ _gdm_slave_set_display_is_local (GdmSlav
  }
  
  static void
@@ -791,7 +877,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  gdm_slave_set_property (GObject      *object,
                          guint         prop_id,
                          const GValue *value,
-@@ -1343,6 +1535,9 @@ gdm_slave_set_property (GObject      *ob
+@@ -1464,6 +1666,9 @@ gdm_slave_set_property (GObject      *ob
          case PROP_DISPLAY_ID:
                  _gdm_slave_set_display_id (self, g_value_get_string (value));
                  break;
@@ -801,7 +887,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          case PROP_DISPLAY_NAME:
                  _gdm_slave_set_display_name (self, g_value_get_string (value));
                  break;
-@@ -1361,6 +1556,18 @@ gdm_slave_set_property (GObject      *ob
+@@ -1482,6 +1687,18 @@ gdm_slave_set_property (GObject      *ob
          case PROP_DISPLAY_IS_LOCAL:
                  _gdm_slave_set_display_is_local (self, g_value_get_boolean (value));
                  break;
@@ -820,7 +906,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1381,6 +1588,9 @@ gdm_slave_get_property (GObject    *obje
+@@ -1502,6 +1719,9 @@ gdm_slave_get_property (GObject    *obje
          case PROP_DISPLAY_ID:
                  g_value_set_string (value, self->priv->display_id);
                  break;
@@ -830,7 +916,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          case PROP_DISPLAY_NAME:
                  g_value_set_string (value, self->priv->display_name);
                  break;
-@@ -1399,6 +1609,18 @@ gdm_slave_get_property (GObject    *obje
+@@ -1520,6 +1740,18 @@ gdm_slave_get_property (GObject    *obje
          case PROP_DISPLAY_IS_LOCAL:
                  g_value_set_boolean (value, self->priv->display_is_local);
                  break;
@@ -849,7 +935,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1480,6 +1702,13 @@ gdm_slave_class_init (GdmSlaveClass *kla
+@@ -1601,6 +1833,13 @@ gdm_slave_class_init (GdmSlaveClass *kla
                                                                NULL,
                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
          g_object_class_install_property (object_class,
@@ -863,7 +949,7 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
                                           PROP_DISPLAY_NAME,
                                           g_param_spec_string ("display-name",
                                                                "display name",
-@@ -1523,6 +1752,34 @@ gdm_slave_class_init (GdmSlaveClass *kla
+@@ -1644,6 +1883,34 @@ gdm_slave_class_init (GdmSlaveClass *kla
                                                                 "display is local",
                                                                 TRUE,
                                                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
@@ -898,19 +984,19 @@ Index: gdm-2.30.0/daemon/gdm-slave.c
  
          signals [STOPPED] =
                  g_signal_new ("stopped",
-@@ -1568,7 +1825,7 @@ gdm_slave_finalize (GObject *object)
+@@ -1689,7 +1956,7 @@ gdm_slave_finalize (GObject *object)
          g_free (slave->priv->display_seat_id);
          g_free (slave->priv->display_x11_authority_file);
          g_free (slave->priv->parent_display_name);
 -        g_free (slave->priv->parent_display_x11_authority_file);
 +        g_free (slave->priv->parent_display_user_auth_file);
-         g_array_free (slave->priv->display_x11_cookie, TRUE);
- 
-         G_OBJECT_CLASS (gdm_slave_parent_class)->finalize (object);
-Index: gdm-2.30.0/daemon/gdm-display.xml
+         g_free (slave->priv->windowpath);
+         if (slave->priv->display_x11_cookie != NULL) {
+                 g_array_free (slave->priv->display_x11_cookie, TRUE);
+Index: gdm-2.30.5/daemon/gdm-display.xml
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-display.xml	2010-04-21 19:32:53.673698024 +0200
-+++ gdm-2.30.0/daemon/gdm-display.xml	2010-04-21 19:32:59.137689590 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.xml	2010-09-16 23:24:30.871566468 +0200
++++ gdm-2.30.5/daemon/gdm-display.xml	2010-09-16 23:24:33.035562524 +0200
 @@ -4,6 +4,9 @@
      <method name="GetId">
        <arg name="id" direction="out" type="o"/>
@@ -942,10 +1028,10 @@ Index: gdm-2.30.0/daemon/gdm-display.xml
      <method name="SetSlaveBusName">
        <arg name="name" direction="in" type="s"/>
      </method>
-Index: gdm-2.30.0/data/gdm.conf.in
+Index: gdm-2.30.5/data/gdm.conf.in
 ===================================================================
---- gdm-2.30.0.orig/data/gdm.conf.in	2010-04-21 19:32:53.617694821 +0200
-+++ gdm-2.30.0/data/gdm.conf.in	2010-04-21 19:32:59.137689590 +0200
+--- gdm-2.30.5.orig/data/gdm.conf.in	2010-09-16 23:24:30.784072453 +0200
++++ gdm-2.30.5/data/gdm.conf.in	2010-09-16 23:24:33.035562524 +0200
 @@ -62,10 +62,16 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Display"
@@ -963,11 +1049,19 @@ Index: gdm-2.30.0/data/gdm.conf.in
  
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Manager"
-Index: gdm-2.30.0/daemon/gdm-server.c
+Index: gdm-2.30.5/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-server.c	2010-04-21 19:32:53.645694465 +0200
-+++ gdm-2.30.0/daemon/gdm-server.c	2010-04-21 19:32:59.141689679 +0200
-@@ -79,11 +79,13 @@ struct GdmServerPrivate
+--- gdm-2.30.5.orig/daemon/gdm-server.c	2010-09-16 23:24:30.843565353 +0200
++++ gdm-2.30.5/daemon/gdm-server.c	2010-09-16 23:24:33.035562524 +0200
+@@ -70,6 +70,7 @@ extern char **environ;
+ struct GdmServerPrivate
+ {
+         char    *command;
++        char    *nested_command;
+         GPid     pid;
+ 
+         gboolean disable_tcp;
+@@ -83,11 +84,13 @@ struct GdmServerPrivate
          char    *auth_file;
  
          gboolean is_parented;
@@ -981,7 +1075,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  };
  
  enum {
-@@ -92,6 +94,7 @@ enum {
+@@ -96,6 +99,7 @@ enum {
          PROP_DISPLAY_DEVICE,
          PROP_AUTH_FILE,
          PROP_IS_PARENTED,
@@ -989,7 +1083,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
          PROP_PARENT_DISPLAY_NAME,
          PROP_PARENT_AUTH_FILE,
          PROP_CHOSEN_HOSTNAME,
-@@ -169,9 +172,12 @@ gdm_server_get_display_device (GdmServer
+@@ -173,9 +177,12 @@ gdm_server_get_display_device (GdmServer
  static gboolean
  emit_ready_idle (GdmServer *server)
  {
@@ -1004,14 +1098,40 @@ Index: gdm-2.30.0/daemon/gdm-server.c
          return FALSE;
  }
  
-@@ -657,7 +663,13 @@ gdm_server_spawn (GdmServer  *server,
+@@ -269,8 +276,15 @@ gdm_server_resolve_command_line (GdmServ
+         int      i;
+         gboolean gotvtarg = FALSE;
+         gboolean query_in_arglist = FALSE;
++        char    *command;
++
++        if (server->priv->is_nested) {
++                command = server->priv->nested_command;
++        } else {
++                command = server->priv->command;
++        }
+ 
+-        g_shell_parse_argv (server->priv->command, &argc, &argv, NULL);
++        g_shell_parse_argv (command, &argc, &argv, NULL);
+ 
+         for (len = 0; argv != NULL && argv[len] != NULL; len++) {
+                 char *arg = argv[len];
+@@ -658,7 +672,7 @@ gdm_server_spawn (GdmServer  *server,
+ 
+         if (! ret) {
+                 g_warning ("Could not start command '%s': %s",
+-                           server->priv->command,
++                           server->priv->is_nested ? server->priv->nested_command : server->priv->command,
+                            error->message);
+                 g_error_free (error);
+         }
+@@ -667,7 +681,13 @@ gdm_server_spawn (GdmServer  *server,
          g_ptr_array_foreach (env, (GFunc)g_free, NULL);
          g_ptr_array_free (env, TRUE);
  
 -        g_debug ("GdmServer: Started X server process %d - waiting for READY", (int)server->priv->pid);
 +        if (server->priv->is_nested) {
 +                // Xephyr doesn't send back any signal
-+                g_debug ("GdmServer: Started Xephyr server process %d", (int)server->priv->pid);
++                g_debug ("GdmServer: Started nested server process %d", (int)server->priv->pid);
 +                g_timeout_add (500, (GSourceFunc)emit_ready_idle, server);
 +        } else {
 +                g_debug ("GdmServer: Started X server process %d - waiting for READY", (int)server->priv->pid);
@@ -1019,7 +1139,20 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  
          server->priv->child_watch_id = g_child_watch_add (server->priv->pid,
                                                            (GChildWatchFunc)server_child_watch,
-@@ -947,6 +959,41 @@ _gdm_server_set_user_name (GdmServer  *s
+@@ -882,9 +902,10 @@ gboolean
+ gdm_server_start (GdmServer *server)
+ {
+         gboolean res;
+-        char *vtarg;
++        char *vtarg = NULL;
+ 
+-        vtarg = gdm_get_empty_vt_argument ();
++        if (!server->priv->is_nested)
++                vtarg = gdm_get_empty_vt_argument ();
+ 
+         /* fork X server process */
+         res = gdm_server_spawn (server, vtarg);
+@@ -971,6 +992,36 @@ _gdm_server_set_user_name (GdmServer  *s
  }
  
  static void
@@ -1050,18 +1183,13 @@ Index: gdm-2.30.0/daemon/gdm-server.c
 +                           gboolean    is_nested)
 +{
 +        server->priv->is_nested = is_nested;
-+        g_free (server->priv->command);
-+        if (is_nested)
-+                server->priv->command = g_strdup (X_XNEST_CMD " " X_XNEST_CONFIG_OPTIONS " -br");
-+        else
-+                server->priv->command = g_strdup (X_SERVER " -br -verbose");
 +}
 +
 +static void
  _gdm_server_set_disable_tcp (GdmServer  *server,
                               gboolean    disabled)
  {
-@@ -973,9 +1020,21 @@ gdm_server_set_property (GObject      *o
+@@ -997,9 +1048,21 @@ gdm_server_set_property (GObject      *o
          case PROP_USER_NAME:
                  _gdm_server_set_user_name (self, g_value_get_string (value));
                  break;
@@ -1083,7 +1211,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1006,9 +1065,21 @@ gdm_server_get_property (GObject    *obj
+@@ -1030,9 +1093,21 @@ gdm_server_get_property (GObject    *obj
          case PROP_USER_NAME:
                  g_value_set_string (value, self->priv->user_name);
                  break;
@@ -1105,7 +1233,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1109,6 +1180,34 @@ gdm_server_class_init (GdmServerClass *k
+@@ -1133,6 +1208,34 @@ gdm_server_class_init (GdmServerClass *k
                                                                 NULL,
                                                                 TRUE,
                                                                 G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
@@ -1140,18 +1268,28 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  
  }
  
-@@ -1121,6 +1220,7 @@ gdm_server_init (GdmServer *server)
+@@ -1144,7 +1247,9 @@ gdm_server_init (GdmServer *server)
+ 
          server->priv->pid = -1;
          server->priv->command = g_strdup (X_SERVER " -br -verbose");
++        server->priv->nested_command = g_strdup (X_XNEST_CMD " " X_XNEST_CONFIG_OPTIONS " -br")
          server->priv->log_dir = g_strdup (LOGDIR);
 +        server->priv->is_ready = FALSE;
  
          add_ready_handler (server);
  }
-Index: gdm-2.30.0/utils/gdmflexiserver.c
+@@ -1166,6 +1271,7 @@ gdm_server_finalize (GObject *object)
+         gdm_server_stop (server);
+ 
+         g_free (server->priv->command);
++        g_free (server->priv->nested_command);
+         g_free (server->priv->user_name);
+         g_free (server->priv->session_args);
+         g_free (server->priv->log_dir);
+Index: gdm-2.30.5/utils/gdmflexiserver.c
 ===================================================================
---- gdm-2.30.0.orig/utils/gdmflexiserver.c	2010-04-21 19:32:53.589693219 +0200
-+++ gdm-2.30.0/utils/gdmflexiserver.c	2010-04-21 19:42:06.625188517 +0200
+--- gdm-2.30.5.orig/utils/gdmflexiserver.c	2010-09-16 23:24:30.756069870 +0200
++++ gdm-2.30.5/utils/gdmflexiserver.c	2010-09-16 23:24:33.035562524 +0200
 @@ -34,6 +34,9 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
@@ -1422,3 +1560,15 @@ Index: gdm-2.30.0/utils/gdmflexiserver.c
                  maybe_lock_screen ();
          }
  
+Index: gdm-2.30.5/data/Init.in
+===================================================================
+--- gdm-2.30.5.orig/data/Init.in	2010-09-17 00:40:52.123567272 +0200
++++ gdm-2.30.5/data/Init.in	2010-09-17 00:42:07.767560905 +0200
+@@ -65,6 +65,7 @@ if [ "x$SETXKBMAP" != "x" ] ; then
+   # FIXME: is this all right?  Is this completely on crack?
+   # What this does is move the xkb configuration from the GDM_PARENT_DISPLAY
+   # FIXME: This should be done in code.  Or there must be an easier way ...
++  # FIXME: It just does not work, the keymap is not set.
+   if [ -n "$GDM_PARENT_DISPLAY" ]; then
+     XKBSETUP=`( DISPLAY=$GDM_PARENT_DISPLAY XAUTHORITY=$GDM_PARENT_XAUTHORITY $SETXKBMAP -v )`
+     if [ -n "$XKBSETUP" ]; then

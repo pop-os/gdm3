@@ -1,7 +1,5 @@
-The current Xephyr patch is not usable and is disabled:
- * It is *completely* insecure - anyone can connect to the Xephyr 
-   server.
- * The greeter always selects the US keyboard by default.
+The current Xephyr patch still has some drawbacks.
+ * The greeter always selects the US keyboard by default, despite having 
+   code that sets the variables and scripts that should do the right 
+   thing.
  * It proposes to reboot/shutdown instead of having an exit button.
- * Closing the Xnest window doesn’t clean it up in the GDM internal 
-   status.

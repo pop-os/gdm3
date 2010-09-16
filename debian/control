@@ -61,6 +61,7 @@ Depends: ${shlibs:Depends},
          gconf2 (>= 2.26.2-3)
 Recommends: zenity,
             xserver-xephyr | xnest,
+            x11-xkb-utils,
             xserver-xorg,
             at-spi,
             gnome-power-manager (>= 2.28),

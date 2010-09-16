@@ -2,7 +2,7 @@ debian/Xsession                         etc/gdm3
 debian/moreblue-orbit-gdm.svg           usr/share/images/desktop-base
 debian/gdmXnestWrapper                  usr/share/gdm/
 debian/greeter.gconf-defaults		etc/gdm3
-debian/gdmflexiserver.desktop		usr/share/gdm/applications
+debian/gdmflexiserver*.desktop		usr/share/gdm/applications
 debian/gdmflexiserver.svg		usr/share/icons/hicolor/scalable/apps
 debian/gdm-xnest.svg                    usr/share/icons/hicolor/scalable/apps
 debian/gdmsetup.svg                     usr/share/icons/hicolor/scalable/apps

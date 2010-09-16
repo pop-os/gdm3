@@ -6,6 +6,26 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     Add to that a stripping of ::ffff: from IPv4 mapped addresses, since 
     this is not understood in $DISPLAY.
     Closes: #579033.
+  * 11_xephyr_nested.patch: re-enabled.
+    + Updated to apply cleanly.
+    + Modified to not affect the logic of 19_configure_xserver.patch.
+    + Handle the upgrade situation, where the IsNested method does not 
+      exist on the daemon yet.
+    + Don’t pass a vtX argument to nested servers.
+    + Start the nested server with an authorization that is accessible 
+      to the user that launches it. Add another authorization for 
+      Debian-gdm later. The implication is that the parent user has 
+      access to the nested display. Which is, well, completely 
+      unimportant since it already owns the server process.
+    + Set GDM_PARENT_{DISPLAY,XAUTHORITY} so that the keymap is set in 
+      the nested display as well.
+  * Install the gdmflexiserver-xnest.desktop file.
+  * Recommend x11-xkb-utils for xkbcomp.
+  * 19_configure_xserver.patch:
+    + Updated to apply cleanly.
+    + Add the ability to configure the nested X server command.
+  * 20_endsession_respawn.patch: don’t respawn nested X servers.
+  * 22_noconsole.patch: refreshed.
   * 14_pam_dialog.patch: show messages from PAM in a dialog so that the 
     user can actually see them.
 

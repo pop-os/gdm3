@@ -1,9 +1,9 @@
 GNOME #567522
 
-Index: gdm-2.30.2/common/gdm-settings-keys.h
+Index: gdm-2.30.5/common/gdm-settings-keys.h
 ===================================================================
---- gdm-2.30.2.orig/common/gdm-settings-keys.h	2010-05-08 14:49:12.457112035 +0200
-+++ gdm-2.30.2/common/gdm-settings-keys.h	2010-05-08 14:57:27.285109455 +0200
+--- gdm-2.30.5.orig/common/gdm-settings-keys.h	2010-09-11 11:08:59.512645923 +0200
++++ gdm-2.30.5/common/gdm-settings-keys.h	2010-09-11 11:09:00.848642546 +0200
 @@ -32,6 +32,7 @@ G_BEGIN_DECLS
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
@@ -11,11 +11,11 @@ Index: gdm-2.30.2/common/gdm-settings-keys.h
 +#define GDM_KEY_NO_CONSOLE "daemon/NoConsole"
  #define GDM_KEY_FIRST_VT "daemon/FirstVT"
  #define GDM_KEY_LOCAL_XSERVER_COMMAND "daemon/LocalXserverCommand"
- 
-Index: gdm-2.30.2/daemon/gdm-manager.c
+ #define GDM_KEY_NESTED_XSERVER_COMMAND "daemon/NestedXserverCommand"
+Index: gdm-2.30.5/daemon/gdm-manager.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-manager.c	2010-05-08 14:46:42.981612567 +0200
-+++ gdm-2.30.2/daemon/gdm-manager.c	2010-05-08 14:57:27.285109455 +0200
+--- gdm-2.30.5.orig/daemon/gdm-manager.c	2010-09-11 11:08:59.480644229 +0200
++++ gdm-2.30.5/daemon/gdm-manager.c	2010-09-11 11:09:00.848642546 +0200
 @@ -71,7 +71,8 @@ struct GdmManagerPrivate
  
  enum {
@@ -81,10 +81,10 @@ Index: gdm-2.30.2/daemon/gdm-manager.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-Index: gdm-2.30.2/daemon/gdm-manager.h
+Index: gdm-2.30.5/daemon/gdm-manager.h
 ===================================================================
---- gdm-2.30.2.orig/daemon/gdm-manager.h	2010-05-08 14:46:42.969610832 +0200
-+++ gdm-2.30.2/daemon/gdm-manager.h	2010-05-08 14:57:27.285109455 +0200
+--- gdm-2.30.5.orig/daemon/gdm-manager.h	2010-09-11 11:08:59.452647518 +0200
++++ gdm-2.30.5/daemon/gdm-manager.h	2010-09-11 11:09:00.848642546 +0200
 @@ -69,6 +69,8 @@ void                gdm_manager_set_wait
  
  void                gdm_manager_set_xdmcp_enabled              (GdmManager *manager,
@@ -94,11 +94,11 @@ Index: gdm-2.30.2/daemon/gdm-manager.h
  gboolean            gdm_manager_get_displays                   (GdmManager *manager,
                                                                  GPtrArray **displays,
                                                                  GError    **error);
-Index: gdm-2.30.2/daemon/main.c
+Index: gdm-2.30.5/daemon/main.c
 ===================================================================
---- gdm-2.30.2.orig/daemon/main.c	2010-05-08 14:57:26.257612530 +0200
-+++ gdm-2.30.2/daemon/main.c	2010-05-08 14:57:27.285109455 +0200
-@@ -525,6 +525,7 @@ main (int    argc,
+--- gdm-2.30.5.orig/daemon/main.c	2010-09-11 11:08:59.428650405 +0200
++++ gdm-2.30.5/daemon/main.c	2010-09-11 11:09:00.848642546 +0200
+@@ -531,6 +531,7 @@ main (int    argc,
          int                 ret;
          gboolean            res;
          gboolean            xdmcp_enabled;
@@ -106,7 +106,7 @@ Index: gdm-2.30.2/daemon/main.c
          GdmSignalHandler   *signal_handler;
          static gboolean     do_timed_exit    = FALSE;
          static gboolean     print_version    = FALSE;
-@@ -624,6 +625,10 @@ main (int    argc,
+@@ -635,6 +636,10 @@ main (int    argc,
                  goto out;
          }
  
@@ -117,11 +117,11 @@ Index: gdm-2.30.2/daemon/main.c
          xdmcp_enabled = FALSE;
          gdm_settings_direct_get_boolean (GDM_KEY_XDMCP_ENABLE, &xdmcp_enabled);
          gdm_manager_set_xdmcp_enabled (manager, xdmcp_enabled);
-Index: gdm-2.30.2/data/gdm.schemas.in.in
+Index: gdm-2.30.5/data/gdm.schemas.in.in
 ===================================================================
---- gdm-2.30.2.orig/data/gdm.schemas.in.in	2010-05-08 14:50:42.425611096 +0200
-+++ gdm-2.30.2/data/gdm.schemas.in.in	2010-05-08 14:57:27.289111012 +0200
-@@ -57,6 +57,11 @@
+--- gdm-2.30.5.orig/data/gdm.schemas.in.in	2010-09-11 11:08:59.404646448 +0200
++++ gdm-2.30.5/data/gdm.schemas.in.in	2010-09-11 11:09:00.848642546 +0200
+@@ -62,6 +62,11 @@
        <signature>i</signature>
        <default>7</default>
      </schema>
