@@ -1,5 +1,0 @@
-The current Xephyr patch still has some drawbacks.
- * The greeter always selects the US keyboard by default, despite having 
-   code that sets the variables and scripts that should do the right 
-   thing.
- * It proposes to reboot/shutdown instead of having an exit button.

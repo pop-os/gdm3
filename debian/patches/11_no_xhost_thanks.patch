@@ -1,0 +1,87 @@
+Index: gdm-2.30.5/daemon/gdm-slave.c
+===================================================================
+--- gdm-2.30.5.orig/daemon/gdm-slave.c	2010-09-17 18:18:13.087372216 +0200
++++ gdm-2.30.5/daemon/gdm-slave.c	2010-09-17 18:19:46.555368707 +0200
+@@ -370,27 +370,6 @@ gdm_slave_set_busy_cursor (GdmSlave *sla
+ }
+ 
+ static void
+-gdm_slave_setup_xhost_auth (XHostAddress *host_entries, XServerInterpretedAddress *si_entries)
+-{
+-        si_entries[0].type        = "localuser";
+-        si_entries[0].typelength  = strlen ("localuser");
+-        si_entries[1].type        = "localuser";
+-        si_entries[1].typelength  = strlen ("localuser");
+-
+-        si_entries[0].value       = "root";
+-        si_entries[0].valuelength = strlen ("root");
+-        si_entries[1].value       = GDM_USERNAME;
+-        si_entries[1].valuelength = strlen (GDM_USERNAME);
+-
+-        host_entries[0].family    = FamilyServerInterpreted;
+-        host_entries[0].address   = (char *) &si_entries[0];
+-        host_entries[0].length    = sizeof (XServerInterpretedAddress);
+-        host_entries[1].family    = FamilyServerInterpreted;
+-        host_entries[1].address   = (char *) &si_entries[1];
+-        host_entries[1].length    = sizeof (XServerInterpretedAddress);
+-}
+-
+-static void
+ gdm_slave_set_windowpath (GdmSlave *slave)
+ {
+         /* setting WINDOWPATH for clients */
+@@ -503,25 +482,9 @@ gdm_slave_connect_to_x11_display (GdmSla
+                 g_warning ("Unable to connect to display %s", slave->priv->display_name);
+                 ret = FALSE;
+         } else if (slave->priv->display_is_local) {
+-                XServerInterpretedAddress si_entries[2];
+-                XHostAddress              host_entries[2];
+-
+                 g_debug ("GdmSlave: Connected to display %s", slave->priv->display_name);
+                 ret = TRUE;
+ 
+-                /* Give programs run by the slave and greeter access to the
+-                 * display independent of current hostname
+-                 */
+-                gdm_slave_setup_xhost_auth (host_entries, si_entries);
+-
+-                gdm_error_trap_push ();
+-                XAddHosts (slave->priv->server_display, host_entries,
+-                           G_N_ELEMENTS (host_entries));
+-                XSync (slave->priv->server_display, False);
+-                if (gdm_error_trap_pop ()) {
+-                        g_warning ("Failed to give slave programs access to the display. Trying to proceed.");
+-                }
+-
+                 gdm_slave_set_windowpath (slave);
+         } else {
+                 g_debug ("GdmSlave: Connected to display %s", slave->priv->display_name);
+@@ -818,8 +781,6 @@ gdm_slave_add_user_authorization (GdmSla
+                                   const char *username,
+                                   char      **filenamep)
+ {
+-        XServerInterpretedAddress si_entries[2];
+-        XHostAddress              host_entries[2];
+         gboolean                  res;
+         GError                   *error;
+         char                     *filename;
+@@ -857,19 +818,6 @@ gdm_slave_add_user_authorization (GdmSla
+         }
+         g_free (filename);
+ 
+-        /* Remove access for the programs run by slave and greeter now that the
+-         * user session is starting.
+-         */
+-        gdm_slave_setup_xhost_auth (host_entries, si_entries);
+-        gdm_error_trap_push ();
+-        XRemoveHosts (slave->priv->server_display, host_entries,
+-                      G_N_ELEMENTS (host_entries));
+-        XSync (slave->priv->server_display, False);
+-        if (gdm_error_trap_pop ()) {
+-                g_warning ("Failed to remove slave program access to the display. Trying to proceed.");
+-        }
+-
+-
+         return res;
+ }
+ 

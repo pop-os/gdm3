@@ -1,0 +1,83 @@
+Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-panel.c	2010-09-17 20:00:37.911873931 +0200
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c	2010-09-17 20:47:36.847368737 +0200
+@@ -64,6 +64,10 @@
+ #define GPM_DBUS_PATH      "/org/freedesktop/PowerManagement"
+ #define GPM_DBUS_INTERFACE "org.freedesktop.PowerManagement"
+ 
++#define SM_DBUS_NAME      "org.gnome.SessionManager"
++#define SM_DBUS_PATH      "/org/gnome/SessionManager"
++#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
++
+ #define KEY_DISABLE_RESTART_BUTTONS "/apps/gdm/simple-greeter/disable_restart_buttons"
+ #define KEY_NOTIFICATION_AREA_PADDING "/apps/notification_area_applet/prefs/padding"
+ 
+@@ -633,10 +637,53 @@ do_system_stop (void)
+         }
+ }
+ 
++static gboolean
++try_exit_session (DBusGConnection *connection,
++                  GError         **error)
++{
++        DBusGProxy      *proxy;
++        gboolean         res;
++
++        g_debug ("GdmGreeterPanel: trying to exit session");
++
++        proxy = dbus_g_proxy_new_for_name (connection,
++                                           SM_DBUS_NAME,
++                                           SM_DBUS_PATH,
++                                           SM_DBUS_INTERFACE);
++        res = dbus_g_proxy_call_with_timeout (proxy,
++                                              "Logout",
++                                              INT_MAX,
++                                              error,
++                                              /* parameters: */
++                                              G_TYPE_UINT, 2, /* Forced mode */
++                                              G_TYPE_INVALID,
++                                              /* return values: */
++                                              G_TYPE_INVALID);
++        return res;
++}
++
+ static void
+ do_disconnect (void)
+ {
+-        gtk_main_quit ();
++        gboolean         res;
++        GError          *error;
++        DBusGConnection *connection;
++
++        error = NULL;
++        connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
++        if (connection == NULL) {
++                g_warning ("Unable to get system bus connection: %s", error->message);
++                g_error_free (error);
++                return;
++        } else {
++                res = try_exit_session (connection, &error);
++                if (!res) {
++                        g_debug ("GdmGreeterPanel: unable to logout: %s: %s",
++                                 dbus_g_error_get_name (error),
++                                 error->message);
++                        g_error_free (error);
++                }
++        }
+ }
+ 
+ static gboolean
+@@ -817,7 +864,11 @@ setup_panel (GdmGreeterPanel *panel)
+                 gtk_container_add (GTK_CONTAINER (panel->priv->shutdown_button), image);
+ 
+                 if (! panel->priv->display_is_local) {
+-                        menu_item = gtk_menu_item_new_with_label ("Disconnect");
++                        menu_item = gtk_menu_item_new_with_label (_("Disconnect"));
++                        g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_disconnect), NULL);
++                        gtk_menu_shell_append (GTK_MENU_SHELL (panel->priv->shutdown_menu), menu_item);
++                } else if (g_getenv ("GDM_PARENT_DISPLAY")) {
++                        menu_item = gtk_menu_item_new_with_label (_("Quit"));
+                         g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_disconnect), NULL);
+                         gtk_menu_shell_append (GTK_MENU_SHELL (panel->priv->shutdown_menu), menu_item);
+                 } else {

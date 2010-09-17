@@ -8,7 +8,9 @@
 08_frequent-users_greeter.patch
 09_default_session.patch
 10_gdm3_pam.patch
+11_no_xhost_thanks.patch
 11_xephyr_nested.patch
+11_xephyr_nested_interface.patch
 12_polkit_settings.patch
 13_gdmsetup.patch
 13_gdmsetup_ui.patch

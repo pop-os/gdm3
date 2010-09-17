@@ -6,6 +6,9 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     Add to that a stripping of ::ffff: from IPv4 mapped addresses, since 
     this is not understood in $DISPLAY.
     Closes: #579033.
+  * 11_no_xhost_thanks.patch: new patch. Drops the very suspicious xhost 
+    authentication that is set in the login window. In addition to 
+    questioning the security, it interacts badly with the Xephyr patch.
   * 11_xephyr_nested.patch: re-enabled.
     + Updated to apply cleanly.
     + Modified to not affect the logic of 19_configure_xserver.patch.
@@ -19,6 +22,14 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
       unimportant since it already owns the server process.
     + Set GDM_PARENT_{DISPLAY,XAUTHORITY} so that the keymap is set in 
       the nested display as well.
+    + Put back in place the code that keeps a connection open to the X 
+      server, it is necessary for proper setting of the keyboard map.
+    + Rework the xkb setting in the Init script. Passing model/layout/
+      variant/options seems to work better than keymap/types/compat/…
+    + Pass GDM_PARENT_DISPLAY to the greeter session too.
+  * 11_xephyr_nested_interface.patch: new patch. In the greeter panel, 
+    display only a "Quit" element when GDM_PARENT_DISPLAY is set. Call 
+    the session manager to force a logout when pressed.
   * Install the gdmflexiserver-xnest.desktop file.
   * Recommend x11-xkb-utils for xkbcomp.
   * 19_configure_xserver.patch:
@@ -28,6 +39,7 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
   * 22_noconsole.patch: refreshed.
   * 14_pam_dialog.patch: show messages from PAM in a dialog so that the 
     user can actually see them.
+  * Remove debian/TODO, yay!
 
  -- Josselin Mouette <joss@debian.org>  Fri, 10 Sep 2010 21:48:36 +0200
 
