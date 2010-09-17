@@ -28,10 +28,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 patches\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-23 18:16+0200\n"
+"POT-Creation-Date: 2010-09-17 21:28+0200\n"
 "PO-Revision-Date: 2010-04-22 09:20+0200\n"
 "Last-Translator: Francisco Javier Cuadrado <fcocuadrado@gmail.com>\n"
 "Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -44,13 +45,21 @@ msgstr "Sistema predeterminado"
 msgid "The default session on the system"
 msgstr "La sesión predeterminada en el sistema"
 
-#: ../patches/11_xephyr_nested.patch:684
+#: ../patches/11_xephyr_nested.patch:740
 msgid "Run gdm in a nested window"
 msgstr "Ejecutar gdm en una ventana anidada"
 
-#: ../patches/11_xephyr_nested.patch:685
+#: ../patches/11_xephyr_nested.patch:741
 msgid "Don't lock the screen on the current display"
 msgstr "No bloquee la pantalla actual"
+
+#: ../patches/11_xephyr_nested.patch:1045
+msgid "Disconnect"
+msgstr "Desconectar"
+
+#: ../patches/11_xephyr_nested.patch:1049
+msgid "Quit"
+msgstr "Salir"
 
 #. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
 #: ../patches/13_gdmsetup.patch:360

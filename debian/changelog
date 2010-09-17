@@ -30,6 +30,9 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     + In the greeter panel, display only a "Quit" element when 
       GDM_PARENT_DISPLAY is set. Call the session manager to force a 
       logout when pressed.
+  * debian/po-up/*.po:
+    + Add translations for the Quit and Disconnect strings from gdm 
+      2.20.11.
   * Install the gdmflexiserver-xnest.desktop file.
   * Recommend x11-xkb-utils for xkbcomp.
   * 19_configure_xserver.patch:
