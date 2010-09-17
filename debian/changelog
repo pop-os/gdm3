@@ -27,9 +27,9 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     + Rework the xkb setting in the Init script. Passing model/layout/
       variant/options seems to work better than keymap/types/compat/…
     + Pass GDM_PARENT_DISPLAY to the greeter session too.
-  * 11_xephyr_nested_interface.patch: new patch. In the greeter panel, 
-    display only a "Quit" element when GDM_PARENT_DISPLAY is set. Call 
-    the session manager to force a logout when pressed.
+    + In the greeter panel, display only a "Quit" element when 
+      GDM_PARENT_DISPLAY is set. Call the session manager to force a 
+      logout when pressed.
   * Install the gdmflexiserver-xnest.desktop file.
   * Recommend x11-xkb-utils for xkbcomp.
   * 19_configure_xserver.patch:
