@@ -1,4 +1,4 @@
-gdm3 (2.30.5-2) UNRELEASED; urgency=low
+gdm3 (2.30.5-2) unstable; urgency=low
 
   * 03_ipv6.patch: new patch from Julien Cristau, thanks a lot for 
     investigating! Fix an allocation error that leads to passing garbage 
@@ -44,7 +44,7 @@ gdm3 (2.30.5-2) UNRELEASED; urgency=low
     user can actually see them.
   * Remove debian/TODO, yay!
 
- -- Josselin Mouette <joss@debian.org>  Fri, 10 Sep 2010 21:48:36 +0200
+ -- Josselin Mouette <joss@debian.org>  Fri, 17 Sep 2010 21:37:13 +0200
 
 gdm3 (2.30.5-1) unstable; urgency=low
 
