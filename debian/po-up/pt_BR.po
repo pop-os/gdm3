@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gdm2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-17 21:28+0200\n"
-"PO-Revision-Date: 2008-03-02 22:04-0300\n"
-"Last-Translator: Luiz Armesto <luiz.armesto@gmail.com>\n"
+"PO-Revision-Date: 2010-09-21 20:31-0300\n"
+"Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -36,15 +36,15 @@ msgstr "Padrão do Sistema"
 
 #: ../default.desktop.in.h:2
 msgid "The default session on the system"
-msgstr ""
+msgstr "A sessão padrão no sistema"
 
 #: ../patches/11_xephyr_nested.patch:740
 msgid "Run gdm in a nested window"
-msgstr ""
+msgstr "Executar o GDM numa janela embutida"
 
 #: ../patches/11_xephyr_nested.patch:741
 msgid "Don't lock the screen on the current display"
-msgstr ""
+msgstr "Não bloquear a tela atual"
 
 #: ../patches/11_xephyr_nested.patch:1045
 msgid "Disconnect"
@@ -58,32 +58,33 @@ msgstr "Sair"
 #: ../patches/13_gdmsetup.patch:360
 #, c-format
 msgid "Log in as %s automatically"
-msgstr ""
+msgstr "Autenticar-se como %s automaticamente"
 
 #. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
 #: ../patches/13_gdmsetup.patch:362
 #, c-format
 msgid "Allow %s seconds for anyone else to log in first"
-msgstr ""
+msgstr "Deixar %s segundos para outro usuário autenticar-se primeiro"
 
 #: ../patches/13_gdmsetup_ui.patch.h:1
 msgid "<b>When the computer starts up</b>"
-msgstr ""
+msgstr "<b>Ao iniciar o sistema</b>"
 
 #. Title of login screen settings dialog
 #: ../patches/13_gdmsetup_ui.patch.h:3
 msgid "Login Screen Settings"
-msgstr ""
+msgstr "Configurações da Tela de Autenticação"
 
 #. Radio option to set login screen to prompt for user
 #: ../patches/13_gdmsetup_ui.patch.h:5
 msgid "_Show the screen for choosing who will log in"
-msgstr ""
+msgstr "_Exibir a tela de escolha de quem vai iniciar a sessão"
 
 #: ../patches/13_gdmsetup_desktop.patch.h:1
 msgid "Configure login screen behavior"
-msgstr ""
+msgstr "Configurar o comportamento da tela de autenticação"
 
 #: ../patches/13_gdmsetup_desktop.patch.h:2
 msgid "Login Screen"
-msgstr ""
+msgstr "Tela de Autenticação"
+

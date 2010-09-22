@@ -1,3 +1,10 @@
+gdm3 (2.30.5-3) UNRELEASED; urgency=low
+
+  * pt_BR.po: new Brazilian Portuguese translation by Sérgio Cipolla.
+    Closes: #597669.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 22 Sep 2010 09:38:44 +0200
+
 gdm3 (2.30.5-2) unstable; urgency=low
 
   * 03_ipv6.patch: new patch from Julien Cristau, thanks a lot for 
