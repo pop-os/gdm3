@@ -1,9 +1,14 @@
 gdm3 (2.30.5-3) UNRELEASED; urgency=low
 
+  [ Josselin Mouette ]
   * pt_BR.po: new Brazilian Portuguese translation by Sérgio Cipolla.
     Closes: #597669.
 
- -- Josselin Mouette <joss@debian.org>  Wed, 22 Sep 2010 09:38:44 +0200
+  [ Luca Bruno ]
+  * 13_gdmsetup.patch: refresh and fix user-manager loading according
+    to upstream changes.
+
+ -- Luca Bruno <lethalman88@gmail.com>  Thu, 23 Sep 2010 22:55:13 +0200
 
 gdm3 (2.30.5-2) unstable; urgency=low
 
