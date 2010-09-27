@@ -6,7 +6,7 @@ gdm3 (2.30.5-3) UNRELEASED; urgency=low
 
   [ Luca Bruno ]
   * 13_gdmsetup.patch: refresh and fix user-manager loading according
-    to upstream changes.
+    to upstream changes. Closes: #598034.
 
  -- Luca Bruno <lethalman88@gmail.com>  Thu, 23 Sep 2010 22:55:13 +0200
 
