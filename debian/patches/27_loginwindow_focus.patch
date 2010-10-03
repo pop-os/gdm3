@@ -1,0 +1,22 @@
+Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-session.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-session.c	2010-10-03 15:38:50.955062193 +0200
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-session.c	2010-10-03 15:51:24.179064203 +0200
+@@ -515,7 +515,7 @@ gdm_greeter_session_event_handler (GdkEv
+ 
+                 key_event = (GdkEventKey *) event;
+                 if (session->priv->panel != NULL) {
+-                        if (gtk_window_activate_key (GTK_WINDOW (session->priv->panel),
++                        if (gtk_window_propagate_key_event (GTK_WINDOW (session->priv->panel),
+                                                      key_event)) {
+                                 gtk_window_present_with_time (GTK_WINDOW (session->priv->panel),
+                                                               key_event->time);
+@@ -524,7 +524,7 @@ gdm_greeter_session_event_handler (GdkEv
+                 }
+ 
+                 if (session->priv->login_window != NULL) {
+-                        if (gtk_window_activate_key (GTK_WINDOW (session->priv->login_window),
++                        if (gtk_window_propagate_key_event (GTK_WINDOW (session->priv->login_window),
+                                                      ((GdkEventKey *) event))) {
+                                 gtk_window_present_with_time (GTK_WINDOW (session->priv->login_window),
+                                                               key_event->time);
