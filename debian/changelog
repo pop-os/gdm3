@@ -2,7 +2,6 @@ gdm3 (2.30.5-4) UNRELEASED; urgency=low
 
   * 21_schemas_usr.patch: add some comments in the daemon.conf file to 
     explain the available options. Thanks Joey Hess. Closes: #598666.
-  * 27_loginwindow_focus.patch: another one bites the dust.
   * gdm3.init: drop hal and acpid. Closes: #599015.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 03 Oct 2010 10:19:10 +0200
