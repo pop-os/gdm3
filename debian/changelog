@@ -3,6 +3,9 @@ gdm3 (2.30.5-4) UNRELEASED; urgency=low
   * 21_schemas_usr.patch: add some comments in the daemon.conf file to 
     explain the available options. Thanks Joey Hess. Closes: #598666.
   * gdm3.init: drop hal and acpid. Closes: #599015.
+  * Pass --enable-debug with DEB_BUILD_OPTIONS=debug.
+  * 20_endsession_respawn.patch: fix typo introduced in 2.30.5-2 that 
+    turns the feature completely off.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 03 Oct 2010 10:19:10 +0200
 

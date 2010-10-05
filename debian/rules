@@ -35,6 +35,10 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale
 
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
+endif
+
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
 ifeq (linux,$(DEB_HOST_ARCH_OS))
