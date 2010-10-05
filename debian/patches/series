@@ -24,7 +24,6 @@
 21_schemas_usr.patch
 22_noconsole.patch
 23_autologin_once.patch
-24_show_user_other.patch
 25_upower.patch
 26_username_escape.patch
 90_relibtoolize.patch
