@@ -1,8 +1,8 @@
 Debian: add CreateNestedDisplay(parent_display_id) dbus method.
 Index: gdm-2.30.5/daemon/gdm-display.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-display.c	2010-09-17 18:17:49.923368345 +0200
-+++ gdm-2.30.5/daemon/gdm-display.c	2010-09-17 18:39:25.163371770 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.c	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.c	2010-10-06 00:15:03.773257313 +0200
 @@ -52,6 +52,8 @@ struct GdmDisplayPrivate
  {
          char                 *id;
@@ -287,8 +287,8 @@ Index: gdm-2.30.5/daemon/gdm-display.c
          }
 Index: gdm-2.30.5/daemon/gdm-display.h
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-display.h	2010-09-17 18:17:49.911372476 +0200
-+++ gdm-2.30.5/daemon/gdm-display.h	2010-09-17 18:39:25.143369856 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.h	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.h	2010-10-06 00:15:03.757260379 +0200
 @@ -102,6 +102,9 @@ gboolean            gdm_display_unmanage
  gboolean            gdm_display_get_id                         (GdmDisplay *display,
                                                                  char      **id,
@@ -322,9 +322,9 @@ Index: gdm-2.30.5/daemon/gdm-display.h
                                                                  GError    **error);
 Index: gdm-2.30.5/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-local-display-factory.c	2010-09-17 18:17:49.899367807 +0200
-+++ gdm-2.30.5/daemon/gdm-local-display-factory.c	2010-09-17 18:22:19.435373492 +0200
-@@ -22,6 +22,8 @@
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.c	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.c	2010-10-06 00:15:14.633762034 +0200
+@@ -22,11 +22,15 @@
  
  #include <stdlib.h>
  #include <stdio.h>
@@ -333,7 +333,14 @@ Index: gdm-2.30.5/daemon/gdm-local-display-factory.c
  
  #include <glib.h>
  #include <glib/gi18n.h>
-@@ -274,6 +276,132 @@ gdm_local_display_factory_create_product
+ #include <glib-object.h>
+ 
++#include <dbus/dbus-glib-lowlevel.h>
++
+ #include "gdm-display-factory.h"
+ #include "gdm-local-display-factory.h"
+ #include "gdm-local-display-factory-glue.h"
+@@ -274,6 +278,132 @@ gdm_local_display_factory_create_product
  
          return ret;
  }
@@ -468,8 +475,8 @@ Index: gdm-2.30.5/daemon/gdm-local-display-factory.c
  on_static_display_status_changed (GdmDisplay             *display,
 Index: gdm-2.30.5/daemon/gdm-local-display-factory.h
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-local-display-factory.h	2010-09-17 18:17:49.887368516 +0200
-+++ gdm-2.30.5/daemon/gdm-local-display-factory.h	2010-09-17 18:22:19.435373492 +0200
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.h	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.h	2010-10-06 00:14:25.029759817 +0200
 @@ -65,6 +65,10 @@ gboolean                   gdm_local_dis
                                                                                 char                  **id,
                                                                                 GError                **error);
@@ -483,8 +490,8 @@ Index: gdm-2.30.5/daemon/gdm-local-display-factory.h
                                                                                 const char             *relay_address,
 Index: gdm-2.30.5/daemon/gdm-local-display-factory.xml
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-local-display-factory.xml	2010-09-17 18:17:49.875371669 +0200
-+++ gdm-2.30.5/daemon/gdm-local-display-factory.xml	2010-09-17 18:22:19.435373492 +0200
+--- gdm-2.30.5.orig/daemon/gdm-local-display-factory.xml	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-local-display-factory.xml	2010-10-06 00:14:25.029759817 +0200
 @@ -9,5 +9,10 @@
      <method name="CreateTransientDisplay">
        <arg name="id" direction="out" type="o"/>
@@ -498,8 +505,8 @@ Index: gdm-2.30.5/daemon/gdm-local-display-factory.xml
  </node>
 Index: gdm-2.30.5/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-09-17 18:17:49.863370912 +0200
-+++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-09-17 19:49:32.419367691 +0200
+--- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-10-06 00:14:24.957760156 +0200
++++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-10-06 00:15:04.041259406 +0200
 @@ -916,6 +916,7 @@ start_greeter (GdmSimpleSlave *slave)
          char          *display_name;
          char          *display_device;
@@ -584,8 +591,8 @@ Index: gdm-2.30.5/daemon/gdm-simple-slave.c
                                    G_CALLBACK (on_server_exited),
 Index: gdm-2.30.5/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-slave.c	2010-09-17 18:19:46.555368707 +0200
-+++ gdm-2.30.5/daemon/gdm-slave.c	2010-09-17 18:39:25.103371405 +0200
+--- gdm-2.30.5.orig/daemon/gdm-slave.c	2010-10-06 00:14:24.993760476 +0200
++++ gdm-2.30.5/daemon/gdm-slave.c	2010-10-06 00:15:03.709261753 +0200
 @@ -81,32 +81,42 @@ struct GdmSlavePrivate
  
          /* cached display values */
@@ -1004,8 +1011,8 @@ Index: gdm-2.30.5/daemon/gdm-slave.c
                  g_array_free (slave->priv->display_x11_cookie, TRUE);
 Index: gdm-2.30.5/daemon/gdm-display.xml
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-display.xml	2010-09-17 18:17:49.839373309 +0200
-+++ gdm-2.30.5/daemon/gdm-display.xml	2010-09-17 18:39:25.131371054 +0200
+--- gdm-2.30.5.orig/daemon/gdm-display.xml	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-display.xml	2010-10-06 00:15:03.741256600 +0200
 @@ -4,6 +4,9 @@
      <method name="GetId">
        <arg name="id" direction="out" type="o"/>
@@ -1039,8 +1046,8 @@ Index: gdm-2.30.5/daemon/gdm-display.xml
      </method>
 Index: gdm-2.30.5/data/gdm.conf.in
 ===================================================================
---- gdm-2.30.5.orig/data/gdm.conf.in	2010-09-17 18:17:49.791372237 +0200
-+++ gdm-2.30.5/data/gdm.conf.in	2010-09-17 18:39:26.263370440 +0200
+--- gdm-2.30.5.orig/data/gdm.conf.in	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/data/gdm.conf.in	2010-10-06 00:15:04.805260335 +0200
 @@ -62,10 +62,16 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Display"
@@ -1060,8 +1067,8 @@ Index: gdm-2.30.5/data/gdm.conf.in
             send_interface="org.gnome.DisplayManager.Manager"
 Index: gdm-2.30.5/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-server.c	2010-09-17 18:17:49.819378239 +0200
-+++ gdm-2.30.5/daemon/gdm-server.c	2010-09-17 18:39:25.335369248 +0200
+--- gdm-2.30.5.orig/daemon/gdm-server.c	2010-10-06 00:14:24.853762224 +0200
++++ gdm-2.30.5/daemon/gdm-server.c	2010-10-06 00:15:03.929259828 +0200
 @@ -70,6 +70,7 @@ extern char **environ;
  struct GdmServerPrivate
  {
@@ -1297,8 +1304,8 @@ Index: gdm-2.30.5/daemon/gdm-server.c
          g_free (server->priv->log_dir);
 Index: gdm-2.30.5/utils/gdmflexiserver.c
 ===================================================================
---- gdm-2.30.5.orig/utils/gdmflexiserver.c	2010-09-17 18:17:49.731374810 +0200
-+++ gdm-2.30.5/utils/gdmflexiserver.c	2010-09-17 18:22:19.443369760 +0200
+--- gdm-2.30.5.orig/utils/gdmflexiserver.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/utils/gdmflexiserver.c	2010-10-06 00:14:25.037757552 +0200
 @@ -34,6 +34,9 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
@@ -1571,8 +1578,8 @@ Index: gdm-2.30.5/utils/gdmflexiserver.c
  
 Index: gdm-2.30.5/data/Init.in
 ===================================================================
---- gdm-2.30.5.orig/data/Init.in	2010-09-17 18:17:49.759372013 +0200
-+++ gdm-2.30.5/data/Init.in	2010-09-17 19:31:38.927375051 +0200
+--- gdm-2.30.5.orig/data/Init.in	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/data/Init.in	2010-10-06 00:14:25.037757552 +0200
 @@ -66,22 +66,11 @@ if [ "x$SETXKBMAP" != "x" ] ; then
    # What this does is move the xkb configuration from the GDM_PARENT_DISPLAY
    # FIXME: This should be done in code.  Or there must be an easier way ...
@@ -1602,8 +1609,8 @@ Index: gdm-2.30.5/data/Init.in
  fi
 Index: gdm-2.30.5/daemon/gdm-factory-slave.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-factory-slave.c	2010-09-17 19:46:36.087876683 +0200
-+++ gdm-2.30.5/daemon/gdm-factory-slave.c	2010-09-17 19:47:01.759869637 +0200
+--- gdm-2.30.5.orig/daemon/gdm-factory-slave.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-factory-slave.c	2010-10-06 00:14:25.037757552 +0200
 @@ -558,6 +558,7 @@ run_greeter (GdmFactorySlave *slave)
          slave->priv->greeter = gdm_greeter_session_new (display_name,
                                                          display_device,
@@ -1614,8 +1621,8 @@ Index: gdm-2.30.5/daemon/gdm-factory-slave.c
                            "started",
 Index: gdm-2.30.5/daemon/gdm-greeter-session.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-greeter-session.c	2010-09-17 19:44:35.411371835 +0200
-+++ gdm-2.30.5/daemon/gdm-greeter-session.c	2010-09-17 20:03:21.591872720 +0200
+--- gdm-2.30.5.orig/daemon/gdm-greeter-session.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-greeter-session.c	2010-10-06 00:14:25.037757552 +0200
 @@ -142,6 +142,7 @@ GdmGreeterSession *
  gdm_greeter_session_new (const char *display_name,
                           const char *display_device,
@@ -1634,8 +1641,8 @@ Index: gdm-2.30.5/daemon/gdm-greeter-session.c
  
 Index: gdm-2.30.5/daemon/gdm-greeter-session.h
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-greeter-session.h	2010-09-17 19:44:56.827878332 +0200
-+++ gdm-2.30.5/daemon/gdm-greeter-session.h	2010-09-17 19:45:33.319873552 +0200
+--- gdm-2.30.5.orig/daemon/gdm-greeter-session.h	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-greeter-session.h	2010-10-06 00:14:25.037757552 +0200
 @@ -52,6 +52,7 @@ GType                 gdm_greeter_sessio
  GdmGreeterSession *   gdm_greeter_session_new                (const char        *display_name,
                                                                const char        *display_device,
@@ -1646,8 +1653,8 @@ Index: gdm-2.30.5/daemon/gdm-greeter-session.h
  G_END_DECLS
 Index: gdm-2.30.5/daemon/gdm-welcome-session.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-welcome-session.c	2010-09-17 19:39:14.207876075 +0200
-+++ gdm-2.30.5/daemon/gdm-welcome-session.c	2010-09-17 20:01:29.107871685 +0200
+--- gdm-2.30.5.orig/daemon/gdm-welcome-session.c	2010-10-06 00:14:24.785761677 +0200
++++ gdm-2.30.5/daemon/gdm-welcome-session.c	2010-10-06 00:14:25.041757641 +0200
 @@ -70,6 +70,7 @@ struct GdmWelcomeSessionPrivate
          char           *x11_display_hostname;
          char           *x11_authority_file;
@@ -1732,8 +1739,8 @@ Index: gdm-2.30.5/daemon/gdm-welcome-session.c
          g_free (welcome_session->priv->server_dbus_interface);
 Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c
 ===================================================================
---- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-panel.c	2010-09-17 20:00:37.911873931 +0200
-+++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c	2010-09-17 20:47:36.847368737 +0200
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-panel.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c	2010-10-06 00:15:02.989258862 +0200
 @@ -64,6 +64,10 @@
  #define GPM_DBUS_PATH      "/org/freedesktop/PowerManagement"
  #define GPM_DBUS_INTERFACE "org.freedesktop.PowerManagement"

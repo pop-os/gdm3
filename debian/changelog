@@ -11,6 +11,8 @@ gdm3 (2.30.5-4) unstable; urgency=low
   * 24_show_user_other.patch: dropped. It is not necessary anymore, the 
     case without any user is handled correctly now. Furthermore it was 
     causing the infamous focus bug. Closes: #596359.
+  * 11_xephyr_nested.patch: fix implicit pointer conversion. Thanks Dann 
+    Frazier for the report. Closes: #599104.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 06 Oct 2010 00:10:48 +0200
 
