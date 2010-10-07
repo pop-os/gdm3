@@ -1,3 +1,9 @@
+gdm (2.30.5-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/control: don't b-d on libglade2-dev, it uses gtkbuilder
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 07 Oct 2010 18:15:31 +0200
+
 gdm (2.30.5-0ubuntu4) maverick; urgency=low
 
   * debian/gdm.upstart: Do not already fire on a framebuffer device. When a
