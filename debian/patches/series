@@ -26,4 +26,5 @@
 23_autologin_once.patch
 25_upower.patch
 26_username_escape.patch
+27_orca_braille.patch
 90_relibtoolize.patch
