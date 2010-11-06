@@ -1,0 +1,12 @@
+Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-11-06 12:30:30.505494552 +0100
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c	2010-11-06 12:41:43.100991570 +0100
+@@ -623,6 +623,7 @@ gdm_greeter_login_window_ready (GdmGreet
+         set_sensitive (GDM_GREETER_LOGIN_WINDOW (login_window), TRUE);
+         set_ready (GDM_GREETER_LOGIN_WINDOW (login_window));
+         set_focus (GDM_GREETER_LOGIN_WINDOW (login_window));
++        gdk_beep ();
+ 
+         /* If the user list is disabled, then start the PAM conversation */
+         if (can_jump_to_authenticate (login_window)) {

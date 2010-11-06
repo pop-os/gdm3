@@ -1,4 +1,4 @@
-gdm3 (2.30.5-5) UNRELEASED; urgency=low
+gdm3 (2.30.5-5) unstable; urgency=low
 
   * 27_orca_braille.patch: patch from Samuel Thibault to enable braille 
     support in orca. Closes: #600472.
@@ -12,8 +12,16 @@ gdm3 (2.30.5-5) UNRELEASED; urgency=low
       handling.
     + Don’t restart the static display when it exits, that would make 
       the previous change moot.
+  * Get the greeter to play a beep when it is ready. Thanks Samuel 
+    Thibault for all the testing. Closes: #598132.
+    + 28_beep.patch: new patch. Emit a gdk_beep when appropriate.
+    + greeter.gconf-defaults: enable event sounds, so that the beep is 
+      played.
+  * README.Debian:
+    + Explain the configuration system more thoroughly. Closes: #601479.
+    + Split the debconf translations part in README.source.
 
- -- Josselin Mouette <joss@debian.org>  Sat, 06 Nov 2010 08:39:46 +0100
+ -- Josselin Mouette <joss@debian.org>  Sun, 07 Nov 2010 00:32:11 +0100
 
 gdm3 (2.30.5-4) unstable; urgency=low
 

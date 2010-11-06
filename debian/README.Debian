@@ -6,12 +6,21 @@ Configuration overview
 
 The configuration for the GDM daemon has changed starting with version 
 2.26.
- * For the daemon (automatic login options, XDMCP…) it is done in 
-   /etc/gdm3/daemon.conf. The list of available options can be found in 
-   /usr/share/gdm/gdm.schemas.
- * The greeter (the interface that welcomes you on the computer) uses 
-   regular programs that are configured through GConf. You can tune the 
-   interface settings in /etc/gdm3/greeter.gconf-defaults.
+
+For the daemon itself:
+ * The autologin options can be choosen from the gdmsetup program.
+ * Other options (like XDMCP) can be set in /etc/gdm3/daemon.conf. The 
+   list of available options can be found in /usr/share/gdm/gdm.schemas.
+
+The greeter - which is the interface that welcomes you on the 
+computer - uses a minimal GNOME session to startup. Its settings are set 
+through GConf, but using a specific configuration.
+ * You can use gconf-editor as root and open a “New Defaults Window” in 
+   the File menu. Settings set this way will apply globally and this 
+   includes the GDM greeter.
+ * You can also force some of the settings in 
+   /etc/gdm3/greeter.gconf-defaults. After changing the settings, you 
+   need to run “invoke-rc.d gdm3 reload” to take them into account.
 
 
 "I get ugly fonts"
@@ -33,13 +42,3 @@ Face Browser
 If you enable the face browser in the greeter, GDM will look for face 
 files (any image format supported by GTK+). You can configure the face 
 for your user in the “About me” GNOME configuration applet.
-
-
-Translation of the Debconf templates
-------------------------------------
-
-A note to translators about the debconf templates -- translations
-should be sent to the xdm package.  I don't use gettext-based
-templates in the source, because I sync to the ones in the xdm
-package, and don't have any that are not shared.
-
