@@ -2,8 +2,18 @@ gdm3 (2.30.5-5) UNRELEASED; urgency=low
 
   * 27_orca_braille.patch: patch from Samuel Thibault to enable braille 
     support in orca. Closes: #600472.
+  * 20_endsession_respawn.patch:
+    + Correctly reinitialize the variable that tells a display must 
+      respawn. It badly broke when trying to use an already used 
+      display to switch to another one. Closes: #600706.
+    + Also prevent respawning for static displays, otherwise the same 
+      problem will also happen on :0. The only remaining difference 
+      remaining between static and transient displays is autologin 
+      handling.
+    + Don’t restart the static display when it exits, that would make 
+      the previous change moot.
 
- -- Josselin Mouette <joss@debian.org>  Tue, 19 Oct 2010 08:35:37 +0200
+ -- Josselin Mouette <joss@debian.org>  Sat, 06 Nov 2010 08:39:46 +0100
 
 gdm3 (2.30.5-4) unstable; urgency=low
 
