@@ -33,6 +33,7 @@ binary-post-install/gdm::
 	mkdir -p debian/gdm/usr/share/doc/gdm/examples
 	mv debian/gdm/etc/gdm/custom.conf debian/gdm/usr/share/doc/gdm/examples
 	mv debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchApplet.server debian/gdm/usr/lib/bonobo/servers/GNOME_FastUserSwitchAppletGdm.server
+	rm -r debian/gdm/usr/lib/bonobo debian/gdm/usr/share/gnome-2.0 debian/gdm/usr/lib/gdm/gdm-user-switch-applet
 	# install default settings
 	mkdir debian/gdm/var/lib/gdm/.gconf.defaults
 	install -m 664 debian/%gconf-tree.xml debian/gdm/var/lib/gdm/.gconf.defaults

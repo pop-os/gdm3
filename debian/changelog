@@ -1,8 +1,12 @@
 gdm (2.30.5-0ubuntu5) UNRELEASED; urgency=low
 
-  * debian/control: don't b-d on libglade2-dev, it uses gtkbuilder
+  * debian/control: 
+    - don't b-d on libglade2-dev, it uses gtkbuilder
+  * debian/rules:
+    - don't install the user switching applet, upstream is going to stop
+      shipping it in gdm for GNOME3 and Ubuntu already use indicator-session. 
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 07 Oct 2010 18:15:31 +0200
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 09 Nov 2010 13:21:12 +0100
 
 gdm (2.30.5-0ubuntu4) maverick; urgency=low
 
