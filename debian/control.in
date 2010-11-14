@@ -61,7 +61,8 @@ Recommends: zenity,
             at-spi,
             gnome-power-manager (>= 2.28),
             gnome-settings-daemon,
-            gnome-icon-theme
+            gnome-icon-theme,
+            desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
           metacity,
           gnome-mag,
