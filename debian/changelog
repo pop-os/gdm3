@@ -6,6 +6,7 @@ gdm3 (2.30.5-6) UNRELEASED; urgency=low
   * greeter.gconf-defaults: don’t specify the background, it is now set 
     by desktop-base.
   * Recommend desktop-base >= 6 to obtain this background.
+  * Remove moreblue-orbit picture.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 07 Nov 2010 10:23:12 +0100
 
