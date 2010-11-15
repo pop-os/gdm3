@@ -8,7 +8,7 @@ The configuration for the GDM daemon has changed starting with version
 2.26.
 
 For the daemon itself:
- * The autologin options can be choosen from the gdmsetup program.
+ * The autologin options can be chosen from the gdmsetup program.
  * Other options (like XDMCP) can be set in /etc/gdm3/daemon.conf. The 
    list of available options can be found in /usr/share/gdm/gdm.schemas.
 
