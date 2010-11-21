@@ -1,3 +1,10 @@
+gdm3 (2.30.5-7) UNRELEASED; urgency=low
+
+  * gdm3.init: chown the configuration to Debian-gdm, to avoid umask 
+    issues. Closes: #603510.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 21 Nov 2010 10:16:07 +0100
+
 gdm3 (2.30.5-6) unstable; urgency=low
 
   * 11_xephyr_nested.patch: don’t switch VTs from nested displays. It’s 

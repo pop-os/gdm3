@@ -39,6 +39,9 @@ gen_config() {
 	--no-signal \
 	--only-if-changed
   fi
+  if [ -f /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml ]; then
+    chown Debian-gdm:Debian-gdm /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml
+  fi
 }
 
 case "$1" in
