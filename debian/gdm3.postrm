@@ -22,7 +22,7 @@ if [ "$1" = "purge" ] ; then
         fi
         if getent group Debian-gdm >/dev/null; then
                 if [ -x /usr/sbin/delgroup ]; then
-                        delgroup --system Debian-gdm
+                        delgroup --system Debian-gdm || echo "Could not remove Debian-gdm group."
                 fi
         fi
 fi
