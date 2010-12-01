@@ -2,7 +2,7 @@ gdm3 (2.30.5-7) UNRELEASED; urgency=low
 
   * gdm3.init: chown the configuration to Debian-gdm, to avoid umask 
     issues. Closes: #603510.
-  * gdm3.postrm: handle delgroup failures gracefully.
+  * gdm3.postrm: handle deluser/delgroup failures gracefully.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 21 Nov 2010 10:16:07 +0100
 
