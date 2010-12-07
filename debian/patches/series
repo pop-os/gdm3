@@ -1,5 +1,4 @@
 02_x_server_location.patch
-03_hide_system_users.patch
 04_fix_external_program_directories.patch
 05_initial_server_on_vt7.patch
 06_run_xsession.d.patch

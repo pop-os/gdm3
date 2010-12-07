@@ -2,6 +2,7 @@ gdm (2.32.0-0ubuntu1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Drop 01_upower.patch, upstream now.
+  * Drop 03_hide_system_users.patch, fixed upstream in a different way.
   * Drop 07_correct_distribution_version.patch, upstream now.
   * Drop 12_fusa_name_change.patch, obsolete now as we don't install the gdm
     one any more.
