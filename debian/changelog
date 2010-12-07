@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu1) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu1) natty; urgency=low
 
   * New upstream release.
   * Drop 01_upower.patch, upstream now.
@@ -14,7 +14,7 @@ gdm (2.32.0-0ubuntu1) UNRELEASED; urgency=low
   * 08_use_polkit_for_settings.patch: Add missing library linking to
     libgdmcommon, to fix building with --as-needed.
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Dec 2010 14:58:18 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Dec 2010 15:55:34 +0100
 
 gdm (2.30.5-0ubuntu5) natty; urgency=low
 
