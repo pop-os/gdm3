@@ -5,7 +5,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 Index: gdm-2.32.0/common/gdm-settings.c
 ===================================================================
 --- gdm-2.32.0.orig/common/gdm-settings.c	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/common/gdm-settings.c	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/common/gdm-settings.c	2010-12-07 15:34:08.167502002 +0100
 @@ -36,6 +36,7 @@
  #define DBUS_API_SUBJECT_TO_CHANGE
  #include <dbus/dbus-glib.h>
@@ -154,7 +154,7 @@ Index: gdm-2.32.0/common/gdm-settings.c
 Index: gdm-2.32.0/common/gdm-settings.h
 ===================================================================
 --- gdm-2.32.0.orig/common/gdm-settings.h	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/common/gdm-settings.h	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/common/gdm-settings.h	2010-12-07 15:34:08.177502002 +0100
 @@ -23,6 +23,7 @@
  #define __GDM_SETTINGS_H
  
@@ -180,7 +180,7 @@ Index: gdm-2.32.0/common/gdm-settings.h
 Index: gdm-2.32.0/common/gdm-settings.xml
 ===================================================================
 --- gdm-2.32.0.orig/common/gdm-settings.xml	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/common/gdm-settings.xml	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/common/gdm-settings.xml	2010-12-07 15:34:08.177502002 +0100
 @@ -5,7 +5,12 @@
        <arg name="key" direction="in" type="s"/>
        <arg name="value" direction="out" type="s"/>
@@ -196,8 +196,8 @@ Index: gdm-2.32.0/common/gdm-settings.xml
      </method>
 Index: gdm-2.32.0/configure.ac
 ===================================================================
---- gdm-2.32.0.orig/configure.ac	2010-12-07 15:09:59.597502001 +0100
-+++ gdm-2.32.0/configure.ac	2010-12-07 15:10:17.967502001 +0100
+--- gdm-2.32.0.orig/configure.ac	2010-12-07 15:34:08.047502002 +0100
++++ gdm-2.32.0/configure.ac	2010-12-07 15:34:08.177502002 +0100
 @@ -40,6 +40,7 @@
  dnl ---------------------------------------------------------------------------
  
@@ -225,7 +225,7 @@ Index: gdm-2.32.0/configure.ac
 Index: gdm-2.32.0/data/gdm.conf.in
 ===================================================================
 --- gdm-2.32.0.orig/data/gdm.conf.in	2010-09-15 20:58:11.000000000 +0200
-+++ gdm-2.32.0/data/gdm.conf.in	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/data/gdm.conf.in	2010-12-07 15:34:08.177502002 +0100
 @@ -34,8 +34,6 @@
      <deny send_destination="org.gnome.DisplayManager"
            send_interface="org.gnome.DisplayManager.LocalDisplayFactory"/>
@@ -249,7 +249,7 @@ Index: gdm-2.32.0/data/gdm.conf.in
 Index: gdm-2.32.0/data/gdm.policy.in
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/data/gdm.policy.in	2010-12-07 15:10:17.000000000 +0100
++++ gdm-2.32.0/data/gdm.policy.in	2010-12-07 15:34:08.000000000 +0100
 @@ -0,0 +1,18 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<!DOCTYPE policyconfig PUBLIC
@@ -272,7 +272,7 @@ Index: gdm-2.32.0/data/gdm.policy.in
 Index: gdm-2.32.0/data/Makefile.am
 ===================================================================
 --- gdm-2.32.0.orig/data/Makefile.am	2010-09-16 01:44:56.000000000 +0200
-+++ gdm-2.32.0/data/Makefile.am	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/data/Makefile.am	2010-12-07 15:34:08.177502002 +0100
 @@ -46,6 +46,8 @@
  schemas_in_files = gdm.schemas.in
  schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
@@ -314,7 +314,7 @@ Index: gdm-2.32.0/data/Makefile.am
 Index: gdm-2.32.0/po/POTFILES.in
 ===================================================================
 --- gdm-2.32.0.orig/po/POTFILES.in	2010-09-15 20:58:11.000000000 +0200
-+++ gdm-2.32.0/po/POTFILES.in	2010-12-07 15:10:17.967502001 +0100
++++ gdm-2.32.0/po/POTFILES.in	2010-12-07 15:34:08.177502002 +0100
 @@ -49,6 +49,7 @@
  daemon/simple-slave-main.c
  daemon/test-session.c
@@ -323,3 +323,15 @@ Index: gdm-2.32.0/po/POTFILES.in
  data/gdm.schemas.in.in
  data/greeter-autostart/at-spi-registryd-wrapper.desktop.in.in
  data/greeter-autostart/gdm-simple-greeter.desktop.in.in
+Index: gdm-2.32.0/common/Makefile.am
+===================================================================
+--- gdm-2.32.0.orig/common/Makefile.am	2010-12-07 15:34:17.347502002 +0100
++++ gdm-2.32.0/common/Makefile.am	2010-12-07 15:34:42.007502002 +0100
+@@ -112,6 +112,7 @@
+ 	$(NULL)
+ 
+ libgdmcommon_la_LIBADD =		\
++	$(COMMON_LIBS)			\
+ 	$(NULL)
+ 
+ libgdmcommon_la_LDFLAGS = 	\

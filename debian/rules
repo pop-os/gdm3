@@ -11,8 +11,6 @@ DEB_AUTO_UPDATE_AUTOCONF=1
 DEB_AUTO_UPDATE_AUTOHEADER=1
 DEB_AUTO_UPDATE_AUTOMAKE=1.11
 
-#LDFLAGS += -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
-
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper --with-at-spi-registryd-directory=/usr/lib/at-spi --enable-ipv6=yes --with-incomplete-locales
 
 DEB_DH_INSTALLINIT_ARGS = --no-start
