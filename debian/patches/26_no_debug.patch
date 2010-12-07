@@ -1,7 +1,8 @@
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/common/gdm-common.c gdm-2.29.1.new/common/gdm-common.c
---- gdm-2.29.1/common/gdm-common.c	2009-11-16 22:37:43.000000000 +0000
-+++ gdm-2.29.1.new/common/gdm-common.c	2009-12-04 17:16:15.774987257 +0000
-@@ -46,6 +46,7 @@
+Index: gdm-2.32.0/common/gdm-common.c
+===================================================================
+--- gdm-2.32.0.orig/common/gdm-common.c	2010-09-15 20:58:10.000000000 +0200
++++ gdm-2.32.0/common/gdm-common.c	2010-12-07 15:21:02.907502001 +0100
+@@ -47,6 +47,7 @@
  gboolean
  gdm_is_version_unstable (void)
  {
@@ -9,7 +10,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.29.1/common/gdm-common.c gdm-2.29.1.new/comm
          char   **versions;
          gboolean unstable;
  
-@@ -62,6 +63,9 @@
+@@ -63,6 +64,9 @@
          g_strfreev (versions);
  
          return unstable;

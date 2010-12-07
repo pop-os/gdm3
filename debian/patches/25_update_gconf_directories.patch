@@ -1,11 +1,11 @@
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.92/data/gconf.path gdm-2.29.92.new/data/gconf.path
---- gdm-2.29.92/data/gconf.path	2010-03-08 22:53:57.000000000 +0100
-+++ gdm-2.29.92.new/data/gconf.path	2010-03-23 09:33:35.164858194 +0100
-@@ -6,3 +6,9 @@
- # owned by GDM.  Sysadmins should create
- # another source if they wish to override them.
- xml:readonly:$(HOME)/.gconf.mandatory
-+
+Index: gdm-2.32.0/data/gconf.path
+===================================================================
+--- gdm-2.32.0.orig/data/gconf.path	2010-08-27 23:45:29.000000000 +0200
++++ gdm-2.32.0/data/gconf.path	2010-12-07 15:20:49.987502001 +0100
+@@ -10,3 +10,8 @@
+ # Set per-seat configuration directory
+ xml:readwrite:$(HOME)/$(ENV_GDM_SEAT_ID)/.gconf
+ 
 +# user values
 +xml:readwrite:$(HOME)/.gconf
 +

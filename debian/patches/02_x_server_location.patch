@@ -1,37 +1,21 @@
 Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
 Bug: http://bugzilla.gnome.org/show_bug.cgi?id=588848
 
-Index: gdm-2.30.4/configure
+Index: gdm-2.32.0/configure.ac
 ===================================================================
---- gdm-2.30.4.orig/configure	2010-06-29 16:18:17.000000000 +0200
-+++ gdm-2.30.4/configure	2010-06-30 12:27:10.000000000 +0200
-@@ -31902,9 +31902,9 @@
- else
-    # what to do, what to do, this is wrong, but this just sets the
-    # defaults, perhaps this user is cross compiling or some such
--   X_PATH="/usr/bin/X11:/usr/X11R6/bin:/opt/X11R6/bin"
--   X_SERVER_PATH="/usr/X11R6/bin"
--   X_SERVER="/usr/X11R6/bin/X"
-+   X_PATH="/usr/bin"
-+   X_SERVER_PATH="/usr/bin"
-+   X_SERVER="/usr/bin/X"
+--- gdm-2.32.0.orig/configure.ac	2010-09-27 19:05:57.000000000 +0200
++++ gdm-2.32.0/configure.ac	2010-12-07 15:03:45.297502001 +0100
+@@ -1161,12 +1161,9 @@
+    X_SERVER="/usr/bin/X"
     X_CONFIG_OPTIONS="-audit 0"
+ else
+-   # what to do, what to do, this is wrong, but this just sets the
+-   # defaults, perhaps this user is cross compiling or some such
+-   X_PATH="/usr/bin/X11:/usr/X11R6/bin:/opt/X11R6/bin"
++   X_PATH="/usr/bin"
+    X_SERVER_PATH="/usr/bin"
+    X_SERVER="/usr/bin/X"
+-   X_CONFIG_OPTIONS="-audit 0"
  fi
  
-Index: gdm-2.30.4/configure.ac
-===================================================================
---- gdm-2.30.4.orig/configure.ac	2010-06-29 15:42:25.000000000 +0200
-+++ gdm-2.30.4/configure.ac	2010-06-30 12:27:10.000000000 +0200
-@@ -1160,9 +1160,9 @@
- else
-    # what to do, what to do, this is wrong, but this just sets the
-    # defaults, perhaps this user is cross compiling or some such
--   X_PATH="/usr/bin/X11:/usr/X11R6/bin:/opt/X11R6/bin"
--   X_SERVER_PATH="/usr/X11R6/bin"
--   X_SERVER="/usr/X11R6/bin/X"
-+   X_PATH="/usr/bin"
-+   X_SERVER_PATH="/usr/bin"
-+   X_SERVER="/usr/bin/X"
-    X_CONFIG_OPTIONS="-audit 0"
- fi
- 
+ dnl ---------------------------------------------------------------------------

@@ -2,6 +2,14 @@ gdm (2.32.0-0ubuntu1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Drop 01_upower.patch, upstream now.
+  * Drop 07_correct_distribution_version.patch, upstream now.
+  * Drop 12_fusa_name_change.patch, obsolete now as we don't install the gdm
+    one any more.
+  * Drop 18_locale_env_vars.patch, upstream now.
+  * Drop 24_system_uid.patch; upstream handles this more dynamically now, and
+    we really want to show users with an ID of < 1000 (but >= 500).
+  * Drop 90_git_name_escaping.patch, upstream now.
+  * Update all other patches to cleanly apply to new upstream version.
 
  -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 07 Dec 2010 14:58:18 +0100
 

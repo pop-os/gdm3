@@ -1,9 +1,9 @@
 Description: Don't catch crashes so apport can do its job
 
-Index: gdm-2.30.4/daemon/factory-slave-main.c
+Index: gdm-2.32.0/daemon/factory-slave-main.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/factory-slave-main.c	2010-06-26 00:09:31.000000000 +0200
-+++ gdm-2.30.4/daemon/factory-slave-main.c	2010-06-30 12:38:45.000000000 +0200
+--- gdm-2.32.0.orig/daemon/factory-slave-main.c	2010-09-15 20:58:10.000000000 +0200
++++ gdm-2.32.0/daemon/factory-slave-main.c	2010-12-07 15:11:11.327502001 +0100
 @@ -231,7 +231,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
@@ -13,10 +13,10 @@ Index: gdm-2.30.4/daemon/factory-slave-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-2.30.4/daemon/product-slave-main.c
+Index: gdm-2.32.0/daemon/product-slave-main.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/product-slave-main.c	2010-06-26 00:09:31.000000000 +0200
-+++ gdm-2.30.4/daemon/product-slave-main.c	2010-06-30 12:38:45.000000000 +0200
+--- gdm-2.32.0.orig/daemon/product-slave-main.c	2010-09-15 20:58:10.000000000 +0200
++++ gdm-2.32.0/daemon/product-slave-main.c	2010-12-07 15:11:11.327502001 +0100
 @@ -235,7 +235,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
@@ -26,11 +26,11 @@ Index: gdm-2.30.4/daemon/product-slave-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-2.30.4/daemon/session-worker-main.c
+Index: gdm-2.32.0/daemon/session-worker-main.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/session-worker-main.c	2010-06-25 23:22:23.000000000 +0200
-+++ gdm-2.30.4/daemon/session-worker-main.c	2010-06-30 12:38:45.000000000 +0200
-@@ -194,7 +194,7 @@
+--- gdm-2.32.0.orig/daemon/session-worker-main.c	2010-09-15 20:58:11.000000000 +0200
++++ gdm-2.32.0/daemon/session-worker-main.c	2010-12-07 15:11:11.327502001 +0100
+@@ -196,7 +196,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -39,10 +39,10 @@ Index: gdm-2.30.4/daemon/session-worker-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
  
-Index: gdm-2.30.4/daemon/simple-slave-main.c
+Index: gdm-2.32.0/daemon/simple-slave-main.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/simple-slave-main.c	2010-06-26 00:09:31.000000000 +0200
-+++ gdm-2.30.4/daemon/simple-slave-main.c	2010-06-30 12:38:45.000000000 +0200
+--- gdm-2.32.0.orig/daemon/simple-slave-main.c	2010-09-15 20:58:11.000000000 +0200
++++ gdm-2.32.0/daemon/simple-slave-main.c	2010-12-07 15:11:11.337502001 +0100
 @@ -243,7 +243,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
@@ -52,10 +52,10 @@ Index: gdm-2.30.4/daemon/simple-slave-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-2.30.4/daemon/xdmcp-chooser-slave-main.c
+Index: gdm-2.32.0/daemon/xdmcp-chooser-slave-main.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/xdmcp-chooser-slave-main.c	2010-06-26 00:09:31.000000000 +0200
-+++ gdm-2.30.4/daemon/xdmcp-chooser-slave-main.c	2010-06-30 12:38:45.000000000 +0200
+--- gdm-2.32.0.orig/daemon/xdmcp-chooser-slave-main.c	2010-09-15 20:58:11.000000000 +0200
++++ gdm-2.32.0/daemon/xdmcp-chooser-slave-main.c	2010-12-07 15:11:11.337502001 +0100
 @@ -237,7 +237,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
