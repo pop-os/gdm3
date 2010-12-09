@@ -17,7 +17,7 @@ Index: gdm-2.32.0/data/Xsession.in
 +ALTUSERXSESSION=$HOME/.Xsession
 +if [ -d /etc/X11/Xsession.d ]; then
 +    for i in `ls /etc/X11/Xsession.d/` ; do
-+        if [ -r "/etc/X11/Xsession.d/$i" ] && expr "$i" : '^[[:alnum:]_-]\+$' > /dev/null; then
++        if [ -r "/etc/X11/Xsession.d/$i"  -a -f "/etc/X11/Xsession.d/$i" ] && expr "$i" : '^[[:alnum:]_-]\+$' > /dev/null; then
 +	    . "/etc/X11/Xsession.d/$i"
 +        fi
 +    done
