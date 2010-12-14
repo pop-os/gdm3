@@ -1,3 +1,17 @@
+gdm (2.32.0-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/patches/35_langlist_and_lsmess_dmrc_fields.patch:
+    - Addition of the fields "Langlist" and "LCMess", which make ~/.dmrc
+      and /var/cache/gdm/$USER/dmrc able to store the user language
+      environment (LP: #553162).
+  * debian/patches/36_language_environment_settings.patch:
+    - Changes to Xsession's way to use GDM_LANG. It now sets LANGUAGE
+      and LC_MESSAGES, which makes it possible to keep the user language
+      for message translation apart from other locale settings
+      (LP: #553162).
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Tue, 14 Dec 2010 12:31:00 +0100
+
 gdm (2.32.0-0ubuntu2) UNRELEASED; urgency=low
 
   * 06_run_xsession.d.patch: Don't trip over directories and other non-files

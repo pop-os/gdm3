@@ -1,0 +1,84 @@
+Description: Alters the way Xsession handles language settings.
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/553162
+Forwarded: not-needed
+Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
+
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
+--- gdm-2.32.0//data/Xsession.in	2010-12-13 01:15:58.729481000 +0100
++++ gdm-2.32.0.new//data/Xsession.in	2010-12-13 01:25:42.106441002 +0100
+@@ -146,11 +146,70 @@
+ 
+ unset XKB_IN_USE
+ 
+-# Overwrite $LANG from /etc/profile (and friends) with the one picked in the
+-# greeter
+-if [ -n "$GDM_LANG" ]; then
+-  LANG="$GDM_LANG"
+-  export LANG
++language_environment_update() {
++    if [ -z "$langlist" ] || [ $gdm_selected != ${langlist%%:*} ]; then
++        # make the first value in the LANGUAGE priority list correspond
++        # with the language selected in the GDM greeter
++        if [ -n "$langlist" -a ${gdm_selected%_*} != 'en' ]; then
++            if expr $langlist : ".*:$gdm_selected:" > /dev/null ; then
++                langlist=$( echo $langlist | sed -r "s/(.+:)($gdm_selected:)/\2\1/" )
++            else
++                langlist=$gdm_selected:$langlist
++            fi
++        else
++            # build list with 'en' as the last element
++            # no other languages if English was selected
++            langlist=$gdm_selected
++            langcode=${langlist%_*}
++            [ $langlist != $langcode ] && langlist=$langlist:$langcode
++            [ $langcode != 'en' ] && langlist=$langlist:en_GB:en
++        fi
++    fi
++
++    # set LC_MESSAGES for applications that don't recognize LANGUAGE
++    lcmess=
++    locales=$( locale -a | grep -F .utf8 )
++    if expr "$locales" : ".*$gdm_selected.utf8" > /dev/null ; then
++        lcmess=$gdm_selected.utf8
++    else
++        for loc in $locales; do
++            if [ $gdm_selected = ${loc%_*} ]; then
++                lcmess=$loc
++                break
++            fi
++        done
++    fi
++    test -n "$lcmess" || lcmess='en_GB.utf8'
++
++    dmrc_update() {
++        key=$1; value=$2
++        if [ "$( grep -F $key $dmrc )" ]; then
++            sed -i "s/$key.*/$key=$value/" $dmrc
++        else
++            echo "$key=$value" >> $dmrc
++        fi
++    }
++    dmrc_update 'Langlist' $langlist
++    dmrc_update 'LCMess' $lcmess
++}
++
++# read /var/cache/gdm/$USER/dmrc and set LANGUAGE and LC_MESSAGES
++if [ -n "$GDM_LANG" -a $GDMSESSION != 'guest-restricted' ]; then
++    gdm_selected=${GDM_LANG%.*}
++    dmrc=/var/cache/gdm/$USER/dmrc
++    test -f "$dmrc" || {
++        echo "\n[Desktop]\nLanguage=$gdm_selected.utf8" > $dmrc
++    }
++    line=$( grep -F Langlist $dmrc )
++    langlist=${line#*=}
++    line=$( grep -F LCMess $dmrc )
++    lcmess=${line#*=}
++    if [ -z "$langlist" -o -z "$lcmess" ] || [ $gdm_selected != ${langlist%%:*} ]; then
++        # If the user changed language, update the env. values and edit the cache file.
++        language_environment_update
++    fi
++    export LANGUAGE="$langlist"
++    export LC_MESSAGES="$lcmess"
+ fi
+ 
+ # run all system xinitrc shell scripts.
