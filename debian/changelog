@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu2) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu2) natty; urgency=low
 
   [ Martin Pitt ]
   * 06_run_xsession.d.patch: Don't trip over directories and other non-files
@@ -15,7 +15,7 @@ gdm (2.32.0-0ubuntu2) UNRELEASED; urgency=low
       for message translation apart from other locale settings
       (LP: #553162).
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 09 Dec 2010 17:21:11 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 14 Dec 2010 22:24:40 +0100
 
 gdm (2.32.0-0ubuntu1) natty; urgency=low
 
