@@ -4,8 +4,8 @@ Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
---- gdm-2.32.0//data/Xsession.in	2010-12-13 01:15:58.729481000 +0100
-+++ gdm-2.32.0.new//data/Xsession.in	2010-12-13 01:25:42.106441002 +0100
+--- gdm-2.32.0//data/Xsession.in	2010-12-14 23:00:31.465906000 +0100
++++ gdm-2.32.0.new//data/Xsession.in	2010-12-14 23:05:37.925906000 +0100
 @@ -146,11 +146,70 @@
  
  unset XKB_IN_USE
@@ -69,10 +69,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +    test -f "$dmrc" || {
 +        echo "\n[Desktop]\nLanguage=$gdm_selected.utf8" > $dmrc
 +    }
-+    line=$( grep -F Langlist $dmrc )
-+    langlist=${line#*=}
-+    line=$( grep -F LCMess $dmrc )
-+    lcmess=${line#*=}
++    while read line; do
++        [ "${line%=*}" = 'Langlist' ] && langlist=${line#*=}
++        [ "${line%=*}" = 'LCMess' ] && lcmess=${line#*=}
++    done < $dmrc
 +    if [ -z "$langlist" -o -z "$lcmess" ] || [ $gdm_selected != ${langlist%%:*} ]; then
 +        # If the user changed language, update the env. values and edit the cache file.
 +        language_environment_update
