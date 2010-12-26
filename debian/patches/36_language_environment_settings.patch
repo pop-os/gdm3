@@ -4,9 +4,9 @@ Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
---- gdm-2.32.0//data/Xsession.in	2010-12-14 23:00:31.465906000 +0100
-+++ gdm-2.32.0.new//data/Xsession.in	2010-12-14 23:05:37.925906000 +0100
-@@ -146,11 +146,70 @@
+--- gdm-2.32.0//data/Xsession.in	2010-12-21 16:05:35.622679001 +0100
++++ gdm-2.32.0.new//data/Xsession.in	2010-12-24 06:23:01.552679001 +0100
+@@ -146,11 +146,78 @@
  
  unset XKB_IN_USE
  
@@ -19,7 +19,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +    if [ -z "$langlist" ] || [ $gdm_selected != ${langlist%%:*} ]; then
 +        # make the first value in the LANGUAGE priority list correspond
 +        # with the language selected in the GDM greeter
-+        if [ -n "$langlist" -a ${gdm_selected%_*} != 'en' ]; then
++        if [ -n "$langlist" -a ${gdm_selected%%[_@]*} != 'en' ]; then
 +            if expr $langlist : ".*:$gdm_selected:" > /dev/null ; then
 +                langlist=$( echo $langlist | sed -r "s/(.+:)($gdm_selected:)/\2\1/" )
 +            else
@@ -29,7 +29,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +            # build list with 'en' as the last element
 +            # no other languages if English was selected
 +            langlist=$gdm_selected
-+            langcode=${langlist%_*}
++            langcode=${gdm_selected%%[_@]*}
 +            [ $langlist != $langcode ] && langlist=$langlist:$langcode
 +            [ $langcode != 'en' ] && langlist=$langlist:en_GB:en
 +        fi
@@ -38,11 +38,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +    # set LC_MESSAGES for applications that don't recognize LANGUAGE
 +    lcmess=
 +    locales=$( locale -a | grep -F .utf8 )
-+    if expr "$locales" : ".*$gdm_selected.utf8" > /dev/null ; then
-+        lcmess=$gdm_selected.utf8
-+    else
++    for loc in $locales; do
++        if [ $gdm_selected = "${loc%.*}${loc#*.utf8}" ]; then
++            lcmess=$loc
++            break
++        fi
++    done
++    if [ -z "$lcmess" ]; then
 +        for loc in $locales; do
-+            if [ $gdm_selected = ${loc%_*} ]; then
++            if [ ${gdm_selected%%[_@]*} = ${loc%%[._@]*} ]; then
 +                lcmess=$loc
 +                break
 +            fi
@@ -64,16 +68,34 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +
 +# read /var/cache/gdm/$USER/dmrc and set LANGUAGE and LC_MESSAGES
 +if [ -n "$GDM_LANG" -a $GDMSESSION != 'guest-restricted' ]; then
-+    gdm_selected=${GDM_LANG%.*}
++    if [ $GDM_LANG != ${GDM_LANG%.utf8*} ]; then
++        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.utf8}
++    else
++        gdm_selected=$GDM_LANG
++    fi
 +    dmrc=/var/cache/gdm/$USER/dmrc
 +    test -f "$dmrc" || {
-+        echo "\n[Desktop]\nLanguage=$gdm_selected.utf8" > $dmrc
++        echo "\n[Desktop]\nLanguage=$GDM_LANG" > $dmrc
 +    }
 +    while read line; do
 +        [ "${line%=*}" = 'Langlist' ] && langlist=${line#*=}
 +        [ "${line%=*}" = 'LCMess' ] && lcmess=${line#*=}
 +    done < $dmrc
-+    if [ -z "$langlist" -o -z "$lcmess" ] || [ $gdm_selected != ${langlist%%:*} ]; then
++    if [ -z "$langlist" -a -z "$lcmess" ]; then
++        # Both fields empty => we assume that this is $USER's first login since upgrading
++        # from a pre 2.32.0-0ubuntu2 GDM version, so we fake $gdm_selected in an attempt to
++        # get the language environment right from start and prevent an undesired surprise.
++        if [ -n "$LANGUAGE" ]; then
++            gdm_selected=${LANGUAGE%%:*}
++            greeter_value=$( echo $gdm_selected | sed -r 's/([^@]+)(.*)/\1.utf8\2/' )
++            if [ "$( grep -F Language $dmrc )" ]; then
++                sed -i "s/Language=.*/Language=$greeter_value/" $dmrc
++            else
++                echo "Language=$greeter_value" >> $dmrc
++            fi
++        fi
++    fi
++    if [ -z "$langlist" ] || [ $gdm_selected != ${langlist%%:*} ]; then
 +        # If the user changed language, update the env. values and edit the cache file.
 +        language_environment_update
 +    fi
