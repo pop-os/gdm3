@@ -3,10 +3,11 @@ Bug-Ubuntu: https://bugs.launchpad.net/bugs/553162
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
---- gdm-2.32.0//data/Xsession.in	2010-12-21 16:05:35.622679001 +0100
-+++ gdm-2.32.0.new//data/Xsession.in	2010-12-24 06:23:01.552679001 +0100
-@@ -146,11 +146,78 @@
+Index: gdm-2.32.0/data/Xsession.in
+===================================================================
+--- gdm-2.32.0.orig/data/Xsession.in	2010-12-26 13:36:58.670636000 +0100
++++ gdm-2.32.0/data/Xsession.in	2010-12-26 13:37:44.600635999 +0100
+@@ -146,11 +146,92 @@
  
  unset XKB_IN_USE
  
