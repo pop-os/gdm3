@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu4) natty; urgency=low
 
   * debian/control.in:
     - updated the gtk requirement to the version having the new api required
@@ -14,7 +14,7 @@ gdm (2.32.0-0ubuntu4) UNRELEASED; urgency=low
   * debian/patches/37_disable_resize_grip.patch:
     - disable the grips on the gdm screen (lp: #704018)
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Jan 2011 11:17:13 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Jan 2011 11:33:33 +0100
 
 gdm (2.32.0-0ubuntu2) natty; urgency=low
 
