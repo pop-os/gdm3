@@ -24,3 +24,4 @@
 34_disable_a11y_default.patch
 35_langlist_and_lsmess_dmrc_fields.patch
 36_language_environment_settings.patch
+37_disable_resize_grip.patch

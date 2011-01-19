@@ -1,12 +1,17 @@
-gdm (2.32.0-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu4) UNRELEASED; urgency=low
 
+  [ Gunnar Hjalmarsson ]
   * debian/patches/36_language_environment_settings.patch:
     - grep() calls replaced for efficiency purposes
     - ability to deal with @variants in locale names
     - attempt to set the language fields in /var/cache/gdm/$USER/dmrc at
       first login after upgrade from GDM version pre 2.32.0-0ubuntu2
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Fri, 24 Dec 2010 06:29:00 +0100
+  [ Cody Russell ]
+  * debian/patches/37_disable_resize_grip.patch:
+    - disable the grips on the gdm screen (lp: #704018)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Jan 2011 11:15:00 +0100
 
 gdm (2.32.0-0ubuntu2) natty; urgency=low
 
