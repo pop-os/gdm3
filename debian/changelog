@@ -1,5 +1,8 @@
 gdm (2.32.0-0ubuntu4) UNRELEASED; urgency=low
 
+  * debian/control.in:
+    - updated the gtk requirement to the version having the new api required
+
   [ Gunnar Hjalmarsson ]
   * debian/patches/36_language_environment_settings.patch:
     - grep() calls replaced for efficiency purposes
@@ -11,7 +14,7 @@ gdm (2.32.0-0ubuntu4) UNRELEASED; urgency=low
   * debian/patches/37_disable_resize_grip.patch:
     - disable the grips on the gdm screen (lp: #704018)
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Jan 2011 11:15:00 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Jan 2011 11:17:13 +0100
 
 gdm (2.32.0-0ubuntu2) natty; urgency=low
 
