@@ -1,8 +1,13 @@
 gdm3 (2.30.5-7) UNRELEASED; urgency=low
 
+  [ Josselin Mouette ]
   * gdm3.init: chown the configuration to Debian-gdm, to avoid umask 
     issues. Closes: #603510.
   * gdm3.postrm: handle deluser/delgroup failures gracefully.
+
+  [ Emilio Pozuelo Monfort ]
+  * debian/gdm3.8.pod:
+    + Fix typo, thanks Yury V. Zaytsev. Closes: #610723.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 21 Nov 2010 10:16:07 +0100
 

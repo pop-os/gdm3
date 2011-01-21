@@ -32,7 +32,7 @@ B<gdm3> maintains information about the displays it is managing in
 F</var/lib/gdm3>. This includes xauth information, so this directory
 is not readable to normal users.
 
-B<gdm"> uses PAM to perform authentication using the config file
+B<gdm3> uses PAM to perform authentication using the config file
 F</etc/pam.d/gdm3>.
 
 =head1 AUTHOR
