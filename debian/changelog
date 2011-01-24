@@ -1,3 +1,10 @@
+gdm (2.32.0-0ubuntu5) UNRELEASED; urgency=low
+
+  * Add 38_user_chooser_focus.patch: Correctly give focus to the user chooser
+    on startup. Patch by Vincent Untz, merci! (LP: #687440)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 24 Jan 2011 16:41:16 +0100
+
 gdm (2.32.0-0ubuntu4) natty; urgency=low
 
   * debian/control.in:
