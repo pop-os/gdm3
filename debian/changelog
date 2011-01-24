@@ -5,6 +5,8 @@ gdm3 (2.30.5-7) UNRELEASED; urgency=low
     issues. Closes: #603510.
   * gdm3.postrm: handle deluser/delgroup failures gracefully.
     Closes: #603753.
+  * 29_grep_path.patch: new patch. Don’t hardcode grep to a wrong 
+    location. Closes: #607664.
 
   [ Emilio Pozuelo Monfort ]
   * debian/gdm3.8.pod:
