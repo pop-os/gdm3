@@ -12,7 +12,8 @@ start on (filesystem
                or stopped udevtrigger))
 stop on runlevel [016]
 
-emits starting-dm
+emits login-session-start
+emits desktop-session-start
 
 env XORGCONFIG=/etc/X11/xorg.conf
 
