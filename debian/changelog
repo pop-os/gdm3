@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu5) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu5) natty; urgency=low
 
   [ Martin Pitt ]
   * Add 38_user_chooser_focus.patch: Correctly give focus to the user chooser
@@ -9,7 +9,7 @@ gdm (2.32.0-0ubuntu5) UNRELEASED; urgency=low
     previous commit) and add login-session-start and desktop-session-start
     events (LP: #706842).
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 24 Jan 2011 16:41:16 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 24 Jan 2011 17:14:25 +0100
 
 gdm (2.32.0-0ubuntu4) natty; urgency=low
 
