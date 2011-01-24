@@ -7,6 +7,8 @@ gdm3 (2.30.5-7) UNRELEASED; urgency=low
     Closes: #603753.
   * 29_grep_path.patch: new patch. Don’t hardcode grep to a wrong 
     location. Closes: #607664.
+  * 30_utf8_locale.patch: new patch. Pass locale.UTF-8 instead of 
+    locale.utf8. Closes: #607753.
 
   [ Emilio Pozuelo Monfort ]
   * debian/gdm3.8.pod:

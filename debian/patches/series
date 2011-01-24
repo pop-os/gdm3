@@ -29,4 +29,5 @@
 27_orca_braille.patch
 28_beep.patch
 29_grep_path.patch
+30_utf8_locale.patch
 90_relibtoolize.patch
