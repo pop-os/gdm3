@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu6) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu6) natty; urgency=low
 
   * Backported some changes from Debian
   * debian/patches/39_grep_path.patch:
@@ -6,7 +6,7 @@ gdm (2.32.0-0ubuntu6) UNRELEASED; urgency=low
   * debian/gdm.postrm:
     - correctly deal with uninstalls while gdm is still running (lp: #613150)
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 25 Jan 2011 16:22:20 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 25 Jan 2011 16:53:46 +0100
 
 gdm (2.32.0-0ubuntu5) natty; urgency=low
 
