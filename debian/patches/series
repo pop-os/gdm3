@@ -27,3 +27,4 @@
 37_disable_resize_grip.patch
 38_user_chooser_focus.patch
 39_grep_path.patch
+40_system_user_uid.patch
