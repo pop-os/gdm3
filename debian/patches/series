@@ -13,6 +13,7 @@
 17_use_timed_login_after_autologin.patch
 19_no_greeter_for_autologin.patch
 20_upstart.patch
+24_respect_system_minuid.patch
 25_update_gconf_directories.patch
 26_no_debug.patch
 27_save_root_window.patch
