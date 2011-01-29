@@ -3,11 +3,10 @@ Bug-Ubuntu: https://bugs.launchpad.net/bugs/553162
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-Index: gdm-2.32.0/data/Xsession.in
-===================================================================
---- gdm-2.32.0.orig/data/Xsession.in	2010-12-26 13:36:58.670636000 +0100
-+++ gdm-2.32.0/data/Xsession.in	2010-12-26 13:37:44.600635999 +0100
-@@ -146,11 +146,92 @@
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
+--- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
++++ gdm-2.32.0.new//data/Xsession.in	2011-01-25 11:09:46.166135000 +0100
+@@ -146,11 +146,128 @@
  
  unset XKB_IN_USE
  
@@ -17,10 +16,11 @@ Index: gdm-2.32.0/data/Xsession.in
 -  LANG="$GDM_LANG"
 -  export LANG
 +language_environment_update() {
++    langcode=${gdm_selected%%[_@]*}
 +    if [ -z "$langlist" ] || [ $gdm_selected != ${langlist%%:*} ]; then
 +        # make the first value in the LANGUAGE priority list correspond
 +        # with the language selected in the GDM greeter
-+        if [ -n "$langlist" -a ${gdm_selected%%[_@]*} != 'en' ]; then
++        if [ -n "$langlist" -a $langcode != 'en' ]; then
 +            if expr $langlist : ".*:$gdm_selected:" > /dev/null ; then
 +                langlist=$( echo $langlist | sed -r "s/(.+:)($gdm_selected:)/\2\1/" )
 +            else
@@ -30,30 +30,60 @@ Index: gdm-2.32.0/data/Xsession.in
 +            # build list with 'en' as the last element
 +            # no other languages if English was selected
 +            langlist=$gdm_selected
-+            langcode=${gdm_selected%%[_@]*}
-+            [ $langlist != $langcode ] && langlist=$langlist:$langcode
-+            [ $langcode != 'en' ] && langlist=$langlist:en_GB:en
++            [ $langlist != 'en' ] && langlist=$langlist:en
 +        fi
 +    fi
 +
 +    # set LC_MESSAGES for applications that don't recognize LANGUAGE
++    #
 +    lcmess=
-+    locales=$( locale -a | grep -F .utf8 )
++    locales=
++    # skip locales for other languages
++    for loc in $( locale -a | grep -F .utf8 ); do
++        if [ $langcode = ${loc%%[._@]*} ]; then
++            locales=$locales" $loc"
++        fi
++    done
++    # exact match
 +    for loc in $locales; do
 +        if [ $gdm_selected = "${loc%.*}${loc#*.utf8}" ]; then
 +            lcmess=$loc
 +            break
 +        fi
 +    done
-+    if [ -z "$lcmess" ]; then
-+        for loc in $locales; do
-+            if [ ${gdm_selected%%[_@]*} = ${loc%%[._@]*} ]; then
-+                lcmess=$loc
-+                break
++    if [ -z "$lcmess" -a $gdm_selected = ${gdm_selected%_*} ]; then
++        # try the "main" country code if any
++        main_countries=/usr/share/language-selector/data/main-countries
++        test -f $main_countries && {
++            main_country=
++            while read line; do
++                if [ "${line%%[[:space:]]*}" = $langcode ]; then
++                    main_country=${line##*[[:space:]]}
++                    if [ $langcode != ${gdm_selected#*@} ]; then
++                        main_country=$main_country@${gdm_selected#*@}
++                    fi
++                    break
++                fi
++            done < $main_countries
++            if [ -n "$main_country" ]; then
++                for loc in $locales; do
++                    if [ $main_country = "${loc%.*}${loc#*.utf8}" ]; then
++                        lcmess=$loc
++                        break
++                    fi
++                done
 +            fi
-+        done
++        }
++        # try out fitting locale with any country code
++        if [ -z "$lcmess" ]; then
++            for loc in $locales; do
++                if [ $langcode = ${loc%%[._@]*} ]; then
++                    lcmess=$loc
++                    break
++                fi
++            done
++        fi
 +    fi
-+    test -n "$lcmess" || lcmess='en_GB.utf8'
 +
 +    dmrc_update() {
 +        key=$1; value=$2
@@ -101,7 +131,12 @@ Index: gdm-2.32.0/data/Xsession.in
 +        language_environment_update
 +    fi
 +    export LANGUAGE="$langlist"
-+    export LC_MESSAGES="$lcmess"
++    if [ -n "$lcmess" ]; then
++        export LC_MESSAGES="$lcmess"
++    else
++        # fall back to LANG if no fitting locale was found
++        unset LC_MESSAGES
++    fi
  fi
  
  # run all system xinitrc shell scripts.
