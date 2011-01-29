@@ -1,0 +1,50 @@
+Description: Reduces the list of language options on the greeter to one option per translation.
+Bug-Ubuntu: https://launchpad.net/bugs/408474
+Forwarded: not-needed
+Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
+
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c
+--- gdm-2.32.0//gui/simple-greeter/gdm-languages.c	2010-09-16 02:13:07.000000000 +0200
++++ gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c	2011-01-29 17:08:59.540678001 +0100
+@@ -1018,6 +1018,7 @@
+         char *language_code;
+         char *territory_code;
+         char *codeset_code;
++        char *modifier;
+         char *langinfo_codeset;
+         char *translated_language;
+         char *translated_territory;
+@@ -1040,12 +1041,13 @@
+         language_code = NULL;
+         territory_code = NULL;
+         codeset_code = NULL;
++        modifier = NULL;
+ 
+         gdm_parse_language_name (name,
+                                  &language_code,
+                                  &territory_code,
+                                  &codeset_code,
+-                                 NULL);
++                                 &modifier);
+ 
+         if (language_code == NULL) {
+                 goto out;
+@@ -1067,6 +1069,10 @@
+                                         translated_territory);
+         }
+ 
++        if (modifier != NULL) {
++                g_string_append_printf (full_language, " - %s", modifier);
++        }
++
+         language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
+ 
+         if (codeset_code == NULL && langinfo_codeset != NULL) {
+@@ -1083,6 +1089,7 @@
+        g_free (language_code);
+        g_free (territory_code);
+        g_free (codeset_code);
++       g_free (modifier);
+        g_free (langinfo_codeset);
+        g_free (translated_language);
+        g_free (translated_territory);
