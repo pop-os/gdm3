@@ -5,8 +5,21 @@ Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c
 --- gdm-2.32.0//gui/simple-greeter/gdm-languages.c	2010-09-16 02:13:07.000000000 +0200
-+++ gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c	2011-01-29 17:08:59.540678001 +0100
-@@ -1018,6 +1018,7 @@
++++ gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c	2011-01-29 17:14:06.610678002 +0100
+@@ -377,12 +377,6 @@
+                 name = g_strdup (language_name);
+         }
+ 
+-        if (!language_name_is_valid (name)) {
+-                g_debug ("Ignoring '%s' as a locale, since it's invalid", name);
+-                g_free (name);
+-                return FALSE;
+-        }
+-
+         locale = g_new0 (GdmLocale, 1);
+         gdm_parse_language_name (name,
+                                  &locale->language_code,
+@@ -1018,6 +1012,7 @@
          char *language_code;
          char *territory_code;
          char *codeset_code;
@@ -14,7 +27,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm
          char *langinfo_codeset;
          char *translated_language;
          char *translated_territory;
-@@ -1040,12 +1041,13 @@
+@@ -1040,12 +1035,13 @@
          language_code = NULL;
          territory_code = NULL;
          codeset_code = NULL;
@@ -29,7 +42,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm
  
          if (language_code == NULL) {
                  goto out;
-@@ -1067,6 +1069,10 @@
+@@ -1067,6 +1063,10 @@
                                          translated_territory);
          }
  
@@ -40,7 +53,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm
          language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
  
          if (codeset_code == NULL && langinfo_codeset != NULL) {
-@@ -1083,6 +1089,7 @@
+@@ -1083,6 +1083,7 @@
         g_free (language_code);
         g_free (territory_code);
         g_free (codeset_code);
