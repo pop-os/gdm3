@@ -5,8 +5,8 @@ Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
 --- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0.new//data/Xsession.in	2011-01-25 11:09:46.166135000 +0100
-@@ -146,11 +146,128 @@
++++ gdm-2.32.0.new//data/Xsession.in	2011-01-30 13:11:33.948601001 +0100
+@@ -146,11 +146,127 @@
  
  unset XKB_IN_USE
  
@@ -118,11 +118,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +        # get the language environment right from start and prevent an undesired surprise.
 +        if [ -n "$LANGUAGE" ]; then
 +            gdm_selected=${LANGUAGE%%:*}
-+            greeter_value=$( echo $gdm_selected | sed -r 's/([^@]+)(.*)/\1.utf8\2/' )
 +            if [ "$( grep -F Language $dmrc )" ]; then
-+                sed -i "s/Language=.*/Language=$greeter_value/" $dmrc
++                sed -i "s/Language=.*/Language=$gdm_selected/" $dmrc
 +            else
-+                echo "Language=$greeter_value" >> $dmrc
++                echo "Language=$gdm_selected" >> $dmrc
 +            fi
 +        fi
 +    fi
