@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu7) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu7) natty; urgency=low
 
   [ Gunnar Hjalmarsson ]
   * debian/patches/40_one_lang_option_per_translation.patch:
@@ -18,7 +18,7 @@ gdm (2.32.0-0ubuntu7) UNRELEASED; urgency=low
   * Restore 24_respect_system_minuid.patch: upstream does not handle
     reading login.defs yet (LP: #708911).
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Tue, 01 Feb 2011 05:58:00 +0100
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Thu, 10 Feb 2011 10:07:31 +0100
 
 gdm (2.32.0-0ubuntu6) natty; urgency=low
 
