@@ -28,3 +28,4 @@
 37_disable_resize_grip.patch
 38_user_chooser_focus.patch
 39_grep_path.patch
+40_one_lang_option_per_translation.patch

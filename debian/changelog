@@ -1,9 +1,24 @@
 gdm (2.32.0-0ubuntu7) UNRELEASED; urgency=low
 
+  [ Gunnar Hjalmarsson ]
+  * debian/patches/40_one_lang_option_per_translation.patch:
+    - The option list in the language chooser changed so the items
+      represent available translations instead of locales
+      (LP: #693337).
+    - setlocale() validation removed (not applicable).
+    - Show locale variants in the list of language options
+      (LP: #408474).
+  * debian/patches/36_language_environment_settings.patch:
+    - Skip the encoding part in the dmrc "Language" value. It's not
+      a locale name, so let's not give the impression it is.
+    - Take main country code into account when generating
+      a locale name for LC_MESSAGES.
+
+  [ Kees Cook ]
   * Restore 24_respect_system_minuid.patch: upstream does not handle
     reading login.defs yet (LP: #708911).
 
- -- Kees Cook <kees@ubuntu.com>  Fri, 28 Jan 2011 13:10:08 -0800
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Tue, 01 Feb 2011 05:58:00 +0100
 
 gdm (2.32.0-0ubuntu6) natty; urgency=low
 

@@ -1,0 +1,180 @@
+Description: Reduces the list of language options on the greeter to one option per translation.
+Bug-Ubuntu: https://launchpad.net/bugs/408474, https://launchpad.net/bugs/693337
+Forwarded: not-needed
+Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
+
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/language-options gdm-2.32.0.new//data/language-options
+--- gdm-2.32.0//data/language-options	1970-01-01 01:00:00.000000000 +0100
++++ gdm-2.32.0.new//data/language-options	2011-02-01 05:53:54.203277002 +0100
+@@ -0,0 +1,63 @@
++#!/usr/bin/perl
++use strict;
++use warnings;
++
++# get the locales available on the system
++my @avail_locales = map { chomp; s/\.utf8//; $_ } qx( locale -a | grep -F .utf8 );
++
++# add items without country code to facilitate lookups
++my %extended_localelist;
++for my $loc (@avail_locales) {
++    ( my $lang = $loc ) =~ s/_[A-Z]+//;
++    @extended_localelist{$loc, $lang} = (1, 1);
++}
++
++# get the union of /usr/share/locale-langpack and /usr/share/locale
++my %translation_dirs;
++opendir my $dh, '/usr/share/locale-langpack' or die $!;
++$translation_dirs{$_} = 1 for readdir $dh;
++opendir $dh, '/usr/share/locale' or die $!;
++$translation_dirs{$_} = 1 for readdir $dh;
++
++# get the intersection of available translation_dirs and the extended locale list
++my %intersection;
++for ( keys %extended_localelist ) {
++    $intersection{$_} = 1 if $translation_dirs{$_};
++}
++
++# adjustments
++if ( open my $fh, '<', '/usr/share/language-selector/data/main-countries' ) {
++    # If country code items in a language exist:
++    # - Remove the item without country code, since gettext won't find a
++    #   translation under e.g. 'de_DE' if the first item in LANGUAGE is 'de'
++    #   (see https://launchpad.net/bugs/700213). 'en' is kept, though, since
++    #   it's always the last item in LANGUAGE per design.
++    # - Make sure that the main dialect of the language is represented among
++    #   the country code items (see https://launchpad.net/bugs/710148).
++    my %main;
++    while ( <$fh> ) {
++        next if /^\s*(?:#|$)/;
++        my ($k, $v) = split;
++        $main{$k} = $v;
++    }
++    my %count;
++    for ( keys %intersection ) {
++        next if /^en[^a-z]/;
++        ( my $not_country = $_ ) =~ s/_[A-Z]+//;
++        $count{$not_country} ++;
++    }
++    for my $langcode ( keys %count ) {
++        if ( $count{$langcode} > 1 ) {
++            delete $intersection{$langcode};
++            $intersection{ $main{$langcode} } = 1 if $main{$langcode};
++        }
++    }
++} else {
++    # not access to the language-to-main-dialect map
++    # => stick with a minimum of list manipulation
++    delete $intersection{'zh'};
++}
++
++# print the resulting list of language options
++print join("\n", keys %intersection);
++
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Makefile.am gdm-2.32.0.new//data/Makefile.am
+--- gdm-2.32.0//data/Makefile.am	2010-09-16 01:44:56.000000000 +0200
++++ gdm-2.32.0.new//data/Makefile.am	2011-02-01 05:51:38.333277000 +0100
+@@ -142,6 +142,8 @@
+ 
+ 	$(INSTALL_SCRIPT) Xsession $(DESTDIR)$(gdmconfdir)/Xsession
+ 
++	$(INSTALL_SCRIPT) language-options $(DESTDIR)$(pkgdatadir)/language-options
++
+ 	if test '!' -d $(DESTDIR)$(initdir); then \
+ 		$(mkinstalldirs) $(DESTDIR)$(initdir); \
+ 		chmod 755 $(DESTDIR)$(initdir); \
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//gui/simple-greeter/gdm-languages.c gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c
+--- gdm-2.32.0//gui/simple-greeter/gdm-languages.c	2010-09-16 02:13:07.000000000 +0200
++++ gdm-2.32.0.new//gui/simple-greeter/gdm-languages.c	2011-02-01 05:51:38.333277000 +0100
+@@ -49,6 +49,7 @@
+ #define ARCHIVE_FILE LIBLOCALEDIR "/locale-archive"
+ #define ISO_CODES_DATADIR ISO_CODES_PREFIX "/share/xml/iso-codes"
+ #define ISO_CODES_LOCALESDIR ISO_CODES_PREFIX "/share/locale"
++#define LANGUAGE_OPTIONS_SCRIPT DATADIR "/gdm/language-options"
+ 
+ typedef struct _GdmLocale {
+         char *id;
+@@ -377,12 +378,6 @@
+                 name = g_strdup (language_name);
+         }
+ 
+-        if (!language_name_is_valid (name)) {
+-                g_debug ("Ignoring '%s' as a locale, since it's invalid", name);
+-                g_free (name);
+-                return FALSE;
+-        }
+-
+         locale = g_new0 (GdmLocale, 1);
+         gdm_parse_language_name (name,
+                                  &locale->language_code,
+@@ -603,21 +598,21 @@
+ static void
+ collect_locales (void)
+ {
++        FILE *pp;
++        char language[50];
+ 
+         if (gdm_available_locales_map == NULL) {
+                 gdm_available_locales_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) gdm_locale_free);
+         }
+ 
+-        if (!collect_locales_from_archive ()) {
+-#ifndef WITH_INCOMPLETE_LOCALES
+-                g_warning ("Could not read list of available locales from libc, "
+-                           "guessing possible locales from available translations, "
+-                           "but list may be incomplete!");
+-#endif
++        pp = popen (LANGUAGE_OPTIONS_SCRIPT, "r");
+ 
+-                collect_locales_from_directory ();
++        while ( !feof(pp) ) {
++                fscanf (pp, "%s", language);
++                add_locale (language, FALSE);
+         }
+-        collect_locales_from_locale_file (ALIASES_FILE);
++
++        pclose (pp);
+ }
+ 
+ static gboolean
+@@ -1018,6 +1013,7 @@
+         char *language_code;
+         char *territory_code;
+         char *codeset_code;
++        char *modifier;
+         char *langinfo_codeset;
+         char *translated_language;
+         char *translated_territory;
+@@ -1040,12 +1036,13 @@
+         language_code = NULL;
+         territory_code = NULL;
+         codeset_code = NULL;
++        modifier = NULL;
+ 
+         gdm_parse_language_name (name,
+                                  &language_code,
+                                  &territory_code,
+                                  &codeset_code,
+-                                 NULL);
++                                 &modifier);
+ 
+         if (language_code == NULL) {
+                 goto out;
+@@ -1067,6 +1064,10 @@
+                                         translated_territory);
+         }
+ 
++        if (modifier != NULL) {
++                g_string_append_printf (full_language, " - %s", modifier);
++        }
++
+         language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
+ 
+         if (codeset_code == NULL && langinfo_codeset != NULL) {
+@@ -1083,6 +1084,7 @@
+        g_free (language_code);
+        g_free (territory_code);
+        g_free (codeset_code);
++       g_free (modifier);
+        g_free (langinfo_codeset);
+        g_free (translated_language);
+        g_free (translated_territory);
