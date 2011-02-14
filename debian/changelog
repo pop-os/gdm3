@@ -1,3 +1,14 @@
+gdm (2.32.0-0ubuntu8) UNRELEASED; urgency=low
+
+  * debian/patches/36_language_environment_settings.patch:
+    - Use locale names with '.UTF-8' instead of '.utf8' when setting
+      the LC_MESSAGES environment variable (LP: #666565).
+  * debian/patches/40_one_lang_option_per_translation.patch:
+    - Modification of /usr/share/gdm/language-options so an absent
+      translation directory won't cause it to exit.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 14 Feb 2011 06:14:00 +0100
+
 gdm (2.32.0-0ubuntu7) natty; urgency=low
 
   [ Gunnar Hjalmarsson ]

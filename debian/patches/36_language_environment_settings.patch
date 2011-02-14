@@ -1,12 +1,12 @@
 Description: Alters the way Xsession handles language settings.
-Bug-Ubuntu: https://bugs.launchpad.net/bugs/553162
+Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
 --- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0.new//data/Xsession.in	2011-01-30 13:11:33.948601001 +0100
-@@ -146,11 +146,127 @@
++++ gdm-2.32.0.new//data/Xsession.in	2011-02-13 04:12:59.645821000 +0100
+@@ -146,11 +146,130 @@
  
  unset XKB_IN_USE
  
@@ -41,13 +41,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +    # skip locales for other languages
 +    for loc in $( locale -a | grep -F .utf8 ); do
 +        if [ $langcode = ${loc%%[._@]*} ]; then
++            loc=${loc%.*}${loc#*.utf8}
 +            locales=$locales" $loc"
 +        fi
 +    done
 +    # exact match
 +    for loc in $locales; do
-+        if [ $gdm_selected = "${loc%.*}${loc#*.utf8}" ]; then
-+            lcmess=$loc
++        if [ $gdm_selected = $loc ]; then
++            lcmess=$( echo $loc | sed -r 's/([^@]+)/\1.UTF-8/' )
 +            break
 +        fi
 +    done
@@ -67,8 +68,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +            done < $main_countries
 +            if [ -n "$main_country" ]; then
 +                for loc in $locales; do
-+                    if [ $main_country = "${loc%.*}${loc#*.utf8}" ]; then
-+                        lcmess=$loc
++                    if [ $main_country = $loc ]; then
++                        lcmess=$( echo $loc | sed -r 's/([^@]+)/\1.UTF-8/' )
 +                        break
 +                    fi
 +                done
@@ -77,8 +78,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +        # try out fitting locale with any country code
 +        if [ -z "$lcmess" ]; then
 +            for loc in $locales; do
-+                if [ $langcode = ${loc%%[._@]*} ]; then
-+                    lcmess=$loc
++                if [ $langcode = ${loc%%[_@]*} ]; then
++                    lcmess=$( echo $loc | sed -r 's/([^@]+)/\1.UTF-8/' )
 +                    break
 +                fi
 +            done
@@ -101,12 +102,14 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +if [ -n "$GDM_LANG" -a $GDMSESSION != 'guest-restricted' ]; then
 +    if [ $GDM_LANG != ${GDM_LANG%.utf8*} ]; then
 +        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.utf8}
++    elif [ $GDM_LANG != ${GDM_LANG%.UTF-8*} ]; then
++        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.UTF-8}
 +    else
 +        gdm_selected=$GDM_LANG
 +    fi
 +    dmrc=/var/cache/gdm/$USER/dmrc
 +    test -f "$dmrc" || {
-+        echo "\n[Desktop]\nLanguage=$GDM_LANG" > $dmrc
++        echo "\n[Desktop]\nLanguage=$gdm_selected" > $dmrc
 +    }
 +    while read line; do
 +        [ "${line%=*}" = 'Langlist' ] && langlist=${line#*=}
