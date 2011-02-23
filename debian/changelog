@@ -1,3 +1,12 @@
+gdm (2.32.0-0ubuntu9) UNRELEASED; urgency=low
+
+  * debian/patches/36_language_environment_settings.patch:
+    - Set LC_MESSAGES explicitly only if the value does not equal
+      $LANG, to prevent that side effects when connecting to other
+      computers via ssh appear unnecessarily.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Wed, 23 Feb 2011 18:06:00 +0100
+
 gdm (2.32.0-0ubuntu8) natty; urgency=low
 
   [ Gunnar Hjalmarsson ]

@@ -5,8 +5,8 @@ Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
 --- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0.new//data/Xsession.in	2011-02-13 04:12:59.645821000 +0100
-@@ -146,11 +146,130 @@
++++ gdm-2.32.0.new//data/Xsession.in	2011-02-23 18:02:53.519712072 +0100
+@@ -146,11 +146,135 @@
  
  unset XKB_IN_USE
  
@@ -133,10 +133,15 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +        language_environment_update
 +    fi
 +    export LANGUAGE="$langlist"
-+    if [ -n "$lcmess" ]; then
++    if [ $LANG != ${LANG%.utf8*} ]; then
++        x_lang=${LANG%.*}.UTF-8${LANG#*.utf8}
++    else
++        x_lang=${LANG%.*}.utf8${LANG#*.UTF-8}
++    fi
++    if [ -n "$lcmess" -a $lcmess != $LANG -a $lcmess != $x_lang ]; then
 +        export LC_MESSAGES="$lcmess"
 +    else
-+        # fall back to LANG if no fitting locale was found
++        # no fitting locale or same as LANG
 +        unset LC_MESSAGES
 +    fi
  fi
