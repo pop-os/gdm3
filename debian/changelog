@@ -1,3 +1,9 @@
+gdm3 (2.30.5-8) UNRELEASED; urgency=low
+
+  * README.Debian: document the xauth stuff. Closes: #614972.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 24 Feb 2011 22:53:14 +0100
+
 gdm3 (2.30.5-7) unstable; urgency=low
 
   [ Josselin Mouette ]

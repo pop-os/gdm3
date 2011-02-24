@@ -23,11 +23,21 @@ through GConf, but using a specific configuration.
    need to run “invoke-rc.d gdm3 reload” to take them into account.
 
 
+X11 authentication
+------------------
+
+Upon session startup, GDM sets the XAUTHORITY environment variable to a 
+session-specific file in /var/run/gdm3.
+
+Applications and scripts that assume this file is set to ~/.Xauthority 
+will not work. To access the display you need both DISPLAY and 
+XAUTHORITY variables.
+
 "I get ugly fonts"
 ------------------
 
 In the past, as a quick workaround, GDM imposed a 96 DPI settings by
-passing "-dpi 96" to the X server on startup.  This is a bad idea has
+passing "-dpi 96" to the X server on startup.  This is a bad idea as
 there's no reason to override standard DPI detection mechanisms for all
 screens which might or might not be 96 DPI screens.
 
