@@ -12,9 +12,11 @@ Update in Debian:
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 #
---- a/configure.ac
-+++ b/configure.ac
-@@ -41,6 +41,7 @@
+Index: gdm-2.30.5/configure.ac
+===================================================================
+--- gdm-2.30.5.orig/configure.ac	2011-03-03 21:57:04.820417950 +0100
++++ gdm-2.30.5/configure.ac	2011-03-03 22:04:18.584417565 +0100
+@@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
  POLKIT_GOBJECT_REQUIRED_VERSION=0.92
@@ -22,7 +24,7 @@ Update in Debian:
  GLIB_REQUIRED_VERSION=2.22.0
  GTK_REQUIRED_VERSION=2.12.0
  PANGO_REQUIRED_VERSION=1.3.0
-@@ -118,6 +119,14 @@
+@@ -118,6 +119,14 @@ AC_SUBST(HAVE_DEVICEKIT_POWER)
  AC_SUBST(DEVKIT_POWER_CFLAGS)
  AC_SUBST(DEVKIT_POWER_LIBS)
  
@@ -37,7 +39,7 @@ Update in Debian:
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-@@ -1396,6 +1405,7 @@
+@@ -1396,6 +1405,7 @@ Makefile
  daemon/Makefile
  docs/Makefile
  gui/Makefile
@@ -45,8 +47,10 @@ Update in Debian:
  gui/simple-greeter/Makefile
  gui/simple-greeter/libnotificationarea/Makefile
  gui/simple-chooser/Makefile
---- /dev/null
-+++ b/gui/gdmsetup/gdmsetup.c
+Index: gdm-2.30.5/gui/gdmsetup/gdmsetup.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2011-03-03 22:04:17.692417185 +0100
 @@ -0,0 +1,371 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -419,9 +423,11 @@ Update in Debian:
 +
 +    return 0;
 +}
---- /dev/null
-+++ b/gui/gdmsetup/Makefile.am
-@@ -0,0 +1,42 @@
+Index: gdm-2.30.5/gui/gdmsetup/Makefile.am
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.30.5/gui/gdmsetup/Makefile.am	2011-03-03 22:08:03.432919512 +0100
+@@ -0,0 +1,44 @@
 +NULL =
 +
 +AM_CPPFLAGS = \
@@ -433,6 +439,7 @@ Update in Debian:
 +	-DUIDIR=\""$(uidir)"\"			\
 +	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 +	$(DISABLE_DEPRECATED_CFLAGS)		\
++	$(COMMON_CFLAGS)			\
 +	$(GDMSETUP_CFLAGS)			\
 +	$(NULL)
 +
@@ -447,6 +454,7 @@ Update in Debian:
 +gdmsetup_LDADD =						\
 +	$(top_builddir)/common/libgdmcommon.la			\
 +	$(top_builddir)/gui/simple-greeter/libgdmuser.la	\
++	$(COMMON_LIBS)						\
 +	$(GDMSETUP_LIBS)					\
 +	$(NULL)
 +
@@ -464,9 +472,11 @@ Update in Debian:
 +	$(ui_DATA)		\
 +	$(System_in_files)	\
 +	$(NULL)
---- a/gui/Makefile.am
-+++ b/gui/Makefile.am
-@@ -3,6 +3,7 @@
+Index: gdm-2.30.5/gui/Makefile.am
+===================================================================
+--- gdm-2.30.5.orig/gui/Makefile.am	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/gui/Makefile.am	2011-03-03 21:57:04.848416623 +0100
+@@ -3,6 +3,7 @@ NULL =
  SUBDIRS =			\
  	simple-greeter		\
  	user-switch-applet	\
@@ -474,15 +484,17 @@ Update in Debian:
  	$(NULL)
  
  if XDMCP_SUPPORT
-@@ -13,4 +14,5 @@
+@@ -13,4 +14,5 @@ DIST_SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\
 +	gdmsetup		\
  	$(NULL)
---- a/po/POTFILES.in
-+++ b/po/POTFILES.in
-@@ -60,6 +60,9 @@
+Index: gdm-2.30.5/po/POTFILES.in
+===================================================================
+--- gdm-2.30.5.orig/po/POTFILES.in	2011-03-03 21:57:04.820417950 +0100
++++ gdm-2.30.5/po/POTFILES.in	2011-03-03 21:57:04.848416623 +0100
+@@ -60,6 +60,9 @@ data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
  data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in

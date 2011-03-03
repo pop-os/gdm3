@@ -30,4 +30,5 @@
 28_beep.patch
 29_grep_path.patch
 30_utf8_locale.patch
+31_xkb_options.patch
 90_relibtoolize.patch

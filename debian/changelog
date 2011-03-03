@@ -1,8 +1,13 @@
-gdm3 (2.30.5-8) UNRELEASED; urgency=low
+gdm3 (2.30.5-8) unstable; urgency=low
 
   * README.Debian: document the xauth stuff. Closes: #614972.
+  * 31_xkb_options.patch: patch from Julien Pinon to always pass XKB 
+    options regardless of the layout. Closes: #590534.
+  * 13_gdmsetup.patch: updated to link to the libs required by the usage 
+    of libgdmcommon. Closes: #615720.
+  * 90_relibtoolize.patch: updated accordingly.
 
- -- Josselin Mouette <joss@debian.org>  Thu, 24 Feb 2011 22:53:14 +0100
+ -- Josselin Mouette <joss@debian.org>  Thu, 03 Mar 2011 22:10:30 +0100
 
 gdm3 (2.30.5-7) unstable; urgency=low
 
