@@ -1,3 +1,11 @@
+gdm3 (2.30.5-9) UNRELEASED; urgency=low
+
+  * README.Debian: remove reference to GDM 2.26. Closes: #616603.
+  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
+    Closes: #616612.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 06 Mar 2011 10:59:31 +0100
+
 gdm3 (2.30.5-8) unstable; urgency=low
 
   * README.Debian: document the xauth stuff. Closes: #614972.

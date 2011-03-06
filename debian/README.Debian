@@ -4,8 +4,8 @@ GDM for Debian
 Configuration overview
 ----------------------
 
-The configuration for the GDM daemon has changed starting with version 
-2.26.
+The configuration for the GDM daemon is completely different from the 
+older versions (in former package gdm).
 
 For the daemon itself:
  * The autologin options can be chosen from the gdmsetup program.
