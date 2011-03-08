@@ -1,9 +1,14 @@
 gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
 
+  [ Martin Pitt ]
   * Add 41_passwordless_login_crash.patch: Fix crash when hitting the login
     button while doing passwordless login. (LP: #724205)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 02 Mar 2011 12:43:15 +0100
+  [ James Hunt ]
+  * debian/gdm.upstart: gdm will now restart as expected if a user
+    runs "telinit 2" from single-user mode (LP: #436936).
+
+ -- James Hunt <james.hunt@ubuntu.com>  Tue, 08 Mar 2011 17:58:30 +0000
 
 gdm (2.32.0-0ubuntu9) natty; urgency=low
 
