@@ -1,3 +1,4 @@
+00git_passwordless_login_crash.patch
 02_x_server_location.patch
 04_fix_external_program_directories.patch
 05_initial_server_on_vt7.patch

@@ -1,3 +1,12 @@
+gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
+
+  * Add 00git_passwordless_login_crash.patch: Disable the login button in
+    MODE_AUTHENTICATION if no query is pending. This avoids a crash when
+    having passwordless logins. Original patch from Michael Braun, slightly
+    changed for upstream git head, backported to 2.32. (LP: #724205)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 09 Mar 2011 19:38:13 +0100
+
 gdm (2.32.0-0ubuntu9) natty; urgency=low
 
   * debian/patches/36_language_environment_settings.patch:
