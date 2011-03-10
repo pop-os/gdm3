@@ -5,6 +5,10 @@ gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
     having passwordless logins. Original patch from Michael Braun, slightly
     changed for upstream git head, backported to 2.32. (LP: #724205)
 
+  [ James Hunt ]
+  * debian/gdm.upstart: gdm will now restart as expected if a user
+    runs "telinit 2" from single-user mode (LP: #436936).
+
  -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 09 Mar 2011 19:38:13 +0100
 
 gdm (2.32.0-0ubuntu9) natty; urgency=low
