@@ -1,4 +1,6 @@
 00git_passwordless_login_crash.patch
+01git_xdmcp_ipv6.patch
+
 02_x_server_location.patch
 04_fix_external_program_directories.patch
 05_initial_server_on_vt7.patch
@@ -30,3 +32,4 @@
 38_user_chooser_focus.patch
 39_grep_path.patch
 40_one_lang_option_per_translation.patch
+

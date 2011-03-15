@@ -1,5 +1,8 @@
 gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
 
+  * debian/patches/01git_xdmcp_ipv6.patch:
+    - git commit to fix xdmcp issue when ipv6 is used
+
   [ Martin Pitt ]
   * Add 00git_passwordless_login_crash.patch: Disable the login button in
     MODE_AUTHENTICATION if no query is pending. This avoids a crash when
@@ -10,7 +13,7 @@ gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
   * debian/gdm.upstart: gdm will now restart as expected if a user
     runs "telinit 2" from single-user mode (LP: #436936).
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 09 Mar 2011 19:38:13 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Mar 2011 18:36:09 +0100
 
 gdm (2.32.0-0ubuntu9) natty; urgency=low
 
