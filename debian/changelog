@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu10) natty; urgency=low
 
   * debian/patches/01git_xdmcp_ipv6.patch:
     - git commit to fix xdmcp issue when ipv6 is used
@@ -13,7 +13,7 @@ gdm (2.32.0-0ubuntu10) UNRELEASED; urgency=low
   * debian/gdm.upstart: gdm will now restart as expected if a user
     runs "telinit 2" from single-user mode (LP: #436936).
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Mar 2011 18:36:09 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Mar 2011 18:45:45 +0100
 
 gdm (2.32.0-0ubuntu9) natty; urgency=low
 
