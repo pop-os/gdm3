@@ -6,12 +6,10 @@
 description	"GNOME Display Manager"
 author		"William Jon McCann <mccann@jhu.edu>"
 
-start on ((filesystem
-            and (started dbus
-            and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
-            or stopped udevtrigger)))
-          or runlevel PREVLEVEL=S)
-
+start on (filesystem
+          and started dbus
+          and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
+               or stopped udevtrigger))
 stop on runlevel [016]
 
 emits login-session-start
@@ -24,16 +22,16 @@ script
     then
 	[ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
 
-        set -- `runlevel`
-        prev=$1
-        curr=$2
-
-        if [ "$curr" = S -o "$prev" = unknown ]
-        then
-            # Single-user mode
-            plymouth quit || :
-            exit 0
-        fi
+	# Check kernel command-line for inhibitors
+	for ARG in $(cat /proc/cmdline)
+	do
+	    case "${ARG}" in
+		text|-s|s|S|single)
+		    plymouth quit || :  # We have the ball here
+		    exit 0
+		    ;;
+	    esac
+	done
     fi
 
     if [ -r /etc/default/locale ]; then

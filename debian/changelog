@@ -1,3 +1,10 @@
+gdm (2.32.0-0ubuntu11) natty; urgency=low
+
+  * debian/gdm.upstart: revert recent update it has issues and break gdm on
+    quite some configurations (lp: #735805)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 16 Mar 2011 18:00:32 +0100
+
 gdm (2.32.0-0ubuntu10) natty; urgency=low
 
   * debian/patches/01git_xdmcp_ipv6.patch:
