@@ -1,3 +1,10 @@
+gdm (2.32.0-0ubuntu12) UNRELEASED; urgency=low
+
+  * Make splash dependant on either a graphics device appearing or
+    udev-graphics-fallback completing.  (LP: #702090)
+
+ -- Andy Whitcroft <apw@canonical.com>  Fri, 18 Mar 2011 17:39:46 +0000
+
 gdm (2.32.0-0ubuntu11) natty; urgency=low
 
   * debian/gdm.upstart: revert recent update it has issues and break gdm on

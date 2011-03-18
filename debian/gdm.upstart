@@ -9,7 +9,7 @@ author		"William Jon McCann <mccann@jhu.edu>"
 start on (filesystem
           and started dbus
           and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
-               or stopped udevtrigger))
+               or stopped udev-fallback-graphics))
 stop on runlevel [016]
 
 emits login-session-start
