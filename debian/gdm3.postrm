@@ -17,12 +17,12 @@ if [ "$1" = "purge" ] ; then
 	rm -rf /var/cache/gdm
         if getent passwd Debian-gdm >/dev/null; then
                 if [ -x /usr/sbin/deluser ]; then
-                        deluser --system Debian-gdm
+                        deluser --system Debian-gdm || echo "Could not remove Debian-gdm user."
                 fi
         fi
         if getent group Debian-gdm >/dev/null; then
                 if [ -x /usr/sbin/delgroup ]; then
-                        delgroup --system Debian-gdm
+                        delgroup --system Debian-gdm || echo "Could not remove Debian-gdm group."
                 fi
         fi
 fi

@@ -1,0 +1,23 @@
+Index: gdm-2.30.0/common/gdm-common.c
+===================================================================
+--- gdm-2.30.0.orig/common/gdm-common.c	2010-04-26 23:00:05.639623730 +0200
++++ gdm-2.30.0/common/gdm-common.c	2010-04-26 23:02:11.027622756 +0200
+@@ -380,11 +380,17 @@ _read_bytes (int      fd,
+         } while (bytes_left_to_read > 0);
+ 
+         if (premature_eof) {
++#ifdef ENODATA
+                 g_set_error (error,
+                              G_FILE_ERROR,
+                              g_file_error_from_errno (ENODATA),
+                              "%s", g_strerror (ENODATA));
+-
++#else /* ENODATA */
++                g_set_error (error,
++                             G_FILE_ERROR,
++                             G_FILE_ERROR_FAILED,
++                             "No data available");
++#endif /* ENODATA */
+                 return FALSE;
+         } else if (bytes_left_to_read > 0) {
+                 g_set_error (error,

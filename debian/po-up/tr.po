@@ -1,0 +1,82 @@
+# translation of gdm2 to Turkish
+# Turkish translation of GDM.
+# Copyright (C) 1999-2003, 2004 Free Software Foundation, Inc.
+# Fatih Demir <kabalak@gtranslator.org>, 1999.
+# Nilgün Belma Bugüner <nilgun@fide.org>, 2002.
+# Arman Aksoy <armish@linux-sevenler.de>, 2003.
+# Görkem Çetin <gorkem@kde.org>, 2003.
+# Baris Cicek <baris@teamforce.name.tr>, 2004.
+# Baris Cicek <baris@teamforce.name.tr>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gdm2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-17 21:28+0200\n"
+"PO-Revision-Date: 2008-02-22 15:40+0200\n"
+"Last-Translator: Emrah Ünal <eunall@gmail.com>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../default.desktop.in.h:1
+msgid "System Default"
+msgstr "Öntanımlı Sistem"
+
+#: ../default.desktop.in.h:2
+msgid "The default session on the system"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:740
+msgid "Run gdm in a nested window"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:741
+msgid "Don't lock the screen on the current display"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:1045
+msgid "Disconnect"
+msgstr "Bağlantıyı Kes"
+
+#: ../patches/11_xephyr_nested.patch:1049
+msgid "Quit"
+msgstr "Çık"
+
+#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:360
+#, c-format
+msgid "Log in as %s automatically"
+msgstr ""
+
+#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:362
+#, c-format
+msgid "Allow %s seconds for anyone else to log in first"
+msgstr ""
+
+#: ../patches/13_gdmsetup_ui.patch.h:1
+msgid "<b>When the computer starts up</b>"
+msgstr ""
+
+#. Title of login screen settings dialog
+#: ../patches/13_gdmsetup_ui.patch.h:3
+msgid "Login Screen Settings"
+msgstr ""
+
+#. Radio option to set login screen to prompt for user
+#: ../patches/13_gdmsetup_ui.patch.h:5
+msgid "_Show the screen for choosing who will log in"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
+msgstr ""

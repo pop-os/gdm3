@@ -17,7 +17,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libxklavier-dev (>= 4.0),
                libcanberra-gtk-dev (>= 0.4),
                libfontconfig1-dev (>= 2.5.0),
-               libdevkit-power-gobject-dev (>= 008),
+               libupower-glib-dev (>= 0.9.0),
                libpolkit-gobject-1-dev (>= 0.92),
                libpolkit-gtk-1-dev (>= 0.92),
                libx11-dev,
@@ -31,13 +31,14 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libxft-dev,
                libxi-dev,
                libxinerama-dev,
-               libselinux1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
-               libattr1-dev [!hurd-i386 !kfreebsd-i386 !kfreebsd-amd64],
+               libselinux1-dev [linux-any],
+               libattr1-dev [linux-any],
                iso-codes,
-               libaudit-dev,
-               xserver-xorg,
+               libaudit-dev [linux-any],
                docbook-xml
-Standards-Version: 3.8.4
+Standards-Version: 3.9.0
+Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
 Architecture: any
@@ -47,7 +48,6 @@ Depends: ${shlibs:Depends},
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin (>= 2.30),
-         metacity,
          policykit-1-gnome,
          upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
@@ -56,14 +56,18 @@ Depends: ${shlibs:Depends},
          gconf2 (>= 2.26.2-3)
 Recommends: zenity,
             xserver-xephyr | xnest,
+            x11-xkb-utils,
             xserver-xorg,
             at-spi,
             gnome-power-manager (>= 2.28),
             gnome-settings-daemon,
-            gnome-icon-theme
+            gnome-icon-theme,
+            desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
+          metacity,
           gnome-mag,
-          gnome-orca
+          gnome-orca,
+          gok
 Provides: x-display-manager,
           fast-user-switch-applet
 Conflicts: fast-user-switch-applet,
@@ -71,7 +75,8 @@ Conflicts: fast-user-switch-applet,
 Replaces: fast-user-switch-applet
 Breaks: gnome-session (<< 2.26),
         gnome-panel (<< 2.26),
-        gnome-screensaver (<< 2.17.7)
+        gnome-screensaver (<< 2.17.7),
+        gnome-orca (<< 2.30.0-2)
 Description: Next generation GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.

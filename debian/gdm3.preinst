@@ -1,0 +1,8 @@
+#! /bin/sh
+set -e
+
+if [ "$1" = upgrade ] && dpkg --compare-versions "$2" lt 2.30.2-3; then
+    rm -f /etc/gdm3/gdm.schemas
+fi
+
+#DEBHELPER#

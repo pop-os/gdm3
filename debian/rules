@@ -9,6 +9,16 @@ include /usr/share/gnome-pkg-tools/1/rules/patch-translations.mk
 
 GNOME_MODULE := gdm
 
+DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
+			    X_SERVER_PATH="/usr/bin" \
+			    X_SERVER="/usr/bin/Xorg"
+
+ifeq (linux,$(DEB_HOST_ARCH_OS))
+    DEB_CONFIGURE_SCRIPT_ENV += X_CONFIG_OPTIONS="-audit 0 -novtswitch"
+else
+    DEB_CONFIGURE_SCRIPT_ENV += X_CONFIG_OPTIONS="-audit 0"
+endif
+
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
@@ -22,7 +32,12 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
-		--with-pam-domain=gdm3
+		--with-pam-domain=gdm3 \
+		--with-lang-file=/etc/default/locale
+
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
+endif
 
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
@@ -54,15 +69,9 @@ INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
 
 %.desktop: %.desktop.in
-	intltool-merge -d debian/po $< $@
+	intltool-merge -d debian/po-up $< $@
 
 build/gdm3:: $(OUTFILES)
-
-update-po::
-	ls $(INFILES) | sed 's#^#../#' >debian/po/POTFILES.in
-	cd debian/po && intltool-update -g debian --pot && \
-		for i in *.po; do intltool-update -g debian --dist $${i%.po}; done
-	rm -f debian/po/POTFILES.in
 
 MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
 

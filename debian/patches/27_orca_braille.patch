@@ -1,0 +1,11 @@
+--- ./data/greeter-autostart/orca-screen-reader.desktop.in.original	2010-10-17 05:14:07.000000000 +0200
++++ ./data/greeter-autostart/orca-screen-reader.desktop.in	2010-10-17 05:14:11.000000000 +0200
+@@ -2,7 +2,7 @@
+ _Name=Orca Screen Reader
+ _Comment=Present on-screen information as speech or braille
+ TryExec=orca
+-Exec=orca --no-setup --disable main-window --disable magnifier --enable speech
++Exec=orca --no-setup --disable main-window --disable magnifier --enable speech --enable braille
+ Icon=orca
+ Terminal=false
+ Type=Application

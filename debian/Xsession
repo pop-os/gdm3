@@ -151,8 +151,16 @@ fi
 
 unset XKB_IN_USE
 
-# if GDM_LANG isn't first in LANGUAGE, then unset it.
 if [ -n "$GDM_LANG" ]; then
+    # Set the locale to that, it’s the language selected in GDM.
+    LANG="$GDM_LANG"
+    export LANG
+
+    if [ -n "$LC_ALL" ] && [ "$LC_ALL" != "$LANG" ]; then
+        LC_ALL="$LANG"
+    fi
+
+    # if GDM_LANG isn't first in LANGUAGE, then unset it.
     if [ -n "$LANGUAGE" ]; then
         if echo "$LANGUAGE" | grep -q -- "^$GDM_LANG"; then
            :

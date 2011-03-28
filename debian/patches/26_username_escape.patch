@@ -1,0 +1,47 @@
+From f9996fb5412beeef293b542c0640b69f1f7a0eaa Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Fri, 13 Aug 2010 15:20:09 +0000
+Subject: More username escape fixes
+
+commit b2f79db8cee486964f562e818e2bf96a420e7965 fixed the
+"add_item" case but not the "update_item" case. This commit
+addresses that.
+
+http://bugzilla.gnome.org/show_bug.cgi?id=624847
+---
+diff --git a/gui/simple-greeter/gdm-user-chooser-widget.c b/gui/simple-greeter/gdm-user-chooser-widget.c
+index b7bd0a0..5f30160 100644
+--- a/gui/simple-greeter/gdm-user-chooser-widget.c
++++ b/gui/simple-greeter/gdm-user-chooser-widget.c
+@@ -182,6 +182,8 @@ update_item_for_user (GdmUserChooserWidget *widget,
+         char         *tooltip;
+         gboolean      is_logged_in;
+         int           size;
++        char         *escaped_username;
++        char         *escaped_real_name;
+ 
+ 
+         size = get_icon_height_for_widget (GTK_WIDGET (widget));
+@@ -201,14 +203,18 @@ update_item_for_user (GdmUserChooserWidget *widget,
+                  is_logged_in,
+                  pixbuf);
+ 
++        escaped_username = g_markup_escape_text (gdm_user_get_user_name (user), -1);
++        escaped_real_name = g_markup_escape_text (gdm_user_get_real_name (user), -1);
+         gdm_chooser_widget_update_item (GDM_CHOOSER_WIDGET (widget),
+-                                        gdm_user_get_user_name (user),
++                                        escaped_username,
+                                         pixbuf,
+-                                        gdm_user_get_real_name (user),
++                                        escaped_real_name,
+                                         tooltip,
+                                         gdm_user_get_login_frequency (user),
+                                         is_logged_in,
+                                         FALSE);
++        g_free (escaped_real_name);
++        g_free (escaped_username);
+         g_free (tooltip);
+ 
+         if (pixbuf != NULL) {
+--
+cgit v0.8.3.1

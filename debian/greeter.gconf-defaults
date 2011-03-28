@@ -1,6 +1,6 @@
 # Use a specific background
-/desktop/gnome/background/picture_filename	/usr/share/images/desktop-base/moreblue-orbit-gdm.svg
-/desktop/gnome/background/picture_options	stretched
+#/desktop/gnome/background/picture_filename	/usr/share/images/desktop-base/login-background.svg
+#/desktop/gnome/background/picture_options	zoom
 
 # Theming options
 #/desktop/gnome/interface/gtk_theme		Clearlooks
@@ -8,8 +8,17 @@
 # Greeter options
 /apps/gdm/simple-greeter/logo_icon_name 	debian-swirl
 
+# Play system beeps - especially the one when the greeter is ready
+/desktop/gnome/sound/event_sounds		true
+
 # Some other possible options
 #/apps/gdm/simple-greeter/banner_message_enable		true
 #/apps/gdm/simple-greeter/banner_message_text		Welcome
 #/apps/gdm/simple-greeter/disable_restart_buttons	false
 #/apps/gdm/simple-greeter/disable_user_list		false
+
+# The lower panel doesn't work with the compositor
+/apps/metacity/general/compositing_manager		false
+
+# Prevent the power management icon from showing up
+/apps/gnome-power-manager/ui/icon_policy		never

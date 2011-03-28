@@ -1,0 +1,21 @@
+Debian #590534
+GNOME #640480
+Patch by Julien Pinon <jpinon@free.fr>
+
+Index: gdm-2.30.5/gui/simple-greeter/gdm-layouts.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-layouts.c	2011-03-03 21:58:44.068417940 +0100
++++ gdm-2.30.5/gui/simple-greeter/gdm-layouts.c	2011-03-03 21:59:20.424420407 +0100
+@@ -249,11 +249,11 @@ gdm_layout_activate (const char *layout)
+ 
+         config = xkl_config_rec_new ();
+         config->model = g_strdup (initial_config->model);
++        config->options = g_strdupv (initial_config->options);
+ 
+         if (layout == NULL) {
+                 config->layouts = g_strdupv (initial_config->layouts);
+                 config->variants = g_strdupv (initial_config->variants);
+-                config->options = g_strdupv (initial_config->options);
+         } else {
+                 config->layouts = g_new0 (char *, 2);
+                 config->layouts[0] = g_strdup (layout);

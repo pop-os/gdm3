@@ -1,0 +1,103 @@
+# Danish translation of GDM.
+# Copyright (C) 1998-2008
+# This file is distributed under the same license as the gdm package.
+# Kenneth Christiansen <kenneth@ripen.dk>, 1998, 1999.
+# Birger Langkjer <birger.langkjer@image.dk>, 2000.
+# Keld Simonsen <keld@dkuug.dk>, 2001.
+# Ole Laursen <olau@hardworking.dk>, 2001, 02, 03, 04, 06.
+# Marie Lund <marielund@post.cybercity.dk>, 2004.
+# Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
+# Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2006.
+# Kenneth Nielsen <k.nielsen81@gmail.com>, 2007-2008
+# Ask Hjorth Larsen <asklarsen@gmail.com>, 2007
+#
+# Konventioner:
+#
+#   X server -> X-server
+#   chooser -> vælger
+#   device/display/desktop manager -> logind-program
+#   display -> (ofte) terminal
+#   face browser -> ansigtsvælger
+#   greeter -> velkomstbyder
+#   plain -> simpel
+#   session scripts -> sessionsprogrammer
+#   shutdown -> slukke (ikke lukke ned)
+#   suspend -> hvile
+#
+# Dobbeltmellemrum efter . er konsekvent ignoreret
+#
+# For at sørge for at der er en konsekvent brug, har jeg gennemgået hele
+# oversættelsen og ændret ' -> " der hvor det var nødvendigt
+# 8 Marts 2007, Kenneth
+msgid ""
+msgstr ""
+"Project-Id-Version: gdm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-17 21:28+0200\n"
+"PO-Revision-Date: 2008-10-31 01:22+0100\n"
+"Last-Translator: Kenneth Nielsen <k.nielsen81@gmail.com>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../default.desktop.in.h:1
+msgid "System Default"
+msgstr "Systemforvalg"
+
+#: ../default.desktop.in.h:2
+msgid "The default session on the system"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:740
+msgid "Run gdm in a nested window"
+msgstr ""
+
+#: ../patches/11_xephyr_nested.patch:741
+msgid "Don't lock the screen on the current display"
+msgstr ""
+
+# bemærk at denne tekst skal synkroniseres med en hjælpetekst nedenfor
+#: ../patches/11_xephyr_nested.patch:1045
+msgid "Disconnect"
+msgstr "Frakobl"
+
+#: ../patches/11_xephyr_nested.patch:1049
+msgid "Quit"
+msgstr "Afslut"
+
+#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:360
+#, c-format
+msgid "Log in as %s automatically"
+msgstr ""
+
+#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
+#: ../patches/13_gdmsetup.patch:362
+#, c-format
+msgid "Allow %s seconds for anyone else to log in first"
+msgstr ""
+
+#: ../patches/13_gdmsetup_ui.patch.h:1
+msgid "<b>When the computer starts up</b>"
+msgstr ""
+
+#. Title of login screen settings dialog
+#: ../patches/13_gdmsetup_ui.patch.h:3
+msgid "Login Screen Settings"
+msgstr ""
+
+#. Radio option to set login screen to prompt for user
+#: ../patches/13_gdmsetup_ui.patch.h:5
+msgid "_Show the screen for choosing who will log in"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:1
+msgid "Configure login screen behavior"
+msgstr ""
+
+#: ../patches/13_gdmsetup_desktop.patch.h:2
+msgid "Login Screen"
+msgstr ""

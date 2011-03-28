@@ -1,0 +1,90 @@
+GNOME #583856
+Novell #439918
+
+Index: gdm-2.30.5/daemon/gdm-session-worker.c
+===================================================================
+--- gdm-2.30.5.orig/daemon/gdm-session-worker.c	2010-09-16 11:29:04.000000000 +0200
++++ gdm-2.30.5/daemon/gdm-session-worker.c	2010-09-16 11:31:42.000000000 +0200
+@@ -815,7 +815,7 @@
+                 res = gdm_session_worker_ask_for_secret (worker, utf8_msg, &user_answer);
+                 break;
+         case PAM_TEXT_INFO:
+-                res = gdm_session_worker_report_info (worker, utf8_msg);
++                res = gdm_session_worker_report_problem (worker, utf8_msg);
+                 break;
+         case PAM_ERROR_MSG:
+                 res = gdm_session_worker_report_problem (worker, utf8_msg);
+Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-08-11 19:40:07.000000000 +0200
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c	2010-09-16 11:31:06.000000000 +0200
+@@ -667,9 +667,68 @@
+ 
+         g_debug ("GdmGreeterLoginWindow: problem: %s", text);
+ 
+-        set_message (GDM_GREETER_LOGIN_WINDOW (login_window), text);
++        _gdm_greeter_login_window_set_interactive (login_window, FALSE);
++
++        GtkWidget *dialog;
++        GtkWidget *dialog_vbox;
++        GtkWidget *dialog_action_area;
++        GtkWidget *hbox;
++        GtkWidget *vbox;
++        GtkWidget *label;
++        GtkWidget *button;
++        GtkWidget *image;
++        gchar     *title;
++        gchar     *msg;
++
++        dialog = gtk_dialog_new ();
++
++        gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
++        gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
++        gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
++        gtk_window_set_title (GTK_WINDOW (dialog), "");
++
++        dialog_vbox = GTK_DIALOG (dialog)->vbox;
++        gtk_box_set_spacing (GTK_BOX (dialog_vbox), 12);
++
++        hbox = gtk_hbox_new (FALSE, 12);
++        gtk_box_pack_start (GTK_BOX (dialog_vbox), hbox, FALSE, FALSE, 0);
++        gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
++        gtk_widget_show (hbox);
++
++        image = gtk_image_new_from_stock ("gtk-dialog-warning", GTK_ICON_SIZE_DIALOG);
++	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
++        gtk_widget_show (image);
++
++        vbox = gtk_vbox_new (FALSE, 6);
++        gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
++        gtk_widget_show (vbox);
++
++        title = g_strconcat ("<b>", text, "</b>", NULL);
++        label = gtk_label_new (title);
++        gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
++        gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
++        gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
++        gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
++        gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
++        gtk_widget_show (label);
++        g_free (title);
++
++        button = gtk_button_new_from_stock (GTK_STOCK_OK);
++        gtk_dialog_add_action_widget (GTK_DIALOG (dialog), button, GTK_RESPONSE_OK);
++        GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
++        gtk_widget_show (button);
++
++        gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (login_window));
++
++        gtk_dialog_set_default_response (GTK_DIALOG (dialog),
++                                        GTK_RESPONSE_OK);
++        gtk_dialog_run (GTK_DIALOG (dialog));
++        gtk_widget_destroy (dialog);
++
+         gdk_window_beep (GTK_WIDGET (login_window)->window);
+ 
++        _gdm_greeter_login_window_set_interactive (login_window, TRUE);
++
+         return TRUE;
+ }
+ 

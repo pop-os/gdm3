@@ -1,0 +1,8 @@
+Translation of the Debconf templates
+------------------------------------
+
+A note to translators about the debconf templates -- translations
+should be sent to the xdm package.  I don't use gettext-based
+templates in the source, because I sync to the ones in the xdm
+package, and don't have any that are not shared.
+

@@ -12,10 +12,10 @@ Update in Debian:
 # Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm/+bug/395299
 # Upstream: http://bugzilla.gnome.org/show_bug.cgi?id=587750
 #
-Index: gdm-2.30.0/configure.ac
+Index: gdm-2.30.5/configure.ac
 ===================================================================
---- gdm-2.30.0.orig/configure.ac	2010-04-21 21:54:20.573200619 +0200
-+++ gdm-2.30.0/configure.ac	2010-04-21 21:54:31.233187563 +0200
+--- gdm-2.30.5.orig/configure.ac	2011-03-03 21:57:04.820417950 +0100
++++ gdm-2.30.5/configure.ac	2011-03-03 22:04:18.584417565 +0100
 @@ -41,6 +41,7 @@ dnl ------------------------------------
  
  DBUS_GLIB_REQUIRED_VERSION=0.74
@@ -39,7 +39,7 @@ Index: gdm-2.30.0/configure.ac
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-2.0 >= $GTK_REQUIRED_VERSION
-@@ -1389,6 +1398,7 @@ Makefile
+@@ -1396,6 +1405,7 @@ Makefile
  daemon/Makefile
  docs/Makefile
  gui/Makefile
@@ -47,11 +47,11 @@ Index: gdm-2.30.0/configure.ac
  gui/simple-greeter/Makefile
  gui/simple-greeter/libnotificationarea/Makefile
  gui/simple-chooser/Makefile
-Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
+Index: gdm-2.30.5/gui/gdmsetup/gdmsetup.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.0/gui/gdmsetup/gdmsetup.c	2010-04-21 21:54:31.233187563 +0200
-@@ -0,0 +1,370 @@
++++ gdm-2.30.5/gui/gdmsetup/gdmsetup.c	2011-03-03 22:04:17.692417185 +0100
+@@ -0,0 +1,371 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
 +#endif
@@ -308,7 +308,7 @@ Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
 +
 +
 +static void
-+users_loaded_cb(GdmUserManager *manager)
++manager_loaded_cb(GdmUserManager *manager)
 +{
 +    GSList *users, *item;
 +
@@ -410,8 +410,9 @@ Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
 +    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (user_combo), renderer, "text", 0);
 +
 +    user_manager = gdm_user_manager_ref_default ();
-+    g_signal_connect (user_manager, "users-loaded", G_CALLBACK (users_loaded_cb), NULL);
++    g_signal_connect (user_manager, "notify::is-loaded", G_CALLBACK (manager_loaded_cb), NULL);
 +    g_signal_connect (user_manager, "user-added", G_CALLBACK (user_added_cb), NULL);
++    gdm_user_manager_queue_load (user_manager);
 +
 +    gtk_widget_hide (user_entry);
 +
@@ -422,11 +423,11 @@ Index: gdm-2.30.0/gui/gdmsetup/gdmsetup.c
 +
 +    return 0;
 +}
-Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
+Index: gdm-2.30.5/gui/gdmsetup/Makefile.am
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.30.0/gui/gdmsetup/Makefile.am	2010-04-21 21:54:31.233187563 +0200
-@@ -0,0 +1,42 @@
++++ gdm-2.30.5/gui/gdmsetup/Makefile.am	2011-03-03 22:08:03.432919512 +0100
+@@ -0,0 +1,44 @@
 +NULL =
 +
 +AM_CPPFLAGS = \
@@ -438,6 +439,7 @@ Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 +	-DUIDIR=\""$(uidir)"\"			\
 +	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 +	$(DISABLE_DEPRECATED_CFLAGS)		\
++	$(COMMON_CFLAGS)			\
 +	$(GDMSETUP_CFLAGS)			\
 +	$(NULL)
 +
@@ -452,6 +454,7 @@ Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 +gdmsetup_LDADD =						\
 +	$(top_builddir)/common/libgdmcommon.la			\
 +	$(top_builddir)/gui/simple-greeter/libgdmuser.la	\
++	$(COMMON_LIBS)						\
 +	$(GDMSETUP_LIBS)					\
 +	$(NULL)
 +
@@ -469,20 +472,28 @@ Index: gdm-2.30.0/gui/gdmsetup/Makefile.am
 +	$(ui_DATA)		\
 +	$(System_in_files)	\
 +	$(NULL)
-Index: gdm-2.30.0/gui/Makefile.am
+Index: gdm-2.30.5/gui/Makefile.am
 ===================================================================
---- gdm-2.30.0.orig/gui/Makefile.am	2010-04-21 21:54:20.485199141 +0200
-+++ gdm-2.30.0/gui/Makefile.am	2010-04-21 21:54:31.233187563 +0200
-@@ -4,4 +4,5 @@ SUBDIRS =			\
+--- gdm-2.30.5.orig/gui/Makefile.am	2010-08-11 16:19:44.000000000 +0200
++++ gdm-2.30.5/gui/Makefile.am	2011-03-03 21:57:04.848416623 +0100
+@@ -3,6 +3,7 @@ NULL =
+ SUBDIRS =			\
+ 	simple-greeter		\
+ 	user-switch-applet	\
++	gdmsetup		\
+ 	$(NULL)
+ 
+ if XDMCP_SUPPORT
+@@ -13,4 +14,5 @@ DIST_SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
  	user-switch-applet	\
 +	gdmsetup		\
  	$(NULL)
-Index: gdm-2.30.0/po/POTFILES.in
+Index: gdm-2.30.5/po/POTFILES.in
 ===================================================================
---- gdm-2.30.0.orig/po/POTFILES.in	2010-04-21 21:54:20.461194693 +0200
-+++ gdm-2.30.0/po/POTFILES.in	2010-04-21 21:54:31.233187563 +0200
+--- gdm-2.30.5.orig/po/POTFILES.in	2011-03-03 21:57:04.820417950 +0100
++++ gdm-2.30.5/po/POTFILES.in	2011-03-03 21:57:04.848416623 +0100
 @@ -60,6 +60,9 @@ data/greeter-autostart/gok.desktop.in
  data/greeter-autostart/metacity.desktop.in
  data/greeter-autostart/orca-screen-reader.desktop.in
