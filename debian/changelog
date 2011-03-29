@@ -1,3 +1,15 @@
+gdm (2.32.0-0ubuntu13) UNRELEASED; urgency=low
+
+  * debian/patches/36_language_environment_settings.patch:
+    - Make the first item in the system LANGUAGE list serve as default
+      language for new users (LP: #740754).
+    - Do not apply code for faking $GDM_LANG if it is the $USER's
+      first login ever (LP: #740754).
+    - Check $DESKTOP_SESSION instead of $GDMSESSION to determine if
+      it is a guest session.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Wed, 30 Mar 2011 01:31:00 +0100
+
 gdm (2.32.0-0ubuntu12) natty; urgency=low
 
   * Make splash dependant on either a graphics device appearing or
