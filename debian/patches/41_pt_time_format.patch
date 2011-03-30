@@ -1,0 +1,57 @@
+From 97474c8fb6a3c6f533168672b918d2bedc1cf3ec Mon Sep 17 00:00:00 2001
+From: Martin Pitt <martin.pitt@ubuntu.com>
+Date: Wed, 30 Mar 2011 10:42:36 +0200
+Subject: [PATCH] Fix time format for Portugal
+
+Portugal uses 24 hour format according to the locale:
+
+$ LANG=pt_PT.utf8 date
+Qua Mar 29 20:43:34 CEST 2011
+
+In https://launchpad.net/bugs/696560 a Portugese user confirmed this as well.
+
+Original patch by jbatista, thanks!
+
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=646209
+Bug-Ubuntu: https://launchpad.net/bugs/696560
+---
+ po/pt.po |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+Index: gdm-2.32.0/po/pt.po
+===================================================================
+--- gdm-2.32.0.orig/po/pt.po	2010-09-15 20:58:11.000000000 +0200
++++ gdm-2.32.0/po/pt.po	2011-03-30 10:48:02.967617679 +0200
+@@ -538,28 +538,28 @@
+ #.
+ #: ../gui/simple-greeter/gdm-clock-widget.c:70
+ msgid "%a %b %e, %l:%M:%S %p"
+-msgstr "%a %b %e, %l:%M:%S %p"
++msgstr "%a %b %e, %H:%M:%S %p"
+ 
+ #. translators: This is the time format to use when both
+ #. * the date and time without seconds are being shown together.
+ #.
+ #: ../gui/simple-greeter/gdm-clock-widget.c:76
+ msgid "%a %b %e, %l:%M %p"
+-msgstr "%a %b %e, %l:%M %p"
++msgstr "%a %b %e, %H:%M %p"
+ 
+ #. translators: This is the time format to use when there is
+ #. * no date, just weekday and time with seconds.
+ #.
+ #: ../gui/simple-greeter/gdm-clock-widget.c:83
+ msgid "%a %l:%M:%S %p"
+-msgstr "%a %l:%M:%S %p"
++msgstr "%a %H:%M:%S %p"
+ 
+ #. translators: This is the time format to use when there is
+ #. * no date, just weekday and time without seconds.
+ #.
+ #: ../gui/simple-greeter/gdm-clock-widget.c:92
+ msgid "%a %l:%M %p"
+-msgstr "%a %l:%M %p"
++msgstr "%a %H:%M"
+ 
+ #: ../gui/simple-greeter/gdm-greeter-login-window.c:290
+ msgid "Automatically logging in…"
