@@ -1,12 +1,39 @@
-Description: Alters the way Xsession handles language settings.
-Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565
+Description: Alters the way GDM handles language settings.
+Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565, https://launchpad.net/bugs/740754
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
+diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-direct.c gdm-2.32.0.new//daemon/gdm-session-direct.c
+--- gdm-2.32.0//daemon/gdm-session-direct.c	2010-09-16 00:53:43.000000000 +0200
++++ gdm-2.32.0.new//daemon/gdm-session-direct.c	2011-03-30 01:00:42.293726584 +0200
+@@ -606,10 +606,23 @@
+ static const char *
+ get_default_language_name (GdmSessionDirect *session)
+ {
++    char *langlist, *language;
++
+     if (session->priv->saved_language != NULL) {
+                 return session->priv->saved_language;
+     }
+ 
++    langlist = getenv("LANGUAGE");
++    if (langlist != NULL && strlen(langlist) > 0) {
++        char *colon = strchr (langlist, ':');
++        if (colon) {
++            language = g_strndup (langlist, colon - langlist);
++        } else {
++            language = g_strdup (langlist);
++        }
++        return language;
++    }
++
+     return setlocale (LC_MESSAGES, NULL);
+ }
+ 
 diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
 --- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0.new//data/Xsession.in	2011-02-23 18:02:53.519712072 +0100
-@@ -146,11 +146,135 @@
++++ gdm-2.32.0.new//data/Xsession.in	2011-03-30 00:58:22.073665828 +0200
+@@ -146,11 +146,136 @@
  
  unset XKB_IN_USE
  
@@ -99,7 +126,7 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +}
 +
 +# read /var/cache/gdm/$USER/dmrc and set LANGUAGE and LC_MESSAGES
-+if [ -n "$GDM_LANG" -a $GDMSESSION != 'guest-restricted' ]; then
++if [ -n "$GDM_LANG" -a $DESKTOP_SESSION != 'guest-restricted' ]; then
 +    if [ $GDM_LANG != ${GDM_LANG%.utf8*} ]; then
 +        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.utf8}
 +    elif [ $GDM_LANG != ${GDM_LANG%.UTF-8*} ]; then
@@ -115,10 +142,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/
 +        [ "${line%=*}" = 'Langlist' ] && langlist=${line#*=}
 +        [ "${line%=*}" = 'LCMess' ] && lcmess=${line#*=}
 +    done < $dmrc
-+    if [ -z "$langlist" -a -z "$lcmess" ]; then
-+        # Both fields empty => we assume that this is $USER's first login since upgrading
-+        # from a pre 2.32.0-0ubuntu2 GDM version, so we fake $gdm_selected in an attempt to
-+        # get the language environment right from start and prevent an undesired surprise.
++    if [ -z "$langlist" -a -z "$lcmess" -a -f "$HOME/.xsession-errors.old" ]; then
++        # Both fields empty and not $USER's first login ever => we assume that this is
++        # $USER's first login since upgrading from a pre 2.32.0-0ubuntu2 GDM version,
++        # so we fake $gdm_selected in an attempt to get the language environment right
++        # from start and prevent an undesired surprise.
 +        if [ -n "$LANGUAGE" ]; then
 +            gdm_selected=${LANGUAGE%%:*}
 +            if [ "$( grep -F Language $dmrc )" ]; then
