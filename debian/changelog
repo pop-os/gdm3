@@ -1,4 +1,4 @@
-gdm (2.32.0-0ubuntu13) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu13) natty; urgency=low
 
   [ Gunnar Hjalmarsson ]
   * debian/patches/36_language_environment_settings.patch:
@@ -13,7 +13,7 @@ gdm (2.32.0-0ubuntu13) UNRELEASED; urgency=low
   * Add 41_pt_time_format.patch: Fix time format for Portugal. Thanks
     jbatista! (LP: #696560)
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Wed, 30 Mar 2011 01:31:00 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 31 Mar 2011 18:09:26 +0200
 
 gdm (2.32.0-0ubuntu12) natty; urgency=low
 
