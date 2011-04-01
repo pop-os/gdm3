@@ -1,3 +1,12 @@
+gdm (2.32.0-0ubuntu14) natty; urgency=low
+
+  * debian/patches/24_respect_system_minuid.patch:
+    - Ignore entries from ck-history that are using system UIDs (LP: #696038)
+  * debian/patches/42_no_ecryptfs_autologin.patch:
+    - Don't autologin ecryptfs users (LP: #284443)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 01 Apr 2011 15:49:50 +1100
+
 gdm (2.32.0-0ubuntu13) natty; urgency=low
 
   [ Gunnar Hjalmarsson ]
