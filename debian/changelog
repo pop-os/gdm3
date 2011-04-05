@@ -1,3 +1,13 @@
+gdm (2.32.0-0ubuntu15) natty; urgency=low
+
+  * SECURITY UPDATE: race condition allowing privilege escalation
+    - debian/patches/43_CVE-2011-0727.patch: fix
+      daemon/gdm-session-worker.c to copy files as session user rather
+      than root followed by a subsequent chown. (LP: #746053)
+    - CVE-2011-0727
+
+ -- Steve Beattie <sbeattie@ubuntu.com>  Mon, 04 Apr 2011 20:42:03 -0700
+
 gdm (2.32.0-0ubuntu14) natty; urgency=low
 
   * debian/patches/24_respect_system_minuid.patch:
