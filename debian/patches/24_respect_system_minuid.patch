@@ -9,8 +9,8 @@ Author: Kees Cook <kees@ubuntu.com>
 
 Index: gdm-2.32.0/daemon/gdm-user-manager.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-user-manager.c	2011-01-28 13:35:30.077160491 -0800
-+++ gdm-2.32.0/daemon/gdm-user-manager.c	2011-01-28 13:48:46.848088701 -0800
+--- gdm-2.32.0.orig/daemon/gdm-user-manager.c	2011-04-01 15:15:53.366491624 +1100
++++ gdm-2.32.0/daemon/gdm-user-manager.c	2011-04-01 15:16:02.306491628 +1100
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -124,8 +124,8 @@ Index: gdm-2.32.0/daemon/gdm-user-manager.c
                                                           g_str_equal,
 Index: gdm-2.32.0/gui/gdmsetup/gdm-user-manager.c
 ===================================================================
---- gdm-2.32.0.orig/gui/gdmsetup/gdm-user-manager.c	2011-01-28 13:35:30.107155256 -0800
-+++ gdm-2.32.0/gui/gdmsetup/gdm-user-manager.c	2011-01-28 13:48:46.858086956 -0800
+--- gdm-2.32.0.orig/gui/gdmsetup/gdm-user-manager.c	2011-04-01 15:15:35.776491614 +1100
++++ gdm-2.32.0/gui/gdmsetup/gdm-user-manager.c	2011-04-01 15:16:02.306491628 +1100
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -231,8 +231,8 @@ Index: gdm-2.32.0/gui/gdmsetup/gdm-user-manager.c
                                                           g_str_equal,
 Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
 ===================================================================
---- gdm-2.32.0.orig/gui/simple-greeter/gdm-user-manager.c	2011-01-28 13:35:30.087158746 -0800
-+++ gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c	2011-01-28 13:51:23.760701550 -0800
+--- gdm-2.32.0.orig/gui/simple-greeter/gdm-user-manager.c	2011-04-01 15:15:23.006491608 +1100
++++ gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c	2011-04-01 15:19:18.966491724 +1100
 @@ -29,6 +29,7 @@
  #include <errno.h>
  #include <sys/stat.h>
@@ -269,7 +269,27 @@ Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
          /* check exclusions up front */
          if (username_in_exclude_list (manager, pwent->pw_name)) {
                  g_debug ("GdmUserManager: excluding user '%s'", pwent->pw_name);
-@@ -2127,6 +2133,7 @@
+@@ -1887,6 +1893,7 @@
+         gboolean res;
+         char    *username;
+         gulong   frequency;
++        struct passwd  *pwent;
+         GdmUser *user;
+ 
+         frequency = 0;
+@@ -1896,6 +1903,11 @@
+                 return;
+         }
+ 
++        get_pwent_for_name (username, &pwent);
++        if (pwent && pwent->pw_uid < manager->priv->minimal_uid) {
++                return;
++        }
++
+         if (username_in_exclude_list (manager, username)) {
+                 g_debug ("GdmUserManager: excluding user '%s'", username);
+                 g_free (username);
+@@ -2127,6 +2139,7 @@
  
  static void
  reload_passwd_file (GHashTable *valid_shells,
@@ -277,7 +297,7 @@ Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
                      GSList     *exclude_users,
                      GSList     *include_users,
                      gboolean    include_all,
-@@ -2207,7 +2214,7 @@
+@@ -2207,7 +2220,7 @@
                       pwent = fgetpwent (fp)) {
  
                          /* Skip users below MinimalUID... */
@@ -286,7 +306,7 @@ Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
                                  continue;
                          }
  
-@@ -2362,6 +2369,7 @@
+@@ -2362,6 +2375,7 @@
          g_debug ("GdmUserManager: reloading passwd file worker");
  
          reload_passwd_file (data->shells,
@@ -294,7 +314,7 @@ Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
                              data->exclude_users,
                              data->include_users,
                              data->include_all,
-@@ -2473,6 +2481,38 @@
+@@ -2473,6 +2487,38 @@
          maybe_set_is_loaded (manager);
  }
  
@@ -333,7 +353,7 @@ Index: gdm-2.32.0/gui/simple-greeter/gdm-user-manager.c
  static void
  load_sessions (GdmUserManager *manager)
  {
-@@ -2886,6 +2926,7 @@
+@@ -2886,6 +2932,7 @@
          GError        *error;
  
          manager->priv = GDM_USER_MANAGER_GET_PRIVATE (manager);

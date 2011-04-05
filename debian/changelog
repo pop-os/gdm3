@@ -1,12 +1,21 @@
-gdm (2.32.0-0ubuntu14) UNRELEASED; urgency=low
+gdm (2.32.0-0ubuntu15) UNRELEASED; urgency=low
 
   * SECURITY UPDATE: race condition allowing privilege escalation
-    - debian/patches/42_CVE-2011-0727.patch: fix
+    - debian/patches/43_CVE-2011-0727.patch: fix
       daemon/gdm-session-worker.c to copy files as session user rather
       than root followed by a subsequent chown. (LP: #746053)
     - CVE-2011-0727
 
- -- Steve Beattie <sbeattie@ubuntu.com>  Thu, 31 Mar 2011 15:39:45 -0700
+ -- Steve Beattie <sbeattie@ubuntu.com>  Mon, 04 Apr 2011 20:42:03 -0700
+
+gdm (2.32.0-0ubuntu14) natty; urgency=low
+
+  * debian/patches/24_respect_system_minuid.patch:
+    - Ignore entries from ck-history that are using system UIDs (LP: #696038)
+  * debian/patches/42_no_ecryptfs_autologin.patch:
+    - Don't autologin ecryptfs users (LP: #284443)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 01 Apr 2011 15:49:50 +1100
 
 gdm (2.32.0-0ubuntu13) natty; urgency=low
 

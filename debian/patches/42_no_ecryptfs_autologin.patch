@@ -1,0 +1,61 @@
+Description: Don't autologin if using ecryptfs - if you do then the home directory is empty as you need the password entered via PAM to decrypt it.  This is not a perfect solution as the home directory may not be mounted yet.
+Author: Robert Ancell <robert.ancell@canonical.com>
+Bug: http://launchpad.net/bugs/284443
+
+Index: gdm-2.32.0/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-2.32.0.orig/daemon/gdm-simple-slave.c	2011-04-01 17:10:36.373792974 +1100
++++ gdm-2.32.0/daemon/gdm-simple-slave.c	2011-04-01 17:17:42.063793109 +1100
+@@ -567,6 +567,24 @@
+         slave->priv->username = g_strdup (username);
+ }
+ 
++static gboolean
++using_ecryptfs (const gchar *username)
++{
++        gchar *path;
++        struct stat statbuf;
++        struct passwd *info;
++        int r;
++
++        info = getpwnam (username);
++        if (!info)
++                return FALSE;
++
++        path = g_build_filename (info->pw_dir, ".ecryptfs", "auto-mount", NULL);
++        r = g_stat (path, &statbuf);
++        g_free (path);
++        return r == 0;
++}
++
+ static void
+ on_session_conversation_started (GdmSession     *session,
+                                  GdmSimpleSlave *slave)
+@@ -599,7 +617,8 @@
+ 
+         enabled = FALSE;
+         gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
+-        if (! enabled) {
++        if (! enabled || using_ecryptfs (username)) {
++                g_free (username);
+                 return;
+         }
+ 
+@@ -1224,8 +1243,7 @@
+                 delay = 0;
+                 enabled = FALSE;
+                 gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
+-                g_free (username);
+-                if (! enabled || delay > 0) {
++                if (! enabled || delay > 0 || using_ecryptfs (username)) {
+                         start_greeter (slave);
+                         create_new_session (slave);
+                 } else {
+@@ -1233,6 +1251,7 @@
+                         gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
+                         reset_session (slave);
+                 }
++                g_free (username);
+         } else {
+                 if (slave->priv->connection_attempts >= MAX_CONNECT_ATTEMPTS) {
+                         g_warning ("Unable to connect to display after %d tries - bailing out", slave->priv->connection_attempts);
