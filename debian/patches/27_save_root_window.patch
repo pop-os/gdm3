@@ -7,11 +7,11 @@ Subject: Save root window to pixmap at _XROOTPMAP_ID
 This combined with starting the X server with -nr
 will give us a nice fade transition when g-s-d starts
 ---
-Index: gdm-2.32.0/daemon/gdm-simple-slave.c
+Index: gdm-2.32.1/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-simple-slave.c	2010-12-07 15:19:56.927502001 +0100
-+++ gdm-2.32.0/daemon/gdm-simple-slave.c	2010-12-07 15:21:06.407502002 +0100
-@@ -936,6 +936,15 @@
+--- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:32:16.451921308 +1000
++++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:32:23.731921312 +1000
+@@ -1007,6 +1007,15 @@
  {
          /* Set the busy cursor */
          gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
@@ -27,10 +27,10 @@ Index: gdm-2.32.0/daemon/gdm-simple-slave.c
  }
  
  static void
-Index: gdm-2.32.0/daemon/gdm-slave.c
+Index: gdm-2.32.1/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-slave.c	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-slave.c	2010-12-07 15:21:06.407502002 +0100
+--- gdm-2.32.1.orig/daemon/gdm-slave.c	2011-03-29 03:48:50.000000000 +1100
++++ gdm-2.32.1/daemon/gdm-slave.c	2011-04-08 16:32:23.731921312 +1000
 @@ -43,6 +43,7 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
@@ -117,10 +117,10 @@ Index: gdm-2.32.0/daemon/gdm-slave.c
  void
  gdm_slave_set_busy_cursor (GdmSlave *slave)
  {
-Index: gdm-2.32.0/daemon/gdm-slave.h
+Index: gdm-2.32.1/daemon/gdm-slave.h
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-slave.h	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-slave.h	2010-12-07 15:21:06.407502002 +0100
+--- gdm-2.32.1.orig/daemon/gdm-slave.h	2011-03-29 03:48:50.000000000 +1100
++++ gdm-2.32.1/daemon/gdm-slave.h	2011-04-08 16:32:23.731921312 +1000
 @@ -74,6 +74,7 @@
  
  gboolean            gdm_slave_connect_to_x11_display (GdmSlave   *slave);

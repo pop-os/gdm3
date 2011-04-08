@@ -1,3 +1,12 @@
+gdm (2.32.1-0ubuntu1) natty; urgency=low
+
+  * New upstream release
+  * debian/patches/01git_xdmcp_ipv6.patch:
+  * debian/patches/43_CVE-2011-0727.patch:
+    - Applied upstream
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 08 Apr 2011 16:35:19 +1000
+
 gdm (2.32.0-0ubuntu15) natty; urgency=low
 
   * SECURITY UPDATE: race condition allowing privilege escalation

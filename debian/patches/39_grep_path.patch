@@ -1,8 +1,8 @@
-Index: gdm-2.30.5/data/Init.in
+Index: gdm-2.32.1/data/Init.in
 ===================================================================
---- gdm-2.30.5.orig/data/Init.in	2011-01-24 22:06:47.466772856 +0100
-+++ gdm-2.30.5/data/Init.in	2011-01-24 22:06:56.119270291 +0100
-@@ -48,7 +48,7 @@ if [ "x$XMODMAP" != "x" ] ; then
+--- gdm-2.32.1.orig/data/Init.in	2011-04-08 16:33:58.721921358 +1000
++++ gdm-2.32.1/data/Init.in	2011-04-08 16:34:20.841921370 +1000
+@@ -55,7 +55,7 @@
    UNAME=`gdmwhich uname`
    PROCESSOR=`$UNAME -p`
    if [ "x$PROCESSOR" = "xsparc" ]; then

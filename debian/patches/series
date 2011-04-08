@@ -1,5 +1,4 @@
 00git_passwordless_login_crash.patch
-01git_xdmcp_ipv6.patch
 
 02_x_server_location.patch
 04_fix_external_program_directories.patch
@@ -34,4 +33,3 @@
 40_one_lang_option_per_translation.patch
 41_pt_time_format.patch
 42_no_ecryptfs_autologin.patch
-43_CVE-2011-0727.patch

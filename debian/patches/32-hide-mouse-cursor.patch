@@ -2,11 +2,11 @@ Description: Hide the mouse cursor on startup and when starting an user session.
 Author: Martin Pitt <martin.pitt@ubuntu.com>
 Origin: Ubuntu
 
-Index: gdm-2.32.0/daemon/gdm-simple-slave.c
+Index: gdm-2.32.1/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-simple-slave.c	2010-12-07 15:21:15.000000000 +0100
-+++ gdm-2.32.0/daemon/gdm-simple-slave.c	2010-12-07 15:22:30.437502001 +0100
-@@ -1046,9 +1046,6 @@
+--- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:33:17.011921338 +1000
++++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:33:23.621921342 +1000
+@@ -1117,9 +1117,6 @@
  static void
  setup_server (GdmSimpleSlave *slave)
  {
@@ -16,10 +16,10 @@ Index: gdm-2.32.0/daemon/gdm-simple-slave.c
          /* The root window has a background that may be useful
           * to cross fade or transition from when setting the
           * login screen background.  We read it here, and stuff
-Index: gdm-2.32.0/gui/simple-greeter/gdm-greeter-login-window.c
+Index: gdm-2.32.1/gui/simple-greeter/gdm-greeter-login-window.c
 ===================================================================
---- gdm-2.32.0.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-12-07 15:21:15.000000000 +0100
-+++ gdm-2.32.0/gui/simple-greeter/gdm-greeter-login-window.c	2010-12-07 15:22:50.047502002 +0100
+--- gdm-2.32.1.orig/gui/simple-greeter/gdm-greeter-login-window.c	2011-04-08 16:33:17.011921338 +1000
++++ gdm-2.32.1/gui/simple-greeter/gdm-greeter-login-window.c	2011-04-08 16:33:23.621921342 +1000
 @@ -171,7 +171,7 @@
  {
          GdkCursor *cursor;

@@ -2,10 +2,10 @@ Description: Don't save failsafe session in .dmrc. "Failsafe" means either fails
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=607703
 Bug-Ubuntu: https://launchpad.net/bugs/509182
 
-Index: gdm-2.32.0/daemon/gdm-session-direct.c
+Index: gdm-2.32.1/daemon/gdm-session-direct.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-session-direct.c	2010-12-07 15:19:56.837502001 +0100
-+++ gdm-2.32.0/daemon/gdm-session-direct.c	2010-12-07 15:21:37.417502001 +0100
+--- gdm-2.32.1.orig/daemon/gdm-session-direct.c	2011-04-08 16:32:14.361921308 +1000
++++ gdm-2.32.1/daemon/gdm-session-direct.c	2011-04-08 16:33:19.711921340 +1000
 @@ -177,6 +177,32 @@
  }
  
@@ -144,7 +144,7 @@ Index: gdm-2.32.0/daemon/gdm-session-direct.c
  static char *
  get_session_command (GdmSessionDirect *session)
  {
-@@ -2311,6 +2421,10 @@
+@@ -2319,6 +2429,10 @@
  
          send_dbus_string_signal (impl, "SetSessionName",
                                   get_session_name (impl));
@@ -155,10 +155,10 @@ Index: gdm-2.32.0/daemon/gdm-session-direct.c
  }
  
  static void
-Index: gdm-2.32.0/daemon/gdm-session-settings.c
+Index: gdm-2.32.1/daemon/gdm-session-settings.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-session-settings.c	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-session-settings.c	2010-12-07 15:21:37.417502001 +0100
+--- gdm-2.32.1.orig/daemon/gdm-session-settings.c	2011-03-29 03:48:50.000000000 +1100
++++ gdm-2.32.1/daemon/gdm-session-settings.c	2011-04-08 16:33:19.711921340 +1000
 @@ -35,6 +35,7 @@
  struct _GdmSessionSettingsPrivate
  {
@@ -262,10 +262,10 @@ Index: gdm-2.32.0/daemon/gdm-session-settings.c
          key_file = g_key_file_new ();
  
          file_error = NULL;
-Index: gdm-2.32.0/daemon/gdm-session-settings.h
+Index: gdm-2.32.1/daemon/gdm-session-settings.h
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-session-settings.h	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-session-settings.h	2010-12-07 15:21:37.417502001 +0100
+--- gdm-2.32.1.orig/daemon/gdm-session-settings.h	2011-03-29 03:48:50.000000000 +1100
++++ gdm-2.32.1/daemon/gdm-session-settings.h	2011-04-08 16:33:19.711921340 +1000
 @@ -63,12 +63,15 @@
  char               *gdm_session_settings_get_language_name  (GdmSessionSettings *settings);
  char               *gdm_session_settings_get_layout_name    (GdmSessionSettings *settings);
@@ -282,11 +282,11 @@ Index: gdm-2.32.0/daemon/gdm-session-settings.h
  
  G_END_DECLS
  #endif /* GDM_SESSION_SETTINGS_H */
-Index: gdm-2.32.0/daemon/gdm-session-worker.c
+Index: gdm-2.32.1/daemon/gdm-session-worker.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-session-worker.c	2010-09-15 20:58:10.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-session-worker.c	2010-12-07 15:21:37.427502001 +0100
-@@ -2213,6 +2213,14 @@
+--- gdm-2.32.1.orig/daemon/gdm-session-worker.c	2011-03-29 03:51:12.000000000 +1100
++++ gdm-2.32.1/daemon/gdm-session-worker.c	2011-04-08 16:33:19.711921340 +1000
+@@ -2179,6 +2179,14 @@
  }
  
  static void
@@ -301,7 +301,7 @@ Index: gdm-2.32.0/daemon/gdm-session-worker.c
  on_set_session_name (GdmSessionWorker *worker,
                       DBusMessage      *message)
  {
-@@ -2235,6 +2243,28 @@
+@@ -2201,6 +2209,28 @@
  }
  
  static void
@@ -330,7 +330,7 @@ Index: gdm-2.32.0/daemon/gdm-session-worker.c
  gdm_session_worker_set_language_name (GdmSessionWorker *worker,
                                        const char       *language_name)
  {
-@@ -2855,6 +2885,8 @@
+@@ -2821,6 +2851,8 @@
                  on_set_layout_name (worker, message);
          } else if (dbus_message_is_signal (message, GDM_SESSION_DBUS_INTERFACE, "SetSessionName")) {
                  on_set_session_name (worker, message);

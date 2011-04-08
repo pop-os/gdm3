@@ -2,11 +2,11 @@ Description: Don't autologin if using ecryptfs - if you do then the home directo
 Author: Robert Ancell <robert.ancell@canonical.com>
 Bug: http://launchpad.net/bugs/284443
 
-Index: gdm-2.32.0/daemon/gdm-simple-slave.c
+Index: gdm-2.32.1/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/gdm-simple-slave.c	2011-04-01 17:10:36.373792974 +1100
-+++ gdm-2.32.0/daemon/gdm-simple-slave.c	2011-04-01 17:17:42.063793109 +1100
-@@ -567,6 +567,24 @@
+--- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:34:06.801921362 +1000
++++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:34:24.741921372 +1000
+@@ -638,6 +638,24 @@
          slave->priv->username = g_strdup (username);
  }
  
@@ -31,7 +31,7 @@ Index: gdm-2.32.0/daemon/gdm-simple-slave.c
  static void
  on_session_conversation_started (GdmSession     *session,
                                   GdmSimpleSlave *slave)
-@@ -599,7 +617,8 @@
+@@ -670,7 +688,8 @@
  
          enabled = FALSE;
          gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
@@ -41,7 +41,7 @@ Index: gdm-2.32.0/daemon/gdm-simple-slave.c
                  return;
          }
  
-@@ -1224,8 +1243,7 @@
+@@ -1295,8 +1314,7 @@
                  delay = 0;
                  enabled = FALSE;
                  gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
@@ -51,7 +51,7 @@ Index: gdm-2.32.0/daemon/gdm-simple-slave.c
                          start_greeter (slave);
                          create_new_session (slave);
                  } else {
-@@ -1233,6 +1251,7 @@
+@@ -1304,6 +1322,7 @@
                          gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
                          reset_session (slave);
                  }

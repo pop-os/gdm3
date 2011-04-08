@@ -3,10 +3,11 @@ Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-direct.c gdm-2.32.0.new//daemon/gdm-session-direct.c
---- gdm-2.32.0//daemon/gdm-session-direct.c	2010-09-16 00:53:43.000000000 +0200
-+++ gdm-2.32.0.new//daemon/gdm-session-direct.c	2011-03-30 01:00:42.293726584 +0200
-@@ -606,10 +606,23 @@
+Index: gdm-2.32.1/daemon/gdm-session-direct.c
+===================================================================
+--- gdm-2.32.1.orig/daemon/gdm-session-direct.c	2011-04-08 16:34:14.821921366 +1000
++++ gdm-2.32.1/daemon/gdm-session-direct.c	2011-04-08 16:34:15.661921368 +1000
+@@ -691,10 +691,23 @@
  static const char *
  get_default_language_name (GdmSessionDirect *session)
  {
@@ -30,9 +31,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-direct.c gdm-2.32.0
      return setlocale (LC_MESSAGES, NULL);
  }
  
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//data/Xsession.in gdm-2.32.0.new//data/Xsession.in
---- gdm-2.32.0//data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0.new//data/Xsession.in	2011-03-30 00:58:22.073665828 +0200
+Index: gdm-2.32.1/data/Xsession.in
+===================================================================
+--- gdm-2.32.1.orig/data/Xsession.in	2011-04-08 16:34:14.801921366 +1000
++++ gdm-2.32.1/data/Xsession.in	2011-04-08 16:34:15.661921368 +1000
 @@ -146,11 +146,136 @@
  
  unset XKB_IN_USE
