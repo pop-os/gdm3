@@ -1,10 +1,12 @@
-gdm3 (2.30.5-9) UNRELEASED; urgency=low
+gdm3 (2.30.5-9) unstable; urgency=low
 
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.
   * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
     Closes: #616612.
+  * 32_CVE-2011-0727.patch: patch from Ray Strode to fix local root 
+    privilege escalation. Closes: #620184, CVE-2011-0727.
 
- -- Josselin Mouette <joss@debian.org>  Sun, 06 Mar 2011 10:59:31 +0100
+ -- Josselin Mouette <joss@debian.org>  Sat, 09 Apr 2011 12:09:35 +0200
 
 gdm3 (2.30.5-8) unstable; urgency=low
 

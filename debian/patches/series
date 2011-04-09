@@ -31,4 +31,5 @@
 29_grep_path.patch
 30_utf8_locale.patch
 31_xkb_options.patch
+32_CVE-2011-0727.patch
 90_relibtoolize.patch
