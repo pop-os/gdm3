@@ -1,3 +1,9 @@
+gdm (2.32.1-0ubuntu2) UNRELEASED; urgency=low
+
+  * Translate the cancel button (LP: #757468).
+
+ -- Evan Dandrea <ev@ubuntu.com>  Tue, 12 Apr 2011 10:58:10 +0100
+
 gdm (2.32.1-0ubuntu1) natty; urgency=low
 
   * New upstream release
