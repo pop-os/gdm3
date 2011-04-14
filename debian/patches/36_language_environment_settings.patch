@@ -128,7 +128,7 @@ Index: gdm-2.32.1/data/Xsession.in
 +}
 +
 +# read /var/cache/gdm/$USER/dmrc and set LANGUAGE and LC_MESSAGES
-+if [ -n "$GDM_LANG" -a $DESKTOP_SESSION != 'guest-restricted' ]; then
++if [ -n "$GDM_LANG" -a "${DESKTOP_SESSION#*guest}" != '-restricted' ]; then
 +    if [ $GDM_LANG != ${GDM_LANG%.utf8*} ]; then
 +        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.utf8}
 +    elif [ $GDM_LANG != ${GDM_LANG%.UTF-8*} ]; then
