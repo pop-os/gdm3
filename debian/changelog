@@ -1,10 +1,10 @@
-gdm (2.32.1-0ubuntu3) UNRELEASED; urgency=low
+gdm (2.32.1-0ubuntu3) natty; urgency=low
 
   * debian/patches/36_language_environment_settings.patch:
     - Modified test of whether it is a guest session to cover e.g.
       "gnome-classic-guest-restricted".
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Thu, 14 Apr 2011 12:05:00 +0200
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Thu, 14 Apr 2011 12:19:13 +0200
 
 gdm (2.32.1-0ubuntu2) natty; urgency=low
 
