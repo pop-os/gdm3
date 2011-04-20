@@ -1,3 +1,12 @@
+gdm3 (2.30.5-10) unstable; urgency=low
+
+  * 33_reset_signal_handler.patch: stolen upstream. Reset SIGPIPE 
+    handler before starting the session.
+  * 34_postsession_shutdown.patch: stolen upstream. Execute the 
+    PostSession script even when GDM is killed or shut down.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 20 Apr 2011 19:57:09 +0200
+
 gdm3 (2.30.5-9) unstable; urgency=high
 
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.

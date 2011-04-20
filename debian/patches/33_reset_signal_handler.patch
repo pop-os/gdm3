@@ -1,0 +1,26 @@
+From 7196e4330acfa525361447ba986bd8cab1494a12 Mon Sep 17 00:00:00 2001
+From: Brian Cameron <brian.cameron@oracle.com>
+Date: Thu, 07 Apr 2011 17:06:45 +0000
+Subject: Fix #630484, set SIGPIPE handler to default before starting Xsession.
+
+---
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index 9470824..f8ba4ba 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -2070,6 +2070,13 @@ gdm_session_worker_start_user_session (GdmSessionWorker  *worker,
+ 
+                 _save_user_settings (worker, home_dir);
+ 
++                /*
++                 * Reset SIGPIPE to default so that any process in the user
++                 * session get the default SIGPIPE behavior instead of ignoring
++                 * SIGPIPE.
++                 */
++                signal (SIGPIPE, SIG_DFL);
++
+                 gdm_session_execute (worker->priv->arguments[0],
+                                      worker->priv->arguments,
+                                      environment,
+--
+cgit v0.9
