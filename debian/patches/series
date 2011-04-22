@@ -1,8 +1,5 @@
-01_minimal_uid.patch
 02_xnest-wrapper.patch
-03_ipv6.patch
 04_no_fatal_criticals.patch
-05_stop_welcome_session.patch
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch

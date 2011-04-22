@@ -1,44 +1,145 @@
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
-@@ -130,7 +130,7 @@
+GNOME #645918
+
+Index: gdm-2.91.94/daemon/gdm-server.c
+===================================================================
+--- gdm-2.91.94.orig/daemon/gdm-server.c	2011-03-28 14:01:49.000000000 +0530
++++ gdm-2.91.94/daemon/gdm-server.c	2011-03-28 14:39:25.987040200 +0530
+@@ -134,7 +134,7 @@
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
          error = NULL;
 -        command = g_strdup_printf (LIBEXECDIR "/ck-get-x11-display-device --display %s",
-+        command = g_strdup_printf ("/usr/lib/ConsoleKit/ck-get-x11-display-device --display %s",
++        command = g_strdup_printf (CK_LIBEXECDIR "/ck-get-x11-display-device --display %s",
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
---- a/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
-+++ b/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
+Index: gdm-2.91.94/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
+===================================================================
+--- gdm-2.91.94.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-03-17 19:53:18.000000000 +0530
++++ gdm-2.91.94/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-03-28 14:15:39.099040320 +0530
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
  _Name=GNOME Settings Daemon
 -TryExec=@LIBEXECDIR@/gnome-settings-daemon
--Exec=@LIBEXECDIR@/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
-+TryExec=@LIBDIR@/gnome-settings-daemon/gnome-settings-daemon
-+Exec=@LIBDIR@/gnome-settings-daemon/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-greeter/settings-manager-plugins
+-Exec=@LIBEXECDIR@/gnome-settings-daemon
++TryExec=@GSD_LIBEXECDIR@/gnome-settings-daemon
++Exec=@GSD_LIBEXECDIR@/gnome-settings-daemon
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
---- a/gui/simple-chooser/gdm-chooser-session.c
-+++ b/gui/simple-chooser/gdm-chooser-session.c
+Index: gdm-2.91.94/gui/simple-chooser/gdm-chooser-session.c
+===================================================================
+--- gdm-2.91.94.orig/gui/simple-chooser/gdm-chooser-session.c	2011-03-17 19:53:18.000000000 +0530
++++ gdm-2.91.94/gui/simple-chooser/gdm-chooser-session.c	2011-03-28 14:16:02.211041102 +0530
 @@ -131,7 +131,7 @@
          ret = FALSE;
  
          error = NULL;
--        g_spawn_command_line_async (LIBEXECDIR "/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-chooser/settings-manager-plugins", &error);
-+        g_spawn_command_line_async ("/usr/lib/gnome-settings-daemon/gnome-settings-daemon --gconf-prefix=/apps/gdm/simple-chooser/settings-manager-plugins", &error);
+-        g_spawn_command_line_async (LIBEXECDIR "/gnome-settings-daemon", &error);
++        g_spawn_command_line_async (GSD_LIBEXECDIR "/gnome-settings-daemon", &error);
          if (error != NULL) {
                  g_warning ("Error starting settings daemon: %s", error->message);
                  g_error_free (error);
---- a/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
-+++ b/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
+Index: gdm-2.91.94/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
+===================================================================
+--- gdm-2.91.94.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-03-07 23:10:37.000000000 +0530
++++ gdm-2.91.94/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-03-28 14:43:07.931290431 +0530
 @@ -1,5 +1,5 @@
  [Desktop Entry]
  Type=Application
  _Name=PolicyKit Authentication Agent
 -Exec=@LIBEXECDIR@/polkit-gnome-authentication-agent-1
-+Exec=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
++Exec=@PK_GNOME_LIBEXECDIR@/polkit-gnome-authentication-agent-1
  OnlyShowIn=GNOME;
+Index: gdm-2.91.94/configure.ac
+===================================================================
+--- gdm-2.91.94.orig/configure.ac	2011-03-28 14:22:04.635041861 +0530
++++ gdm-2.91.94/configure.ac	2011-03-28 15:41:16.251040749 +0530
+@@ -52,6 +52,7 @@
+ FONTCONFIG_REQUIRED_VERSION=2.5.0
+ UPOWER_REQUIRED_VERSION=0.9.0
+ ACCOUNTS_SERVICE_REQUIRED_VERSION=0.6.5
++GSD_REQUIRED_VERSION=2.91.2
+ 
+ EXTRA_COMPILE_WARNINGS(yes)
+ 
+@@ -170,6 +171,39 @@
+ AM_GCONF_SOURCE_2
+ 
+ dnl ---------------------------------------------------------------------------
++dnl - Paths for dependencies
++dnl ---------------------------------------------------------------------------
++
++PKG_CHECK_MODULES(GSD,
++        gnome-settings-daemon >= $GSD_REQUIRED_VERSION
++)
++GSD_LIBEXECDIR=`pkg-config --variable=libexecdir gnome-settings-daemon`
++AC_SUBST(GSD_LIBEXECDIR)
++AC_DEFINE_UNQUOTED([GSD_LIBEXECDIR], "$GSD_LIBEXECDIR", [Path to the GNOME settings daemon])
++
++
++dnl This should be done with pkg-config, but ConsoleKit and PolicyKit don’t
++dnl ship .pc files
++dnl Because of that we only handle the case where libexecdir is the same
++dnl (e.g. Red Hat), and the case where libexecdir = pkglibdir (e.g. Debian)
++
++AC_MSG_CHECKING(where helpers are installed)
++if test x`basename "$libexecdir"` = "xlibexec"; then
++        AC_MSG_RESULT($libexecdir)
++        CK_LIBEXECDIR="$libexecdir"
++        PK_GNOME_LIBEXECDIR="$libexecdir"
++        SESSION_LIBEXECDIR="$libexecdir"
++else
++        AC_MSG_RESULT("$libdir/Consolekit, $libdir/policykit-1-gnome, $libdir/gnome-session")
++        CK_LIBEXECDIR="$libdir/ConsoleKit"
++        PK_GNOME_LIBEXECDIR="$libdir/policykit-1-gnome"
++        SESSION_LIBEXECDIR="$libdir/gnome-session"
++fi
++AC_SUBST(CK_LIBEXECDIR)
++AC_SUBST(PK_GNOME_LIBEXECDIR)
++AC_SUBST(SESSION_LIBEXECDIR)
++
++dnl ---------------------------------------------------------------------------
+ dnl - Configuration file stuff
+ dnl ---------------------------------------------------------------------------
+ 
+Index: gdm-2.91.94/daemon/Makefile.am
+===================================================================
+--- gdm-2.91.94.orig/daemon/Makefile.am	2011-03-28 15:17:18.107041508 +0530
++++ gdm-2.91.94/daemon/Makefile.am	2011-03-28 15:26:55.835039673 +0530
+@@ -12,6 +12,7 @@
+ 	-DGDMCONFDIR=\"$(gdmconfdir)\"			\
+ 	-DLIBDIR=\"$(libdir)\"				\
+ 	-DLIBEXECDIR=\"$(libexecdir)\"			\
++	-DCK_LIBEXECDIR=\"$(CK_LIBEXECDIR)\"			\
+ 	-DLOGDIR=\"$(logdir)\"				\
+ 	-DSBINDIR=\"$(sbindir)\"			\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
+Index: gdm-2.91.94/data/greeter-autostart/Makefile.am
+===================================================================
+--- gdm-2.91.94.orig/data/greeter-autostart/Makefile.am	2011-03-28 15:15:59.075041316 +0530
++++ gdm-2.91.94/data/greeter-autostart/Makefile.am	2011-03-28 15:25:53.855291378 +0530
+@@ -5,6 +5,9 @@
+ 	-e 's|@SYSCONFDIR[@]|$(sysconfdir)|g' \
+ 	-e 's|@LIBDIR[@]|$(libdir)|g' \
+ 	-e 's|@LIBEXECDIR[@]|$(libexecdir)|g' \
++	-e 's|@GSD_LIBEXECDIR[@]|$(GSD_LIBEXECDIR)|g' \
++	-e 's|@PK_GNOME_LIBEXECDIR[@]|$(PK_GNOME_LIBEXECDIR)|g' \
++	-e 's|@SESSION_LIBEXECDIR[@]|$(SESSION_LIBEXECDIR)|g' \
+ 	-e 's|@LOCALSTATEDIR[@]|$(localstatedir)|g'
+ 
+ %.desktop.in: %.desktop.in.in Makefile
+Index: gdm-2.91.94/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in
+===================================================================
+--- gdm-2.91.94.orig/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-03-28 15:27:24.795041790 +0530
++++ gdm-2.91.94/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-03-28 15:27:35.871042164 +0530
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Type=Application
+ _Name=GNOME Session Acceleration Checker
+-TryExec=@LIBEXECDIR@/gnome-session-check-accelerated
+-Exec=@LIBEXECDIR@/gnome-session-check-accelerated
++TryExec=@SESSION_LIBEXECDIR@/gnome-session-check-accelerated
++Exec=@SESSION_LIBEXECDIR@/gnome-session-check-accelerated
+ X-GNOME-Autostart-Phase=Application

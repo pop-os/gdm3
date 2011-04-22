@@ -1,10 +1,16 @@
-gdm3 (2.30.5-9) UNRELEASED; urgency=low
+gdm3 (2.91.94-1) UNRELEASED; urgency=low
 
+  * WORK IN PROGRESS
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.
   * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
     Closes: #616612.
+  * New upstream pre-release.
+  * 01_minimal_uid.patch: dropped, fixed upstream using accountsservice.
+  * 03_ipv6.patch, 05_stop_welcome_session.patch: dropped, merged upstream.
+  * 07_libexec-paths.patch: put enough intelligence in configure.ac to 
+    remove the need for a Debian-specific patch.
 
- -- Josselin Mouette <joss@debian.org>  Sun, 06 Mar 2011 10:59:31 +0100
+ -- Josselin Mouette <joss@debian.org>  Mon, 28 Mar 2011 11:31:13 +0530
 
 gdm3 (2.30.5-8) unstable; urgency=low
 
