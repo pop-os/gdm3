@@ -1,0 +1,35 @@
+From 3d869771f1f48c96788d1e1005b00ebc51d13ce1 Mon Sep 17 00:00:00 2001
+From: Martin Pitt <martin.pitt@ubuntu.com>
+Date: Wed, 27 Apr 2011 10:02:54 +0200
+Subject: [PATCH] Allow .xsession-errors to be a symlink
+
+Don't rename .xsession-errors to .xsession-errors.old if the file is a symlink.
+The later code will truncate the file to zero anyway, so even in that case
+the file won't grow indefinitely.
+
+This is handy when the home directory is on NFS and you want to avoid network
+contention when there are buggy programs which spam .xsession-errors.
+
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=639527
+Bug-Ubuntu: https://launchpad.net/bugs/771661
+---
+ daemon/gdm-session-worker.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index 15ec0e9..dff3075 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -1628,7 +1628,8 @@ _open_session_log (const char *dir)
+ 
+         filename = g_build_filename (dir, GDM_SESSION_LOG_FILENAME, NULL);
+ 
+-        if (g_access (dir, R_OK | W_OK | X_OK) == 0 && g_access (filename, R_OK | W_OK) == 0) {
++        if (g_access (dir, R_OK | W_OK | X_OK) == 0 && g_access (filename, R_OK | W_OK) == 0 &&
++            !g_file_test (filename, G_FILE_TEST_IS_SYMLINK)) {
+                 char *filename_old;
+ 
+                 filename_old = g_strdup_printf ("%s.old", filename);
+-- 
+1.7.4.1
+

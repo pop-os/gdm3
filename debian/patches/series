@@ -34,3 +34,4 @@
 41_pt_time_format.patch
 42_no_ecryptfs_autologin.patch
 43_translate_cancel_button.patch
+44_xsession-errors_symlink.patch
