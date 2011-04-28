@@ -1,14 +1,54 @@
-gdm3 (2.91.94-1) UNRELEASED; urgency=low
+gdm3 (3.0.0-1) UNRELEASED; urgency=low
 
   * WORK IN PROGRESS
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.
   * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
     Closes: #616612.
-  * New upstream pre-release.
+  * New upstream release.
   * 01_minimal_uid.patch: dropped, fixed upstream using accountsservice.
-  * 03_ipv6.patch, 05_stop_welcome_session.patch: dropped, merged upstream.
   * 07_libexec-paths.patch: put enough intelligence in configure.ac to 
     remove the need for a Debian-specific patch.
+  * 08_frequent-users_greeter.patch:
+    + Drop the parts that have been moved to accountsservice.
+    + Now use "x11" instead of "gdm" as session type. See #624474 for 
+      the gory details.
+  * 11_no_xhost_thanks.patch: dropped, upstream promises it is safe.
+  * 11_xephyr_nested.patch: disabled for the moment.
+  * 12_polkit_settings.patch, 13_gdmsetup.patch, 13_gdmsetup_ui.patch, 
+    13_gdmsetup_desktop.patch: dropped, this is now done in the control 
+    center.
+  * 14_pam_dialog.patch: disabled for the moment.
+  * 18_switch_kill_greeter.patch: add the forced -novtswitch argument 
+    for Linux here, making the patch self-consistent.
+  * 19_configure_xserver.patch: disabled. It lets people do stupid 
+    things, and upstream would prefer to have only the X server binary
+    configurable.
+  * Stop setting X_CONFIG_OPTIONS according to those two changes.
+  * 20_endsession_respawn.patch: disable the nested stuff for now.
+  * 21_schemas_usr.patch: most of it has been merged upstream. Only keep 
+    extra comments in the configuration file.
+  * 22_noconsole.patch: rename the configuration option to 
+    xdmcp/ShowLocalGreeter at upstream’s request.
+  * 30_utf8_locale.patch: refreshed.
+  * 31_xkb_options.patch: dropped, upstream removed the keyboard 
+    switching feature.
+  * 03_ipv6.patch, 05_stop_welcome_session.patch, 15_kfreebsd.patch, 
+    17_no_libxdmcp.patch, 23_autologin_once.patch, 25_upower.patch, 
+    26_username_escape.patch, 27_orca_braille.patch, 28_beep.patch: 
+    dropped, merged upstream. 
+  * 90_relibtoolize.patch: dropped in favor of dh-autoreconf.
+  * Update build-dependencies according to the new version.
+  * Drop the conflicts/replaces/provides against f-u-s-a.
+  * Require accountsservice 0.6.9-2 for correct session accounting.
+  * Require dconf-gsettings-backend for the dconf hacks.
+  * Restore debian/TODO.
+  * Remove icons and desktop files for gdmsetup and gdmflexiserver.
+  * debian/po-up/POTFILES.in: cleanup gdmsetup stuff.
+  * Drop gdmXnestwrapper, anyway we can force Xephyr now.
+  * Drop gnome-session-check-accelerated.desktop, it’s useless at login 
+    time.
+  * gdm3.preinst: dropped, the change is in stable.
+  * Require gnome-session 3.0.
 
  -- Josselin Mouette <joss@debian.org>  Mon, 28 Mar 2011 11:31:13 +0530
 

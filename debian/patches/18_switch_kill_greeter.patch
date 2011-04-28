@@ -1,9 +1,9 @@
-Index: gdm-2.30.5/daemon/gdm-simple-slave.c
+Index: gdm-3.0.0/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-simple-slave.c	2010-10-05 20:16:52.931928245 +0200
-+++ gdm-2.30.5/daemon/gdm-simple-slave.c	2010-10-05 22:47:00.375423640 +0200
-@@ -214,6 +214,23 @@ queue_greeter_reset (GdmSimpleSlave *sla
-         slave->priv->greeter_reset_id = g_idle_add ((GSourceFunc)greeter_reset_timeout, slave);
+--- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-04-28 20:35:33.037192030 +0200
++++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-04-28 20:40:41.430699692 +0200
+@@ -299,6 +299,23 @@ queue_auth_failed_reset (GdmSimpleSlave
+         slave->priv->greeter_reset_id = g_idle_add ((GSourceFunc)auth_failed_reset_timeout, slave);
  }
  
 +static gboolean
@@ -26,7 +26,7 @@ Index: gdm-2.30.5/daemon/gdm-simple-slave.c
  static void
  on_session_setup_complete (GdmSession     *session,
                             GdmSimpleSlave *slave)
-@@ -387,7 +404,7 @@ start_session_timeout (GdmSimpleSlave *s
+@@ -475,7 +492,7 @@ start_session_timeout (GdmSimpleSlave *s
                     when Xorg exits it switches to the VT it was
                     started from.  That interferes with fast
                     user switching. */
@@ -35,7 +35,7 @@ Index: gdm-2.30.5/daemon/gdm-simple-slave.c
  
                  goto out;
          }
-@@ -460,7 +477,7 @@ on_session_accreditation_failed (GdmSess
+@@ -548,7 +565,7 @@ on_session_accreditation_failed (GdmSess
             user switching. */
          destroy_session (slave);
  
@@ -44,3 +44,20 @@ Index: gdm-2.30.5/daemon/gdm-simple-slave.c
  }
  
  static void
+Index: gdm-3.0.0/daemon/gdm-server.c
+===================================================================
+--- gdm-3.0.0.orig/daemon/gdm-server.c	2011-04-28 21:05:31.161982611 +0200
++++ gdm-3.0.0/daemon/gdm-server.c	2011-04-28 21:07:21.482521945 +0200
+@@ -1143,7 +1143,12 @@ gdm_server_init (GdmServer *server)
+         server->priv = GDM_SERVER_GET_PRIVATE (server);
+ 
+         server->priv->pid = -1;
++#ifdef __linux__
++        /* -novtswitch is Linux-only in Xorg */
++        server->priv->command = g_strdup (X_SERVER " -br -verbose -novtswitch");
++#else
+         server->priv->command = g_strdup (X_SERVER " -br -verbose");
++#endif
+         server->priv->log_dir = g_strdup (LOGDIR);
+ 
+         add_ready_handler (server);

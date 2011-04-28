@@ -1,10 +1,5 @@
 debian/Xsession                         etc/gdm3
-debian/gdmXnestWrapper                  usr/share/gdm/
 debian/greeter.gconf-defaults		etc/gdm3
-debian/gdmflexiserver*.desktop		usr/share/gdm/applications
-debian/gdmflexiserver.svg		usr/share/icons/hicolor/scalable/apps
-debian/gdm-xnest.svg                    usr/share/icons/hicolor/scalable/apps
-debian/gdmsetup.svg                     usr/share/icons/hicolor/scalable/apps
 debian/default.desktop			usr/share/gdm/BuiltInSessions
 data/session-setup.entries		usr/share/gdm/greeter-config
 debian/insserv.conf.d			etc

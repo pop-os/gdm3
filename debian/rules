@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
 
+include /usr/share/cdbs/1/rules/autoreconf.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
@@ -12,12 +13,6 @@ GNOME_MODULE := gdm
 DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
 			    X_SERVER_PATH="/usr/bin" \
 			    X_SERVER="/usr/bin/Xorg"
-
-ifeq (linux,$(DEB_HOST_ARCH_OS))
-    DEB_CONFIGURE_SCRIPT_ENV += X_CONFIG_OPTIONS="-audit 0 -novtswitch"
-else
-    DEB_CONFIGURE_SCRIPT_ENV += X_CONFIG_OPTIONS="-audit 0"
-endif
 
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--enable-ipv6=yes \
@@ -49,19 +44,16 @@ endif
 DEB_DH_INSTALLINIT_ARGS := --noscripts
 
 binary-install/gdm3::
-	chmod 755 debian/gdm3/usr/share/gdm/gdmXnestWrapper
-	mv debian/gdm3/usr/share/applications/gdmsetup.desktop \
-		debian/gdm3/usr/share/gdm/applications/
-	rmdir debian/gdm3/usr/share/applications
 	mv debian/gdm3/usr/sbin/gdm-binary debian/gdm3/usr/sbin/gdm3
 	cd debian/gdm3/usr/sbin && rm -f gdm-restart gdm-stop gdm-safe-restart
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	dh_installpam -pgdm3 --name=gdm3-autologin
-	rm -rf debian/gdm3/var/lib/gdm3/.g*
+	rm -rf debian/gdm3/var/lib/gdm3/.[cg]*
 	rm -rf debian/gdm3/var/run
 	rm -f debian/gdm3/usr/sbin/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
+	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 	cd debian/gdm3/usr/share/gdm/greeter-config && \
 		mv session-setup.entries 10_upstream.entries
 
