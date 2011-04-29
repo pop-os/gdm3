@@ -81,7 +81,8 @@ Provides: x-display-manager
 Conflicts: gdm
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
-        gnome-orca (<< 2.30.0-2)
+        gnome-orca (<< 2.30.0-2),
+        gnome-control-center (<< 3.0)
 Description: Next generation GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.
