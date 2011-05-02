@@ -1,11 +1,15 @@
-gdm (2.32.1-0ubuntu4) UNRELEASED; urgency=low
+gdm (2.32.1-0ubuntu4) oneiric; urgency=low
 
+  [ Martin Pitt ]
   * Add 44_xsession-errors_symlink.patch: Don't rename .xsession-errors to
     .xsession-errors.old if the file is a symlink.  The later code will
     truncate the file to zero anyway, so even in that case the file won't grow
     indefinitely. (LP: #771661)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 27 Apr 2011 10:10:13 +0200
+  [ James Hunt ]
+  * Updated gdm.conf to fix gdm in single user mode (LP: #436936)
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 02 May 2011 14:41:57 -0400
 
 gdm (2.32.1-0ubuntu3) natty; urgency=low
 
