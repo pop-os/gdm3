@@ -7,7 +7,7 @@
 09_default_session.patch
 10_gdm3_pam.patch
 #11_xephyr_nested.patch
-#14_pam_dialog.patch
+14_pam_dialog.patch
 16_xserver_path.patch
 18_switch_kill_greeter.patch
 #19_configure_xserver.patch

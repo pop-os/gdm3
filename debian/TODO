@@ -1,5 +1,4 @@
 Must be solved before going to unstable
- * Restore 14_pam_dialog.patch
  * Check that a user logged on a tty is not considered as logged on 
    (previously fixed by 08_frequent-users_greeter.patch)
  * Handle the DConf stuff in a more flexible way, allowing for system 
