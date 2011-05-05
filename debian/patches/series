@@ -15,4 +15,3 @@
 21_schemas_usr.patch
 22_noconsole.patch
 29_grep_path.patch
-30_utf8_locale.patch

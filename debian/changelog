@@ -4,6 +4,9 @@ gdm3 (3.0.0-2) UNRELEASED; urgency=low
     useless now.
   * 14_pam_dialog.patch: completely revamped. Use a message queue to 
     show messages on the text area instead of showing an ugly dialog.
+  * 30_utf8_locale.patch: dropped, it’s useless now. Furthermore the 
+    official locale name is now bl_AH.utf8, it’s extracted directly from 
+    the locales package by accountsservice.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 04 May 2011 21:09:36 +0200
 
