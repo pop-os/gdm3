@@ -32,6 +32,7 @@ HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 gen_config() {
+  # GConf part is generated with update-gconf-defaults
   if [ -d /var/lib/gdm3/.gconf.mandatory ]; then
     update-gconf-defaults \
 	--source=/usr/share/gdm/greeter-config \
@@ -41,6 +42,27 @@ gen_config() {
   fi
   if [ -f /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml ]; then
     chown Debian-gdm:Debian-gdm /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml
+  fi
+
+  # GSettings part is generated with glib-compile-schemas
+  if [ -d /var/lib/gdm3 ]; then
+    needed=no
+    if [ -f /var/lib/gdm3/gschemas.compiled ]; then
+      for f in /usr/share/glib-2.0/schemas/gschemas.compiled /usr/share/gdm/greeter-settings /usr/share/gdm/greeter-settings/*.gschema.override; do
+        if [ "$f" -nt /var/lib/gdm3/gschemas.compiled ]; then
+          needed=yes
+          break
+        fi
+      done
+    else
+      needed=yes
+    fi
+    if [ "$needed" = yes ]; then
+      tmpdir=$(mktemp -d --tmpdir gdm-XXXXXX)
+      ln -s /usr/share/glib-2.0/schemas/*.xml /usr/share/glib-2.0/schemas/*.override /usr/share/gdm/greeter-settings/*.override $tmpdir/
+      glib-compile-schemas --targetdir=/var/lib/gdm3 $tmpdir
+      rm -rf $tmpdir
+    fi
   fi
 }
 

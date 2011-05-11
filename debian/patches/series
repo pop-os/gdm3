@@ -12,6 +12,8 @@
 18_switch_kill_greeter.patch
 #19_configure_xserver.patch
 20_endsession_respawn.patch
-21_schemas_usr.patch
 22_noconsole.patch
 29_grep_path.patch
+90_config_comments.patch
+91_dconf_override.patch
+92_gsettings_path.patch

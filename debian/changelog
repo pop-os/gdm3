@@ -1,4 +1,4 @@
-gdm3 (3.0.0-2) UNRELEASED; urgency=low
+gdm3 (3.0.0-2) experimental; urgency=low
 
   * 18_switch_kill_greeter.patch: remove the 2 second timeout, it is 
     useless now.
@@ -7,8 +7,28 @@ gdm3 (3.0.0-2) UNRELEASED; urgency=low
   * 30_utf8_locale.patch: dropped, it’s useless now. Furthermore the 
     official locale name is now bl_AH.utf8, it’s extracted directly from 
     the locales package by accountsservice.
+  * Build-depend on gnome-settings-daemon-dev and 
+    gsettings-desktop-schemas.
+  * Rename 21_schemas_usr.patch to 90_config_comments.patch, to match 
+    its true meaning and the fact it won’t be forwarded.
+  * Allow to tune the GSettings configuration like for GConf.
+    + 91_dconf_override.patch: new Debian-specific patch. Turn the 
+      make-dconf-override-db script into one that creates a GSettings 
+      override file. Drop the dconf profile entirely.
+    + Install the result in /usr/share/gdm/greeter-settings.
+    + 92_gsettings_path.patch: new Debian-specific patch. Set 
+      GSETTINGS_SCHEMA_DIR in the welcome session instead of 
+      DCONF_PROFILE.
+    + Require gsettings-desktop-schemas and libglib2.0-bin in the binary 
+      package.
+    + greeter.gsettings: new file. Set the Debian GSettings defaults.
+    + Install it in /etc/gdm3 and link it in 
+      /usr/share/gdm/greeter-settings.
+    + gdm3.init: regenerate the schemas if needed in /var/lib/gdm3.
+  * greeter.gconf-defaults: remove settings that are necessarily in 
+    GSettings now.
 
- -- Josselin Mouette <joss@debian.org>  Wed, 04 May 2011 21:09:36 +0200
+ -- Josselin Mouette <joss@debian.org>  Thu, 12 May 2011 00:09:50 +0200
 
 gdm3 (3.0.0-1) experimental; urgency=low
 

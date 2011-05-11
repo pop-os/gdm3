@@ -1,0 +1,98 @@
+Index: gdm-3.0.0/data/Makefile.am
+===================================================================
+--- gdm-3.0.0.orig/data/Makefile.am	2011-05-11 22:14:01.807002942 +0200
++++ gdm-3.0.0/data/Makefile.am	2011-05-11 22:15:26.103415033 +0200
+@@ -120,12 +120,6 @@ MAINTAINERCLEANFILES =			\
+ 	dconf-override-db		\
+ 	Makefile.in
+ 
+-dconf-override-db: $(srcdir)/make-dconf-override-db.sh
+-	$(srcdir)/make-dconf-override-db.sh
+-
+-dist-hook: $(srcdir)/dconf-override-db
+-	cp $(srcdir)/dconf-override-db $(distdir)
+-
+ uninstall-hook:
+ 	rm -f \
+ 	$(DESTDIR)$(GDM_CUSTOM_CONF) \
+@@ -137,19 +131,13 @@ uninstall-hook:
+ 	$(DESTDIR)$(PAM_PREFIX)/pam.d/gdm \
+ 	$(DESTDIR)$(PAM_PREFIX)/pam.d/gdm-autologin \
+ 	$(DESTDIR)$(workingdir)/.gconf.path \
+-	$(DESTDIR)$(sysconfdir)/dconf/db/gdm \
+-	$(DESTDIR)$(sysconfdir)/dconf/profile/gdm \
+ 	-rf \
+ 	$(DESTDIR)$(workingdir)/.gconf.mandatory \
+ 	$(DESTDIR)$(workingdir)/.config/dconf \
+ 	$(DESTDIR)$(screenshotdir) \
+ 	$(DESTDIR)$(xauthdir)
+ 
+-	-rmdir \
+-	$(DESTDIR)$(sysconfdir)/dconf/db \
+-	$(DESTDIR)$(sysconfdir)/dconf
+-
+-install-data-hook: gdm.conf-custom Xsession Init PostSession PreSession gconf.path dconf-override-db
++install-data-hook: gdm.conf-custom Xsession Init PostSession PreSession gconf.path
+ 	if test '!' -d $(DESTDIR)$(gdmconfdir); then \
+ 		$(mkinstalldirs) $(DESTDIR)$(gdmconfdir); \
+ 		chmod 755 $(DESTDIR)$(gdmconfdir); \
+@@ -247,18 +235,6 @@ install-data-hook: gdm.conf-custom Xsess
+ 		chown gdm:gdm $(DESTDIR)$(workingdir)/.config/dconf || : ; \
+ 	fi
+ 
+-	if test '!' -d $(DESTDIR)$(sysconfdir)/dconf/profile; then \
+-		$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/dconf/profile; \
+-		chmod 0755 $(DESTDIR)$(sysconfdir)/dconf/profile; \
+-		chown root:root $(DESTDIR)$(sysconfdir)/dconf/profile || : ; \
+-	fi
+-
+-	if test '!' -d $(DESTDIR)$(sysconfdir)/dconf/db; then \
+-		$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/dconf/db; \
+-		chmod 0755 $(DESTDIR)$(sysconfdir)/dconf/db; \
+-		chown root:root $(DESTDIR)$(sysconfdir)/dconf/db || : ; \
+-	fi
+-
+ 	if test '!' -d $(DESTDIR)$(cachedir); then \
+ 		$(mkinstalldirs) $(DESTDIR)$(cachedir); \
+ 		chmod 1755 $(DESTDIR)$(cachedir); \
+@@ -272,6 +248,3 @@ install-data-hook: gdm.conf-custom Xsess
+ 	chmod 1750 $(DESTDIR)$(workingdir)/.gconf.mandatory
+ 	chmod 1640 $(DESTDIR)$(workingdir)/.gconf.mandatory/*.xml
+ 
+-	$(INSTALL_DATA) $(srcdir)/dconf-override-db $(DESTDIR)$(sysconfdir)/dconf/db/gdm
+-	$(INSTALL_DATA) $(srcdir)/dconf-profile $(DESTDIR)$(sysconfdir)/dconf/profile/gdm
+-
+Index: gdm-3.0.0/data/make-dconf-override-db.sh
+===================================================================
+--- gdm-3.0.0.orig/data/make-dconf-override-db.sh	2011-05-11 22:16:11.311636062 +0200
++++ gdm-3.0.0/data/make-dconf-override-db.sh	2011-05-11 22:26:09.582560838 +0200
+@@ -2,10 +2,16 @@
+ 
+ set -e
+ 
+-export XDG_CONFIG_HOME=$(mktemp -d --tmpdir="$PWD")
+-eval `dbus-launch --sh-syntax`
+-
+-trap 'rm -rf $XDG_CONFIG_HOME; kill $DBUS_SESSION_BUS_PID' ERR
++gsettings()
++{
++    if [ "$1" = set ]; then
++       echo "[$2]"
++       echo "$3"="$4"
++       echo
++    else
++       /usr/bin/gsettings "$@"
++    fi
++}
+ 
+ gsettings set org.gnome.power-manager show-actions false
+ 
+@@ -49,8 +55,3 @@ gsettings set org.gnome.settings-daemon.
+ gsettings set org.gnome.settings-daemon.plugins.sound active true
+ gsettings set org.gnome.settings-daemon.plugins.xrandr active true
+ gsettings set org.gnome.settings-daemon.plugins.xsettings active true
+-
+-mv $XDG_CONFIG_HOME/dconf/user dconf-override-db
+-rm -rf $XDG_CONFIG_HOME
+-
+-kill $DBUS_SESSION_BUS_PID

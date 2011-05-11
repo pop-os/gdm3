@@ -19,6 +19,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libfontconfig1-dev (>= 2.5.0),
                libupower-glib-dev (>= 0.9.0),
                libaccountsservice-dev (>= 0.6.5),
+               gnome-settings-daemon-dev (>= 2.91.2),
                libpolkit-gobject-1-dev (>= 0.92),
                libpolkit-gtk-1-dev (>= 0.92),
                libx11-dev,
@@ -37,7 +38,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libattr1-dev [linux-any],
                iso-codes,
                libaudit-dev [linux-any],
-               docbook-xml
+               docbook-xml,
+               gsettings-desktop-schemas
 Standards-Version: 3.9.0
 Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
@@ -57,6 +59,8 @@ Depends: ${shlibs:Depends},
          librsvg2-common,
          gconf2 (>= 2.26.2-3),
          accountsservice (>= 0.6.9-2),
+         gsettings-desktop-schemas,
+         libglib2.0-bin (>= 2.26),
          dconf-gsettings-backend
 Recommends: zenity,
             xserver-xephyr,

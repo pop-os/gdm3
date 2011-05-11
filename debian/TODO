@@ -1,10 +1,7 @@
-Must be solved before going to unstable
- * Handle the DConf stuff in a more flexible way, allowing for system 
-   overrides like for GConf.
- * Set some sensible DConf defaults accordingly.
-
-Must be dealt with before wheezy
+Should be dealt with before wheezy
+ * Make TTY management suck less
  * Restore 11_xephyr_nested.patch
    + Needs to be made compatible with the xhost stuff
    + Don’t forget to add back the necessary code in 
      20_endsession_respawn.patch and 19_configure_xserver.patch
+ * Get rid of gconf

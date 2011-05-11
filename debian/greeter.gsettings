@@ -1,0 +1,17 @@
+# These are the options for the greeter session that can be set 
+# through GSettings. Any GSettings setting that is used by the 
+# greeter session can be set here.
+
+
+# Set a specific background
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/images/desktop-base/login-background.svg'
+picture-options='zoom'
+
+# Theming options
+#[org.gnome.desktop.interface]
+#gtk-theme='Adwaita'
+
+# Prevent the power management icon from showing up
+[org.gnome.power-manager]
+icon-policy='never'
