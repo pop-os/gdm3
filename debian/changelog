@@ -1,3 +1,17 @@
+gdm (2.32.1-0ubuntu5) UNRELEASED; urgency=low
+
+  * debian/patches/45_time_display_on_greeter.patch:
+    Display time on the greeter in a proper format also when
+    /etc/default/locale assigns different locales to LANG respective
+    LC_MESSAGES (LP: #777264).
+  * debian/gdm.upstart:
+    Export LC_MESSAGES so the weekday gets displayed in the system
+    language on the greeter.
+  * debian/patches/41_pt_time_format.patch:
+    Patch deleted (superseded by 45_time_display_on_greeter.patch).
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Sat, 07 May 2011 12:58:00 +0200
+
 gdm (2.32.1-0ubuntu4) oneiric; urgency=low
 
   [ Martin Pitt ]

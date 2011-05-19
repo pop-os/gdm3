@@ -31,7 +31,7 @@
 38_user_chooser_focus.patch
 39_grep_path.patch
 40_one_lang_option_per_translation.patch
-41_pt_time_format.patch
 42_no_ecryptfs_autologin.patch
 43_translate_cancel_button.patch
 44_xsession-errors_symlink.patch
+45_time_display_on_greeter.patch
