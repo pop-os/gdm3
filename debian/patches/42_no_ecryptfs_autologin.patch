@@ -6,14 +6,14 @@ Index: gdm-2.32.1/daemon/gdm-simple-slave.c
 ===================================================================
 --- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:34:06.801921362 +1000
 +++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:34:24.741921372 +1000
-@@ -638,6 +638,24 @@
+@@ -638,6 +638,38 @@
          slave->priv->username = g_strdup (username);
  }
  
 +static gboolean
-+using_ecryptfs (const gchar *username)
++home_dir_using_ecryptfs (const gchar *username)
 +{
-+        gchar *path;
++        gchar *path, *mount_path;
 +        struct stat statbuf;
 +        struct passwd *info;
 +        int r;
@@ -22,36 +22,50 @@ Index: gdm-2.32.1/daemon/gdm-simple-slave.c
 +        if (!info)
 +                return FALSE;
 +
++        /* Check if automounting */
 +        path = g_build_filename (info->pw_dir, ".ecryptfs", "auto-mount", NULL);
 +        r = g_stat (path, &statbuf);
 +        g_free (path);
++        if (r != 0)
++                return FALSE;
++
++        /* Check if whole directory is encrypted */
++        path = g_build_filename (info->pw_dir, ".ecryptfs", "Private.mnt", NULL);
++        if (!g_file_get_contents (path, &mount_path, NULL, NULL))
++                return FALSE;
++        g_free (path);
++        strtok (mount_path, "\n");
++
++        r = strcmp (info->pw_dir, mount_path);
++        g_free (mount_path);
++
 +        return r == 0;
 +}
 +
  static void
  on_session_conversation_started (GdmSession     *session,
                                   GdmSimpleSlave *slave)
-@@ -670,7 +688,8 @@
+@@ -670,7 +702,8 @@
  
          enabled = FALSE;
          gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
 -        if (! enabled) {
-+        if (! enabled || using_ecryptfs (username)) {
++        if (! enabled || home_dir_using_ecryptfs (username)) {
 +                g_free (username);
                  return;
          }
  
-@@ -1295,8 +1314,7 @@
+@@ -1295,8 +1328,7 @@
                  delay = 0;
                  enabled = FALSE;
                  gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
 -                g_free (username);
 -                if (! enabled || delay > 0) {
-+                if (! enabled || delay > 0 || using_ecryptfs (username)) {
++                if (! enabled || delay > 0 || home_dir_using_ecryptfs (username)) {
                          start_greeter (slave);
                          create_new_session (slave);
                  } else {
-@@ -1304,6 +1322,7 @@
+@@ -1304,6 +1336,7 @@
                          gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
                          reset_session (slave);
                  }

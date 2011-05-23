@@ -1,5 +1,6 @@
 gdm (2.32.1-0ubuntu5) UNRELEASED; urgency=low
 
+  [ Gunnar Hjalmarsson ]
   * debian/patches/45_time_display_on_greeter.patch:
     Display time on the greeter in a proper format also when
     /etc/default/locale assigns different locales to LANG respective
@@ -9,6 +10,11 @@ gdm (2.32.1-0ubuntu5) UNRELEASED; urgency=low
     language on the greeter.
   * debian/patches/41_pt_time_format.patch:
     Patch deleted (superseded by 45_time_display_on_greeter.patch).
+
+  [ Robert Ancell ]
+  * debian/patches/42_no_ecryptfs_autologin.patch:
+    - Only stop autologin if full home directory encryption is used
+      (LP: #753707)
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Sat, 07 May 2011 12:58:00 +0200
 
