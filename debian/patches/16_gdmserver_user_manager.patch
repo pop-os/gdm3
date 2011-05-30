@@ -7,19 +7,11 @@ From: Robert Ancell <robert.ancell@canonical.com>
 Date: Fri, 11 Sep 2009 16:01:30 +1000
 Subject: [PATCH] Add org.gnome.DisplayManager.UserManager interface to gdmserver
 
-Index: gdm-2.32.0/configure.ac
+Index: gdm-3.0.0/configure.ac
 ===================================================================
---- gdm-2.32.0.orig/configure.ac	2010-12-07 15:11:17.377502002 +0100
-+++ gdm-2.32.0/configure.ac	2010-12-07 15:11:23.897502002 +0100
-@@ -64,6 +64,7 @@
-         polkit-gobject-1 >= $POLKIT_GOBJECT_REQUIRED_VERSION
-         gobject-2.0 >= $GLIB_REQUIRED_VERSION
-         gio-2.0 >= $GLIB_REQUIRED_VERSION
-+        gconf-2.0 >= $GCONF_REQUIRED_VERSION
- )
- AC_SUBST(COMMON_CFLAGS)
- AC_SUBST(COMMON_LIBS)
-@@ -989,6 +990,17 @@
+--- gdm-3.0.0.orig/configure.ac	2011-05-30 17:35:32.895075630 +0200
++++ gdm-3.0.0/configure.ac	2011-05-30 17:35:38.907075633 +0200
+@@ -967,6 +967,17 @@
  fi
  AC_SUBST(logdir, $GDM_LOG_DIR)
  
@@ -37,10 +29,10 @@ Index: gdm-2.32.0/configure.ac
  withval=""
  AC_ARG_WITH(at-bindir,
              AS_HELP_STRING([--with-at-bindir=<PATH>]
-Index: gdm-2.32.0/daemon/gdm-user.c
+Index: gdm-3.0.0/daemon/gdm-user.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user.c	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user.c	2011-05-30 17:35:38.911075633 +0200
 @@ -0,0 +1,747 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -789,10 +781,10 @@ Index: gdm-2.32.0/daemon/gdm-user.c
 +         */   
 +        return user->icon_url;
 +}
-Index: gdm-2.32.0/daemon/gdm-user.h
+Index: gdm-3.0.0/daemon/gdm-user.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user.h	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user.h	2011-05-30 17:35:38.911075633 +0200
 @@ -0,0 +1,57 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -851,10 +843,10 @@ Index: gdm-2.32.0/daemon/gdm-user.h
 +G_END_DECLS
 +
 +#endif
-Index: gdm-2.32.0/daemon/gdm-user-manager.c
+Index: gdm-3.0.0/daemon/gdm-user-manager.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user-manager.c	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user-manager.c	2011-05-30 17:35:38.915075633 +0200
 @@ -0,0 +1,1730 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2586,10 +2578,10 @@ Index: gdm-2.32.0/daemon/gdm-user-manager.c
 +        *is_loaded = user_manager->priv->loaded_passwd;
 +        return TRUE;
 +}
-Index: gdm-2.32.0/daemon/gdm-user-manager.h
+Index: gdm-3.0.0/daemon/gdm-user-manager.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user-manager.h	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user-manager.h	2011-05-30 17:35:38.919075633 +0200
 @@ -0,0 +1,106 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2697,10 +2689,10 @@ Index: gdm-2.32.0/daemon/gdm-user-manager.h
 +G_END_DECLS
 +
 +#endif /* __GDM_USER_MANAGER_H */
-Index: gdm-2.32.0/daemon/gdm-user-manager.xml
+Index: gdm-3.0.0/daemon/gdm-user-manager.xml
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user-manager.xml	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user-manager.xml	2011-05-30 17:35:38.919075633 +0200
 @@ -0,0 +1,56 @@
 +<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 +<node name="/org/gnome/DisplayManager/UserManager">
@@ -2758,10 +2750,10 @@ Index: gdm-2.32.0/daemon/gdm-user-manager.xml
 +    
 +  </interface>
 +</node>
-Index: gdm-2.32.0/daemon/gdm-user-private.h
+Index: gdm-3.0.0/daemon/gdm-user-private.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/daemon/gdm-user-private.h	2010-12-07 15:11:23.000000000 +0100
++++ gdm-3.0.0/daemon/gdm-user-private.h	2011-05-30 17:35:38.919075633 +0200
 @@ -0,0 +1,45 @@
 +/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
 + *
@@ -2808,10 +2800,10 @@ Index: gdm-2.32.0/daemon/gdm-user-private.h
 +G_END_DECLS
 +
 +#endif /* !__GDM_USER_PRIVATE__ */
-Index: gdm-2.32.0/daemon/main.c
+Index: gdm-3.0.0/daemon/main.c
 ===================================================================
---- gdm-2.32.0.orig/daemon/main.c	2010-09-15 20:58:10.000000000 +0200
-+++ gdm-2.32.0/daemon/main.c	2010-12-07 15:11:23.907502002 +0100
+--- gdm-3.0.0.orig/daemon/main.c	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0/daemon/main.c	2011-05-30 17:35:38.923075633 +0200
 @@ -43,6 +43,7 @@
  #include <dbus/dbus-glib.h>
  #include <dbus/dbus-glib-lowlevel.h>
@@ -2829,10 +2821,10 @@ Index: gdm-2.32.0/daemon/main.c
          gdm_log_set_debug (is_debug_set ());
  
          gdm_daemon_change_user (&gdm_uid, &gdm_gid);
-Index: gdm-2.32.0/daemon/Makefile.am
+Index: gdm-3.0.0/daemon/Makefile.am
 ===================================================================
---- gdm-2.32.0.orig/daemon/Makefile.am	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0/daemon/Makefile.am	2010-12-07 15:11:23.907502002 +0100
+--- gdm-3.0.0.orig/daemon/Makefile.am	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0/daemon/Makefile.am	2011-05-30 17:35:38.923075633 +0200
 @@ -10,6 +10,7 @@
  	-DDATADIR=\"$(datadir)\"			\
  	-DDMCONFDIR=\"$(dmconfdir)\"			\
@@ -2878,10 +2870,10 @@ Index: gdm-2.32.0/daemon/Makefile.am
  	gdm-xdmcp-greeter-display.xml	\
  	gdm-xdmcp-chooser-display.xml	\
  	gdm-static-display.xml		\
-Index: gdm-2.32.0/data/gdm.conf.in
+Index: gdm-3.0.0/data/gdm.conf.in
 ===================================================================
---- gdm-2.32.0.orig/data/gdm.conf.in	2010-12-07 15:11:16.417502001 +0100
-+++ gdm-2.32.0/data/gdm.conf.in	2010-12-07 15:11:23.907502002 +0100
+--- gdm-3.0.0.orig/data/gdm.conf.in	2011-05-30 17:35:37.715075631 +0200
++++ gdm-3.0.0/data/gdm.conf.in	2011-05-30 17:35:38.923075633 +0200
 @@ -8,6 +8,8 @@
      <allow own="org.gnome.DisplayManager"/>
  
@@ -2900,7 +2892,7 @@ Index: gdm-2.32.0/data/gdm.conf.in
            send_interface="org.gnome.DisplayManager.Manager"/>
      <deny send_destination="org.gnome.DisplayManager"
            send_interface="org.gnome.DisplayManager.Display"/>
-@@ -71,6 +75,22 @@
+@@ -69,6 +73,22 @@
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.LocalDisplayFactory"
             send_member="StartGuestSession"/>
@@ -2923,7 +2915,7 @@ Index: gdm-2.32.0/data/gdm.conf.in
  
      <allow send_destination="org.gnome.DisplayManager"
             send_interface="org.gnome.DisplayManager.Manager"
-@@ -80,6 +100,8 @@
+@@ -78,6 +98,8 @@
  
    <policy user="@GDM_USERNAME@">
      <allow send_destination="org.gnome.DisplayManager"

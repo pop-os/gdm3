@@ -3,11 +3,11 @@ Bug-Ubuntu: https://launchpad.net/bugs/408474, https://launchpad.net/bugs/693337
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-Index: gdm-2.32.1/data/Makefile.am
+Index: gdm-3.0.0/data/Makefile.am
 ===================================================================
---- gdm-2.32.1.orig/data/Makefile.am	2011-04-08 16:33:40.071921350 +1000
-+++ gdm-2.32.1/data/Makefile.am	2011-04-08 16:34:22.251921370 +1000
-@@ -152,6 +152,8 @@
+--- gdm-3.0.0.orig/data/Makefile.am	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/data/Makefile.am	2011-05-30 17:35:58.667075642 +0200
+@@ -161,6 +161,8 @@
  
  	$(INSTALL_SCRIPT) Xsession $(DESTDIR)$(gdmconfdir)/Xsession
  
@@ -16,10 +16,10 @@ Index: gdm-2.32.1/data/Makefile.am
  	if test '!' -d $(DESTDIR)$(initdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(initdir); \
  		chmod 755 $(DESTDIR)$(initdir); \
-Index: gdm-2.32.1/data/language-options
+Index: gdm-3.0.0/data/language-options
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.1/data/language-options	2011-04-08 16:34:22.251921370 +1000
++++ gdm-3.0.0/data/language-options	2011-05-30 17:35:58.667075642 +0200
 @@ -0,0 +1,64 @@
 +#!/usr/bin/perl
 +use strict;
@@ -85,19 +85,19 @@ Index: gdm-2.32.1/data/language-options
 +# print the resulting list of language options
 +print join("\n", keys %intersection) || 'en';
 +
-Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
+Index: gdm-3.0.0/gui/simple-greeter/gdm-languages.c
 ===================================================================
---- gdm-2.32.1.orig/gui/simple-greeter/gdm-languages.c	2011-03-29 03:48:50.000000000 +1100
-+++ gdm-2.32.1/gui/simple-greeter/gdm-languages.c	2011-04-08 16:34:22.251921370 +1000
-@@ -49,6 +49,7 @@
- #define ARCHIVE_FILE LIBLOCALEDIR "/locale-archive"
+--- gdm-3.0.0.orig/gui/simple-greeter/gdm-languages.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/gui/simple-greeter/gdm-languages.c	2011-05-30 17:35:58.667075642 +0200
+@@ -50,6 +50,7 @@
+ #define SYSTEM_ARCHIVE_FILE "/usr/lib/locale/locale-archive"
  #define ISO_CODES_DATADIR ISO_CODES_PREFIX "/share/xml/iso-codes"
  #define ISO_CODES_LOCALESDIR ISO_CODES_PREFIX "/share/locale"
 +#define LANGUAGE_OPTIONS_SCRIPT DATADIR "/gdm/language-options"
  
  typedef struct _GdmLocale {
          char *id;
-@@ -377,12 +378,6 @@
+@@ -384,12 +385,6 @@
                  name = g_strdup (language_name);
          }
  
@@ -110,7 +110,7 @@ Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
          locale = g_new0 (GdmLocale, 1);
          gdm_parse_language_name (name,
                                   &locale->language_code,
-@@ -603,21 +598,21 @@
+@@ -614,21 +609,21 @@
  static void
  collect_locales (void)
  {
@@ -140,7 +140,7 @@ Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
  }
  
  static gboolean
-@@ -1018,6 +1013,7 @@
+@@ -1056,6 +1051,7 @@
          char *language_code;
          char *territory_code;
          char *codeset_code;
@@ -148,7 +148,7 @@ Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
          char *langinfo_codeset;
          char *translated_language;
          char *translated_territory;
-@@ -1040,12 +1036,13 @@
+@@ -1078,12 +1074,13 @@
          language_code = NULL;
          territory_code = NULL;
          codeset_code = NULL;
@@ -163,7 +163,7 @@ Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
  
          if (language_code == NULL) {
                  goto out;
-@@ -1067,6 +1064,10 @@
+@@ -1105,6 +1102,10 @@
                                          translated_territory);
          }
  
@@ -174,7 +174,7 @@ Index: gdm-2.32.1/gui/simple-greeter/gdm-languages.c
          language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
  
          if (codeset_code == NULL && langinfo_codeset != NULL) {
-@@ -1083,6 +1084,7 @@
+@@ -1121,6 +1122,7 @@
         g_free (language_code);
         g_free (territory_code);
         g_free (codeset_code);

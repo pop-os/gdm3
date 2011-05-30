@@ -2,11 +2,11 @@ Description: Don't autologin if using ecryptfs - if you do then the home directo
 Author: Robert Ancell <robert.ancell@canonical.com>
 Bug: http://launchpad.net/bugs/284443
 
-Index: gdm-2.32.1/daemon/gdm-simple-slave.c
+Index: gdm-3.0.0/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:34:06.801921362 +1000
-+++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:34:24.741921372 +1000
-@@ -638,6 +638,38 @@
+--- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-05-30 17:36:28.747075656 +0200
++++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-05-30 17:36:28.843075656 +0200
+@@ -629,6 +629,38 @@
          slave->priv->username = g_strdup (username);
  }
  
@@ -45,7 +45,7 @@ Index: gdm-2.32.1/daemon/gdm-simple-slave.c
  static void
  on_session_conversation_started (GdmSession     *session,
                                   GdmSimpleSlave *slave)
-@@ -670,7 +702,8 @@
+@@ -661,7 +693,8 @@
  
          enabled = FALSE;
          gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
@@ -55,17 +55,16 @@ Index: gdm-2.32.1/daemon/gdm-simple-slave.c
                  return;
          }
  
-@@ -1295,8 +1328,7 @@
+@@ -1396,7 +1429,7 @@
                  delay = 0;
                  enabled = FALSE;
-                 gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
--                g_free (username);
+                 gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, NULL, &delay);
 -                if (! enabled || delay > 0) {
 +                if (! enabled || delay > 0 || home_dir_using_ecryptfs (username)) {
                          start_greeter (slave);
                          create_new_session (slave);
                  } else {
-@@ -1304,6 +1336,7 @@
+@@ -1404,6 +1437,7 @@
                          gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
                          reset_session (slave);
                  }

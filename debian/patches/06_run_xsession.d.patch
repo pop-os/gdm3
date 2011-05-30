@@ -2,10 +2,10 @@ Description: Run /etc/X11/Xsession.d/.
 Author: Martin Pitt <martin.pitt@ubuntu.com>
 Origin: Ubuntu; /etc/X11/Xsession.d is a Debianism/Ubuntuism
 
-Index: gdm-2.32.0/data/Xsession.in
+Index: gdm-3.0.0/data/Xsession.in
 ===================================================================
---- gdm-2.32.0.orig/data/Xsession.in	2010-08-27 23:45:29.000000000 +0200
-+++ gdm-2.32.0/data/Xsession.in	2010-12-07 15:10:12.177502001 +0100
+--- gdm-3.0.0.orig/data/Xsession.in	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0/data/Xsession.in	2011-05-30 17:35:35.811075631 +0200
 @@ -162,6 +162,19 @@
      done
  fi

@@ -1,4 +1,36 @@
-gdm (2.32.1-0ubuntu5) UNRELEASED; urgency=low
+gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
+
+  [ Sebastien Bacher ]
+  * New upstream version
+  * Start cleaning for the GNOME3 update
+  * debian/patches/00git_passwordless_login_crash.patch,
+    debian/patches/17_use_timed_login_after_autologin.patch,
+    debian/patches/19_no_greeter_for_autologin.patch,
+    debian/patches/37_disable_resize_grip.patch,
+    debian/patches/38_user_chooser_focus.patch,
+    debian/patches/43_translate_cancel_button.patch:
+    - those are fixed is in the new version
+  * debian/patches/08_use_polkit_for_settings.patch,
+    debian/patches/09_gdmsetup.patch:
+    - drop gdmsetup, the options should be integrated in gnome-control-center 
+      (the autologin one is in the user account configuration for example)
+  * debian/patches/09_gdmserver_gconf_settings.patch:
+    - the gconf hack to turn on and off login sounds, that should be
+      rewritten use gsettings if wanted, lightdm should also make that easier
+  * debian/patches/10_xsplash.patch:
+    - xsplash was a one cycle hack and has been deprecated since
+  * debian/patches/24_respect_system_minuid.patch:
+    - deprecated with the accountsservice use
+  * debian/patches/25_update_gconf_directories.patch:
+    - the new version use gsettings and that was useful for the
+      gdmsetup configuration only
+  * debian/patches/34_disable_a11y_default.patch:
+    - the change was not appropriate for a sru but is fine early 
+      during the cycle
+  * debian/%gconf-tree.xml:
+    - tweaks to the default layout, those will need to be revisited with the
+      new ui and gsettings if needed (no needed if lightdm is the default?)
+  * Resynchronize some of the files on Debian to lower the difference
 
   [ Gunnar Hjalmarsson ]
   * debian/patches/45_time_display_on_greeter.patch:
@@ -16,7 +48,7 @@ gdm (2.32.1-0ubuntu5) UNRELEASED; urgency=low
     - Only stop autologin if full home directory encryption is used
       (LP: #753707)
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Sat, 07 May 2011 12:58:00 +0200
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 30 May 2011 16:00:23 +0200
 
 gdm (2.32.1-0ubuntu4) oneiric; urgency=low
 

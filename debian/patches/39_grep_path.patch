@@ -1,8 +1,8 @@
-Index: gdm-2.32.1/data/Init.in
+Index: gdm-3.0.0/data/Init.in
 ===================================================================
---- gdm-2.32.1.orig/data/Init.in	2011-04-08 16:33:58.721921358 +1000
-+++ gdm-2.32.1/data/Init.in	2011-04-08 16:34:20.841921370 +1000
-@@ -55,7 +55,7 @@
+--- gdm-3.0.0.orig/data/Init.in	2011-05-30 17:35:50.855075638 +0200
++++ gdm-3.0.0/data/Init.in	2011-05-30 17:35:57.835075641 +0200
+@@ -50,7 +50,7 @@
    UNAME=`gdmwhich uname`
    PROCESSOR=`$UNAME -p`
    if [ "x$PROCESSOR" = "xsparc" ]; then

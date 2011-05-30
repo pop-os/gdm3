@@ -7,12 +7,12 @@ Subject: Save root window to pixmap at _XROOTPMAP_ID
 This combined with starting the X server with -nr
 will give us a nice fade transition when g-s-d starts
 ---
-Index: gdm-2.32.1/daemon/gdm-simple-slave.c
+Index: gdm-3.0.0/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-2.32.1.orig/daemon/gdm-simple-slave.c	2011-04-08 16:32:16.451921308 +1000
-+++ gdm-2.32.1/daemon/gdm-simple-slave.c	2011-04-08 16:32:23.731921312 +1000
-@@ -1007,6 +1007,15 @@
- {
+--- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-05-30 17:35:52.575075639 +0200
+@@ -1106,6 +1106,15 @@
+ 
          /* Set the busy cursor */
          gdm_slave_set_busy_cursor (GDM_SLAVE (slave));
 +
@@ -27,20 +27,20 @@ Index: gdm-2.32.1/daemon/gdm-simple-slave.c
  }
  
  static void
-Index: gdm-2.32.1/daemon/gdm-slave.c
+Index: gdm-3.0.0/daemon/gdm-slave.c
 ===================================================================
---- gdm-2.32.1.orig/daemon/gdm-slave.c	2011-03-29 03:48:50.000000000 +1100
-+++ gdm-2.32.1/daemon/gdm-slave.c	2011-04-08 16:32:23.731921312 +1000
+--- gdm-3.0.0.orig/daemon/gdm-slave.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/daemon/gdm-slave.c	2011-05-30 17:35:52.579075639 +0200
 @@ -43,6 +43,7 @@
  #include <dbus/dbus-glib-lowlevel.h>
  
  #include <X11/Xlib.h> /* for Display */
 +#include <X11/Xatom.h> /* for XA_PIXMAP */
  #include <X11/cursorfont.h> /* for watch cursor */
+ #include <X11/extensions/Xrandr.h>
  #include <X11/Xatom.h>
- 
-@@ -354,6 +355,77 @@
-         return ret;
+@@ -434,6 +435,77 @@
+         }
  }
  
 +static void
@@ -117,13 +117,13 @@ Index: gdm-2.32.1/daemon/gdm-slave.c
  void
  gdm_slave_set_busy_cursor (GdmSlave *slave)
  {
-Index: gdm-2.32.1/daemon/gdm-slave.h
+Index: gdm-3.0.0/daemon/gdm-slave.h
 ===================================================================
---- gdm-2.32.1.orig/daemon/gdm-slave.h	2011-03-29 03:48:50.000000000 +1100
-+++ gdm-2.32.1/daemon/gdm-slave.h	2011-04-08 16:32:23.731921312 +1000
-@@ -74,6 +74,7 @@
+--- gdm-3.0.0.orig/daemon/gdm-slave.h	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/daemon/gdm-slave.h	2011-05-30 17:35:52.579075639 +0200
+@@ -77,6 +77,7 @@
+ void                gdm_slave_set_initial_cursor_position (GdmSlave *slave);
  
- gboolean            gdm_slave_connect_to_x11_display (GdmSlave   *slave);
  void                gdm_slave_set_busy_cursor        (GdmSlave   *slave);
 +void                gdm_slave_save_root_windows      (GdmSlave   *slave);
  gboolean            gdm_slave_run_script             (GdmSlave   *slave,

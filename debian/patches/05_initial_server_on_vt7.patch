@@ -2,10 +2,10 @@ Description: Force initial X server to go to tty7 instead of tty1. This is an Ug
 Author: Martin Pitt <martin.pitt@ubuntu.com>
 Bug-Ubuntu: https://launchpad.net/bugs/396226
 
-Index: gdm-2.30.4/daemon/gdm-server.c
+Index: gdm-3.0.0/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.4.orig/daemon/gdm-server.c	2010-06-30 12:30:03.000000000 +0200
-+++ gdm-2.30.4/daemon/gdm-server.c	2010-06-30 12:30:07.000000000 +0200
+--- gdm-3.0.0.orig/daemon/gdm-server.c	2011-05-30 17:35:34.155075631 +0200
++++ gdm-3.0.0/daemon/gdm-server.c	2011-05-30 17:35:34.983075631 +0200
 @@ -640,6 +640,13 @@
          g_debug ("GdmServer: Starting X server process: %s", freeme);
          g_free (freeme);

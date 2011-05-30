@@ -1,11 +1,11 @@
 Description: Change the default X server location to /usr/bin/X. This avoids having to build-depend on xserver-xorg.
 Bug: http://bugzilla.gnome.org/show_bug.cgi?id=588848
 
-Index: gdm-2.32.0/configure.ac
+Index: gdm-3.0.0/configure.ac
 ===================================================================
---- gdm-2.32.0.orig/configure.ac	2010-09-27 19:05:57.000000000 +0200
-+++ gdm-2.32.0/configure.ac	2010-12-07 15:03:45.297502001 +0100
-@@ -1161,12 +1161,9 @@
+--- gdm-3.0.0.orig/configure.ac	2011-04-04 16:38:52.000000000 +0200
++++ gdm-3.0.0/configure.ac	2011-05-30 17:35:32.895075630 +0200
+@@ -1157,12 +1157,9 @@
     X_SERVER="/usr/bin/X"
     X_CONFIG_OPTIONS="-audit 0"
  else

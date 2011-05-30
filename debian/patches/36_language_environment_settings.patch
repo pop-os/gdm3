@@ -3,11 +3,11 @@ Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-Index: gdm-2.32.1/daemon/gdm-session-direct.c
+Index: gdm-3.0.0/daemon/gdm-session-direct.c
 ===================================================================
---- gdm-2.32.1.orig/daemon/gdm-session-direct.c	2011-04-08 16:34:14.821921366 +1000
-+++ gdm-2.32.1/daemon/gdm-session-direct.c	2011-04-08 16:34:15.661921368 +1000
-@@ -691,10 +691,23 @@
+--- gdm-3.0.0.orig/daemon/gdm-session-direct.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/daemon/gdm-session-direct.c	2011-05-30 17:35:56.679075641 +0200
+@@ -604,10 +604,23 @@
  static const char *
  get_default_language_name (GdmSessionDirect *session)
  {
@@ -31,10 +31,10 @@ Index: gdm-2.32.1/daemon/gdm-session-direct.c
      return setlocale (LC_MESSAGES, NULL);
  }
  
-Index: gdm-2.32.1/data/Xsession.in
+Index: gdm-3.0.0/data/Xsession.in
 ===================================================================
---- gdm-2.32.1.orig/data/Xsession.in	2011-04-08 16:34:14.801921366 +1000
-+++ gdm-2.32.1/data/Xsession.in	2011-04-08 16:34:15.661921368 +1000
+--- gdm-3.0.0.orig/data/Xsession.in	2011-05-30 17:35:50.719075638 +0200
++++ gdm-3.0.0/data/Xsession.in	2011-05-30 17:35:56.683075641 +0200
 @@ -146,11 +146,136 @@
  
  unset XKB_IN_USE

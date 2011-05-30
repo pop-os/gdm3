@@ -1,23 +1,25 @@
 Description: Emit Upstart events when starting the login session and desktop session
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/Init.in gdm-2.29.5.new/data/Init.in
---- gdm-2.29.5/data/Init.in	2010-01-14 16:32:56.042957211 +0100
-+++ gdm-2.29.5.new/data/Init.in	2010-01-14 16:32:57.472974297 +0100
-@@ -11,6 +11,8 @@
- #        /usr/bin/xsplash --gdm-session --daemon
- #fi
+Index: gdm-3.0.0/data/Init.in
+===================================================================
+--- gdm-3.0.0.orig/data/Init.in	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0/data/Init.in	2011-05-30 17:35:40.919075634 +0200
+@@ -6,6 +6,8 @@
+ PATH="@X_PATH@:$PATH"
+ OLD_IFS=$IFS
  
 +/sbin/initctl -q emit login-session-start DISPLAY_MANAGER=gdm
 +
  gdmwhich () {
    COMMAND="$1"
    OUTPUT=
-diff -Nur -x '*.orig' -x '*~' gdm-2.29.5/data/PreSession.in gdm-2.29.5.new/data/PreSession.in
---- gdm-2.29.5/data/PreSession.in	2010-01-14 16:32:56.042957211 +0100
-+++ gdm-2.29.5.new/data/PreSession.in	2010-01-14 16:33:11.456022629 +0100
-@@ -12,3 +12,5 @@
- #then
- #        /usr/bin/xsplash --daemon
- #fi
+Index: gdm-3.0.0/data/PreSession.in
+===================================================================
+--- gdm-3.0.0.orig/data/PreSession.in	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0/data/PreSession.in	2011-05-30 17:35:40.919075634 +0200
+@@ -7,3 +7,5 @@
+ # Note that output goes into the .xsession-errors file for easy debugging
+ #
+ PATH="@X_PATH@:$PATH"
 +
 +/sbin/initctl -q emit desktop-session-start DISPLAY_MANAGER=gdm
