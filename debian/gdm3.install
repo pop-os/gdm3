@@ -3,4 +3,6 @@ debian/greeter.gconf-defaults		etc/gdm3
 debian/greeter.gsettings		etc/gdm3
 debian/default.desktop			usr/share/gdm/BuiltInSessions
 data/session-setup.entries		usr/share/gdm/greeter-config
+data/mimeapps.list			usr/share/gdm/applications
+data/mime-dummy-handler.desktop		usr/share/gdm/applications
 debian/insserv.conf.d			etc

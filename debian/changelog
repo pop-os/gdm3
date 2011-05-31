@@ -1,3 +1,16 @@
+gdm3 (3.0.4-1) experimental; urgency=low
+
+  * New upstream bugfix & security release.
+  * Require accountsservice 0.6.12.
+  * 07_libexec-paths.patch, 91_dconf_override.patch: updated for the new 
+    version.
+  * 93_xdg_data_dirs.patch: new patch. Add /usr/share/gdm to 
+    XDG_DATA_DIRS.
+  * debian/gdm3.install: install the dummy desktop handler and the 
+    mimeapps.list to /usr/share/gdm/applications.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 01 Jun 2011 00:40:08 +0200
+
 gdm3 (3.0.0-2) experimental; urgency=low
 
   * 18_switch_kill_greeter.patch: remove the 2 second timeout, it is 

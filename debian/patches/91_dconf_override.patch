@@ -1,8 +1,8 @@
-Index: gdm-3.0.0/data/Makefile.am
+Index: gdm-3.0.4/data/Makefile.am
 ===================================================================
---- gdm-3.0.0.orig/data/Makefile.am	2011-05-11 22:14:01.807002942 +0200
-+++ gdm-3.0.0/data/Makefile.am	2011-05-11 22:15:26.103415033 +0200
-@@ -120,12 +120,6 @@ MAINTAINERCLEANFILES =			\
+--- gdm-3.0.4.orig/data/Makefile.am	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/data/Makefile.am	2011-06-01 00:05:14.258679779 +0200
+@@ -122,12 +122,6 @@ MAINTAINERCLEANFILES =			\
  	dconf-override-db		\
  	Makefile.in
  
@@ -15,10 +15,10 @@ Index: gdm-3.0.0/data/Makefile.am
  uninstall-hook:
  	rm -f \
  	$(DESTDIR)$(GDM_CUSTOM_CONF) \
-@@ -137,19 +131,13 @@ uninstall-hook:
- 	$(DESTDIR)$(PAM_PREFIX)/pam.d/gdm \
- 	$(DESTDIR)$(PAM_PREFIX)/pam.d/gdm-autologin \
+@@ -141,19 +135,13 @@ uninstall-hook:
  	$(DESTDIR)$(workingdir)/.gconf.path \
+ 	$(DESTDIR)$(workingdir)/.local/share/applications/mime-dummy-handler.desktop \
+ 	$(DESTDIR)$(workingdir)/.local/share/applications/mimeapps.list \
 -	$(DESTDIR)$(sysconfdir)/dconf/db/gdm \
 -	$(DESTDIR)$(sysconfdir)/dconf/profile/gdm \
  	-rf \
@@ -36,8 +36,8 @@ Index: gdm-3.0.0/data/Makefile.am
  	if test '!' -d $(DESTDIR)$(gdmconfdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(gdmconfdir); \
  		chmod 755 $(DESTDIR)$(gdmconfdir); \
-@@ -247,18 +235,6 @@ install-data-hook: gdm.conf-custom Xsess
- 		chown gdm:gdm $(DESTDIR)$(workingdir)/.config/dconf || : ; \
+@@ -257,18 +245,6 @@ install-data-hook: gdm.conf-custom Xsess
+ 		chown gdm:gdm $(DESTDIR)$(workingdir)/.local/share/applications || : ; \
  	fi
  
 -	if test '!' -d $(DESTDIR)$(sysconfdir)/dconf/profile; then \
@@ -55,22 +55,25 @@ Index: gdm-3.0.0/data/Makefile.am
  	if test '!' -d $(DESTDIR)$(cachedir); then \
  		$(mkinstalldirs) $(DESTDIR)$(cachedir); \
  		chmod 1755 $(DESTDIR)$(cachedir); \
-@@ -272,6 +248,3 @@ install-data-hook: gdm.conf-custom Xsess
+@@ -282,8 +258,5 @@ install-data-hook: gdm.conf-custom Xsess
  	chmod 1750 $(DESTDIR)$(workingdir)/.gconf.mandatory
  	chmod 1640 $(DESTDIR)$(workingdir)/.gconf.mandatory/*.xml
  
 -	$(INSTALL_DATA) $(srcdir)/dconf-override-db $(DESTDIR)$(sysconfdir)/dconf/db/gdm
 -	$(INSTALL_DATA) $(srcdir)/dconf-profile $(DESTDIR)$(sysconfdir)/dconf/profile/gdm
 -
-Index: gdm-3.0.0/data/make-dconf-override-db.sh
+ 	$(INSTALL_DATA) $(srcdir)/mime-dummy-handler.desktop $(DESTDIR)$(workingdir)/.local/share/applications/mime-dummy-handler.desktop
+ 	$(INSTALL_DATA) $(srcdir)/mimeapps.list $(DESTDIR)$(workingdir)/.local/share/applications/mimeapps.list
+Index: gdm-3.0.4/data/make-dconf-override-db.sh
 ===================================================================
---- gdm-3.0.0.orig/data/make-dconf-override-db.sh	2011-05-11 22:16:11.311636062 +0200
-+++ gdm-3.0.0/data/make-dconf-override-db.sh	2011-05-11 22:26:09.582560838 +0200
-@@ -2,10 +2,16 @@
+--- gdm-3.0.4.orig/data/make-dconf-override-db.sh	2011-05-31 18:19:38.000000000 +0200
++++ gdm-3.0.4/data/make-dconf-override-db.sh	2011-06-01 00:06:10.026952479 +0200
+@@ -2,11 +2,16 @@
  
  set -e
  
 -export XDG_CONFIG_HOME=$(mktemp -d --tmpdir="$PWD")
+-export XDG_CACHE_HOME="$XDG_CONFIG_HOME"
 -eval `dbus-launch --sh-syntax`
 -
 -trap 'rm -rf $XDG_CONFIG_HOME; kill $DBUS_SESSION_BUS_PID' ERR
@@ -87,7 +90,7 @@ Index: gdm-3.0.0/data/make-dconf-override-db.sh
  
  gsettings set org.gnome.power-manager show-actions false
  
-@@ -49,8 +55,3 @@ gsettings set org.gnome.settings-daemon.
+@@ -50,8 +55,3 @@ gsettings set org.gnome.settings-daemon.
  gsettings set org.gnome.settings-daemon.plugins.sound active true
  gsettings set org.gnome.settings-daemon.plugins.xrandr active true
  gsettings set org.gnome.settings-daemon.plugins.xsettings active true

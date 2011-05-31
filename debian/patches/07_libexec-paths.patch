@@ -1,10 +1,10 @@
 GNOME #645918
 
-Index: gdm-2.91.94/daemon/gdm-server.c
+Index: gdm-3.0.4/daemon/gdm-server.c
 ===================================================================
---- gdm-2.91.94.orig/daemon/gdm-server.c	2011-03-28 14:01:49.000000000 +0530
-+++ gdm-2.91.94/daemon/gdm-server.c	2011-03-28 14:39:25.987040200 +0530
-@@ -134,7 +134,7 @@
+--- gdm-3.0.4.orig/daemon/gdm-server.c	2011-05-31 23:59:46.000000000 +0200
++++ gdm-3.0.4/daemon/gdm-server.c	2011-06-01 00:00:15.501219261 +0200
+@@ -134,7 +134,7 @@ _gdm_server_query_ck_for_display_device
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
          error = NULL;
@@ -13,10 +13,10 @@ Index: gdm-2.91.94/daemon/gdm-server.c
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
-Index: gdm-2.91.94/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
+Index: gdm-3.0.4/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
 ===================================================================
---- gdm-2.91.94.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-03-17 19:53:18.000000000 +0530
-+++ gdm-2.91.94/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-03-28 14:15:39.099040320 +0530
+--- gdm-3.0.4.orig/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/data/greeter-autostart/gnome-settings-daemon.desktop.in.in	2011-06-01 00:00:15.501219261 +0200
 @@ -1,8 +1,8 @@
  [Desktop Entry]
  Type=Application
@@ -28,11 +28,11 @@ Index: gdm-2.91.94/data/greeter-autostart/gnome-settings-daemon.desktop.in.in
  OnlyShowIn=GNOME;
  X-GNOME-Autostart-Phase=Initialization
  X-GNOME-Autostart-Notify=true
-Index: gdm-2.91.94/gui/simple-chooser/gdm-chooser-session.c
+Index: gdm-3.0.4/gui/simple-chooser/gdm-chooser-session.c
 ===================================================================
---- gdm-2.91.94.orig/gui/simple-chooser/gdm-chooser-session.c	2011-03-17 19:53:18.000000000 +0530
-+++ gdm-2.91.94/gui/simple-chooser/gdm-chooser-session.c	2011-03-28 14:16:02.211041102 +0530
-@@ -131,7 +131,7 @@
+--- gdm-3.0.4.orig/gui/simple-chooser/gdm-chooser-session.c	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/gui/simple-chooser/gdm-chooser-session.c	2011-06-01 00:00:15.501219261 +0200
+@@ -131,7 +131,7 @@ start_settings_daemon (GdmChooserSession
          ret = FALSE;
  
          error = NULL;
@@ -41,10 +41,10 @@ Index: gdm-2.91.94/gui/simple-chooser/gdm-chooser-session.c
          if (error != NULL) {
                  g_warning ("Error starting settings daemon: %s", error->message);
                  g_error_free (error);
-Index: gdm-2.91.94/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
+Index: gdm-3.0.4/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in
 ===================================================================
---- gdm-2.91.94.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-03-07 23:10:37.000000000 +0530
-+++ gdm-2.91.94/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-03-28 14:43:07.931290431 +0530
+--- gdm-3.0.4.orig/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-03-07 18:40:37.000000000 +0100
++++ gdm-3.0.4/data/greeter-autostart/polkit-gnome-authentication-agent-1.desktop.in.in	2011-06-01 00:00:15.501219261 +0200
 @@ -1,5 +1,5 @@
  [Desktop Entry]
  Type=Application
@@ -52,19 +52,19 @@ Index: gdm-2.91.94/data/greeter-autostart/polkit-gnome-authentication-agent-1.de
 -Exec=@LIBEXECDIR@/polkit-gnome-authentication-agent-1
 +Exec=@PK_GNOME_LIBEXECDIR@/polkit-gnome-authentication-agent-1
  OnlyShowIn=GNOME;
-Index: gdm-2.91.94/configure.ac
+Index: gdm-3.0.4/configure.ac
 ===================================================================
---- gdm-2.91.94.orig/configure.ac	2011-03-28 14:22:04.635041861 +0530
-+++ gdm-2.91.94/configure.ac	2011-03-28 15:41:16.251040749 +0530
-@@ -52,6 +52,7 @@
+--- gdm-3.0.4.orig/configure.ac	2011-05-31 23:59:43.000000000 +0200
++++ gdm-3.0.4/configure.ac	2011-06-01 00:00:32.821303957 +0200
+@@ -52,6 +52,7 @@ LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
  FONTCONFIG_REQUIRED_VERSION=2.5.0
  UPOWER_REQUIRED_VERSION=0.9.0
- ACCOUNTS_SERVICE_REQUIRED_VERSION=0.6.5
+ ACCOUNTS_SERVICE_REQUIRED_VERSION=0.6.12
 +GSD_REQUIRED_VERSION=2.91.2
  
  EXTRA_COMPILE_WARNINGS(yes)
  
-@@ -170,6 +171,39 @@
+@@ -170,6 +171,39 @@ AC_PATH_PROG(GCONFTOOL, gconftool-2)
  AM_GCONF_SOURCE_2
  
  dnl ---------------------------------------------------------------------------
@@ -104,11 +104,11 @@ Index: gdm-2.91.94/configure.ac
  dnl - Configuration file stuff
  dnl ---------------------------------------------------------------------------
  
-Index: gdm-2.91.94/daemon/Makefile.am
+Index: gdm-3.0.4/daemon/Makefile.am
 ===================================================================
---- gdm-2.91.94.orig/daemon/Makefile.am	2011-03-28 15:17:18.107041508 +0530
-+++ gdm-2.91.94/daemon/Makefile.am	2011-03-28 15:26:55.835039673 +0530
-@@ -12,6 +12,7 @@
+--- gdm-3.0.4.orig/daemon/Makefile.am	2011-05-31 16:28:03.000000000 +0200
++++ gdm-3.0.4/daemon/Makefile.am	2011-06-01 00:00:15.501219261 +0200
+@@ -12,6 +12,7 @@ AM_CPPFLAGS = \
  	-DGDMCONFDIR=\"$(gdmconfdir)\"			\
  	-DLIBDIR=\"$(libdir)\"				\
  	-DLIBEXECDIR=\"$(libexecdir)\"			\
@@ -116,11 +116,11 @@ Index: gdm-2.91.94/daemon/Makefile.am
  	-DLOGDIR=\"$(logdir)\"				\
  	-DSBINDIR=\"$(sbindir)\"			\
  	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
-Index: gdm-2.91.94/data/greeter-autostart/Makefile.am
+Index: gdm-3.0.4/data/greeter-autostart/Makefile.am
 ===================================================================
---- gdm-2.91.94.orig/data/greeter-autostart/Makefile.am	2011-03-28 15:15:59.075041316 +0530
-+++ gdm-2.91.94/data/greeter-autostart/Makefile.am	2011-03-28 15:25:53.855291378 +0530
-@@ -5,6 +5,9 @@
+--- gdm-3.0.4.orig/data/greeter-autostart/Makefile.am	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/data/greeter-autostart/Makefile.am	2011-06-01 00:00:15.501219261 +0200
+@@ -5,6 +5,9 @@ edit = sed \
  	-e 's|@SYSCONFDIR[@]|$(sysconfdir)|g' \
  	-e 's|@LIBDIR[@]|$(libdir)|g' \
  	-e 's|@LIBEXECDIR[@]|$(libexecdir)|g' \
@@ -130,10 +130,10 @@ Index: gdm-2.91.94/data/greeter-autostart/Makefile.am
  	-e 's|@LOCALSTATEDIR[@]|$(localstatedir)|g'
  
  %.desktop.in: %.desktop.in.in Makefile
-Index: gdm-2.91.94/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in
+Index: gdm-3.0.4/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in
 ===================================================================
---- gdm-2.91.94.orig/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-03-28 15:27:24.795041790 +0530
-+++ gdm-2.91.94/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-03-28 15:27:35.871042164 +0530
+--- gdm-3.0.4.orig/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/data/greeter-autostart/gnome-session-check-accelerated.desktop.in.in	2011-06-01 00:00:15.501219261 +0200
 @@ -1,6 +1,6 @@
  [Desktop Entry]
  Type=Application

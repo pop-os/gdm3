@@ -1,0 +1,12 @@
+Index: gdm-3.0.4/daemon/gdm-welcome-session.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-welcome-session.c	2011-06-01 00:30:51.050192803 +0200
++++ gdm-3.0.4/daemon/gdm-welcome-session.c	2011-06-01 00:31:56.786514173 +0200
+@@ -440,6 +440,7 @@ get_welcome_environment (GdmWelcomeSessi
+         g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
+         g_hash_table_insert (hash, g_strdup ("GVFS_DISABLE_FUSE"), g_strdup ("1"));
+         g_hash_table_insert (hash, g_strdup ("GSETTINGS_SCHEMA_DIR"), g_strdup ("/var/lib/gdm3"));
++        g_hash_table_insert (hash, g_strdup ("XDG_DATA_DIRS"), g_strdup ("/usr/share/gdm:/usr/local/share:/usr/share"));
+ 
+         g_hash_table_foreach (hash, (GHFunc)listify_hash, env);
+         g_hash_table_destroy (hash);
