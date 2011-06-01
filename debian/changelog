@@ -50,6 +50,16 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
 
  -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 30 May 2011 16:00:23 +0200
 
+gdm (2.32.1-0ubuntu5) oneiric; urgency=low
+
+  * SECURITY UPDATE: don't allow use of browser in the GDM session
+  * 90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch:
+    provide custom MIME configuration for the gdm user to ensure no default
+    URI scheme handler is used
+    - CVE-2011-1709
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Wed, 01 Jun 2011 15:34:44 -0500
+
 gdm (2.32.1-0ubuntu4) oneiric; urgency=low
 
   [ Martin Pitt ]

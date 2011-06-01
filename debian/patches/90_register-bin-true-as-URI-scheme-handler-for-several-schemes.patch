@@ -1,0 +1,77 @@
+From b9678dab44cfb0f1ab4904ee12ac5b3719599b83 Mon Sep 17 00:00:00 2001
+From: Vincent Untz <vuntz@gnome.org>
+Date: Mon, 23 May 2011 18:34:46 +0200
+Subject: [PATCH] Register /bin/true as URI scheme handler for several schemes
+
+Starting with glib 2.28, we don't use gconf to find out which handler
+should be used for a URI scheme, and we need to provide a custom MIME
+configuration for the gdm user to ensure no default URI scheme handler
+is used.
+---
+ data/Makefile.am                |   10 ++++++++++
+ data/mime-dummy-handler.desktop |    6 ++++++
+ data/mimeapps.list              |   19 +++++++++++++++++++
+ 3 files changed, 35 insertions(+), 0 deletions(-)
+ create mode 100644 data/mime-dummy-handler.desktop
+ create mode 100644 data/mimeapps.list
+
+Index: gdm-2.32.1/data/Makefile.am
+===================================================================
+--- gdm-2.32.1.orig/data/Makefile.am	2011-05-24 07:51:00.000000000 -0500
++++ gdm-2.32.1/data/Makefile.am	2011-05-24 07:51:00.000000000 -0500
+@@ -103,6 +103,8 @@
+ 	PostLogin 		\
+ 	gconf.path		\
+ 	session-setup.entries	\
++	mime-dummy-handler.desktop	\
++	mimeapps.list		\
+ 	$(NULL)
+ 
+ CLEANFILES = 				\
+@@ -248,3 +250,11 @@
+ 	chmod 1640 $(DESTDIR)$(workingdir)/.gconf.mandatory/*.xml
+ 
+ 
++	if test '!' -d $(DESTDIR)$(workingdir)/.local/share/applications; then \
++		$(mkinstalldirs) $(DESTDIR)$(workingdir)/.local/share/applications; \
++		chmod 0755 $(DESTDIR)$(workingdir)/.local/share/applications; \
++		chown gdm:gdm $(DESTDIR)$(workingdir)/.local/share/applications || : ; \
++	fi
++
++	$(INSTALL_DATA) $(srcdir)/mime-dummy-handler.desktop $(DESTDIR)$(workingdir)/.local/share/applications/mime-dummy-handler.desktop
++	$(INSTALL_DATA) $(srcdir)/mimeapps.list $(DESTDIR)$(workingdir)/.local/share/applications/mimeapps.list
+Index: gdm-2.32.1/data/mime-dummy-handler.desktop
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.32.1/data/mime-dummy-handler.desktop	2011-05-24 07:51:37.000000000 -0500
+@@ -0,0 +1,6 @@
++[Desktop Entry]
++Type=Application
++Name=Dummy URI Handler
++Exec=/bin/true %U
++Terminal=false
++StartupNotify=false
+Index: gdm-2.32.1/data/mimeapps.list
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-2.32.1/data/mimeapps.list	2011-05-24 07:51:37.000000000 -0500
+@@ -0,0 +1,19 @@
++[Default Applications]
++x-scheme-handler/file=mime-dummy-handler.desktop
++x-scheme-handler/ftp=mime-dummy-handler.desktop
++x-scheme-handler/ghelp=mime-dummy-handler.desktop
++x-scheme-handler/help=mime-dummy-handler.desktop
++x-scheme-handler/http=mime-dummy-handler.desktop
++x-scheme-handler/https=mime-dummy-handler.desktop
++x-scheme-handler/info=mime-dummy-handler.desktop
++x-scheme-handler/irc=mime-dummy-handler.desktop
++x-scheme-handler/itms=mime-dummy-handler.desktop
++x-scheme-handler/mailto=mime-dummy-handler.desktop
++x-scheme-handler/man=mime-dummy-handler.desktop
++x-scheme-handler/mms=mime-dummy-handler.desktop
++x-scheme-handler/rtp=mime-dummy-handler.desktop
++x-scheme-handler/rtsp=mime-dummy-handler.desktop
++x-scheme-handler/sip=mime-dummy-handler.desktop
++x-scheme-handler/trash=mime-dummy-handler.desktop
++x-scheme-handler/webcal=mime-dummy-handler.desktop
++x-scheme-handler/xmpp=mime-dummy-handler.desktop
