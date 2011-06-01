@@ -20,4 +20,5 @@
 40_one_lang_option_per_translation.patch
 42_no_ecryptfs_autologin.patch
 44_xsession-errors_symlink.patch
+90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch
 #45_time_display_on_greeter.patch
