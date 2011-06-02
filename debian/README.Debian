@@ -14,13 +14,11 @@ For the daemon itself:
 
 The greeter - which is the interface that welcomes you on the 
 computer - uses a minimal GNOME session to startup. Its settings are set 
-through GConf, but using a specific configuration.
- * You can use gconf-editor as root and open a “New Defaults Window” in 
-   the File menu. Settings set this way will apply globally and this 
-   includes the GDM greeter.
- * You can also force some of the settings in 
-   /etc/gdm3/greeter.gconf-defaults. After changing the settings, you 
-   need to run “invoke-rc.d gdm3 reload” to take them into account.
+through GSettings and GConf, but using a specific configuration.
+ * You can force the GConf settings in /etc/gdm3/greeter.gconf-defaults. 
+ * You can force the GSettings ones in /etc/gdm3/greeter.gsettings.
+ * After changing any of the settings, you need to run “invoke-rc.d gdm3 
+   reload” to take them into account.
 
 
 X11 authentication

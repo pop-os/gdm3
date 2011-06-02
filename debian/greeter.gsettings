@@ -15,3 +15,7 @@ picture-options='zoom'
 # Prevent the power management icon from showing up
 [org.gnome.power-manager]
 icon-policy='never'
+
+# Disabling sound in the greeter
+#[org.gnome.desktop.sound]
+#event-sounds=false
