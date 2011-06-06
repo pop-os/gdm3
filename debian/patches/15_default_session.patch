@@ -4,13 +4,12 @@ Description: Choose default session in /etc/gdm/custom.conf using DBus
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=594733
 Bug-Ubuntu: https://launchpad.net/bugs/403291
 
-Index: gdm-2.32.0/configure.ac
-===================================================================
---- gdm-2.32.0.orig/configure.ac	2010-12-07 15:11:06.457502000 +0100
-+++ gdm-2.32.0/configure.ac	2010-12-07 15:11:17.377502002 +0100
-@@ -129,6 +129,13 @@
- AC_SUBST(GDMSETUP_CFLAGS)
- AC_SUBST(GDMSETUP_LIBS)
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//configure.ac gdm-3.0.0.new//configure.ac
+--- gdm-3.0.0//configure.ac	2011-04-04 16:38:52.000000000 +0200
++++ gdm-3.0.0.new//configure.ac	2011-06-05 15:24:01.715285158 +0200
+@@ -120,6 +120,13 @@
+ AC_SUBST(UPOWER_CFLAGS)
+ AC_SUBST(UPOWER_LIBS)
  
 +PKG_CHECK_MODULES(SET_SESSION,
 +        dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
@@ -21,11 +20,10 @@ Index: gdm-2.32.0/configure.ac
 +
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
-         gtk+-2.0 >= $GTK_REQUIRED_VERSION
-Index: gdm-2.32.0/daemon/gdm-session-direct.c
-===================================================================
---- gdm-2.32.0.orig/daemon/gdm-session-direct.c	2010-09-16 00:53:43.000000000 +0200
-+++ gdm-2.32.0/daemon/gdm-session-direct.c	2010-12-07 15:11:17.387502002 +0100
+         gtk+-3.0 >= $GTK_REQUIRED_VERSION
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-direct.c gdm-3.0.0.new//daemon/gdm-session-direct.c
+--- gdm-3.0.0//daemon/gdm-session-direct.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0.new//daemon/gdm-session-direct.c	2011-06-05 15:24:01.715285158 +0200
 @@ -63,6 +63,10 @@
  #define GDM_SESSION_DBUS_INTERFACE    "org.gnome.DisplayManager.Session"
  #define GDM_SESSION_DBUS_ERROR_CANCEL "org.gnome.DisplayManager.Session.Error.Cancel"
@@ -37,7 +35,7 @@ Index: gdm-2.32.0/daemon/gdm-session-direct.c
  #ifndef GDM_SESSION_DEFAULT_PATH
  #define GDM_SESSION_DEFAULT_PATH "/usr/local/bin:/usr/bin:/bin"
  #endif
-@@ -664,6 +668,26 @@
+@@ -619,6 +623,26 @@
          char         *name;
          GSequence    *sessions;
          GSequenceIter *session;
@@ -64,10 +62,9 @@ Index: gdm-2.32.0/daemon/gdm-session-direct.c
  
          if (session_direct->priv->fallback_session_name != NULL) {
                  /* verify that the cached version still exists */
-Index: gdm-2.32.0/utils/gdm-set-default-session.c
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm-2.32.0/utils/gdm-set-default-session.c	2010-12-07 15:11:17.000000000 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//utils/gdm-set-default-session.c gdm-3.0.0.new//utils/gdm-set-default-session.c
+--- gdm-3.0.0//utils/gdm-set-default-session.c	1970-01-01 01:00:00.000000000 +0100
++++ gdm-3.0.0.new//utils/gdm-set-default-session.c	2011-06-05 15:24:01.715285158 +0200
 @@ -0,0 +1,271 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -340,10 +337,9 @@ Index: gdm-2.32.0/utils/gdm-set-default-session.c
 +    exit(return_code);
 +
 +}
-Index: gdm-2.32.0/utils/Makefile.am
-===================================================================
---- gdm-2.32.0.orig/utils/Makefile.am	2010-08-27 16:54:37.000000000 +0200
-+++ gdm-2.32.0/utils/Makefile.am	2010-12-07 15:11:17.387502002 +0100
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//utils/Makefile.am gdm-3.0.0.new//utils/Makefile.am
+--- gdm-3.0.0//utils/Makefile.am	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0.new//utils/Makefile.am	2011-06-05 15:24:01.715285158 +0200
 @@ -6,11 +6,13 @@
  	-DLOCALSTATEDIR=\""$(localstatedir)"\" 		\
  	-DGDM_SCREENSHOT_DIR=\""$(GDM_SCREENSHOT_DIR)"\"\

@@ -3,32 +3,31 @@ Bug-Ubuntu: https://bugs.launchpad.net/bugs/553162
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32.0.new//daemon/gdm-session-settings.c
---- gdm-2.32.0//daemon/gdm-session-settings.c	2010-12-06 09:10:05.559833000 +0100
-+++ gdm-2.32.0.new//daemon/gdm-session-settings.c	2010-12-06 09:32:51.983924000 +0100
-@@ -38,6 +38,8 @@
-         gboolean failsafe;
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-settings.c gdm-3.0.0.new//daemon/gdm-session-settings.c
+--- gdm-3.0.0//daemon/gdm-session-settings.c	2011-06-05 23:18:55.000000000 +0200
++++ gdm-3.0.0.new//daemon/gdm-session-settings.c	2011-06-05 23:19:55.847165226 +0200
+@@ -40,6 +40,8 @@
+         ActUser *user;
+         char *session_name;
          char *language_name;
-         char *layout_name;
 +        char *langlist_name;
 +        char *lcmess_name;
+         gboolean failsafe;
  };
  
- static void gdm_session_settings_finalize (GObject *object);
-@@ -58,6 +60,8 @@
+@@ -60,6 +62,8 @@
+         PROP_0 = 0,
          PROP_SESSION_NAME,
          PROP_LANGUAGE_NAME,
-         PROP_LAYOUT_NAME,
 +        PROP_LANGLIST_NAME,
 +        PROP_LCMESS_NAME,
          PROP_IS_FAILSAFE,
+         PROP_IS_LOADED
  };
- 
-@@ -102,6 +106,19 @@
-                                         NULL,
+@@ -101,6 +105,18 @@
                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
-         g_object_class_install_property (object_class, PROP_LAYOUT_NAME, param_spec);
-+
+         g_object_class_install_property (object_class, PROP_LANGUAGE_NAME, param_spec);
+ 
 +        param_spec = g_param_spec_string ("langlist-name", "Language List Name",
 +                                        "The name of the LANGUAGE list",
 +                                        NULL,
@@ -44,16 +43,16 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32
          param_spec = g_param_spec_string ("is-failsafe", "Failsafe Session",
                                          "Whether the session is a failsafe one",
                                          NULL,
-@@ -129,6 +146,8 @@
+@@ -137,6 +153,8 @@
+ 
          g_free (settings->priv->session_name);
          g_free (settings->priv->language_name);
-         g_free (settings->priv->layout_name);
 +        g_free (settings->priv->langlist_name);
 +        g_free (settings->priv->lcmess_name);
  
          parent_class = G_OBJECT_CLASS (gdm_session_settings_parent_class);
  
-@@ -177,6 +196,32 @@
+@@ -159,6 +177,32 @@
  }
  
  void
@@ -83,14 +82,13 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32
 +}
 +
 +void
- gdm_session_settings_set_is_failsafe (GdmSessionSettings *settings,
-                                       gboolean            failsafe)
+ gdm_session_settings_set_session_name (GdmSessionSettings *settings,
+                                        const char         *session_name)
  {
-@@ -209,6 +254,20 @@
-         return g_strdup (settings->priv->session_name);
+@@ -191,6 +235,20 @@
  }
  
-+char *
+ char *
 +gdm_session_settings_get_langlist_name (GdmSessionSettings *settings)
 +{
 +        g_return_val_if_fail (GDM_IS_SESSION_SETTINGS (settings), NULL);
@@ -104,11 +102,12 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32
 +        return g_strdup (settings->priv->lcmess_name);
 +}
 +
- gboolean
- gdm_session_settings_get_is_failsafe (GdmSessionSettings *settings)
++char *
+ gdm_session_settings_get_session_name (GdmSessionSettings *settings)
  {
-@@ -239,6 +298,14 @@
-                         gdm_session_settings_set_session_name (settings, g_value_get_string (value));
+         g_return_val_if_fail (GDM_IS_SESSION_SETTINGS (settings), NULL);
+@@ -219,6 +277,14 @@
+                         gdm_session_settings_set_language_name (settings, g_value_get_string (value));
                  break;
  
 +                case PROP_LANGLIST_NAME:
@@ -119,11 +118,11 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32
 +                        gdm_session_settings_set_lcmess_name (settings, g_value_get_string (value));
 +                break;
 +
-                 case PROP_IS_FAILSAFE:
-                         gdm_session_settings_set_is_failsafe (settings, g_value_get_boolean (value));
+                 case PROP_SESSION_NAME:
+                         gdm_session_settings_set_session_name (settings, g_value_get_string (value));
                  break;
-@@ -271,6 +338,14 @@
-                         g_value_set_string (value, settings->priv->layout_name);
+@@ -251,6 +317,14 @@
+                         g_value_set_string (value, settings->priv->language_name);
                  break;
  
 +                case PROP_LANGLIST_NAME:
@@ -137,98 +136,67 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.c gdm-2.32
                  case PROP_IS_FAILSAFE:
                          g_value_set_boolean (value, settings->priv->failsafe);
                  break;
-@@ -296,7 +371,9 @@
+@@ -290,6 +364,8 @@
  {
-         return settings->priv->session_name != NULL ||
-                settings->priv->language_name != NULL ||
--               settings->priv->layout_name != NULL;
-+               settings->priv->layout_name != NULL ||
-+               settings->priv->langlist_name != NULL ||
-+               settings->priv->lcmess_name != NULL;
- }
+         const char *session_name;
+         const char *language_name;
++        const char *langlist_name;
++        const char *lcmess_name;
  
- gboolean
-@@ -310,6 +387,8 @@
-         char     *session_name;
-         char     *language_name;
-         char     *layout_name;
-+        char     *langlist_name;
-+        char     *lcmess_name;
-         char     *filename;
- 
-         g_return_val_if_fail (settings != NULL, FALSE);
-@@ -370,6 +449,34 @@
-                 goto out;
+         if (!act_user_is_loaded (settings->priv->user)) {
+                 g_warning ("GdmSessionSettings: trying to load user settings from unloaded user");
+@@ -310,6 +386,18 @@
+                 gdm_session_settings_set_language_name (settings, language_name);
          }
  
-+        langlist_name = g_key_file_get_string (key_file, "Desktop", "Langlist",
-+                                             &load_error);
-+
++        langlist_name = act_user_get_langlist (settings->priv->user);
++        g_debug ("GdmSessionSettings: saved langlist is %s", langlist_name);
 +        if (langlist_name != NULL) {
 +                gdm_session_settings_set_langlist_name (settings, langlist_name);
-+                g_free (langlist_name);
-+        } else if (g_error_matches (load_error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND)) {
-+                g_error_free (load_error);
-+                load_error = NULL;
-+        } else {
-+                g_propagate_error (error, load_error);
-+                goto out;
 +        }
 +
-+        lcmess_name = g_key_file_get_string (key_file, "Desktop", "LCMess",
-+                                             &load_error);
-+
++        lcmess_name = act_user_get_lcmess (settings->priv->user);
++        g_debug ("GdmSessionSettings: saved lcmess is %s", lcmess_name);
 +        if (lcmess_name != NULL) {
 +                gdm_session_settings_set_lcmess_name (settings, lcmess_name);
-+                g_free (lcmess_name);
-+        } else if (g_error_matches (load_error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND)) {
-+                g_error_free (load_error);
-+                load_error = NULL;
-+        } else {
-+                g_propagate_error (error, load_error);
-+                goto out;
 +        }
 +
          gdm_session_settings_set_is_failsafe (settings, FALSE);
  
-         is_loaded = TRUE;
-@@ -425,6 +532,16 @@
-                                        settings->priv->layout_name);
+         g_object_notify (G_OBJECT (settings), "is-loaded");
+@@ -396,6 +484,15 @@
+         if (settings->priv->language_name != NULL) {
+                 act_user_set_language (user, settings->priv->language_name);
          }
- 
++
 +        if (settings->priv->langlist_name != NULL) {
-+                g_key_file_set_string (key_file, "Desktop", "Langlist",
-+                                       settings->priv->langlist_name);
++                act_user_set_langlist (user, settings->priv->langlist_name);
 +        }
 +
 +        if (settings->priv->lcmess_name != NULL) {
-+                g_key_file_set_string (key_file, "Desktop", "LCMess",
-+                                       settings->priv->lcmess_name);
++                act_user_set_lcmess (user, settings->priv->lcmess_name);
 +        }
 +
-         contents = g_key_file_to_data (key_file, &length, &file_error);
+         g_object_unref (user);
  
-         if (contents == NULL) {
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.0//daemon/gdm-session-settings.h gdm-2.32.0.new//daemon/gdm-session-settings.h
---- gdm-2.32.0//daemon/gdm-session-settings.h	2010-12-06 09:10:05.559833000 +0100
-+++ gdm-2.32.0.new//daemon/gdm-session-settings.h	2010-12-06 09:33:01.313924001 +0100
-@@ -63,6 +63,8 @@
+         return TRUE;
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-settings.h gdm-3.0.0.new//daemon/gdm-session-settings.h
+--- gdm-3.0.0//daemon/gdm-session-settings.h	2011-06-05 23:18:55.000000000 +0200
++++ gdm-3.0.0.new//daemon/gdm-session-settings.h	2011-06-05 23:20:57.417255523 +0200
+@@ -59,10 +59,16 @@
+                                                              const char          *username);
+ gboolean            gdm_session_settings_is_loaded          (GdmSessionSettings  *settings);
  char               *gdm_session_settings_get_language_name  (GdmSessionSettings *settings);
- char               *gdm_session_settings_get_layout_name    (GdmSessionSettings *settings);
- char               *gdm_session_settings_get_session_name   (GdmSessionSettings *settings);
 +char               *gdm_session_settings_get_langlist_name  (GdmSessionSettings *settings);
 +char               *gdm_session_settings_get_lcmess_name    (GdmSessionSettings *settings);
+ char               *gdm_session_settings_get_session_name   (GdmSessionSettings *settings);
  gboolean            gdm_session_settings_get_is_failsafe    (GdmSessionSettings *settings);
  void                gdm_session_settings_set_language_name  (GdmSessionSettings *settings,
                                                               const char         *language_name);
-@@ -70,6 +72,10 @@
-                                                              const char         *layout_name);
- void                gdm_session_settings_set_session_name   (GdmSessionSettings *settings,
-                                                              const char         *session_name);
 +void                gdm_session_settings_set_langlist_name  (GdmSessionSettings *settings,
 +                                                             const char         *langlist_name);
 +void                gdm_session_settings_set_lcmess_name    (GdmSessionSettings *settings,
 +                                                             const char         *lcmess_name);
+ void                gdm_session_settings_set_session_name   (GdmSessionSettings *settings,
+                                                              const char         *session_name);
  void                gdm_session_settings_set_is_failsafe    (GdmSessionSettings *settings,
-                                                              gboolean           is_failsafe);
- 
