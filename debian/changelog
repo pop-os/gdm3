@@ -33,6 +33,9 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
   * Resynchronize some of the files on Debian to lower the difference
 
   [ Gunnar Hjalmarsson ]
+  * debian/patches/36_language_environment_settings.patch:
+    Set LC_CTYPE and LC_COLLATE to the same locale name as LC_MESSAGES
+    (LP: #786986).
   * Patches adapted to gdm-3.0.0:
     - 15_default_session.patch
     - 30_don_t_save_failsafe_session.patch

@@ -3,10 +3,9 @@ Bug-Ubuntu: https://launchpad.net/bugs/553162, https://launchpad.net/bugs/666565
 Forwarded: not-needed
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-Index: gdm-3.0.0/daemon/gdm-session-direct.c
-===================================================================
---- gdm-3.0.0.orig/daemon/gdm-session-direct.c	2011-04-04 16:37:16.000000000 +0200
-+++ gdm-3.0.0/daemon/gdm-session-direct.c	2011-05-30 17:35:56.679075641 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-direct.c gdm-3.0.0.new//daemon/gdm-session-direct.c
+--- gdm-3.0.0//daemon/gdm-session-direct.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0.new//daemon/gdm-session-direct.c	2011-06-05 06:33:22.128586332 +0200
 @@ -604,10 +604,23 @@
  static const char *
  get_default_language_name (GdmSessionDirect *session)
@@ -31,11 +30,10 @@ Index: gdm-3.0.0/daemon/gdm-session-direct.c
      return setlocale (LC_MESSAGES, NULL);
  }
  
-Index: gdm-3.0.0/data/Xsession.in
-===================================================================
---- gdm-3.0.0.orig/data/Xsession.in	2011-05-30 17:35:50.719075638 +0200
-+++ gdm-3.0.0/data/Xsession.in	2011-05-30 17:35:56.683075641 +0200
-@@ -146,11 +146,136 @@
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//data/Xsession.in gdm-3.0.0.new//data/Xsession.in
+--- gdm-3.0.0//data/Xsession.in	2010-10-01 13:54:28.000000000 +0200
++++ gdm-3.0.0.new//data/Xsession.in	2011-06-05 06:37:43.378969508 +0200
+@@ -146,11 +146,139 @@
  
  unset XKB_IN_USE
  
@@ -127,7 +125,8 @@ Index: gdm-3.0.0/data/Xsession.in
 +    dmrc_update 'LCMess' $lcmess
 +}
 +
-+# read /var/cache/gdm/$USER/dmrc and set LANGUAGE and LC_MESSAGES
++# read /var/cache/gdm/$USER/dmrc and set LANGUAGE, LC_MESSAGES, LC_CTYPE,
++# and LC_COLLATE
 +if [ -n "$GDM_LANG" -a "${DESKTOP_SESSION#*guest}" != '-restricted' ]; then
 +    if [ $GDM_LANG != ${GDM_LANG%.utf8*} ]; then
 +        gdm_selected=${GDM_LANG%.*}${GDM_LANG#*.utf8}
@@ -170,9 +169,11 @@ Index: gdm-3.0.0/data/Xsession.in
 +    fi
 +    if [ -n "$lcmess" -a $lcmess != $LANG -a $lcmess != $x_lang ]; then
 +        export LC_MESSAGES="$lcmess"
++        export LC_CTYPE="$lcmess"
++        export LC_COLLATE="$lcmess"
 +    else
 +        # no fitting locale or same as LANG
-+        unset LC_MESSAGES
++        unset LC_MESSAGES LC_CTYPE LC_COLLATE
 +    fi
  fi
  
