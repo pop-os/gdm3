@@ -1,11 +1,12 @@
 Description: Display time on the greeter in accordance with the system wide settings in Language Support.
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=651506
 Bug-Ubuntu: https://launchpad.net/bugs/777264
-Forwarded: no
+Forwarded: yes
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-diff -Nur -x '*.orig' -x '*~' gdm-2.32.1//gui/simple-greeter/gdm-clock-widget.c gdm-2.32.1.new//gui/simple-greeter/gdm-clock-widget.c
---- gdm-2.32.1//gui/simple-greeter/gdm-clock-widget.c	2011-03-28 18:48:50.000000000 +0200
-+++ gdm-2.32.1.new//gui/simple-greeter/gdm-clock-widget.c	2011-05-07 09:22:53.667796155 +0200
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c gdm-3.0.0.new//gui/simple-greeter/gdm-clock-widget.c
+--- gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0.new//gui/simple-greeter/gdm-clock-widget.c	2011-06-05 23:55:31.140297043 +0200
 @@ -30,6 +30,7 @@
  #include <errno.h>
  #include <dirent.h>
@@ -46,20 +47,20 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.1//gui/simple-greeter/gdm-clock-widget.c 
 -                /* translators: This is the time format to use for the date
 -                 */
 -                tooltip_format = "%x";
--        } else {
--                /* translators: This is the time format to use when there is
--                 * no date, just weekday and time without seconds.
--                 */
--                clock_format = _("%a %l:%M %p");
 +        time (&t);
 +        tm = localtime (&t);
 +        setlocale(LC_TIME, "");
 +        strftime(ampm, sizeof(ampm), "%p", tm);
- 
--                tooltip_format = "%x";
++ 
 +        if (strlen(ampm) > 0) {
 +                clock_format = "%l:%M %p";
-+        } else {
+         } else {
+-                /* translators: This is the time format to use when there is
+-                 * no date, just weekday and time without seconds.
+-                 */
+-                clock_format = _("%a %l:%M %p");
+-
+-                tooltip_format = "%x";
 +                clock_format = "%H:%M";
          }
 +        tooltip_format = "%x";
@@ -74,8 +75,8 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.1//gui/simple-greeter/gdm-clock-widget.c 
 +        char       weekday[32];
          char       buf[256];
          char      *utf8;
- 
-@@ -122,15 +109,21 @@
+         char      *markup;
+@@ -123,10 +110,15 @@
                  g_warning ("Unable to get broken down local time");
                  return;
          }
@@ -91,7 +92,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-2.32.1//gui/simple-greeter/gdm-clock-widget.c 
 +        sprintf(buf, "%s %s", weekday, showed_time);
 +
          utf8 = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
-         gtk_label_set_text (label, utf8);
+         markup = g_strdup_printf ("<b><span foreground=\"white\">%s</span></b>", utf8);
+         gtk_label_set_markup (label, markup);
+@@ -134,6 +126,7 @@
          g_free (utf8);
  
          if (tooltip_format != NULL) {

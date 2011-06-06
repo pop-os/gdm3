@@ -33,6 +33,13 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
   * Resynchronize some of the files on Debian to lower the difference
 
   [ Gunnar Hjalmarsson ]
+  * Patches adapted to gdm-3.0.0:
+    - 15_default_session.patch
+    - 30_don_t_save_failsafe_session.patch
+    - 32-hide-mouse-cursor.patch
+    - 35_langlist_and_lsmess_dmrc_fields.patch
+    - 45_time_display_on_greeter.patch
+    - 90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch
   * debian/patches/45_time_display_on_greeter.patch:
     Display time on the greeter in a proper format also when
     /etc/default/locale assigns different locales to LANG respective
@@ -48,7 +55,7 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
     - Only stop autologin if full home directory encryption is used
       (LP: #753707)
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 30 May 2011 16:00:23 +0200
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
 gdm (2.32.1-0ubuntu5) oneiric; urgency=low
 
