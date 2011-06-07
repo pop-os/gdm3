@@ -1,7 +1,7 @@
 02_x_server_location.patch
-04_fix_external_program_directories.patch
 05_initial_server_on_vt7.patch
 06_run_xsession.d.patch
+07_libexec-paths.patch
 11_crash_for_apport.patch
 14_guest_session.patch
 15_default_session.patch
