@@ -4,7 +4,6 @@
 08_frequent-users_greeter.patch
 15_default_session.patch
 16_xserver_path.patch
-20_upstart.patch
 26_no_debug.patch
 27_save_root_window.patch
 28_plymouth_transition.patch
@@ -22,3 +21,4 @@
 ubuntu_run_xsession.d.patch
 ubuntu_dont_catch_sigsegv.patch
 ubuntu_guest_session.patch
+ubuntu_upstart_event.patch
