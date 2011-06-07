@@ -2,6 +2,7 @@
 06_first_vt.patch
 06_run_xsession.d.patch
 07_libexec-paths.patch
+08_frequent-users_greeter.patch
 11_crash_for_apport.patch
 14_guest_session.patch
 15_default_session.patch
