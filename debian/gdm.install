@@ -1,1 +1,4 @@
 debian/60xdg_path-on-session etc/X11/Xsession.d/
+data/mimeapps.list			usr/share/gdm/applications
+data/mime-dummy-handler.desktop		usr/share/gdm/applications
+

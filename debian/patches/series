@@ -20,4 +20,4 @@
 42_no_ecryptfs_autologin.patch
 44_xsession-errors_symlink.patch
 45_time_display_on_greeter.patch
-90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch
+93_xdg_data_dirs.patch

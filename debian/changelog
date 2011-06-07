@@ -1,7 +1,7 @@
-gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
 
   [ Sebastien Bacher ]
-  * New upstream version
+  * New upstream version 3.0.0
   * Start cleaning for the GNOME3 update
   * debian/patches/00git_passwordless_login_crash.patch,
     debian/patches/17_use_timed_login_after_autologin.patch,
@@ -58,6 +58,12 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
       (LP: #753707)
 
   [ Martin Pitt ]
+  * New upstream version 3.0.4.
+  * debian/control.in: Require accountsservice 0.6.12.
+  * Drop 90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch:
+    Fixed upstream in a different way.
+  * debian/gdm.install: install the dummy desktop handler and the
+    mimeapps.list to /usr/share/gdm/applications.
   * debian/rules: Drop installation of bonobo .server for FUSA, this is all
     obsolete.
   * debian/rules: Drop installation of debian/%gconf-tree.xml, which was
@@ -68,6 +74,7 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
   * Synchronize patches with Debian:
     - Drop 04_fix_external_program_directories.patch, replace with
       07_libexec-paths.patch.
+    - Add 93_xdg_data_dirs.patch.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
