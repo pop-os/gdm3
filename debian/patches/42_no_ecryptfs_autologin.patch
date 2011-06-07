@@ -4,8 +4,8 @@ Bug: http://launchpad.net/bugs/284443
 
 Index: gdm-3.0.0/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-05-30 17:36:28.747075656 +0200
-+++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-05-30 17:36:28.843075656 +0200
+--- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-06-07 12:25:54.047631144 +0200
++++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-06-07 12:26:15.497631154 +0200
 @@ -629,6 +629,38 @@
          slave->priv->username = g_strdup (username);
  }
@@ -55,16 +55,26 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
                  return;
          }
  
-@@ -1396,7 +1429,7 @@
+@@ -1385,6 +1418,8 @@
+         if (res) {
+                 gboolean enabled;
+                 int      delay;
++                char *username;
++
+ 
+                 /* FIXME: handle wait-for-go */
+ 
+@@ -1393,7 +1428,8 @@
                  delay = 0;
                  enabled = FALSE;
                  gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, NULL, &delay);
 -                if (! enabled || delay > 0) {
++                username = gdm_session_direct_get_username (GDM_SIMPLE_SLAVE (slave)->priv->session);
 +                if (! enabled || delay > 0 || home_dir_using_ecryptfs (username)) {
                          start_greeter (slave);
                          create_new_session (slave);
                  } else {
-@@ -1404,6 +1437,7 @@
+@@ -1401,6 +1437,7 @@
                          gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
                          reset_session (slave);
                  }

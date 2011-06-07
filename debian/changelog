@@ -64,6 +64,7 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
     removed above.
   * Drop 35_langlist_and_lsmess_dmrc_fields.patch: This now needs to be
     reimplemented in accountsservice.
+  * 42_no_ecryptfs_autologin.patch: Update to gdm 3.0.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
