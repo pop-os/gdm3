@@ -40,7 +40,6 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
     - 15_default_session.patch
     - 30_don_t_save_failsafe_session.patch
     - 32-hide-mouse-cursor.patch
-    - 35_langlist_and_lsmess_dmrc_fields.patch
     - 45_time_display_on_greeter.patch
     - 90_register-bin-true-as-URI-scheme-handler-for-several-schemes.patch
   * debian/patches/45_time_display_on_greeter.patch:
@@ -63,6 +62,8 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
     obsolete.
   * debian/rules: Drop installation of debian/%gconf-tree.xml, which was
     removed above.
+  * Drop 35_langlist_and_lsmess_dmrc_fields.patch: This now needs to be
+    reimplemented in accountsservice.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 

@@ -14,7 +14,6 @@
 30_don_t_save_failsafe_session.patch
 32-hide-mouse-cursor.patch
 #33-multi-keyboard-layouts.patch
-35_langlist_and_lsmess_dmrc_fields.patch
 36_language_environment_settings.patch
 39_grep_path.patch
 40_one_lang_option_per_translation.patch
