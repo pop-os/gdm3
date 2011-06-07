@@ -58,6 +58,10 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
     - Only stop autologin if full home directory encryption is used
       (LP: #753707)
 
+  [ Martin Pitt ]
+  * debian/rules: Drop installation of bonobo .server for FUSA, this is all
+    obsolete.
+
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
 gdm (2.32.1-0ubuntu5) oneiric; urgency=low
