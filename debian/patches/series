@@ -1,11 +1,10 @@
+ubuntu_plymouth.patch
 01_language.patch
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch
 15_default_session.patch
 16_xserver_path.patch
-27_save_root_window.patch
-28_plymouth_transition.patch
 29_grep_path.patch
 29_switch_user.patch
 30_don_t_save_failsafe_session.patch
