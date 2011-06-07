@@ -7,7 +7,6 @@
 14_guest_session.patch
 15_default_session.patch
 16_xserver_path.patch
-16_gdmserver_user_manager.patch
 20_upstart.patch
 26_no_debug.patch
 27_save_root_window.patch

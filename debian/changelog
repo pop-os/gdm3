@@ -81,6 +81,8 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
     - Rename 05_initial_server_on_vt7.patch to 06_first_vt.patch. They have
       the same purpose, but ours is two magnitudes simpler.
     - Add 08_frequent-users_greeter.patch.
+  * Drop 16_gdmserver_user_manager.patch, this info is now provided by
+    accountsservice.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
