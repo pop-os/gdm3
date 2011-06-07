@@ -8,7 +8,6 @@
 28_plymouth_transition.patch
 29_switch_user.patch
 30_don_t_save_failsafe_session.patch
-32-hide-mouse-cursor.patch
 #33-multi-keyboard-layouts.patch
 36_language_environment_settings.patch
 39_grep_path.patch

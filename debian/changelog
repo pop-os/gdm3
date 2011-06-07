@@ -89,6 +89,8 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
     - Rename 26_no_debug.patch to ubuntu_no_debug.patch.
   * Drop 16_gdmserver_user_manager.patch, this info is now provided by
     accountsservice.
+  * Drop 32-hide-mouse-cursor.patch. It never really looked that much better,
+    and is unimportant now that gdm isn't even the default DM any more.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
