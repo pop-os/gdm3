@@ -1,0 +1,16 @@
+GNOME #649413
+
+Index: gdm-3.0.0/daemon/gdm-session-direct.c
+===================================================================
+--- gdm-3.0.0.orig/daemon/gdm-session-direct.c	2011-04-29 01:19:33.240497348 +0200
++++ gdm-3.0.0/daemon/gdm-session-direct.c	2011-04-29 01:19:39.568528281 +0200
+@@ -1970,9 +1970,6 @@ setup_session_environment (GdmSessionDir
+                                                      get_session_name (session));
+ 
+         gdm_session_direct_set_environment_variable (session,
+-                                                     "LANG",
+-                                                     get_language_name (session));
+-        gdm_session_direct_set_environment_variable (session,
+                                                      "GDM_LANG",
+                                                      get_language_name (session));
+ 
