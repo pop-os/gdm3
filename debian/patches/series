@@ -2,7 +2,6 @@
 06_first_vt.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch
-14_guest_session.patch
 15_default_session.patch
 16_xserver_path.patch
 20_upstart.patch
@@ -22,3 +21,4 @@
 93_xdg_data_dirs.patch
 ubuntu_run_xsession.d.patch
 ubuntu_dont_catch_sigsegv.patch
+ubuntu_guest_session.patch

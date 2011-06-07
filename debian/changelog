@@ -84,6 +84,7 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
     - Rename 06_run_xsession.d.patch to ubuntu_run_xsession.d.patch; we don't
       use Debian's Xsession script, but upstream's.
     - Rename 11_crash_for_apport.patch to ubuntu_dont_catch_sigsegv.patch.
+    - Rename 14_guest_session.patch to ubuntu_guest_session.patch.
   * Drop 16_gdmserver_user_manager.patch, this info is now provided by
     accountsservice.
 
