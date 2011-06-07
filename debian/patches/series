@@ -11,7 +11,6 @@
 30_don_t_save_failsafe_session.patch
 #33-multi-keyboard-layouts.patch
 36_language_environment_settings.patch
-40_one_lang_option_per_translation.patch
 42_no_ecryptfs_autologin.patch
 44_xsession-errors_symlink.patch
 45_time_display_on_greeter.patch
