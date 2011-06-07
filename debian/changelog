@@ -61,6 +61,8 @@ gdm (3.0.0-0ubuntu1) UNRELEASED; urgency=low
   [ Martin Pitt ]
   * debian/rules: Drop installation of bonobo .server for FUSA, this is all
     obsolete.
+  * debian/rules: Drop installation of debian/%gconf-tree.xml, which was
+    removed above.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
