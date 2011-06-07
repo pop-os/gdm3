@@ -1,6 +1,5 @@
 01_language.patch
 06_first_vt.patch
-06_run_xsession.d.patch
 07_libexec-paths.patch
 08_frequent-users_greeter.patch
 11_crash_for_apport.patch
@@ -22,3 +21,4 @@
 44_xsession-errors_symlink.patch
 45_time_display_on_greeter.patch
 93_xdg_data_dirs.patch
+ubuntu_run_xsession.d.patch
