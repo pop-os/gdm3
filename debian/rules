@@ -38,6 +38,8 @@ DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 	DEB_CONFIGURE_EXTRA_FLAGS += --with-selinux
+else
+	DEB_CONFIGURE_EXTRA_FLAGS += --with-vt-switch-workaround
 endif
 
 

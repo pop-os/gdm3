@@ -4,6 +4,17 @@ gdm3 (3.0.4-2) UNRELEASED; urgency=low
   * greeter.gsettings: add an example of how to disable the sound.
     Closes: #628858.
   * 06_first_vt.patch: update to add Hurd support. Closes: #629366.
+  * 18_switch_kill_greeter.patch, 20_endsession_respawn.patch: replaced 
+    by a series of cleaned up upstream patches.
+    + 17_switch_on_finish.patch: add the switch-on-finish property to 
+      displays.
+    + 18_parametrize_create_display.patch: allow the daemon to create an 
+      arbitrary type of display.
+    + 19_static_transient_display.patch: share the respawn logic between 
+      static and transient displays.
+    + 20_switch_kill_greeter.patch: here is the code that kills the 
+      unnecessary greeter if we support -novtswitch.
+  * Pass --with-vt-switch-workaround on non-Linux architectures.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 02 Jun 2011 12:43:17 +0200
 
