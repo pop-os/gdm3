@@ -13,6 +13,7 @@
 18_parametrize_create_display.patch
 19_static_transient_display.patch
 20_switch_kill_greeter.patch
+21_static_display_purge.patch
 22_noconsole.patch
 29_grep_path.patch
 90_config_comments.patch

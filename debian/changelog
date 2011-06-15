@@ -1,4 +1,4 @@
-gdm3 (3.0.4-2) UNRELEASED; urgency=low
+gdm3 (3.0.4-2) experimental; urgency=low
 
   * Document how to change the GSettings settings in README.Debian.
   * greeter.gsettings: add an example of how to disable the sound.
@@ -14,11 +14,14 @@ gdm3 (3.0.4-2) UNRELEASED; urgency=low
       static and transient displays.
     + 20_switch_kill_greeter.patch: here is the code that kills the 
       unnecessary greeter if we support -novtswitch.
+    + 21_static_display_purge.patch: the last missing change in the 
+      upstream patches, purges static displays just as transient 
+      displays.
   * Pass --with-vt-switch-workaround on non-Linux architectures.
   * 01_language.patch: replaced by a new version from upstream. Only 
     sets the variables when non-empty.
 
- -- Josselin Mouette <joss@debian.org>  Thu, 02 Jun 2011 12:43:17 +0200
+ -- Josselin Mouette <joss@debian.org>  Wed, 15 Jun 2011 20:14:19 +0200
 
 gdm3 (3.0.4-1) experimental; urgency=low
 
