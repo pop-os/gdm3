@@ -1,0 +1,13 @@
+Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-local-display-factory.c	2011-06-15 20:11:51.447173935 +0200
++++ gdm-3.0.4/daemon/gdm-local-display-factory.c	2011-06-15 20:12:01.719224122 +0200
+@@ -299,8 +299,6 @@ on_display_status_changed (GdmDisplay
+ 
+                 if (switch_on_finish) {
+                         switch_to_login_session (factory);
+-                } else if (type == GDM_TYPE_STATIC_DISPLAY) {
+-                        create_display (factory, type);
+                 }
+                 break;
+         case GDM_DISPLAY_FAILED:
