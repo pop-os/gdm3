@@ -11,3 +11,31 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
                  }
                  break;
          case GDM_DISPLAY_FAILED:
+Index: gdm-3.0.4/daemon/gdm-static-display.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-static-display.c	2011-06-15 20:47:16.413562347 +0200
++++ gdm-3.0.4/daemon/gdm-static-display.c	2011-06-15 20:52:18.311038265 +0200
+@@ -98,21 +98,13 @@ gdm_static_display_manage (GdmDisplay *d
+ static gboolean
+ gdm_static_display_finish (GdmDisplay *display)
+ {
+-        int status;
+-
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+ 
+-        /* Don't call parent's finish since we don't ever
+-           want to be put in the FINISHED state */
++        GDM_DISPLAY_CLASS (gdm_static_display_parent_class)->finish (display);
+ 
+-        /* restart static displays */
++        /* We don't restart static displays unless switch_on_finish is set */
+         gdm_display_unmanage (display);
+ 
+-        status = gdm_display_get_status (display);
+-        if (status != GDM_DISPLAY_FAILED) {
+-                gdm_display_manage (display);
+-        }
+-
+         return TRUE;
+ }
+ 
