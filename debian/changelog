@@ -101,6 +101,8 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
     non-files such as /dev/null. Also rename to
     00git_xsession-errors_symlink.patch, as the patch was also committed
     upstream now. (LP: #771661)
+  * debian/watch: Look for .bz2 tarballs; upstream stopped publishing .gz
+    ones.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 
