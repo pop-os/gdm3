@@ -1,3 +1,4 @@
+00git_xsession-errors_symlink.patch
 ubuntu_plymouth.patch
 01_language.patch
 06_first_vt.patch
@@ -11,7 +12,6 @@ ubuntu_plymouth.patch
 #33-multi-keyboard-layouts.patch
 36_language_environment_settings.patch
 42_no_ecryptfs_autologin.patch
-44_xsession-errors_symlink.patch
 45_time_display_on_greeter.patch
 93_xdg_data_dirs.patch
 ubuntu_run_xsession.d.patch
