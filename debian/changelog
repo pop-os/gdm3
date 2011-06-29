@@ -1,4 +1,4 @@
-gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu1) oneiric; urgency=low
 
   [ Sebastien Bacher ]
   * New upstream version 3.0.0
@@ -107,7 +107,7 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
   * debian/control.in: Bump Standards-Vesion to 3.9.2.
   * debian/gdm.preinst: Add missing debhelper token.
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 29 Jun 2011 12:05:47 +0100
 
 gdm (2.32.1-0ubuntu5) oneiric; urgency=low
 
