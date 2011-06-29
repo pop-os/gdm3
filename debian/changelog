@@ -104,6 +104,7 @@ gdm (3.0.4-0ubuntu1) UNRELEASED; urgency=low
   * debian/watch: Look for .bz2 tarballs; upstream stopped publishing .gz
     ones.
   * debian/control.in: Add missing gnome-pkg-tools dependency.
+  * debian/control.in: Bump Standards-Vesion to 3.9.2.
 
  -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 06 Jun 2011 07:27:00 +0200
 

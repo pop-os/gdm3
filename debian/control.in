@@ -42,7 +42,7 @@ Build-Depends: cdbs,
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm
