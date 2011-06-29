@@ -47,3 +47,5 @@ if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
     rm_conffile /etc/gdm/modules/factory-AccessDwellMouseEvents
 fi
 
+#DEBHELPER#
+
