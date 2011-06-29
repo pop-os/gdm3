@@ -7,6 +7,7 @@ Uploaders: @GNOME_TEAM@
 Build-Depends: cdbs, 
                debhelper (>= 5),
                cdbs,
+               gnome-pkg-tools,
                dh-autoreconf,
                intltool (>= 0.40.0),
                gnome-doc-utils,
