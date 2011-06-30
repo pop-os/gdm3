@@ -39,7 +39,6 @@ Build-Depends: cdbs,
                libselinux1-dev [linux-any],
                libattr1-dev [linux-any],
                iso-codes,
-               libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas
 Standards-Version: 3.9.2
