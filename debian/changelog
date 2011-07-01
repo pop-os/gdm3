@@ -1,3 +1,10 @@
+gdm (3.0.4-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/gdm.upstart: Don't start gdm if /etc/X11/default-display-manager
+    does not exist and lightdm is installed. (LP: #804262)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 01 Jul 2011 17:26:53 +0100
+
 gdm (3.0.4-0ubuntu2) oneiric; urgency=low
 
   * Drop unnecessary libaudit-dev build dependency, which is in universe.

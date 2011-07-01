@@ -24,7 +24,11 @@ env XORGCONFIG=/etc/X11/xorg.conf
 script
     if [ -n "$UPSTART_EVENTS" ]
     then
-        [ ! -f /etc/X11/default-display-manager -o "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
+    	if [ -f /etc/X11/default-display-manager ]; then
+	    [ "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
+	else
+	    type lightdm >/dev/null 2>&1 && { stop; exit 0; } || true
+	fi
 
         if [ "$RUNLEVEL" = S -o "$RUNLEVEL" = 1 ]
         then
