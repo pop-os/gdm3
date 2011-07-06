@@ -57,6 +57,10 @@ db_stop || true
 PID=$(status "gdm" 2>/dev/null | awk '/[0-9]$/ { print $NF }')
 [ -z "$PID" ] || kill -HUP $PID
 
+if dpkg-maintscript-helper supports rm_conffile 2>/dev/null; then
+    dpkg-maintscript-helper rm_conffile /etc/X11/Xsession.d/60xdg_path-on-session 3.0.4-0ubuntu4 -- "$@"
+fi
+
 #DEBHELPER#
 
 exit 0
