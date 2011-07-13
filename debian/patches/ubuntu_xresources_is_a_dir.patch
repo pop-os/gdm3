@@ -1,0 +1,19 @@
+Description: Properly loads files from Debian/Ubuntu /etc/X11/Xresources/ dir
+From: Loïc Minier <loic.minier@ubuntu.com>
+Date: Wed, 13 Jul 2011 17:32:31 +0200
+--- a/data/Xsession.in
++++ b/data/Xsession.in
+@@ -99,6 +99,13 @@
+ 
+ if [ -f "$sysresources" ]; then
+     xrdb -nocpp -merge "$sysresources"
++elif [ -d "$sysresources" ]; then
++    # directory of Xresources files on Debian/Ubuntu
++    for i in `ls "$sysresources"` ; do
++        if [ -r "$sysresources/$i"  -a -f "$sysresources/$i" ] && expr "$i" : '^[[:alnum:]_-]\+$' > /dev/null; then
++            xrdb -nocpp -merge "$sysresources/$i"
++        fi
++    done
+ fi
+ 
+ if [ -f "$userresources" ]; then

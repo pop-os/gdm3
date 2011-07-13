@@ -1,3 +1,10 @@
+gdm (3.0.4-0ubuntu5) UNRELEASED; urgency=low
+
+  * New patch, ubuntu_xresources_is_a_dir, fixes loading of Debian/Ubuntu
+    style /etc/X11/Xresources/*.
+
+ -- Loïc Minier <loic.minier@ubuntu.com>  Wed, 13 Jul 2011 17:30:13 +0200
+
 gdm (3.0.4-0ubuntu4) oneiric; urgency=low
 
   * debian/control, debian/gdm.postinst, debian/gdm.postrm, debian/gdm.preinst
