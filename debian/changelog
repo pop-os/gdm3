@@ -3,7 +3,7 @@ gdm (3.0.4-0ubuntu5) oneiric; urgency=low
   * New patch, ubuntu_xresources_is_a_dir, fixes loading of Debian/Ubuntu
     style /etc/X11/Xresources/*.
   * Update ubuntu_plymouth patch to pass -background none to the Xserver
-    instead of -nr which wont be supported in the future.
+    instead of -nr which wont be supported in the future; LP: #806857.
 
  -- Loïc Minier <loic.minier@ubuntu.com>  Wed, 13 Jul 2011 17:30:13 +0200
 
