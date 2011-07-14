@@ -1,4 +1,4 @@
-gdm (3.0.4-0ubuntu6) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu6) oneiric; urgency=low
 
   * debian/control
     - Remove duplicate cdbs build-dep
@@ -7,7 +7,7 @@ gdm (3.0.4-0ubuntu6) UNRELEASED; urgency=low
     - Add configure flags from Debian to correctly handle $PATH
       and locale
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 14 Jul 2011 01:23:53 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 14 Jul 2011 10:36:48 +0200
 
 gdm (3.0.4-0ubuntu5) oneiric; urgency=low
 
