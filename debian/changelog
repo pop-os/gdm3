@@ -1,3 +1,14 @@
+gdm (3.0.4-0ubuntu6) UNRELEASED; urgency=low
+
+  * debian/control
+    - Remove duplicate cdbs build-dep
+    - Minor changes to reduce Debian diff
+  * debian/rules
+    - Add configure flags from Debian to correctly handle $PATH
+      and locale
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 14 Jul 2011 01:23:53 -0400
+
 gdm (3.0.4-0ubuntu5) oneiric; urgency=low
 
   * New patch, ubuntu_xresources_is_a_dir, fixes loading of Debian/Ubuntu

@@ -4,10 +4,9 @@ Priority: optional
 Maintainer: Ubuntu Desktop Team <ubuntu-desktop@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
-Build-Depends: cdbs, 
+Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 5),
                cdbs,
-               gnome-pkg-tools,
                dh-autoreconf,
                intltool (>= 0.40.0),
                gnome-doc-utils,
@@ -46,7 +45,7 @@ Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm
 Architecture: any
-Depends: ${shlibs:Depends}, 
+Depends: ${shlibs:Depends},
          ${misc:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
@@ -58,13 +57,13 @@ Depends: ${shlibs:Depends},
 Recommends: xserver-xorg,
          metacity | x-window-manager,
          gnome-settings-daemon | xfconf
-Suggests: locales,
+Suggests: libpam-gnome-keyring,
+          locales,
           uswsusp,
-          libpam-gnome-keyring,
           gnome-power-manager,
+          gnome-mag,
           gnome-orca,
-          gok,
-          gnome-mag
+          gok
 Provides: x-display-manager
 Breaks: usplash
 Description: GNOME Display Manager
@@ -79,4 +78,4 @@ Description: GNOME Display Manager
  GNOME application - even to the extent of supporting themes! 
  .
  This package contains the next generation GDM, which was developed 
- using the technologies on which GNOME is based.
+ using the technologies on which GNOME 3 is based.
