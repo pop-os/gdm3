@@ -1,3 +1,10 @@
+gdm (3.0.4-0ubuntu7) oneiric; urgency=low
+
+  * debian/patches/00git_use_new_power_interface.patch:
+    - Use the new power DBus interface from gnome-settings-daemon
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 27 Jul 2011 11:31:26 +0200
+
 gdm (3.0.4-0ubuntu6) oneiric; urgency=low
 
   * debian/control

@@ -1,4 +1,5 @@
 00git_xsession-errors_symlink.patch
+00git_use_new_power_interface.patch
 ubuntu_plymouth.patch
 01_language.patch
 06_first_vt.patch
