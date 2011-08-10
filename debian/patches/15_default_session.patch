@@ -4,10 +4,11 @@ Description: Choose default session in /etc/gdm/custom.conf using DBus
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=594733
 Bug-Ubuntu: https://launchpad.net/bugs/403291
 
-diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//configure.ac gdm-3.0.0.new//configure.ac
---- gdm-3.0.0//configure.ac	2011-04-04 16:38:52.000000000 +0200
-+++ gdm-3.0.0.new//configure.ac	2011-06-05 15:24:01.715285158 +0200
-@@ -120,6 +120,13 @@
+Index: gdm-3.0.4/configure.ac
+===================================================================
+--- gdm-3.0.4.orig/configure.ac	2011-08-10 18:29:07.705952647 +0200
++++ gdm-3.0.4/configure.ac	2011-08-10 18:29:07.749952857 +0200
+@@ -121,6 +121,13 @@
  AC_SUBST(UPOWER_CFLAGS)
  AC_SUBST(UPOWER_LIBS)
  
@@ -21,9 +22,10 @@ diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//configure.ac gdm-3.0.0.new//configure.a
  PKG_CHECK_MODULES(SIMPLE_GREETER,
          dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
          gtk+-3.0 >= $GTK_REQUIRED_VERSION
-diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-direct.c gdm-3.0.0.new//daemon/gdm-session-direct.c
---- gdm-3.0.0//daemon/gdm-session-direct.c	2011-04-04 16:37:16.000000000 +0200
-+++ gdm-3.0.0.new//daemon/gdm-session-direct.c	2011-06-05 15:24:01.715285158 +0200
+Index: gdm-3.0.4/daemon/gdm-session-direct.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-session-direct.c	2011-08-10 18:29:07.673952489 +0200
++++ gdm-3.0.4/daemon/gdm-session-direct.c	2011-08-10 18:29:19.522011234 +0200
 @@ -63,6 +63,10 @@
  #define GDM_SESSION_DBUS_INTERFACE    "org.gnome.DisplayManager.Session"
  #define GDM_SESSION_DBUS_ERROR_CANCEL "org.gnome.DisplayManager.Session.Error.Cancel"
@@ -62,9 +64,64 @@ diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//daemon/gdm-session-direct.c gdm-3.0.0.n
  
          if (session_direct->priv->fallback_session_name != NULL) {
                  /* verify that the cached version still exists */
-diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//utils/gdm-set-default-session.c gdm-3.0.0.new//utils/gdm-set-default-session.c
---- gdm-3.0.0//utils/gdm-set-default-session.c	1970-01-01 01:00:00.000000000 +0100
-+++ gdm-3.0.0.new//utils/gdm-set-default-session.c	2011-06-05 15:24:01.715285158 +0200
+@@ -627,7 +651,7 @@
+                 }
+         }
+ 
+-        name = g_strdup ("gnome");
++        name = g_strdup ("ubuntu");
+         if (get_session_command_for_name (name, NULL)) {
+                 g_free (session_direct->priv->fallback_session_name);
+                 session_direct->priv->fallback_session_name = name;
+Index: gdm-3.0.4/utils/Makefile.am
+===================================================================
+--- gdm-3.0.4.orig/utils/Makefile.am	2011-02-18 04:27:53.000000000 +0100
++++ gdm-3.0.4/utils/Makefile.am	2011-08-10 18:29:07.753952884 +0200
+@@ -6,11 +6,13 @@
+ 	-DLOCALSTATEDIR=\""$(localstatedir)"\" 		\
+ 	-DGDM_SCREENSHOT_DIR=\""$(GDM_SCREENSHOT_DIR)"\"\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
++	-DGDMCONFDIR=\"$(gdmconfdir)\"                  \
+ 	$(UTILS_CFLAGS)					\
+ 	$(CANBERRA_GTK_CFLAGS)				\
+ 	$(GTK_CFLAGS)					\
+ 	$(XLIB_CFLAGS)					\
+ 	$(COMMON_CFLAGS)				\
++	$(SET_SESSION_CFLAGS)				\
+ 	$(NULL)
+ 
+ edit = sed \
+@@ -24,6 +26,10 @@
+ 	gdm-screenshot		\
+ 	$(NULL)
+ 
++libexec_PROGRAMS = \
++	gdm-set-default-session \
++	$(NULL)
++
+ gdmflexiserver_SOURCES =	\
+ 	gdmflexiserver.c	\
+ 	$(NULL)
+@@ -44,6 +50,15 @@
+ 	$(COMMON_LIBS)		\
+ 	$(NULL)
+ 
++gdm_set_default_session_SOURCES =	\
++	gdm-set-default-session.c	\
++	$(NULL)
++
++gdm_set_default_session_LDADD =	\
++	$(SET_SESSION_LIBS)	\
++	$(COMMON_LIBS)          \
++	$(NULL)
++
+ CLEANFILES = 			\
+ 	$(NULL)
+ 
+Index: gdm-3.0.4/utils/gdm-set-default-session.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm-3.0.4/utils/gdm-set-default-session.c	2011-08-10 18:29:07.753952884 +0200
 @@ -0,0 +1,271 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -337,47 +394,3 @@ diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//utils/gdm-set-default-session.c gdm-3.0
 +    exit(return_code);
 +
 +}
-diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//utils/Makefile.am gdm-3.0.0.new//utils/Makefile.am
---- gdm-3.0.0//utils/Makefile.am	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0.new//utils/Makefile.am	2011-06-05 15:24:01.715285158 +0200
-@@ -6,11 +6,13 @@
- 	-DLOCALSTATEDIR=\""$(localstatedir)"\" 		\
- 	-DGDM_SCREENSHOT_DIR=\""$(GDM_SCREENSHOT_DIR)"\"\
- 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
-+	-DGDMCONFDIR=\"$(gdmconfdir)\"                  \
- 	$(UTILS_CFLAGS)					\
- 	$(CANBERRA_GTK_CFLAGS)				\
- 	$(GTK_CFLAGS)					\
- 	$(XLIB_CFLAGS)					\
- 	$(COMMON_CFLAGS)				\
-+	$(SET_SESSION_CFLAGS)				\
- 	$(NULL)
- 
- edit = sed \
-@@ -24,6 +26,10 @@
- 	gdm-screenshot		\
- 	$(NULL)
- 
-+libexec_PROGRAMS = \
-+	gdm-set-default-session \
-+	$(NULL)
-+
- gdmflexiserver_SOURCES =	\
- 	gdmflexiserver.c	\
- 	$(NULL)
-@@ -44,6 +50,15 @@
- 	$(COMMON_LIBS)		\
- 	$(NULL)
- 
-+gdm_set_default_session_SOURCES =	\
-+	gdm-set-default-session.c	\
-+	$(NULL)
-+
-+gdm_set_default_session_LDADD =	\
-+	$(SET_SESSION_LIBS)	\
-+	$(COMMON_LIBS)          \
-+	$(NULL)
-+
- CLEANFILES = 			\
- 	$(NULL)
- 
