@@ -1,9 +1,9 @@
-gdm (3.0.4-0ubuntu8) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu8) oneiric; urgency=low
 
   * debian/patches/15_default_session.patch:
     - Set ubuntu as default session
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 10 Aug 2011 18:30:23 +0200
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 10 Aug 2011 18:30:53 +0200
 
 gdm (3.0.4-0ubuntu7) oneiric; urgency=low
 
