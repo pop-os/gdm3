@@ -11,7 +11,6 @@ ubuntu_plymouth.patch
 29_switch_user.patch
 30_don_t_save_failsafe_session.patch
 #33-multi-keyboard-layouts.patch
-36_language_environment_settings.patch
 42_no_ecryptfs_autologin.patch
 45_time_display_on_greeter.patch
 93_xdg_data_dirs.patch
@@ -21,3 +20,4 @@ ubuntu_guest_session.patch
 ubuntu_upstart_event.patch
 ubuntu_no_debug.patch
 ubuntu_xresources_is_a_dir.patch
+ubuntu_i18n_oneiric.patch
