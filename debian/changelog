@@ -1,3 +1,16 @@
+gdm (3.0.4-0ubuntu9) UNRELEASED; urgency=low
+
+  * debian/patches/ubuntu_i18n_oneiric.patch:
+    - Unset LC_MESSAGES, LC_CTYPE, and LC_COLLATE if they equal LANG,
+      in order to prevent that side effects, when connecting to other
+      computers via ssh, appear unnecessarily.
+    - Do not override the LANG value resulting from sourcing
+      /etc/default/locale and ~/.profile.
+  * debian/patches/36_language_environment_settings.patch:
+    - Not applicable any longer, so we drop it.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Fri, 12 Aug 2011 19:19:00 +0200
+
 gdm (3.0.4-0ubuntu8) oneiric; urgency=low
 
   * debian/patches/15_default_session.patch:
