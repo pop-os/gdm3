@@ -1,4 +1,4 @@
-gdm (3.0.4-0ubuntu9) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu9) oneiric; urgency=low
 
   * debian/patches/ubuntu_i18n_oneiric.patch:
     - Unset LC_MESSAGES, LC_CTYPE, and LC_COLLATE if they equal LANG,
@@ -9,7 +9,7 @@ gdm (3.0.4-0ubuntu9) UNRELEASED; urgency=low
   * debian/patches/36_language_environment_settings.patch:
     - Not applicable any longer, so we drop it.
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Fri, 12 Aug 2011 19:19:00 +0200
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 15 Aug 2011 10:09:37 +0200
 
 gdm (3.0.4-0ubuntu8) oneiric; urgency=low
 
