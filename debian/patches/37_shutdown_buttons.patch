@@ -1,0 +1,33 @@
+From d8a75a806215cf95832de70da7fdb9c7592d697f Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Wed, 15 Sep 2010 18:54:17 +0000
+Subject: Don't show shutdown options when not available
+
+The logic for showing the shut down menu was a little
+iffy before.  This is apparently causing issues on solaris,
+and probably elsewhere.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=624298
+---
+Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c
+===================================================================
+--- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-panel.c	2011-08-18 18:19:35.393442281 +0200
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-panel.c	2011-08-18 18:19:47.869503273 +0200
+@@ -838,7 +838,7 @@ setup_panel (GdmGreeterPanel *panel)
+                 gtk_widget_show (panel->priv->hostname_label);
+         }
+ 
+-        if (panel->priv->display_is_local || get_show_restart_buttons (panel)) {
++        if (!panel->priv->display_is_local || get_show_restart_buttons (panel)) {
+                 GtkWidget *menu_item;
+                 GtkWidget *image;
+ 
+@@ -869,7 +869,7 @@ setup_panel (GdmGreeterPanel *panel)
+                         menu_item = gtk_menu_item_new_with_label (_("Quit"));
+                         g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_disconnect), NULL);
+                         gtk_menu_shell_append (GTK_MENU_SHELL (panel->priv->shutdown_menu), menu_item);
+-                } else {
++                } else if (get_show_restart_buttons (panel)) {
+                         if (can_suspend ()) {
+                                 menu_item = gtk_menu_item_new_with_label (_("Suspend"));
+                                 g_signal_connect (G_OBJECT (menu_item), "activate", G_CALLBACK (do_system_suspend), NULL);

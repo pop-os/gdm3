@@ -1,0 +1,20 @@
+From f33b0e8ccac7aa1719af42ec268071c8dcf6a395 Mon Sep 17 00:00:00 2001
+From: Brian Cameron <brian.cameron@oracle.com>
+Date: Thu, 02 Jun 2011 14:50:50 +0000
+Subject: Fix bug #650659 - double free issue in chooser.
+
+---
+diff --git a/gui/simple-greeter/gdm-chooser-widget.c b/gui/simple-greeter/gdm-chooser-widget.c
+index d4b0a4a..3c6ec4c 100644
+--- a/gui/simple-greeter/gdm-chooser-widget.c
++++ b/gui/simple-greeter/gdm-chooser-widget.c
+@@ -2355,6 +2355,7 @@ gdm_chooser_widget_lookup_item (GdmChooserWidget *widget,
+ 
+         if (active_item_id == NULL || strcmp (active_item_id, id) != 0) {
+                 g_free (active_item_id);
++                active_item_id = NULL;
+ 
+                 if (!find_item (widget, id, &iter)) {
+                         return FALSE;
+--
+cgit v0.9.0.2

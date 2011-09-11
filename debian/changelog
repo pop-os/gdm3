@@ -1,3 +1,16 @@
+gdm3 (2.30.5-11) unstable; urgency=low
+
+  * 35_double_free.patch: stolen from 2.30.7. Fix a double free issue in 
+    the chooser code.
+  * 36_windowpath.patch: stolen from 2.30.7. Only set the WINDOWPATH 
+    variable if not null.
+  * 37_shutdown_buttons.patch: stolen from upstream git. Only show 
+    shutdown options when requested. Closes: #628032.
+  * 14_pam_dialog.patch: remove the beep, since it happens after the 
+    session has been reaped and can lock the sound device.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 18 Aug 2011 18:21:15 +0200
+
 gdm3 (2.30.5-10) unstable; urgency=low
 
   * 33_reset_signal_handler.patch: stolen upstream. Reset SIGPIPE 

@@ -3,9 +3,9 @@ Novell #439918
 
 Index: gdm-2.30.5/daemon/gdm-session-worker.c
 ===================================================================
---- gdm-2.30.5.orig/daemon/gdm-session-worker.c	2010-09-16 11:29:04.000000000 +0200
-+++ gdm-2.30.5/daemon/gdm-session-worker.c	2010-09-16 11:31:42.000000000 +0200
-@@ -815,7 +815,7 @@
+--- gdm-2.30.5.orig/daemon/gdm-session-worker.c	2011-08-18 18:18:46.369202613 +0200
++++ gdm-2.30.5/daemon/gdm-session-worker.c	2011-08-18 18:18:46.689204182 +0200
+@@ -815,7 +815,7 @@ gdm_session_worker_process_pam_message (
                  res = gdm_session_worker_ask_for_secret (worker, utf8_msg, &user_answer);
                  break;
          case PAM_TEXT_INFO:
@@ -17,12 +17,13 @@ Index: gdm-2.30.5/daemon/gdm-session-worker.c
 Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c
 ===================================================================
 --- gdm-2.30.5.orig/gui/simple-greeter/gdm-greeter-login-window.c	2010-08-11 19:40:07.000000000 +0200
-+++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c	2010-09-16 11:31:06.000000000 +0200
-@@ -667,9 +667,68 @@
++++ gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c	2011-08-18 18:19:25.741393775 +0200
+@@ -667,8 +667,65 @@ gdm_greeter_login_window_problem (GdmGre
  
          g_debug ("GdmGreeterLoginWindow: problem: %s", text);
  
 -        set_message (GDM_GREETER_LOGIN_WINDOW (login_window), text);
+-        gdk_window_beep (GTK_WIDGET (login_window)->window);
 +        _gdm_greeter_login_window_set_interactive (login_window, FALSE);
 +
 +        GtkWidget *dialog;
@@ -81,10 +82,7 @@ Index: gdm-2.30.5/gui/simple-greeter/gdm-greeter-login-window.c
 +        gtk_dialog_run (GTK_DIALOG (dialog));
 +        gtk_widget_destroy (dialog);
 +
-         gdk_window_beep (GTK_WIDGET (login_window)->window);
- 
 +        _gdm_greeter_login_window_set_interactive (login_window, TRUE);
-+
+ 
          return TRUE;
  }
- 
