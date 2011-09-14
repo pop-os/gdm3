@@ -1,10 +1,10 @@
-gdm (3.0.4-0ubuntu10) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu10) oneiric; urgency=low
 
   * debian/gdm.prerm: Stop asking for <dm>/daemon_name debconf question, it
     does not exist for lightdm and is not really necessary. Fixes prerm error
     and confusing debconf prompts when removing gdm. (LP: #804821)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 14 Sep 2011 11:11:19 +0200
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 14 Sep 2011 11:12:18 +0200
 
 gdm (3.0.4-0ubuntu9) oneiric; urgency=low
 
