@@ -1,7 +1,9 @@
 gdm (3.0.4-0ubuntu11) UNRELEASED; urgency=low
 
- * don't start on graphics-device-added; reintroducing this reverted the fix
-   for bug #615549 from maverick without explanation.
+  * don't start on graphics-device-added; reintroducing this reverted the fix
+    for bug #615549 from maverick without explanation.
+  * clean up the completely illegible start rule for debian/gdm.upstart,
+    killing off the unnecessary parentheses
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 19 Sep 2011 11:36:58 -0700
 
