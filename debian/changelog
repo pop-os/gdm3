@@ -4,6 +4,10 @@ gdm (3.0.4-0ubuntu11) UNRELEASED; urgency=low
     for bug #615549 from maverick without explanation.
   * clean up the completely illegible start rule for debian/gdm.upstart,
     killing off the unnecessary parentheses
+  * debian/gdm.upstart: when gdm is shut down by a runlevel call, emit an
+    upstart event that can be caught by plymouth so it can distinguish
+    between the DM shutting down for a runlevel change vs. other causes.
+    LP: #854329.
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 19 Sep 2011 11:36:58 -0700
 

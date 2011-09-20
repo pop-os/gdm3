@@ -17,6 +17,7 @@ stop on runlevel [016]
 
 emits login-session-start
 emits desktop-session-start
+emits desktop-shutdown
 
 env XORGCONFIG=/etc/X11/xorg.conf
 
@@ -47,4 +48,10 @@ script
     export XORGCONFIG
 
     exec gdm-binary $CONFIG_FILE
+end script
+
+post-stop script
+	if [ "$UPSTART_STOP_EVENTS" = runlevel ]; then
+		initctl emit desktop-shutdown
+	fi
 end script
