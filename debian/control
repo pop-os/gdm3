@@ -7,7 +7,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Josselin Mouette <joss@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 5),
                cdbs,
@@ -25,8 +25,6 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libupower-glib-dev (>= 0.9.0),
                libaccountsservice-dev (>= 0.6.12),
                gnome-settings-daemon-dev (>= 2.91.2),
-               libpolkit-gobject-1-dev (>= 0.92),
-               libpolkit-gtk-1-dev (>= 0.92),
                libx11-dev,
                libxau-dev,
                libxrandr-dev,

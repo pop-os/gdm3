@@ -1,3 +1,9 @@
+gdm3 (3.0.4-3) UNRELEASED; urgency=low
+
+  * Drop Build-Depends on libpolkit-gobject-1-dev and libpolkit-gtk-1-dev.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 26 Sep 2011 10:36:44 +0200
+
 gdm3 (3.0.4-2) experimental; urgency=low
 
   * Document how to change the GSettings settings in README.Debian.
