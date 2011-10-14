@@ -3,6 +3,7 @@ gdm3 (3.0.4-3) UNRELEASED; urgency=low
   * Upload to unstable.
   * Drop Build-Depends on libpolkit-gobject-1-dev and libpolkit-gtk-1-dev.
   * Refresh patches.
+  * Bump debhelper compatibility level to 8.
 
  -- Michael Biebl <biebl@debian.org>  Fri, 14 Oct 2011 14:32:20 +0200
 
