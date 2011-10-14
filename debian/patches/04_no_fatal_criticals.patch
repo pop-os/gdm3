@@ -1,8 +1,10 @@
 Temporarly disable fatal-criticals.
 libxklavier bug: http://bugs.freedesktop.org/show_bug.cgi?id=22881
---- a/common/gdm-common.c
-+++ b/common/gdm-common.c
-@@ -68,8 +68,8 @@
+Index: gdm-3.0.4/common/gdm-common.c
+===================================================================
+--- gdm-3.0.4.orig/common/gdm-common.c	2011-05-31 16:52:04.000000000 +0200
++++ gdm-3.0.4/common/gdm-common.c	2011-10-14 14:31:02.923668729 +0200
+@@ -69,8 +69,8 @@
  gdm_set_fatal_warnings_if_unstable (void)
  {
          if (gdm_is_version_unstable ()) {

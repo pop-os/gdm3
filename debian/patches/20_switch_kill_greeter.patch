@@ -28,11 +28,11 @@ https://bugzilla.gnome.org/show_bug.cgi?id=618047
  daemon/gdm-simple-slave.c |   15 ++++++++++-----
  3 files changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 675f5a6..8bb6c75 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -238,6 +238,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+Index: gdm-3.0.4/configure.ac
+===================================================================
+--- gdm-3.0.4.orig/configure.ac	2011-10-14 14:31:19.227463762 +0200
++++ gdm-3.0.4/configure.ac	2011-10-14 14:31:29.011340763 +0200
+@@ -272,6 +272,11 @@
  AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
  AC_SUBST(AT_SPI_REGISTRYD_DIR)
  
@@ -44,7 +44,7 @@ index 675f5a6..8bb6c75 100644
  # Allow configuration of default PATH
  #
  withval=""
-@@ -885,6 +890,14 @@ AM_CONDITIONAL(WITH_CONSOLE_KIT, test x$use_console_kit = xyes)
+@@ -934,6 +939,14 @@
  AC_SUBST(WITH_CONSOLE_KIT)
  
  dnl ---------------------------------------------------------------------------
@@ -59,11 +59,11 @@ index 675f5a6..8bb6c75 100644
  dnl - Check for D-Bus
  dnl ---------------------------------------------------------------------------
  
-diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
-index 339f3cc..f697a4b 100644
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
-@@ -52,6 +52,12 @@
+Index: gdm-3.0.4/daemon/gdm-server.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-server.c	2011-10-14 14:31:06.839619499 +0200
++++ gdm-3.0.4/daemon/gdm-server.c	2011-10-14 14:31:29.011340763 +0200
+@@ -55,6 +55,12 @@
  
  extern char **environ;
  
@@ -76,7 +76,7 @@ index 339f3cc..f697a4b 100644
  #define GDM_SERVER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SERVER, GdmServerPrivate))
  
  /* These are the servstat values, also used as server
-@@ -941,7 +947,7 @@ gdm_server_init (GdmServer *server)
+@@ -1155,7 +1161,7 @@
          server->priv = GDM_SERVER_GET_PRIVATE (server);
  
          server->priv->pid = -1;
@@ -85,11 +85,11 @@ index 339f3cc..f697a4b 100644
          server->priv->log_dir = g_strdup (LOGDIR);
  
          add_ready_handler (server);
-diff --git a/daemon/gdm-simple-slave.c b/daemon/gdm-simple-slave.c
-index ddf7a63..1ce9d03 100644
---- a/daemon/gdm-simple-slave.c
-+++ b/daemon/gdm-simple-slave.c
-@@ -471,12 +471,17 @@ start_session_timeout (GdmSimpleSlave *slave)
+Index: gdm-3.0.4/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-simple-slave.c	2011-10-14 14:31:15.347512541 +0200
++++ gdm-3.0.4/daemon/gdm-simple-slave.c	2011-10-14 14:31:29.015340712 +0200
+@@ -471,12 +471,17 @@
          if (migrated) {
                  destroy_session (slave);
  
@@ -112,5 +112,3 @@ index ddf7a63..1ce9d03 100644
                  goto out;
          }
  
--- 
-1.7.5.1

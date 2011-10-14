@@ -10,11 +10,11 @@ https://bugzilla.gnome.org/show_bug.cgi?id=649413
  daemon/gdm-session-direct.c |   18 ++++++++++++------
  1 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/daemon/gdm-session-direct.c b/daemon/gdm-session-direct.c
-index fa8ae49..e977486 100644
---- a/daemon/gdm-session-direct.c
-+++ b/daemon/gdm-session-direct.c
-@@ -2211,6 +2211,8 @@ gdm_session_direct_set_environment_variable (GdmSessionDirect *session,
+Index: gdm-3.0.4/daemon/gdm-session-direct.c
+===================================================================
+--- gdm-3.0.4.orig/daemon/gdm-session-direct.c	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4/daemon/gdm-session-direct.c	2011-10-14 14:30:55.039767843 +0200
+@@ -1962,6 +1962,8 @@
  static void
  setup_session_environment (GdmSessionDirect *session)
  {
@@ -23,7 +23,7 @@ index fa8ae49..e977486 100644
          gdm_session_direct_set_environment_variable (session,
                                                       "GDMSESSION",
                                                       get_session_name (session));
-@@ -2218,12 +2220,16 @@ setup_session_environment (GdmSessionDirect *session)
+@@ -1969,12 +1971,16 @@
                                                       "DESKTOP_SESSION",
                                                       get_session_name (session));
  
@@ -46,5 +46,3 @@ index fa8ae49..e977486 100644
  
          gdm_session_direct_set_environment_variable (session,
                                                       "DISPLAY",
--- 
-1.7.5.1
