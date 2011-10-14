@@ -3,11 +3,6 @@
 # greeter session can be set here.
 
 
-# Set a specific background
-[org.gnome.desktop.background]
-picture-uri='file:///usr/share/images/desktop-base/login-background.svg'
-picture-options='zoom'
-
 # Theming options
 #[org.gnome.desktop.interface]
 #gtk-theme='Adwaita'
