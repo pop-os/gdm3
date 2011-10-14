@@ -1,6 +1,8 @@
---- a/daemon/gdm-simple-slave.c
-+++ b/daemon/gdm-simple-slave.c
-@@ -544,7 +544,7 @@
+Index: gdm-3.0.0/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-04-04 16:37:16.000000000 +0200
++++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-04-28 19:40:31.221050273 +0200
+@@ -643,7 +643,7 @@ on_session_conversation_started (GdmSess
          } else {
                  g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
                  gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
@@ -9,7 +11,7 @@
                                              username);
          }
  
-@@ -781,7 +781,7 @@
+@@ -952,7 +952,7 @@ on_greeter_begin_verification (GdmGreete
  {
          g_debug ("GdmSimpleSlave: begin verification");
          gdm_session_setup (GDM_SESSION (slave->priv->session),
@@ -18,27 +20,29 @@
  }
  
  static void
-@@ -791,7 +791,7 @@
- {
-         g_debug ("GdmSimpleSlave: begin auto login for user '%s'", username);
+@@ -965,7 +965,7 @@ on_greeter_begin_auto_login (GdmGreeterS
+                 return;
+         }
          gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
 -                                    "gdm-autologin",
 +                                    GDM_PAM_DOMAIN "-autologin",
                                      username);
  }
  
-@@ -802,7 +802,7 @@
- {
-         g_debug ("GdmSimpleSlave: begin verification");
+@@ -979,7 +979,7 @@ on_greeter_begin_verification_for_user (
+                 return;
+         }
          gdm_session_setup_for_user (GDM_SESSION (slave->priv->session),
 -                                    "gdm",
 +                                    GDM_PAM_DOMAIN,
                                      username);
  }
  
---- a/configure.ac
-+++ b/configure.ac
-@@ -465,6 +465,21 @@
+Index: gdm-3.0.0/configure.ac
+===================================================================
+--- gdm-3.0.0.orig/configure.ac	2011-04-28 19:07:37.255400047 +0200
++++ gdm-3.0.0/configure.ac	2011-04-28 19:40:31.225050291 +0200
+@@ -499,6 +499,21 @@ else
  fi
  AC_SUBST(PAM_PREFIX)
  

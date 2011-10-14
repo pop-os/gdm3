@@ -1,3 +1,140 @@
+gdm3 (3.0.4-3) UNRELEASED; urgency=low
+
+  * Drop Build-Depends on libpolkit-gobject-1-dev and libpolkit-gtk-1-dev.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 26 Sep 2011 10:36:44 +0200
+
+gdm3 (3.0.4-2) experimental; urgency=low
+
+  * Document how to change the GSettings settings in README.Debian.
+  * greeter.gsettings: add an example of how to disable the sound.
+    Closes: #628858.
+  * 06_first_vt.patch: update to add Hurd support. Closes: #629366.
+  * 18_switch_kill_greeter.patch, 20_endsession_respawn.patch: replaced 
+    by a series of cleaned up upstream patches.
+    + 17_switch_on_finish.patch: add the switch-on-finish property to 
+      displays.
+    + 18_parametrize_create_display.patch: allow the daemon to create an 
+      arbitrary type of display.
+    + 19_static_transient_display.patch: share the respawn logic between 
+      static and transient displays.
+    + 20_switch_kill_greeter.patch: here is the code that kills the 
+      unnecessary greeter if we support -novtswitch.
+    + 21_static_display_purge.patch: the last missing change in the 
+      upstream patches, purges static displays just as transient 
+      displays.
+  * Pass --with-vt-switch-workaround on non-Linux architectures.
+  * 01_language.patch: replaced by a new version from upstream. Only 
+    sets the variables when non-empty.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 15 Jun 2011 20:14:19 +0200
+
+gdm3 (3.0.4-1) experimental; urgency=low
+
+  * New upstream bugfix & security release.
+  * Require accountsservice 0.6.12.
+  * 07_libexec-paths.patch, 91_dconf_override.patch: updated for the new 
+    version.
+  * 93_xdg_data_dirs.patch: new patch. Add /usr/share/gdm to 
+    XDG_DATA_DIRS.
+  * debian/gdm3.install: install the dummy desktop handler and the 
+    mimeapps.list to /usr/share/gdm/applications.
+  * rules: clean them from /var.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 01 Jun 2011 00:40:08 +0200
+
+gdm3 (3.0.0-2) experimental; urgency=low
+
+  * 18_switch_kill_greeter.patch: remove the 2 second timeout, it is 
+    useless now.
+  * 14_pam_dialog.patch: completely revamped. Use a message queue to 
+    show messages on the text area instead of showing an ugly dialog.
+  * 30_utf8_locale.patch: dropped, it’s useless now. Furthermore the 
+    official locale name is now bl_AH.utf8, it’s extracted directly from 
+    the locales package by accountsservice.
+  * Build-depend on gnome-settings-daemon-dev and 
+    gsettings-desktop-schemas.
+  * Rename 21_schemas_usr.patch to 90_config_comments.patch, to match 
+    its true meaning and the fact it won’t be forwarded.
+  * Allow to tune the GSettings configuration like for GConf.
+    + 91_dconf_override.patch: new Debian-specific patch. Turn the 
+      make-dconf-override-db script into one that creates a GSettings 
+      override file. Drop the dconf profile entirely.
+    + Install the result in /usr/share/gdm/greeter-settings.
+    + 92_gsettings_path.patch: new Debian-specific patch. Set 
+      GSETTINGS_SCHEMA_DIR in the welcome session instead of 
+      DCONF_PROFILE.
+    + Require gsettings-desktop-schemas and libglib2.0-bin in the binary 
+      package.
+    + greeter.gsettings: new file. Set the Debian GSettings defaults.
+    + Install it in /etc/gdm3 and link it in 
+      /usr/share/gdm/greeter-settings.
+    + gdm3.init: regenerate the schemas if needed in /var/lib/gdm3.
+  * greeter.gconf-defaults: remove settings that are necessarily in 
+    GSettings now.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 12 May 2011 00:09:50 +0200
+
+gdm3 (3.0.0-1) experimental; urgency=low
+
+  * DISCLAIMER: this one is labeled “experimental” for a reason.
+  * README.Debian: remove reference to GDM 2.26. Closes: #616603.
+  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
+    Closes: #616612.
+  * New upstream release.
+  * 01_minimal_uid.patch: dropped, fixed upstream using accountsservice.
+  * 07_libexec-paths.patch: put enough intelligence in configure.ac to 
+    remove the need for a Debian-specific patch.
+  * 08_frequent-users_greeter.patch:
+    + Drop the parts that have been moved to accountsservice.
+    + Now use "x11" instead of "gdm" as session type. See #624474 for 
+      the gory details.
+  * 11_no_xhost_thanks.patch: dropped, upstream promises it is safe.
+  * 11_xephyr_nested.patch: disabled for the moment.
+  * 12_polkit_settings.patch, 13_gdmsetup.patch, 13_gdmsetup_ui.patch, 
+    13_gdmsetup_desktop.patch: dropped, this is now done in the control 
+    center.
+  * 14_pam_dialog.patch: disabled for the moment.
+  * 18_switch_kill_greeter.patch: add the forced -novtswitch argument 
+    for Linux here, making the patch self-consistent.
+  * 19_configure_xserver.patch: disabled. It lets people do stupid 
+    things, and upstream would prefer to have only the X server binary
+    configurable.
+  * Stop setting X_CONFIG_OPTIONS according to those two changes.
+  * 20_endsession_respawn.patch: disable the nested stuff for now.
+  * 21_schemas_usr.patch: most of it has been merged upstream. Only keep 
+    extra comments in the configuration file.
+  * 22_noconsole.patch: rename the configuration option to 
+    xdmcp/ShowLocalGreeter at upstream’s request.
+  * 30_utf8_locale.patch: refreshed.
+  * 31_xkb_options.patch: dropped, upstream removed the keyboard 
+    switching feature.
+  * 03_ipv6.patch, 05_stop_welcome_session.patch, 15_kfreebsd.patch, 
+    17_no_libxdmcp.patch, 23_autologin_once.patch, 25_upower.patch, 
+    26_username_escape.patch, 27_orca_braille.patch, 28_beep.patch: 
+    dropped, merged upstream. 
+  * 90_relibtoolize.patch: dropped in favor of dh-autoreconf.
+  * Update build-dependencies according to the new version.
+  * Drop the conflicts/replaces/provides against f-u-s-a.
+  * Require accountsservice 0.6.9-2 for correct session accounting.
+  * Require dconf-gsettings-backend for the dconf hacks.
+  * Restore debian/TODO.
+  * Remove icons and desktop files for gdmsetup and gdmflexiserver.
+  * debian/po-up/POTFILES.in: cleanup gdmsetup stuff.
+  * Drop gdmXnestwrapper, anyway we can force Xephyr now.
+  * Drop gnome-session-check-accelerated.desktop, it’s useless at login 
+    time.
+  * gdm3.preinst: dropped, the change is in stable.
+  * Require gnome-session 3.0.
+  * Stop adding /usr/share/gdm to XDG_DATA_DIRS
+  * Break gnome-control-center < 3 since it is required for account 
+    configuration.
+  * 01_language.patch: new patch. Don’t set LANG, which can be already 
+    set by PAM, only set GDM_LANG.
+  * gdm*.pam: use session directives for pam_env, instead of auth.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 28 Mar 2011 11:31:13 +0530
+
 gdm3 (2.30.5-11) unstable; urgency=low
 
   * 35_double_free.patch: stolen from 2.30.7. Fix a double free issue in 

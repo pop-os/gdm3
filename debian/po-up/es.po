@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 patches\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-17 21:28+0200\n"
+"POT-Creation-Date: 2011-04-28 22:48+0200\n"
 "PO-Revision-Date: 2010-04-22 09:20+0200\n"
 "Last-Translator: Francisco Javier Cuadrado <fcocuadrado@gmail.com>\n"
 "Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -45,52 +45,39 @@ msgstr "Sistema predeterminado"
 msgid "The default session on the system"
 msgstr "La sesión predeterminada en el sistema"
 
-#: ../patches/11_xephyr_nested.patch:740
+#: ../patches/11_xephyr_nested.patch:747
 msgid "Run gdm in a nested window"
 msgstr "Ejecutar gdm en una ventana anidada"
 
-#: ../patches/11_xephyr_nested.patch:741
+#: ../patches/11_xephyr_nested.patch:748
 msgid "Don't lock the screen on the current display"
 msgstr "No bloquee la pantalla actual"
 
-#: ../patches/11_xephyr_nested.patch:1045
+#: ../patches/11_xephyr_nested.patch:1052
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: ../patches/11_xephyr_nested.patch:1049
+#: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Salir"
 
-#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
-#: ../patches/13_gdmsetup.patch:360
-#, c-format
-msgid "Log in as %s automatically"
-msgstr "Identificarse automáticamente como %s"
+#~ msgid "Log in as %s automatically"
+#~ msgstr "Identificarse automáticamente como %s"
 
-#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
-#: ../patches/13_gdmsetup.patch:362
-#, c-format
-msgid "Allow %s seconds for anyone else to log in first"
-msgstr "Retardo de %s segundos para que otra persona se identifique antes"
+#~ msgid "Allow %s seconds for anyone else to log in first"
+#~ msgstr "Retardo de %s segundos para que otra persona se identifique antes"
 
-#: ../patches/13_gdmsetup_ui.patch.h:1
-msgid "<b>When the computer starts up</b>"
-msgstr "<b>Cuando el equipo se inicia</b>"
+#~ msgid "<b>When the computer starts up</b>"
+#~ msgstr "<b>Cuando el equipo se inicia</b>"
 
-#. Title of login screen settings dialog
-#: ../patches/13_gdmsetup_ui.patch.h:3
-msgid "Login Screen Settings"
-msgstr "Configuración de la pantalla de identificación"
+#~ msgid "Login Screen Settings"
+#~ msgstr "Configuración de la pantalla de identificación"
 
-#. Radio option to set login screen to prompt for user
-#: ../patches/13_gdmsetup_ui.patch.h:5
-msgid "_Show the screen for choosing who will log in"
-msgstr "_Mostrar la pantalla para escoger quién se identificará"
+#~ msgid "_Show the screen for choosing who will log in"
+#~ msgstr "_Mostrar la pantalla para escoger quién se identificará"
 
-#: ../patches/13_gdmsetup_desktop.patch.h:1
-msgid "Configure login screen behavior"
-msgstr "Configurar el comportamiento de la pantalla de identificación"
+#~ msgid "Configure login screen behavior"
+#~ msgstr "Configurar el comportamiento de la pantalla de identificación"
 
-#: ../patches/13_gdmsetup_desktop.patch.h:2
-msgid "Login Screen"
-msgstr "Pantalla de identificación"
+#~ msgid "Login Screen"
+#~ msgstr "Pantalla de identificación"

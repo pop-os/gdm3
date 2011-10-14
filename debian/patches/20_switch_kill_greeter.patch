@@ -1,0 +1,116 @@
+From 5ead1e4135c0ce28a8e17203d22eec4a540e5db3 Mon Sep 17 00:00:00 2001
+From: Josselin Mouette <joss@malsain.org>
+Date: Thu, 12 May 2011 16:36:39 -0400
+Subject: [PATCH] daemon: clean up greeter when unused
+
+When user switching GDM needs to show a transient greeter for
+the user to pick a name from the list and jump to that session.
+
+After the user has been jumped to the selected session we don't
+really have a use for the greeter session.  Historically, we've
+kept it around anyway, though, because X by default jumps back
+to the VT it started on when it exits, and we don't want the
+user to get thrown to an empty VT after they log out.
+
+This commit changes X to get started with the "-novtswitch"
+option, so that it doesn't do the undesirable switch-on-exit
+thing.
+
+This allows us to clean up the useless greeter following user
+switches.
+
+Based on work by Josselin Mouette <joss@debian.org>
+
+https://bugzilla.gnome.org/show_bug.cgi?id=618047
+---
+ configure.ac              |   13 +++++++++++++
+ daemon/gdm-server.c       |    8 +++++++-
+ daemon/gdm-simple-slave.c |   15 ++++++++++-----
+ 3 files changed, 30 insertions(+), 6 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 675f5a6..8bb6c75 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -238,6 +238,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+ AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
+ AC_SUBST(AT_SPI_REGISTRYD_DIR)
+ 
++AC_ARG_WITH(vt-switch-workaround,
++            AS_HELP_STRING([--with-vt-switch-workaround],
++	                   [Try to workaround missing -novtswitch option for X @<:@default=nor@:>@])],,
++            [with_vt_switch_workaround="no"])
++
+ # Allow configuration of default PATH
+ #
+ withval=""
+@@ -885,6 +890,14 @@ AM_CONDITIONAL(WITH_CONSOLE_KIT, test x$use_console_kit = xyes)
+ AC_SUBST(WITH_CONSOLE_KIT)
+ 
+ dnl ---------------------------------------------------------------------------
++dnl - Check for vt switch support
++dnl ---------------------------------------------------------------------------
++
++if test "x$with_vt_switch_workaround" != "xno" ; then
++	AC_DEFINE(WITH_VT_SWITCH_WORKAROUND, 1, [Define to enable workaround for missing -novtswitch feature])
++fi
++
++dnl ---------------------------------------------------------------------------
+ dnl - Check for D-Bus
+ dnl ---------------------------------------------------------------------------
+ 
+diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
+index 339f3cc..f697a4b 100644
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -52,6 +52,12 @@
+ 
+ extern char **environ;
+ 
++#ifdef WITH_VT_SWITCH_WORKAROUND
++#define X_SERVER_COMMAND_LINE X_SERVER " -br -verbose"
++#else
++#define X_SERVER_COMMAND_LINE X_SERVER " -br -verbose -novtswitch"
++#endif
++
+ #define GDM_SERVER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SERVER, GdmServerPrivate))
+ 
+ /* These are the servstat values, also used as server
+@@ -941,7 +947,7 @@ gdm_server_init (GdmServer *server)
+         server->priv = GDM_SERVER_GET_PRIVATE (server);
+ 
+         server->priv->pid = -1;
+-        server->priv->command = g_strdup (X_SERVER " -br -verbose");
++        server->priv->command = g_strdup (X_SERVER_COMMAND_LINE);
+         server->priv->log_dir = g_strdup (LOGDIR);
+ 
+         add_ready_handler (server);
+diff --git a/daemon/gdm-simple-slave.c b/daemon/gdm-simple-slave.c
+index ddf7a63..1ce9d03 100644
+--- a/daemon/gdm-simple-slave.c
++++ b/daemon/gdm-simple-slave.c
+@@ -471,12 +471,17 @@ start_session_timeout (GdmSimpleSlave *slave)
+         if (migrated) {
+                 destroy_session (slave);
+ 
+-                /* We don't stop the slave here because
+-                   when Xorg exits it switches to the VT it was
+-                   started from.  That interferes with fast
+-                   user switching. */
++#ifdef WITH_VT_SWITCH_WORKAROUND
++                /* If the X server doesn't support -novtswitch, then when the
++                 * user logs out from their session later, they're going to get thrown
++                 * back to the VT the greeter is currently running on. We keep the
++                 * greeter alive here, so when that happens the user doesn't see
++                 * a blank VT or some confusing thing.
++                 */
+                 queue_greeter_reset (slave);
+-
++#else
++                gdm_slave_stopped (GDM_SLAVE (slave));
++#endif
+                 goto out;
+         }
+ 
+-- 
+1.7.5.1

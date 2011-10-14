@@ -1,0 +1,228 @@
+From 3fbe50b400dc0b47858498301b84842ac0b8428d Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Wed, 18 May 2011 22:37:26 -0400
+Subject: [PATCH] daemon: add switch-on-finish property to display
+
+When a display exits, sometimes it's desirable to
+jump to a login screen.
+
+This depends if the display is transient or not, and
+also whether the display is hosting an already logged
+in session or not.
+
+This commit adds a property to the display object that
+says whether a switch should happen or not.
+
+Note the code to actually perform the switch will get
+added in a follow up commit.
+
+Based on work by Josselin Mouette <joss@debian.org>
+
+https://bugzilla.gnome.org/show_bug.cgi?id=618047
+---
+ daemon/gdm-display.c           |   48 ++++++++++++++++++++++++++++++++++++++++
+ daemon/gdm-display.h           |    4 +++
+ daemon/gdm-display.xml         |    3 ++
+ daemon/gdm-slave.c             |   30 +++++++++++++++++++++++++
+ daemon/gdm-transient-display.c |    1 +
+ 5 files changed, 86 insertions(+), 0 deletions(-)
+
+diff --git a/daemon/gdm-display.c b/daemon/gdm-display.c
+index abedc0b..84b4925 100644
+--- a/daemon/gdm-display.c
++++ b/daemon/gdm-display.c
+@@ -66,6 +66,7 @@ struct GdmDisplayPrivate
+         GdmDisplayAccessFile *access_file;
+ 
+         gboolean              is_local;
++        gboolean              switch_on_finish;
+         guint                 finish_idle_id;
+ 
+         GdmSlaveProxy        *slave_proxy;
+@@ -84,6 +85,7 @@ enum {
+         PROP_X11_COOKIE,
+         PROP_X11_AUTHORITY_FILE,
+         PROP_IS_LOCAL,
++        PROP_SWITCH_ON_FINISH,
+         PROP_SLAVE_COMMAND,
+ };
+ 
+@@ -134,6 +136,14 @@ gdm_display_get_status (GdmDisplay *display)
+         return display->priv->status;
+ }
+ 
++gboolean
++gdm_display_get_switch_on_finish (GdmDisplay *display)
++{
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), 0);
++
++        return display->priv->switch_on_finish;
++}
++
+ static GdmDisplayAccessFile *
+ _create_access_file_for_user (GdmDisplay  *display,
+                               const char  *username,
+@@ -824,6 +834,30 @@ _gdm_display_set_is_local (GdmDisplay     *display,
+ }
+ 
+ static void
++_gdm_display_set_switch_on_finish (GdmDisplay     *display,
++                                   gboolean        switch_on_finish)
++{
++        display->priv->switch_on_finish = switch_on_finish;
++}
++
++gboolean
++gdm_display_set_switch_on_finish (GdmDisplay *display,
++                                  gboolean    switch_display,
++                                  GError    **error)
++{
++        gboolean ret = TRUE;
++
++        g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
++
++        g_debug ("GdmDisplay: Setting display to %sswitch to login screen on finish",
++                 switch_display? "" : "not ");
++
++        _gdm_display_set_switch_on_finish (display, switch_display);
++
++        return ret;
++}
++
++static void
+ _gdm_display_set_slave_command (GdmDisplay     *display,
+                                 const char     *command)
+ {
+@@ -866,6 +900,9 @@ gdm_display_set_property (GObject        *object,
+         case PROP_IS_LOCAL:
+                 _gdm_display_set_is_local (self, g_value_get_boolean (value));
+                 break;
++        case PROP_SWITCH_ON_FINISH:
++                _gdm_display_set_switch_on_finish (self, g_value_get_boolean (value));
++                break;
+         case PROP_SLAVE_COMMAND:
+                 _gdm_display_set_slave_command (self, g_value_get_string (value));
+                 break;
+@@ -914,6 +951,9 @@ gdm_display_get_property (GObject        *object,
+         case PROP_IS_LOCAL:
+                 g_value_set_boolean (value, self->priv->is_local);
+                 break;
++        case PROP_SWITCH_ON_FINISH:
++                g_value_set_boolean (value, self->priv->switch_on_finish);
++                break;
+         case PROP_SLAVE_COMMAND:
+                 g_value_set_string (value, self->priv->slave_command);
+                 break;
+@@ -1086,6 +1126,14 @@ gdm_display_class_init (GdmDisplayClass *klass)
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+ 
+         g_object_class_install_property (object_class,
++                                         PROP_SWITCH_ON_FINISH,
++                                         g_param_spec_boolean ("switch-on-finish",
++                                                               NULL,
++                                                               NULL,
++                                                               TRUE,
++                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
++
++        g_object_class_install_property (object_class,
+                                          PROP_SLAVE_COMMAND,
+                                          g_param_spec_string ("slave-command",
+                                                               "slave command",
+diff --git a/daemon/gdm-display.h b/daemon/gdm-display.h
+index 607ea1d..e3aa860 100644
+--- a/daemon/gdm-display.h
++++ b/daemon/gdm-display.h
+@@ -88,6 +88,7 @@ GQuark              gdm_display_error_quark                    (void);
+ GType               gdm_display_get_type                       (void);
+ 
+ int                 gdm_display_get_status                     (GdmDisplay *display);
++gboolean            gdm_display_get_switch_on_finish           (GdmDisplay *display);
+ time_t              gdm_display_get_creation_time              (GdmDisplay *display);
+ char *              gdm_display_get_user_auth                  (GdmDisplay *display);
+ 
+@@ -140,6 +141,9 @@ gboolean            gdm_display_remove_user_authorization      (GdmDisplay *disp
+ gboolean            gdm_display_set_slave_bus_name             (GdmDisplay *display,
+                                                                 const char *name,
+                                                                 GError    **error);
++gboolean            gdm_display_set_switch_on_finish           (GdmDisplay *display,
++                                                                gboolean    switch_display,
++                                                                GError    **error);
+ 
+ 
+ G_END_DECLS
+diff --git a/daemon/gdm-display.xml b/daemon/gdm-display.xml
+index a92e37f..d3ce4a4 100644
+--- a/daemon/gdm-display.xml
++++ b/daemon/gdm-display.xml
+@@ -35,6 +35,9 @@
+     <method name="SetSlaveBusName">
+       <arg name="name" direction="in" type="s"/>
+     </method>
++    <method name="SetSwitchOnFinish">
++      <arg name="switch_display" direction="in" type="b"/>
++    </method>
+     <method name="GetTimedLoginDetails">
+       <arg name="enabled" direction="out" type="b"/>
+       <arg name="username" direction="out" type="s"/>
+diff --git a/daemon/gdm-slave.c b/daemon/gdm-slave.c
+index 2dc0323..9fd6579 100644
+--- a/daemon/gdm-slave.c
++++ b/daemon/gdm-slave.c
+@@ -1438,6 +1438,31 @@ session_unlock (GdmSlave   *slave,
+         return TRUE;
+ }
+ 
++static void
++set_switch_display_on_finish (GdmSlave *slave,
++                              gboolean  switch_display)
++{
++        gboolean    res;
++        GError     *error;
++
++        error = NULL;
++        res = dbus_g_proxy_call (slave->priv->display_proxy,
++                                 "SetSwitchOnFinish",
++                                 &error,
++                                 G_TYPE_BOOLEAN, switch_display,
++                                 G_TYPE_INVALID,
++                                 G_TYPE_INVALID);
++
++        if (! res) {
++                if (error != NULL) {
++                        g_warning ("Failed to set respawn on parent display: %s", error->message);
++                        g_error_free (error);
++                } else {
++                        g_warning ("Failed to set respawn on parent display");
++                }
++        }
++}
++
+ gboolean
+ gdm_slave_switch_to_user_session (GdmSlave   *slave,
+                                   const char *username)
+@@ -1468,6 +1493,11 @@ gdm_slave_switch_to_user_session (GdmSlave   *slave,
+                 g_debug ("GdmSlave: unable to unlock session: %s", ssid_to_activate);
+         }
+ 
++        /* Since we're switching to a new display, make sure we don't switch again when
++         * this display finishes.
++         */
++        set_switch_display_on_finish (slave, FALSE);
++
+         ret = TRUE;
+ 
+  out:
+diff --git a/daemon/gdm-transient-display.c b/daemon/gdm-transient-display.c
+index dd33547..01813f7 100644
+--- a/daemon/gdm-transient-display.c
++++ b/daemon/gdm-transient-display.c
+@@ -210,6 +210,7 @@ gdm_transient_display_new (int display_number)
+         object = g_object_new (GDM_TYPE_TRANSIENT_DISPLAY,
+                                "x11-display-number", display_number,
+                                "x11-display-name", x11_display,
++                               "switch-on-finish", TRUE,
+                                NULL);
+         g_free (x11_display);
+ 
+-- 
+1.7.5.1

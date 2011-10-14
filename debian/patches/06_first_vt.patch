@@ -1,9 +1,9 @@
 It's almost the same tty manager of gdm 2.20, except we don't support Sun VTs,
 only Linux and FreeBSD.
-Index: gdm-2.30.0/common/gdm-settings-keys.h
+Index: gdm-3.0.4/common/gdm-settings-keys.h
 ===================================================================
---- gdm-2.30.0.orig/common/gdm-settings-keys.h	2010-04-27 01:00:54.515631659 +0200
-+++ gdm-2.30.0/common/gdm-settings-keys.h	2010-04-27 01:00:55.835120936 +0200
+--- gdm-3.0.4.orig/common/gdm-settings-keys.h	2011-05-31 16:28:03.000000000 +0200
++++ gdm-3.0.4/common/gdm-settings-keys.h	2011-06-06 11:20:01.927523114 +0200
 @@ -32,6 +32,7 @@ G_BEGIN_DECLS
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
@@ -12,11 +12,11 @@ Index: gdm-2.30.0/common/gdm-settings-keys.h
  
  #define GDM_KEY_DEBUG "debug/Enable"
  
-Index: gdm-2.30.0/daemon/gdm-server.c
+Index: gdm-3.0.4/daemon/gdm-server.c
 ===================================================================
---- gdm-2.30.0.orig/daemon/gdm-server.c	2010-04-27 01:00:54.475629298 +0200
-+++ gdm-2.30.0/daemon/gdm-server.c	2010-04-27 01:06:37.507620711 +0200
-@@ -44,6 +44,9 @@
+--- gdm-3.0.4.orig/daemon/gdm-server.c	2011-05-31 16:52:04.000000000 +0200
++++ gdm-3.0.4/daemon/gdm-server.c	2011-06-06 11:20:33.539677601 +0200
+@@ -48,6 +48,9 @@
  #include "gdm-common.h"
  #include "gdm-signal-handler.h"
  
@@ -26,7 +26,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  #include "gdm-server.h"
  
  extern char **environ;
-@@ -663,6 +666,201 @@ gdm_server_spawn (GdmServer  *server,
+@@ -673,6 +676,213 @@ gdm_server_spawn (GdmServer  *server,
          return ret;
  }
  
@@ -54,11 +54,14 @@ Index: gdm-2.30.0/daemon/gdm-server.c
 +
 +	return next;
 +}
++#elif defined __GNU__
++#define GDM_USE_HURD_VT
 +#else /* __linux__ */
 +#error Platform not supported
 +#endif
 +
 +
++#ifndef GDM_USE_HURD_VT
 +static gchar *
 +gdm_get_vt_device (int vtno)
 +{
@@ -104,6 +107,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
 +                first_vt = 1;
 +        return first_vt;
 +}
++#endif /* GDM_USE_HURD_VT */
 +
 +#if defined (GDM_USE_SYS_VT)
 +
@@ -210,6 +214,14 @@ Index: gdm-2.30.0/daemon/gdm-server.c
 +        return vtno;
 +}
 +
++#elif defined (GDM_USE_HURD_VT)
++
++static int
++get_free_vt (void)
++{
++        return -1;
++}
++
 +#endif
 +
 +static char *
@@ -228,7 +240,7 @@ Index: gdm-2.30.0/daemon/gdm-server.c
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -674,10 +872,14 @@ gboolean
+@@ -684,10 +894,14 @@ gboolean
  gdm_server_start (GdmServer *server)
  {
          gboolean res;
@@ -244,10 +256,10 @@ Index: gdm-2.30.0/daemon/gdm-server.c
          return res;
  }
  
-Index: gdm-2.30.0/data/gdm.schemas.in.in
+Index: gdm-3.0.4/data/gdm.schemas.in.in
 ===================================================================
---- gdm-2.30.0.orig/data/gdm.schemas.in.in	2010-04-27 01:00:54.443628092 +0200
-+++ gdm-2.30.0/data/gdm.schemas.in.in	2010-04-27 01:00:55.839126403 +0200
+--- gdm-3.0.4.orig/data/gdm.schemas.in.in	2011-05-31 16:28:03.000000000 +0200
++++ gdm-3.0.4/data/gdm.schemas.in.in	2011-06-06 11:20:01.931523138 +0200
 @@ -47,6 +47,11 @@
        <signature>i</signature>
        <default>30</default>

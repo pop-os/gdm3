@@ -1,0 +1,15 @@
+Index: gdm-3.0.0/data/gdm.conf-custom.in
+===================================================================
+--- gdm-3.0.0.orig/data/gdm.conf-custom.in	2011-04-28 21:22:22.330925966 +0200
++++ gdm-3.0.0/data/gdm.conf-custom.in	2011-04-28 21:22:44.299033369 +0200
+@@ -1,6 +1,10 @@
+ # GDM configuration storage
++#
++# See /usr/share/gdm/gdm.schemas for a list of available options.
+ 
+ [daemon]
++# AutomaticLoginEnable = false
++# AutomaticLogin = 
+ 
+ [security]
+ 

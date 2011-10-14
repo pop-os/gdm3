@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-17 21:28+0200\n"
+"POT-Creation-Date: 2011-04-28 22:48+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Veeven <veeven@gmail.com>\n"
 "Language-Team: \n"
@@ -21,53 +21,37 @@ msgstr "వ్యవస్థ అప్రమేయం"
 msgid "The default session on the system"
 msgstr "ఈ వ్యవస్థలో అప్రమేయ సెషను"
 
-#: ../patches/11_xephyr_nested.patch:740
+#: ../patches/11_xephyr_nested.patch:747
 msgid "Run gdm in a nested window"
 msgstr "GDMని అల్లిక కిటికీలో నడుపు"
 
-#: ../patches/11_xephyr_nested.patch:741
+#: ../patches/11_xephyr_nested.patch:748
 msgid "Don't lock the screen on the current display"
 msgstr ""
 
-#: ../patches/11_xephyr_nested.patch:1045
+#: ../patches/11_xephyr_nested.patch:1052
 msgid "Disconnect"
 msgstr "తెంచు"
 
-#: ../patches/11_xephyr_nested.patch:1049
+#: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "త్యజించు"
 
-#. Translators: Label for choosing which user to log in as. '%s' is replaced with an input field.
-#: ../patches/13_gdmsetup.patch:360
-#, c-format
-msgid "Log in as %s automatically"
-msgstr "స్వయంచాలకంగా %s గా ప్రవేశించు"
+#~ msgid "Log in as %s automatically"
+#~ msgstr "స్వయంచాలకంగా %s గా ప్రవేశించు"
 
-#. Translators: Label for choosing the login delay. '%s' is replaced with an input field.
-#: ../patches/13_gdmsetup.patch:362
-#, c-format
-msgid "Allow %s seconds for anyone else to log in first"
-msgstr "ఇతరులు మొదట ప్రవేశించడానికి  %s క్షణాల్లో అనుమతించు"
+#~ msgid "Allow %s seconds for anyone else to log in first"
+#~ msgstr "ఇతరులు మొదట ప్రవేశించడానికి  %s క్షణాల్లో అనుమతించు"
 
-#: ../patches/13_gdmsetup_ui.patch.h:1
-msgid "<b>When the computer starts up</b>"
-msgstr "<b>కంప్యూటరు మొదలవుతున్నప్పుడు</b>"
+#~ msgid "<b>When the computer starts up</b>"
+#~ msgstr "<b>కంప్యూటరు మొదలవుతున్నప్పుడు</b>"
 
-#. Title of login screen settings dialog
-#: ../patches/13_gdmsetup_ui.patch.h:3
-msgid "Login Screen Settings"
-msgstr "ప్రవేశపు తెర అమరికలు"
+#~ msgid "Login Screen Settings"
+#~ msgstr "ప్రవేశపు తెర అమరికలు"
 
-#. Radio option to set login screen to prompt for user
-#: ../patches/13_gdmsetup_ui.patch.h:5
-msgid "_Show the screen for choosing who will log in"
-msgstr "ఎవరు ప్రవేశించాలో ఎంచుకునేందుకు తెరని చూపించు (_S)"
+#~ msgid "_Show the screen for choosing who will log in"
+#~ msgstr "ఎవరు ప్రవేశించాలో ఎంచుకునేందుకు తెరని చూపించు (_S)"
 
-#: ../patches/13_gdmsetup_desktop.patch.h:1
-msgid "Configure login screen behavior"
-msgstr ""
-
-#: ../patches/13_gdmsetup_desktop.patch.h:2
 #, fuzzy
-msgid "Login Screen"
-msgstr "ప్రవేశపు తెర అమరికలు"
+#~ msgid "Login Screen"
+#~ msgstr "ప్రవేశపు తెర అమరికలు"
