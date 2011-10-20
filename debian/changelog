@@ -1,4 +1,4 @@
-gdm3 (3.0.4-4) UNRELEASED; urgency=low
+gdm3 (3.0.4-4) unstable; urgency=low
 
   [ Michael Biebl ]
   * debian/watch:
@@ -12,7 +12,7 @@ gdm3 (3.0.4-4) UNRELEASED; urgency=low
   * Note this is a critical security fix, but does not affect testing.
   * Also closes: #630482.
 
- -- Michael Biebl <biebl@debian.org>  Fri, 14 Oct 2011 15:10:38 +0200
+ -- Michael Biebl <biebl@debian.org>  Thu, 20 Oct 2011 16:22:33 +0200
 
 gdm3 (3.0.4-3) unstable; urgency=low
 
