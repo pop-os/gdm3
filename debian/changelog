@@ -4,6 +4,8 @@ gdm3 (3.0.4-4) UNRELEASED; urgency=low
     - Update to version 3.
     - Track .xz tarballs.
     - Don't run uupdate.
+  * debian/greeter.gsettings:
+    - Disable automount in the gdm session.
 
  -- Michael Biebl <biebl@debian.org>  Fri, 14 Oct 2011 15:10:38 +0200
 
