@@ -10,6 +10,7 @@ gdm3 (3.0.4-4) UNRELEASED; urgency=low
   * Build-depend on gnome-settings-daemon so that its plugins are 
     correctly listed.
   * Note this is a critical security fix, but does not affect testing.
+  * Also closes: #630482.
 
  -- Michael Biebl <biebl@debian.org>  Fri, 14 Oct 2011 15:10:38 +0200
 
