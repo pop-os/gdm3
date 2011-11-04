@@ -12,7 +12,10 @@ gdm3 (3.0.4-4) unstable; urgency=low
   * Note this is a critical security fix, but does not affect testing.
   * Also closes: #630482.
 
- -- Michael Biebl <biebl@debian.org>  Thu, 20 Oct 2011 16:22:33 +0200
+  [ Jordi Mallach ]
+  * Update po-up/ca.po.
+
+ -- Jordi Mallach <jordi@debian.org>  Fri, 04 Nov 2011 20:34:55 +0100
 
 gdm3 (3.0.4-3) unstable; urgency=low
 
