@@ -78,6 +78,7 @@ case "$1" in
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
                 gen_config
+                rm -f /var/lib/gdm/.ICEauthority
                 start-stop-daemon --start --quiet --pidfile /var/run/gdm3.pid \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
