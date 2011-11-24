@@ -177,6 +177,10 @@ if [ "x$command" = "xcustom" ] ; then
   set default $*
 fi
 
+# Always allow the session's owner to connect to the display from the
+# local host
+xhost +si:localuser:$(id -un) || :
+
 # use run-parts to source every file in the session directory; we source
 # instead of executing so that the variables and functions defined above
 # are available to the scripts, and so that they can pass variables to each

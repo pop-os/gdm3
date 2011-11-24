@@ -60,7 +60,8 @@ Depends: ${shlibs:Depends},
          accountsservice (>= 0.6.12),
          gsettings-desktop-schemas,
          libglib2.0-bin (>= 2.26),
-         dconf-gsettings-backend
+         dconf-gsettings-backend,
+         x11-xserver-utils
 Recommends: zenity,
             xserver-xephyr,
             x11-xkb-utils,
