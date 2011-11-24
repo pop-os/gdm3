@@ -1,4 +1,4 @@
-gdm3 (3.0.4-5) UNRELEASED; urgency=low
+gdm3 (3.0.4-5) unstable; urgency=low
 
   [ Jordi Mallach ]
   * Update po-up/ca.po.
@@ -9,7 +9,7 @@ gdm3 (3.0.4-5) UNRELEASED; urgency=low
     session. Closes: #586685.
   * Depend on x11-xserver-utils accordingly.
 
- -- Jordi Mallach <jordi@debian.org>  Fri, 04 Nov 2011 20:37:56 +0100
+ -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
 gdm3 (3.0.4-4) unstable; urgency=low
 
