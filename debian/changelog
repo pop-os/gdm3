@@ -5,9 +5,9 @@ gdm3 (3.0.4-5) UNRELEASED; urgency=low
 
   [ Josselin Mouette ]
   * gdm3.init: remove .ICEauthority before starting. Closes: #648666.
-  * Xsession: use xhost (!) to always allow the local user to access the 
-    session. Closes: #586685.
-  * Depend on x11-xserver-utils accordingly.
+  * x11-common will now include xhost code to give access to the 
+    local user if xhost is installed (see #586685). Depend on 
+    x11-xserver-utils so that it does work.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
