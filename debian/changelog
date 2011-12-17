@@ -1,4 +1,4 @@
-gdm3 (3.0.4-5) UNRELEASED; urgency=low
+gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
 
   [ Jordi Mallach ]
   * Update po-up/ca.po.
@@ -8,6 +8,13 @@ gdm3 (3.0.4-5) UNRELEASED; urgency=low
   * x11-common will now include xhost code to give access to the 
     local user if xhost is installed (see #586685). Depend on 
     x11-xserver-utils so that it does work.
+  * New upstream release.
+  * 01_language.patch: dropped, merged upstream.
+  * 04_no_fatal_criticals.patch: dropped, obsolete.
+  * 07_libexec-paths.patch: removed unused variables/files.
+  * 08_frequent-users_greeter.patch: reworked according to upstream 
+    changes.
+  * WORK IN PROGRESS. DO NOT UPLOAD.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
