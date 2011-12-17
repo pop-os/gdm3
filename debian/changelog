@@ -14,6 +14,12 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * 07_libexec-paths.patch: removed unused variables/files.
   * 08_frequent-users_greeter.patch: reworked according to upstream 
     changes.
+  * 10_gdm3_pam.patch: updated for the new version. Do not prefix the 
+    PAM files for multistack, they have new names anyway.
+  * 14_pam_dialog.patch: dropped, upstream merged an improved version.
+  * 18_parametrize_create_display.patch: updated for the new version.
+  * 19_static_transient_display.patch: unfuzzed.
+  * 29_grep_path.patch: dropped, merged upstream.
   * WORK IN PROGRESS. DO NOT UPLOAD.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100

@@ -20,11 +20,11 @@ https://bugzilla.gnome.org/show_bug.cgi?id=618047
  daemon/gdm-local-display-factory.c |   43 +++++++++++++++++------------------
  1 files changed, 21 insertions(+), 22 deletions(-)
 
-Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
+Index: gdm-3.2.1.1/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm-3.0.4.orig/daemon/gdm-local-display-factory.c	2011-06-14 23:56:58.034815831 +0200
-+++ gdm-3.0.4/daemon/gdm-local-display-factory.c	2011-06-15 00:00:16.903788372 +0200
-@@ -200,21 +200,7 @@ gdm_local_display_factory_create_transie
+--- gdm-3.2.1.1.orig/daemon/gdm-local-display-factory.c	2011-12-17 15:07:18.170152831 +0100
++++ gdm-3.2.1.1/daemon/gdm-local-display-factory.c	2011-12-17 15:08:40.678556203 +0100
+@@ -199,21 +199,7 @@ gdm_local_display_factory_create_transie
  
          ret = FALSE;
  
@@ -47,7 +47,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
  
          if (! gdm_display_get_id (display, id, NULL)) {
                  display = NULL;
-@@ -223,9 +209,6 @@ gdm_local_display_factory_create_transie
+@@ -222,9 +208,6 @@ gdm_local_display_factory_create_transie
  
          ret = TRUE;
   out:
@@ -57,7 +57,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
          return ret;
  }
  
-@@ -277,13 +260,22 @@ gdm_local_display_factory_create_product
+@@ -276,13 +259,22 @@ gdm_local_display_factory_create_product
  }
  
  static void
@@ -80,7 +80,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
  
          num = -1;
          gdm_display_get_x11_display_number (display, &num, NULL);
-@@ -292,6 +284,8 @@ on_display_status_changed (GdmDisplay
+@@ -291,6 +283,8 @@ on_display_status_changed (GdmDisplay
          store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
  
          status = gdm_display_get_status (display);
@@ -89,7 +89,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
  
          g_debug ("GdmLocalDisplayFactory: static display status changed: %d", status);
          switch (status) {
-@@ -302,7 +296,12 @@ on_display_status_changed (GdmDisplay
+@@ -301,7 +295,12 @@ on_display_status_changed (GdmDisplay
                  gdm_display_store_remove (store, display);
                  /* reset num failures */
                  factory->priv->num_failures = 0;
@@ -103,7 +103,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
                  break;
          case GDM_DISPLAY_FAILED:
                  /* leave the display number in factory->priv->displays
-@@ -315,7 +314,7 @@ on_display_status_changed (GdmDisplay
+@@ -314,7 +313,7 @@ on_display_status_changed (GdmDisplay
                          /* FIXME: should monitor hardware changes to
                             try again when seats change */
                  } else {
@@ -112,7 +112,7 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
                  }
                  break;
          case GDM_DISPLAY_UNMANAGED:
-@@ -341,8 +340,8 @@ create_display (GdmLocalDisplayFactory *
+@@ -340,8 +339,8 @@ create_display (GdmLocalDisplayFactory *
  
          if (type == GDM_TYPE_STATIC_DISPLAY) {
                  display = gdm_static_display_new (num);
@@ -121,5 +121,5 @@ Index: gdm-3.0.4/daemon/gdm-local-display-factory.c
 +        } else if (type == GDM_TYPE_TRANSIENT_DISPLAY) {
 +                display = gdm_transient_display_new (num);
          }
-         if (display == NULL) {
-                 g_warning ("Unable to create display: %d", num);
+ 
+         /* FIXME: don't hardcode seat1? */
