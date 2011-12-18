@@ -7,6 +7,13 @@
 #[org.gnome.desktop.interface]
 #gtk-theme='Adwaita'
 
+# Greeter session choice
+# Use 'gdm-shell' for the GNOME Shell version.
+# Never use anything not starting with 'gdm-'.
+[org.gnome.desktop.session]
+session-name='gdm-fallback'
+#session-name='gdm-shell'
+
 # Prevent the power management icon from showing up
 [org.gnome.power-manager]
 icon-policy='never'

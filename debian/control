@@ -7,7 +7,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Jordi Mallach <jordi@debian.org>, Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 8),
                cdbs,
@@ -65,7 +65,6 @@ Depends: ${shlibs:Depends},
          accountsservice (>= 0.6.12),
          gsettings-desktop-schemas,
          libglib2.0-bin (>= 2.26),
-         dconf-gsettings-backend,
          x11-xserver-utils
 Recommends: zenity,
             xserver-xephyr,

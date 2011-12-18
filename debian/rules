@@ -52,13 +52,15 @@ binary-install/gdm3::
 	dh_installpam -pgdm3 --name=gdm3-autologin
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
+	rm -rf debian/gdm3/etc/dconf
 	rm -f debian/gdm3/usr/sbin/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 	cd debian/gdm3/usr/share/gdm/greeter-config && \
 		mv session-setup.entries 10_upstream.entries
-	data/make-dconf-override-db.sh > \
+	awk '/\[.*\]/ { gsub("/","."); } ! /^#/ { print;}' \
+		data/00-upstream-settings > \
 		debian/gdm3/usr/share/gdm/greeter-settings/xx_upstream.gschema.override
 
 INFILES := $(wildcard debian/*.desktop.in)

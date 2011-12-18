@@ -13,6 +13,5 @@
 21_static_display_purge.patch
 22_noconsole.patch
 90_config_comments.patch
-91_dconf_override.patch
 92_gsettings_path.patch
 93_xdg_data_dirs.patch

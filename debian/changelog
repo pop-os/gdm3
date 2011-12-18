@@ -20,6 +20,22 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * 18_parametrize_create_display.patch: updated for the new version.
   * 19_static_transient_display.patch: unfuzzed.
   * 29_grep_path.patch: dropped, merged upstream.
+  * 91_dconf_override.patch: dropped, the configuration generation has 
+    completely changed.
+  * 92_gsettings_path.patch: updated to force the gsettings backend to 
+    'memory', avoiding to start the dconf backend at all.
+  * 93_xdg_data_dirs.patch: dropped, similar functionality merged 
+    upstream.
+  * Drop the dconf-gsettings-backend dependency.
+  * greeter.gsettings:
+    + Force gdm-fallback as the default session.
+    + Document how to use gdm-shell.
+  * rules:
+    + Generate xx_upstream.gschema.override from the new 
+      00-upstream-settings file (much simpler).
+    + Remove /etc/dconf from the installed files.
+  * gdm3.install:
+    + Stop installing MIME files by hand.
   * WORK IN PROGRESS. DO NOT UPLOAD.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
