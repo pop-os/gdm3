@@ -1,7 +1,7 @@
 Index: gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am
 ===================================================================
---- gdm-3.2.1.1.orig/gui/libgdmgreeter/Makefile.am	2011-10-19 17:41:52.000000000 +0200
-+++ gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am	2011-12-19 00:21:43.947169064 +0100
+--- gdm-3.2.1.1.orig/gui/libgdmgreeter/Makefile.am	2011-12-19 02:12:33.299676088 +0100
++++ gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am	2011-12-19 02:12:36.363691068 +0100
 @@ -11,7 +11,7 @@ AM_CPPFLAGS = \
          -DDATADIR=\""$(datadir)"\"                                            \
          $(END_OF_LIST)
@@ -10,4 +10,17 @@ Index: gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am
 +pkglib_LTLIBRARIES =                                                          \
          libgdmgreeter.la                                                      \
          $(END_OF_LIST)
+ 
+Index: gdm-3.2.1.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
+===================================================================
+--- gdm-3.2.1.1.orig/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2011-10-19 17:41:52.000000000 +0200
++++ gdm-3.2.1.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2011-12-19 02:13:24.683927311 +0100
+@@ -14,7 +14,7 @@ AM_CPPFLAGS = \
+ 	$(GTK_CFLAGS)				\
+ 	$(NULL)
+ 
+-lib_LTLIBRARIES = 			\
++pkglib_LTLIBRARIES = 			\
+ 	libgdmsimplegreeter.la		\
+ 	$(NULL)
  
