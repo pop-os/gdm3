@@ -6,7 +6,7 @@ Index: gdm-3.2.1.1/daemon/gdm-simple-slave.c
                             const char     *service_name,
                             GdmSimpleSlave *slave)
  {
-+        gdm_session_select_session_type (GDM_SESSION (session->priv->session), "x11");
++        gdm_session_select_session_type (GDM_SESSION (session), "x11");
          gdm_session_authenticate (session, service_name);
  }
  
