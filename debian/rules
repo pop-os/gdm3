@@ -28,7 +28,9 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-pam-domain=gdm3 \
-		--with-lang-file=/etc/default/locale
+		--with-lang-file=/etc/default/locale \
+		--disable-introspection \
+		--disable-split-authentication
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
@@ -53,10 +55,13 @@ binary-install/gdm3::
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
 	rm -rf debian/gdm3/etc/dconf
+	rm -rf debian/gdm3/usr/include
 	rm -f debian/gdm3/usr/sbin/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
+	cd debian/gdm3/usr/lib/gdm3 && \
+		rm -f lib*.a lib*.la lib*.so
 	cd debian/gdm3/usr/share/gdm/greeter-config && \
 		mv session-setup.entries 10_upstream.entries
 	awk '/\[.*\]/ { gsub("/","."); } ! /^#/ { print;}' \

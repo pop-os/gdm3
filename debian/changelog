@@ -9,6 +9,7 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
     local user if xhost is installed (see #586685). Depend on 
     x11-xserver-utils so that it does work.
   * New upstream release.
+  * Updated build-dependencies: nss, glib.
   * 01_language.patch: dropped, merged upstream.
   * 04_no_fatal_criticals.patch: dropped, obsolete.
   * 07_libexec-paths.patch: removed unused variables/files.
@@ -34,9 +35,16 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
     + Generate xx_upstream.gschema.override from the new 
       00-upstream-settings file (much simpler).
     + Remove /etc/dconf from the installed files.
+    + Drop all development libraries/headers.
+    + Explicitly disable introspection.
+    + (All of this can be shipped in separate packages if actual 
+      packages start using this library.)
+    + Explicitly disable split authentication, it will not work properly 
+      with the Debianized PAM stack.
   * gdm3.install:
     + Stop installing MIME files by hand.
-  * WORK IN PROGRESS. DO NOT UPLOAD.
+  * 93_private_lib.patch: new patch. Install the shared library in a 
+    private directory.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 

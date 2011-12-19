@@ -14,4 +14,4 @@
 22_noconsole.patch
 90_config_comments.patch
 92_gsettings_path.patch
-93_xdg_data_dirs.patch
+93_private_lib.patch
