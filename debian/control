@@ -56,7 +56,9 @@ Depends: ${shlibs:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
-         gnome-session-bin (>= 3.0),
+         gnome-session-bin (>= 3.2),
+         gnome-settings-daemon (>= 3.2),
+         metacity,
          policykit-1-gnome,
          upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
@@ -72,21 +74,20 @@ Recommends: zenity,
             x11-xkb-utils,
             xserver-xorg,
             at-spi,
-            gnome-power-manager (>= 2.28),
-            gnome-settings-daemon,
             gnome-icon-theme,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
-          metacity,
           gnome-mag,
           gnome-orca,
-          gok
+          gok,
+          gnome-shell
 Provides: x-display-manager
 Conflicts: gdm
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
-        gnome-control-center (<< 3.0)
+        gnome-control-center (<< 3.0),
+        gnome-shell (<< 3.2)
 Description: Next generation GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.

@@ -28,6 +28,8 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * 93_xdg_data_dirs.patch: dropped, similar functionality merged 
     upstream.
   * Drop the dconf-gsettings-backend dependency.
+  * greeter.gconf-defaults:
+    + Drop the g-p-m setting.
   * greeter.gsettings:
     + Force gdm-fallback as the default session.
     + Document how to use gdm-shell.
@@ -41,10 +43,15 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
       packages start using this library.)
     + Explicitly disable split authentication, it will not work properly 
       with the Debianized PAM stack.
+    + Remove the associated PAM files.
+    + Disable dh_makeshlibs.
   * gdm3.install:
     + Stop installing MIME files by hand.
   * 93_private_lib.patch: new patch. Install the shared library in a 
     private directory.
+  * Break gnome-shell < 3.2 for correct shell support.
+  * Suggest gnome-shell.
+  * Require g-s-d and metacity, they are no longer optional.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
