@@ -1,3 +1,11 @@
+gdm (3.0.4-0ubuntu13) UNRELEASED; urgency=low
+
+  * debian/gdm.config: Do not show debconf prompt during dist-upgrades.
+    lightdm will be installed and should set itself as default WM.
+    (LP: #911813)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 06 Jan 2012 13:24:33 +0100
+
 gdm (3.0.4-0ubuntu12) precise; urgency=low
 
   * drop unneeded build-depends on libpolkit-{gtk,gobject}-1-dev
