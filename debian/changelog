@@ -1,3 +1,9 @@
+gdm (3.0.4-0ubuntu12) UNRELEASED; urgency=low
+
+  * drop unneeded build-depends on libpolkit-{gtk,gobject}-1-dev
+
+ -- Andreas Moog <amoog@ubuntu.com>  Wed, 21 Dec 2011 20:43:56 +0100
+
 gdm (3.0.4-0ubuntu11) oneiric; urgency=low
 
   * don't start on graphics-device-added; reintroducing this reverted the fix
