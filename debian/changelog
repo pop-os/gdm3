@@ -33,6 +33,7 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * greeter.gsettings:
     + Force gdm-fallback as the default session.
     + Document how to use gdm-shell.
+    + Document how to change the background. Closes: #655328.
   * rules:
     + Generate xx_upstream.gschema.override from the new 
       00-upstream-settings file (much simpler).
