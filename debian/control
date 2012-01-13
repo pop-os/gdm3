@@ -69,7 +69,7 @@ Suggests: libpam-gnome-keyring,
           gnome-orca,
           gok
 Provides: x-display-manager
-Breaks: usplash
+Breaks: usplash, gdm-guest-session
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.

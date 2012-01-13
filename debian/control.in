@@ -52,6 +52,7 @@ Depends: ${shlibs:Depends},
          gnome-session-bin,
          kbd | console-tools,
          udev (>= 166-0ubuntu4)
+Pre-Depends: dpkg (>= 1.15.7.2)
 Recommends: xserver-xorg,
          metacity | x-window-manager,
          gnome-settings-daemon | xfconf
@@ -63,7 +64,7 @@ Suggests: libpam-gnome-keyring,
           gnome-orca,
           gok
 Provides: x-display-manager
-Breaks: usplash
+Breaks: usplash, gdm-guest-session
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.
