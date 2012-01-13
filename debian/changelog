@@ -1,9 +1,9 @@
-gdm (3.0.4-0ubuntu14) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu14) precise; urgency=low
 
   * debian/control.in: Add Breaks: to the obsolete gdm-guest-session to get it
     cleaned up during upgrades. (LP: #915722)
 
- -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 13 Jan 2012 18:34:36 +0100
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 13 Jan 2012 18:37:43 +0100
 
 gdm (3.0.4-0ubuntu13) precise; urgency=low
 
