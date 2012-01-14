@@ -1,3 +1,21 @@
+gdm (3.0.4-0ubuntu15) UNRELEASED; urgency=low
+
+  * debian/patches/45_time_display_on_greeter.patch:
+    - Adapt to forwarded version of the patch.
+    - Let the LANG environment variable serve as fallback when
+      determining the display language for the weekday, since LANG
+      has been redefined in Ubuntu to represent language instead of
+      regional formats. This change also ought to make the patch work
+      as intended upstream.
+  * debian/gdm.upstart:
+    - No need to export LC_MESSAGES since it's not set any longer.
+  * debian/patches/ubuntu_no_LANG_setting_in_Xsession.patch:
+    - Renamed from "ubuntu_i18n_oneiric.patch".
+    - No need to unset LC_MESSAGES etc. since they are not set any
+      longer.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Sat, 14 Jan 2012 04:48:00 +0100
+
 gdm (3.0.4-0ubuntu14) precise; urgency=low
 
   * debian/control.in: Add Breaks: to the obsolete gdm-guest-session to get it

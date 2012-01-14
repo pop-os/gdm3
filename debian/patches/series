@@ -20,4 +20,4 @@ ubuntu_guest_session.patch
 ubuntu_upstart_event.patch
 ubuntu_no_debug.patch
 ubuntu_xresources_is_a_dir.patch
-ubuntu_i18n_oneiric.patch
+ubuntu_no_LANG_setting_in_Xsession.patch
