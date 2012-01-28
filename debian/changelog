@@ -52,7 +52,8 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
     private directory.
   * Break gnome-shell < 3.2 for correct shell support.
   * Suggest gnome-shell.
-  * Require g-s-d and metacity, they are no longer optional.
+  * Require g-s-d and metacity, they are no longer optional. Requiring 
+    g-s-d 3.2 Closes: #656384.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
