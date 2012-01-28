@@ -6,8 +6,9 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   [ Josselin Mouette ]
   * gdm3.init: remove .ICEauthority before starting. Closes: #648666.
   * x11-common will now include xhost code to give access to the 
-    local user if xhost is installed (see #586685). Depend on 
-    x11-xserver-utils so that it does work.
+    local user if xhost is installed (see #586685).
+    + Depend on the appropriate x11-common version.
+    + Depend on x11-xserver-utils so that it actually works.
   * New upstream release.
   * Updated build-dependencies: nss, glib.
   * 01_language.patch: dropped, merged upstream.
@@ -54,6 +55,7 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * Suggest gnome-shell.
   * Require g-s-d and metacity, they are no longer optional. Requiring 
     g-s-d 3.2 Closes: #656384.
+  * Require d-conf 0.10.0-4 to configure the dconf path.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
 
