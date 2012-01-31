@@ -1,4 +1,4 @@
-gdm (3.0.4-0ubuntu15) UNRELEASED; urgency=low
+gdm (3.0.4-0ubuntu15) precise; urgency=low
 
   * debian/patches/45_time_display_on_greeter.patch:
     - Adapt to forwarded version of the patch.
@@ -14,7 +14,7 @@ gdm (3.0.4-0ubuntu15) UNRELEASED; urgency=low
     - No need to unset LC_MESSAGES etc. since they are not set any
       longer.
 
- -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Sat, 14 Jan 2012 04:48:00 +0100
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Tue, 31 Jan 2012 17:45:20 +0100
 
 gdm (3.0.4-0ubuntu14) precise; urgency=low
 
