@@ -4,25 +4,52 @@ Bug-Ubuntu: https://launchpad.net/bugs/777264
 Forwarded: yes
 Author: Gunnar Hjalmarsson <ubuntu@gunnar.cc>
 
-diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c gdm-3.0.0.new//gui/simple-greeter/gdm-clock-widget.c
---- gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c	2011-04-04 16:37:16.000000000 +0200
-+++ gdm-3.0.0.new//gui/simple-greeter/gdm-clock-widget.c	2011-06-05 23:55:31.140297043 +0200
-@@ -30,6 +30,7 @@
+diff -Nur -x '*.orig' -x '*~' gdm-3.0.4/gui/simple-greeter/gdm-clock-widget.c gdm-3.0.4.new/gui/simple-greeter/gdm-clock-widget.c
+--- gdm-3.0.4/gui/simple-greeter/gdm-clock-widget.c	2011-05-31 17:46:56.000000000 +0200
++++ gdm-3.0.4.new/gui/simple-greeter/gdm-clock-widget.c	2011-11-19 21:57:42.501647152 +0100
+@@ -30,6 +30,8 @@
  #include <errno.h>
  #include <dirent.h>
  #include <sys/stat.h>
 +#include <locale.h>
++#include <langinfo.h>
  
  #include <glib.h>
  #include <glib/gi18n.h>
-@@ -60,39 +61,23 @@
+@@ -46,8 +48,6 @@
+         char      *time_format;
+         char      *tooltip_format;
+         guint      update_clock_id;
+-        guint      should_show_seconds : 1;
+-        guint      should_show_date : 1;
+ };
+ 
+ static void     gdm_clock_widget_class_init  (GdmClockWidgetClass *klass);
+@@ -57,62 +57,52 @@
+ 
+ G_DEFINE_TYPE (GdmClockWidget, gdm_clock_widget, GTK_TYPE_ALIGNMENT)
+ 
++gboolean
++is_24h (void)
++{
++        static const char *formats_24h[] = {"%H", "%R", "%T", "%OH", "%k", NULL};
++        const char        *t_fmt = nl_langinfo(T_FMT);
++        int                i;
++
++        for (i = 0; formats_24h[i]; ++i) {
++                if (strstr (t_fmt, formats_24h[i]) != NULL) {
++                        return TRUE;
++                }
++        }
++        return FALSE;
++}
++
  static void
- update_time_format (GdmClockWidget *clock)
+-update_time_format (GdmClockWidget *clock)
++update_clock_format (GdmClockWidget *clock)
  {
-+        time_t      t;
-+        struct tm  *tm;
-+        char        ampm[16];
-         char       *clock_format;
+-        char       *clock_format;
++        char       *time_format;
          char       *tooltip_format;
  
 -        if (clock->priv->should_show_date && clock->priv->should_show_seconds) {
@@ -47,13 +74,9 @@ diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c g
 -                /* translators: This is the time format to use for the date
 -                 */
 -                tooltip_format = "%x";
-+        time (&t);
-+        tm = localtime (&t);
-+        setlocale(LC_TIME, "");
-+        strftime(ampm, sizeof(ampm), "%p", tm);
-+ 
-+        if (strlen(ampm) > 0) {
-+                clock_format = "%l:%M %p";
++        setlocale (LC_TIME, "");
++        if (is_24h ()) {
++                time_format = "%H:%M";
          } else {
 -                /* translators: This is the time format to use when there is
 -                 * no date, just weekday and time without seconds.
@@ -61,44 +84,105 @@ diff -Nur -x '*.orig' -x '*~' gdm-3.0.0//gui/simple-greeter/gdm-clock-widget.c g
 -                clock_format = _("%a %l:%M %p");
 -
 -                tooltip_format = "%x";
-+                clock_format = "%H:%M";
++                time_format = "%l:%M %p";
          }
 +        tooltip_format = "%x";
  
          g_free (clock->priv->time_format);
-         clock->priv->time_format = g_locale_from_utf8 (clock_format, -1, NULL, NULL, NULL);
-@@ -113,6 +98,8 @@
+-        clock->priv->time_format = g_locale_from_utf8 (clock_format, -1, NULL, NULL, NULL);
++        clock->priv->time_format = g_locale_from_utf8 (time_format, -1, NULL, NULL, NULL);
+ 
+         g_free (clock->priv->tooltip_format);
+-
+-        if (tooltip_format != NULL) {
+-                clock->priv->tooltip_format = g_locale_from_utf8 (tooltip_format, -1, NULL, NULL, NULL);
+-        } else {
+-                clock->priv->tooltip_format = NULL;
+-        }
++        clock->priv->tooltip_format = g_locale_from_utf8 (tooltip_format, -1, NULL, NULL, NULL);
+ }
+ 
+ static void
+ update_clock (GtkLabel   *label,
+-              const char *clock_format,
++              const char *time_format,
+               const char *tooltip_format)
  {
          time_t     t;
          struct tm *tm;
-+        char       showed_time[32];
++        char       displayed_time[32];
++        char      *msg_locale;
 +        char       weekday[32];
          char       buf[256];
          char      *utf8;
          char      *markup;
-@@ -123,10 +110,15 @@
+@@ -123,27 +113,34 @@
                  g_warning ("Unable to get broken down local time");
                  return;
          }
 -        if (strftime (buf, sizeof (buf), clock_format, tm) == 0) {
-+        if (strftime (showed_time, sizeof (showed_time), clock_format, tm) == 0) {
-                 g_warning ("Couldn't format time: %s", clock_format);
+-                g_warning ("Couldn't format time: %s", clock_format);
 -                strcpy (buf, "???");
-+                strcpy (showed_time, "???");
++        if (strftime (displayed_time, sizeof (displayed_time), time_format, tm) == 0) {
++                g_warning ("Couldn't format time: %s", time_format);
++                strcpy (displayed_time, "???");
          }
 +
-+        setlocale( LC_TIME, getenv("LC_MESSAGES") );
-+        strftime(weekday, sizeof(weekday), "%a", tm);
-+        sprintf(buf, "%s %s", weekday, showed_time);
++        if ((msg_locale = getenv ("LC_MESSAGES")) == NULL)
++                msg_locale = getenv ("LANG");
++        setlocale (LC_TIME, msg_locale);
++        if (strftime (weekday, sizeof (weekday), "%a", tm) == 0) {
++                g_warning ("Couldn't format weekday: %%a");
++                strcpy (weekday, "???");
++        }
++        sprintf (buf, "%s %s", weekday, displayed_time);
 +
          utf8 = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
          markup = g_strdup_printf ("<b><span foreground=\"white\">%s</span></b>", utf8);
          gtk_label_set_markup (label, markup);
-@@ -134,6 +126,7 @@
+         g_free (markup);
          g_free (utf8);
  
-         if (tooltip_format != NULL) {
-+                setlocale(LC_TIME, "");
-                 if (strftime (buf, sizeof (buf), tooltip_format, tm) == 0) {
-                         g_warning ("Couldn't format tooltip date: %s", tooltip_format);
-                         strcpy (buf, "???");
+-        if (tooltip_format != NULL) {
+-                if (strftime (buf, sizeof (buf), tooltip_format, tm) == 0) {
+-                        g_warning ("Couldn't format tooltip date: %s", tooltip_format);
+-                        strcpy (buf, "???");
+-                }
+-                utf8 = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
+-                gtk_widget_set_tooltip_text (GTK_WIDGET (label), utf8);
+-                g_free (utf8);
+-        } else {
+-                gtk_widget_set_has_tooltip (GTK_WIDGET (label), FALSE);
++        setlocale (LC_TIME, "");
++        if (strftime (buf, sizeof (buf), tooltip_format, tm) == 0) {
++                g_warning ("Couldn't format tooltip date: %s", tooltip_format);
++                strcpy (buf, "???");
+         }
++        utf8 = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
++        gtk_widget_set_tooltip_text (GTK_WIDGET (label), utf8);
++        g_free (utf8);
+ }
+ 
+ static void
+@@ -160,11 +157,7 @@
+ 
+         g_get_current_time (&tv);
+         timeouttime = (G_USEC_PER_SEC - tv.tv_usec) / 1000 + 1;
+-
+-        /* timeout of one minute if we don't care about the seconds */
+-        if (! clock->priv->should_show_seconds) {
+-                timeouttime += 1000 * (59 - now % 60);
+-        }
++        timeouttime += 1000 * (59 - now % 60);
+ 
+         clock->priv->update_clock_id = g_timeout_add (timeouttime,
+                                                       (GSourceFunc)update_timeout_cb,
+@@ -281,7 +274,7 @@
+         gtk_widget_show (widget->priv->label);
+         gtk_box_pack_start (GTK_BOX (box), widget->priv->label, FALSE, FALSE, 0);
+ 
+-        update_time_format (widget);
++        update_clock_format (widget);
+         update_timeout_cb (widget);
+ }
+ 
