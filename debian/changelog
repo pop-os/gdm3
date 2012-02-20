@@ -24,8 +24,6 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * 29_grep_path.patch: dropped, merged upstream.
   * 91_dconf_override.patch: dropped, the configuration generation has 
     completely changed.
-  * 92_gsettings_path.patch: updated to force the gsettings backend to 
-    'memory', avoiding to start the dconf backend at all.
   * 93_xdg_data_dirs.patch: dropped, similar functionality merged 
     upstream.
   * Drop the dconf-gsettings-backend dependency.
@@ -47,6 +45,15 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
       with the Debianized PAM stack.
     + Remove the associated PAM files.
     + Disable dh_makeshlibs.
+    + Install the dconf stuff in /usr/share/gdm.
+  * gdm3.postinst:
+    + Remove the old gsettings file upon upgrade.
+  * gdm3.init:
+    + Replace the gsettings generation by a dconf-based one.
+    + Do a conversion for the configuration file so that it remains 
+      compatible.
+  * 92_gsettings_path.patch: updated to force the dconf directory to be 
+    in the GDM runtime directory.
   * gdm3.install:
     + Stop installing MIME files by hand.
   * 93_private_lib.patch: new patch. Install the shared library in a 

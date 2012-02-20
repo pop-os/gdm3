@@ -44,12 +44,15 @@ gen_config() {
     chown Debian-gdm:Debian-gdm /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml
   fi
 
-  # GSettings part is generated with glib-compile-schemas
+  # GSettings part uses dconf update to generate a gdm profile
   if [ -d /var/lib/gdm3 ]; then
     needed=no
-    if [ -f /var/lib/gdm3/gschemas.compiled ]; then
-      for f in /usr/share/glib-2.0/schemas/gschemas.compiled /usr/share/gdm/greeter-settings /usr/share/gdm/greeter-settings/*.gschema.override; do
-        if [ "$f" -nt /var/lib/gdm3/gschemas.compiled ]; then
+    if [ -f /var/lib/gdm3/dconf/db/gdm ]; then
+      for f in \
+          /usr/share/gdm/dconf /usr/share/gdm/dconf/*-settings \
+          /usr/share/gdm/dconf/locks /usr/share/gdm/dconf/locks/*-locks \
+          /etc/gdm3/greeter.gsettings; do
+        if [ "$f" -nt /var/lib/gdm3/dconf/db/gdm ]; then
           needed=yes
           break
         fi
@@ -58,10 +61,16 @@ gen_config() {
       needed=yes
     fi
     if [ "$needed" = yes ]; then
-      tmpdir=$(mktemp -d --tmpdir gdm-XXXXXX)
-      ln -s /usr/share/glib-2.0/schemas/*.xml /usr/share/glib-2.0/schemas/*.override /usr/share/gdm/greeter-settings/*.override $tmpdir/
-      glib-compile-schemas --targetdir=/var/lib/gdm3 $tmpdir
-      rm -rf $tmpdir
+      rm -rf /var/lib/gdm3/dconf
+      mkdir -p /var/lib/gdm3/dconf/profile /var/lib/gdm3/dconf/db/gdm.d/locks
+      ln -s /usr/share/gdm/dconf-profile /var/lib/gdm3/dconf/profile/gdm
+      ln -s /usr/share/gdm/dconf/*-settings /var/lib/gdm3/dconf/db/gdm.d/
+      ln -s /usr/share/gdm/dconf/locks/*-locks /var/lib/gdm3/dconf/db/gdm.d/locks/
+      # The configuration file in /etc uses org.gnome.blah gsettings syntax.
+      # Convert it to org/gnome/blah dconf syntax.
+      awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
+        /etc/gdm3/greeter.gsettings > /var/lib/gdm3/dconf/db/gdm.d/90-debian-settings
+      dconf update /var/lib/gdm3/dconf/db
     fi
   fi
 }
@@ -99,6 +108,8 @@ case "$1" in
         start-stop-daemon --stop --signal USR1 --quiet --pidfile \
                 /var/run/gdm3.pid --name gdm3
         start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
+                --user Debian-gdm --oknodo
+        start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
                 --user Debian-gdm --oknodo
         set -e
         log_end_msg $?

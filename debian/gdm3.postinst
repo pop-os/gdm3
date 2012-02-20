@@ -45,6 +45,11 @@ db_stop || true
 S=30
 K=01
 
+if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl "3.2"; then
+  # Remove 3.0 gsettings configuration - now we use dconf
+  rm -f /var/lib/gdm3/gschemas.compiled
+fi
+
 mkdir -p /var/lib/gdm3/.gconf.mandatory
 cat > /var/lib/gdm3/.gconf.path << "EOF"
 # System-wide settings set in /usr/share/gdm/greeter-config

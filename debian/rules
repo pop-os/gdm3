@@ -56,7 +56,10 @@ binary-install/gdm3::
 	dh_installpam -pgdm3 --name=gdm3-autologin
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
-	rm -rf debian/gdm3/etc/dconf
+	cd debian/gdm3 && \
+		mv etc/dconf/profile/gdm usr/share/gdm/dconf-profile && \
+		mv etc/dconf/db/gdm.d usr/share/gdm/dconf &&
+		rmdir etc/dconf/db etc/dconf/profile etc/dconf
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
 	rm -f debian/gdm3/usr/sbin/gdm
@@ -67,9 +70,6 @@ binary-install/gdm3::
 		rm -f lib*.a lib*.la lib*.so
 	cd debian/gdm3/usr/share/gdm/greeter-config && \
 		mv session-setup.entries 10_upstream.entries
-	awk '/\[.*\]/ { gsub("/","."); } ! /^#/ { print;}' \
-		data/00-upstream-settings > \
-		debian/gdm3/usr/share/gdm/greeter-settings/xx_upstream.gschema.override
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
