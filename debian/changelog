@@ -48,6 +48,8 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
     + Install the dconf stuff in /usr/share/gdm.
   * gdm3.postinst:
     + Remove the old gsettings file upon upgrade.
+  * gdm3.links:
+    + Remove the old gsettings link.
   * gdm3.init:
     + Replace the gsettings generation by a dconf-based one.
     + Do a conversion for the configuration file so that it remains 
