@@ -58,7 +58,7 @@ binary-install/gdm3::
 	rm -rf debian/gdm3/var/run
 	cd debian/gdm3 && \
 		mv etc/dconf/profile/gdm usr/share/gdm/dconf-profile && \
-		mv etc/dconf/db/gdm.d usr/share/gdm/dconf &&
+		mv etc/dconf/db/gdm.d usr/share/gdm/dconf && \
 		rmdir etc/dconf/db etc/dconf/profile etc/dconf
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
