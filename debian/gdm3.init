@@ -70,7 +70,7 @@ gen_config() {
       # Convert it to org/gnome/blah dconf syntax.
       awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
         /etc/gdm3/greeter.gsettings > /var/lib/gdm3/dconf/db/gdm.d/90-debian-settings
-      dconf update /var/lib/gdm3/dconf/db
+      dconf update /var/lib/gdm3/dconf/db 2> /dev/null
     fi
   fi
 }
