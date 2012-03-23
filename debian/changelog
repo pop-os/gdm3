@@ -67,7 +67,11 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   * Require d-conf 0.10.0-4 to configure the dconf path and parse 
     defaults in order.
 
- -- Josselin Mouette <joss@debian.org>  Thu, 24 Nov 2011 22:29:47 +0100
+  [ Laurent Bigonville ]
+  * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux pam module
+    (Closes: #661289)
+
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 
 gdm3 (3.0.4-4) unstable; urgency=low
 
