@@ -86,6 +86,7 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
   * 18_parametrize_create_display.patch, 
     19_static_transient_display.patch, 20_switch_kill_greeter.patch,
     21_static_display_purge.patch: adapt to systemd/multiseat changes.
+  * Require dconf 0.12.1-2.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 
