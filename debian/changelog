@@ -1,4 +1,4 @@
-gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
+gdm3 (3.4.1-1) UNRELEASED; urgency=low
 
   [ Jordi Mallach ]
   * Update po-up/ca.po.
@@ -70,6 +70,13 @@ gdm3 (3.2.1.1-1) UNRELEASED; urgency=low
   [ Laurent Bigonville ]
   * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux pam module
     (Closes: #661289)
+
+  [ Josselin Mouette ]
+  * New upstream release.
+  * Move login manager defaults from gconf to gsettings.
+  * Add the metacity default to gsettings too.
+  * Require a metacity version which supports gsettings.
+  * Get rid of anything related to GConf.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 

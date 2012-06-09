@@ -68,8 +68,6 @@ binary-install/gdm3::
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 	cd debian/gdm3/usr/lib/gdm && \
 		rm -f lib*.a lib*.la lib*.so
-	cd debian/gdm3/usr/share/gdm/greeter-config && \
-		mv session-setup.entries 10_upstream.entries
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)

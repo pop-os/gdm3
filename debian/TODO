@@ -3,4 +3,3 @@ Should be dealt with before wheezy
  * Restore 11_xephyr_nested.patch
    + Don’t forget to add back the necessary code in 
      20_endsession_respawn.patch and 19_configure_xserver.patch
- * Get rid of gconf (provided the greeter does)

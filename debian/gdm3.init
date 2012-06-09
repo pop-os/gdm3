@@ -32,19 +32,7 @@ HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 gen_config() {
-  # GConf part is generated with update-gconf-defaults
-  if [ -d /var/lib/gdm3/.gconf.mandatory ]; then
-    update-gconf-defaults \
-	--source=/usr/share/gdm/greeter-config \
-	--destination=/var/lib/gdm3/.gconf.mandatory \
-	--no-signal \
-	--only-if-changed
-  fi
-  if [ -f /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml ]; then
-    chown Debian-gdm:Debian-gdm /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml
-  fi
-
-  # GSettings part uses dconf update to generate a gdm profile
+  # GSettings configuration uses dconf update to generate a gdm profile
   if [ -d /var/lib/gdm3 ]; then
     needed=no
     if [ -f /var/lib/gdm3/dconf/db/gdm ]; then
@@ -107,8 +95,6 @@ case "$1" in
         gen_config
         start-stop-daemon --stop --signal USR1 --quiet --pidfile \
                 /var/run/gdm3.pid --name gdm3
-        start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
-                --user Debian-gdm --oknodo
         start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
                 --user Debian-gdm --oknodo
         set -e
