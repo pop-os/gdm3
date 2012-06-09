@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
-               debhelper (>= 8),
+               debhelper (>= 8.1.0),
                cdbs,
                dh-autoreconf,
                intltool (>= 0.40.0),
@@ -46,6 +46,7 @@ Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
 Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          adduser,

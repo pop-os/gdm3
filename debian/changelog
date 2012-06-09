@@ -77,6 +77,7 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
   * Add the metacity default to gsettings too.
   * Require a metacity version which supports gsettings.
   * Get rid of anything related to GConf.
+  * Use dh maintscript support to remove the old GConf config file.
   * Force disable systemd support.
   * 06_first_vt.patch, 17_switch_on_finish.patch: refreshed.
   * 07_libexec-paths.patch: use the binary path as provided by g-s-d.pc.
