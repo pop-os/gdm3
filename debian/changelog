@@ -77,6 +77,15 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
   * Add the metacity default to gsettings too.
   * Require a metacity version which supports gsettings.
   * Get rid of anything related to GConf.
+  * Force disable systemd support.
+  * 06_first_vt.patch, 17_switch_on_finish.patch: refreshed.
+  * 07_libexec-paths.patch: use the binary path as provided by g-s-d.pc.
+  * 10_gdm3_pam.patch: handle the bucket of FAIL that is hardcoding the 
+    service name in various places since split authentication was 
+    introduced.
+  * 18_parametrize_create_display.patch, 
+    19_static_transient_display.patch, 20_switch_kill_greeter.patch,
+    21_static_display_purge.patch: adapt to systemd/multiseat changes.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 

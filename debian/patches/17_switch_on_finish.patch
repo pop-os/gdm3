@@ -27,10 +27,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=618047
  daemon/gdm-transient-display.c |    1 +
  5 files changed, 86 insertions(+), 0 deletions(-)
 
-diff --git a/daemon/gdm-display.c b/daemon/gdm-display.c
-index abedc0b..84b4925 100644
---- a/daemon/gdm-display.c
-+++ b/daemon/gdm-display.c
+Index: gdm-3.4.1/daemon/gdm-display.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-display.c	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-display.c	2012-06-09 16:50:53.460110189 +0200
 @@ -66,6 +66,7 @@ struct GdmDisplayPrivate
          GdmDisplayAccessFile *access_file;
  
@@ -47,7 +47,7 @@ index abedc0b..84b4925 100644
          PROP_SLAVE_COMMAND,
  };
  
-@@ -134,6 +136,14 @@ gdm_display_get_status (GdmDisplay *display)
+@@ -134,6 +136,14 @@ gdm_display_get_status (GdmDisplay *disp
          return display->priv->status;
  }
  
@@ -62,7 +62,7 @@ index abedc0b..84b4925 100644
  static GdmDisplayAccessFile *
  _create_access_file_for_user (GdmDisplay  *display,
                                const char  *username,
-@@ -824,6 +834,30 @@ _gdm_display_set_is_local (GdmDisplay     *display,
+@@ -834,6 +844,30 @@ _gdm_display_set_is_local (GdmDisplay
  }
  
  static void
@@ -93,7 +93,7 @@ index abedc0b..84b4925 100644
  _gdm_display_set_slave_command (GdmDisplay     *display,
                                  const char     *command)
  {
-@@ -866,6 +900,9 @@ gdm_display_set_property (GObject        *object,
+@@ -876,6 +910,9 @@ gdm_display_set_property (GObject
          case PROP_IS_LOCAL:
                  _gdm_display_set_is_local (self, g_value_get_boolean (value));
                  break;
@@ -103,7 +103,7 @@ index abedc0b..84b4925 100644
          case PROP_SLAVE_COMMAND:
                  _gdm_display_set_slave_command (self, g_value_get_string (value));
                  break;
-@@ -914,6 +951,9 @@ gdm_display_get_property (GObject        *object,
+@@ -924,6 +961,9 @@ gdm_display_get_property (GObject
          case PROP_IS_LOCAL:
                  g_value_set_boolean (value, self->priv->is_local);
                  break;
@@ -113,26 +113,26 @@ index abedc0b..84b4925 100644
          case PROP_SLAVE_COMMAND:
                  g_value_set_string (value, self->priv->slave_command);
                  break;
-@@ -1086,6 +1126,14 @@ gdm_display_class_init (GdmDisplayClass *klass)
-                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
- 
-         g_object_class_install_property (object_class,
+@@ -1093,6 +1133,14 @@ gdm_display_class_init (GdmDisplayClass
+                                                                NULL,
+                                                                NULL,
+                                                                TRUE,
++                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
++
++        g_object_class_install_property (object_class,
 +                                         PROP_SWITCH_ON_FINISH,
 +                                         g_param_spec_boolean ("switch-on-finish",
 +                                                               NULL,
 +                                                               NULL,
 +                                                               TRUE,
-+                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
-+
-+        g_object_class_install_property (object_class,
-                                          PROP_SLAVE_COMMAND,
-                                          g_param_spec_string ("slave-command",
-                                                               "slave command",
-diff --git a/daemon/gdm-display.h b/daemon/gdm-display.h
-index 607ea1d..e3aa860 100644
---- a/daemon/gdm-display.h
-+++ b/daemon/gdm-display.h
-@@ -88,6 +88,7 @@ GQuark              gdm_display_error_quark                    (void);
+                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+ 
+         g_object_class_install_property (object_class,
+Index: gdm-3.4.1/daemon/gdm-display.h
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-display.h	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-display.h	2012-06-09 16:50:53.460110189 +0200
+@@ -88,6 +88,7 @@ GQuark              gdm_display_error_qu
  GType               gdm_display_get_type                       (void);
  
  int                 gdm_display_get_status                     (GdmDisplay *display);
@@ -140,7 +140,7 @@ index 607ea1d..e3aa860 100644
  time_t              gdm_display_get_creation_time              (GdmDisplay *display);
  char *              gdm_display_get_user_auth                  (GdmDisplay *display);
  
-@@ -140,6 +141,9 @@ gboolean            gdm_display_remove_user_authorization      (GdmDisplay *disp
+@@ -140,6 +141,9 @@ gboolean            gdm_display_remove_u
  gboolean            gdm_display_set_slave_bus_name             (GdmDisplay *display,
                                                                  const char *name,
                                                                  GError    **error);
@@ -150,10 +150,10 @@ index 607ea1d..e3aa860 100644
  
  
  G_END_DECLS
-diff --git a/daemon/gdm-display.xml b/daemon/gdm-display.xml
-index a92e37f..d3ce4a4 100644
---- a/daemon/gdm-display.xml
-+++ b/daemon/gdm-display.xml
+Index: gdm-3.4.1/daemon/gdm-display.xml
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-display.xml	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-display.xml	2012-06-09 16:50:53.460110189 +0200
 @@ -35,6 +35,9 @@
      <method name="SetSlaveBusName">
        <arg name="name" direction="in" type="s"/>
@@ -164,12 +164,12 @@ index a92e37f..d3ce4a4 100644
      <method name="GetTimedLoginDetails">
        <arg name="enabled" direction="out" type="b"/>
        <arg name="username" direction="out" type="s"/>
-diff --git a/daemon/gdm-slave.c b/daemon/gdm-slave.c
-index 2dc0323..9fd6579 100644
---- a/daemon/gdm-slave.c
-+++ b/daemon/gdm-slave.c
-@@ -1438,6 +1438,31 @@ session_unlock (GdmSlave   *slave,
-         return TRUE;
+Index: gdm-3.4.1/daemon/gdm-slave.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-slave.c	2012-04-14 20:52:38.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-slave.c	2012-06-09 16:50:53.464110212 +0200
+@@ -1751,6 +1751,31 @@ session_unlock (GdmSlave   *slave,
+ #endif
  }
  
 +static void
@@ -200,7 +200,7 @@ index 2dc0323..9fd6579 100644
  gboolean
  gdm_slave_switch_to_user_session (GdmSlave   *slave,
                                    const char *username)
-@@ -1468,6 +1493,11 @@ gdm_slave_switch_to_user_session (GdmSlave   *slave,
+@@ -1781,6 +1806,11 @@ gdm_slave_switch_to_user_session (GdmSla
                  g_debug ("GdmSlave: unable to unlock session: %s", ssid_to_activate);
          }
  
@@ -212,11 +212,11 @@ index 2dc0323..9fd6579 100644
          ret = TRUE;
  
   out:
-diff --git a/daemon/gdm-transient-display.c b/daemon/gdm-transient-display.c
-index dd33547..01813f7 100644
---- a/daemon/gdm-transient-display.c
-+++ b/daemon/gdm-transient-display.c
-@@ -210,6 +210,7 @@ gdm_transient_display_new (int display_number)
+Index: gdm-3.4.1/daemon/gdm-transient-display.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-transient-display.c	2011-10-21 06:13:08.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-transient-display.c	2012-06-09 16:50:53.464110212 +0200
+@@ -159,6 +159,7 @@ gdm_transient_display_new (int display_n
          object = g_object_new (GDM_TYPE_TRANSIENT_DISPLAY,
                                 "x11-display-number", display_number,
                                 "x11-display-name", x11_display,
@@ -224,5 +224,3 @@ index dd33547..01813f7 100644
                                 NULL);
          g_free (x11_display);
  
--- 
-1.7.5.1

@@ -30,6 +30,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
 		--disable-introspection \
+		--without-systemd \
 		--disable-split-authentication
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))

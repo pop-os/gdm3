@@ -1,10 +1,10 @@
 GNOME #645918
 
-Index: gdm-3.2.1.1/daemon/gdm-server.c
+Index: gdm-3.4.1/daemon/gdm-server.c
 ===================================================================
---- gdm-3.2.1.1.orig/daemon/gdm-server.c	2011-12-17 03:25:47.000000000 +0100
-+++ gdm-3.2.1.1/daemon/gdm-server.c	2011-12-17 03:27:51.248986991 +0100
-@@ -134,7 +134,7 @@ _gdm_server_query_ck_for_display_device
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-09 15:53:17.011212473 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-09 15:54:36.031598779 +0200
+@@ -142,7 +142,7 @@ _gdm_server_query_ck_for_display_device
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
          error = NULL;
@@ -13,24 +13,24 @@ Index: gdm-3.2.1.1/daemon/gdm-server.c
                                     server->priv->display_name);
  
          g_debug ("GdmServer: Running helper %s", command);
-Index: gdm-3.2.1.1/gui/simple-chooser/gdm-chooser-session.c
+Index: gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c
 ===================================================================
---- gdm-3.2.1.1.orig/gui/simple-chooser/gdm-chooser-session.c	2011-10-19 17:41:52.000000000 +0200
-+++ gdm-3.2.1.1/gui/simple-chooser/gdm-chooser-session.c	2011-12-17 03:27:51.248986991 +0100
+--- gdm-3.4.1.orig/gui/simple-chooser/gdm-chooser-session.c	2011-09-04 20:44:17.000000000 +0200
++++ gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c	2012-06-09 16:06:24.735063457 +0200
 @@ -131,7 +131,7 @@ start_settings_daemon (GdmChooserSession
          ret = FALSE;
  
          error = NULL;
 -        g_spawn_command_line_async (LIBEXECDIR "/gnome-settings-daemon", &error);
-+        g_spawn_command_line_async (GSD_LIBEXECDIR "/gnome-settings-daemon", &error);
++        g_spawn_command_line_async (GSD_BINARY, &error);
          if (error != NULL) {
                  g_warning ("Error starting settings daemon: %s", error->message);
                  g_error_free (error);
-Index: gdm-3.2.1.1/configure.ac
+Index: gdm-3.4.1/configure.ac
 ===================================================================
---- gdm-3.2.1.1.orig/configure.ac	2011-12-17 03:24:25.000000000 +0100
-+++ gdm-3.2.1.1/configure.ac	2011-12-17 03:49:29.831335428 +0100
-@@ -68,6 +68,7 @@ LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
+--- gdm-3.4.1.orig/configure.ac	2012-06-09 15:52:59.475126744 +0200
++++ gdm-3.4.1/configure.ac	2012-06-09 16:44:13.078152829 +0200
+@@ -67,6 +67,7 @@ LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
  FONTCONFIG_REQUIRED_VERSION=2.5.0
  UPOWER_REQUIRED_VERSION=0.9.0
  ACCOUNTS_SERVICE_REQUIRED_VERSION=0.6.12
@@ -38,7 +38,7 @@ Index: gdm-3.2.1.1/configure.ac
  NSS_REQUIRED_VERSION=3.11.1
  
  EXTRA_COMPILE_WARNINGS(yes)
-@@ -203,6 +204,33 @@ LIBGDMGREETER_GIR_INCLUDES="GLib-2.0 GOb
+@@ -187,6 +188,31 @@ LIBGDMGREETER_GIR_INCLUDES="GLib-2.0 GOb
  AC_SUBST(LIBGDMGREETER_GIR_INCLUDES)
  
  dnl ---------------------------------------------------------------------------
@@ -48,12 +48,10 @@ Index: gdm-3.2.1.1/configure.ac
 +PKG_CHECK_MODULES(GSD,
 +        gnome-settings-daemon >= $GSD_REQUIRED_VERSION
 +)
-+GSD_LIBEXECDIR=`pkg-config --variable=libexecdir gnome-settings-daemon`
-+AC_SUBST(GSD_LIBEXECDIR)
-+AC_DEFINE_UNQUOTED([GSD_LIBEXECDIR], "$GSD_LIBEXECDIR", [Path to the GNOME settings daemon])
++GSD_BINARY=`pkg-config --variable=binary gnome-settings-daemon`
++AC_SUBST(GSD_BINARY)
 +
-+
-+dnl This should be done with pkg-config, but ConsoleKit and PolicyKit don’t
++dnl This should be done with pkg-config, but ConsoleKit doesn’t
 +dnl ship .pc files
 +dnl Because of that we only handle the case where libexecdir is the same
 +dnl (e.g. Red Hat), and the case where libexecdir = pkglibdir (e.g. Debian)
@@ -63,7 +61,7 @@ Index: gdm-3.2.1.1/configure.ac
 +        AC_MSG_RESULT($libexecdir)
 +        CK_LIBEXECDIR="$libexecdir"
 +else
-+        AC_MSG_RESULT("$libdir/Consolekit, $libdir/policykit-1-gnome, $libdir/gnome-session")
++        AC_MSG_RESULT("$libdir/Consolekit")
 +        CK_LIBEXECDIR="$libdir/ConsoleKit"
 +fi
 +AC_SUBST(CK_LIBEXECDIR)
@@ -72,10 +70,10 @@ Index: gdm-3.2.1.1/configure.ac
  dnl - Configuration file stuff
  dnl ---------------------------------------------------------------------------
  
-Index: gdm-3.2.1.1/daemon/Makefile.am
+Index: gdm-3.4.1/daemon/Makefile.am
 ===================================================================
---- gdm-3.2.1.1.orig/daemon/Makefile.am	2011-10-19 17:41:52.000000000 +0200
-+++ gdm-3.2.1.1/daemon/Makefile.am	2011-12-17 03:27:51.256987029 +0100
+--- gdm-3.4.1.orig/daemon/Makefile.am	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/daemon/Makefile.am	2012-06-09 16:43:11.457851581 +0200
 @@ -12,6 +12,7 @@ AM_CPPFLAGS = \
  	-DGDMCONFDIR=\"$(gdmconfdir)\"			\
  	-DLIBDIR=\"$(libdir)\"				\
@@ -84,3 +82,15 @@ Index: gdm-3.2.1.1/daemon/Makefile.am
  	-DLOGDIR=\"$(logdir)\"				\
  	-DSBINDIR=\"$(sbindir)\"			\
  	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
+Index: gdm-3.4.1/gui/simple-chooser/Makefile.am
+===================================================================
+--- gdm-3.4.1.orig/gui/simple-chooser/Makefile.am	2011-09-04 20:44:17.000000000 +0200
++++ gdm-3.4.1/gui/simple-chooser/Makefile.am	2012-06-09 16:17:50.334415186 +0200
+@@ -12,6 +12,7 @@ AM_CPPFLAGS = \
+ 	-DSBINDIR=\""$(sbindir)"\"		 	\
+ 	-DPIXMAPDIR=\""$(pixmapdir)"\"		 	\
+ 	-DAT_SPI_REGISTRYD_DIR="\"$(AT_SPI_REGISTRYD_DIR)\""	\
++	-DGSD_BINARY="\"$(GSD_BINARY)\""		\
+ 	$(GTK_CFLAGS)					\
+ 	$(XLIB_CFLAGS)					\
+ 	$(XDMCP_CFLAGS)					\
