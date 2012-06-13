@@ -10,6 +10,7 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 session required        pam_limits.so
 session required        pam_env.so readenv=1
 session required        pam_env.so readenv=1 envfile=/etc/default/locale
+session required        pam_loginuid.so
 @include common-session
 # SELinux needs to intervene at login time to ensure that the process
 # starts in the proper default security context. Only sessions which are

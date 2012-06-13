@@ -70,6 +70,8 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
   [ Laurent Bigonville ]
   * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux pam module
     (Closes: #661289)
+  * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_loginuid pam module
+    (Closes: #661745)
 
   [ Josselin Mouette ]
   * New upstream release.
