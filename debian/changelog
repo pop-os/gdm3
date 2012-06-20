@@ -1,4 +1,4 @@
-gdm3 (3.4.1-1) UNRELEASED; urgency=low
+gdm3 (3.4.1-1) unstable; urgency=low
 
   [ Jordi Mallach ]
   * Update po-up/ca.po.
@@ -116,7 +116,7 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
     fallback session. Otherwise reboot/shutdown does nothing when 
     someone is logged on.
 
- -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
+ -- Josselin Mouette <joss@debian.org>  Thu, 21 Jun 2012 00:18:36 +0200
 
 gdm3 (3.0.4-4) unstable; urgency=low
 
