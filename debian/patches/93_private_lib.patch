@@ -1,7 +1,7 @@
-Index: gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am
+Index: gdm-3.4.1/gui/libgdmgreeter/Makefile.am
 ===================================================================
---- gdm-3.2.1.1.orig/gui/libgdmgreeter/Makefile.am	2011-12-19 02:12:33.299676088 +0100
-+++ gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am	2011-12-19 02:12:36.363691068 +0100
+--- gdm-3.4.1.orig/gui/libgdmgreeter/Makefile.am	2012-06-20 20:51:40.555390238 +0200
++++ gdm-3.4.1/gui/libgdmgreeter/Makefile.am	2012-06-20 21:31:01.862934073 +0200
 @@ -11,7 +11,7 @@ AM_CPPFLAGS = \
          -DDATADIR=\""$(datadir)"\"                                            \
          $(END_OF_LIST)
@@ -11,10 +11,22 @@ Index: gdm-3.2.1.1/gui/libgdmgreeter/Makefile.am
          libgdmgreeter.la                                                      \
          $(END_OF_LIST)
  
-Index: gdm-3.2.1.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
+@@ -46,9 +46,9 @@ dist_pkgconfig_DATA = gdmgreeter.pc
+ -include $(INTROSPECTION_MAKEFILE)
+ 
+ if HAVE_INTROSPECTION
+-girdir = $(datadir)/gir-1.0
++girdir = $(pkglibdir)
+ gir_DATA = GdmGreeter-1.0.gir
+-typelibsdir = $(libdir)/girepository-1.0
++typelibsdir = $(pkglibdir)
+ typelibs_DATA = $(gir_DATA:.gir=.typelib)
+ INTROSPECTION_GIRS = $(gir_DATA)
+ 
+Index: gdm-3.4.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
 ===================================================================
---- gdm-3.2.1.1.orig/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2011-10-19 17:41:52.000000000 +0200
-+++ gdm-3.2.1.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2011-12-19 02:13:24.683927311 +0100
+--- gdm-3.4.1.orig/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2012-06-20 20:51:40.555390238 +0200
++++ gdm-3.4.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2012-06-20 21:14:19.326032929 +0200
 @@ -14,7 +14,7 @@ AM_CPPFLAGS = \
  	$(GTK_CFLAGS)				\
  	$(NULL)

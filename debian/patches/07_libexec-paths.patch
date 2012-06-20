@@ -2,8 +2,8 @@ GNOME #645918
 
 Index: gdm-3.4.1/daemon/gdm-server.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-09 15:53:17.011212473 +0200
-+++ gdm-3.4.1/daemon/gdm-server.c	2012-06-09 15:54:36.031598779 +0200
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-20 20:53:20.643879549 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-20 20:53:20.679879718 +0200
 @@ -142,7 +142,7 @@ _gdm_server_query_ck_for_display_device
          g_return_val_if_fail (GDM_IS_SERVER (server), NULL);
  
@@ -15,8 +15,8 @@ Index: gdm-3.4.1/daemon/gdm-server.c
          g_debug ("GdmServer: Running helper %s", command);
 Index: gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c
 ===================================================================
---- gdm-3.4.1.orig/gui/simple-chooser/gdm-chooser-session.c	2011-09-04 20:44:17.000000000 +0200
-+++ gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c	2012-06-09 16:06:24.735063457 +0200
+--- gdm-3.4.1.orig/gui/simple-chooser/gdm-chooser-session.c	2012-06-20 20:53:13.515844704 +0200
++++ gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c	2012-06-20 20:53:20.679879718 +0200
 @@ -131,7 +131,7 @@ start_settings_daemon (GdmChooserSession
          ret = FALSE;
  
@@ -28,8 +28,8 @@ Index: gdm-3.4.1/gui/simple-chooser/gdm-chooser-session.c
                  g_error_free (error);
 Index: gdm-3.4.1/configure.ac
 ===================================================================
---- gdm-3.4.1.orig/configure.ac	2012-06-09 15:52:59.475126744 +0200
-+++ gdm-3.4.1/configure.ac	2012-06-09 16:44:13.078152829 +0200
+--- gdm-3.4.1.orig/configure.ac	2012-06-20 20:53:20.611879386 +0200
++++ gdm-3.4.1/configure.ac	2012-06-20 20:53:20.679879718 +0200
 @@ -67,6 +67,7 @@ LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
  FONTCONFIG_REQUIRED_VERSION=2.5.0
  UPOWER_REQUIRED_VERSION=0.9.0
@@ -38,7 +38,7 @@ Index: gdm-3.4.1/configure.ac
  NSS_REQUIRED_VERSION=3.11.1
  
  EXTRA_COMPILE_WARNINGS(yes)
-@@ -187,6 +188,31 @@ LIBGDMGREETER_GIR_INCLUDES="GLib-2.0 GOb
+@@ -187,6 +188,34 @@ LIBGDMGREETER_GIR_INCLUDES="GLib-2.0 GOb
  AC_SUBST(LIBGDMGREETER_GIR_INCLUDES)
  
  dnl ---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Index: gdm-3.4.1/configure.ac
 +GSD_BINARY=`pkg-config --variable=binary gnome-settings-daemon`
 +AC_SUBST(GSD_BINARY)
 +
-+dnl This should be done with pkg-config, but ConsoleKit doesn’t
++dnl This should be done with pkg-config, but ConsoleKit doesn't
 +dnl ship .pc files
 +dnl Because of that we only handle the case where libexecdir is the same
 +dnl (e.g. Red Hat), and the case where libexecdir = pkglibdir (e.g. Debian)
@@ -60,11 +60,14 @@ Index: gdm-3.4.1/configure.ac
 +if test x`basename "$libexecdir"` = "xlibexec"; then
 +        AC_MSG_RESULT($libexecdir)
 +        CK_LIBEXECDIR="$libexecdir"
++        SESSION_LIBEXECDIR="$libexecdir"
 +else
 +        AC_MSG_RESULT("$libdir/Consolekit")
 +        CK_LIBEXECDIR="$libdir/ConsoleKit"
++        SESSION_LIBEXECDIR="$libdir/gnome-session"
 +fi
 +AC_SUBST(CK_LIBEXECDIR)
++AC_SUBST(SESSION_LIBEXECDIR)
 +
 +dnl ---------------------------------------------------------------------------
  dnl - Configuration file stuff
@@ -72,8 +75,8 @@ Index: gdm-3.4.1/configure.ac
  
 Index: gdm-3.4.1/daemon/Makefile.am
 ===================================================================
---- gdm-3.4.1.orig/daemon/Makefile.am	2012-04-14 20:52:00.000000000 +0200
-+++ gdm-3.4.1/daemon/Makefile.am	2012-06-09 16:43:11.457851581 +0200
+--- gdm-3.4.1.orig/daemon/Makefile.am	2012-06-20 20:53:13.515844704 +0200
++++ gdm-3.4.1/daemon/Makefile.am	2012-06-20 20:53:20.679879718 +0200
 @@ -12,6 +12,7 @@ AM_CPPFLAGS = \
  	-DGDMCONFDIR=\"$(gdmconfdir)\"			\
  	-DLIBDIR=\"$(libdir)\"				\
@@ -84,8 +87,8 @@ Index: gdm-3.4.1/daemon/Makefile.am
  	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 Index: gdm-3.4.1/gui/simple-chooser/Makefile.am
 ===================================================================
---- gdm-3.4.1.orig/gui/simple-chooser/Makefile.am	2011-09-04 20:44:17.000000000 +0200
-+++ gdm-3.4.1/gui/simple-chooser/Makefile.am	2012-06-09 16:17:50.334415186 +0200
+--- gdm-3.4.1.orig/gui/simple-chooser/Makefile.am	2012-06-20 20:53:13.515844704 +0200
++++ gdm-3.4.1/gui/simple-chooser/Makefile.am	2012-06-20 20:53:20.679879718 +0200
 @@ -12,6 +12,7 @@ AM_CPPFLAGS = \
  	-DSBINDIR=\""$(sbindir)"\"		 	\
  	-DPIXMAPDIR=\""$(pixmapdir)"\"		 	\
@@ -94,3 +97,27 @@ Index: gdm-3.4.1/gui/simple-chooser/Makefile.am
  	$(GTK_CFLAGS)					\
  	$(XLIB_CFLAGS)					\
  	$(XDMCP_CFLAGS)					\
+Index: gdm-3.4.1/data/Makefile.am
+===================================================================
+--- gdm-3.4.1.orig/data/Makefile.am	2012-06-20 20:53:13.515844704 +0200
++++ gdm-3.4.1/data/Makefile.am	2012-06-20 20:53:20.679879718 +0200
+@@ -79,7 +79,7 @@ gdm.schemas.in: $(srcdir)/gdm.schemas.in
+ 		<$(srcdir)/gdm.schemas.in.in >gdm.schemas.in
+ 
+ gdm-shell.session: $(srcdir)/gdm-shell.session.in
+-	sed	-e 's,[@]libexecdir[@],$(libexecdir),g' \
++	sed	-e 's,[@]SESSION_LIBEXECDIR[@],$(SESSION_LIBEXECDIR),g' \
+ 		< $(srcdir)/gdm-shell.session.in > gdm-shell.session
+ 
+ localealiasdir = $(datadir)/gdm
+Index: gdm-3.4.1/data/gdm-shell.session.in
+===================================================================
+--- gdm-3.4.1.orig/data/gdm-shell.session.in	2012-06-20 20:53:11.635835509 +0200
++++ gdm-3.4.1/data/gdm-shell.session.in	2012-06-20 20:53:44.015993807 +0200
+@@ -1,5 +1,5 @@
+ [GNOME Session]
+ Name=Display Manager
+ RequiredComponents=gnome-shell;gnome-settings-daemon;
+-IsRunnableHelper=bash -c 'gnome-shell --help | grep -q gdm-mode && @libexecdir@/gnome-session-check-accelerated'
++IsRunnableHelper=bash -c 'gnome-shell --help | grep -q gdm-mode && @SESSION_LIBEXECDIR@/gnome-session-check-accelerated'
+ FallbackSession=gdm-fallback

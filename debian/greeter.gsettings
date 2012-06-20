@@ -28,8 +28,8 @@ session-name='gdm-fallback'
 # Login manager options
 # =====================
 [org.gnome.login-screen]
-logo=debian-swirl
-fallback-logo=debian-swirl
+logo='/usr/share/icons/gnome/48x48/places/debian-swirl.png'
+fallback-logo='/usr/share/icons/gnome/48x48/places/debian-swirl.png'
 
 # - Disable user list
 # disable-user-list=true

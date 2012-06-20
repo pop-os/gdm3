@@ -76,13 +76,16 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
   [ Josselin Mouette ]
   * New upstream release.
   * Move login manager defaults from gconf to gsettings.
+    + Now we use full path for the icon.
   * Add the metacity default to gsettings too.
   * Require a metacity version which supports gsettings.
   * Get rid of anything related to GConf.
   * Use dh maintscript support to remove the old GConf config file.
   * Force disable systemd support.
   * 06_first_vt.patch, 17_switch_on_finish.patch: refreshed.
-  * 07_libexec-paths.patch: use the binary path as provided by g-s-d.pc.
+  * 07_libexec-paths.patch:
+    + Use the binary path as provided by g-s-d.pc.
+    + Add a check for gnome-session, which is also used.
   * 10_gdm3_pam.patch: handle the bucket of FAIL that is hardcoding the 
     service name in various places since split authentication was 
     introduced.
@@ -90,6 +93,22 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
     19_static_transient_display.patch, 20_switch_kill_greeter.patch,
     21_static_display_purge.patch: adapt to systemd/multiseat changes.
   * Require dconf 0.12.1-2.
+  * gdm3.post{inst,rm}: add a gdm-welcome PAM service, which is now 
+    needed for the login session. It's just a symlink.
+  * 91_shell_version_control.patch: new patch, Debian-specific. Add 
+    strict version checking for gnome-shell in order to go to the fall 
+    back session in case of potential incompatibility.
+  * 93_private_lib.patch: also install the typelib file in the private 
+    directory, and drop the gir file.
+  * gdm3.dirs: /usr/lib/gnome-shell
+  * rules:
+    + Remove pre-built gdm.schemas which includes incorrect settings.
+    + Enable introspection.
+    + Instruct dh_girepository to look at the typelib file in the right 
+      place.
+    + Add symbolic links for the library and typelib in the gnome-shell 
+      directory so that it can use them.
+  * Add gir (build-)dependencies.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 

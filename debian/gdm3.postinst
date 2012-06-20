@@ -61,6 +61,10 @@ fi
 
 chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
+if [ ! -f /etc/pam.d/gdm-welcome ]; then
+    ln -s gdm3-autologin /etc/pam.d/gdm-welcome
+fi
+
 #DEBHELPER#
 
 if [ -f /var/run/gdm.pid ]; then

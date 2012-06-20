@@ -13,5 +13,6 @@
 21_static_display_purge.patch
 22_noconsole.patch
 90_config_comments.patch
+91_shell_version_control.patch
 92_gsettings_path.patch
 93_private_lib.patch

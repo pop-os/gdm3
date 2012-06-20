@@ -29,7 +29,6 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
-		--disable-introspection \
 		--without-systemd \
 		--disable-split-authentication
 
@@ -48,6 +47,8 @@ endif
 
 DEB_DH_INSTALLINIT_ARGS := --noscripts
 DEB_DH_MAKESHLIBS_ARGS_gdm3 := --no-act
+
+DEB_DH_GIREPOSITORY_ARGS_gdm3 := -l$(CURDIR)/gui/libgdmgreeter /usr/lib/gdm/
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm-binary debian/gdm3/usr/sbin/gdm3
@@ -68,7 +69,9 @@ binary-install/gdm3::
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 	cd debian/gdm3/usr/lib/gdm && \
-		rm -f lib*.a lib*.la lib*.so
+		rm -f lib*.a lib*.la lib*.so *.gir
+	cd debian/gdm3/usr/lib/gnome-shell && \
+		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdmgreeter*.so.? .
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
@@ -85,6 +88,7 @@ common-build-arch:: $(MANPAGES)
 clean::
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
+	rm -f data/gdm.schemas data/gdm.schemas.in
 
 %: %.pod
 	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
