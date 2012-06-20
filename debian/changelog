@@ -75,6 +75,9 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
 
   [ Josselin Mouette ]
   * New upstream release.
+    + Features the incredible capability to not try endlessly to start 
+      up X servers when they fail to start.
+      Closes: #580627, #610826, #650183.
   * Move login manager defaults from gconf to gsettings.
     + Now we use full path for the icon.
   * Add the metacity default to gsettings too.
