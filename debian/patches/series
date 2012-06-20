@@ -12,6 +12,7 @@
 20_switch_kill_greeter.patch
 21_static_display_purge.patch
 22_noconsole.patch
+23_start_polkit.patch
 90_config_comments.patch
 91_shell_version_control.patch
 92_gsettings_path.patch

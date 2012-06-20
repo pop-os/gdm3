@@ -112,6 +112,9 @@ gdm3 (3.4.1-1) UNRELEASED; urgency=low
     + Add symbolic links for the library and typelib in the gnome-shell 
       directory so that it can use them.
   * Add gir (build-)dependencies.
+  * 23_start_polkit.patch: new patch. Start the policykit agent in the 
+    fallback session. Otherwise reboot/shutdown does nothing when 
+    someone is logged on.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 11:36:02 +0100
 
