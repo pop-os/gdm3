@@ -27,9 +27,9 @@ Updated for gdm 3.2.
 
 Index: gdm-3.4.1/configure.ac
 ===================================================================
---- gdm-3.4.1.orig/configure.ac	2012-06-09 16:50:38.000000000 +0200
-+++ gdm-3.4.1/configure.ac	2012-06-09 17:21:38.957132366 +0200
-@@ -295,6 +295,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+--- gdm-3.4.1.orig/configure.ac	2012-06-20 22:51:49.238631694 +0200
++++ gdm-3.4.1/configure.ac	2012-06-20 23:53:51.276827820 +0200
+@@ -298,6 +298,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
  AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
  AC_SUBST(AT_SPI_REGISTRYD_DIR)
  
@@ -41,7 +41,7 @@ Index: gdm-3.4.1/configure.ac
  # Allow configuration of default PATH
  #
  withval=""
-@@ -989,6 +994,14 @@ AC_SUBST(SYSTEMD_X_SERVER)
+@@ -992,6 +997,14 @@ AC_SUBST(SYSTEMD_X_SERVER)
  AC_DEFINE_UNQUOTED(SYSTEMD_X_SERVER,"$SYSTEMD_X_SERVER",[Path to systemd X server wrapper])
  
  dnl ---------------------------------------------------------------------------
@@ -58,8 +58,8 @@ Index: gdm-3.4.1/configure.ac
  
 Index: gdm-3.4.1/daemon/gdm-server.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-09 15:54:36.000000000 +0200
-+++ gdm-3.4.1/daemon/gdm-server.c	2012-06-09 17:30:34.399750009 +0200
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-20 22:51:49.094631001 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-20 22:54:34.247438386 +0200
 @@ -61,6 +61,12 @@
  
  extern char **environ;
@@ -91,8 +91,8 @@ Index: gdm-3.4.1/daemon/gdm-server.c
  static gboolean
 Index: gdm-3.4.1/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-simple-slave.c	2012-06-09 16:44:24.000000000 +0200
-+++ gdm-3.4.1/daemon/gdm-simple-slave.c	2012-06-09 17:21:38.961132394 +0200
+--- gdm-3.4.1.orig/daemon/gdm-simple-slave.c	2012-06-20 22:51:49.198631511 +0200
++++ gdm-3.4.1/daemon/gdm-simple-slave.c	2012-06-21 00:02:19.755313645 +0200
 @@ -487,15 +487,21 @@ start_session_timeout (GdmSimpleSlave *s
          if (migrated) {
                  destroy_session (slave);
@@ -114,7 +114,7 @@ Index: gdm-3.4.1/daemon/gdm-simple-slave.c
                  g_free (slave->priv->start_session_service_name);
                  slave->priv->start_session_service_name = NULL;
 +#else
-+                gdm_slave_stopped (GDM_SLAVE (slave));
++                stop_greeter (slave);
 +#endif
          } else {
                  if (slave->priv->greeter == NULL) {
