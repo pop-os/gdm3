@@ -22,8 +22,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=618047
 
 Index: gdm-3.4.1/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-local-display-factory.c	2012-06-09 17:17:04.007788210 +0200
-+++ gdm-3.4.1/daemon/gdm-local-display-factory.c	2012-06-09 17:20:47.564881097 +0200
+--- gdm-3.4.1.orig/daemon/gdm-local-display-factory.c	2012-06-20 22:51:49.306632030 +0200
++++ gdm-3.4.1/daemon/gdm-local-display-factory.c	2012-06-20 22:54:29.055419525 +0200
 @@ -224,21 +224,8 @@ gdm_local_display_factory_create_transie
  
          ret = FALSE;
@@ -116,7 +116,26 @@ Index: gdm-3.4.1/daemon/gdm-local-display-factory.c
                  }
                  break;
          case GDM_DISPLAY_UNMANAGED:
-@@ -400,6 +403,8 @@ create_display (GdmLocalDisplayFactory *
+@@ -387,11 +390,13 @@ create_display (GdmLocalDisplayFactory *
+         GdmDisplay      *display;
+         guint32          num;
+ 
+-        /* Ensure we don't create the same display more than once */
+-        store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
+-        display = gdm_display_store_find (store, lookup_by_seat_id, (gpointer) seat_id);
+-        if (display != NULL) {
+-                return NULL;
++        if (type == GDM_TYPE_STATIC_DISPLAY) {
++                /* Ensure we don't create the same display more than once */
++                store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
++                display = gdm_display_store_find (store, lookup_by_seat_id, (gpointer) seat_id);
++                if (display != NULL) {
++                        return NULL;
++                }
+         }
+ 
+         g_debug ("GdmLocalDisplayFactory: Adding display on seat %s", seat_id);
+@@ -400,6 +405,8 @@ create_display (GdmLocalDisplayFactory *
  
  	if (type == GDM_TYPE_STATIC_DISPLAY) {
  		display = gdm_static_display_new (num);
