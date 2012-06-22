@@ -7,7 +7,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Josselin Mouette <joss@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 8.1.0),
                cdbs,
@@ -71,7 +71,7 @@ Depends: ${shlibs:Depends},
          accountsservice (>= 0.6.12),
          gsettings-desktop-schemas,
          libglib2.0-bin (>= 2.26),
-         dconf-tools (>= 0.12.1-1),
+         dconf-tools (>= 0.12.1-2),
          dconf-gsettings-backend (>= 0.12.1-2),
          x11-common (>= 1:7.6+11),
          x11-xserver-utils
