@@ -1,6 +1,8 @@
 gdm3 (3.4.1-2) UNRELEASED; urgency=low
 
   * Fix typo in dconf-tools dependency version.
+  * Use --no-create-home and --quiet for addgroup/adduser calls.
+    Closes: #675809.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 22 Jun 2012 20:03:48 +0200
 
