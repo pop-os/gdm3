@@ -1,0 +1,68 @@
+Index: gdm-3.4.1/common/gdm-settings-keys.h
+===================================================================
+--- gdm-3.4.1.orig/common/gdm-settings-keys.h	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/common/gdm-settings-keys.h	2012-06-24 12:17:06.893470649 +0200
+@@ -34,6 +34,7 @@ G_BEGIN_DECLS
+ #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
+ 
+ #define GDM_KEY_DEBUG "debug/Enable"
++#define GDM_KEY_XSERVER_CORE "debug/XserverDumpCore"
+ 
+ #define GDM_KEY_INCLUDE "greeter/Include"
+ #define GDM_KEY_EXCLUDE "greeter/Exclude"
+Index: gdm-3.4.1/daemon/gdm-server.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-24 12:17:06.893470649 +0200
+@@ -274,6 +274,7 @@ gdm_server_init_command (GdmServer *serv
+ {
+         gboolean debug = FALSE;
+         const char *logverbose;
++        const char *dumpcore;
+ 
+         if (server->priv->command != NULL) {
+                 return;
+@@ -284,6 +285,11 @@ gdm_server_init_command (GdmServer *serv
+                 logverbose = " -logverbose 7";
+         else
+                 logverbose = "";
++        gdm_settings_direct_get_boolean (GDM_KEY_XSERVER_CORE, &debug);
++        if (debug)
++                dumpcore = " -core";
++        else
++                dumpcore = "";
+ 
+ #ifdef WITH_SYSTEMD
+ 
+@@ -314,13 +320,13 @@ gdm_server_init_command (GdmServer *serv
+                 goto fallback;
+         }
+ 
+-        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s", logverbose);
++        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s%s", logverbose, dumpcore);
+         return;
+ 
+ fallback:
+ #endif
+ 
+-        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s", logverbose);
++        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s%s", logverbose, dumpcore);
+ }
+ 
+ static gboolean
+Index: gdm-3.4.1/data/gdm.schemas.in.in
+===================================================================
+--- gdm-3.4.1.orig/data/gdm.schemas.in.in	2012-04-14 20:52:00.000000000 +0200
++++ gdm-3.4.1/data/gdm.schemas.in.in	2012-06-24 12:17:06.893470649 +0200
+@@ -53,6 +53,11 @@
+       <signature>b</signature>
+       <default>false</default>
+     </schema>
++    <schema>
++      <key>debug/XserverDumpCore</key>
++      <signature>b</signature>
++      <default>false</default>
++    </schema>
+ 
+     <schema>
+       <key>security/DisallowTCP</key>

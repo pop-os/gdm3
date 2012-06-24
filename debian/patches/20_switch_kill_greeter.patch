@@ -27,8 +27,8 @@ Updated for gdm 3.2.
 
 Index: gdm-3.4.1/configure.ac
 ===================================================================
---- gdm-3.4.1.orig/configure.ac	2012-06-20 22:51:49.238631694 +0200
-+++ gdm-3.4.1/configure.ac	2012-06-20 23:53:51.276827820 +0200
+--- gdm-3.4.1.orig/configure.ac	2012-06-24 12:19:55.000000000 +0200
++++ gdm-3.4.1/configure.ac	2012-06-24 12:20:21.822423624 +0200
 @@ -298,6 +298,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
  AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
  AC_SUBST(AT_SPI_REGISTRYD_DIR)
@@ -58,9 +58,9 @@ Index: gdm-3.4.1/configure.ac
  
 Index: gdm-3.4.1/daemon/gdm-server.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-20 22:51:49.094631001 +0200
-+++ gdm-3.4.1/daemon/gdm-server.c	2012-06-20 22:54:34.247438386 +0200
-@@ -61,6 +61,12 @@
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-24 12:19:55.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-24 12:22:25.023025885 +0200
+@@ -58,6 +58,12 @@
  
  extern char **environ;
  
@@ -73,26 +73,26 @@ Index: gdm-3.4.1/daemon/gdm-server.c
  #define GDM_SERVER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SERVER, GdmServerPrivate))
  
  /* These are the servstat values, also used as server
-@@ -317,13 +323,13 @@ gdm_server_init_command (GdmServer *serv
+@@ -320,13 +326,13 @@ gdm_server_init_command (GdmServer *serv
                  goto fallback;
          }
  
--        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s", logverbose);
-+        server->priv->command = g_strconcat (SYSTEMD_X_SERVER, X_SERVER_OPTIONS, logverbose, NULL);
+-        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s%s", logverbose, dumpcore);
++        server->priv->command = g_strconcat (SYSTEMD_X_SERVER, X_SERVER_OPTIONS, logverbose, dumpcore, NULL);
          return;
  
  fallback:
  #endif
  
--        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s", logverbose);
-+        server->priv->command = g_strconcat (X_SERVER, X_SERVER_OPTIONS, logverbose, NULL);
+-        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s%s", logverbose, dumpcore);
++        server->priv->command = g_strconcat (X_SERVER, X_SERVER_OPTIONS, logverbose, dumpcore, NULL);
  }
  
  static gboolean
 Index: gdm-3.4.1/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-simple-slave.c	2012-06-20 22:51:49.198631511 +0200
-+++ gdm-3.4.1/daemon/gdm-simple-slave.c	2012-06-21 00:02:19.755313645 +0200
+--- gdm-3.4.1.orig/daemon/gdm-simple-slave.c	2012-06-24 12:19:55.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-simple-slave.c	2012-06-24 12:20:21.826423627 +0200
 @@ -487,15 +487,21 @@ start_session_timeout (GdmSimpleSlave *s
          if (migrated) {
                  destroy_session (slave);

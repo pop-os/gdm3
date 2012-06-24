@@ -1,15 +1,39 @@
-Index: gdm-3.0.0/data/gdm.conf-custom.in
+Index: gdm-3.4.1/data/gdm.conf-custom.in
 ===================================================================
---- gdm-3.0.0.orig/data/gdm.conf-custom.in	2011-04-28 21:22:22.330925966 +0200
-+++ gdm-3.0.0/data/gdm.conf-custom.in	2011-04-28 21:22:44.299033369 +0200
-@@ -1,6 +1,10 @@
+--- gdm-3.4.1.orig/data/gdm.conf-custom.in	2011-09-04 20:44:17.000000000 +0200
++++ gdm-3.4.1/data/gdm.conf-custom.in	2012-06-24 12:29:21.425061588 +0200
+@@ -1,14 +1,34 @@
  # GDM configuration storage
 +#
 +# See /usr/share/gdm/gdm.schemas for a list of available options.
  
  [daemon]
-+# AutomaticLoginEnable = false
-+# AutomaticLogin = 
++# Enabling automatic login
++#  AutomaticLoginEnable = true
++#  AutomaticLogin = user1
++
++# Enabling timed login
++#  TimedLoginEnable = true
++#  TimedLogin = user1
++#  TimedLoginDelay = 10
++
++# Reserving more VTs for test consoles (default is 7)
++#  FirstVT = 9
  
  [security]
  
+ [xdmcp]
+ 
+ [greeter]
++# Only include selected logins in the greeter
++# IncludeAll = false
++# Include = user1,user2
+ 
+ [chooser]
+ 
+ [debug]
++# More verbose logs
++#  Enable = true
+ 
++# Let the X server dump core if it crashes
++#  XserverDumpCore = true
