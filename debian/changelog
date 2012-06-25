@@ -1,6 +1,6 @@
 gdm3 (3.4.1-2) UNRELEASED; urgency=low
 
-  * Fix typo in dconf-tools dependency version.
+  * Fix typo in dconf-tools dependency version. Closes: #678961.
   * Use --no-create-home and --quiet for addgroup/adduser calls.
     Closes: #675809.
   * 05_debug_xserver_core.patch: new patch. Add an option to get the X 
