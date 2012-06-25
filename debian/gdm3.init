@@ -93,7 +93,7 @@ case "$1" in
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
         set +e
         gen_config
-        start-stop-daemon --stop --signal USR1 --quiet --pidfile \
+        start-stop-daemon --stop --signal HUP --quiet --pidfile \
                 /var/run/gdm3.pid --name gdm3
         start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
                 --user Debian-gdm --oknodo

@@ -9,6 +9,9 @@ gdm3 (3.4.1-2) unstable; urgency=low
   * 90_config_comments.patch: more comments with useful options.
   * Add references to patches.
   * 02_xnest_wrapper.patch: disabled.
+  * 04_reload_config.patch: patch from upstream git. Get SIGHUP to 
+    actually reload the configuration.
+  * gdm3.init: send SIGHUP to get reload to work.
 
  -- Josselin Mouette <joss@debian.org>  Mon, 25 Jun 2012 20:18:38 +0200
 
