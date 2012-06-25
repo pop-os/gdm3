@@ -2,8 +2,8 @@ It's almost the same tty manager of gdm 2.20, except we don't support Sun VTs,
 only Linux and FreeBSD.
 Index: gdm-3.4.1/common/gdm-settings-keys.h
 ===================================================================
---- gdm-3.4.1.orig/common/gdm-settings-keys.h	2012-06-24 12:07:19.474598830 +0200
-+++ gdm-3.4.1/common/gdm-settings-keys.h	2012-06-24 12:14:55.712829345 +0200
+--- gdm-3.4.1.orig/common/gdm-settings-keys.h	2012-06-25 20:10:49.108971142 +0200
++++ gdm-3.4.1/common/gdm-settings-keys.h	2012-06-25 20:13:02.993625666 +0200
 @@ -32,6 +32,7 @@ G_BEGIN_DECLS
  #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
  #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
@@ -11,12 +11,12 @@ Index: gdm-3.4.1/common/gdm-settings-keys.h
 +#define GDM_KEY_FIRST_VT "daemon/FirstVT"
  
  #define GDM_KEY_DEBUG "debug/Enable"
- #define GDM_KEY_XSERVER_CORE "debug/XserverDumpCore"
+ 
 Index: gdm-3.4.1/daemon/gdm-server.c
 ===================================================================
---- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-24 12:13:58.432549303 +0200
-+++ gdm-3.4.1/daemon/gdm-server.c	2012-06-24 12:15:25.840976650 +0200
-@@ -757,6 +757,213 @@ gdm_server_spawn (GdmServer  *server,
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-25 20:12:59.685609512 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-25 20:13:02.993625666 +0200
+@@ -752,6 +752,213 @@ gdm_server_spawn (GdmServer  *server,
          return ret;
  }
  
@@ -230,7 +230,7 @@ Index: gdm-3.4.1/daemon/gdm-server.c
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -768,10 +975,14 @@ gboolean
+@@ -763,10 +970,14 @@ gboolean
  gdm_server_start (GdmServer *server)
  {
          gboolean res;
@@ -248,8 +248,8 @@ Index: gdm-3.4.1/daemon/gdm-server.c
  
 Index: gdm-3.4.1/data/gdm.schemas.in.in
 ===================================================================
---- gdm-3.4.1.orig/data/gdm.schemas.in.in	2012-06-24 12:05:24.770038144 +0200
-+++ gdm-3.4.1/data/gdm.schemas.in.in	2012-06-24 12:14:55.712829345 +0200
+--- gdm-3.4.1.orig/data/gdm.schemas.in.in	2012-06-25 20:10:49.108971142 +0200
++++ gdm-3.4.1/data/gdm.schemas.in.in	2012-06-25 20:13:02.997625695 +0200
 @@ -47,6 +47,11 @@
        <signature>i</signature>
        <default>30</default>

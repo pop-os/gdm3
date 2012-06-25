@@ -3,11 +3,12 @@ gdm3 (3.4.1-2) UNRELEASED; urgency=low
   * Fix typo in dconf-tools dependency version. Closes: #678961.
   * Use --no-create-home and --quiet for addgroup/adduser calls.
     Closes: #675809.
-  * 05_debug_xserver_core.patch: new patch. Add an option to get the X 
-    server to dump core. Closes: #651693.
+  * 05_debug_xserver_core.patch: patch from upstream git. Make the X 
+    server dump core when debugging is enabled. Closes: #651693.
   * 06_first_vt.patch, 20_switch_kill_greeter.patch: refreshed.
   * 90_config_comments.patch: more comments with useful options.
   * Add references to patches.
+  * 02_xnest_wrapper.patch: disabled.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 22 Jun 2012 20:03:48 +0200
 
