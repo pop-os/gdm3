@@ -1,4 +1,4 @@
-gdm3 (3.4.1-2) UNRELEASED; urgency=low
+gdm3 (3.4.1-2) unstable; urgency=low
 
   * Fix typo in dconf-tools dependency version. Closes: #678961.
   * Use --no-create-home and --quiet for addgroup/adduser calls.
@@ -10,7 +10,7 @@ gdm3 (3.4.1-2) UNRELEASED; urgency=low
   * Add references to patches.
   * 02_xnest_wrapper.patch: disabled.
 
- -- Josselin Mouette <joss@debian.org>  Fri, 22 Jun 2012 20:03:48 +0200
+ -- Josselin Mouette <joss@debian.org>  Mon, 25 Jun 2012 20:18:38 +0200
 
 gdm3 (3.4.1-1) unstable; urgency=low
 
