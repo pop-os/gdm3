@@ -78,7 +78,6 @@ Recommends: zenity,
             gnome-icon-theme,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
-          gnome-mag,
           gnome-orca,
           gok,
           gnome-shell
