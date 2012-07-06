@@ -1,12 +1,11 @@
 Description: Don't autologin if using ecryptfs - if you do then the home directory is empty as you need the password entered via PAM to decrypt it.  This is not a perfect solution as the home directory may not be mounted yet.
 Author: Robert Ancell <robert.ancell@canonical.com>
 Bug: http://launchpad.net/bugs/284443
-
-Index: gdm-3.0.0/daemon/gdm-simple-slave.c
+Index: gdm-3.0.4/daemon/gdm-simple-slave.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/gdm-simple-slave.c	2011-06-07 12:25:54.047631144 +0200
-+++ gdm-3.0.0/daemon/gdm-simple-slave.c	2011-06-07 12:26:15.497631154 +0200
-@@ -629,6 +629,38 @@
+--- gdm-3.0.4.orig/daemon/gdm-simple-slave.c	2012-07-06 12:07:26.021078442 +0200
++++ gdm-3.0.4/daemon/gdm-simple-slave.c	2012-07-06 12:07:26.093078445 +0200
+@@ -629,6 +629,41 @@
          slave->priv->username = g_strdup (username);
  }
  
@@ -17,6 +16,9 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
 +        struct stat statbuf;
 +        struct passwd *info;
 +        int r;
++
++        if (username == NULL) 
++                return FALSE;
 +
 +        info = getpwnam (username);
 +        if (!info)
@@ -45,7 +47,7 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
  static void
  on_session_conversation_started (GdmSession     *session,
                                   GdmSimpleSlave *slave)
-@@ -661,7 +693,8 @@
+@@ -661,7 +696,8 @@
  
          enabled = FALSE;
          gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, &username, &delay);
@@ -55,7 +57,7 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
                  return;
          }
  
-@@ -1385,6 +1418,8 @@
+@@ -1388,6 +1424,8 @@
          if (res) {
                  gboolean enabled;
                  int      delay;
@@ -64,7 +66,7 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
  
                  /* FIXME: handle wait-for-go */
  
-@@ -1393,7 +1428,8 @@
+@@ -1396,7 +1434,8 @@
                  delay = 0;
                  enabled = FALSE;
                  gdm_slave_get_timed_login_details (GDM_SLAVE (slave), &enabled, NULL, &delay);
@@ -74,7 +76,7 @@ Index: gdm-3.0.0/daemon/gdm-simple-slave.c
                          start_greeter (slave);
                          create_new_session (slave);
                  } else {
-@@ -1401,6 +1437,7 @@
+@@ -1404,6 +1443,7 @@
                          gdm_slave_run_script (GDM_SLAVE (slave), GDMCONFDIR "/Init", GDM_USERNAME);
                          reset_session (slave);
                  }
