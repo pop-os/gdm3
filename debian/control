@@ -79,7 +79,7 @@ Recommends: zenity,
             xserver-xephyr,
             x11-xkb-utils,
             xserver-xorg,
-            at-spi,
+            at-spi2-core,
             gnome-icon-theme,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
