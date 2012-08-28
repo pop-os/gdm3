@@ -1,4 +1,4 @@
-gdm (3.5.90+git20120827.b558e179-0ubuntu1) UNRELEASED; urgency=low
+gdm (3.5.90+git20120827.b558e179-0ubuntu1) quantal; urgency=low
 
   [ Fabien Tassin ]
   * New upstream release (LP: #1042495)
@@ -78,7 +78,7 @@ gdm (3.5.90+git20120827.b558e179-0ubuntu1) UNRELEASED; urgency=low
   [ Jeremy Bicha ]
   * debian/control.in: Update dependencies from Debian
 
- -- Fabien Tassin <fta@sofaraway.org>  Tue, 07 Aug 2012 08:01:45 +0200
+ -- Fabien Tassin <fta@sofaraway.org>  Tue, 28 Aug 2012 12:26:39 -0400
 
 gdm3 (3.4.1-2) unstable; urgency=low
 
