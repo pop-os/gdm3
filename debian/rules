@@ -1,16 +1,14 @@
 #!/usr/bin/make -f
 
+include /usr/share/cdbs/1/rules/autoreconf.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
 include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
+include /usr/share/gnome-pkg-tools/1/rules/patch-translations.mk
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
-DEB_AUTO_UPDATE_LIBTOOL=pre
-DEB_AUTO_UPDATE_ACLOCAL=1.11
-DEB_AUTO_UPDATE_AUTOCONF=1
-DEB_AUTO_UPDATE_AUTOHEADER=1
-DEB_AUTO_UPDATE_AUTOMAKE=1.11
+GNOME_MODULE := gdm
 
 DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
 			    X_SERVER_PATH="/usr/bin" \
@@ -19,30 +17,73 @@ DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
 DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
-		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
+		--with-check-accelerated-directory=/usr/lib/gnome-session \
+		--with-consolekit-directory=/usr/lib/ConsoleKit \
+		--with-default-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games \
+		--with-sysconfsubdir=gdm \
+		--with-working-directory=/var/lib/gdm \
+		--with-xauth-dir=/run/gdm \
+		--with-pid-file=/run/gdm.pid \
+		--with-log-dir=/var/log/gdm \
+		--with-screenshot-dir=/run/gdm/greeter \
+		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-lang-file=/etc/default/locale \
-		--with-incomplete-locales
+		--with-incomplete-locales \
+		--without-systemd \
+		--without-systemdsystemunitdir \
+		--with-initial-vt=7 \
+		--disable-split-authentication
 
-DEB_DH_INSTALLINIT_ARGS = --no-start
-
-ifeq (linux,$(DEB_HOST_ARCH_OS))
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-selinux
-else
-	DEB_CONFIGURE_EXTRA_FLAGS += --without-selinux
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
 endif
 
-binary-post-install/gdm::
-	install -m644 debian/gdm-autologin.pam debian/gdm/etc/pam.d/gdm-autologin
-	install -m644 debian/gdm.pam debian/gdm/etc/pam.d/gdm
-	install -D -m644 debian/xterm.desktop debian/gdm/usr/share/xsessions/xterm.desktop
-	install -D -m644 debian/xsession.desktop debian/gdm/usr/share/xsessions/xsession.desktop
-	rm -r debian/gdm/var/gdm debian/gdm/var/run
-	# move custom.conf to the examples
-	mkdir -p debian/gdm/usr/share/doc/gdm/examples
-	mv debian/gdm/etc/gdm/custom.conf debian/gdm/usr/share/doc/gdm/examples
-	# we install onboard (debian/onboard.desktop), and do not have gok
-	install -m 644 debian/onboard.desktop debian/gdm/usr/share/gdm/autostart/LoginWindow/
-	rm debian/gdm/usr/share/gdm/autostart/LoginWindow/gok.desktop
-	# we do not currently need a PK agent in the gdm session
-	rm debian/gdm/usr/share/gdm/autostart/LoginWindow/polkit-gnome-authentication-agent-1.desktop
+DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm
 
+DEB_DH_INSTALLINIT_ARGS := --noscripts
+DEB_DH_MAKESHLIBS_ARGS_gdm := --no-act
+
+DEB_DH_GIREPOSITORY_ARGS_gdm := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
+
+binary-install/gdm::
+	mv debian/gdm/usr/sbin/gdm-binary debian/gdm/usr/sbin/gdm
+	dh_installpam -pgdm --name=gdm-autologin
+	rm -rf debian/gdm/run
+	rm -rf debian/gdm/usr/include
+	rm -rf debian/gdm/usr/lib/pkgconfig
+	# rm -vf debian/gdm/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
+	install -m 644 debian/xterm.desktop debian/gdm/usr/share/gdm/greeter/applications/xterm.desktop
+	install -m 644 debian/xsession.desktop debian/gdm/usr/share/gdm/greeter/applications/xsession.desktop
+	# we install onboard (debian/onboard.desktop), and do not have gok
+	install -m 644 debian/onboard.desktop debian/gdm/usr/share/gdm/greeter/applications/
+	rm -vf debian/gdm/usr/share/gdm/greeter/applications/gok.desktop
+	# we do not currently need a PK agent in the gdm session
+	rm debian/gdm/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
+	cd debian/gdm/usr/lib/gdm && \
+		rm -f lib*.a lib*.la lib*.so *.gir
+	cd debian/gdm/usr/lib/gnome-shell && \
+		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdm*.so.? .
+
+INFILES := $(wildcard debian/*.desktop.in)
+OUTFILES := $(INFILES:.desktop.in=.desktop)
+
+%.desktop: %.desktop.in
+	intltool-merge -d debian/po-up $< $@
+
+build/gdm:: $(OUTFILES)
+
+MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
+
+common-build-arch:: $(MANPAGES)
+
+clean::
+	rm -f $(MANPAGES)
+	rm -f $(OUTFILES) config.guess
+	rm -f data/gdm.schemas data/gdm.schemas.in
+
+%: %.pod
+	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
+		--release="GNOME $(DEB_GNOME_VERSION)" \
+		--center="Debian GNU/Linux" \
+		$< \
+		| sed -e 's/debian:://' >$@

@@ -1,36 +1,10 @@
 Description: Don't catch crashes so apport can do its job
 
-Index: gdm-3.0.0/daemon/factory-slave-main.c
+Index: gdm-3.5.4.2+git20120803.00576a2d/daemon/session-worker-main.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/factory-slave-main.c	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/daemon/factory-slave-main.c	2011-05-30 17:35:36.735075632 +0200
-@@ -231,7 +231,7 @@
-         gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
--        gdm_signal_handler_add (signal_handler, SIGSEGV, signal_cb, NULL);
-+        /*gdm_signal_handler_add (signal_handler, SIGSEGV, signal_cb, NULL);*/
-         gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-3.0.0/daemon/product-slave-main.c
-===================================================================
---- gdm-3.0.0.orig/daemon/product-slave-main.c	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/daemon/product-slave-main.c	2011-05-30 17:35:36.735075632 +0200
-@@ -235,7 +235,7 @@
-         gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
--        gdm_signal_handler_add (signal_handler, SIGSEGV, signal_cb, NULL);
-+        /*gdm_signal_handler_add (signal_handler, SIGSEGV, signal_cb, NULL);*/
-         gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
-         gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-3.0.0/daemon/session-worker-main.c
-===================================================================
---- gdm-3.0.0.orig/daemon/session-worker-main.c	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/daemon/session-worker-main.c	2011-05-30 17:35:36.735075632 +0200
-@@ -196,7 +196,7 @@
+--- gdm-3.5.4.2+git20120803.00576a2d.orig/daemon/session-worker-main.c	2012-08-05 18:42:12.000000000 +0200
++++ gdm-3.5.4.2+git20120803.00576a2d/daemon/session-worker-main.c	2012-08-06 19:00:36.000000000 +0200
+@@ -189,7 +189,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -39,11 +13,11 @@ Index: gdm-3.0.0/daemon/session-worker-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
  
-Index: gdm-3.0.0/daemon/simple-slave-main.c
+Index: gdm-3.5.4.2+git20120803.00576a2d/daemon/simple-slave-main.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/simple-slave-main.c	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/daemon/simple-slave-main.c	2011-05-30 17:35:36.735075632 +0200
-@@ -243,7 +243,7 @@
+--- gdm-3.5.4.2+git20120803.00576a2d.orig/daemon/simple-slave-main.c	2012-08-05 18:42:12.000000000 +0200
++++ gdm-3.5.4.2+git20120803.00576a2d/daemon/simple-slave-main.c	2012-08-06 19:00:36.000000000 +0200
+@@ -236,7 +236,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -52,11 +26,11 @@ Index: gdm-3.0.0/daemon/simple-slave-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
-Index: gdm-3.0.0/daemon/xdmcp-chooser-slave-main.c
+Index: gdm-3.5.4.2+git20120803.00576a2d/daemon/xdmcp-chooser-slave-main.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/xdmcp-chooser-slave-main.c	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/daemon/xdmcp-chooser-slave-main.c	2011-05-30 17:35:36.735075632 +0200
-@@ -237,7 +237,7 @@
+--- gdm-3.5.4.2+git20120803.00576a2d.orig/daemon/xdmcp-chooser-slave-main.c	2012-08-05 18:42:12.000000000 +0200
++++ gdm-3.5.4.2+git20120803.00576a2d/daemon/xdmcp-chooser-slave-main.c	2012-08-06 19:00:36.000000000 +0200
+@@ -229,7 +229,7 @@
          gdm_signal_handler_add (signal_handler, SIGBUS, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGFPE, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGHUP, signal_cb, NULL);
@@ -65,3 +39,16 @@ Index: gdm-3.0.0/daemon/xdmcp-chooser-slave-main.c
          gdm_signal_handler_add (signal_handler, SIGABRT, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR1, signal_cb, NULL);
          gdm_signal_handler_add (signal_handler, SIGUSR2, signal_cb, NULL);
+Index: gdm-3.5.4.2+git20120803.00576a2d/common/gdm-signal-handler.c
+===================================================================
+--- gdm-3.5.4.2+git20120803.00576a2d.orig/common/gdm-signal-handler.c	2012-08-05 18:42:12.000000000 +0200
++++ gdm-3.5.4.2+git20120803.00576a2d/common/gdm-signal-handler.c	2012-08-06 19:02:19.000000000 +0200
+@@ -346,7 +346,7 @@
+ 
+         gdm_signal_handler_add (handler, SIGILL, NULL, NULL);
+         gdm_signal_handler_add (handler, SIGBUS, NULL, NULL);
+-        gdm_signal_handler_add (handler, SIGSEGV, NULL, NULL);
++        /*gdm_signal_handler_add (handler, SIGSEGV, NULL, NULL);*/
+         gdm_signal_handler_add (handler, SIGABRT, NULL, NULL);
+         gdm_signal_handler_add (handler, SIGTRAP, NULL, NULL);
+ }

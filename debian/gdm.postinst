@@ -7,18 +7,19 @@ set -e
 THIS_PACKAGE=gdm
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
-# creating gdm group if he isn't already there
+# creating gdm group if it isn't already there
 if ! getent group gdm >/dev/null; then
-        addgroup --system gdm
+        addgroup --system --quiet gdm
 fi
 
-# creating gdm user if he isn't already there
+# creating gdm user if it isn't already there
 if ! getent passwd gdm >/dev/null; then
-        adduser --system --ingroup gdm --home /var/lib/gdm gdm
+        adduser --system --quiet \
+            --ingroup gdm \
+            --home /var/lib/gdm --no-create-home \
+            --shell /bin/false \
+            gdm
         usermod -c "Gnome Display Manager" gdm
-        usermod -d "/var/lib/gdm"          gdm
-        usermod -g "gdm"                   gdm
-        usermod -s "/bin/false"            gdm
 fi
 
 # Creating nopasswdlogin group if he isn't already there.
@@ -30,8 +31,7 @@ if ! getent group nopasswdlogin >/dev/null; then
 fi
 
 if [ -d /var/lib/gdm ]; then
-  chown gdm:gdm /var/lib/gdm
-  chown -R gdm:gdm /var/lib/gdm/.gconf*
+  chown -R gdm:gdm /var/lib/gdm
   chmod 0750 /var/lib/gdm
 fi
 
@@ -53,6 +53,32 @@ if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
 fi
 # debconf hangs if gdm gets started below without this
 db_stop || true
+
+# update-rc.d levels
+S=30
+K=01
+
+if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl "3.2"; then
+  # Remove 3.0 gsettings configuration - now we use dconf
+  rm -f /var/lib/gdm/gschemas.compiled
+fi
+
+if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl "3.4" \
+	&& [ -d /var/lib/gdm ]; then
+  # Remove anything GConf related
+  (
+    cd /var/lib/gdm
+    rm -rf .gconf .gconf.mandatory .gconf.path .gconfd
+  )
+fi
+
+rm -f /etc/pam.d/gdm-welcome  # old name
+if [ ! -f /etc/pam.d/gdm-launch-environment ]; then  # new name
+    ln -s gdm-autologin /etc/pam.d/gdm-launch-environment
+fi
+if [ ! -f /etc/pam.d/gdm-password ]; then  # new name
+    ln -s gdm /etc/pam.d/gdm-password
+fi
 
 PID=$(status "gdm" 2>/dev/null | awk '/[0-9]$/ { print $NF }')
 [ -z "$PID" ] || kill -HUP $PID

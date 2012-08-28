@@ -23,7 +23,10 @@ if [ "$1" = "remove" -o "$1" = "deconfigure" ]; then
       # are we removing the currently selected display manager?
       if [ "$THIS_PACKAGE" = "$RET" ]; then
         if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ]; then
-          rm "$DEFAULT_DISPLAY_MANAGER_FILE"
+          db_get "$RET"/daemon_name
+          if [ "$(cat $DEFAULT_DISPLAY_MANAGER_FILE)" = "$RET" ]; then
+            rm "$DEFAULT_DISPLAY_MANAGER_FILE"
+          fi
         fi
         # ask the user to choose a new default
         db_fset shared/default-x-display-manager seen false
@@ -34,6 +37,7 @@ if [ "$1" = "remove" -o "$1" = "deconfigure" ]; then
         if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
           db_get shared/default-x-display-manager
           echo "Please be sure to run \"dpkg-reconfigure $RET\"."
+          db_get "$RET"/daemon_name
           echo "$RET" > "$DEFAULT_DISPLAY_MANAGER_FILE"
         fi
       fi
@@ -50,7 +54,7 @@ if [ "$1" = "remove" ]; then
       fi
     done
     if [ -z $nostop ]; then
-      stop gdm || :
+      service gdm stop
     fi
   fi
 fi

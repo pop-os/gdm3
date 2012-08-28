@@ -1,5 +1,4 @@
 #! /bin/sh
-#
 ### BEGIN INIT INFO
 # Provides:          gdm
 # Should-Start:      console-screen acpid dbus hal network-manager
@@ -15,14 +14,10 @@
 #
 set -e
 
-# To start gdm even if it is not the default display manager, change
-# HEED_DEFAULT_DISPLAY_MANAGER to "false."
-HEED_DEFAULT_DISPLAY_MANAGER=true
-DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/gdm-binary
-PIDFILE=/var/run/gdm.pid
-UPGRADEFILE=/var/run/gdm.upgrade
+DAEMON=/usr/sbin/gdm
+PIDFILE=/run/gdm.pid
+UPGRADEFILE=/run/gdm.upgrade
 
 if [ -e $UPGRADEFILE -a "$1" != "restart" -a "$1" != "force-reload" ]; then
 	SSD_ARG="--startas $DAEMON"
@@ -48,71 +43,121 @@ fi
 
 . /lib/lsb/init-functions
 
+# To start gdm even if it is not the default display manager, change
+# HEED_DEFAULT_DISPLAY_MANAGER to "false."
+HEED_DEFAULT_DISPLAY_MANAGER=true
+DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
+
+gen_config() {
+  # GSettings configuration uses dconf update to generate a gdm profile
+  needed=no
+  if [ ! -f /etc/dconf/db/gdm ]; then
+      needed=yes
+  else
+      for f in \
+          /etc/dconf/db/gdm.d /etc/dconf/db/gdm.d/*-settings \
+          /etc/dconf/db/gdm.d/locks /etc/dconf/db/gdm.d/locks/*-locks \
+          /etc/gdm/greeter.gsettings; do
+          if [ "$f" -nt /etc/dconf/db/gdm ]; then
+              needed=yes
+              break
+          fi
+      done
+  fi
+  if [ "$needed" = yes ]; then
+      # The configuration file in /etc uses org.gnome.blah gsettings syntax.
+      # Convert it to org/gnome/blah dconf syntax, if needed (newer)
+      dist_settings=/etc/dconf/db/gdm.d/90-debian-settings
+      if [ ! -f $dist_settings ] || \
+	  [ /etc/gdm/greeter.gsettings -nt $dist_settings ] ; then
+	  awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
+              /etc/gdm/greeter.gsettings > $dist_settings
+      fi
+      echo "Updating dconf for gdm..."
+      dconf update
+    fi
+  fi
+}
+
 case "$1" in
   start)
+        CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
         if grep -wqs text /proc/cmdline; then
-		log_warning_msg "Not starting GNOME Display Manager (gdm); found 'text' in kernel commandline."
-  	elif [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" -a "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" -a "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2>/dev/null)" != "/usr/sbin/gdm" ]; then
-		log_warning_msg "Not starting GNOME Display Manager (gdm); it is not the default display manager."
-	else
-		if [ -z "$SPLASH_ORIG_CONSOLE" ]; then
-			log_begin_msg "Starting GNOME Display Manager..."
-		fi
-		# if usplash is running, make sure to stop it now, yes "start" kills it.
-		if [ "$SPLASH_ORIG_CONSOLE" ]; then
-			# usplash was already shut down earlier, so don't
-			# log success as it will look weird on the console.
-			log_end_msg=:
-	        elif pidof usplash > /dev/null; then
-			SPLASH_ORIG_CONSOLE="$(fgconsole)"
-			DO_NOT_SWITCH_VT=yes /etc/init.d/usplash start
-			# We've just shut down usplash, so don't log
-			# success as it will look weird on the console.
-			log_end_msg=:
-		else
-			log_end_msg=log_end_msg
-		fi
-		start-stop-daemon --start --quiet --background --oknodo --pidfile $PIDFILE --name gdm-binary $SSD_ARG -- $CONFIG_FILE >/dev/null 2>&1 || log_end_msg 1
-		$log_end_msg 0
+            log_warning_msg "Not starting GNOME Display Manager (gdm); found 'text' in kernel commandline."
+        elif [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ] && \
+           [ "$HEED_DEFAULT_DISPLAY_MANAGER" = "true" ] && \
+           [ "$CONFIGURED_DAEMON" != gdm ] ; then
+                log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
+        else
+			if [ -z "$SPLASH_ORIG_CONSOLE" ]; then
+				log_daemon_msg "Starting GNOME Display Manager" "gdm"
+			fi
+			# if usplash is running, make sure to stop it now, yes "start" kills it.
+			if [ "$SPLASH_ORIG_CONSOLE" ]; then
+				# usplash was already shut down earlier, so don't
+				# log success as it will look weird on the console.
+				log_end_msg=:
+	        	elif pidof usplash > /dev/null; then
+				SPLASH_ORIG_CONSOLE="$(fgconsole)"
+				DO_NOT_SWITCH_VT=yes /etc/init.d/usplash start
+				# We've just shut down usplash, so don't log
+				# success as it will look weird on the console.
+				log_end_msg=:
+			else
+				log_end_msg=log_end_msg
+			fi
+			gen_config
+			rm -f /var/lib/gdm/.ICEauthority
+			start-stop-daemon --start --quiet --pidfile $PIDFILE \
+				--background --exec $DAEMON || log_end_msg 1
+			log_end_msg 0
 
-		if [ "$SPLASH_ORIG_CONSOLE" ] && \
-		   [ "$SPLASH_ORIG_CONSOLE" != serial ]; then
-			# Wait a short while for the active console to
-			# change, to try to avoid visible console noise from
-			# later init scripts.
-			i=0
-			while [ "$(fgconsole)" = "$SPLASH_ORIG_CONSOLE" ]; do
-				i="$(($i + 1))"
-				if [ "$i" -gt 5 ]; then
-					break
-				fi
-				sleep 1
-			done
+			if [ "$SPLASH_ORIG_CONSOLE" ] && \
+		   		[ "$SPLASH_ORIG_CONSOLE" != serial ]; then
+				# Wait a short while for the active console to
+				# change, to try to avoid visible console noise from
+				# later init scripts.
+				i=0
+				while [ "$(fgconsole)" = "$SPLASH_ORIG_CONSOLE" ]; do
+					i="$(($i + 1))"
+					if [ "$i" -gt 5 ]; then
+						break
+					fi
+					sleep 1
+				done
+			fi
 		fi
-	fi
   ;;
   stop)
-	log_begin_msg "Stopping GNOME Display Manager..."
-	start-stop-daemon --stop  --quiet --oknodo --pidfile $PIDFILE --name gdm-binary $SSD_ARG --retry 30 >/dev/null 2>&1
-	log_end_msg 0
+        log_daemon_msg "Stopping GNOME Display Manager" "gdm"
+        set +e
+        start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE \
+                --name gdm --retry 30
+        set -e
+        log_end_msg $?
   ;;
   reload)
-	log_begin_msg "Reloading GNOME Display Manager configuration..."
-	log_warning_msg "Changes will take effect when all current X sessions have ended."
-	start-stop-daemon --stop --signal USR1 --quiet --pidfile \
-		$PIDFILE --name gdm-binary $SSD_ARG >/dev/null 2>&1
-	log_end_msg 0
-  ;;
-  restart|force-reload)
-	$0 stop || true
-	$0 start
+        log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm"
+		log_warning_msg "Changes will take effect when all current X sessions have ended."
+        set +e
+        gen_config
+        start-stop-daemon --stop --signal HUP --quiet --pidfile \
+                $PIDFILE --name gdm $SSD_ARG >/dev/null 2>&1
+        start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
+                --user gdm --oknodo
+        set -e
+        log_end_msg $?
   ;;
   status)
-	status_of_proc -p "$PIDFILE" "$DAEMON" gdm-binary && exit 0 || exit $?
+        status_of_proc -p "$PIDFILE" "$DAEMON" gdm && exit 0 || exit $?
+  ;;
+  restart|force-reload)
+        $0 stop || true
+        $0 start
   ;;
   *)
-	log_success_msg "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload|status}"
-	exit 1
+        echo "Usage: /etc/init.d/gdm {start|stop|restart|reload|force-reload|status}"
+        exit 1
   ;;
 esac
 

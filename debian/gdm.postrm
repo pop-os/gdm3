@@ -4,14 +4,20 @@ set -e
 if [ "$1" = "purge" ] ; then
         rm -f /etc/default/gdm
         if [ -d /etc/gdm ]; then
-                rmdir /etc/gdm/Init /etc/gdm/PreSession /etc/gdm/PostSession /etc/gdm/PostLogin /etc/gdm/Sessions /etc/gdm 2>/dev/null || true
+		for i in Init PreSession PostSession PostLogin; do
+			if [ -d /etc/gdm/$i ]; then
+				rmdir --ignore-fail-on-non-empty /etc/gdm/$i 2> /dev/null
+			fi
+		done
+		rmdir --ignore-fail-on-non-empty /etc/gdm
         fi
-        if [ -d /var/lib/gdm ]; then
-                rm -r /var/lib/gdm
-        fi
-        if [ -d /var/log/gdm ]; then
-                rm -r /var/log/gdm
-        fi
+		rm -rf /run/gdm
+		rm -rf /var/lib/gdm
+		rm -rf /var/log/gdm
+		rm -rf /var/cache/gdm
+		rm -f /etc/pam.d/gdm-welcome  # old name
+		rm -f /etc/pam.d/gdm-password
+		rm -f /etc/pam.d/gdm-launch-environment
         if getent passwd gdm >/dev/null; then
                 if [ -x /usr/sbin/deluser ]; then
                         deluser --system gdm || echo "Could not remove gdm user."

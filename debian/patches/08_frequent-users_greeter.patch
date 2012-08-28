@@ -1,26 +1,12 @@
-Index: gdm-3.0.0/daemon/gdm-session-worker.c
+Index: gdm-3.5.4.2~git20120803~00576a2/daemon/gdm-session.c
 ===================================================================
---- gdm-3.0.0.orig/daemon/gdm-session-worker.c	2011-04-04 16:37:16.000000000 +0200
-+++ gdm-3.0.0/daemon/gdm-session-worker.c	2011-04-28 19:31:39.810452155 +0200
-@@ -177,10 +177,13 @@ open_ck_session (GdmSessionWorker  *work
-         const char     *display_name;
-         const char     *display_device;
-         const char     *display_hostname;
-+        const char     *session_type;
-         gboolean        is_local;
+--- gdm-3.5.4.2~git20120803~00576a2.orig/daemon/gdm-session.c	2012-08-05 16:30:04.000000000 +0200
++++ gdm-3.5.4.2~git20120803~00576a2/daemon/gdm-session.c	2012-08-05 17:13:59.000000000 +0200
+@@ -1903,6 +1903,7 @@
+                                0,
+                                service_name);
  
-         ret = FALSE;
++		gdm_session_select_session_type (self, "x11");
+                 gdm_session_authenticate (self, service_name);
  
-+        session_type = "x11";
-+
-         if (worker->priv->x11_display_name != NULL) {
-                 display_name = worker->priv->x11_display_name;
          } else {
-@@ -223,6 +226,7 @@ open_ck_session (GdmSessionWorker  *work
-         res = ck_connector_open_session_with_parameters (worker->priv->ckc,
-                                                          &error,
-                                                          "unix-user", &pwent->pw_uid,
-+                                                         "session-type", &session_type,
-                                                          "x11-display", &display_name,
-                                                          "x11-display-device", &display_device,
-                                                          "remote-host-name", &display_hostname,

@@ -1,9 +1,9 @@
 Description: Turn off debugging by default. Logging to syslog will slow down loading.
 
-Index: gdm-2.32.0/common/gdm-common.c
+Index: gdm-3.5.4.2+git20120803.00576a2d/common/gdm-common.c
 ===================================================================
---- gdm-2.32.0.orig/common/gdm-common.c	2010-09-15 20:58:10.000000000 +0200
-+++ gdm-2.32.0/common/gdm-common.c	2010-12-07 15:21:02.907502001 +0100
+--- gdm-3.5.4.2+git20120803.00576a2d.orig/common/gdm-common.c	2012-08-06 19:19:12.000000000 +0200
++++ gdm-3.5.4.2+git20120803.00576a2d/common/gdm-common.c	2012-08-06 19:20:26.000000000 +0200
 @@ -47,6 +47,7 @@
  gboolean
  gdm_is_version_unstable (void)
@@ -21,4 +21,4 @@ Index: gdm-2.32.0/common/gdm-common.c
 +#endif
  }
  
- void
+ gboolean

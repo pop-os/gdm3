@@ -24,6 +24,16 @@ env XORGCONFIG=/etc/X11/xorg.conf
 script
     if [ -n "$UPSTART_EVENTS" ]
     then
+        # Check kernel command-line for inhibitors, unless we are being called
+        # manually
+        for ARG in $(cat /proc/cmdline); do
+            if [ "$ARG" = "text" ]; then
+		plymouth quit || : 
+                stop
+		exit 0
+            fi
+        done
+
     	if [ -f /etc/X11/default-display-manager ]; then
 	    [ "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm" ] || { stop; exit 0; }
 	else
@@ -38,16 +48,46 @@ script
         fi
     fi
 
+    test -f /etc/profile && . /etc/profile
+
     if [ -r /etc/default/locale ]; then
         . /etc/default/locale
-        export LANG LANGUAGE
+        export LANG LANGUAGE LC_MESSAGES LC_ALL
     elif [ -r /etc/environment ]; then
         . /etc/environment
-        export LANG LANGUAGE
+        export LANG LANGUAGE LC_MESSAGES LC_ALL
     fi
     export XORGCONFIG
 
-    exec gdm-binary $CONFIG_FILE
+    # update the dconf profile if needed
+    needed=no
+    if [ ! -f /etc/dconf/db/gdm ]; then
+	needed=yes
+    else
+	for f in \
+	    /etc/dconf/db/gdm.d /etc/dconf/db/gdm.d/*-settings \
+	    /etc/dconf/db/gdm.d/locks /etc/dconf/db/gdm.d/locks/*-locks \
+	    /etc/gdm/greeter.gsettings; do
+	    if [ "$f" -nt /etc/dconf/db/gdm ]; then  # newer?
+		needed=yes
+		break
+	    fi
+	done
+    fi
+    if [ "$needed" = yes ]; then
+	# The configuration file in /etc uses org.gnome.blah gsettings syntax.
+	# Convert it to org/gnome/blah dconf syntax, if needed (newer)
+	dist_settings=/etc/dconf/db/gdm.d/90-debian-settings
+	if [ ! -f $dist_settings ] || \
+	    [ /etc/gdm/greeter.gsettings -nt $dist_settings ] ; then
+	    awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
+		/etc/gdm/greeter.gsettings > $dist_settings
+	fi
+	echo "Updating dconf for gdm..."
+	dconf update
+    fi
+
+    exec gdm $CONFIG_FILE
 end script
 
 post-stop script
