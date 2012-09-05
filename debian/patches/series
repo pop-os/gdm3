@@ -4,6 +4,7 @@
 08_frequent-users_greeter.patch
 09_default_session.patch
 #11_xephyr_nested.patch
+10_no_gettext.patch
 22_noconsole.patch
 #30_don_t_save_failsafe_session.patch
 #33-multi-keyboard-layouts.patch
