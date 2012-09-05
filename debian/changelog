@@ -1,3 +1,12 @@
+gdm (3.5.90+git20120827.b558e179-0ubuntu2) quantal; urgency=low
+
+  * debian/control.in:
+    - Depend on gnome-shell since gdm doesn't automatically use
+      fallback mode if gnome-shell isn't installed
+    - Don't recommend desktop-base
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 30 Aug 2012 16:08:16 -0400
+
 gdm (3.5.90+git20120827.b558e179-0ubuntu1) quantal; urgency=low
 
   [ Fabien Tassin ]
