@@ -12,6 +12,7 @@
 45_time_display_on_greeter.patch
 90_config_comments.patch
 93_private_lib.patch
+94_fix_greeter_not_disappearing.patch
 ubuntu_run_xsession.d.patch
 ubuntu_dont_catch_sigsegv.patch
 #ubuntu_guest_session.patch
