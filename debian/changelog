@@ -3,6 +3,9 @@ gdm3 (3.4.1-3) UNRELEASED; urgency=low
   * Drop suggests on gnome-mag.
   * Recommends: at-spi → at-spi2-core. Closes: #680947.
   * Recommend gnome-icon-theme-symbolic. Closes: #683348.
+  * Generate templates from PO files. Closes: #686037.
+  * Update po files from the xdm source.
+  * Remove obsolete README.source.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 06 Jul 2012 10:07:09 +0200
 
