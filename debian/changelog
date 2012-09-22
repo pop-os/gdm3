@@ -1,4 +1,4 @@
-gdm3 (3.4.1-3) UNRELEASED; urgency=low
+gdm3 (3.4.1-3) unstable; urgency=low
 
   * Drop suggests on gnome-mag.
   * Recommends: at-spi → at-spi2-core. Closes: #680947.
@@ -6,8 +6,14 @@ gdm3 (3.4.1-3) UNRELEASED; urgency=low
   * Generate templates from PO files. Closes: #686037.
   * Update po files from the xdm source.
   * Remove obsolete README.source.
+  * Grab some patches upstream:
+    + 30_dbus_prctl_death.patch: ensure dbus dies with the session.
+    + 31_worker_session_gone.patch: avoid race condition when the 
+      session dies.
+    + 32_ignore_greeter_crash.patch: ignore when the greeter crashes 
+      while no longer needed.
 
- -- Josselin Mouette <joss@debian.org>  Fri, 06 Jul 2012 10:07:09 +0200
+ -- Josselin Mouette <joss@debian.org>  Sat, 22 Sep 2012 14:01:46 +0200
 
 gdm3 (3.4.1-2) unstable; urgency=low
 
