@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gdm2 2.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-28 22:48+0200\n"
-"PO-Revision-Date: 2008-03-11 15:32+0100\n"
-"Last-Translator: Xavi Salvat Lozano <dj_radikal7@hotmail.com>\n"
+"PO-Revision-Date: 2011-11-04 20:34+0100\n"
+"Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -25,15 +25,15 @@ msgstr "Valor per defecte del sistema"
 
 #: ../default.desktop.in.h:2
 msgid "The default session on the system"
-msgstr ""
+msgstr "La sessió per defecte al sistema"
 
 #: ../patches/11_xephyr_nested.patch:747
 msgid "Run gdm in a nested window"
-msgstr ""
+msgstr "Executa el GDM a una finestra imbricada"
 
 #: ../patches/11_xephyr_nested.patch:748
 msgid "Don't lock the screen on the current display"
-msgstr ""
+msgstr "No bloques la pantalla a la visualització actual"
 
 #: ../patches/11_xephyr_nested.patch:1052
 msgid "Disconnect"

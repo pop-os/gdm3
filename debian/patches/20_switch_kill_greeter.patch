@@ -1,4 +1,4 @@
-From 5ead1e4135c0ce28a8e17203d22eec4a540e5db3 Mon Sep 17 00:00:00 2001
+Original patch: 5ead1e4135c0ce28a8e17203d22eec4a540e5db3
 From: Josselin Mouette <joss@malsain.org>
 Date: Thu, 12 May 2011 16:36:39 -0400
 Subject: [PATCH] daemon: clean up greeter when unused
@@ -22,17 +22,14 @@ switches.
 Based on work by Josselin Mouette <joss@debian.org>
 
 https://bugzilla.gnome.org/show_bug.cgi?id=618047
----
- configure.ac              |   13 +++++++++++++
- daemon/gdm-server.c       |    8 +++++++-
- daemon/gdm-simple-slave.c |   15 ++++++++++-----
- 3 files changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 675f5a6..8bb6c75 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -238,6 +238,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+Updated for gdm 3.2.
+
+Index: gdm-3.4.1/configure.ac
+===================================================================
+--- gdm-3.4.1.orig/configure.ac	2012-06-25 20:13:29.000000000 +0200
++++ gdm-3.4.1/configure.ac	2012-06-25 20:13:36.625790083 +0200
+@@ -298,6 +298,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
  AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
  AC_SUBST(AT_SPI_REGISTRYD_DIR)
  
@@ -44,8 +41,8 @@ index 675f5a6..8bb6c75 100644
  # Allow configuration of default PATH
  #
  withval=""
-@@ -885,6 +890,14 @@ AM_CONDITIONAL(WITH_CONSOLE_KIT, test x$use_console_kit = xyes)
- AC_SUBST(WITH_CONSOLE_KIT)
+@@ -992,6 +997,14 @@ AC_SUBST(SYSTEMD_X_SERVER)
+ AC_DEFINE_UNQUOTED(SYSTEMD_X_SERVER,"$SYSTEMD_X_SERVER",[Path to systemd X server wrapper])
  
  dnl ---------------------------------------------------------------------------
 +dnl - Check for vt switch support
@@ -59,37 +56,44 @@ index 675f5a6..8bb6c75 100644
  dnl - Check for D-Bus
  dnl ---------------------------------------------------------------------------
  
-diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
-index 339f3cc..f697a4b 100644
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
-@@ -52,6 +52,12 @@
+Index: gdm-3.4.1/daemon/gdm-server.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-25 20:13:23.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-server.c	2012-06-25 20:16:00.830495076 +0200
+@@ -58,6 +58,12 @@
  
  extern char **environ;
  
 +#ifdef WITH_VT_SWITCH_WORKAROUND
-+#define X_SERVER_COMMAND_LINE X_SERVER " -br -verbose"
++#define X_SERVER_OPTIONS " -br -verbose"
 +#else
-+#define X_SERVER_COMMAND_LINE X_SERVER " -br -verbose -novtswitch"
++#define X_SERVER_OPTIONS " -br -verbose -novtswitch"
 +#endif
 +
  #define GDM_SERVER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GDM_TYPE_SERVER, GdmServerPrivate))
  
  /* These are the servstat values, also used as server
-@@ -941,7 +947,7 @@ gdm_server_init (GdmServer *server)
-         server->priv = GDM_SERVER_GET_PRIVATE (server);
+@@ -315,13 +321,13 @@ gdm_server_init_command (GdmServer *serv
+                 goto fallback;
+         }
  
-         server->priv->pid = -1;
--        server->priv->command = g_strdup (X_SERVER " -br -verbose");
-+        server->priv->command = g_strdup (X_SERVER_COMMAND_LINE);
-         server->priv->log_dir = g_strdup (LOGDIR);
+-        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s", debug_options);
++        server->priv->command = g_strconcat (SYSTEMD_X_SERVER, X_SERVER_OPTIONS, debug_options, NULL);
+         return;
  
-         add_ready_handler (server);
-diff --git a/daemon/gdm-simple-slave.c b/daemon/gdm-simple-slave.c
-index ddf7a63..1ce9d03 100644
---- a/daemon/gdm-simple-slave.c
-+++ b/daemon/gdm-simple-slave.c
-@@ -471,12 +471,17 @@ start_session_timeout (GdmSimpleSlave *slave)
+ fallback:
+ #endif
+ 
+-        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s", debug_options);
++        server->priv->command = g_strconcat (X_SERVER, X_SERVER_OPTIONS, debug_options, NULL);
+ }
+ 
+ static gboolean
+Index: gdm-3.4.1/daemon/gdm-simple-slave.c
+===================================================================
+--- gdm-3.4.1.orig/daemon/gdm-simple-slave.c	2012-06-25 20:13:27.000000000 +0200
++++ gdm-3.4.1/daemon/gdm-simple-slave.c	2012-06-25 20:13:36.629790114 +0200
+@@ -487,15 +487,21 @@ start_session_timeout (GdmSimpleSlave *s
          if (migrated) {
                  destroy_session (slave);
  
@@ -105,12 +109,13 @@ index ddf7a63..1ce9d03 100644
 +                 * a blank VT or some confusing thing.
 +                 */
                  queue_greeter_reset (slave);
--
-+#else
-+                gdm_slave_stopped (GDM_SLAVE (slave));
-+#endif
-                 goto out;
-         }
  
--- 
-1.7.5.1
+                 slave->priv->start_session_id = 0;
+                 g_free (slave->priv->start_session_service_name);
+                 slave->priv->start_session_service_name = NULL;
++#else
++                stop_greeter (slave);
++#endif
+         } else {
+                 if (slave->priv->greeter == NULL) {
+                         /* auto login */

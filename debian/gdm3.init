@@ -32,24 +32,15 @@ HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
 gen_config() {
-  # GConf part is generated with update-gconf-defaults
-  if [ -d /var/lib/gdm3/.gconf.mandatory ]; then
-    update-gconf-defaults \
-	--source=/usr/share/gdm/greeter-config \
-	--destination=/var/lib/gdm3/.gconf.mandatory \
-	--no-signal \
-	--only-if-changed
-  fi
-  if [ -f /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml ]; then
-    chown Debian-gdm:Debian-gdm /var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml
-  fi
-
-  # GSettings part is generated with glib-compile-schemas
+  # GSettings configuration uses dconf update to generate a gdm profile
   if [ -d /var/lib/gdm3 ]; then
     needed=no
-    if [ -f /var/lib/gdm3/gschemas.compiled ]; then
-      for f in /usr/share/glib-2.0/schemas/gschemas.compiled /usr/share/gdm/greeter-settings /usr/share/gdm/greeter-settings/*.gschema.override; do
-        if [ "$f" -nt /var/lib/gdm3/gschemas.compiled ]; then
+    if [ -f /var/lib/gdm3/dconf/db/gdm ]; then
+      for f in \
+          /usr/share/gdm/dconf /usr/share/gdm/dconf/*-settings \
+          /usr/share/gdm/dconf/locks /usr/share/gdm/dconf/locks/*-locks \
+          /etc/gdm3/greeter.gsettings; do
+        if [ "$f" -nt /var/lib/gdm3/dconf/db/gdm ]; then
           needed=yes
           break
         fi
@@ -58,10 +49,16 @@ gen_config() {
       needed=yes
     fi
     if [ "$needed" = yes ]; then
-      tmpdir=$(mktemp -d --tmpdir gdm-XXXXXX)
-      ln -s /usr/share/glib-2.0/schemas/*.xml /usr/share/glib-2.0/schemas/*.override /usr/share/gdm/greeter-settings/*.override $tmpdir/
-      glib-compile-schemas --targetdir=/var/lib/gdm3 $tmpdir
-      rm -rf $tmpdir
+      rm -rf /var/lib/gdm3/dconf
+      mkdir -p /var/lib/gdm3/dconf/profile /var/lib/gdm3/dconf/db/gdm.d/locks
+      ln -s /usr/share/gdm/dconf-profile /var/lib/gdm3/dconf/profile/gdm
+      ln -s /usr/share/gdm/dconf/*-settings /var/lib/gdm3/dconf/db/gdm.d/
+      ln -s /usr/share/gdm/dconf/locks/*-locks /var/lib/gdm3/dconf/db/gdm.d/locks/
+      # The configuration file in /etc uses org.gnome.blah gsettings syntax.
+      # Convert it to org/gnome/blah dconf syntax.
+      awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
+        /etc/gdm3/greeter.gsettings > /var/lib/gdm3/dconf/db/gdm.d/90-debian-settings
+      dconf update /var/lib/gdm3/dconf/db 2> /dev/null
     fi
   fi
 }
@@ -78,6 +75,7 @@ case "$1" in
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
                 gen_config
+                rm -f /var/lib/gdm/.ICEauthority
                 start-stop-daemon --start --quiet --pidfile /var/run/gdm3.pid \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
@@ -95,9 +93,9 @@ case "$1" in
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
         set +e
         gen_config
-        start-stop-daemon --stop --signal USR1 --quiet --pidfile \
+        start-stop-daemon --stop --signal HUP --quiet --pidfile \
                 /var/run/gdm3.pid --name gdm3
-        start-stop-daemon --stop --signal HUP --quiet --name gconfd-2 \
+        start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
                 --user Debian-gdm --oknodo
         set -e
         log_end_msg $?

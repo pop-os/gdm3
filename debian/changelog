@@ -1,8 +1,185 @@
-gdm3 (3.0.4-3) UNRELEASED; urgency=low
+gdm3 (3.4.1-3) unstable; urgency=low
 
+  * Drop suggests on gnome-mag.
+  * Recommends: at-spi → at-spi2-core. Closes: #680947.
+  * Recommend gnome-icon-theme-symbolic. Closes: #683348.
+  * Generate templates from PO files. Closes: #686037.
+  * Update po files from the xdm source.
+  * Remove obsolete README.source.
+  * Grab some patches upstream:
+    + 30_dbus_prctl_death.patch: ensure dbus dies with the session.
+    + 31_worker_session_gone.patch: avoid race condition when the 
+      session dies.
+    + 32_ignore_greeter_crash.patch: ignore when the greeter crashes 
+      while no longer needed.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 22 Sep 2012 14:01:46 +0200
+
+gdm3 (3.4.1-2) unstable; urgency=low
+
+  * Fix typo in dconf-tools dependency version. Closes: #678961.
+  * Use --no-create-home and --quiet for addgroup/adduser calls.
+    Closes: #675809.
+  * 05_debug_xserver_core.patch: patch from upstream git. Make the X 
+    server dump core when debugging is enabled. Closes: #651693.
+  * 06_first_vt.patch, 20_switch_kill_greeter.patch: refreshed.
+  * 90_config_comments.patch: more comments with useful options.
+  * Add references to patches.
+  * 02_xnest_wrapper.patch: disabled.
+  * 04_reload_config.patch: patch from upstream git. Get SIGHUP to 
+    actually reload the configuration.
+  * gdm3.init: send SIGHUP to get reload to work.
+
+ -- Josselin Mouette <joss@debian.org>  Mon, 25 Jun 2012 20:18:38 +0200
+
+gdm3 (3.4.1-1) unstable; urgency=low
+
+  [ Jordi Mallach ]
+  * Update po-up/ca.po.
+
+  [ Josselin Mouette ]
+  * gdm3.init: remove .ICEauthority before starting. Closes: #648666.
+  * x11-common will now include xhost code to give access to the 
+    local user if xhost is installed (see #586685).
+    + Depend on the appropriate x11-common version.
+    + Depend on x11-xserver-utils so that it actually works.
+  * New upstream release.
+  * Updated build-dependencies: nss, glib.
+  * 01_language.patch: dropped, merged upstream.
+  * 04_no_fatal_criticals.patch: dropped, obsolete.
+  * 07_libexec-paths.patch: removed unused variables/files.
+  * 08_frequent-users_greeter.patch: reworked according to upstream 
+    changes.
+  * 10_gdm3_pam.patch: updated for the new version. Do not prefix the 
+    PAM files for multistack, they have new names anyway.
+  * 14_pam_dialog.patch: dropped, upstream merged an improved version.
+  * 18_parametrize_create_display.patch: updated for the new version.
+  * 19_static_transient_display.patch: unfuzzed.
+  * 29_grep_path.patch: dropped, merged upstream.
+  * 91_dconf_override.patch: dropped, the configuration generation has 
+    completely changed.
+  * 93_xdg_data_dirs.patch: dropped, similar functionality merged 
+    upstream.
+  * Drop the dconf-gsettings-backend dependency.
+  * greeter.gconf-defaults:
+    + Drop the g-p-m setting.
+  * greeter.gsettings:
+    + Force gdm-fallback as the default session.
+    + Document how to use gdm-shell.
+    + Document how to change the background. Closes: #655328.
+  * rules:
+    + Generate xx_upstream.gschema.override from the new 
+      00-upstream-settings file (much simpler).
+    + Remove /etc/dconf from the installed files.
+    + Drop all development libraries/headers.
+    + Explicitly disable introspection.
+    + (All of this can be shipped in separate packages if actual 
+      packages start using this library.)
+    + Explicitly disable split authentication, it will not work properly 
+      with the Debianized PAM stack.
+    + Remove the associated PAM files.
+    + Disable dh_makeshlibs.
+    + Install the dconf stuff in /usr/share/gdm.
+  * gdm3.postinst:
+    + Remove the old gsettings file upon upgrade.
+  * gdm3.links:
+    + Remove the old gsettings link.
+  * gdm3.init:
+    + Replace the gsettings generation by a dconf-based one.
+    + Do a conversion for the configuration file so that it remains 
+      compatible.
+  * 92_gsettings_path.patch: updated to force the dconf directory to be 
+    in the GDM runtime directory.
+  * gdm3.install:
+    + Stop installing MIME files by hand.
+  * 93_private_lib.patch: new patch. Install the shared library in a 
+    private directory.
+  * Break gnome-shell < 3.2 for correct shell support.
+  * Suggest gnome-shell.
+  * Require g-s-d and metacity, they are no longer optional. Requiring 
+    g-s-d 3.2 Closes: #656384.
+  * Require d-conf 0.10.0-4 to configure the dconf path and parse 
+    defaults in order.
+
+  [ Laurent Bigonville ]
+  * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux pam module
+    (Closes: #661289)
+  * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_loginuid pam module
+    (Closes: #661745)
+
+  [ Josselin Mouette ]
+  * New upstream release.
+    + Features the incredible capability to not try endlessly to start 
+      up X servers when they fail to start.
+      Closes: #580627, #610826, #650183.
+  * Move login manager defaults from gconf to gsettings.
+    + Now we use full path for the icon.
+  * Add the metacity default to gsettings too.
+  * Require a metacity version which supports gsettings.
+  * Get rid of anything related to GConf.
+  * Use dh maintscript support to remove the old GConf config file.
+  * Force disable systemd support.
+  * 06_first_vt.patch, 17_switch_on_finish.patch: refreshed.
+  * 07_libexec-paths.patch:
+    + Use the binary path as provided by g-s-d.pc.
+    + Add a check for gnome-session, which is also used.
+  * 10_gdm3_pam.patch: handle the bucket of FAIL that is hardcoding the 
+    service name in various places since split authentication was 
+    introduced.
+  * 18_parametrize_create_display.patch, 
+    19_static_transient_display.patch, 20_switch_kill_greeter.patch,
+    21_static_display_purge.patch: adapt to systemd/multiseat changes.
+  * Require dconf 0.12.1-2.
+  * gdm3.post{inst,rm}: add a gdm-welcome PAM service, which is now 
+    needed for the login session. It's just a symlink.
+  * 91_shell_version_control.patch: new patch, Debian-specific. Add 
+    strict version checking for gnome-shell in order to go to the fall 
+    back session in case of potential incompatibility.
+  * 93_private_lib.patch: also install the typelib file in the private 
+    directory, and drop the gir file.
+  * gdm3.dirs: /usr/lib/gnome-shell
+  * rules:
+    + Remove pre-built gdm.schemas which includes incorrect settings.
+    + Enable introspection.
+    + Instruct dh_girepository to look at the typelib file in the right 
+      place.
+    + Add symbolic links for the library and typelib in the gnome-shell 
+      directory so that it can use them.
+  * Add gir (build-)dependencies.
+  * 23_start_polkit.patch: new patch. Start the policykit agent in the 
+    fallback session. Otherwise reboot/shutdown does nothing when 
+    someone is logged on.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 21 Jun 2012 00:18:36 +0200
+
+gdm3 (3.0.4-4) unstable; urgency=low
+
+  [ Michael Biebl ]
+  * debian/watch:
+    - Update to version 3.
+    - Track .xz tarballs.
+    - Don't run uupdate.
+
+  [ Josselin Mouette ]
+  * Build-depend on gnome-settings-daemon so that its plugins are 
+    correctly listed.
+  * Note this is a critical security fix, but does not affect testing.
+  * Also closes: #630482.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 20 Oct 2011 16:22:33 +0200
+
+gdm3 (3.0.4-3) unstable; urgency=low
+
+  * Upload to unstable.
   * Drop Build-Depends on libpolkit-gobject-1-dev and libpolkit-gtk-1-dev.
+  * Refresh patches.
+  * Bump debhelper compatibility level to 8.
+  * Bump Standards-Version to 3.9.2. No further changes.
+  * debian/greeter.gsettings: Don't set wallpaper from desktop-base, as we
+    don't have a hard dependency on desktop-base which can lead to a broken
+    desktop background.
 
- -- Michael Biebl <biebl@debian.org>  Mon, 26 Sep 2011 10:36:44 +0200
+ -- Michael Biebl <biebl@debian.org>  Fri, 14 Oct 2011 14:45:46 +0200
 
 gdm3 (3.0.4-2) experimental; urgency=low
 

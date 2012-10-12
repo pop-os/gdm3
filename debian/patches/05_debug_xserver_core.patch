@@ -1,0 +1,55 @@
+From c22350c575dc2f52dd9d36882caba3355430332b Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Mon, 25 Jun 2012 17:58:47 +0000
+Subject: server: pass -core to Xorg when debug enabled
+
+This aids in debugging problems.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=678717
+---
+diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
+index 6f2a939..ad990ab 100644
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -278,17 +278,18 @@ static void
+ gdm_server_init_command (GdmServer *server)
+ {
+         gboolean debug = FALSE;
+-        const char *logverbose;
++        const char *debug_options;
+ 
+         if (server->priv->command != NULL) {
+                 return;
+         }
+ 
+         gdm_settings_direct_get_boolean (GDM_KEY_DEBUG, &debug);
+-        if (debug)
+-                logverbose = " -logverbose 7";
+-        else
+-                logverbose = "";
++        if (debug) {
++                debug_options = " -logverbose 7 -core ";
++        } else {
++                debug_options = "";
++        }
+ 
+ #ifdef WITH_SYSTEMD
+ 
+@@ -319,13 +320,13 @@ gdm_server_init_command (GdmServer *server)
+                 goto fallback;
+         }
+ 
+-        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s", logverbose);
++        server->priv->command = g_strdup_printf (SYSTEMD_X_SERVER " -br -verbose%s", debug_options);
+         return;
+ 
+ fallback:
+ #endif
+ 
+-        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s", logverbose);
++        server->priv->command = g_strdup_printf (X_SERVER " -br -verbose%s", debug_options);
+ }
+ 
+ static gboolean
+--
+cgit v0.9.0.2
