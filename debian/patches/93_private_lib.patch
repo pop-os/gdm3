@@ -1,33 +1,6 @@
-Index: gdm-3.4.1/gui/libgdmgreeter/Makefile.am
-===================================================================
---- gdm-3.4.1.orig/gui/libgdmgreeter/Makefile.am	2012-06-20 20:51:40.555390238 +0200
-+++ gdm-3.4.1/gui/libgdmgreeter/Makefile.am	2012-06-20 21:31:01.862934073 +0200
-@@ -11,7 +11,7 @@ AM_CPPFLAGS = \
-         -DDATADIR=\""$(datadir)"\"                                            \
-         $(END_OF_LIST)
- 
--lib_LTLIBRARIES =                                                             \
-+pkglib_LTLIBRARIES =                                                          \
-         libgdmgreeter.la                                                      \
-         $(END_OF_LIST)
- 
-@@ -46,9 +46,9 @@ dist_pkgconfig_DATA = gdmgreeter.pc
- -include $(INTROSPECTION_MAKEFILE)
- 
- if HAVE_INTROSPECTION
--girdir = $(datadir)/gir-1.0
-+girdir = $(pkglibdir)
- gir_DATA = GdmGreeter-1.0.gir
--typelibsdir = $(libdir)/girepository-1.0
-+typelibsdir = $(pkglibdir)
- typelibs_DATA = $(gir_DATA:.gir=.typelib)
- INTROSPECTION_GIRS = $(gir_DATA)
- 
-Index: gdm-3.4.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
-===================================================================
---- gdm-3.4.1.orig/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2012-06-20 20:51:40.555390238 +0200
-+++ gdm-3.4.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am	2012-06-20 21:14:19.326032929 +0200
-@@ -14,7 +14,7 @@ AM_CPPFLAGS = \
+--- a/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
++++ b/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
+@@ -14,7 +14,7 @@
  	$(GTK_CFLAGS)				\
  	$(NULL)
  
@@ -35,4 +8,27 @@ Index: gdm-3.4.1/gui/simple-greeter/libgdmsimplegreeter/Makefile.am
 +pkglib_LTLIBRARIES = 			\
  	libgdmsimplegreeter.la		\
  	$(NULL)
+ 
+--- a/gui/libgdm/Makefile.am
++++ b/gui/libgdm/Makefile.am
+@@ -40,7 +40,7 @@
+         -DDATADIR=\""$(datadir)"\"                                            \
+         $(END_OF_LIST)
+ 
+-lib_LTLIBRARIES =                                                             \
++pkglib_LTLIBRARIES =                                                   \
+         libgdm.la                                                      \
+         $(END_OF_LIST)
+ 
+@@ -87,9 +87,9 @@
+ -include $(INTROSPECTION_MAKEFILE)
+ 
+ if HAVE_INTROSPECTION
+-girdir = $(datadir)/gir-1.0
++girdir = $(pkglibdir)
+ gir_DATA = Gdm-1.0.gir
+-typelibsdir = $(libdir)/girepository-1.0
++typelibsdir = $(pkglibdir)
+ typelibs_DATA = $(gir_DATA:.gir=.typelib)
+ INTROSPECTION_GIRS = $(gir_DATA)
  

@@ -1,10 +1,8 @@
 GNOME #567522
 
-Index: gdm-3.0.0/common/gdm-settings-keys.h
-===================================================================
---- gdm-3.0.0.orig/common/gdm-settings-keys.h	2011-04-28 21:24:03.215419171 +0200
-+++ gdm-3.0.0/common/gdm-settings-keys.h	2011-04-28 23:07:16.625697201 +0200
-@@ -43,6 +43,7 @@ G_BEGIN_DECLS
+--- a/common/gdm-settings-keys.h
++++ b/common/gdm-settings-keys.h
+@@ -43,6 +43,7 @@
  #define GDM_KEY_DISALLOW_TCP "security/DisallowTCP"
  
  #define GDM_KEY_XDMCP_ENABLE "xdmcp/Enable"
@@ -12,20 +10,18 @@ Index: gdm-3.0.0/common/gdm-settings-keys.h
  #define GDM_KEY_MAX_PENDING "xdmcp/MaxPending"
  #define GDM_KEY_MAX_SESSIONS "xdmcp/MaxSessions"
  #define GDM_KEY_MAX_WAIT "xdmcp/MaxWait"
-Index: gdm-3.0.0/daemon/gdm-manager.c
-===================================================================
---- gdm-3.0.0.orig/daemon/gdm-manager.c	2011-04-28 21:24:03.171418953 +0200
-+++ gdm-3.0.0/daemon/gdm-manager.c	2011-04-28 21:34:56.658613691 +0200
-@@ -63,7 +63,7 @@ struct GdmManagerPrivate
+--- a/daemon/gdm-manager.c
++++ b/daemon/gdm-manager.c
+@@ -66,7 +66,7 @@
  
          gboolean                started;
          gboolean                wait_for_go;
 -        gboolean                no_console;
 +        gboolean                show_local_greeter;
  
-         DBusGProxy             *bus_proxy;
-         DBusGConnection        *connection;
-@@ -71,7 +71,8 @@ struct GdmManagerPrivate
+         GDBusProxy               *bus_proxy;
+         GDBusConnection          *connection;
+@@ -75,7 +75,8 @@
  
  enum {
          PROP_0,
@@ -35,7 +31,7 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
  };
  
  enum {
-@@ -161,7 +162,7 @@ gdm_manager_start (GdmManager *manager)
+@@ -901,7 +902,7 @@
  {
          g_debug ("GdmManager: GDM starting to manage displays");
  
@@ -44,7 +40,7 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
                  gdm_display_factory_start (GDM_DISPLAY_FACTORY (manager->priv->local_factory));
          }
  
-@@ -187,7 +188,8 @@ gdm_manager_set_wait_for_go (GdmManager
+@@ -927,7 +928,8 @@
  
                  if (! wait_for_go) {
                          /* we got a go */
@@ -54,7 +50,7 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
  
  #ifdef HAVE_LIBXDMCP
                          if (manager->priv->xdmcp_enabled && manager->priv->xdmcp_factory != NULL) {
-@@ -313,6 +315,15 @@ gdm_manager_set_xdmcp_enabled (GdmManage
+@@ -1000,6 +1002,15 @@
  
  }
  
@@ -70,7 +66,7 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
  static void
  gdm_manager_set_property (GObject      *object,
                            guint         prop_id,
-@@ -327,6 +338,9 @@ gdm_manager_set_property (GObject      *
+@@ -1014,6 +1025,9 @@
          case PROP_XDMCP_ENABLED:
                  gdm_manager_set_xdmcp_enabled (self, g_value_get_boolean (value));
                  break;
@@ -80,7 +76,7 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -347,6 +361,9 @@ gdm_manager_get_property (GObject    *ob
+@@ -1034,6 +1048,9 @@
          case PROP_XDMCP_ENABLED:
                  g_value_set_boolean (value, self->priv->xdmcp_enabled);
                  break;
@@ -90,11 +86,9 @@ Index: gdm-3.0.0/daemon/gdm-manager.c
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-Index: gdm-3.0.0/daemon/gdm-manager.h
-===================================================================
---- gdm-3.0.0.orig/daemon/gdm-manager.h	2011-04-28 21:24:03.131418759 +0200
-+++ gdm-3.0.0/daemon/gdm-manager.h	2011-04-28 21:36:36.891103703 +0200
-@@ -69,6 +69,8 @@ void                gdm_manager_set_wait
+--- a/daemon/gdm-manager.h
++++ b/daemon/gdm-manager.h
+@@ -71,6 +71,8 @@
  
  void                gdm_manager_set_xdmcp_enabled              (GdmManager *manager,
                                                                  gboolean    enabled);
@@ -103,21 +97,19 @@ Index: gdm-3.0.0/daemon/gdm-manager.h
  gboolean            gdm_manager_get_displays                   (GdmManager *manager,
                                                                  GPtrArray **displays,
                                                                  GError    **error);
-Index: gdm-3.0.0/daemon/main.c
-===================================================================
---- gdm-3.0.0.orig/daemon/main.c	2011-04-28 21:24:03.099418603 +0200
-+++ gdm-3.0.0/daemon/main.c	2011-04-28 21:38:26.515639629 +0200
-@@ -525,6 +525,7 @@ main (int    argc,
-         int                 ret;
-         gboolean            res;
-         gboolean            xdmcp_enabled;
-+        gboolean            show_local_greeter;
-         GdmSignalHandler   *signal_handler;
-         static gboolean     do_timed_exit    = FALSE;
-         static gboolean     print_version    = FALSE;
-@@ -629,6 +630,10 @@ main (int    argc,
-                 goto out;
-         }
+--- a/daemon/main.c
++++ b/daemon/main.c
+@@ -545,6 +545,7 @@
+                   gpointer         user_data)
+ {
+         gboolean xdmcp_enabled;
++	gboolean show_local_greeter;
+ 
+         manager = gdm_manager_new ();
+         if (manager == NULL) {
+@@ -556,6 +557,10 @@
+ 
+         gdm_manager_start (manager);
  
 +        show_local_greeter = TRUE;
 +        gdm_settings_direct_get_boolean (GDM_KEY_SHOW_LOCAL_GREETER, &show_local_greeter);
@@ -126,10 +118,8 @@ Index: gdm-3.0.0/daemon/main.c
          xdmcp_enabled = FALSE;
          gdm_settings_direct_get_boolean (GDM_KEY_XDMCP_ENABLE, &xdmcp_enabled);
          gdm_manager_set_xdmcp_enabled (manager, xdmcp_enabled);
-Index: gdm-3.0.0/data/gdm.schemas.in.in
-===================================================================
---- gdm-3.0.0.orig/data/gdm.schemas.in.in	2011-04-28 21:24:03.063418423 +0200
-+++ gdm-3.0.0/data/gdm.schemas.in.in	2011-04-28 21:38:58.147794273 +0200
+--- a/data/gdm.schemas.in.in
++++ b/data/gdm.schemas.in.in
 @@ -87,6 +87,11 @@
        <default>false</default>
      </schema>

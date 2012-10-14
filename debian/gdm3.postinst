@@ -61,8 +61,12 @@ fi
 
 chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
-if [ ! -f /etc/pam.d/gdm-welcome ]; then
-    ln -s gdm3-autologin /etc/pam.d/gdm-welcome
+if [ ! -f /etc/pam.d/gdm-launch-environment ]; then
+    ln -s gdm3-autologin /etc/pam.d/gdm-launch-environment
+fi
+
+if [ -L /etc/pam.d/gdm-welcome ]; then
+    rm -f /etc/pam.d/gdm-welcome
 fi
 
 #DEBHELPER#

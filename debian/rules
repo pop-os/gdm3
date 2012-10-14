@@ -30,7 +30,8 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
 		--without-systemd \
-		--disable-split-authentication
+		--disable-split-authentication \
+		--with-consolekit-directory=/usr/lib/ConsoleKit
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
@@ -48,7 +49,7 @@ endif
 DEB_DH_INSTALLINIT_ARGS := --noscripts
 DEB_DH_MAKESHLIBS_ARGS_gdm3 := --no-act
 
-DEB_DH_GIREPOSITORY_ARGS_gdm3 := -l$(CURDIR)/gui/libgdmgreeter /usr/lib/gdm/
+DEB_DH_GIREPOSITORY_ARGS_gdm3 := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm-binary debian/gdm3/usr/sbin/gdm3
@@ -71,7 +72,7 @@ binary-install/gdm3::
 	cd debian/gdm3/usr/lib/gdm && \
 		rm -f lib*.a lib*.la lib*.so *.gir
 	cd debian/gdm3/usr/lib/gnome-shell && \
-		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdmgreeter*.so.? .
+		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdm*.so.? .
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)

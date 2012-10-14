@@ -1,12 +1,10 @@
-Index: gdm-3.2.1.1/daemon/gdm-simple-slave.c
-===================================================================
---- gdm-3.2.1.1.orig/daemon/gdm-simple-slave.c	2011-10-19 17:41:52.000000000 +0200
-+++ gdm-3.2.1.1/daemon/gdm-simple-slave.c	2011-12-17 03:58:58.702116527 +0100
-@@ -299,6 +299,7 @@ on_session_setup_complete (GdmSession
-                            const char     *service_name,
-                            GdmSimpleSlave *slave)
- {
-+        gdm_session_select_session_type (GDM_SESSION (session), "x11");
-         gdm_session_authenticate (session, service_name);
- }
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -1911,6 +1911,7 @@
+                                0,
+                                service_name);
  
++		gdm_session_select_session_type (self, "x11");
+                 gdm_session_authenticate (self, service_name);
+ 
+         } else {

@@ -1,3 +1,32 @@
+gdm3 (3.6.0-1) UNRELEASED; urgency=low
+
+  * New upstream release
+  * debian/patches/04_reload_config.patch
+    debian/patches/05_debug_xserver_core.patch
+    debian/patches/17_switch_on_finish.patch
+    debian/patches/18_parametrize_create_display.patch
+    debian/patches/19_static_transient_display.patch
+    debian/patches/20_switch_kill_greeter.patch
+    debian/patches/30_dbus_prctl_death.patch
+    debian/patches/31_worker_session_gone.patch
+    debian/patches/32_ignore_greeter_crash.patch:
+    + Dropped, merged upstream
+   * debian/patches/94_schemas_location_on_hup.patch:
+     + Added, look in the right schema location on the HUP signal
+  * gdm3.{postinst,postrm}: PAM config file changed from gdm-welcome to
+    gdm-launch-environment. Adapt postinst/postrm for the new name and remove
+    the old
+  * debian/rules: Set --with-consolekit-directory
+  * debian/control.in: Update build-depends, break gnome-shell (<<3.5) and
+    depends on gnome-session >= 3.6
+  * Sync with Ubuntu:
+    + debian/patches/10_no_gettext.patch:
+      + Added, Don't mix intltool and gettext macro
+
+  FIXME: 06_first_vt.patch needs to be checked & updated
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 14 Oct 2012 16:51:30 +0200
+
 gdm3 (3.4.1-3) unstable; urgency=low
 
   * Drop suggests on gnome-mag.

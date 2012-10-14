@@ -1,0 +1,20 @@
+From 8aab9864b22e02725d1f6ce562837aecb27f8e38 Mon Sep 17 00:00:00 2001
+From: Sjoerd Simons <sjoerd@luon.net>
+Date: Sun, 14 Oct 2012 12:01:18 +0200
+Subject: [PATCH] Look in the correct location for gdm.schemas on HUP
+
+---
+ daemon/main.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/daemon/main.c
++++ b/daemon/main.c
+@@ -366,7 +366,7 @@
+                 g_object_unref (settings);
+                 settings = gdm_settings_new ();
+                 if (settings != NULL) {
+-                        if (! gdm_settings_direct_init (settings, GDMCONFDIR "/gdm.schemas", "/")) {
++                        if (! gdm_settings_direct_init (settings, DATADIR "/gdm/gdm.schemas", "/")) {
+                                 g_warning ("Unable to initialize settings");
+                         }
+                 }

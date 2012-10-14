@@ -7,18 +7,16 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Michael Biebl <biebl@debian.org>, Sjoerd Simons <sjoerd@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 8.1.0),
                cdbs,
                dh-autoreconf,
                intltool (>= 0.40.0),
-               gnome-doc-utils,
                libdbus-glib-1-dev (>= 0.74),
-               libglib2.0-dev (>= 2.29.3),
+               libglib2.0-dev (>= 2.34.0),
                libgtk-3-dev (>= 2.91.1),
                libpango1.0-dev (>= 1.3.0),
-               libxklavier-dev (>= 4.0),
                libcanberra-gtk3-dev (>= 0.4),
                libfontconfig1-dev (>= 2.5.0),
                libupower-glib-dev (>= 0.9.0),
@@ -41,13 +39,14 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libxft-dev,
                libxi-dev,
                libxinerama-dev,
+               yelp-tools,
                libselinux1-dev [linux-any],
                libattr1-dev [linux-any],
                iso-codes,
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
@@ -60,7 +59,7 @@ Depends: ${shlibs:Depends},
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
-         gnome-session-bin (>= 3.2),
+         gnome-session-bin (>= 3.6),
          gnome-settings-daemon (>= 3.2),
          metacity (>= 1:2.34.2),
          policykit-1-gnome,
@@ -81,19 +80,17 @@ Recommends: zenity,
             xserver-xorg,
             at-spi2-core,
             gnome-icon-theme,
-            gnome-icon-theme-symbolic,
-            desktop-base (>= 6)
+            gnome-icon-theme-symbolic
 Suggests: libpam-gnome-keyring,
           gnome-orca,
           gok,
           gnome-shell
 Provides: x-display-manager
-Conflicts: gdm
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
         gnome-control-center (<< 3.0),
-        gnome-shell (<< 3.2)
+        gnome-shell (<< 3.5)
 Description: Next generation GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.

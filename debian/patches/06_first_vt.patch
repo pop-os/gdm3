@@ -1,22 +1,8 @@
 It's almost the same tty manager of gdm 2.20, except we don't support Sun VTs,
 only Linux and FreeBSD.
-Index: gdm-3.4.1/common/gdm-settings-keys.h
-===================================================================
---- gdm-3.4.1.orig/common/gdm-settings-keys.h	2012-06-25 20:10:49.108971142 +0200
-+++ gdm-3.4.1/common/gdm-settings-keys.h	2012-06-25 20:13:02.993625666 +0200
-@@ -32,6 +32,7 @@ G_BEGIN_DECLS
- #define GDM_KEY_TIMED_LOGIN_ENABLE "daemon/TimedLoginEnable"
- #define GDM_KEY_TIMED_LOGIN_USER "daemon/TimedLogin"
- #define GDM_KEY_TIMED_LOGIN_DELAY "daemon/TimedLoginDelay"
-+#define GDM_KEY_FIRST_VT "daemon/FirstVT"
- 
- #define GDM_KEY_DEBUG "debug/Enable"
- 
-Index: gdm-3.4.1/daemon/gdm-server.c
-===================================================================
---- gdm-3.4.1.orig/daemon/gdm-server.c	2012-06-25 20:12:59.685609512 +0200
-+++ gdm-3.4.1/daemon/gdm-server.c	2012-06-25 20:13:02.993625666 +0200
-@@ -752,6 +752,213 @@ gdm_server_spawn (GdmServer  *server,
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -767,6 +767,213 @@
          return ret;
  }
  
@@ -230,29 +216,11 @@ Index: gdm-3.4.1/daemon/gdm-server.c
  /**
   * gdm_server_start:
   * @disp: Pointer to a GdmDisplay structure
-@@ -763,10 +970,14 @@ gboolean
- gdm_server_start (GdmServer *server)
- {
-         gboolean res;
-+        char *vtarg;
-+
-+        vtarg = gdm_get_empty_vt_argument ();
- 
-         /* fork X server process */
--        res = gdm_server_spawn (server, NULL);
-+        res = gdm_server_spawn (server, vtarg);
- 
-+        g_free (vtarg);
-         return res;
- }
- 
-Index: gdm-3.4.1/data/gdm.schemas.in.in
-===================================================================
---- gdm-3.4.1.orig/data/gdm.schemas.in.in	2012-06-25 20:10:49.108971142 +0200
-+++ gdm-3.4.1/data/gdm.schemas.in.in	2012-06-25 20:13:02.997625695 +0200
-@@ -47,6 +47,11 @@
-       <signature>i</signature>
-       <default>30</default>
+--- a/data/gdm.schemas.in.in
++++ b/data/gdm.schemas.in.in
+@@ -52,6 +52,11 @@
+       <signature>b</signature>
+       <default>false</default>
      </schema>
 +    <schema>
 +      <key>daemon/FirstVT</key>
