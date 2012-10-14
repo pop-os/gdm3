@@ -22,10 +22,13 @@ gdm3 (3.6.0-1) UNRELEASED; urgency=low
   * Sync with Ubuntu:
     + debian/patches/10_no_gettext.patch:
       + Added, Don't mix intltool and gettext macro
+  * deiban/patches/95_check_x11_display.patch
+    + Added, Check X11Display instead of X11DisplayDevice to see if it's an X
+      session as X11DisplayDevice isn't properly set
 
   FIXME: 06_first_vt.patch needs to be checked & updated
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sun, 14 Oct 2012 16:51:30 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 14 Oct 2012 18:09:09 +0200
 
 gdm3 (3.4.1-3) unstable; urgency=low
 
