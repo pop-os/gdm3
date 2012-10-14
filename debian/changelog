@@ -1,4 +1,4 @@
-gdm3 (3.6.0-1) UNRELEASED; urgency=low
+gdm3 (3.6.0-1) experimental; urgency=low
 
   * New upstream release
   * debian/patches/04_reload_config.patch
@@ -11,7 +11,7 @@ gdm3 (3.6.0-1) UNRELEASED; urgency=low
     debian/patches/31_worker_session_gone.patch
     debian/patches/32_ignore_greeter_crash.patch:
     + Dropped, merged upstream
-   * debian/patches/94_schemas_location_on_hup.patch:
+  * debian/patches/94_schemas_location_on_hup.patch:
      + Added, look in the right schema location on the HUP signal
   * gdm3.{postinst,postrm}: PAM config file changed from gdm-welcome to
     gdm-launch-environment. Adapt postinst/postrm for the new name and remove
@@ -27,7 +27,7 @@ gdm3 (3.6.0-1) UNRELEASED; urgency=low
       session as X11DisplayDevice isn't properly set
   * debian/rules: Set the initial vt to 7
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sun, 14 Oct 2012 22:01:38 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 14 Oct 2012 22:02:30 +0200
 
 gdm3 (3.4.1-3) unstable; urgency=low
 
