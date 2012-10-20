@@ -80,7 +80,8 @@ Recommends: zenity,
             xserver-xorg,
             at-spi2-core,
             gnome-icon-theme,
-            gnome-icon-theme-symbolic
+            gnome-icon-theme-symbolic,
+            desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
           gnome-orca,
           gok,

@@ -1,10 +1,10 @@
-gdm3 (3.6.1-1) UNRELEASED; urgency=low
+gdm3 (3.6.1-1) experimental; urgency=low
 
   * New upstream release
   * debian/patches/94_schemas_location_on_hup.patch
     + Dropped, merged upstream
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sat, 20 Oct 2012 16:24:33 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 20 Oct 2012 17:50:59 +0200
 
 gdm3 (3.6.0-1) experimental; urgency=low
 
