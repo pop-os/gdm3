@@ -32,7 +32,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--without-systemd \
 		--disable-split-authentication \
 		--with-consolekit-directory=/usr/lib/ConsoleKit \
-		-with-check-accelerated-directory=/usr/lib/gnome-session/ \
+		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-initial-vt=7
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
