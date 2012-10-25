@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+# Need to load this before any output on stdout/stderr
+# otherwise the debconf command-stream will get
+# some invalid input and cause the failure of postrm.
+if [ "$1" = purge ] && [ -e /usr/share/debconf/confmodule ]; then
+        . /usr/share/debconf/confmodule
+fi
+
 if [ "$1" = "purge" ] ; then
         update-rc.d gdm3 remove >/dev/null
         if [ -d /etc/gdm3 ]; then

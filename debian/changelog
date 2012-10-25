@@ -1,3 +1,12 @@
+gdm3 (3.4.1-4) unstable; urgency=low
+
+  * Team upload
+  * Apply patch from Paul Wise to avoid userdel error messages
+    from being used as input for debconf if gdm3 is purged while
+    processes are still running as Debian-gdm (Closes: #657751)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 25 Oct 2012 21:31:25 +0100
+
 gdm3 (3.4.1-3) unstable; urgency=low
 
   * Drop suggests on gnome-mag.
