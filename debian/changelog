@@ -1,3 +1,11 @@
+gdm3 (3.4.1-5) UNRELEASED; urgency=low
+
+  * gdm3.prerm: do not stop gdm3 if $DISPLAY is between :0 and :9 which 
+    generally mean local displays. Displays > 10 will most of the time 
+    mean SSH.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 25 Oct 2012 22:59:16 +0200
+
 gdm3 (3.4.1-4) unstable; urgency=low
 
   * Team upload
