@@ -1,9 +1,12 @@
-gdm3 (3.6.1-2) UNRELEASED; urgency=low
+gdm3 (3.6.1-2) experimental; urgency=low
 
-  * debian/rules: Specify the check-accelerated-directory (Thanks to
-    Frederic Peters)
+  * Team upload
 
- -- Sjoerd Simons <sjoerd@debian.org>  Tue, 23 Oct 2012 09:14:37 +0200
+  [ Sjoerd Simons ]
+  * debian/rules: Specify the check-accelerated-directory (Closes: #692466;
+    thanks to Frederic Peters)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 07 Nov 2012 14:35:38 +0000
 
 gdm3 (3.6.1-1) experimental; urgency=low
 
