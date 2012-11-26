@@ -51,3 +51,7 @@ icon-policy='never'
 # so just to be sure
 [org.gnome.metacity]
 compositing-manager=false
+
+# No workspaces
+[org.gnome.desktop.wm.preferences]
+num-workspaces=1
