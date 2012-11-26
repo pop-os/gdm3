@@ -49,7 +49,7 @@ if [ "$1" = "remove" ]; then
   if [ -x /etc/init.d/gdm3 ]; then
     nostop=
     for hostname in "" "localhost" "$(hostname)" "$(hostname -f)"; do
-      if echo $DISPLAY | egrep -q '^:[0-9](\.[0-9])?$'; then
+      if echo $DISPLAY | egrep -q "^$hostname:[0-9](\.[0-9])?$"; then
         nostop=yes
       fi
     done
