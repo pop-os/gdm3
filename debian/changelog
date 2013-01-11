@@ -2,6 +2,7 @@ gdm3 (3.6.1-3) UNRELEASED; urgency=low
 
   * Don't suggest gok, which has been deprecated in favour of caribou
     and is not in GNOME 3 or Debian wheezy (Closes: #692781)
+  * Fix a typo in a comment in gdm3-autologin.pam (Closes: #689927)
 
  -- Simon McVittie <smcv@debian.org>  Thu, 08 Nov 2012 19:30:41 +0000
 
