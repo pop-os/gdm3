@@ -1,0 +1,54 @@
+Detect the FAILED state of a display at finish time, not at unmanage 
+time. Otherwise it would be set as FINISHED first and treated like it 
+ended properly.
+
+Also bring the delay down to 2 seconds.
+
+Index: gdm3-3.4.1/daemon/gdm-display.c
+===================================================================
+--- gdm3-3.4.1.orig/daemon/gdm-display.c	2013-02-10 17:05:56.817105767 +0100
++++ gdm3-3.4.1/daemon/gdm-display.c	2013-02-10 17:19:55.817207422 +0100
+@@ -667,9 +667,17 @@ gdm_display_real_finish (GdmDisplay *dis
+ {
+         g_return_val_if_fail (GDM_IS_DISPLAY (display), FALSE);
+ 
+-        _gdm_display_set_status (display, GDM_DISPLAY_FINISHED);
++        g_timer_stop (display->priv->slave_timer);
++        elapsed = g_timer_elapsed (display->priv->slave_timer, NULL);
++
++        if (elapsed < 2) {
++                g_warning ("GdmDisplay: display lasted %lf seconds", elapsed);
++                _gdm_display_set_status (display, GDM_DISPLAY_FAILED);
++        } else {
++                _gdm_display_set_status (display, GDM_DISPLAY_FINISHED);
++        }
+ 
+-        g_debug ("GdmDisplay: finish display");
++        g_debug ("GdmDisplay: finished display after %lf seconds", elapsed);
+ 
+         return TRUE;
+ }
+@@ -699,8 +707,6 @@ gdm_display_real_unmanage (GdmDisplay *d
+ 
+         g_debug ("GdmDisplay: unmanage display");
+ 
+-        g_timer_stop (display->priv->slave_timer);
+-
+         if (display->priv->slave_proxy != NULL) {
+                 gdm_slave_proxy_stop (display->priv->slave_proxy);
+ 
+@@ -720,13 +726,7 @@ gdm_display_real_unmanage (GdmDisplay *d
+                 display->priv->access_file = NULL;
+         }
+ 
+-        elapsed = g_timer_elapsed (display->priv->slave_timer, NULL);
+-        if (elapsed < 3) {
+-                g_warning ("GdmDisplay: display lasted %lf seconds", elapsed);
+-                _gdm_display_set_status (display, GDM_DISPLAY_FAILED);
+-        } else {
+-                _gdm_display_set_status (display, GDM_DISPLAY_UNMANAGED);
+-        }
++        _gdm_display_set_status (display, GDM_DISPLAY_UNMANAGED);
+ 
+         return TRUE;
+ }

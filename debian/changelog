@@ -1,3 +1,11 @@
+gdm3 (3.4.1-6) UNRELEASED; urgency=low
+
+  * 24_move_failure_detection.patch: new patch. Detect when a display is 
+    in FAILED state at finish() time, not unmanage(). This makes the 
+    logic for restarting displays upon failure correct. Closes: #681830.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 10 Feb 2013 17:24:04 +0100
+
 gdm3 (3.4.1-5) unstable; urgency=low
 
   * gdm3.prerm: do not stop gdm3 if $DISPLAY is between :0 and :9 which 

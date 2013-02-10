@@ -15,6 +15,7 @@
 21_static_display_purge.patch
 22_noconsole.patch
 23_start_polkit.patch
+24_move_failure_detection.patch
 30_dbus_prctl_death.patch
 31_worker_session_gone.patch
 32_ignore_greeter_crash.patch
