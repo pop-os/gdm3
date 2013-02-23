@@ -1,10 +1,17 @@
-gdm3 (3.6.1-3) UNRELEASED; urgency=low
+gdm3 (3.6.2-1) UNRELEASED; urgency=low
 
+  [ Simon McVittie ]
   * Don't suggest gok, which has been deprecated in favour of caribou
     and is not in GNOME 3 or Debian wheezy (Closes: #692781)
   * Fix a typo in a comment in gdm3-autologin.pam (Closes: #689927)
 
- -- Simon McVittie <smcv@debian.org>  Thu, 08 Nov 2012 19:30:41 +0000
+  [ Laurent Bigonville ]
+  * New upstream release (Closes: #701035)
+    - Pass new --with-ran-once-marker-directory flag to the configure
+  * Enable plymouth support on linux-any architecture
+  * Drop --enable-selinux configure flag, the flag is gone
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 20 Feb 2013 23:26:11 +0100
 
 gdm3 (3.6.1-2) experimental; urgency=low
 

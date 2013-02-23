@@ -33,6 +33,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
 		--disable-split-authentication \
 		--with-consolekit-directory=/usr/lib/ConsoleKit \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
+		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-initial-vt=7
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
@@ -42,7 +43,7 @@ endif
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-selinux
+	DEB_CONFIGURE_EXTRA_FLAGS += --with-plymouth
 else
 	DEB_CONFIGURE_EXTRA_FLAGS += --with-vt-switch-workaround
 endif
