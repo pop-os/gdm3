@@ -1,3 +1,22 @@
+gdm3 (3.4.1-7) UNRELEASED; urgency=low
+
+  * debian/patches/40_add_start_dir.patch:
+    + Call gnome-session with --start /usr/share/gdm/greeter/autostart.
+      .desktop files in that directory will be autostarted (if the
+      condition to do so is true) in the gdm session.
+  * debian/control.in:
+    + Bump gnome-session-bin dependency to 3.4.2.1-4~ for the above
+      change.
+  * debian/orca-autostart.desktop,
+    debian/gdm3.install:
+    + Install a desktop file to autostart orca if the screen reader
+      is enabled in gsettings.
+  * debian/patches/45_show_a11y_menu.patch:
+    + Add an a11y menu in the panel to enable/disable orca.
+  * All of the above closes: #689559.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sun, 07 Apr 2013 19:13:39 +0200
+
 gdm3 (3.4.1-6) unstable; urgency=low
 
   * 24_move_failure_detection.patch: new patch. Detect when a display is 
