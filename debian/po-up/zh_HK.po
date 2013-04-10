@@ -49,4 +49,4 @@ msgstr "結束"
 
 #: ../patches/45_show_a11y_menu.patch:49
 msgid "Screen Reader"
-msgstr ""
+msgstr "螢幕閱讀器"
