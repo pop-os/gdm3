@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2 HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2004-12-09 12:23+0200\n"
 "Last-Translator: Zuza Software Foundation <info@translate.org.za>\n"
 "Language-Team: Zulu <translate-discuss-zu@lists.sourceforge.net>\n"
@@ -40,3 +40,7 @@ msgstr "Hlukanisa"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Yeka"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""

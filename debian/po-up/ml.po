@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2.HEAD.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2007-08-03 17:11+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -43,3 +43,7 @@ msgstr "വിഛേദിക്കുക"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "പുറത്ത് കടക്കുക"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "സ്ക്രീന്‍ റീഡര്‍"

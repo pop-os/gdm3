@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2007-08-28 15:50+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
@@ -45,3 +45,7 @@ msgstr "ந இணைப்பை நீக்கு"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "வ வெளிசெல்"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "திரைபடிப்பான்"

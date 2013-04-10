@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2006-10-05 11:11+0200\n"
 "Last-Translator: Yaniv Abir <yanivabir at gmail dot com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -41,3 +41,7 @@ msgstr "התנתקות"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "יציאה"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "מקריא מסך"

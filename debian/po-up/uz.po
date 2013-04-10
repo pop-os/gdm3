@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uz@cyrillic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 15.11.2007 15:00\n"
 "Last-Translator: Nurali Abdurahmonov <mavnur@gmail.com>\n"
 "Language-Team: Uzbek\n"
@@ -40,4 +40,8 @@ msgstr ""
 
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
+msgstr ""
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
 msgstr ""

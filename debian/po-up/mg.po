@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GDM2 HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2007-03-06 14:38+0300\n"
 "Last-Translator: Thierry Randrianiriana <randrianiriana@gmail.com>\n"
 "Language-Team: Malagasy <i18n-malagasy-gnome@gna.org>\n"
@@ -42,3 +42,7 @@ msgstr "apao ny fifandraisana"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Hijanona"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""

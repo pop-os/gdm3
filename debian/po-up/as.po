@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2007-09-16 17:28+0530\n"
 "Last-Translator: Amitakhya Phukan <amitakhya@svn.gnome.org>\n"
 "Language-Team: Assamese\n"
@@ -42,3 +42,7 @@ msgstr "সংযোগ বিচ্ছিন্ন কৰা হবে"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "প্ৰস্থান"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "পৰ্দা ৰিডাৰ"

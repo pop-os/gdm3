@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2 2.15.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2006-10-08 05:09+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
@@ -46,3 +46,7 @@ msgstr "中斷連線"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "結束"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""

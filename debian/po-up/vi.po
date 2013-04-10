@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2010-04-26 21:03+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -40,6 +40,10 @@ msgstr "Ngắt kết nối"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Thoát"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "Trình đọc màn hình"
 
 #~ msgid "Log in as %s automatically"
 #~ msgstr "Tự động đăng nhập dưới %s"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2.gnome-2-20.ne\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2007-11-28 15:38+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -47,3 +47,7 @@ msgstr "विच्छेद गर्नुहोस्"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "अन्त्य गर्नुहोस्"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""

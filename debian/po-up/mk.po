@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm.gnome-2-20\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2008-03-29 11:06+0100\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -51,3 +51,7 @@ msgstr "Одврзи се"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Крај"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""

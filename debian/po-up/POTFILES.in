@@ -1,2 +1,3 @@
 default.desktop.in
 patches/11_xephyr_nested.patch
+patches/45_show_a11y_menu.patch

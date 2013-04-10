@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 2.30.0-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2010-05-04 23:05+0200\n"
 "Last-Translator: Hideki Yamane <henrich@debian.org>\n"
 "Language-Team: Debian-Japanese <debian-japanese@lists.debian.org>\n"
@@ -37,6 +37,10 @@ msgstr "接続切断"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "終了"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr ""
 
 #~ msgid "Log in as %s automatically"
 #~ msgstr "%s として自動的にログインする"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2010-09-23 19:26-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -53,6 +53,10 @@ msgstr "Desconectar"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Sair"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "Leitor de tela"
 
 #~ msgid "Log in as %s automatically"
 #~ msgstr "Autenticar-se como %s automaticamente"

@@ -13,6 +13,10 @@ gdm3 (3.4.1-7) UNRELEASED; urgency=low
       is enabled in gsettings.
   * debian/patches/45_show_a11y_menu.patch:
     + Add an a11y menu in the panel to enable/disable orca.
+  * debian/po/*:
+    + Add 45_show_a11y_menu.patch to the list of patches to be
+      translated and add translations for many languages taken
+      from gnome-shell.
   * All of the above closes: #689559.
 
  -- Emilio Pozuelo Monfort <pochu@debian.org>  Sun, 07 Apr 2013 19:13:39 +0200

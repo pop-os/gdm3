@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdm3 po-debconf\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-28 22:48+0200\n"
+"POT-Creation-Date: 2013-04-07 20:50+0200\n"
 "PO-Revision-Date: 2010-04-22 11:00+0300\n"
 "Last-Translator: mihkel <turakas@gmail.com>\n"
 "Language-Team: \n"
@@ -41,6 +41,10 @@ msgstr "Lahuta ühendus"
 #: ../patches/11_xephyr_nested.patch:1056
 msgid "Quit"
 msgstr "Lõpeta"
+
+#: ../patches/45_show_a11y_menu.patch:49
+msgid "Screen Reader"
+msgstr "Ekraanilugeja"
 
 #~ msgid "Log in as %s automatically"
 #~ msgstr "Logi automaatselt sisse kui %s"
