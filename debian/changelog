@@ -1,4 +1,4 @@
-gdm3 (3.4.1-7) UNRELEASED; urgency=low
+gdm3 (3.4.1-7) unstable; urgency=low
 
   * debian/patches/40_add_start_dir.patch:
     + Call gnome-session with --start /usr/share/gdm/greeter/autostart.
@@ -19,7 +19,7 @@ gdm3 (3.4.1-7) UNRELEASED; urgency=low
       from gnome-shell.
   * All of the above closes: #689559.
 
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Sun, 07 Apr 2013 19:13:39 +0200
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 10 Apr 2013 14:36:52 +0200
 
 gdm3 (3.4.1-6) unstable; urgency=low
 
