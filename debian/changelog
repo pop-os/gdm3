@@ -1,3 +1,11 @@
+gdm3 (3.4.1-8) unstable; urgency=low
+
+  * debian/orca-autostart.desktop:
+    + Pass --no-setup to orca to avoid displaying the preferences
+      window on the first run.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 17 Apr 2013 12:14:44 +0200
+
 gdm3 (3.4.1-7) unstable; urgency=low
 
   * debian/patches/40_add_start_dir.patch:
