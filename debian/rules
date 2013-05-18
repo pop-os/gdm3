@@ -49,9 +49,9 @@ endif
 
 
 DEB_DH_INSTALLINIT_ARGS := --noscripts
-DEB_DH_MAKESHLIBS_ARGS_gdm3 := --no-act
+DEB_DH_MAKESHLIBS_ARGS_libgdm := -V --no-act
 
-DEB_DH_GIREPOSITORY_ARGS_gdm3 := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
+DEB_DH_GIREPOSITORY_ARGS_libgdm := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm-binary debian/gdm3/usr/sbin/gdm3
@@ -71,9 +71,11 @@ binary-install/gdm3::
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
-	cd debian/gdm3/usr/lib/gdm && \
+
+binary-install/libgdm::
+	cd debian/libgdm/usr/lib/gdm && \
 		rm -f lib*.a lib*.la lib*.so *.gir
-	cd debian/gdm3/usr/lib/gnome-shell && \
+	cd debian/libgdm/usr/lib/gnome-shell && \
 		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdm*.so.? .
 
 INFILES := $(wildcard debian/*.desktop.in)
@@ -85,7 +87,6 @@ OUTFILES := $(INFILES:.desktop.in=.desktop)
 build/gdm3:: $(OUTFILES)
 
 MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
-
 common-build-arch:: $(MANPAGES)
 
 clean::

@@ -15,6 +15,10 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
   * debian/rules:
     Remove unknown option --disable-scrollkeeper (Closes: #701609)
 
+  [ Tim Lunn ]
+  * Split out libgdm into a separate package so that GNOME Shell
+    can use alternate display managers
+
  -- Thomas Bechtold <thomasbechtold@jpberlin.de>  Mon, 25 Feb 2013 08:52:30 +0100
 
 gdm3 (3.6.1-2) experimental; urgency=low
