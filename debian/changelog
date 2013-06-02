@@ -4,8 +4,6 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
   * Don't suggest gok, which has been deprecated in favour of caribou
     and is not in GNOME 3 or Debian wheezy (Closes: #692781)
   * Fix a typo in a comment in gdm3-autologin.pam (Closes: #689927)
-  * Mark all packages as Architecture: linux-any kfreebsd-any, because
-    gdm requires credentials-passing (unimplemented on Hurd)
 
   [ Laurent Bigonville ]
   * New upstream release (Closes: #701035)
@@ -20,6 +18,14 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
   [ Tim Lunn ]
   * Split out libgdm into a separate package so that GNOME Shell
     can use alternate display managers
+
+  [ Simon McVittie ]
+  * Mark all packages as Architecture: linux-any kfreebsd-any, because
+    gdm requires credentials-passing (unimplemented on Hurd)
+  * Fix gdm3.install for package split
+    - gdm-simple-chooser etc. are in /usr/lib/gdm3, not /usr/lib/gdm
+    - /usr/sbin/gdm-binary is the real daemon, and debian/rules expects it
+      under that name
 
  -- Thomas Bechtold <thomasbechtold@jpberlin.de>  Mon, 25 Feb 2013 08:52:30 +0100
 

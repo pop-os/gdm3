@@ -4,7 +4,8 @@ debian/default.desktop			usr/share/gdm/BuiltInSessions
 debian/insserv.conf.d			etc
 etc/*
 usr/bin/gdm-screenshot
-usr/lib/gdm/gdm-*
-usr/sbin/gdm
+usr/lib/gdm3/gdm-*
+# gets renamed to gdm in binary-install
+usr/sbin/gdm-binary
 usr/share/*
 var/*
