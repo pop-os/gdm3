@@ -2,6 +2,7 @@
 # 
 # Modifications should be made to debian/control.in instead.
 # This file is regenerated automatically in the clean target.
+
 Source: gdm3
 Section: gnome
 Priority: optional
@@ -51,7 +52,7 @@ Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
-Architecture: any
+Architecture: linux-any kfreebsd-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -107,7 +108,7 @@ Description: Next generation GNOME Display Manager
 
 Package: libgdm
 Section: libs
-Architecture: any
+Architecture: linux-any kfreebsd-any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}

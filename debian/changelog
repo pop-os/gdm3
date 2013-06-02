@@ -4,6 +4,8 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
   * Don't suggest gok, which has been deprecated in favour of caribou
     and is not in GNOME 3 or Debian wheezy (Closes: #692781)
   * Fix a typo in a comment in gdm3-autologin.pam (Closes: #689927)
+  * Mark all packages as Architecture: linux-any kfreebsd-any, because
+    gdm requires credentials-passing (unimplemented on Hurd)
 
   [ Laurent Bigonville ]
   * New upstream release (Closes: #701035)
