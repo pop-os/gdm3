@@ -27,6 +27,10 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
     - /usr/sbin/gdm-binary is the real daemon, and debian/rules expects it
       under that name
 
+  [ Michael Biebl ]
+  * Change Depends on dconf-tools to dconf-cli. We only require the command
+    line tools which were split out into a separate package.
+
  -- Thomas Bechtold <thomasbechtold@jpberlin.de>  Mon, 25 Feb 2013 08:52:30 +0100
 
 gdm3 (3.6.1-2) experimental; urgency=low
