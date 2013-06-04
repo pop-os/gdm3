@@ -85,7 +85,6 @@ Recommends: zenity,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
           gnome-orca,
-          gok,
           gnome-shell
 Provides: x-display-manager
 Conflicts: gdm
