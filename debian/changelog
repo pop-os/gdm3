@@ -1,6 +1,9 @@
 gdm3 (3.4.1-9) UNRELEASED; urgency=low
 
   * Drop Suggests on gok. This package has been removed from the archive.
+  * debian/patches/94_update_syntax_of_dconf_profile_file.patch: The dconf
+    profile file was using a deprecated syntax which stopped working with
+    dconf 0.13.4. Closes: #711065
 
  -- Michael Biebl <biebl@debian.org>  Tue, 04 Jun 2013 21:12:01 +0200
 
