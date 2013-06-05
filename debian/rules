@@ -50,6 +50,7 @@ endif
 
 DEB_DH_INSTALLINIT_ARGS := --noscripts
 DEB_DH_MAKESHLIBS_ARGS_libgdm := -V --no-act
+DEB_DH_SHLIBDEPS_ARGS_ALL := -Llibgdm
 
 DEB_DH_GIREPOSITORY_ARGS_libgdm := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
 

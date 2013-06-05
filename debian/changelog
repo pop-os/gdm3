@@ -26,6 +26,8 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
     - gdm-simple-chooser etc. are in /usr/lib/gdm3, not /usr/lib/gdm
     - /usr/sbin/gdm-binary is the real daemon, and debian/rules expects it
       under that name
+  * Tell dh_shlibdeps to look in libgdm to satisfy the shared library
+    dependencies, and add a shlibs.local for them
 
   [ Michael Biebl ]
   * Change Depends on dconf-tools to dconf-cli. We only require the command
