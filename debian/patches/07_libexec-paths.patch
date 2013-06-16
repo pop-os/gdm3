@@ -1,7 +1,9 @@
 GNOME #645918
 
---- a/gui/simple-chooser/gdm-chooser-session.c
-+++ b/gui/simple-chooser/gdm-chooser-session.c
+Index: gdm-3.7.2/gui/simple-chooser/gdm-chooser-session.c
+===================================================================
+--- gdm-3.7.2.orig/gui/simple-chooser/gdm-chooser-session.c	2012-09-21 10:42:45.000000000 +1200
++++ gdm-3.7.2/gui/simple-chooser/gdm-chooser-session.c	2012-12-04 10:38:35.099982294 +1300
 @@ -133,7 +133,7 @@
          ret = FALSE;
  
@@ -11,8 +13,10 @@ GNOME #645918
          if (error != NULL) {
                  g_warning ("Error starting settings daemon: %s", error->message);
                  g_error_free (error);
---- a/configure.ac
-+++ b/configure.ac
+Index: gdm-3.7.2/configure.ac
+===================================================================
+--- gdm-3.7.2.orig/configure.ac	2012-11-20 02:48:01.000000000 +1300
++++ gdm-3.7.2/configure.ac	2012-12-04 10:38:35.099982294 +1300
 @@ -74,6 +74,7 @@
  FONTCONFIG_REQUIRED_VERSION=2.5.0
  UPOWER_REQUIRED_VERSION=0.9.0
@@ -38,8 +42,10 @@ GNOME #645918
  dnl - Configuration file stuff
  dnl ---------------------------------------------------------------------------
  
---- a/gui/simple-chooser/Makefile.am
-+++ b/gui/simple-chooser/Makefile.am
+Index: gdm-3.7.2/gui/simple-chooser/Makefile.am
+===================================================================
+--- gdm-3.7.2.orig/gui/simple-chooser/Makefile.am	2012-07-20 00:08:17.000000000 +1200
++++ gdm-3.7.2/gui/simple-chooser/Makefile.am	2012-12-04 10:38:35.099982294 +1300
 @@ -14,6 +14,7 @@
  	-DSBINDIR=\""$(sbindir)"\"		 	\
  	-DPIXMAPDIR=\""$(pixmapdir)"\"		 	\

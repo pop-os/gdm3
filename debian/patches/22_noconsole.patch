@@ -12,7 +12,7 @@ GNOME #567522
  #define GDM_KEY_MAX_WAIT "xdmcp/MaxWait"
 --- a/daemon/gdm-manager.c
 +++ b/daemon/gdm-manager.c
-@@ -66,7 +66,7 @@
+@@ -65,7 +65,7 @@
  
          gboolean                started;
          gboolean                wait_for_go;
@@ -21,7 +21,7 @@ GNOME #567522
  
          GDBusProxy               *bus_proxy;
          GDBusConnection          *connection;
-@@ -75,7 +75,8 @@
+@@ -74,7 +74,8 @@
  
  enum {
          PROP_0,
@@ -31,7 +31,7 @@ GNOME #567522
  };
  
  enum {
-@@ -901,7 +902,7 @@
+@@ -903,7 +904,7 @@
  {
          g_debug ("GdmManager: GDM starting to manage displays");
  
@@ -40,7 +40,7 @@ GNOME #567522
                  gdm_display_factory_start (GDM_DISPLAY_FACTORY (manager->priv->local_factory));
          }
  
-@@ -927,7 +928,8 @@
+@@ -929,7 +930,8 @@
  
                  if (! wait_for_go) {
                          /* we got a go */
@@ -50,7 +50,7 @@ GNOME #567522
  
  #ifdef HAVE_LIBXDMCP
                          if (manager->priv->xdmcp_enabled && manager->priv->xdmcp_factory != NULL) {
-@@ -1000,6 +1002,15 @@
+@@ -1002,6 +1004,15 @@
  
  }
  
@@ -66,7 +66,7 @@ GNOME #567522
  static void
  gdm_manager_set_property (GObject      *object,
                            guint         prop_id,
-@@ -1014,6 +1025,9 @@
+@@ -1016,6 +1027,9 @@
          case PROP_XDMCP_ENABLED:
                  gdm_manager_set_xdmcp_enabled (self, g_value_get_boolean (value));
                  break;
@@ -76,7 +76,7 @@ GNOME #567522
          default:
                  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
                  break;
-@@ -1034,6 +1048,9 @@
+@@ -1036,6 +1050,9 @@
          case PROP_XDMCP_ENABLED:
                  g_value_set_boolean (value, self->priv->xdmcp_enabled);
                  break;
@@ -99,7 +99,7 @@ GNOME #567522
                                                                  GError    **error);
 --- a/daemon/main.c
 +++ b/daemon/main.c
-@@ -545,6 +545,7 @@
+@@ -446,6 +446,7 @@
                    gpointer         user_data)
  {
          gboolean xdmcp_enabled;
@@ -107,7 +107,7 @@ GNOME #567522
  
          manager = gdm_manager_new ();
          if (manager == NULL) {
-@@ -556,6 +557,10 @@
+@@ -457,6 +458,10 @@
  
          gdm_manager_start (manager);
  

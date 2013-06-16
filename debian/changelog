@@ -1,4 +1,4 @@
-gdm3 (3.6.2-1) UNRELEASED; urgency=low
+gdm3 (3.8.3-1) experimental; urgency=low
 
   [ Simon McVittie ]
   * Don't suggest gok, which has been deprecated in favour of caribou
@@ -33,7 +33,19 @@ gdm3 (3.6.2-1) UNRELEASED; urgency=low
   * Change Depends on dconf-tools to dconf-cli. We only require the command
     line tools which were split out into a separate package.
 
- -- Thomas Bechtold <thomasbechtold@jpberlin.de>  Mon, 25 Feb 2013 08:52:30 +0100
+  [ Sjoerd Simons ]
+  * New upstream release 3.8.3
+  * debian/control.in: Update build-depends
+  * Explicitely pick consolekit as the session manager for now, to ensure
+    consolkit sessions get registered to ensure the last few remaining users of
+    consolekit keep working.. systemd-logind is smart enough to pick up the
+    session by itself, so programs relying on logind will work properly.
+  * debian/greeter.gsettings:
+    + Use gdm-shell greeter, fallback has been removed upstream
+    + Stop disabling the power icon, it now longer allows configuring power
+      settings
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Thu, 06 Jun 2013 13:39:28 +0200
 
 gdm3 (3.6.1-2) experimental; urgency=low
 

@@ -12,3 +12,4 @@
 92_gsettings_path.patch
 93_private_lib.patch
 95_check_x11_display.patch
+96_check_libs.patch

@@ -1,6 +1,6 @@
 --- a/daemon/gdm-manager.c
 +++ b/daemon/gdm-manager.c
-@@ -444,7 +444,7 @@
+@@ -443,7 +443,7 @@
                                                       "org.freedesktop.ConsoleKit",
                                                       sessions[i],
                                                       "org.freedesktop.ConsoleKit.Session",

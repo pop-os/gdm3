@@ -5,7 +5,7 @@ debian/insserv.conf.d			etc
 etc/*
 usr/bin/gdm-screenshot
 usr/lib/gdm3/gdm-*
-# gets renamed to gdm in binary-install
-usr/sbin/gdm-binary
+# gets renamed to gdm3 in binary-install
+usr/sbin/gdm
 usr/share/*
 var/*
