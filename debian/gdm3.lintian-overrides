@@ -1,1 +1,2 @@
 gdm3: duplicate-updaterc.d-calls-in-postinst gdm3
+gdm3: binary-or-shlib-defines-rpath usr/lib/gdm3/gdm-simple-chooser /usr/lib/gdm

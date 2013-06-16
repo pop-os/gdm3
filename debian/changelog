@@ -44,6 +44,10 @@ gdm3 (3.8.3-1) experimental; urgency=low
     + Use gdm-shell greeter, fallback has been removed upstream
     + Stop disabling the power icon, it now longer allows configuring power
       settings
+  * debian/gdm3.lintian-overrides
+    + Override gdm3: binary-or-shlib-defines-rpath
+        usr/lib/gdm3/gdm-simple-chooser /usr/lib/gdm as it's expected for gdm3
+        to use the private gdm libraries
 
  -- Sjoerd Simons <sjoerd@debian.org>  Thu, 06 Jun 2013 13:39:28 +0200
 
