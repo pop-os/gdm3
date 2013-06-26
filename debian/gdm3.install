@@ -1,7 +1,3 @@
-debian/Xsession                         etc/gdm3
-debian/greeter.gsettings		etc/gdm3
-debian/default.desktop			usr/share/gdm/BuiltInSessions
-debian/insserv.conf.d			etc
 etc/*
 usr/bin/gdm-screenshot
 usr/lib/gdm3/gdm-*
@@ -9,3 +5,7 @@ usr/lib/gdm3/gdm-*
 usr/sbin/gdm
 usr/share/*
 var/*
+debian/Xsession		etc/gdm3
+debian/greeter.gsettings		etc/gdm3
+debian/default.desktop			usr/share/gdm/BuiltInSessions
+debian/insserv.conf.d			etc
