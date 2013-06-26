@@ -1,5 +1,14 @@
 --- a/daemon/gdm-simple-slave.c
 +++ b/daemon/gdm-simple-slave.c
+@@ -613,7 +613,7 @@
+ 
+         g_debug ("GdmSimpleSlave: session conversation started for service %s", service_name);
+ 
+-        if (g_strcmp0 (service_name, "gdm-autologin") != 0) {
++        if (g_strcmp0 (service_name, GDM_PAM_DOMAIN"-autologin") != 0) {
+                 return;
+         }
+ 
 @@ -658,7 +658,8 @@
          }
  
@@ -44,3 +53,14 @@
  	-DCONSOLEKIT_DIR=\"$(CONSOLEKIT_DIR)\" \
  	$(DISABLE_DEPRECATED_CFLAGS)			\
  	$(DAEMON_CFLAGS)				\
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -1322,7 +1322,7 @@
+ 
+         g_debug ("GdmSession: begin auto login for user '%s'", username);
+ 
+-        gdm_session_setup_for_user (self, "gdm-autologin", username);
++        gdm_session_setup_for_user (self, GDM_PAM_DOMAIN"-autologin", username);
+ 
+         return TRUE;
+ }
