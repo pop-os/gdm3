@@ -9,7 +9,7 @@ B<gdm3flexiserver>       GNOME options   gdmflexiserver options
 
 =head1 DESCRIPTION
 
-The F<flexi server> mechanism allows to run GDM sessions on demand, in a
+The F<flexi server> mechanism allows one to run GDM sessions on demand, in a
 new virtual console.
 
 =head1 OPTIONS

@@ -42,9 +42,9 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas
-Standards-Version: 3.9.3
-Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
+Standards-Version: 3.9.4
+Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
 Architecture: linux-any kfreebsd-any
@@ -107,9 +107,9 @@ Architecture: linux-any kfreebsd-any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
-Breaks: gdm (<< 3.6.2)
-Replaces: gdm (<< 3.6.2)
-Description: Next generation GNOME Display Manager
+Breaks: gdm (<< 3.8.3-3~)
+Replaces: gdm (<< 3.8.3-3~)
+Description: Next generation GNOME Display Manager (private shared libraries)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts X sessions.
  .

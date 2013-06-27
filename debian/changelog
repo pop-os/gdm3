@@ -1,3 +1,20 @@
+gdm3 (3.8.3-3) UNRELEASED; urgency=low
+
+  * debian/control.in:
+    - Bump Standards-Version to 3.9.4 (no further changes)
+    - Use canonical URLs for VCS fields
+    - Fix duplicate short description of libgdm package
+  * debian/gdm3.lintian-overrides, debian/source.lintian-overrides:
+    - Add an override for 'gdm3: unused-debconf-template gdm3/daemon_name'
+    - Drop unused overrides to please lintian
+  * debian/gdm3.dirs: Drop usr/share/gdm/greeter-settings/, not needed anymore
+    since 3.4.1-1
+  * debian/gdmflexiserver.1.pod: Fix grammar, thanks to lintian
+  * debian/gdm3.manpages, debian/libgdm.manpages: Move gdmflexiserver manpage
+    to libgdm package so it follows the executable
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 27 Jun 2013 10:52:14 +0200
+
 gdm3 (3.8.3-2) experimental; urgency=low
 
   * debian/patches/10_gdm3_pam.patch:
