@@ -1,11 +1,12 @@
-gdm3 (3.8.3-2) UNRELEASED; urgency=low
+gdm3 (3.8.3-2) experimental; urgency=low
 
   * debian/patches/10_gdm3_pam.patch:
     + Updated. Update some more hardcoded gdm-autologin  entries
   * debian/gdm3.install: Install the files debian overrides as the last ones
-    so we don't accidentally include upstream versions.
+    so we don't accidentally include upstream versions. Specifically in the
+    case of the Xsession which needs to be debian specific
 
- -- Sjoerd Simons <sjoerd@debian.org>  Wed, 26 Jun 2013 18:13:50 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Thu, 27 Jun 2013 08:56:50 +0200
 
 gdm3 (3.8.3-1) experimental; urgency=low
 
