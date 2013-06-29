@@ -2,7 +2,6 @@
 # 
 # Modifications should be made to debian/control.in instead.
 # This file is regenerated automatically in the clean target.
-
 Source: gdm3
 Section: gnome
 Priority: optional
@@ -62,7 +61,7 @@ Depends: ${shlibs:Depends},
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin (>= 3.6),
          gnome-settings-daemon (>= 3.2),
-         metacity (>= 1:2.34.2),
+         gnome-shell,
          policykit-1-gnome,
          upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
@@ -84,8 +83,7 @@ Recommends: zenity,
             gnome-icon-theme-symbolic,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
-          gnome-orca,
-          gnome-shell
+          gnome-orca
 Provides: x-display-manager
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),

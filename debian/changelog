@@ -1,5 +1,6 @@
 gdm3 (3.8.3-3) UNRELEASED; urgency=low
 
+  [ Laurent Bigonville ]
   * debian/control.in:
     - Bump Standards-Version to 3.9.4 (no further changes)
     - Use canonical URLs for VCS fields
@@ -12,6 +13,11 @@ gdm3 (3.8.3-3) UNRELEASED; urgency=low
   * debian/gdmflexiserver.1.pod: Fix grammar, thanks to lintian
   * debian/gdm3.manpages, debian/libgdm.manpages: Move gdmflexiserver manpage
     to libgdm package so it follows the executable
+
+  [ Jeremy Bicha ]
+  * debian/control.in:
+    - Since the fallback greeter isn't provided anymore, depend on gnome-shell
+      instead of metacity as gnome-shell is the only available gdm3 greeter
 
  -- Laurent Bigonville <bigon@debian.org>  Thu, 27 Jun 2013 10:52:14 +0200
 
