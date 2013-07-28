@@ -44,7 +44,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas
 Standards-Version: 3.9.2
 Vcs-Svn: svn://svn.debian.org/pkg-gnome/desktop/unstable/gdm3/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-gnome/desktop/unstable/gdm3/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
 Architecture: any
