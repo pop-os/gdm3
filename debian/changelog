@@ -18,6 +18,7 @@ gdm3 (3.8.3-3) UNRELEASED; urgency=low
   * debian/control.in:
     - Since the fallback greeter isn't provided anymore, depend on gnome-shell
       instead of metacity as gnome-shell is the only available gdm3 greeter
+    - Breaks/Replaces gdm3 instead of gdm
 
  -- Laurent Bigonville <bigon@debian.org>  Thu, 27 Jun 2013 10:52:14 +0200
 

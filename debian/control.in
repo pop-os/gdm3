@@ -106,8 +106,8 @@ Architecture: linux-any kfreebsd-any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
-Breaks: gdm (<< 3.8.3-3~)
-Replaces: gdm (<< 3.8.3-3~)
+Breaks: gdm3 (<< 3.8.3-3~)
+Replaces: gdm3 (<< 3.8.3-3~)
 Description: Next generation GNOME Display Manager (private shared libraries)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts X sessions.
