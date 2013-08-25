@@ -2,14 +2,15 @@
 # 
 # Modifications should be made to debian/control.in instead.
 # This file is regenerated automatically in the clean target.
+
 Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: Josselin Mouette <joss@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>, Sjoerd Simons <sjoerd@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
-               debhelper (>= 8.1.0),
-               cdbs,
+               debhelper (>= 8.1.3),
+               cdbs (>= 0.4.93~),
                dh-autoreconf,
                intltool (>= 0.40.0),
                libdbus-glib-1-dev (>= 0.74),
@@ -55,7 +56,8 @@ Architecture: linux-any kfreebsd-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         libgdm (= ${binary:Version}),
+         libgdm1 (= ${binary:Version}),
+         gir1.2-gdm3 (= ${binary:Version}),
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
@@ -104,15 +106,17 @@ Description: Next generation GNOME Display Manager
  This package contains the next generation GDM, which was developed 
  using the technologies on which GNOME 3 is based.
 
-Package: libgdm
+Package: libgdm1
 Section: libs
 Architecture: linux-any kfreebsd-any
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
 Breaks: gdm3 (<< 3.8.3-3~)
-Replaces: gdm3 (<< 3.8.3-3~)
-Description: Next generation GNOME Display Manager (private shared libraries)
+Conflicts: libgdm
+Replaces: libgdm, gdm3 (<< 3.8.3-3~)
+Description: Next generation GNOME Display Manager (shared library)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts X sessions.
  .
@@ -124,3 +128,46 @@ Description: Next generation GNOME Display Manager (private shared libraries)
  GNOME application - even to the extent of supporting themes!
  .
  This package contains the shared library required by gnome-shell.
+
+Package: libgdm-dev
+Section: libdevel
+Architecture: linux-any kfreebsd-any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libgdm1 (= ${binary:Version}),
+         gir1.2-gdm3 (= ${binary:Version}),
+	 ${shlibs:Depends},
+         ${misc:Depends},
+         ${gir:Depends}
+Description: Next generation GNOME Display Manager (development files)
+ GDM provides the equivalent of a "login:" prompt for X displays: it
+ asks for a login and starts X sessions.
+ .
+ It provides all the functionality of XDM, including XDMCP support for
+ managing remote displays, and extends it with the ability to start X
+ servers on demand.
+ .
+ The greeter is written using the GNOME libraries and hence looks like a
+ GNOME application - even to the extent of supporting themes!
+ .
+ This package contains header and development files.
+
+Package: gir1.2-gdm3
+Section: introspection
+Architecture: linux-any kfreebsd-any
+Depends: ${gir:Depends},
+         ${shlibs:Depends},
+         ${misc:Depends}
+Conflicts: libgdm
+Replaces: libgdm
+Description: GObject introspection data for the GNOME Display Manager
+ GDM provides the equivalent of a "login:" prompt for X displays: it
+ asks for a login and starts X sessions.
+ .
+ It provides all the functionality of XDM, including XDMCP support for
+ managing remote displays, and extends it with the ability to start X
+ servers on demand.
+ .
+ The greeter is written using the GNOME libraries and hence looks like a
+ GNOME application - even to the extent of supporting themes!
+ .
+ This package contains introspection data for the GNOME Display Manager.

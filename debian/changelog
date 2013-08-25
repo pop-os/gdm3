@@ -20,7 +20,27 @@ gdm3 (3.8.3-3) UNRELEASED; urgency=low
       instead of metacity as gnome-shell is the only available gdm3 greeter
     - Breaks/Replaces gdm3 instead of gdm
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 27 Jun 2013 10:52:14 +0200
+  [ Javier Martinez ]
+  * debian/patches:
+    + Drop 93_private_lib.patch. Don't install the shared library
+      in a private directory.
+   * debian/control.in:
+     + Split libgdm adding a libgdm-dev package
+     + Rename libgdm to libgdm1 and update the package description
+     + Add a gir1.2-gdm3 package for GObject introspection data
+   * debian/gdm3.lintian-overrides:
+     + Drop gdm3: binary-or-shlib-defines-rpath
+       usr/lib/gdm3/gdm-simple-chooser /usr/lib/gdm since the gdm libraries
+       are not private anymore.
+     + Make build depend on debhelper (>= 8.1.3) and cdbs (>= 0.4.93~) and
+       add Pre-Depends: ${misc:Pre-Depends} to shared libs packages to
+       support Multi-Arch
+   * debian/rules:
+     + Remove all mangling about /usr/lib/gdm and update binary-install/libgdm::
+     + Append --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) to
+       DEB_CONFIGURE_EXTRA_FLAGS
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 25 Aug 2013 18:17:50 +0200
 
 gdm3 (3.8.3-2) experimental; urgency=low
 

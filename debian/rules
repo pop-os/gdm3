@@ -36,6 +36,8 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-initial-vt=7
 
+DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
+
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
 endif
@@ -53,7 +55,7 @@ DEB_DH_INSTALLINIT_ARGS := --noscripts
 DEB_DH_MAKESHLIBS_ARGS_libgdm := -V --no-act
 DEB_DH_SHLIBDEPS_ARGS_ALL := -Llibgdm
 
-DEB_DH_GIREPOSITORY_ARGS_libgdm := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
+DEB_DH_GIREPOSITORY_ARGS_libgdm := -l$(CURDIR)/gui/libgdm1
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
@@ -75,10 +77,10 @@ binary-install/gdm3::
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 
 binary-install/libgdm::
-	cd debian/libgdm/usr/lib/gdm && \
+	cd debian/libgdm1/usr/lib/gdm && \
 		rm -f lib*.a lib*.la lib*.so *.gir
-	cd debian/libgdm/usr/lib/gnome-shell && \
-		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdm*.so.? .
+	cd debian/libgdm1/usr/lib/gnome-shell && \
+		ln -s ../Gdm-1.0.typelib . && ln -s ../libgdm*.so.? .
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)

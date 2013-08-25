@@ -1,2 +1,0 @@
-libgdm 1 libgdm (= ${binary:Version})
-libgdmsimplegreeter 1 libgdm (= ${binary:Version})
