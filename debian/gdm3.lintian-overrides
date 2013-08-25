@@ -1,4 +1,5 @@
-gdm3: binary-or-shlib-defines-rpath usr/lib/gdm3/gdm-simple-chooser /usr/lib/gdm
-gdm3: binary-or-shlib-defines-rpath usr/lib/gdm3/gdm-simple-greeter /usr/lib/gdm
 # internal use only
 gdm3: unused-debconf-template gdm3/daemon_name
+# libgdmsimplegreeter1 is only used by gdm-simple-greeter inside the same package
+gdm3: package-name-doesnt-match-sonames libgdmsimplegreeter1
+gdm3: no-symbols-control-file usr/lib/x86_64-linux-gnu/libgdmsimplegreeter.so.1.0.0
