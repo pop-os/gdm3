@@ -57,10 +57,6 @@ endif
 
 
 DEB_DH_INSTALLINIT_ARGS := --noscripts
-DEB_DH_MAKESHLIBS_ARGS_libgdm := -V --no-act
-DEB_DH_SHLIBDEPS_ARGS_ALL := -Llibgdm
-
-DEB_DH_GIREPOSITORY_ARGS_libgdm := -l$(CURDIR)/gui/libgdm1
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
@@ -80,12 +76,6 @@ binary-install/gdm3::
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
-
-binary-install/libgdm::
-	cd debian/libgdm1/usr/lib/gdm && \
-		rm -f lib*.a lib*.la lib*.so *.gir
-	cd debian/libgdm1/usr/lib/gnome-shell && \
-		ln -s ../Gdm-1.0.typelib . && ln -s ../libgdm*.so.? .
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
