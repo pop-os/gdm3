@@ -19,10 +19,10 @@
 
 # Greeter session choice
 # ======================
-# Use 'gdm-shell' for the GNOME Shell version.
+# Use 'gdm-fallback' for the fallback (simple) version.
 # Never use anything not starting with 'gdm-'.
 #[org.gnome.desktop.session]
-#session-name='gdm-shell'
+#session-name='gdm-fallback'
 
 # Login manager options
 # =====================
@@ -37,3 +37,8 @@ fallback-logo='/usr/share/icons/gnome/48x48/places/debian-swirl.png'
 # - Show a login welcome message
 # banner-message-enable=true
 # banner-message-text='Welcome'
+
+# The metacity compositor doesn’t go well with the greeter
+# so just to be sure
+[org.gnome.metacity]
+compositing-manager=false

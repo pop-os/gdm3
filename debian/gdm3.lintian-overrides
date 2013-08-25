@@ -1,3 +1,4 @@
 gdm3: binary-or-shlib-defines-rpath usr/lib/gdm3/gdm-simple-chooser /usr/lib/gdm
+gdm3: binary-or-shlib-defines-rpath usr/lib/gdm3/gdm-simple-greeter /usr/lib/gdm
 # internal use only
 gdm3: unused-debconf-template gdm3/daemon_name

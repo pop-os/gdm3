@@ -1,6 +1,9 @@
-gdm3 (3.8.3-3) UNRELEASED; urgency=low
+gdm3 (3.8.4-1) UNRELEASED; urgency=low
 
   [ Laurent Bigonville ]
+  * New upstream release
+    - debian/gdm3.install, debian/rules, debian/greeter.gsettings: Re-enable
+      gdm-simple-greeter
   * debian/control.in:
     - Bump Standards-Version to 3.9.4 (no further changes)
     - Use canonical URLs for VCS fields
@@ -13,6 +16,8 @@ gdm3 (3.8.3-3) UNRELEASED; urgency=low
   * debian/gdmflexiserver.1.pod: Fix grammar, thanks to lintian
   * debian/gdm3.manpages, debian/libgdm.manpages: Move gdmflexiserver manpage
     to libgdm package so it follows the executable
+  * debian/rules: List non-installed files
+  * debian/gdm3.lintian-overrides: Adjust overrides file
 
   [ Jeremy Bicha ]
   * debian/control.in:
@@ -40,7 +45,7 @@ gdm3 (3.8.3-3) UNRELEASED; urgency=low
      + Append --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) to
        DEB_CONFIGURE_EXTRA_FLAGS
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sun, 25 Aug 2013 18:17:50 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 25 Aug 2013 19:27:53 +0200
 
 gdm3 (3.8.3-2) experimental; urgency=low
 
