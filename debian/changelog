@@ -18,6 +18,8 @@ gdm3 (3.8.4-1) UNRELEASED; urgency=low
     to libgdm package so it follows the executable
   * debian/rules: List non-installed files
   * debian/gdm3.lintian-overrides: Adjust overrides file
+  * debian/gdm-screenshot.1.pod, debian/gdm3.manpages: Add manpage for
+    gdm-screenshot executable, thanks to Nathan Handler (Closes: #691295)
 
   [ Jeremy Bicha ]
   * debian/control.in:
@@ -45,7 +47,7 @@ gdm3 (3.8.4-1) UNRELEASED; urgency=low
      + Append --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) to
        DEB_CONFIGURE_EXTRA_FLAGS
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 25 Aug 2013 19:27:53 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 26 Aug 2013 01:23:55 +0200
 
 gdm3 (3.8.3-2) experimental; urgency=low
 
