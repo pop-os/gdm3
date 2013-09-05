@@ -2,8 +2,9 @@ gdm3 (3.8.4-1) UNRELEASED; urgency=low
 
   [ Laurent Bigonville ]
   * New upstream release
-    - debian/gdm3.install, debian/rules, debian/greeter.gsettings: Re-enable
-      gdm-simple-greeter
+    - debian/rules: Explicitly disable gdm-simple-greeter, it has been removed
+      in the archive for quite sometime now and will be gone again in the next
+      major release anyway.
   * debian/control.in:
     - Bump Standards-Version to 3.9.4 (no further changes)
     - Use canonical URLs for VCS fields
@@ -17,7 +18,6 @@ gdm3 (3.8.4-1) UNRELEASED; urgency=low
   * debian/gdm3.manpages, debian/libgdm.manpages: Move gdmflexiserver manpage
     to libgdm package so it follows the executable
   * debian/rules: List non-installed files
-  * debian/gdm3.lintian-overrides: Adjust overrides file
   * debian/gdm-screenshot.1.pod, debian/gdm3.manpages: Add manpage for
     gdm-screenshot executable, thanks to Nathan Handler (Closes: #691295)
 

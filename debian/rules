@@ -39,7 +39,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-initial-vt=7 \
-                --enable-fallback-greeter
+                --disable-fallback-greeter
 
 DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
@@ -76,6 +76,11 @@ binary-install/gdm3::
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
+# gdm-simple-greeter is built even if the --disable-fallback-greeter flag is passed to the configure
+	rm -f debian/gdm3/usr/lib/gdm3/gdm-simple-greeter
+	rm -f debian/gdm3/usr/share/gdm/gdm-greeter-login-window.ui
+	rm -f debian/gdm3/usr/share/gnome-session/sessions/gdm-fallback.session
+	rm -f debian/gdm3/usr/share/gdm/simple-greeter/extensions/unified/page.ui
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
