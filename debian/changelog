@@ -1,4 +1,4 @@
-gdm3 (3.8.4-1) UNRELEASED; urgency=low
+gdm3 (3.8.4-1) experimental; urgency=low
 
   [ Laurent Bigonville ]
   * New upstream release
@@ -47,7 +47,7 @@ gdm3 (3.8.4-1) UNRELEASED; urgency=low
      + Append --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) to
        DEB_CONFIGURE_EXTRA_FLAGS
 
- -- Laurent Bigonville <bigon@debian.org>  Mon, 26 Aug 2013 01:23:55 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 09 Sep 2013 00:40:53 +0200
 
 gdm3 (3.8.3-2) experimental; urgency=low
 
