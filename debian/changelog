@@ -3,8 +3,8 @@ gdm3 (3.8.4-1) experimental; urgency=low
   [ Laurent Bigonville ]
   * New upstream release
     - debian/rules: Explicitly disable gdm-simple-greeter, it has been removed
-      from the archive for quite some time now and will be gone again in the next
-      major release anyway.
+      from the archive for quite some time now and will be gone again in the
+      next major release anyway.
   * debian/control.in:
     - Bump Standards-Version to 3.9.4 (no further changes)
     - Use canonical URLs for VCS fields
