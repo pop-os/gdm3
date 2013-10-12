@@ -6,6 +6,11 @@ gdm3 (3.8.4-2) UNRELEASED; urgency=low
   * debian/control.in:
     + Build depend on glib 2.36 for the above function.
 
+  [ Simon McVittie ]
+  * Apply patch from Paul Wise to avoid userdel error messages
+    from being used as input for debconf if gdm3 is purged while
+    processes are still running as Debian-gdm (Closes: #657751)
+
  -- Emilio Pozuelo Monfort <pochu@debian.org>  Sat, 12 Oct 2013 19:15:18 +0200
 
 gdm3 (3.8.4-1) experimental; urgency=low
