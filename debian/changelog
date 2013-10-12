@@ -1,3 +1,11 @@
+gdm3 (3.8.4-1.1) UNRELEASED; urgency=low
+
+  * debian/patches/20_credentials.patch:
+    + Patch from Petr Salinger, use g_credentials_get_unix_pid() instead
+      of our own function as the former supports kFreeBSD. Closes: #692739.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sat, 12 Oct 2013 19:15:18 +0200
+
 gdm3 (3.8.4-1) experimental; urgency=low
 
   [ Laurent Bigonville ]

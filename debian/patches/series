@@ -7,6 +7,7 @@
 10_no_gettext.patch
 #11_xephyr_nested.patch
 16_xserver_path.patch
+20_credentials.patch
 22_noconsole.patch
 90_config_comments.patch
 92_gsettings_path.patch
