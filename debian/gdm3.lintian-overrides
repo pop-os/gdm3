@@ -1,0 +1,2 @@
+# internal use only
+gdm3: unused-debconf-template gdm3/daemon_name

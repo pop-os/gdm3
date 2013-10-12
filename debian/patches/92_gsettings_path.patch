@@ -1,0 +1,10 @@
+--- a/daemon/gdm-launch-environment.c
++++ b/daemon/gdm-launch-environment.c
+@@ -293,6 +293,7 @@
+         g_hash_table_insert (hash, g_strdup ("GIO_USE_VFS"), g_strdup ("local"));
+         g_hash_table_insert (hash, g_strdup ("GVFS_REMOTE_VOLUME_MONITOR_IGNORE"), g_strdup ("1"));
+         g_hash_table_insert (hash, g_strdup ("DCONF_PROFILE"), g_strdup ("gdm"));
++        g_hash_table_insert (hash, g_strdup ("DCONF_DIR"), g_strdup ("/var/lib/gdm3/dconf"));
+ 
+         if (launch_environment->priv->dbus_session_bus_address) {
+                 g_hash_table_insert (hash, g_strdup ("DBUS_SESSION_BUS_ADDRESS"), g_strdup (launch_environment->priv->dbus_session_bus_address));

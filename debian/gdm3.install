@@ -1,0 +1,17 @@
+etc/*
+usr/bin/gdm-screenshot
+usr/lib/gdm3/gdm-*
+# gets renamed to gdm3 in binary-install
+usr/sbin/gdm
+usr/share/pixmaps/
+usr/share/gnome-session/
+usr/share/locale/
+usr/share/icons/
+usr/share/help/
+usr/share/gdm/
+usr/share/glib-2.0/
+var/*
+debian/Xsession		etc/gdm3
+debian/greeter.gsettings		etc/gdm3
+debian/default.desktop			usr/share/gdm/BuiltInSessions
+debian/insserv.conf.d			etc
