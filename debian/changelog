@@ -1,4 +1,4 @@
-gdm3 (3.8.4-1.1) UNRELEASED; urgency=low
+gdm3 (3.8.4-2) UNRELEASED; urgency=low
 
   * debian/patches/20_credentials.patch:
     + Patch from Petr Salinger, use g_credentials_get_unix_pid() instead
