@@ -1,3 +1,10 @@
+gdm3 (3.8.4-3) UNRELEASED; urgency=low
+
+  * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
+    this dependency is no longer required.
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 15 Oct 2013 19:07:00 +0200
+
 gdm3 (3.8.4-2) unstable; urgency=low
 
   [ Emilio Pozuelo Monfort ]
