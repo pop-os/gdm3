@@ -1,5 +1,13 @@
-gdm3 (3.8.4-2) UNRELEASED; urgency=low
+gdm3 (3.8.4-3) UNRELEASED; urgency=low
 
+  * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
+    this dependency is no longer required.
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 15 Oct 2013 19:07:00 +0200
+
+gdm3 (3.8.4-2) unstable; urgency=low
+
+  [ Emilio Pozuelo Monfort ]
   * debian/patches/20_credentials.patch:
     + Patch from Petr Salinger, use g_credentials_get_unix_pid() instead
       of our own function as the former supports kFreeBSD. Closes: #692739.
@@ -11,7 +19,10 @@ gdm3 (3.8.4-2) UNRELEASED; urgency=low
     from being used as input for debconf if gdm3 is purged while
     processes are still running as Debian-gdm (Closes: #657751)
 
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Sat, 12 Oct 2013 19:15:18 +0200
+  [ Emilio Pozuelo Monfort ]
+  * Upload to unstable.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sun, 13 Oct 2013 17:29:04 +0200
 
 gdm3 (3.8.4-1) experimental; urgency=low
 
