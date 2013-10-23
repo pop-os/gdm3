@@ -1,6 +1,6 @@
 --- a/daemon/gdm-simple-slave.c
 +++ b/daemon/gdm-simple-slave.c
-@@ -613,7 +613,7 @@
+@@ -614,7 +614,7 @@
  
          g_debug ("GdmSimpleSlave: session conversation started for service %s", service_name);
  
@@ -9,7 +9,7 @@
                  return;
          }
  
-@@ -658,7 +658,8 @@
+@@ -659,7 +659,8 @@
          }
  
          g_debug ("GdmSimpleSlave: Starting automatic login conversation");
@@ -21,7 +21,7 @@
  static void
 --- a/configure.ac
 +++ b/configure.ac
-@@ -514,6 +514,21 @@
+@@ -495,6 +495,21 @@
  fi
  AC_SUBST(PAM_PREFIX)
  
@@ -45,7 +45,7 @@
  
 --- a/daemon/Makefile.am
 +++ b/daemon/Makefile.am
-@@ -21,6 +21,7 @@
+@@ -20,6 +20,7 @@
  	-DGDM_SCREENSHOT_DIR=\"$(GDM_SCREENSHOT_DIR)\"		\
  	-DGDM_CACHE_DIR=\""$(localstatedir)/cache/gdm"\"	\
  	-DGDM_SESSION_DEFAULT_PATH=\"$(GDM_SESSION_DEFAULT_PATH)\" \

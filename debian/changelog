@@ -1,9 +1,16 @@
-gdm3 (3.8.4-3) UNRELEASED; urgency=low
+gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
 
+  [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
     this dependency is no longer required.
 
- -- Michael Biebl <biebl@debian.org>  Tue, 15 Oct 2013 19:07:00 +0200
+  [ Sjoerd Simons ]
+  * New upstream release (3.10.0.1)
+  * Switch from consolekit to systemd-logind sessions. For some reason
+    gnome-shell 3.10 unlocking fails with consolekit...
+  * debian/patches/*: Refreshed
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Wed, 23 Oct 2013 22:04:24 +0200
 
 gdm3 (3.8.4-2) unstable; urgency=low
 

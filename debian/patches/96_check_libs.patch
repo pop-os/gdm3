@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -166,6 +166,7 @@
+@@ -147,6 +147,7 @@
                    have_check=yes,
                    have_check=no)
  AM_CONDITIONAL([HAVE_CHECK],[test "x$CHECK_CFLAGS" != "x"])

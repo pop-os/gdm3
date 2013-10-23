@@ -99,7 +99,7 @@ GNOME #567522
                                                                  GError    **error);
 --- a/daemon/main.c
 +++ b/daemon/main.c
-@@ -446,6 +446,7 @@
+@@ -440,6 +440,7 @@
                    gpointer         user_data)
  {
          gboolean xdmcp_enabled;
@@ -107,7 +107,7 @@ GNOME #567522
  
          manager = gdm_manager_new ();
          if (manager == NULL) {
-@@ -457,6 +458,10 @@
+@@ -451,6 +452,10 @@
  
          gdm_manager_start (manager);
  
@@ -120,7 +120,7 @@ GNOME #567522
          gdm_manager_set_xdmcp_enabled (manager, xdmcp_enabled);
 --- a/data/gdm.schemas.in.in
 +++ b/data/gdm.schemas.in.in
-@@ -87,6 +87,11 @@
+@@ -70,6 +70,11 @@
        <default>false</default>
      </schema>
      <schema>
