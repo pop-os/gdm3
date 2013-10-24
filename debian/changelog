@@ -1,4 +1,4 @@
-gdm3 (3.8.4-3) UNRELEASED; urgency=low
+gdm3 (3.8.4-3) unstable; urgency=low
 
   [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
@@ -11,7 +11,7 @@ gdm3 (3.8.4-3) UNRELEASED; urgency=low
   * debian/rules: Also drop gdm-simple-greeter.desktop, simple-greeter is
     definitely gone
 
- -- Michael Biebl <biebl@debian.org>  Tue, 15 Oct 2013 19:07:00 +0200
+ -- Michael Biebl <biebl@debian.org>  Thu, 24 Oct 2013 17:34:41 +0200
 
 gdm3 (3.8.4-2) unstable; urgency=low
 
