@@ -80,8 +80,9 @@ binary-install/gdm3::
 	rm -f debian/gdm3/usr/lib/gdm3/gdm-simple-greeter
 	rm -f debian/gdm3/usr/share/gdm/gdm-greeter-login-window.ui
 	rm -f debian/gdm3/usr/share/gnome-session/sessions/gdm-fallback.session
-	rm -f debian/gdm3/usr/share/gdm/simple-greeter/extensions/unified/page.ui
+	rm -rf debian/gdm3/usr/share/gdm/simple-greeter/
 	rm -f debian/gdm3/usr/share/gdm/greeter/applications/gdm-simple-greeter.desktop
+	rm -f debian/gdm3/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
