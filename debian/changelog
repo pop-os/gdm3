@@ -3,6 +3,9 @@ gdm3 (3.8.4-3) UNRELEASED; urgency=low
   [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
     this dependency is no longer required.
+  * Use a versioned Depends on gnome-shell (>= 3.6) rather then an unversioned
+    Depends + a versioned Breaks. There is no real reason to do the latter and
+    it seems to confuse APT and break upgrades.
 
   [ Laurent Bigonville ]
   * debian/rules: Also drop gdm-simple-greeter.desktop, simple-greeter is

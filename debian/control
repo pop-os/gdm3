@@ -63,7 +63,7 @@ Depends: ${shlibs:Depends},
          libpam-runtime (>= 0.76-13.1),
          gnome-session-bin (>= 3.6),
          gnome-settings-daemon (>= 3.2),
-         gnome-shell,
+         gnome-shell (>= 3.6),
          upower,
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
          lsb-base (>= 3.2-14),
@@ -89,8 +89,7 @@ Provides: x-display-manager
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
-        gnome-control-center (<< 3.0),
-        gnome-shell (<< 3.5)
+        gnome-control-center (<< 3.0)
 Description: Next generation GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts X sessions.
@@ -134,7 +133,7 @@ Architecture: linux-any kfreebsd-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libgdm1 (= ${binary:Version}),
          gir1.2-gdm3 (= ${binary:Version}),
-	 ${shlibs:Depends},
+         ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
 Description: Next generation GNOME Display Manager (development files)
