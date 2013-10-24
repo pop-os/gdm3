@@ -2,7 +2,11 @@ gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
 
   [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
-    this dependency is no longer required.
+    this dependency is no longer required. Also remove
+    polkit-gnome-authentication-agent-1.desktop along with it.
+  * Use a versioned Depends on gnome-shell (>= 3.6) rather then an unversioned
+    Depends + a versioned Breaks. There is no real reason to do the latter and
+    it seems to confuse APT and break upgrades.
 
   [ Sjoerd Simons ]
   * New upstream release (3.10.0.1)
@@ -10,7 +14,13 @@ gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
     gnome-shell 3.10 unlocking fails with consolekit...
   * debian/patches/*: Refreshed
 
- -- Sjoerd Simons <sjoerd@debian.org>  Wed, 23 Oct 2013 22:04:24 +0200
+  [ Laurent Bigonville ]
+  * debian/rules: Also drop gdm-simple-greeter.desktop, simple-greeter is
+    definitely gone
+  * debian/rules: Cleanup the list of obsolete files being removed during
+    build, most of them are gone from upstream tarball now
+
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 25 Oct 2013 01:01:25 +0200
 
 gdm3 (3.8.4-2) unstable; urgency=low
 
