@@ -17,8 +17,8 @@ gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
   [ Laurent Bigonville ]
   * debian/rules: Also drop gdm-simple-greeter.desktop, simple-greeter is
     definitely gone
-  * debian/rules: Cleanup the list of obsolete files being removed during
-    build, most of them are gone from upstream tarball now
+  * debian/rules: Cleanup the list of that are files being removed during
+    build, some of them are gone from upstream tarball now
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 25 Oct 2013 01:01:25 +0200
 

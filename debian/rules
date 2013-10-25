@@ -59,7 +59,6 @@ DEB_DH_INSTALLINIT_ARGS := --noscripts
 
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
-	cd debian/gdm3/usr/sbin && rm -f gdm-restart gdm-stop gdm-safe-restart
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	rm -f debian/gdm3/etc/pam.d/gdm-*
 	dh_installpam -pgdm3 --name=gdm3-autologin
@@ -71,10 +70,8 @@ binary-install/gdm3::
 		rmdir etc/dconf/db etc/dconf/profile etc/dconf
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
-	rm -f debian/gdm3/usr/sbin/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm
 	rm -f debian/gdm3/etc/pam.d/gdm-autologin
-	rm -f debian/gdm3/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
 # Not sure why the following files are still shipped (https://bugzilla.gnome.org/show_bug.cgi?id=710847)
 	rm -f debian/gdm3/usr/share/gdm/greeter/applications/gdm-simple-greeter.desktop
 	rm -f debian/gdm3/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
