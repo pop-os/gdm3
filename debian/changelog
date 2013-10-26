@@ -20,7 +20,10 @@ gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
   * debian/rules: Cleanup the list of that are files being removed during
     build, some of them are gone from upstream tarball now
 
- -- Laurent Bigonville <bigon@debian.org>  Fri, 25 Oct 2013 01:01:25 +0200
+  [ Sjoerd Simons ]
+  * Add dependency on systemd for systemd-logind
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 26 Oct 2013 12:51:55 +0200
 
 gdm3 (3.8.4-2) unstable; urgency=low
 

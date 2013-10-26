@@ -76,7 +76,8 @@ Depends: ${shlibs:Depends},
          dconf-cli (>= 0.12.1-2),
          dconf-gsettings-backend (>= 0.12.1-2),
          x11-common (>= 1:7.6+11),
-         x11-xserver-utils
+         x11-xserver-utils,
+         systemd
 Recommends: zenity,
             xserver-xephyr,
             x11-xkb-utils,
