@@ -32,13 +32,17 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
-		--with-systemd \
-		--without-consolekit \
 		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-initial-vt=7 \
 		--disable-fallback-greeter
+
+ifeq (linux,$(DEB_HOST_ARCH_OS))
+		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd --without-consolekit
+else
+		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd --with-consolekit
+endif
 
 DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 

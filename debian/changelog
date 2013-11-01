@@ -1,4 +1,4 @@
-gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
+gdm3 (3.10.0.1-1) experimental; urgency=low
 
   [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
@@ -22,8 +22,9 @@ gdm3 (3.10.0.1-1) UNRELEASED; urgency=low
 
   [ Sjoerd Simons ]
   * Add dependency on systemd for systemd-logind
+  * Use logind session tracking on linux
 
- -- Sjoerd Simons <sjoerd@debian.org>  Sat, 26 Oct 2013 12:51:55 +0200
+ -- Sjoerd Simons <sjoerd@debian.org>  Fri, 01 Nov 2013 22:34:17 +0100
 
 gdm3 (3.8.4-2) unstable; urgency=low
 
