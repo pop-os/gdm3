@@ -1,3 +1,10 @@
+gdm3 (3.10.0.1-2) experimental; urgency=low
+
+  * Update dependency on gnome-shell and gnome-session to >= 3.10. Otherwise
+    the greeter apparently won't function.
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 02 Nov 2013 11:47:36 +0100
+
 gdm3 (3.10.0.1-1) experimental; urgency=low
 
   [ Michael Biebl ]
