@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "install" -o "$1" = "upgrade" ] && [ -n "$2" ] &&
+    dpkg --compare-versions "$2" le-nl "3.10.0.1-3~"; then
+    if [ -L /etc/pam.d/gdm-launch-environment ]; then
+        rm -f /etc/pam.d/gdm-launch-environment
+    fi
+fi
+
+#DEBHELPER#
+
+exit 0

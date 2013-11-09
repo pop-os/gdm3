@@ -1,3 +1,13 @@
+gdm3 (3.10.0.1-3) UNRELEASED; urgency=low
+
+  * debian/gdm-launch-environment.pam: Drop the symlink to gdm3-autologin and
+    install a real pam service. The differences with gdm3-autologin service
+    are that gdm-launch-environment should not transition out of the xdm_t
+    SELinux domain and not set a loginuid (as it's daemon's internal and not
+    a real user)
+
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 09 Nov 2013 14:01:16 +0100
+
 gdm3 (3.10.0.1-2) experimental; urgency=low
 
   * Update dependency on gnome-shell and gnome-session to >= 3.10. Otherwise

@@ -66,6 +66,7 @@ binary-install/gdm3::
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	rm -f debian/gdm3/etc/pam.d/gdm-*
 	dh_installpam -pgdm3 --name=gdm3-autologin
+	dh_installpam -pgdm3 --name=gdm-launch-environment
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
 	cd debian/gdm3 && \
