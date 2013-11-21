@@ -1,3 +1,13 @@
+gdm3 (3.8.4-4) unstable; urgency=low
+
+  * debian/patches/10_gdm3_pam.patch:
+    + Add a missing case for the gdm -> gdm3 pam files rename which was
+      causing the user session to never finish loading when using autologin.
+      Thanks to Sjoerd Simons for his help investigating this bug and for
+      actually finding the cause. Closes: #724731.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Tue, 12 Nov 2013 20:25:33 +0100
+
 gdm3 (3.8.4-3) unstable; urgency=low
 
   [ Michael Biebl ]

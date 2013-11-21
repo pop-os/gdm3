@@ -1,6 +1,15 @@
 --- a/daemon/gdm-simple-slave.c
 +++ b/daemon/gdm-simple-slave.c
-@@ -613,7 +613,7 @@
+@@ -593,7 +593,7 @@
+         gdm_simple_slave_grant_console_permissions (slave);
+ #endif  /* HAVE_LOGINDEVPERM */
+ 
+-        if (g_strcmp0 (service_name, "gdm-autologin") == 0 &&
++        if (g_strcmp0 (service_name, GDM_PAM_DOMAIN"-autologin") == 0 &&
+             !gdm_session_client_is_connected (slave->priv->session)) {
+                 /* If we're auto logging in then don't wait for the go-ahead from a greeter,
+                  * (since there is no greeter) */
+@@ -614,7 +614,7 @@
  
          g_debug ("GdmSimpleSlave: session conversation started for service %s", service_name);
  
@@ -9,7 +18,7 @@
                  return;
          }
  
-@@ -658,7 +658,8 @@
+@@ -659,7 +659,8 @@
          }
  
          g_debug ("GdmSimpleSlave: Starting automatic login conversation");
@@ -21,7 +30,7 @@
  static void
 --- a/configure.ac
 +++ b/configure.ac
-@@ -514,6 +514,21 @@
+@@ -530,6 +530,21 @@
  fi
  AC_SUBST(PAM_PREFIX)
  
