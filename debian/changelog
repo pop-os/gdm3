@@ -1,3 +1,11 @@
+gdm3 (3.8.4-6) unstable; urgency=high
+
+  * debian/control.in:
+    + Only depend on libpam-systemd on linux.
+  * Set urgency high as this is blocking the GNOME 3.8 transition.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Thu, 14 Nov 2013 12:30:37 +0100
+
 gdm3 (3.8.4-5) unstable; urgency=low
 
   * debian/control.in:
