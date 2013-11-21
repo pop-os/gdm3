@@ -1,3 +1,10 @@
+gdm3 (3.8.4-5) unstable; urgency=low
+
+  * debian/control.in:
+    + Depend on libpam-systemd as we need XDG_RUNTIME_DIR set to work.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 13 Nov 2013 20:22:55 +0100
+
 gdm3 (3.8.4-4) unstable; urgency=low
 
   * debian/patches/10_gdm3_pam.patch:
