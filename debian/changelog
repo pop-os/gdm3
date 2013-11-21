@@ -12,8 +12,10 @@ gdm3 (3.10.0.1-3) UNRELEASED; urgency=low
     variable, thanks to Leo Antunes <costela@debian.org> (Closes: #729489)
   * debian/control.in: Depend on libpam-systemd on linux architectures as we
     need XDG_RUNTIME_DIR set to work.
+  * Drop debian/patches/96_check_libs.patch: Since check 0.9.10-2, check.pc is
+    containing the needed libraries for linking, bump build-dep accordingly
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 21 Nov 2013 08:38:21 +0100
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 21 Nov 2013 09:35:43 +0100
 
 gdm3 (3.10.0.1-2) experimental; urgency=low
 
