@@ -10,8 +10,10 @@ gdm3 (3.10.0.1-3) UNRELEASED; urgency=low
     PAM services and the names must be synchronized.
   * debian/gdm3.init: Fix inconsistency regarding the usage of PIDFILE
     variable, thanks to Leo Antunes <costela@debian.org> (Closes: #729489)
+  * debian/control.in: Depend on libpam-systemd on linux architectures as we
+    need XDG_RUNTIME_DIR set to work.
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 17 Nov 2013 13:39:17 +0100
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 21 Nov 2013 08:38:21 +0100
 
 gdm3 (3.10.0.1-2) experimental; urgency=low
 
