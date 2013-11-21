@@ -5,8 +5,13 @@ gdm3 (3.10.0.1-3) UNRELEASED; urgency=low
     are that gdm-launch-environment should not transition out of the xdm_t
     SELinux domain and not set a loginuid (as it's daemon's internal and not
     a real user)
+  * Drop debian/patches/10_gdm3_pam.patch and rename all the pam services back
+    to their upstream names. Also bump gnome-shell dependency as it uses gdm
+    PAM services and the names must be synchronized.
+  * debian/gdm3.init: Fix inconsistency regarding the usage of PIDFILE
+    variable, thanks to Leo Antunes <costela@debian.org> (Closes: #729489)
 
- -- Laurent Bigonville <bigon@debian.org>  Sat, 09 Nov 2013 14:01:16 +0100
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 17 Nov 2013 13:39:17 +0100
 
 gdm3 (3.10.0.1-2) experimental; urgency=low
 

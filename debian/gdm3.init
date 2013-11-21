@@ -16,6 +16,7 @@ set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/gdm3
+PIDFILE=/var/run/gdm3.pid
 
 test -x $DAEMON || exit 0
 
@@ -76,7 +77,7 @@ case "$1" in
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
                 gen_config
                 rm -f /var/lib/gdm/.ICEauthority
-                start-stop-daemon --start --quiet --pidfile /var/run/gdm3.pid \
+                start-stop-daemon --start --quiet --pidfile $PIDFILE \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
         fi
@@ -84,7 +85,7 @@ case "$1" in
   stop)
         log_daemon_msg "Stopping GNOME Display Manager" "gdm3"
         set +e
-        start-stop-daemon --stop --quiet --pidfile /var/run/gdm3.pid \
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE \
                 --name gdm3 --retry 5
         set -e
         log_end_msg $?
@@ -93,8 +94,8 @@ case "$1" in
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
         set +e
         gen_config
-        start-stop-daemon --stop --signal HUP --quiet --pidfile \
-                /var/run/gdm3.pid --name gdm3
+        start-stop-daemon --stop --signal HUP --quiet --pidfile $PIDFILE \
+                --name gdm3
         start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
                 --user Debian-gdm --oknodo
         set -e

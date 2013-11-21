@@ -30,7 +30,6 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
-		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
 		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
@@ -64,9 +63,9 @@ DEB_DH_INSTALLINIT_ARGS := --noscripts
 binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
-	rm -f debian/gdm3/etc/pam.d/gdm-*
-	dh_installpam -pgdm3 --name=gdm3-autologin
+	dh_installpam -pgdm3 --name=gdm-autologin
 	dh_installpam -pgdm3 --name=gdm-launch-environment
+	dh_installpam -pgdm3 --name=gdm-password
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
 	cd debian/gdm3 && \
@@ -75,8 +74,6 @@ binary-install/gdm3::
 		rmdir etc/dconf/db etc/dconf/profile etc/dconf
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
-	rm -f debian/gdm3/etc/pam.d/gdm
-	rm -f debian/gdm3/etc/pam.d/gdm-autologin
 # Not sure why the following files are still shipped (https://bugzilla.gnome.org/show_bug.cgi?id=710847)
 	rm -f debian/gdm3/usr/share/gdm/greeter/applications/gdm-simple-greeter.desktop
 	rm -f debian/gdm3/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
