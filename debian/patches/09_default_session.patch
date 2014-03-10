@@ -3,7 +3,7 @@ Ubuntu: https://launchpad.net/bugs/403291
 Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=594733
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -521,7 +521,7 @@
+@@ -533,7 +533,7 @@
                  }
          }
  

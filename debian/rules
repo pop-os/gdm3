@@ -34,6 +34,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
+		--with-gnome-settings-daemon-directory="`pkg-config --variable=binary gnome-settings-daemon`" \
 		--with-initial-vt=7 \
 		--disable-fallback-greeter
 
@@ -68,10 +69,6 @@ binary-install/gdm3::
 	dh_installpam -pgdm3 --name=gdm-password
 	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
 	rm -rf debian/gdm3/var/run
-	cd debian/gdm3 && \
-		mv etc/dconf/profile/gdm usr/share/gdm/dconf-profile && \
-		mv etc/dconf/db/gdm.d usr/share/gdm/dconf && \
-		rmdir etc/dconf/db etc/dconf/profile etc/dconf
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
 # Not sure why the following files are still shipped (https://bugzilla.gnome.org/show_bug.cgi?id=710847)
