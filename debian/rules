@@ -34,7 +34,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
-		--with-gnome-settings-daemon-directory="`pkg-config --variable=binary gnome-settings-daemon`" \
+		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
 		--with-initial-vt=7 \
 		--disable-fallback-greeter
 
