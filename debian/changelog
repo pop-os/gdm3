@@ -1,4 +1,4 @@
-gdm3 (3.11.90-1) UNRELEASED; urgency=low
+gdm3 (3.11.92.1-1) UNRELEASED; urgency=low
 
   [ Laurent Bigonville ]
   * debian/gdm-launch-environment.pam: Drop the symlink to gdm3-autologin and
@@ -37,7 +37,7 @@ gdm3 (3.11.90-1) UNRELEASED; urgency=low
       "This commit drops the interface, since it's unused, and
        we don't have any API guarantees in libgdm."
 
- -- Andreas Henriksson <andreas@fatal.se>  Sun, 23 Feb 2014 18:24:33 +0100
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 21 Mar 2014 20:33:14 +0100
 
 gdm3 (3.10.0.1-2) experimental; urgency=low
 

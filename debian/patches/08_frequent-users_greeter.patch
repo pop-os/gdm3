@@ -1,6 +1,6 @@
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -1888,6 +1888,7 @@
+@@ -1891,6 +1891,7 @@
                                 0,
                                 service_name);
  

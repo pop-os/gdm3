@@ -1,7 +1,5 @@
-Index: gdm-3.4.1/data/gdm.conf-custom.in
-===================================================================
---- gdm-3.4.1.orig/data/gdm.conf-custom.in	2012-06-25 20:10:46.276957297 +0200
-+++ gdm-3.4.1/data/gdm.conf-custom.in	2012-06-25 20:16:44.598709033 +0200
+--- a/data/gdm.conf-custom.in
++++ b/data/gdm.conf-custom.in
 @@ -1,14 +1,32 @@
  # GDM configuration storage
 +#
