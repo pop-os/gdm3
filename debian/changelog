@@ -1,4 +1,4 @@
-gdm3 (3.11.92.1-1) UNRELEASED; urgency=low
+gdm3 (3.12.0-1) experimental; urgency=low
 
   [ Laurent Bigonville ]
   * debian/gdm-launch-environment.pam: Drop the symlink to gdm3-autologin and
@@ -17,7 +17,7 @@ gdm3 (3.11.92.1-1) UNRELEASED; urgency=low
     containing the needed libraries for linking, bump build-dep accordingly
 
   [ Andreas Henriksson ]
-  * New upstream development release.
+  * New upstream release.
   * debian/rules: add --with-gnome-settings-daemon-directory configure flag.
   * Drop debian/patches/07_libexec-paths.patch, obsoleted by previous entry.
   * Drop debian/patches/10_no_gettext.patch, merged upstream.
@@ -37,7 +37,7 @@ gdm3 (3.11.92.1-1) UNRELEASED; urgency=low
       "This commit drops the interface, since it's unused, and
        we don't have any API guarantees in libgdm."
 
- -- Andreas Henriksson <andreas@fatal.se>  Fri, 21 Mar 2014 20:33:14 +0100
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 04 Apr 2014 22:01:58 +0200
 
 gdm3 (3.10.0.1-2) experimental; urgency=low
 
