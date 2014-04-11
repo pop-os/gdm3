@@ -1,3 +1,10 @@
+gdm3 (3.12.0-2) UNRELEASED; urgency=medium
+
+  * debian/control.in: Re-add --with-selinux flag to the confiure on linux
+    architectures
+
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 13:59:07 +0200
+
 gdm3 (3.12.0-1) experimental; urgency=low
 
   [ Laurent Bigonville ]

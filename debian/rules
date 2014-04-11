@@ -39,7 +39,7 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--disable-fallback-greeter
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd --without-consolekit
+		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd --without-consolekit --with-selinux
 else
 		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd --with-consolekit
 endif
