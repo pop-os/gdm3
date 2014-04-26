@@ -15,6 +15,22 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Remove firstVT patch, it has been replaced upstream by 
     --with-initial-vt.
   * 90_config_comments.patch: stop documenting FirstVT.
+  * Install files in /usr/share/dconf
+  * Depend on dconf 0.20 for file-db support.
+  * 92_gsettings_path.patch: removed. Dconf now supports database files 
+    with hardcoded paths.
+  * 91_dconf_database_path.patch: new patch. Point to a dconf path in 
+    /var/lib/gdm3 instead of the one in $DATADIR.
+  * Don’t install the pre-generated dconf database.
+  * Install the source dconf databases to their former place in 
+    /usr/share/gdm/dconf.
+  * greeter.dconf-defaults: this is a new file to remove the old 
+    greeter.gsettings
+  * Convert greeter.gsettings to greeter.dconf-defaults at postinst time 
+    and use ucf to update the file.
+  * Make a direct symlink to the new greeter.dconf-defaults file in the 
+    dconf defaults directory.
+  * Simplify the dconf regeneration in gdm3.init thanks to that.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 15:25:51 +0200
 
