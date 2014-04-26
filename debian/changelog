@@ -31,6 +31,15 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Make a direct symlink to the new greeter.dconf-defaults file in the 
     dconf defaults directory.
   * Simplify the dconf regeneration in gdm3.init thanks to that.
+  * Move configuration generation to a separate script.
+  * Use dh_systemd.
+  * 92_systemd_unit.patch: port our init script specifics to the unit 
+    file.
+  * Install the unit file.
+  * Install a symlink to display-manager.service for the default display 
+    manager, according to the value set in debconf.
+  * Add a symlink to gdm3.service since this is the name of the old init 
+    script.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 15:25:51 +0200
 

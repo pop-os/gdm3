@@ -32,32 +32,6 @@ fi
 HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
-DEFAULTS_GENERATED=/var/lib/gdm3/greeter-dconf-defaults
-DEFAULTS_DIR=/usr/share/gdm/dconf
-
-gen_config() {
-  # GSettings configuration uses dconf update to generate a gdm profile
-  if [ -d /var/lib/gdm3 ]; then
-    needed=no
-    if [ -f $DEFAULTS_GENERATED ]; then
-      for f in \
-          $DEFAULTS_DIR $DEFAULTS_DIR/*-settings \
-          $DEFAULTS_DIR/locks $DEFAULTS_DIR/locks/*-locks \
-          /etc/gdm3/greeter.dconf-defaults; do
-        if [ "$f" -nt $DEFAULTS_GENERATED ]; then
-          needed=yes
-          break
-        fi
-      done
-    else
-      needed=yes
-    fi
-    if [ "$needed" = yes ]; then
-      dconf compile $DEFAULTS_GENERATED $DEFAULTS_DIR
-    fi
-  fi
-}
-
 case "$1" in
   start)
         CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
@@ -69,8 +43,7 @@ case "$1" in
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
-                gen_config
-                rm -f /var/lib/gdm/.ICEauthority
+                /usr/share/gdm/generate-config
                 start-stop-daemon --start --quiet --pidfile $PIDFILE \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
@@ -86,12 +59,10 @@ case "$1" in
   ;;
   reload)
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
+        /usr/share/gdm/generate-config
         set +e
-        gen_config
         start-stop-daemon --stop --signal HUP --quiet --pidfile $PIDFILE \
                 --name gdm3
-        start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
-                --user Debian-gdm --oknodo
         set -e
         log_end_msg $?
   ;;

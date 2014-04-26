@@ -39,6 +39,21 @@ if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
   fi
 fi
 
+# set default-display-manager systemd service link according to our config
+if [ "$1" = configure ] && [ -d /etc/systemd/system/ ]; then
+  if [ -e "$DEFAULT_DISPLAY_MANAGER_FILE" ]; then
+    SERVICE=/lib/systemd/system/$(basename $(cat "$DEFAULT_DISPLAY_MANAGER_FILE")).service
+    if [ -e "$SERVICE" ]; then
+      ln -sf "$SERVICE" /etc/systemd/system/display-manager.service
+    else
+      echo "WARNING: $SERVICE is the selected default display manager but does not exist" >&2
+      rm -f /etc/systemd/system/display-manager.service
+    fi
+  else
+    rm -f /etc/systemd/system/display-manager.service
+  fi
+fi
+
 # update-rc.d levels
 S=30
 K=01
