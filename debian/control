@@ -93,19 +93,14 @@ Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
         gnome-control-center (<< 3.0)
-Description: Next generation GNOME Display Manager
+Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
- asks for a login and starts X sessions.
+ asks for a login and starts graphical sessions.
  .
- It provides all the functionality of XDM, including XDMCP support for
- managing remote displays, and extends it with the ability to start X 
- servers on demand.
+ It supports multiple seats and switching between multiple users.
  .
- The greeter is written using the GNOME libraries and hence looks like a 
- GNOME application - even to the extent of supporting themes! 
- .
- This package contains the next generation GDM, which was developed 
- using the technologies on which GNOME 3 is based.
+ The greeter is based on the GNOME libraries and applications, and its 
+ look and design are the same as those of a GNOME session.
 
 Package: libgdm1
 Section: libs
@@ -117,16 +112,14 @@ Depends: ${shlibs:Depends},
 Breaks: gdm3 (<< 3.8.3-3~)
 Conflicts: libgdm
 Replaces: libgdm, gdm3 (<< 3.8.3-3~)
-Description: Next generation GNOME Display Manager (shared library)
- GDM provides the equivalent of a "login:" prompt for X displays: it
- asks for a login and starts X sessions.
+Description: GNOME Display Manager (shared library)
+ GDM provides the equivalent of a "login:" prompt for X displays: it 
+ asks for a login and starts graphical sessions.
  .
- It provides all the functionality of XDM, including XDMCP support for
- managing remote displays, and extends it with the ability to start X
- servers on demand.
+ It supports multiple seats and switching between multiple users.
  .
- The greeter is written using the GNOME libraries and hence looks like a
- GNOME application - even to the extent of supporting themes!
+ The greeter is based on the GNOME libraries and applications, and its 
+ look and design are the same as those of a GNOME session.
  .
  This package contains the shared library required by gnome-shell.
 
@@ -139,16 +132,14 @@ Depends: libgdm1 (= ${binary:Version}),
          ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
-Description: Next generation GNOME Display Manager (development files)
- GDM provides the equivalent of a "login:" prompt for X displays: it
- asks for a login and starts X sessions.
+Description: GNOME Display Manager (development files)
+ GDM provides the equivalent of a "login:" prompt for X displays: it 
+ asks for a login and starts graphical sessions.
  .
- It provides all the functionality of XDM, including XDMCP support for
- managing remote displays, and extends it with the ability to start X
- servers on demand.
+ It supports multiple seats and switching between multiple users.
  .
- The greeter is written using the GNOME libraries and hence looks like a
- GNOME application - even to the extent of supporting themes!
+ The greeter is based on the GNOME libraries and applications, and its 
+ look and design are the same as those of a GNOME session.
  .
  This package contains header and development files.
 
@@ -161,14 +152,12 @@ Depends: ${gir:Depends},
 Conflicts: libgdm
 Replaces: libgdm
 Description: GObject introspection data for the GNOME Display Manager
- GDM provides the equivalent of a "login:" prompt for X displays: it
- asks for a login and starts X sessions.
+ GDM provides the equivalent of a "login:" prompt for X displays: it 
+ asks for a login and starts graphical sessions.
  .
- It provides all the functionality of XDM, including XDMCP support for
- managing remote displays, and extends it with the ability to start X
- servers on demand.
+ It supports multiple seats and switching between multiple users.
  .
- The greeter is written using the GNOME libraries and hence looks like a
- GNOME application - even to the extent of supporting themes!
+ The greeter is based on the GNOME libraries and applications, and its 
+ look and design are the same as those of a GNOME session.
  .
  This package contains introspection data for the GNOME Display Manager.
