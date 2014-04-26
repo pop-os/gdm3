@@ -12,6 +12,8 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Make description up-to-date.
   * New upstream release.
   * Drop nested-login related patches, they are not coming back.
+  * Remove firstVT patch, it has been replaced upstream by 
+    --with-initial-vt.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 15:25:51 +0200
 
