@@ -1,8 +1,6 @@
-#02_xnest-wrapper.patch
 #06_first_vt.patch
 08_frequent-users_greeter.patch
 09_default_session.patch
-#11_xephyr_nested.patch
 16_xserver_path.patch
 90_config_comments.patch
 92_gsettings_path.patch
