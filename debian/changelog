@@ -40,7 +40,8 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     manager, according to the value set in debconf.
   * Add a symlink to gdm3.service since this is the name of the old init 
     script.
-  * Fix a typo in gdm3.postinst.
+  * Fix the logic to update the default display manager after running 
+    debconf.
 
  -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 15:25:51 +0200
 

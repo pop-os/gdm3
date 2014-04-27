@@ -22,9 +22,10 @@ if ! getent passwd Debian-gdm >/dev/null; then
         usermod -c "Gnome Display Manager" Debian-gdm
 fi
 
-# debconf is not a registry, so we only fiddle with the default file if it
-# does not exist
-if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
+# debconf is not a registry, so we only fiddle with the default file if 
+# the configure script requested an update
+if [ -e $DEFAULT_DISPLAY_MANAGER_FILE.debconf-update ]; then
+  rm -f $DEFAULT_DISPLAY_MANAGER_FILE.debconf-update
   if db_get shared/default-x-display-manager; then
     # workaround debconf passthru bug (#379198)
     if [ -z "$RET" ]; then
