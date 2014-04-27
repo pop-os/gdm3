@@ -28,7 +28,7 @@ if [ ! -e $DEFAULT_DISPLAY_MANAGER_FILE ]; then
   if db_get shared/default-x-display-manager; then
     # workaround debconf passthru bug (#379198)
     if [ -z "$RET" ]; then
-      $RET="$THIS_PACKAGE"
+      RET="$THIS_PACKAGE"
     fi
     if [ "$THIS_PACKAGE" != "$RET" ]; then
       echo "Please be sure to run \"dpkg --configure $RET\"."
