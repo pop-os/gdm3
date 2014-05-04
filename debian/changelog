@@ -7,6 +7,9 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
       gone for quite some time already
     - Drop --with(out)-consolekit configure flag, we are now building with
       the fallback to consolekit on all architectures
+  * debian/control.in:
+    - Bump Standards-Version to 3.9.5 (no further changes)
+    - Enable journald support
 
   [ Josselin Mouette ]
   * Make description up-to-date.
@@ -46,7 +49,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     logind as well. (The exact version needs updating when moving this 
     package to unstable.)
 
- -- Laurent Bigonville <bigon@debian.org>  Fri, 11 Apr 2014 15:25:51 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 04 May 2014 13:38:24 +0200
 
 gdm3 (3.12.0-1) experimental; urgency=low
 
