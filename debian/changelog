@@ -1,9 +1,9 @@
-gdm3 (3.8.4-7) UNRELEASED; urgency=medium
+gdm3 (3.8.4-7) unstable; urgency=medium
 
   * Enable systemd support on linux architectures
   * debian/control: Bump Standards-Version to 3.9.5 (no further changes)
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 04 May 2014 13:32:28 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 04 May 2014 13:41:37 +0200
 
 gdm3 (3.8.4-6) unstable; urgency=high
 
