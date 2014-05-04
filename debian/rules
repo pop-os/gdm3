@@ -32,7 +32,6 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-pam-domain=gdm3 \
 		--with-lang-file=/etc/default/locale \
-		--without-systemd \
 		--disable-split-authentication \
 		--with-consolekit \
 		--with-consolekit-directory=/usr/lib/ConsoleKit \
@@ -50,9 +49,9 @@ endif
 DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
 		
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-plymouth
+	DEB_CONFIGURE_EXTRA_FLAGS += --with-plymouth --with-systemd
 else
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-vt-switch-workaround
+	DEB_CONFIGURE_EXTRA_FLAGS += --with-vt-switch-workaround --without-systemd
 endif
 
 

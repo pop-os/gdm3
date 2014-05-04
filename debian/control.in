@@ -41,8 +41,11 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                iso-codes,
                libaudit-dev [linux-any],
                docbook-xml,
-               gsettings-desktop-schemas
-Standards-Version: 3.9.4
+               gsettings-desktop-schemas,
+               libsystemd-login-dev (>= 186) [linux-any],
+               libsystemd-daemon-dev (>= 186) [linux-any],
+               libsystemd-journal-dev [linux-any]               
+Standards-Version: 3.9.5
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
