@@ -12,6 +12,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     - Enable journald support
     - Drop explicit dependency against systemd, libpam-systemd should pull the
       needed packages
+    - Depends against consolekit on non-linux architectures
 
   [ Josselin Mouette ]
   * Make description up-to-date.
@@ -51,7 +52,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     logind as well. (The exact version needs updating when moving this 
     package to unstable.)
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 04 May 2014 13:40:30 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:26:14 +0200
 
 gdm3 (3.12.0-1) experimental; urgency=low
 
