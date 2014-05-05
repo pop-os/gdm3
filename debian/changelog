@@ -1,3 +1,9 @@
+gdm3 (3.8.4-8) UNRELEASED; urgency=medium
+
+  * debian/control.in: Depends against consolekit on non-linux architectures
+
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:27:29 +0200
+
 gdm3 (3.8.4-7) unstable; urgency=medium
 
   * Enable systemd support on linux architectures
