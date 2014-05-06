@@ -49,6 +49,8 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Fix the logic to update the default display manager after running 
     debconf.
   * Require a policykit-1 with systemd support.
+  * 93_disable_gvfs.patch: reverted upstream change 446d061a. Do not 
+    launch gvfs in the login session.
 
  -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:26:14 +0200
 

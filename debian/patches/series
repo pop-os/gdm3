@@ -4,3 +4,4 @@
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
+93_disable_gvfs.patch
