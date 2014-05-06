@@ -48,9 +48,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     script.
   * Fix the logic to update the default display manager after running 
     debconf.
-  * Require policykit-1 from experimental, because it is built against 
-    logind as well. (The exact version needs updating when moving this 
-    package to unstable.)
+  * Require a policykit-1 with systemd support.
 
  -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:26:14 +0200
 
