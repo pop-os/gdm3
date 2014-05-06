@@ -51,6 +51,8 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Require a policykit-1 with systemd support.
   * 93_disable_gvfs.patch: reverted upstream change 446d061a. Do not 
     launch gvfs in the login session.
+  * Install stub D-Bus files for gnome-online-accounts and telepathy, to 
+    avoid launching such daemons in the login session.
 
  -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:26:14 +0200
 
