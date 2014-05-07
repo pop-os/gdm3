@@ -13,6 +13,8 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
     - Drop explicit dependency against systemd, libpam-systemd should pull the
       needed packages
     - Depends against consolekit on non-linux architectures
+  * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux open module
+    higher in the session stack
 
   [ Josselin Mouette ]
   * Make description up-to-date.
@@ -54,7 +56,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Install stub D-Bus files for gnome-online-accounts and telepathy, to 
     avoid launching such daemons in the login session.
 
- -- Laurent Bigonville <bigon@debian.org>  Mon, 05 May 2014 15:26:14 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 07 May 2014 16:58:02 +0200
 
 gdm3 (3.12.0-1) experimental; urgency=low
 
