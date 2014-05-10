@@ -1,4 +1,4 @@
-gdm3 (3.12.1-1) UNRELEASED; urgency=medium
+gdm3 (3.12.1-1) experimental; urgency=medium
 
   [ Laurent Bigonville ]
   * debian/rules:
@@ -56,7 +56,7 @@ gdm3 (3.12.1-1) UNRELEASED; urgency=medium
   * Install stub D-Bus files for gnome-online-accounts and telepathy, to 
     avoid launching such daemons in the login session.
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 07 May 2014 16:58:02 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 10 May 2014 22:52:23 +0200
 
 gdm3 (3.12.0-1) experimental; urgency=low
 
