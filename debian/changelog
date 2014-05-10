@@ -1,11 +1,11 @@
-gdm3 (3.8.4-8) UNRELEASED; urgency=medium
+gdm3 (3.8.4-8) unstable; urgency=medium
 
   * debian/control.in: Depends against consolekit on non-linux architectures
   * Require a policykit-1 with systemd support.
   * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux open module
     higher in the session stack
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 07 May 2014 16:47:14 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 10 May 2014 22:58:11 +0200
 
 gdm3 (3.8.4-7) unstable; urgency=medium
 
