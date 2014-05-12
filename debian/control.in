@@ -50,7 +50,7 @@ Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
 Package: gdm3
-Architecture: linux-any kfreebsd-any
+Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -106,7 +106,7 @@ Description: Next generation GNOME Display Manager
 
 Package: libgdm1
 Section: libs
-Architecture: linux-any kfreebsd-any
+Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -129,7 +129,7 @@ Description: Next generation GNOME Display Manager (shared library)
 
 Package: libgdm-dev
 Section: libdevel
-Architecture: linux-any kfreebsd-any
+Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libgdm1 (= ${binary:Version}),
          gir1.2-gdm3 (= ${binary:Version}),
@@ -151,7 +151,7 @@ Description: Next generation GNOME Display Manager (development files)
 
 Package: gir1.2-gdm3
 Section: introspection
-Architecture: linux-any kfreebsd-any
+Architecture: linux-any
 Depends: ${gir:Depends},
          ${shlibs:Depends},
          ${misc:Depends}

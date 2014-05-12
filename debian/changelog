@@ -1,3 +1,11 @@
+gdm3 (3.8.4-8.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Remove kfreebsd-any from Architecture. (Closes: #602724, #601106,
+    #612157, #733546)
+
+ -- Robert Millan <rmh@debian.org>  Sun, 11 May 2014 13:25:16 +0200
+
 gdm3 (3.8.4-8) unstable; urgency=medium
 
   * debian/control.in: Depends against consolekit on non-linux architectures
