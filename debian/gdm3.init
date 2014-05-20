@@ -32,6 +32,16 @@ fi
 HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
+activate_logind() {
+  # Try to dbus activate logind to avoid a race conditions if we are not
+  # running systemd as PID1 and we have systemd << 204 package installed (see:
+  # #747292)
+  if [ ! -d /run/systemd/system ] && [ -x /lib/systemd/systemd-logind-launch ]; then
+    dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+      org.freedesktop.DBus.StartServiceByName string:org.freedesktop.login1 uint32:0 2>&1 > /dev/null
+  fi
+}
+
 case "$1" in
   start)
         CONFIGURED_DAEMON=$(basename "$(cat $DEFAULT_DISPLAY_MANAGER_FILE 2> /dev/null)")
@@ -43,6 +53,7 @@ case "$1" in
                 log_action_msg "Not starting GNOME Display Manager; it is not the default display manager"
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
+                activate_logind || log_end_msg 1
                 /usr/share/gdm/generate-config
                 start-stop-daemon --start --quiet --pidfile $PIDFILE \
 			--background --exec $DAEMON || log_end_msg 1
