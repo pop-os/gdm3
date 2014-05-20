@@ -1,11 +1,13 @@
-gdm3 (3.12.1-2) UNRELEASED; urgency=medium
+gdm3 (3.12.2-1) UNRELEASED; urgency=medium
 
+  * New upstream release
   * Remove kfreebsd-any from Architecture. (Closes: #602724, #601106,
     #612157, #733546)
   * debian/gdm3.init: Try to activate logind before starting gdm to avoid a
     race condition when systemd is not used as PID1 (Closes: #747210)
+  * debian/rules: Re-disable consolekit fallback support
 
- -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 22:09:51 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 22:58:50 +0200
 
 gdm3 (3.12.1-1) experimental; urgency=medium
 
