@@ -64,8 +64,9 @@ gen_config() {
 }
 
 activate_logind() {
-  # Try to dbus activate logind if we are not running systemd as PID1 and
-  # we have systemd << 204 package installed to avoid race conditions (see: #747292)
+  # Try to dbus activate logind to avoid a race conditions if we are not
+  # running systemd as PID1 and we have systemd << 204 package installed (see:
+  # #747292)
   if [ ! -d /run/systemd/system ] && [ -x /lib/systemd/systemd-logind-launch ]; then
     dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
       org.freedesktop.DBus.StartServiceByName string:org.freedesktop.login1 uint32:0 2>&1 > /dev/null
