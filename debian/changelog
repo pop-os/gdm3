@@ -1,9 +1,9 @@
-gdm3 (3.8.4-9) UNRELEASED; urgency=medium
+gdm3 (3.8.4-9) unstable; urgency=medium
 
   * debian/gdm3.init: Try to activate logind before starting gdm to avoid a
     race condition when systemd is not used as PID1 (Closes: #747210)
 
- -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 21:23:57 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 21:57:10 +0200
 
 gdm3 (3.8.4-8.1) unstable; urgency=medium
 
