@@ -2,8 +2,10 @@ gdm3 (3.12.2-2) UNRELEASED; urgency=medium
 
   * debian/control.in: Remove build-dependency against libck-connector-dev for
     linux-any architectures.
+  * debian/gdm3.gdm-*.pam: Add call to pam_keyinit.so, the module can
+    unconditionally added now that the package is linux only (Closes: #734818)
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 22 May 2014 08:57:20 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 13 Jun 2014 23:37:26 +0200
 
 gdm3 (3.12.2-1) experimental; urgency=medium
 

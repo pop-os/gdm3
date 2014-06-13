@@ -12,6 +12,7 @@ session required        pam_loginuid.so
 # starts in the proper default security context. Only sessions which are
 # intended to run in the user's context should be run after this.
 session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_selinux.so open
+session optional        pam_keyinit.so force revoke
 session required        pam_limits.so
 session required        pam_env.so readenv=1
 session required        pam_env.so readenv=1 envfile=/etc/default/locale
