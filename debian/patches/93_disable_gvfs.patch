@@ -1,0 +1,14 @@
+Index: gdm3-3.12.1/daemon/gdm-launch-environment.c
+===================================================================
+--- gdm3-3.12.1.orig/daemon/gdm-launch-environment.c	2014-04-10 18:58:02.000000000 +0200
++++ gdm3-3.12.1/daemon/gdm-launch-environment.c	2014-05-06 14:41:41.240647859 +0200
+@@ -288,6 +288,9 @@
+         g_hash_table_insert (hash, g_strdup ("PATH"), g_strdup (g_getenv ("PATH")));
+ 
+         g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
++        g_hash_table_insert (hash, g_strdup ("GVFS_DISABLE_FUSE"), g_strdup ("1"));
++        g_hash_table_insert (hash, g_strdup ("GIO_USE_VFS"), g_strdup ("local"));
++        g_hash_table_insert (hash, g_strdup ("GVFS_REMOTE_VOLUME_MONITOR_IGNORE"), g_strdup ("1"));
+         g_hash_table_insert (hash, g_strdup ("DCONF_PROFILE"), g_strdup ("gdm"));
+ 
+         if (launch_environment->priv->dbus_session_bus_address) {

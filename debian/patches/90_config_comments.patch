@@ -1,8 +1,8 @@
-Index: gdm-3.4.1/data/gdm.conf-custom.in
+Index: gdm3-3.12.1/data/gdm.conf-custom.in
 ===================================================================
---- gdm-3.4.1.orig/data/gdm.conf-custom.in	2012-06-25 20:10:46.276957297 +0200
-+++ gdm-3.4.1/data/gdm.conf-custom.in	2012-06-25 20:16:44.598709033 +0200
-@@ -1,14 +1,32 @@
+--- gdm3-3.12.1.orig/data/gdm.conf-custom.in	2014-04-26 16:31:15.765365729 +0200
++++ gdm3-3.12.1/data/gdm.conf-custom.in	2014-04-26 16:31:39.233338510 +0200
+@@ -1,14 +1,29 @@
  # GDM configuration storage
 +#
 +# See /usr/share/gdm/gdm.schemas for a list of available options.
@@ -16,9 +16,6 @@ Index: gdm-3.4.1/data/gdm.conf-custom.in
 +#  TimedLoginEnable = true
 +#  TimedLogin = user1
 +#  TimedLoginDelay = 10
-+
-+# Reserving more VTs for test consoles (default is 7)
-+#  FirstVT = 9
  
  [security]
  

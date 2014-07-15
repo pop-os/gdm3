@@ -1,60 +1,136 @@
-gdm3 (3.8.4-9) unstable; urgency=medium
+gdm3 (3.12.2-2) unstable; urgency=medium
 
-  * debian/gdm3.init: Try to activate logind before starting gdm to avoid a
-    race condition when systemd is not used as PID1 (Closes: #747210)
+  [ Laurent Bigonville ]
+  * debian/control.in: Remove build-dependency against libck-connector-dev for
+    linux-any architectures.
+  * debian/gdm3.gdm-*.pam: Add call to pam_keyinit.so, the module can
+    unconditionally added now that the package is linux only (Closes: #734818)
 
- -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 21:57:10 +0200
+  [ Andreas Henriksson ]
+  * Upload to unstable.
 
-gdm3 (3.8.4-8.1) unstable; urgency=medium
+ -- Andreas Henriksson <andreas@fatal.se>  Mon, 14 Jul 2014 23:44:36 +0200
 
-  * Non-maintainer upload.
+gdm3 (3.12.2-1) experimental; urgency=medium
+
+  * New upstream release
   * Remove kfreebsd-any from Architecture. (Closes: #602724, #601106,
     #612157, #733546)
+  * debian/gdm3.init: Try to activate logind before starting gdm to avoid a
+    race condition when systemd is not used as PID1 (Closes: #747210)
+  * debian/rules: Re-disable consolekit fallback support
 
- -- Robert Millan <rmh@debian.org>  Sun, 11 May 2014 13:25:16 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Tue, 20 May 2014 23:53:50 +0200
 
-gdm3 (3.8.4-8) unstable; urgency=medium
+gdm3 (3.12.1-1) experimental; urgency=medium
 
-  * debian/control.in: Depends against consolekit on non-linux architectures
-  * Require a policykit-1 with systemd support.
+  [ Laurent Bigonville ]
+  * debian/rules:
+    - Re-add --with(out)-selinux flag to the configure, the flag is back again
+    - Drop --disable-fallback-greeter configure flag, the fallback greeter is
+      gone for quite some time already
+    - Drop --with(out)-consolekit configure flag, we are now building with
+      the fallback to consolekit on all architectures
+  * debian/control.in:
+    - Bump Standards-Version to 3.9.5 (no further changes)
+    - Enable journald support
+    - Drop explicit dependency against systemd, libpam-systemd should pull the
+      needed packages
+    - Depends against consolekit on non-linux architectures
   * debian/gdm3.pam, debian/gdm3-autologin.pam: Call pam_selinux open module
     higher in the session stack
 
- -- Laurent Bigonville <bigon@debian.org>  Sat, 10 May 2014 22:58:11 +0200
+  [ Josselin Mouette ]
+  * Make description up-to-date.
+  * New upstream release.
+  * Drop nested-login related patches, they are not coming back.
+  * Remove firstVT patch, it has been replaced upstream by 
+    --with-initial-vt.
+  * 90_config_comments.patch: stop documenting FirstVT.
+  * Install files in /usr/share/dconf
+  * Depend on dconf 0.20 for file-db support.
+  * 92_gsettings_path.patch: removed. Dconf now supports database files 
+    with hardcoded paths.
+  * 91_dconf_database_path.patch: new patch. Point to a dconf path in 
+    /var/lib/gdm3 instead of the one in $DATADIR.
+  * Don’t install the pre-generated dconf database.
+  * Install the source dconf databases to their former place in 
+    /usr/share/gdm/dconf.
+  * greeter.dconf-defaults: this is a new file to remove the old 
+    greeter.gsettings
+  * Convert greeter.gsettings to greeter.dconf-defaults at postinst time 
+    and use ucf to update the file.
+  * Make a direct symlink to the new greeter.dconf-defaults file in the 
+    dconf defaults directory.
+  * Simplify the dconf regeneration in gdm3.init thanks to that.
+  * Move configuration generation to a separate script.
+  * Use dh_systemd.
+  * 92_systemd_unit.patch: port our init script specifics to the unit 
+    file.
+  * Install the unit file.
+  * Install a symlink to display-manager.service for the default display 
+    manager, according to the value set in debconf.
+  * Add a symlink to gdm3.service since this is the name of the old init 
+    script.
+  * Fix the logic to update the default display manager after running 
+    debconf.
+  * Require a policykit-1 with systemd support.
+  * 93_disable_gvfs.patch: reverted upstream change 446d061a. Do not 
+    launch gvfs in the login session.
+  * Install stub D-Bus files for gnome-online-accounts and telepathy, to 
+    avoid launching such daemons in the login session.
 
-gdm3 (3.8.4-7) unstable; urgency=medium
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 10 May 2014 22:52:23 +0200
 
-  * Enable systemd support on linux architectures
-  * debian/control: Bump Standards-Version to 3.9.5 (no further changes)
+gdm3 (3.12.0-1) experimental; urgency=low
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 04 May 2014 13:41:37 +0200
+  [ Laurent Bigonville ]
+  * debian/gdm-launch-environment.pam: Drop the symlink to gdm3-autologin and
+    install a real pam service. The differences with gdm3-autologin service
+    are that gdm-launch-environment should not transition out of the xdm_t
+    SELinux domain and not set a loginuid (as it's daemon's internal and not
+    a real user)
+  * Drop debian/patches/10_gdm3_pam.patch and rename all the pam services back
+    to their upstream names. Also bump gnome-shell dependency as it uses gdm
+    PAM services and the names must be synchronized.
+  * debian/gdm3.init: Fix inconsistency regarding the usage of PIDFILE
+    variable, thanks to Leo Antunes <costela@debian.org> (Closes: #729489)
+  * debian/control.in: Depend on libpam-systemd on linux architectures as we
+    need XDG_RUNTIME_DIR set to work.
+  * Drop debian/patches/96_check_libs.patch: Since check 0.9.10-2, check.pc is
+    containing the needed libraries for linking, bump build-dep accordingly
 
-gdm3 (3.8.4-6) unstable; urgency=high
+  [ Andreas Henriksson ]
+  * New upstream release.
+  * debian/rules: add --with-gnome-settings-daemon-directory configure flag.
+  * Drop debian/patches/07_libexec-paths.patch, obsoleted by previous entry.
+  * Drop debian/patches/10_no_gettext.patch, merged upstream.
+  * Drop debian/patches/20_credentials.patch, merged upstream.
+  * Drop debian/patches/22_noconsole.patch, merged upstream.
+  * Drop debian/patches/95_check_x11_display.patch
+    - Obsoleted by upstream changes, see commit 04116535f7a2f37a9724835
+      "daemon: don't require seat to locate reauth channel"
+  * Have quilt refresh remaining patches to apply cleanly.
+  * Build-depend on dconf-cli 0.19.90
+    - "dconf compile ..." used during build.
+  * debian/rules: drop moving gdm dconf profile out of /etc
+    - upstream gdm has been fixed to not misuse dconf anymore.
+  * Update debian/libgdm1.symbols
+    - 4 symbols dropped related to language selection, upstream
+      commit 0b2d22f63b3e6b31 says:
+      "This commit drops the interface, since it's unused, and
+       we don't have any API guarantees in libgdm."
 
-  * debian/control.in:
-    + Only depend on libpam-systemd on linux.
-  * Set urgency high as this is blocking the GNOME 3.8 transition.
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 04 Apr 2014 22:01:58 +0200
 
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Thu, 14 Nov 2013 12:30:37 +0100
+gdm3 (3.10.0.1-2) experimental; urgency=low
 
-gdm3 (3.8.4-5) unstable; urgency=low
+  * Update dependency on gnome-shell and gnome-session to >= 3.10. Otherwise
+    the greeter apparently won't function.
 
-  * debian/control.in:
-    + Depend on libpam-systemd as we need XDG_RUNTIME_DIR set to work.
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 02 Nov 2013 11:47:36 +0100
 
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 13 Nov 2013 20:22:55 +0100
-
-gdm3 (3.8.4-4) unstable; urgency=low
-
-  * debian/patches/10_gdm3_pam.patch:
-    + Add a missing case for the gdm -> gdm3 pam files rename which was
-      causing the user session to never finish loading when using autologin.
-      Thanks to Sjoerd Simons for his help investigating this bug and for
-      actually finding the cause. Closes: #724731.
-
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Tue, 12 Nov 2013 20:25:33 +0100
-
-gdm3 (3.8.4-3) unstable; urgency=low
+gdm3 (3.10.0.1-1) experimental; urgency=low
 
   [ Michael Biebl ]
   * Drop Depends on policykit-1-gnome, with the gdm-fallback session gone,
@@ -64,11 +140,23 @@ gdm3 (3.8.4-3) unstable; urgency=low
     Depends + a versioned Breaks. There is no real reason to do the latter and
     it seems to confuse APT and break upgrades.
 
+  [ Sjoerd Simons ]
+  * New upstream release (3.10.0.1)
+  * Switch from consolekit to systemd-logind sessions. For some reason
+    gnome-shell 3.10 unlocking fails with consolekit...
+  * debian/patches/*: Refreshed
+
   [ Laurent Bigonville ]
   * debian/rules: Also drop gdm-simple-greeter.desktop, simple-greeter is
     definitely gone
+  * debian/rules: Cleanup the list of that are files being removed during
+    build, some of them are gone from upstream tarball now
 
- -- Michael Biebl <biebl@debian.org>  Thu, 24 Oct 2013 17:34:41 +0200
+  [ Sjoerd Simons ]
+  * Add dependency on systemd for systemd-logind
+  * Use logind session tracking on linux
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Fri, 01 Nov 2013 22:34:17 +0100
 
 gdm3 (3.8.4-2) unstable; urgency=low
 

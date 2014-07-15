@@ -1,7 +1,4 @@
-usr/include/gdm/gdm-client-glue.h
-usr/include/gdm/gdm-client.h
-usr/include/gdm/gdm-sessions.h
-usr/include/gdm/gdm-user-switching.h
-usr/share/gir-1.0/
-usr/lib/*/pkgconfig/gdm.pc
-usr/lib/*/libgdm.so
+debian/tmp/usr/include/gdm
+debian/tmp/usr/share/gir-1.0/
+debian/tmp/usr/lib/*/pkgconfig/gdm.pc
+debian/tmp/usr/lib/*/libgdm.so

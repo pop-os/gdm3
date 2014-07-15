@@ -16,6 +16,7 @@ set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/gdm3
+PIDFILE=/var/run/gdm3.pid
 
 test -x $DAEMON || exit 0
 
@@ -30,38 +31,6 @@ fi
 # HEED_DEFAULT_DISPLAY_MANAGER to "false."
 HEED_DEFAULT_DISPLAY_MANAGER=true
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
-
-gen_config() {
-  # GSettings configuration uses dconf update to generate a gdm profile
-  if [ -d /var/lib/gdm3 ]; then
-    needed=no
-    if [ -f /var/lib/gdm3/dconf/db/gdm ]; then
-      for f in \
-          /usr/share/gdm/dconf /usr/share/gdm/dconf/*-settings \
-          /usr/share/gdm/dconf/locks /usr/share/gdm/dconf/locks/*-locks \
-          /etc/gdm3/greeter.gsettings; do
-        if [ "$f" -nt /var/lib/gdm3/dconf/db/gdm ]; then
-          needed=yes
-          break
-        fi
-      done
-    else
-      needed=yes
-    fi
-    if [ "$needed" = yes ]; then
-      rm -rf /var/lib/gdm3/dconf
-      mkdir -p /var/lib/gdm3/dconf/profile /var/lib/gdm3/dconf/db/gdm.d/locks
-      ln -s /usr/share/gdm/dconf-profile /var/lib/gdm3/dconf/profile/gdm
-      ln -s /usr/share/gdm/dconf/*-settings /var/lib/gdm3/dconf/db/gdm.d/
-      ln -s /usr/share/gdm/dconf/locks/*-locks /var/lib/gdm3/dconf/db/gdm.d/locks/
-      # The configuration file in /etc uses org.gnome.blah gsettings syntax.
-      # Convert it to org/gnome/blah dconf syntax.
-      awk '/\[.*\]/ { gsub("\\.","/"); } ! /^#/ { print;}' \
-        /etc/gdm3/greeter.gsettings > /var/lib/gdm3/dconf/db/gdm.d/90-debian-settings
-      dconf update /var/lib/gdm3/dconf/db 2> /dev/null
-    fi
-  fi
-}
 
 activate_logind() {
   # Try to dbus activate logind to avoid a race conditions if we are not
@@ -85,9 +54,8 @@ case "$1" in
         else
                 log_daemon_msg "Starting GNOME Display Manager" "gdm3"
                 activate_logind || log_end_msg 1
-                gen_config
-                rm -f /var/lib/gdm/.ICEauthority
-                start-stop-daemon --start --quiet --pidfile /var/run/gdm3.pid \
+                /usr/share/gdm/generate-config
+                start-stop-daemon --start --quiet --pidfile $PIDFILE \
 			--background --exec $DAEMON || log_end_msg 1
                 log_end_msg 0
         fi
@@ -95,19 +63,17 @@ case "$1" in
   stop)
         log_daemon_msg "Stopping GNOME Display Manager" "gdm3"
         set +e
-        start-stop-daemon --stop --quiet --pidfile /var/run/gdm3.pid \
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE \
                 --name gdm3 --retry 5
         set -e
         log_end_msg $?
   ;;
   reload)
         log_daemon_msg "Scheduling reload of GNOME Display Manager configuration" "gdm3"
+        /usr/share/gdm/generate-config
         set +e
-        gen_config
-        start-stop-daemon --stop --signal HUP --quiet --pidfile \
-                /var/run/gdm3.pid --name gdm3
-        start-stop-daemon --stop --signal HUP --quiet --name dconf-service \
-                --user Debian-gdm --oknodo
+        start-stop-daemon --stop --signal HUP --quiet --pidfile $PIDFILE \
+                --name gdm3
         set -e
         log_end_msg $?
   ;;
