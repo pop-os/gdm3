@@ -40,10 +40,12 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd \
+				--enable-wayland-support \
 				--with-selinux \
 				--without-console-kit
 else
 		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd \
+				--disable-wayland-support \
 				--without-selinux \
 				--with-console-kit
 endif

@@ -1,3 +1,9 @@
+gdm3 (3.12.2-3) experimental; urgency=medium
+
+  * Enable wayland support on Linux.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Sat, 02 Aug 2014 16:24:28 +0200
+
 gdm3 (3.12.2-2) unstable; urgency=medium
 
   [ Laurent Bigonville ]
