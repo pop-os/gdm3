@@ -39,9 +39,13 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-initial-vt=7
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd --with-selinux --without-console-kit
+		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd \
+				--with-selinux \
+				--without-console-kit
 else
-		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd --without-selinux --with-console-kit
+		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd \
+				--without-selinux \
+				--with-console-kit
 endif
 
 DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
