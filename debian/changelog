@@ -1,3 +1,23 @@
+gdm3 (3.12.2-2.1) unstable; urgency=medium
+
+  * Reinstate patches for better VT management.
+    + 17_switch_on_finish.patch: introduce a setting for GdmDisplay that 
+      says it needs to go to the login screen when set.
+    + 18_all_displays_transient.patch: give all local displays the same 
+      properties. Restart them by default, not restart them when told 
+      not to.
+    + 19_switch_kill_greeter.patch: when switching to an existing 
+      session, kill the greeter session and the afferent X server.
+    + debian/rules: use configure switch to disable the -novtswitch 
+      argument to X, if it ever builds again on !linux.
+  * 01_session_windowpath.patch, 02_slave_windowpath.patch: reintroduce 
+    WINDOWPATH. Patches from upstream. Closes: #757889.
+  * tr.po: updated Turkish translation from Mert Dirik. Closes: #756719.
+  * 03_dont_mask_SIGUSR1.patch: patch from upstream. Stop masking 
+    forcibly SIGUSR1. Closes: #756068.
+
+ -- Josselin Mouette <joss@debian.org>  Thu, 14 Aug 2014 02:09:47 +0200
+
 gdm3 (3.12.2-2) unstable; urgency=medium
 
   [ Laurent Bigonville ]

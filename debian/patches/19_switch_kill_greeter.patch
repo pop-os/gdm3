@@ -1,0 +1,93 @@
+Index: gdm3-3.12.2/configure.ac
+===================================================================
+--- gdm3-3.12.2.orig/configure.ac	2014-08-13 21:37:53.886754675 +0200
++++ gdm3-3.12.2/configure.ac	2014-08-14 00:27:12.457744070 +0200
+@@ -274,6 +274,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+ AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
+ AC_SUBST(AT_SPI_REGISTRYD_DIR)
+ 
++AC_ARG_WITH(vt-switch-workaround,
++            AS_HELP_STRING([--with-vt-switch-workaround],
++                           [Try to workaround missing -novtswitch option for X @<:@default=no@:>@])],,
++            [with_vt_switch_workaround="no"])
++
+ # Allow configuration of default PATH
+ #
+ withval=""
+@@ -991,6 +996,14 @@ AC_SUBST(PLYMOUTH_CFLAGS)
+ AC_SUBST(PLYMOUTH_LIBS)
+ 
+ dnl ---------------------------------------------------------------------------
++dnl - Check for vt switch support
++dnl ---------------------------------------------------------------------------
++
++if test "x$with_vt_switch_workaround" != "xno" ; then
++       AC_DEFINE(WITH_VT_SWITCH_WORKAROUND, 1, [Define to enable workaround for missing -novtswitch feature])
++fi
++
++dnl ---------------------------------------------------------------------------
+ dnl - Check for D-Bus
+ dnl ---------------------------------------------------------------------------
+ 
+Index: gdm3-3.12.2/daemon/gdm-manager.c
+===================================================================
+--- gdm3-3.12.2.orig/daemon/gdm-manager.c	2014-08-13 23:26:29.000000000 +0200
++++ gdm3-3.12.2/daemon/gdm-manager.c	2014-08-14 00:57:53.365712128 +0200
+@@ -108,6 +108,8 @@ static void create_seed_session_for_disp
+                                              uid_t       allowed_user);
+ static void     touch_ran_once_marker_file  (GdmManager *manager);
+ 
++static void     remove_user_session (GdmManager *manager, GdmSession *session);
++
+ static gpointer manager_object = NULL;
+ 
+ static void manager_interface_init (GdmDBusManagerIface *interface);
+@@ -1366,19 +1368,26 @@ on_start_user_session (StartUserSessionO
+          */
+         migrated = switch_to_compatible_user_session (operation->manager, operation->session, fail_if_already_switched);
+ 
++        display = get_display_for_user_session (operation->session);
++
+         g_debug ("GdmManager: migrated: %d", migrated);
+         if (migrated) {
+-                /* We don't stop the manager here because
+-                   when Xorg exits it switches to the VT it was
+-                   started from.  That interferes with fast
+-                   user switching. */
++#ifdef WITH_VT_SWITCH_WORKAROUND
++                /* If the X server doesn't support -novtswitch, then when the
++                   user logs out from their session later, they're going to get
++                   thrown back to the VT the greeter is currently running on.
++                   So we keep the greeter akkuve here, so when that happens the
++                   user doesn't see a blank VT or some confusing thing. */
+                 gdm_session_reset (operation->session);
+                 destroy_start_user_session_operation (operation);
++#else
++                gdm_display_set_switch_on_finish (display, FALSE);
++                remove_user_session (operation->manager, operation->session);
++#endif
++
+                 goto out;
+         }
+ 
+-        display = get_display_for_user_session (operation->session);
+-
+         if (gdm_session_get_display_mode (operation->session) == GDM_SESSION_DISPLAY_MODE_REUSE_VT) {
+                 /* In this case, the greeter's display is morphing into
+                  * the user session display. Kill the greeter on this session
+Index: gdm3-3.12.2/daemon/gdm-server.c
+===================================================================
+--- gdm3-3.12.2.orig/daemon/gdm-server.c	2014-03-19 16:15:29.000000000 +0100
++++ gdm3-3.12.2/daemon/gdm-server.c	2014-08-14 00:40:52.525234183 +0200
+@@ -276,7 +276,11 @@ gdm_server_init_command (GdmServer *serv
+                 debug_options = "";
+         }
+ 
++#ifdef WITH_VT_SWITCH_WORKAROUND
+ #define X_SERVER_ARG_FORMAT " -background none -noreset -verbose %s%s"
++#else
++#define X_SERVER_ARG_FORMAT " -novtswitch -background none -noreset -verbose %s%s"
++#endif
+ 
+ #ifdef WITH_SYSTEMD
+ 
