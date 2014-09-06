@@ -14,7 +14,7 @@ DEB_DH_INSTALL_ARGS := --list-missing
 
 DEB_DH_AUTORECONF_ARGS = --as-needed
 
-export DEB_CFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 include /usr/share/dpkg/buildflags.mk
 
 GNOME_MODULE := gdm
