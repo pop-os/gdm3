@@ -79,10 +79,6 @@ binary-install/gdm3::
 DEB_DH_SYSTEMD_ENABLE_ARGS_gdm3 := --no-act
 DEB_DH_SYSTEMD_START_ARGS_gdm3 := --no-act
 
-binary-post-install/gdm3::
-	dh_systemd_enable -pgdm3
-	dh_systemd_start -pgdm3 --no-start -r
-
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
 
