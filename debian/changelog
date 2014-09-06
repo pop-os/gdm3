@@ -1,4 +1,4 @@
-gdm3 (3.12.2-2.2) unstable; urgency=medium
+gdm3 (3.12.2-4) unstable; urgency=medium
 
   * d/p/04_really_dont_block_SIGUSR1.patch: from upstream, Stop masking
     forcibly SIGUSR1, really. (Closes: #756068)
@@ -7,9 +7,14 @@ gdm3 (3.12.2-2.2) unstable; urgency=medium
   * debian/rules: Remove duplicate call to dh_systemd_* helpers
   * debian/rules: Pass --as-needed to dh_autoreconf and export "-Wl,-z,defs
     -Wl,-O1 -Wl,--as-needed" to DEB_LDFLAGS_MAINT_APPEND
-  * debian/rules: Explicitly enable wayland support on linux architectures
 
  -- Laurent Bigonville <bigon@debian.org>  Sat, 06 Sep 2014 18:21:52 +0200
+
+gdm3 (3.12.2-3) experimental; urgency=medium
+
+  * Enable wayland support on Linux.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Sat, 02 Aug 2014 16:24:28 +0200
 
 gdm3 (3.12.2-2.1) unstable; urgency=medium
 
