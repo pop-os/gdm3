@@ -5,8 +5,11 @@ gdm3 (3.12.2-2.2) unstable; urgency=medium
   * Update debian/README.Debian: Stop refering to deprecated programs and
     configuration files (Closes: #760073)
   * debian/rules: Remove duplicate call to dh_systemd_* helpers
+  * debian/rules: Pass --as-needed to dh_autoreconf and export "-Wl,-z,defs
+    -Wl,-O1 -Wl,--as-needed" to DEB_CFLAGS_MAINT_APPEND
+  * debian/rules: Explicitly enable wayland support on linux architectures
 
- -- Laurent Bigonville <bigon@debian.org>  Sat, 06 Sep 2014 17:51:57 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 06 Sep 2014 18:19:03 +0200
 
 gdm3 (3.12.2-2.1) unstable; urgency=medium
 
