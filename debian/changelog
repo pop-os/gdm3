@@ -1,4 +1,4 @@
-gdm3 (3.12.2-2.2) UNRELEASED; urgency=medium
+gdm3 (3.12.2-2.2) unstable; urgency=medium
 
   * d/p/04_really_dont_block_SIGUSR1.patch: from upstream, Stop masking
     forcibly SIGUSR1, really. (Closes: #756068)
@@ -6,7 +6,7 @@ gdm3 (3.12.2-2.2) UNRELEASED; urgency=medium
     configuration files (Closes: #760073)
   * debian/rules: Remove duplicate call to dh_systemd_* helpers
 
- -- Laurent Bigonville <bigon@debian.org>  Sat, 06 Sep 2014 17:37:56 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 06 Sep 2014 17:51:57 +0200
 
 gdm3 (3.12.2-2.1) unstable; urgency=medium
 
