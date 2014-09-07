@@ -1,4 +1,4 @@
-gdm3 (3.13.91-1) UNRELEASED; urgency=medium
+gdm3 (3.13.91-1) experimental; urgency=medium
 
   * New upstream development release.
   * Drop patches backported from upstream now included in release:
@@ -8,7 +8,7 @@ gdm3 (3.13.91-1) UNRELEASED; urgency=medium
     - debian/patches/04_really_dont_block_SIGUSR1.patch
   * debian/libgdm1.symbols: update with 4 new additions.
 
- -- Andreas Henriksson <andreas@fatal.se>  Sat, 06 Sep 2014 17:28:05 -0700
+ -- Andreas Henriksson <andreas@fatal.se>  Sat, 06 Sep 2014 17:41:14 -0700
 
 gdm3 (3.12.2-4) unstable; urgency=medium
 
