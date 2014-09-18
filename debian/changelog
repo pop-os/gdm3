@@ -1,3 +1,11 @@
+gdm3 (3.13.91-2) UNRELEASED; urgency=medium
+
+  * debian/gdm3.config:
+    - make sure /etc/X11 directory exists. (Closes: #757081)
+    Thanks to Daniel Baumann
+
+ -- Andreas Henriksson <andreas@fatal.se>  Thu, 18 Sep 2014 21:31:58 +0200
+
 gdm3 (3.13.91-1) experimental; urgency=medium
 
   * New upstream development release.
