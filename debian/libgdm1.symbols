@@ -43,9 +43,9 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_greeter_call_begin_auto_login@Base 3.8.3
  gdm_greeter_call_begin_auto_login_finish@Base 3.8.3
  gdm_greeter_call_begin_auto_login_sync@Base 3.8.3
-#MISSING: 3.11.90-1# gdm_greeter_call_select_language@Base 3.8.3
-#MISSING: 3.11.90-1# gdm_greeter_call_select_language_finish@Base 3.8.3
-#MISSING: 3.11.90-1# gdm_greeter_call_select_language_sync@Base 3.8.3
+ gdm_greeter_call_get_timed_login_details@Base 3.13.91
+ gdm_greeter_call_get_timed_login_details_finish@Base 3.13.91
+ gdm_greeter_call_get_timed_login_details_sync@Base 3.13.91
  gdm_greeter_call_select_session@Base 3.8.3
  gdm_greeter_call_select_session_finish@Base 3.8.3
  gdm_greeter_call_select_session_sync@Base 3.8.3
@@ -56,7 +56,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_greeter_call_start_session_when_ready_finish@Base 3.8.3
  gdm_greeter_call_start_session_when_ready_sync@Base 3.8.3
  gdm_greeter_complete_begin_auto_login@Base 3.8.3
-#MISSING: 3.11.90-1# gdm_greeter_complete_select_language@Base 3.8.3
+ gdm_greeter_complete_get_timed_login_details@Base 3.13.91
  gdm_greeter_complete_select_session@Base 3.8.3
  gdm_greeter_complete_select_user@Base 3.8.3
  gdm_greeter_complete_start_session_when_ready@Base 3.8.3

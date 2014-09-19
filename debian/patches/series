@@ -1,7 +1,3 @@
-01_session_windowpath.patch
-02_slave_windowpath.patch
-03_dont_mask_SIGUSR1.patch
-04_really_dont_block_SIGUSR1.patch
 08_frequent-users_greeter.patch
 09_default_session.patch
 16_xserver_path.patch
