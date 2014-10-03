@@ -1,3 +1,9 @@
+gdm3 (3.14.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Pedro Beja <althaser@gmail.com>  Fri, 03 Oct 2014 23:58:26 +0100
+
 gdm3 (3.13.92-1) unstable; urgency=medium
 
   * debian/gdm3.config:
