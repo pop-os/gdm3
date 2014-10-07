@@ -1,8 +1,12 @@
 gdm3 (3.14.0-1) UNRELEASED; urgency=medium
 
+  [ Pedro Beja ]
   * New upstream release.
 
- -- Pedro Beja <althaser@gmail.com>  Fri, 03 Oct 2014 23:58:26 +0100
+  [ Laurent Bigonville ]
+  * debian/control.in: Bump Standards-Version to 3.9.6 (no further changes)
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 08 Oct 2014 00:10:36 +0200
 
 gdm3 (3.13.92-1) unstable; urgency=medium
 
