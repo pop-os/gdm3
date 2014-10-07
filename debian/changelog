@@ -1,4 +1,4 @@
-gdm3 (3.14.0-1) UNRELEASED; urgency=medium
+gdm3 (3.14.0-1) unstable; urgency=medium
 
   [ Pedro Beja ]
   * New upstream release.
@@ -6,7 +6,7 @@ gdm3 (3.14.0-1) UNRELEASED; urgency=medium
   [ Laurent Bigonville ]
   * debian/control.in: Bump Standards-Version to 3.9.6 (no further changes)
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 08 Oct 2014 00:10:36 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 08 Oct 2014 00:39:19 +0200
 
 gdm3 (3.13.92-1) unstable; urgency=medium
 
