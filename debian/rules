@@ -83,9 +83,6 @@ binary-install/gdm3::
 	rm -rf debian/gdm3/var/run
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
-# Not sure why the following files are still shipped (https://bugzilla.gnome.org/show_bug.cgi?id=710847)
-	rm -f debian/gdm3/usr/share/gdm/greeter/applications/gdm-simple-greeter.desktop
-	rm -f debian/gdm3/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
 
 DEB_DH_SYSTEMD_ENABLE_ARGS_gdm3 := --no-act
 DEB_DH_SYSTEMD_START_ARGS_gdm3 := --no-act
