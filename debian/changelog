@@ -1,10 +1,10 @@
-gdm3 (3.14.1-1) UNRELEASED; urgency=medium
+gdm3 (3.14.1-1) unstable; urgency=medium
 
   * New upstream release.
   * debian/rules: Remove unneeded rules, the files are now removed from the
     upstream tarball
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 16 Oct 2014 00:46:51 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 19 Oct 2014 19:57:33 +0200
 
 gdm3 (3.14.0-1) unstable; urgency=medium
 
