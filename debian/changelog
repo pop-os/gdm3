@@ -1,3 +1,11 @@
+gdm3 (3.14.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Bring back Xorg.N.log at the X maintainers' request, so that their
+    bug script can read it (Closes: #765771)
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 08 Nov 2014 17:11:39 +0000
+
 gdm3 (3.14.1-1) unstable; urgency=medium
 
   * New upstream release.

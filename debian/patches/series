@@ -8,3 +8,4 @@
 91_dconf_database_path.patch
 92_systemd_unit.patch
 93_disable_gvfs.patch
+94_retain_xorg_log.patch

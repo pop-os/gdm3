@@ -1,0 +1,30 @@
+From: Simon McVittie <smcv@debian.org>
+Subject: reinstate Xorg.N.log at Xorg maintainers' request
+Date: Sat, 08 Nov 2014 17:10:47 +0000
+
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
+Forwarded: no
+
+diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
+index ccb26a3..537f9db 100644
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -299,12 +299,14 @@ gdm_server_init_command (GdmServer *server)
+         }
+ 
+ #ifdef ENABLE_SYSTEMD_JOURNAL
+-        /* For systemd, we don't have a log file but instead log to stdout,
+-           so set it to the xserver's built-in default verbosity */
++        /* For systemd, we log to stdout (which is the Journal),
++           so set it to the same verbosity we use for -logverbose.
++           In Debian we want to log to Xorg.N.log in addition,
++           so we do not turn that off like GNOME upstream do. */
+         if (debug)
+-            verbosity = "7 -logfile /dev/null";
++            verbosity = "7";
+         else
+-            verbosity = "3 -logfile /dev/null";
++            verbosity = "3";
+ #endif
+ 
+         if (g_access (SYSTEMD_X_SERVER, X_OK) < 0) {
