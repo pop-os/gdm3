@@ -1,3 +1,10 @@
+gdm3 (3.14.1-3) unstable; urgency=medium
+
+  * 18_all_displays_transient.patch: fix autologin for the initial 
+    display. Closes: #758183.
+
+ -- Josselin Mouette <joss@debian.org>  Sun, 09 Nov 2014 18:16:02 +0100
+
 gdm3 (3.14.1-2) unstable; urgency=medium
 
   * Team upload.
