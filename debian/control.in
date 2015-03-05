@@ -87,6 +87,8 @@ Recommends: zenity,
 Suggests: libpam-gnome-keyring,
           gnome-orca
 Provides: x-display-manager
+Conflicts: gdm
+Replaces: gdm
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
