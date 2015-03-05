@@ -4,6 +4,8 @@ gdm3 (3.14.1-4) UNRELEASED; urgency=medium
   * gdm3 Conflicts/Replaces: gdm again, to ensure that obsolete gdm packages
     from squeeze get cleaned up by upgrading wheezy to jessie
     (Closes: #774889)
+  * 95_systemd-import-language-into-daemon-environment.patch:
+    put the default system locale in gdm's environment (Closes: #644047)
 
  -- Simon McVittie <smcv@debian.org>  Thu, 05 Mar 2015 21:30:33 +0000
 

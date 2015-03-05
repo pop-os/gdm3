@@ -1,0 +1,38 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Fri, 27 Feb 2015 13:39:35 -0500
+Subject: [PATCH] systemd: import language into daemon environment
+
+By default GDM is started with a pretty blank environment.
+
+This commit makes sure that the default locale for the
+system is used.
+
+Bug: https://bugzilla.gnome.org/show_bug.cgi?id=745286
+Bug-Debian: https://bugs.debian.org/774889
+Applied-upstream: 3.16, commit:fbb922c
+[smcv: cherry-picked to 3.14 branch]
+---
+ data/Makefile.am    | 1 +
+ data/gdm.service.in | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 1b79bc3..d30eed2 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -197,6 +197,7 @@ gdm.service: $(srcdir)/gdm.service.in
+ 	$(AM_V_GEN)sed \
+ 		-e 's,[@]sbindir[@],$(sbindir),g' \
+ 		-e 's,[@]GDM_INITIAL_VT[@],$(GDM_INITIAL_VT),g' \
++		-e 's,[@]LANG_CONFIG_FILE[@],$(LANG_CONFIG_FILE),g' \
+ 		< $< > $@
+ systemdsystemunit += gdm.service
+ CLEANFILES += gdm.service
+diff --git a/data/gdm.service.in b/data/gdm.service.in
+index df8bc09..cecdb2c 100644
+--- a/data/gdm.service.in
++++ b/data/gdm.service.in
+@@ -10,2 +10,3 @@ IgnoreSIGPIPE=no
+ StandardOutput=syslog
+ StandardError=inherit
++EnvironmentFile=@LANG_CONFIG_FILE@
