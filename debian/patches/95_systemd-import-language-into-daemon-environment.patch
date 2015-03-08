@@ -10,7 +10,7 @@ system is used.
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=745286
 Bug-Debian: https://bugs.debian.org/774889
 Applied-upstream: 3.16, commit:fbb922c
-[smcv: cherry-picked to 3.14 branch]
+[smcv: cherry-picked to 3.14 branch; do not fail if locale file does not exist]
 ---
  data/Makefile.am    | 1 +
  data/gdm.service.in | 1 +
@@ -35,4 +35,4 @@ index df8bc09..cecdb2c 100644
 @@ -10,2 +10,3 @@ IgnoreSIGPIPE=no
  StandardOutput=syslog
  StandardError=inherit
-+EnvironmentFile=@LANG_CONFIG_FILE@
++EnvironmentFile=-@LANG_CONFIG_FILE@
