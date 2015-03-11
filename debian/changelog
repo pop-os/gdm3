@@ -1,3 +1,13 @@
+gdm3 (3.14.1-6) unstable; urgency=medium
+
+  * Team upload.
+  * Under systemd, if gdm fails to start, or if the selected DM is
+    kdm or wdm, make sure to run plymouth-quit.service (which gdm normally
+    suppresses), so that plymouth-quit-wait.service terminates and gettys
+    are not prevented from running. (Closes: #766462, #780257)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 11 Mar 2015 12:25:38 +0000
+
 gdm3 (3.14.1-5) unstable; urgency=medium
 
   * Do not fail to start gdm if /etc/default/locale does not exist

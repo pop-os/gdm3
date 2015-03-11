@@ -10,3 +10,4 @@
 93_disable_gvfs.patch
 94_retain_xorg_log.patch
 95_systemd-import-language-into-daemon-environment.patch
+96_plymouth-quit.patch
