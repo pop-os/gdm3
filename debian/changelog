@@ -1,3 +1,9 @@
+gdm3 (3.14.1-7) unstable; urgency=medium
+
+  * Add Conflicts/Replaces: gdm in libgdm1 as well. Closes: #781535.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 04 Apr 2015 09:19:43 +0200
+
 gdm3 (3.14.1-6) unstable; urgency=medium
 
   * Team upload.
