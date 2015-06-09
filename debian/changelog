@@ -1,3 +1,10 @@
+gdm3 (3.14.1-8) UNRELEASED; urgency=medium
+
+  * d/p/07_fix_caribou_path.patch: Fix the path to the caribou daemon in the
+    autostart desktop file (Closes: #784671)
+
+ -- Laurent Bigonville <bigon@debian.org>  Tue, 09 Jun 2015 12:59:37 +0200
+
 gdm3 (3.14.1-7) unstable; urgency=medium
 
   * Add Conflicts/Replaces: gdm in libgdm1 as well. Closes: #781535.
