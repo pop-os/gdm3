@@ -2,6 +2,8 @@ gdm3 (3.14.2-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Refresh patches, drop patches which were merged upstream.
+  * Systemd has been fixed in v222 to no longer kill services on reload if
+    BusName is set, so drop that part from 92_systemd_unit.patch.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 09 Jul 2015 13:05:28 +0200
 
