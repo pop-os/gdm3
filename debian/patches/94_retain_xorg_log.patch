@@ -5,11 +5,11 @@ Date: Sat, 08 Nov 2014 17:10:47 +0000
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
 Forwarded: no
 
-diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
-index ccb26a3..537f9db 100644
---- a/daemon/gdm-server.c
-+++ b/daemon/gdm-server.c
-@@ -299,12 +299,14 @@ gdm_server_init_command (GdmServer *server)
+Index: gdm-3.14.2/daemon/gdm-server.c
+===================================================================
+--- gdm-3.14.2.orig/daemon/gdm-server.c	2015-07-09 13:10:26.760876885 +0200
++++ gdm-3.14.2/daemon/gdm-server.c	2015-07-09 13:10:26.756876793 +0200
+@@ -303,12 +303,14 @@
          }
  
  #ifdef ENABLE_SYSTEMD_JOURNAL

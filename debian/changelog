@@ -1,6 +1,7 @@
 gdm3 (3.14.2-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Refresh patches, drop patches which were merged upstream.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 09 Jul 2015 13:05:28 +0200
 
