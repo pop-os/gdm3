@@ -1,0 +1,35 @@
+From 6dc19f45dd9758d1c395e57b5d8f2d507d66a7de Mon Sep 17 00:00:00 2001
+From: Michael Biebl <biebl@debian.org>
+Date: Thu, 9 Jul 2015 13:01:22 +0200
+Subject: [PATCH] build: transition to libsystemd
+
+In systemd v209 the various libraries were merged into a single
+libsystemd library. So update configure checks to use the new name.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=752164
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: gdm-3.14.2/configure.ac
+===================================================================
+--- gdm-3.14.2.orig/configure.ac	2015-07-09 13:21:39.938669483 +0200
++++ gdm-3.14.2/configure.ac	2015-07-09 13:21:39.938669483 +0200
+@@ -893,7 +893,7 @@
+ dnl ---------------------------------------------------------------------------
+ 
+ PKG_CHECK_MODULES(SYSTEMD,
+-                  [libsystemd-login >= 186 libsystemd-daemon],
++                  [libsystemd],
+                   [have_systemd=yes], [have_systemd=no])
+ 
+ if test "x$with_systemd" = "xauto" ; then
+@@ -917,7 +917,7 @@
+ AC_SUBST(SYSTEMD_LIBS)
+ 
+ PKG_CHECK_MODULES(JOURNALD,
+-                  [libsystemd-journal],
++                  [libsystemd],
+                   [have_journald=yes], [have_journald=no])
+ 
+ if test "x$enable_systemd_journal" = "xauto" ; then

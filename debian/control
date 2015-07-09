@@ -6,7 +6,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Andreas Henriksson <andreas@fatal.se>, Josselin Mouette <joss@debian.org>, Laurent Bigonville <bigon@debian.org>
+Uploaders: Josselin Mouette <joss@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 8.1.3),
                cdbs (>= 0.4.122~),
@@ -47,9 +47,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas,
-               libsystemd-login-dev (>= 186) [linux-any],
-               libsystemd-daemon-dev (>= 186) [linux-any],
-               libsystemd-journal-dev [linux-any]
+               libsystemd-dev [linux-any]
 Standards-Version: 3.9.6
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/

@@ -10,3 +10,4 @@
 92_systemd_unit.patch
 93_disable_gvfs.patch
 94_retain_xorg_log.patch
+95_libsystemd.patch
