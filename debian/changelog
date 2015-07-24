@@ -1,3 +1,11 @@
+gdm3 (3.14.2-2) UNRELEASED; urgency=medium
+
+  * Re-add our workaround which drops BusName from gdm.service. There are
+    apparently still issues related to upgrades from older gdm versions
+    resulting in the X session to be terminated during the upgrade.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 24 Jul 2015 13:34:11 +0200
+
 gdm3 (3.14.2-1) unstable; urgency=medium
 
   * New upstream release.
