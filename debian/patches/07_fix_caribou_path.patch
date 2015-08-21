@@ -1,0 +1,15 @@
+Description: Fix caribou daemon path in autostart file
+From: Laurent Bigonville <bigon@debian.org>
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=784671
+Forwarded: not-needed
+
+--- a/data/autostart/caribou-autostart.desktop.in
++++ b/data/autostart/caribou-autostart.desktop.in
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Type=Application
+ Name=Caribou
+-Exec=@LIBEXECDIR@/caribou
++Exec=/usr/lib/caribou/caribou
+ AutostartCondition=GSettings org.gnome.desktop.a11y.applications screen-keyboard-enabled
+ X-GNOME-AutoRestart=true

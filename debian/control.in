@@ -43,10 +43,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas,
-               libsystemd-login-dev (>= 186) [linux-any],
-               libsystemd-daemon-dev (>= 186) [linux-any],
-               libsystemd-journal-dev [linux-any]
-Standards-Version: 3.9.5
+               libsystemd-dev [linux-any]
+Standards-Version: 3.9.6
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
@@ -87,6 +85,8 @@ Recommends: zenity,
 Suggests: libpam-gnome-keyring,
           gnome-orca
 Provides: x-display-manager
+Conflicts: gdm
+Replaces: gdm
 Breaks: gnome-panel (<< 3.0),
         gnome-screensaver (<< 2.17.7),
         gnome-orca (<< 2.30.0-2),
@@ -108,8 +108,8 @@ Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
 Breaks: gdm3 (<< 3.8.3-3~)
-Conflicts: libgdm
-Replaces: libgdm, gdm3 (<< 3.8.3-3~)
+Conflicts: libgdm, gdm
+Replaces: libgdm, gdm, gdm3 (<< 3.8.3-3~)
 Description: GNOME Display Manager (shared library)
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts graphical sessions.

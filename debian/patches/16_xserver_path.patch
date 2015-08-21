@@ -1,6 +1,8 @@
---- a/configure.ac
-+++ b/configure.ac
-@@ -1244,7 +1244,10 @@
+Index: gdm-3.14.2/configure.ac
+===================================================================
+--- gdm-3.14.2.orig/configure.ac	2015-07-09 13:06:09.183572078 +0200
++++ gdm-3.14.2/configure.ac	2015-07-09 13:06:09.179572007 +0200
+@@ -1236,7 +1236,10 @@
  # and /usr/X11 since they often symlink to each other, and configure
  # should use the more stable location (the real directory) if possible.
  #

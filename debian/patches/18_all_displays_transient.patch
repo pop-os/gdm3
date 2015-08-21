@@ -2,10 +2,10 @@ Make all local displays "transient".
 By default, they are not reaped at the end of the session and go back to 
 the login prompt.
 
-Index: gdm3-3.12.2/daemon/Makefile.am
+Index: gdm3-3.14.1/daemon/Makefile.am
 ===================================================================
---- gdm3-3.12.2.orig/daemon/Makefile.am	2014-05-13 20:33:05.000000000 +0200
-+++ gdm3-3.12.2/daemon/Makefile.am	2014-08-14 01:11:28.000000000 +0200
+--- gdm3-3.14.1.orig/daemon/Makefile.am	2014-11-09 18:30:31.474923397 +0100
++++ gdm3-3.14.1/daemon/Makefile.am	2014-11-09 18:30:31.470923456 +0100
 @@ -35,7 +35,6 @@ AM_CPPFLAGS = \
  BUILT_SOURCES =					\
  	gdm-display-glue.h			\
@@ -62,10 +62,10 @@ Index: gdm3-3.12.2/daemon/Makefile.am
  	gdm-transient-display.xml	\
  	gdm-local-display-factory.xml	\
  	gdm-session-enum-types.c.in	\
-Index: gdm3-3.12.2/daemon/gdm-local-display-factory.c
+Index: gdm3-3.14.1/daemon/gdm-local-display-factory.c
 ===================================================================
---- gdm3-3.12.2.orig/daemon/gdm-local-display-factory.c	2014-03-18 05:23:44.000000000 +0100
-+++ gdm3-3.12.2/daemon/gdm-local-display-factory.c	2014-08-14 01:11:28.000000000 +0200
+--- gdm3-3.14.1.orig/daemon/gdm-local-display-factory.c	2014-11-09 18:30:31.474923397 +0100
++++ gdm3-3.14.1/daemon/gdm-local-display-factory.c	2014-11-09 18:30:31.474923397 +0100
 @@ -35,7 +35,6 @@
  #include "gdm-local-display-factory-glue.h"
  
@@ -105,10 +105,10 @@ Index: gdm3-3.12.2/daemon/gdm-local-display-factory.c
  
          g_object_set (display, "seat-id", seat_id, NULL);
          g_object_set (display, "is-initial", initial, NULL);
-Index: gdm3-3.12.2/daemon/gdm-transient-display.c
+Index: gdm3-3.14.1/daemon/gdm-transient-display.c
 ===================================================================
---- gdm3-3.12.2.orig/daemon/gdm-transient-display.c	2014-08-14 01:11:28.000000000 +0200
-+++ gdm3-3.12.2/daemon/gdm-transient-display.c	2014-08-14 01:13:50.867144257 +0200
+--- gdm3-3.14.1.orig/daemon/gdm-transient-display.c	2014-11-09 18:30:31.474923397 +0100
++++ gdm3-3.14.1/daemon/gdm-transient-display.c	2014-11-09 18:31:03.034454271 +0100
 @@ -94,9 +94,22 @@ gdm_transient_display_manage (GdmDisplay
  static gboolean
  gdm_transient_display_finish (GdmDisplay *display)
@@ -133,3 +133,23 @@ Index: gdm3-3.12.2/daemon/gdm-transient-display.c
  
          return TRUE;
  }
+@@ -117,9 +130,16 @@ gdm_transient_display_get_timed_login_de
+                                                char      **usernamep,
+                                                int        *delayp)
+ {
+-        *enabledp = FALSE;
+-        *usernamep = g_strdup ("");
+-        *delayp = 0;
++        gboolean is_initial = FALSE;
++        gdm_display_is_initial (display, &is_initial, NULL);
++
++        if (is_initial) {
++                GDM_DISPLAY_CLASS (gdm_transient_display_parent_class)->get_timed_login_details (display, enabledp, usernamep, delayp);
++        } else {
++                *enabledp = FALSE;
++                *usernamep = g_strdup ("");
++                *delayp = 0;
++        }
+ }
+ 
+ static GObject *

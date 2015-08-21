@@ -1,8 +1,8 @@
-Index: gdm3-3.12.2/configure.ac
+Index: gdm-3.14.2/configure.ac
 ===================================================================
---- gdm3-3.12.2.orig/configure.ac	2014-08-13 21:37:53.886754675 +0200
-+++ gdm3-3.12.2/configure.ac	2014-08-14 00:27:12.457744070 +0200
-@@ -274,6 +274,11 @@ AC_ARG_WITH(at-spi-registryd-directory,
+--- gdm-3.14.2.orig/configure.ac	2015-07-09 13:06:14.027658660 +0200
++++ gdm-3.14.2/configure.ac	2015-07-09 13:06:14.027658660 +0200
+@@ -274,6 +274,11 @@
  AT_SPI_REGISTRYD_DIR=$with_at_spi_registryd_directory
  AC_SUBST(AT_SPI_REGISTRYD_DIR)
  
@@ -14,7 +14,7 @@ Index: gdm3-3.12.2/configure.ac
  # Allow configuration of default PATH
  #
  withval=""
-@@ -991,6 +996,14 @@ AC_SUBST(PLYMOUTH_CFLAGS)
+@@ -991,6 +996,14 @@
  AC_SUBST(PLYMOUTH_LIBS)
  
  dnl ---------------------------------------------------------------------------
@@ -29,11 +29,11 @@ Index: gdm3-3.12.2/configure.ac
  dnl - Check for D-Bus
  dnl ---------------------------------------------------------------------------
  
-Index: gdm3-3.12.2/daemon/gdm-manager.c
+Index: gdm-3.14.2/daemon/gdm-manager.c
 ===================================================================
---- gdm3-3.12.2.orig/daemon/gdm-manager.c	2014-08-13 23:26:29.000000000 +0200
-+++ gdm3-3.12.2/daemon/gdm-manager.c	2014-08-14 00:57:53.365712128 +0200
-@@ -108,6 +108,8 @@ static void create_seed_session_for_disp
+--- gdm-3.14.2.orig/daemon/gdm-manager.c	2015-07-09 13:06:14.027658660 +0200
++++ gdm-3.14.2/daemon/gdm-manager.c	2015-07-09 13:06:14.027658660 +0200
+@@ -108,6 +108,8 @@
                                               uid_t       allowed_user);
  static void     touch_ran_once_marker_file  (GdmManager *manager);
  
@@ -42,7 +42,7 @@ Index: gdm3-3.12.2/daemon/gdm-manager.c
  static gpointer manager_object = NULL;
  
  static void manager_interface_init (GdmDBusManagerIface *interface);
-@@ -1366,19 +1368,26 @@ on_start_user_session (StartUserSessionO
+@@ -1367,19 +1369,26 @@
           */
          migrated = switch_to_compatible_user_session (operation->manager, operation->session, fail_if_already_switched);
  
@@ -75,11 +75,11 @@ Index: gdm3-3.12.2/daemon/gdm-manager.c
          if (gdm_session_get_display_mode (operation->session) == GDM_SESSION_DISPLAY_MODE_REUSE_VT) {
                  /* In this case, the greeter's display is morphing into
                   * the user session display. Kill the greeter on this session
-Index: gdm3-3.12.2/daemon/gdm-server.c
+Index: gdm-3.14.2/daemon/gdm-server.c
 ===================================================================
---- gdm3-3.12.2.orig/daemon/gdm-server.c	2014-03-19 16:15:29.000000000 +0100
-+++ gdm3-3.12.2/daemon/gdm-server.c	2014-08-14 00:40:52.525234183 +0200
-@@ -276,7 +276,11 @@ gdm_server_init_command (GdmServer *serv
+--- gdm-3.14.2.orig/daemon/gdm-server.c	2015-07-09 13:06:14.027658660 +0200
++++ gdm-3.14.2/daemon/gdm-server.c	2015-07-09 13:06:14.027658660 +0200
+@@ -276,7 +276,11 @@
                  debug_options = "";
          }
  
