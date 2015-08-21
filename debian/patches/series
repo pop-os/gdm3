@@ -1,13 +1,10 @@
-07_fix_caribou_path.patch
-08_frequent-users_greeter.patch
 09_default_session.patch
 16_xserver_path.patch
-17_switch_on_finish.patch
-18_all_displays_transient.patch
-19_switch_kill_greeter.patch
+#17_switch_on_finish.patch
+#18_all_displays_transient.patch
+#19_switch_kill_greeter.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
 93_disable_gvfs.patch
 94_retain_xorg_log.patch
-95_libsystemd.patch

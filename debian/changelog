@@ -1,3 +1,32 @@
+gdm3 (3.17.4-1) UNRELEASED; urgency=medium
+
+  * New upstream development release.
+  * Update build-dependencies according to configure.ac changes:
+    - drop libxrandr-dev
+  * Update debian/rules according to configure.ac changes:
+    - drop --with/without-systemd and --with/without-consolekit,
+      these configure flags are no longer available.
+  * Drop debian/patches/07_fix_caribou_path.patch, obsoleted by
+    upstream removal of caribou autostart file removal.
+  * Temporarily disable patches which no longer apply:
+    - 17_switch_on_finish.patch
+    - 18_all_displays_transient.patch
+    - 19_switch_kill_greeter.patch
+  * Drop debian/patches/95_libsystemd.patch, fixed upstream.
+  * Drop debian/patches/08_frequent-users_greeter.patch, likely obsolete.
+  * Fix and refresh remaining patches to apply.
+  * debian/gdm3.install: drop debian/tmp/usr/share/gnome-session/,
+    gdm-shell.session no longer shipped upstream. See commit f66cdfcb2948.
+    "It's identical to gnome.session these days.  All GDMification comes
+    from the overridden gnome-shell.desktop file."
+  * Update debian/libgdm1.symbols
+
+  * TODO: This DOES NOT WORK for unknown reasons.
+    - Xorg fails to open vt7 with "permission denied" error message.
+    - WORKAROUND: chmod +s /usr/bin/Xorg
+
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 21 Aug 2015 14:41:53 +0200
+
 gdm3 (3.14.2-2) unstable; urgency=medium
 
   * Re-add our workaround which drops BusName from gdm.service. There are

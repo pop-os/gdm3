@@ -1,7 +1,5 @@
-Index: gdm3-3.12.1/data/dconf/gdm.in
-===================================================================
---- gdm3-3.12.1.orig/data/dconf/gdm.in	2014-04-26 21:57:26.655244579 +0200
-+++ gdm3-3.12.1/data/dconf/gdm.in	2014-04-26 21:57:26.651244601 +0200
+--- a/data/dconf/gdm.in
++++ b/data/dconf/gdm.in
 @@ -1,2 +1,2 @@
  user-db:user
 -file-db:@DATADIR@/@PACKAGE@/greeter-dconf-defaults
