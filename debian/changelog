@@ -1,4 +1,4 @@
-gdm3 (3.17.90-1) UNRELEASED; urgency=medium
+gdm3 (3.17.90-1) experimental; urgency=medium
 
   * New upstream beta release.
   * Update build-dependencies according to configure.ac changes:
@@ -28,7 +28,7 @@ gdm3 (3.17.90-1) UNRELEASED; urgency=medium
       which we can make versioned. Use conflicts instead to prevent
       users from installing incompatible combinations.
 
- -- Andreas Henriksson <andreas@fatal.se>  Fri, 21 Aug 2015 14:41:53 +0200
+ -- Andreas Henriksson <andreas@fatal.se>  Sat, 29 Aug 2015 11:55:31 +0200
 
 gdm3 (3.14.2-2) unstable; urgency=medium
 
