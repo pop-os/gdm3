@@ -1,6 +1,6 @@
-gdm3 (3.17.4-1) UNRELEASED; urgency=medium
+gdm3 (3.17.90-1) UNRELEASED; urgency=medium
 
-  * New upstream development release.
+  * New upstream beta release.
   * Update build-dependencies according to configure.ac changes:
     - drop libxrandr-dev
   * Update debian/rules according to configure.ac changes:
@@ -20,10 +20,13 @@ gdm3 (3.17.4-1) UNRELEASED; urgency=medium
     "It's identical to gnome.session these days.  All GDMification comes
     from the overridden gnome-shell.desktop file."
   * Update debian/libgdm1.symbols
-
-  * TODO: This DOES NOT WORK for unknown reasons.
-    - Xorg fails to open vt7 with "permission denied" error message.
-    - WORKAROUND: chmod +s /usr/bin/Xorg
+  * Add conflicts against xserver-xorg-core (<< 2:1.17.2-2~)
+    - gdm >= 3.16 needs an x server with logind support (which is
+      currently only available in the Debian Experimental package
+      version), or it will fail with "permission denied" on vt7.
+    - The gdm3 package has no strict dependency on an x server
+      which we can make versioned. Use conflicts instead to prevent
+      users from installing incompatible combinations.
 
  -- Andreas Henriksson <andreas@fatal.se>  Fri, 21 Aug 2015 14:41:53 +0200
 
