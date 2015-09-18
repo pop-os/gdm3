@@ -1,9 +1,13 @@
-gdm3 (3.17.90-2) UNRELEASED; urgency=medium
+gdm3 (3.17.92-1) experimental; urgency=medium
 
+  [ Laurent Bigonville ]
   * debian/control.in: Move xserver-xorg-core (<< 2:1.17.2-2~) from Conflicts
     to Breaks
 
- -- Laurent Bigonville <bigon@debian.org>  Fri, 04 Sep 2015 15:53:51 +0200
+  [ Andreas Henriksson ]
+  * New upstream release candidate.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 18 Sep 2015 09:39:55 +0200
 
 gdm3 (3.17.90-1) experimental; urgency=medium
 
