@@ -1,3 +1,9 @@
+gdm3 (3.18.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 09 Oct 2015 11:08:16 +0200
+
 gdm3 (3.17.92-1) experimental; urgency=medium
 
   [ Laurent Bigonville ]
