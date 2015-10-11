@@ -1,4 +1,4 @@
-gdm3 (3.18.0-1) UNRELEASED; urgency=medium
+gdm3 (3.18.0-1) unstable; urgency=medium
 
   [ Andreas Henriksson ]
   * New upstream release.
@@ -7,7 +7,7 @@ gdm3 (3.18.0-1) UNRELEASED; urgency=medium
   * Drop d/p/17_switch_on_finish.patch, d/p/18_all_displays_transient.patch,
     d/p/19_switch_kill_greeter.patch: Not needed anymore.
 
- -- Laurent Bigonville <bigon@debian.org>  Sun, 11 Oct 2015 14:28:20 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 11 Oct 2015 14:39:43 +0200
 
 gdm3 (3.17.92-1) experimental; urgency=medium
 
