@@ -44,15 +44,13 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-initial-vt=7
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-		DEB_CONFIGURE_EXTRA_FLAGS += --with-systemd \
+		DEB_CONFIGURE_EXTRA_FLAGS += \
 				--enable-wayland-support \
-				--with-selinux \
-				--without-console-kit
+				--with-selinux
 else
-		DEB_CONFIGURE_EXTRA_FLAGS += --without-systemd \
+		DEB_CONFIGURE_EXTRA_FLAGS += \
 				--disable-wayland-support \
-				--without-selinux \
-				--with-console-kit
+				--without-selinux
 endif
 
 DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)

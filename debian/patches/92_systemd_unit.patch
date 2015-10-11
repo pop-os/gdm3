@@ -1,8 +1,6 @@
-Index: gdm-3.14.2/data/gdm.service.in
-===================================================================
---- gdm-3.14.2.orig/data/gdm.service.in	2015-07-09 13:08:55.990860974 +0200
-+++ gdm-3.14.2/data/gdm.service.in	2015-07-09 13:10:17.864673341 +0200
-@@ -20,13 +20,16 @@
+--- a/data/gdm.service.in
++++ b/data/gdm.service.in
+@@ -20,14 +20,17 @@
  OnFailure=plymouth-quit.service
  
  [Service]
@@ -12,6 +10,7 @@ Index: gdm-3.14.2/data/gdm.service.in
 +ExecStart=@sbindir@/gdm3
 +ExecReload=/bin/kill -HUP $MAINPID
 +ExecReload=/usr/share/gdm/generate-config
+ KillMode=mixed
  Restart=always
 +RestartSec=1s
  IgnoreSIGPIPE=no

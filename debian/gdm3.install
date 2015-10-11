@@ -5,7 +5,6 @@ debian/tmp/usr/lib/gdm3/gdm-*
 # gets renamed to gdm3 in binary-install
 debian/tmp/usr/sbin/gdm
 debian/tmp/usr/share/pixmaps/
-debian/tmp/usr/share/gnome-session/
 debian/tmp/usr/share/locale/
 debian/tmp/usr/share/icons/
 debian/tmp/usr/share/help/

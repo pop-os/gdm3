@@ -5,12 +5,10 @@ Date: Sat, 08 Nov 2014 17:10:47 +0000
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
 Forwarded: no
 
-Index: gdm-3.14.2/daemon/gdm-server.c
-===================================================================
---- gdm-3.14.2.orig/daemon/gdm-server.c	2015-07-09 13:10:26.760876885 +0200
-+++ gdm-3.14.2/daemon/gdm-server.c	2015-07-09 13:10:26.756876793 +0200
-@@ -303,12 +303,14 @@
-         }
+--- a/daemon/gdm-server.c
++++ b/daemon/gdm-server.c
+@@ -243,12 +243,14 @@
+          * missing, or c) we are running for the main seat 'seat0'. */
  
  #ifdef ENABLE_SYSTEMD_JOURNAL
 -        /* For systemd, we don't have a log file but instead log to stdout,
