@@ -1,8 +1,5 @@
 09_default_session.patch
 16_xserver_path.patch
-#17_switch_on_finish.patch
-#18_all_displays_transient.patch
-#19_switch_kill_greeter.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
