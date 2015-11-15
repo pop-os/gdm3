@@ -107,9 +107,9 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
-Breaks: gdm3 (<< 3.8.3-3~)
+Breaks: gdm3 (<< 3.18.0-3~)
 Conflicts: libgdm, gdm
-Replaces: libgdm, gdm, gdm3 (<< 3.8.3-3~)
+Replaces: libgdm, gdm, gdm3 (<< 3.18.0-3~)
 Description: GNOME Display Manager (shared library)
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts graphical sessions.
