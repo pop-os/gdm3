@@ -82,8 +82,6 @@ Recommends: zenity,
             x11-xkb-utils,
             xserver-xorg,
             at-spi2-core,
-            gnome-icon-theme,
-            gnome-icon-theme-symbolic,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
           gnome-orca

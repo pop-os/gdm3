@@ -4,6 +4,8 @@ gdm3 (3.18.0-3) UNRELEASED; urgency=medium
     these even when using a different DM. (Closes: #804893)
   * Move gir package to a more standard naming and install typelib file
     into ma path
+  * debian/control.in: Drop depends on gnome-icon-theme{.symbolic} these
+    are obsolete now and adwaita-icon-theme is pulled in by libgtk-3-common
 
  -- Tim Lunn <tim@feathertop.org>  Sun, 15 Nov 2015 11:49:56 +1100
 
