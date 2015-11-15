@@ -57,7 +57,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          libgdm1 (= ${binary:Version}),
-         gir1.2-gdm3 (= ${binary:Version}),
+         gir1.2-gdm-1.0 (= ${binary:Version}),
          adduser,
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
@@ -130,7 +130,7 @@ Section: libdevel
 Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libgdm1 (= ${binary:Version}),
-         gir1.2-gdm3 (= ${binary:Version}),
+         gir1.2-gdm-1.0 (= ${binary:Version}),
          ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
@@ -145,14 +145,14 @@ Description: GNOME Display Manager (development files)
  .
  This package contains header and development files.
 
-Package: gir1.2-gdm3
+Package: gir1.2-gdm-1.0
 Section: introspection
 Architecture: linux-any
 Depends: ${gir:Depends},
          ${shlibs:Depends},
          ${misc:Depends}
-Conflicts: libgdm
-Replaces: libgdm
+Conflicts: libgdm, gir1.2-gdm3
+Replaces: libgdm, gir1.2-gdm3
 Description: GObject introspection data for the GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it 
  asks for a login and starts graphical sessions.

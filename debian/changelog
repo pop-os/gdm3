@@ -2,6 +2,8 @@ gdm3 (3.18.0-3) UNRELEASED; urgency=medium
 
   * Move schemas to libgdm1 package, gnome-shell requires access to 
     these even when using a different DM. (Closes: #804893)
+  * Move gir package to a more standard naming and install typelib file
+    into ma path
 
  -- Tim Lunn <tim@feathertop.org>  Sun, 15 Nov 2015 11:49:56 +1100
 
