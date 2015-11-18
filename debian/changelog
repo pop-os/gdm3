@@ -1,4 +1,4 @@
-gdm3 (3.18.2-1) UNRELEASED; urgency=medium
+gdm3 (3.18.2-1) unstable; urgency=medium
 
   [ Tim Lunn ]
   * Move schemas to libgdm1 package, gnome-shell requires access to 
@@ -8,14 +8,15 @@ gdm3 (3.18.2-1) UNRELEASED; urgency=medium
   * debian/control.in: 
     - Drop depend on gnome-icon-theme{.symbolic} these
       are obsolete now and adwaita-icon-theme is pulled in by libgtk-3-common
-    - Mark libdbus-glib-1-dev [!linux-any], its only required for consolekit builds
+    - Mark libdbus-glib-1-dev [!linux-any], its only required for consolekit
+      builds
 
   [ Michael Biebl ]
   * New upstream release.
   * Drop obsolete Breaks, Conflicts and Replaces for versions older than
     oldstable.
 
- -- Tim Lunn <tim@feathertop.org>  Sun, 15 Nov 2015 11:49:56 +1100
+ -- Michael Biebl <biebl@debian.org>  Wed, 18 Nov 2015 06:56:38 +0100
 
 gdm3 (3.18.0-2) unstable; urgency=medium
 
