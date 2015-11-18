@@ -86,20 +86,14 @@ Recommends: zenity,
 Suggests: libpam-gnome-keyring,
           gnome-orca
 Provides: x-display-manager
-Conflicts: gdm
-Replaces: gdm
-Breaks: gnome-panel (<< 3.0),
-        gnome-screensaver (<< 2.17.7),
-        gnome-orca (<< 2.30.0-2),
-        gnome-control-center (<< 3.0),
-        xserver-xorg-core (<< 2:1.17.2-2~)
+Breaks: xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
- GDM provides the equivalent of a "login:" prompt for X displays: it 
+ GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
  .
  It supports multiple seats and switching between multiple users.
  .
- The greeter is based on the GNOME libraries and applications, and its 
+ The greeter is based on the GNOME libraries and applications, and its
  look and design are the same as those of a GNOME session.
 
 Package: libgdm1
@@ -110,15 +104,14 @@ Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${gir:Depends}
 Breaks: gdm3 (<< 3.18.0-3~)
-Conflicts: libgdm, gdm
-Replaces: libgdm, gdm, gdm3 (<< 3.18.0-3~)
+Replaces: gdm3 (<< 3.18.0-3~)
 Description: GNOME Display Manager (shared library)
- GDM provides the equivalent of a "login:" prompt for X displays: it 
+ GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
  .
  It supports multiple seats and switching between multiple users.
  .
- The greeter is based on the GNOME libraries and applications, and its 
+ The greeter is based on the GNOME libraries and applications, and its
  look and design are the same as those of a GNOME session.
  .
  This package contains the shared library required by gnome-shell.
@@ -133,12 +126,12 @@ Depends: libgdm1 (= ${binary:Version}),
          ${misc:Depends},
          ${gir:Depends}
 Description: GNOME Display Manager (development files)
- GDM provides the equivalent of a "login:" prompt for X displays: it 
+ GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
  .
  It supports multiple seats and switching between multiple users.
  .
- The greeter is based on the GNOME libraries and applications, and its 
+ The greeter is based on the GNOME libraries and applications, and its
  look and design are the same as those of a GNOME session.
  .
  This package contains header and development files.
@@ -149,15 +142,15 @@ Architecture: linux-any
 Depends: ${gir:Depends},
          ${shlibs:Depends},
          ${misc:Depends}
-Conflicts: libgdm, gir1.2-gdm3
-Replaces: libgdm, gir1.2-gdm3
+Conflicts: gir1.2-gdm3
+Replaces: gir1.2-gdm3
 Description: GObject introspection data for the GNOME Display Manager
- GDM provides the equivalent of a "login:" prompt for X displays: it 
+ GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
  .
  It supports multiple seats and switching between multiple users.
  .
- The greeter is based on the GNOME libraries and applications, and its 
+ The greeter is based on the GNOME libraries and applications, and its
  look and design are the same as those of a GNOME session.
  .
  This package contains introspection data for the GNOME Display Manager.
