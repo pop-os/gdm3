@@ -1,5 +1,6 @@
-gdm3 (3.18.0-3) UNRELEASED; urgency=medium
+gdm3 (3.18.2-1) UNRELEASED; urgency=medium
 
+  [ Tim Lunn ]
   * Move schemas to libgdm1 package, gnome-shell requires access to 
     these even when using a different DM. (Closes: #804893)
   * Move gir package to a more standard naming and install typelib file
@@ -8,6 +9,9 @@ gdm3 (3.18.0-3) UNRELEASED; urgency=medium
     - Drop depend on gnome-icon-theme{.symbolic} these
       are obsolete now and adwaita-icon-theme is pulled in by libgtk-3-common
     - Mark libdbus-glib-1-dev [!linux-any], its only required for consolekit builds
+
+  [ Michael Biebl ]
+  * New upstream release.
 
  -- Tim Lunn <tim@feathertop.org>  Sun, 15 Nov 2015 11:49:56 +1100
 
