@@ -12,6 +12,8 @@ gdm3 (3.18.2-1) UNRELEASED; urgency=medium
 
   [ Michael Biebl ]
   * New upstream release.
+  * Drop obsolete Breaks, Conflicts and Replaces for versions older than
+    oldstable.
 
  -- Tim Lunn <tim@feathertop.org>  Sun, 15 Nov 2015 11:49:56 +1100
 
