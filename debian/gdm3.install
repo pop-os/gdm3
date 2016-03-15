@@ -12,7 +12,6 @@ debian/tmp/usr/share/gdm/gdb-cmd
 debian/tmp/usr/share/gdm/locale.alias
 debian/tmp/usr/share/gdm/greeter
 debian/tmp/usr/share/gdm/*.schemas
-debian/tmp/usr/share/glib-2.0/
 debian/tmp/usr/share/dconf/
 debian/tmp/var/*
 debian/dbus-1				usr/share/gdm/greeter

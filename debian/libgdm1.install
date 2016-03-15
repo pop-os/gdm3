@@ -1,2 +1,3 @@
 debian/tmp/usr/bin/gdmflexiserver
 debian/tmp/usr/lib/*/libgdm.so.*
+debian/tmp/usr/share/glib-2.0/
