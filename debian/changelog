@@ -1,3 +1,18 @@
+gdm3 (3.19.92-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Add build-dependency on xserver-xorg-dev for xorg-server.pc
+    - upstream configure.ac now checks for xserver version.
+  * Bump Standards-Version to 3.9.7.
+  * Refresh the following patches to apply:
+    - debian/patches/09_default_session.patch
+    - debian/patches/16_xserver_path.patch
+    - debian/patches/90_config_comments.patch
+      (Drop greeter section comments as that section was removed.)
+    - debian/patches/93_disable_gvfs.patch
+
+ -- Andreas Henriksson <andreas@fatal.se>  Tue, 15 Mar 2016 21:18:48 +0100
+
 gdm3 (3.18.2-1) unstable; urgency=medium
 
   [ Tim Lunn ]

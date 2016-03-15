@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1184,7 +1184,10 @@
+@@ -1182,7 +1182,10 @@
  # and /usr/X11 since they often symlink to each other, and configure
  # should use the more stable location (the real directory) if possible.
  #

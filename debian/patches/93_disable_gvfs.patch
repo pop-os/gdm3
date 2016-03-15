@@ -1,6 +1,6 @@
 --- a/daemon/gdm-launch-environment.c
 +++ b/daemon/gdm-launch-environment.c
-@@ -183,6 +183,9 @@
+@@ -197,6 +197,9 @@
          g_hash_table_insert (hash, g_strdup ("PATH"), g_strdup (g_getenv ("PATH")));
  
          g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
