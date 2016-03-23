@@ -1,10 +1,11 @@
-gdm3 (3.19.92-2) UNRELEASED; urgency=medium
+gdm3 (3.20.0-1) UNRELEASED; urgency=medium
 
   * Drop debian/patches/93_disable_gvfs.patch
     - superseeded by upstream commit 5e81151a147
       "launch-environment: disable gvfs except in initial setup mode"
   * Bump gnome-shell dependency to >> 3.19.92
     - new interactions between gdm and gnome-shell for session start
+  * New upstream release.
 
  -- Andreas Henriksson <andreas@fatal.se>  Wed, 23 Mar 2016 18:00:23 +0100
 
