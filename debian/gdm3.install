@@ -14,7 +14,6 @@ debian/tmp/usr/share/gdm/greeter
 debian/tmp/usr/share/gdm/*.schemas
 debian/tmp/usr/share/dconf/
 debian/tmp/var/*
-debian/dbus-1				usr/share/gdm/greeter
 debian/Xsession				etc/gdm3
 debian/greeter.dconf-defaults*		usr/share/gdm
 debian/default.desktop			usr/share/gdm/BuiltInSessions
