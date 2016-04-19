@@ -1,6 +1,8 @@
 gdm3 (3.20.1-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Restore debian/patches/09_default_session.patch as we postponed the switch
+    to Wayland.
 
  -- Michael Biebl <biebl@debian.org>  Wed, 20 Apr 2016 00:08:01 +0200
 
