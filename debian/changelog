@@ -1,3 +1,9 @@
+gdm3 (3.20.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 20 Apr 2016 00:08:01 +0200
+
 gdm3 (3.20.0-2) experimental; urgency=medium
 
   * debian/rules: Switch back the initial VT to vt1 (Closes: #819423)
