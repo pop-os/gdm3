@@ -42,8 +42,9 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libaudit-dev [linux-any],
                docbook-xml,
                gsettings-desktop-schemas,
-               libsystemd-dev [linux-any]
-Standards-Version: 3.9.6
+               libsystemd-dev [linux-any],
+               xserver-xorg-dev
+Standards-Version: 3.9.7
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
@@ -60,7 +61,7 @@ Depends: ${shlibs:Depends},
          libpam-systemd [linux-any], consolekit [!linux-any],
          gnome-session-bin (>= 3.10),
          gnome-settings-daemon (>= 3.2),
-         gnome-shell (>= 3.10.1-2~),
+         gnome-shell (>= 3.19.92),
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
          lsb-base (>= 3.2-14),
          librsvg2-common,

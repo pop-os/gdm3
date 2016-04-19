@@ -1,3 +1,44 @@
+gdm3 (3.20.0-2) experimental; urgency=medium
+
+  * debian/rules: Switch back the initial VT to vt1 (Closes: #819423)
+  * Drop /usr/share/gdm/greeter/dbus-1 files, gdm/gnome-shell doesn't try to
+    start telepathy-mission-control and gnome-online-accounts anymore.
+  * Drop debian/patches/09_default_session.patch completely as we want to
+    default to the wayland session for now.
+  * debian/default.desktop.in: Update the Name of the Comment to make it clear
+    that it will start the X11 default session of the system.
+
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 04 Apr 2016 15:04:03 +0200
+
+gdm3 (3.20.0-1) experimental; urgency=medium
+
+  * Drop debian/patches/93_disable_gvfs.patch
+    - superseded by upstream commit 5e81151a147
+      "launch-environment: disable gvfs except in initial setup mode"
+  * Bump gnome-shell dependency to >= 3.19.92
+    - new interactions between gdm and gnome-shell for session start
+  * New upstream release.
+  * Temporarily disable debian/patches/09_default_session.patch
+    - the System Default ("default") session is currently broken, so use
+      upstreams default ("gnome") while investigating.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 25 Mar 2016 11:26:09 +0100
+
+gdm3 (3.19.92-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Add build-dependency on xserver-xorg-dev for xorg-server.pc
+    - upstream configure.ac now checks for xserver version.
+  * Bump Standards-Version to 3.9.7.
+  * Refresh the following patches to apply:
+    - debian/patches/09_default_session.patch
+    - debian/patches/16_xserver_path.patch
+    - debian/patches/90_config_comments.patch
+      (Drop greeter section comments as that section was removed.)
+    - debian/patches/93_disable_gvfs.patch
+
+ -- Andreas Henriksson <andreas@fatal.se>  Tue, 15 Mar 2016 21:18:48 +0100
+
 gdm3 (3.18.2-1) unstable; urgency=medium
 
   [ Tim Lunn ]
