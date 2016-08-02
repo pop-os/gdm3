@@ -17,8 +17,8 @@ The greeter - which is the interface that welcomes you on the
 computer - uses a minimal GNOME session to startup. Its settings are set 
 through GSettings, but using a specific configuration.
  * You can force the GSettings settings in /etc/gdm3/greeter.dconf-defaults.
- * After changing any of the settings, you need to run “invoke-rc.d gdm3 
-   reload” to take them into account.
+ * After changing any of the settings, you need to run “systemctl reload gdm”
+   to take them into account.
 
 
 X11 authentication
