@@ -29,6 +29,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libgirepository1.0-dev (>= 0.9.12),
                gobject-introspection (>= 0.10.7-1~),
                libpam0g-dev,
+               libkeyutils-dev [linux-any],
                libxdmcp-dev,
                libwrap0-dev,
                libxft-dev,
@@ -44,7 +45,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
                xserver-xorg-dev
-Standards-Version: 3.9.7
+Standards-Version: 3.9.8
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
