@@ -1,5 +1,6 @@
 gdm3 (3.21.90-1) UNRELEASED; urgency=medium
 
+  [ Andreas Henriksson ]
   * New upstream beta release.
   * Update build-dependencies according to configure.ac changes:
     - Add libkeyutils-dev [linux-any]
@@ -7,7 +8,10 @@ gdm3 (3.21.90-1) UNRELEASED; urgency=medium
   * debian/gdm3.lintian-overrides:
     - Add overrides for systemd-service-file-missing-install-key
 
- -- Andreas Henriksson <andreas@fatal.se>  Tue, 23 Aug 2016 10:25:48 +0200
+  [ Laurent Bigonville ]
+  * Ship new pam_gdm.so PAM module and update gdm-autologin PAM service file
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 31 Aug 2016 09:34:46 +0200
 
 gdm3 (3.20.1-1) unstable; urgency=medium
 
