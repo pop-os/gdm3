@@ -1,4 +1,4 @@
-gdm3 (3.21.90-1) UNRELEASED; urgency=medium
+gdm3 (3.21.90-1) unstable; urgency=medium
 
   [ Andreas Henriksson ]
   * New upstream beta release.
@@ -11,7 +11,7 @@ gdm3 (3.21.90-1) UNRELEASED; urgency=medium
   [ Laurent Bigonville ]
   * Ship new pam_gdm.so PAM module and update gdm-autologin PAM service file
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 31 Aug 2016 09:34:46 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 31 Aug 2016 10:28:16 +0200
 
 gdm3 (3.20.1-1) unstable; urgency=medium
 
