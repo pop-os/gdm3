@@ -1,29 +1,62 @@
 #!/usr/bin/make -f
 
-include /usr/share/cdbs/1/rules/autoreconf.mk
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/gnome.mk
-include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
-include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
-include /usr/share/gnome-pkg-tools/1/rules/patch-translations.mk
+GNOME_MODULE := gdm
+
+include /usr/share/dpkg/architecture.mk
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
-
-# List any files which are not installed
-include /usr/share/cdbs/1/rules/utils.mk
-DEB_DH_INSTALL_ARGS := --list-missing
-
-DEB_DH_AUTORECONF_ARGS = --as-needed
 
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 include /usr/share/dpkg/buildflags.mk
 
-GNOME_MODULE := gdm
+ifeq (linux,$(DEB_HOST_ARCH_OS))
+		CONFFLAGS += \
+				--enable-wayland-support \
+				--with-selinux \
+				--with-plymouth
+else
+		CONFFLAGS += \
+				--disable-wayland-support \
+				--without-selinux \
+				--with-vt-switch-workaround
+endif
 
-DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
-			    X_SERVER_PATH="/usr/bin" \
-			    X_SERVER="/usr/bin/Xorg"
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	CONFFLAGS += --enable-debug
+endif
 
-DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
+INFILES := $(wildcard debian/*.desktop.in)
+OUTFILES := $(INFILES:.desktop.in=.desktop)
+
+%.desktop: %.desktop.in
+	intltool-merge -d debian/po-up $< $@
+
+PODFILES := $(wildcard debian/*.pod)
+MANPAGES := $(patsubst %.pod,%,$(PODFILES))
+
+$(MANPAGES): $(PODFILES)
+	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
+		--release="GNOME $(DEB_GNOME_VERSION)" \
+		--center="Debian GNU/Linux" \
+		$< \
+		| sed -e 's/debian:://' >$@
+
+%:
+	dh $@ --with gnome,gir,autoreconf
+
+override_dh_autoreconf:
+	dh_autoreconf --as-needed
+
+override_dh_auto_configure:
+	#DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
+	#			    X_SERVER_PATH="/usr/bin" \
+	#			    X_SERVER="/usr/bin/Xorg"
+	X_PATH="/usr/bin" \
+	X_SERVER_PATH="/usr/bin" \
+	X_SERVER="/usr/bin/Xorg" \
+	dh_auto_configure -- \
+		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+		--libexecdir=\$${prefix}/lib/gdm3 \
+		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
 		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
 		--with-custom-conf=/etc/gdm3/daemon.conf \
@@ -40,36 +73,19 @@ DEB_CONFIGURE_EXTRA_FLAGS += --enable-ipv6=yes \
 		--with-consolekit-directory=/usr/lib/ConsoleKit \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
-		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`"
+		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
+		$(CONFFLAGS)
 
-ifeq (linux,$(DEB_HOST_ARCH_OS))
-		DEB_CONFIGURE_EXTRA_FLAGS += \
-				--enable-wayland-support \
-				--with-selinux
-else
-		DEB_CONFIGURE_EXTRA_FLAGS += \
-				--disable-wayland-support \
-				--without-selinux
-endif
+override_dh_auto_build: $(OUTFILES) $(MANPAGES)
+	#build/gdm3:: $(OUTFILES)
+	#common-build-arch:: $(MANPAGES)
+	#DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
+	authdir=/var/lib/gdm3 dh_auto_build
 
-DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
-
-ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
-	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
-endif
-
-DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm3
-		
-ifeq (linux,$(DEB_HOST_ARCH_OS))
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-plymouth
-else
-	DEB_CONFIGURE_EXTRA_FLAGS += --with-vt-switch-workaround
-endif
-
-
-DEB_DH_INSTALLINIT_ARGS := --noscripts
-
-binary-install/gdm3::
+# List any files which are not installed
+override_dh_install:
+	dh_install --list-missing
+	#binary-install/gdm3::
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
@@ -83,28 +99,24 @@ binary-install/gdm3::
 	mkdir -p debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/
 	mv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/security/pam_gdm.so debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/
 
-DEB_DH_SYSTEMD_ENABLE_ARGS_gdm3 := --no-act
-DEB_DH_SYSTEMD_START_ARGS_gdm3 := --no-act
+override_dh_installinit:
+	dh_installinit --noscripts
 
-INFILES := $(wildcard debian/*.desktop.in)
-OUTFILES := $(INFILES:.desktop.in=.desktop)
+#DEB_DH_SYSTEMD_ENABLE_ARGS_gdm3 := --no-act
+override_dh_systemd_enable:
+	dh_systemd_enable -N gdm3
+	dh_systemd_enable -p gdm3 --no-act
 
-%.desktop: %.desktop.in
-	intltool-merge -d debian/po-up $< $@
+#DEB_DH_SYSTEMD_START_ARGS_gdm3 := --no-act
+override_dh_systemd_start:
+	dh_systemd_start -N gdm3
+	dh_systemd_start -p gdm3 --no-act
 
-build/gdm3:: $(OUTFILES)
-
-MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
-common-build-arch:: $(MANPAGES)
-
-clean::
+override_dh_auto_clean:
+	dh_auto_clean
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
 	rm -f data/gdm.schemas data/gdm.schemas.in
 
-%: %.pod
-	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
-		--release="GNOME $(DEB_GNOME_VERSION)" \
-		--center="Debian GNU/Linux" \
-		$< \
-		| sed -e 's/debian:://' >$@
+override_dh_auto_test:
+	# disable for now until make check in po/ works.
