@@ -1,10 +1,17 @@
 gdm3 (3.21.91-1) UNRELEASED; urgency=low
 
+  [ Andreas Henriksson ]
   * New upstream beta release.
   * Convert from cdbs to dh.
   * Bump debhelper compat to 9
 
- -- Andreas Henriksson <andreas@fatal.se>  Thu, 01 Sep 2016 11:50:29 +0200
+  [ Laurent Bigonville ]
+  * debian/gdm3.gdm-autologin.pam: Add a missing bit to automagically unlock
+    the keyring when autologin on a computer using LUKS root filesystem. This
+    is not yet working out-of-the-box in debian as it require some plumbering
+    at early-boot (cryptsetup) or systemd in the initramfs.
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 01 Sep 2016 18:13:14 +0200
 
 gdm3 (3.21.90-1) unstable; urgency=medium
 
