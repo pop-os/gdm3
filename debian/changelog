@@ -11,6 +11,10 @@ gdm3 (3.21.91-1) UNRELEASED; urgency=low
     is not yet working out-of-the-box in debian as it require some plumbering
     at early-boot (cryptsetup) or systemd in the initramfs.
 
+  [ Michael Biebl ]
+  * Drop remaining ConsoleKit build dependencies and configure switches.
+    Support for ConsoleKit is most likely not coming back.
+
  -- Laurent Bigonville <bigon@debian.org>  Thu, 01 Sep 2016 18:13:14 +0200
 
 gdm3 (3.21.90-1) unstable; urgency=medium
