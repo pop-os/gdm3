@@ -9,15 +9,15 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 include /usr/share/dpkg/buildflags.mk
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
-		CONFFLAGS += \
-				--enable-wayland-support \
-				--with-selinux \
-				--with-plymouth
+CONFFLAGS += \
+	--enable-wayland-support \
+	--with-selinux \
+	--with-plymouth
 else
-		CONFFLAGS += \
-				--disable-wayland-support \
-				--without-selinux \
-				--with-vt-switch-workaround
+CONFFLAGS += \
+	--disable-wayland-support \
+	--without-selinux \
+	--with-vt-switch-workaround
 endif
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
@@ -51,7 +51,6 @@ override_dh_auto_configure:
 	X_SERVER_PATH="/usr/bin" \
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
-		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 		--libexecdir=\$${prefix}/lib/gdm3 \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
