@@ -1,4 +1,4 @@
-gdm3 (3.21.91-1~test0) UNRELEASED; urgency=low
+gdm3 (3.21.91-1) unstable; urgency=low
 
   [ Andreas Henriksson ]
   * New upstream beta release.
@@ -15,7 +15,7 @@ gdm3 (3.21.91-1~test0) UNRELEASED; urgency=low
   * Drop remaining ConsoleKit build dependencies and configure switches.
     Support for ConsoleKit is most likely not coming back.
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 01 Sep 2016 18:13:14 +0200
+ -- Michael Biebl <biebl@debian.org>  Wed, 07 Sep 2016 22:39:51 +0200
 
 gdm3 (3.21.90-1) unstable; urgency=medium
 

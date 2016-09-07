@@ -21,7 +21,7 @@ CONFFLAGS += \
 endif
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
-	CONFFLAGS += --enable-debug
+CONFFLAGS += --enable-debug
 endif
 
 INFILES := $(wildcard debian/*.desktop.in)
