@@ -1,4 +1,4 @@
-gdm3 (3.21.91-1) UNRELEASED; urgency=low
+gdm3 (3.21.91-1~test0) UNRELEASED; urgency=low
 
   [ Andreas Henriksson ]
   * New upstream beta release.
@@ -8,7 +8,7 @@ gdm3 (3.21.91-1) UNRELEASED; urgency=low
   [ Laurent Bigonville ]
   * debian/gdm3.gdm-autologin.pam: Add a missing bit to automagically unlock
     the keyring when autologin on a computer using LUKS root filesystem. This
-    is not yet working out-of-the-box in debian as it require some plumbering
+    is not yet working out-of-the-box in debian as it require some plumbing
     at early-boot (cryptsetup) or systemd in the initramfs.
 
   [ Michael Biebl ]
