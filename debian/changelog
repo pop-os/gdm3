@@ -1,3 +1,9 @@
+gdm3 (3.22.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Mon, 19 Sep 2016 21:47:00 +0200
+
 gdm3 (3.21.91-1) unstable; urgency=low
 
   [ Andreas Henriksson ]
