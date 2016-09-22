@@ -1,4 +1,4 @@
-debian/tmp/usr/include/gdm
-debian/tmp/usr/share/gir-1.0/
-debian/tmp/usr/lib/*/pkgconfig/gdm.pc
-debian/tmp/usr/lib/*/libgdm.so
+usr/include/gdm
+usr/share/gir-1.0/
+usr/lib/*/pkgconfig/gdm.pc
+usr/lib/*/libgdm.so

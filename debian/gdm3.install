@@ -1,19 +1,20 @@
-debian/tmp/etc/*
-debian/tmp/lib
-debian/tmp/usr/bin/gdm-screenshot
-debian/tmp/usr/lib/gdm3/gdm-*
+etc/*
+lib
+usr/bin/gdm-screenshot
+usr/lib/gdm3/gdm-*
 # gets renamed to gdm3 in binary-install
-debian/tmp/usr/sbin/gdm
-debian/tmp/usr/share/pixmaps/
-debian/tmp/usr/share/locale/
-debian/tmp/usr/share/icons/
-debian/tmp/usr/share/help/
-debian/tmp/usr/share/gdm/gdb-cmd
-debian/tmp/usr/share/gdm/locale.alias
-debian/tmp/usr/share/gdm/greeter
-debian/tmp/usr/share/gdm/*.schemas
-debian/tmp/usr/share/dconf/
-debian/tmp/var/*
+usr/sbin/gdm
+usr/share/pixmaps/
+usr/share/locale/
+usr/share/icons/
+usr/share/help/
+usr/share/gdm/gdb-cmd
+usr/share/gdm/locale.alias
+usr/share/gdm/greeter
+usr/share/gdm/*.schemas
+usr/share/dconf/
+var/*
+
 debian/Xsession				etc/gdm3
 debian/greeter.dconf-defaults*		usr/share/gdm
 debian/default.desktop			usr/share/gdm/BuiltInSessions
