@@ -72,7 +72,7 @@ override_dh_auto_configure:
 		$(CONFFLAGS)
 
 override_dh_auto_build: $(OUTFILES) $(MANPAGES)
-	authdir=/var/lib/gdm3 dh_auto_build
+	dh_auto_build
 
 override_dh_install:
 	dh_install --list-missing

@@ -1,3 +1,9 @@
+gdm3 (3.22.1-2) UNRELEASED; urgency=medium
+
+  * Stop setting authdir, has beend dropped upstream in favour of xauthdir.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 17 Oct 2016 01:07:52 +0200
+
 gdm3 (3.22.1-1) unstable; urgency=medium
 
   * New upstream release.
