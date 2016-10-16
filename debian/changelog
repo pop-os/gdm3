@@ -8,6 +8,9 @@ gdm3 (3.22.1-1) UNRELEASED; urgency=medium
   * Stop passing start and stop runlevels to update-rc.d. Those are no longer
     supported with dependency based boot.
   * Do not hard-code path for deluser/delgroup.
+  * Completely disable the dh-systemd addon via --without systemd. We use
+    debconf and custom maintainer scripts to enable/disable and
+    start/stop/reload the gdm service.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 22 Sep 2016 15:03:20 +0200
 
