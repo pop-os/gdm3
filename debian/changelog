@@ -4,6 +4,7 @@ gdm3 (3.22.1-1) UNRELEASED; urgency=medium
   * Refresh debian/patches/16_xserver_path.patch.
   * Strip debian/tmp/ from .install files.
   * Bump debhelper compat level to 10.
+  * Remove migration code from pre-wheezy.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 22 Sep 2016 15:03:20 +0200
 
