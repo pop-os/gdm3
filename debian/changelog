@@ -1,5 +1,6 @@
-gdm3 (3.22.0-2) UNRELEASED; urgency=medium
+gdm3 (3.22.1-1) UNRELEASED; urgency=medium
 
+  * New upstream release.
   * Strip debian/tmp/ from .install files.
   * Bump debhelper compat level to 10.
 
