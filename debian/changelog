@@ -5,6 +5,8 @@ gdm3 (3.22.1-1) UNRELEASED; urgency=medium
   * Strip debian/tmp/ from .install files.
   * Bump debhelper compat level to 10.
   * Remove migration code from pre-wheezy.
+  * Stop passing start and stop runlevels to update-rc.d. Those are no longer
+    supported with dependency based boot.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 22 Sep 2016 15:03:20 +0200
 
