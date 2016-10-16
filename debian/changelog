@@ -1,6 +1,7 @@
 gdm3 (3.22.1-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Refresh debian/patches/16_xserver_path.patch.
   * Strip debian/tmp/ from .install files.
   * Bump debhelper compat level to 10.
 
