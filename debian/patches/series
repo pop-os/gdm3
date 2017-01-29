@@ -4,3 +4,4 @@
 91_dconf_database_path.patch
 92_systemd_unit.patch
 94_retain_xorg_log.patch
+Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch

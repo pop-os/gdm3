@@ -8,6 +8,15 @@ gdm3 (3.22.1-2) UNRELEASED; urgency=medium
     - Use the new emblem-debian-white.png for default login screen logo
       (Closes: #833529)
 
+  [ Simon McVittie ]
+  * Work around upgrades not being done offline:
+    - Add a non-upstreamable patch to edit D-Bus messages from libgdm
+      to the session worker and adapt them from the pre-3.16 interface
+      to the post-3.16 interface. Only do this if a flag file in /run
+      has been created, so that this workaround will only be active
+      until the next reboot.
+    - gdm3.preinst: Create that flag file on upgrades. (Closes: #789118)
+
  -- Michael Biebl <biebl@debian.org>  Mon, 17 Oct 2016 01:07:52 +0200
 
 gdm3 (3.22.1-1) unstable; urgency=medium
