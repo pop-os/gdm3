@@ -1,3 +1,9 @@
+gdm3 (3.22.3-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 16 Mar 2017 19:54:29 +0100
+
 gdm3 (3.22.1-2) unstable; urgency=medium
 
   * Team upload.
