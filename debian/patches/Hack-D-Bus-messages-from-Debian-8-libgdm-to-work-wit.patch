@@ -14,11 +14,11 @@ Forwarded: no, Debian-specific
  daemon/gdm-session-worker.c | 81 +++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 81 insertions(+)
 
-diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
-index 421ef028..6b14f003 100644
+Index: b/daemon/gdm-session-worker.c
+===================================================================
 --- a/daemon/gdm-session-worker.c
 +++ b/daemon/gdm-session-worker.c
-@@ -3077,6 +3077,80 @@ gdm_session_worker_handle_start_reauthentication (GdmDBusWorker         *object,
+@@ -3122,6 +3122,80 @@
          return TRUE;
  }
  
@@ -99,7 +99,7 @@ index 421ef028..6b14f003 100644
  static GObject *
  gdm_session_worker_constructor (GType                  type,
                                  guint                  n_construct_properties,
-@@ -3104,6 +3178,13 @@ gdm_session_worker_constructor (GType                  type,
+@@ -3149,6 +3223,13 @@
                  exit (1);
          }
  
@@ -113,6 +113,3 @@ index 421ef028..6b14f003 100644
          worker->priv->manager = GDM_DBUS_WORKER_MANAGER (gdm_dbus_worker_manager_proxy_new_sync (worker->priv->connection,
                                                                                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                                                                                   NULL, /* dbus name */
--- 
-2.11.0
-
