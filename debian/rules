@@ -61,6 +61,7 @@ override_dh_auto_configure:
 		--with-xauth-dir=/var/run/gdm3 \
 		--with-pid-file=/var/run/gdm3.pid \
 		--with-log-dir=/var/log/gdm3 \
+		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
@@ -86,8 +87,6 @@ override_dh_install:
 	rm -rf debian/gdm3/var/run
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
-	mkdir -p debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/
-	mv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/security/pam_gdm.so debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/
 
 override_dh_installinit:
 	dh_installinit --noscripts
