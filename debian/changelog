@@ -2,6 +2,9 @@ gdm3 (3.22.3-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Refresh patches.
+  * Add Build-Depends on libxcb1-dev. Upstream switched from xlib to xcb for
+    the main gdm process to be more robust in cases where the display
+    connection has gone away.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 16 Mar 2017 19:54:29 +0100
 
