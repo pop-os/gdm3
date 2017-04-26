@@ -1,25 +1,29 @@
 Description: Emit Upstart events when starting the login session and desktop session
 
-Index: gdm-3.0.0/data/Init.in
+Index: gdm-3.12.2/data/Init.in
 ===================================================================
---- gdm-3.0.0.orig/data/Init.in	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/data/Init.in	2011-05-30 17:35:40.919075634 +0200
-@@ -6,6 +6,8 @@
+--- gdm-3.12.2.orig/data/Init.in
++++ gdm-3.12.2/data/Init.in
+@@ -6,6 +6,10 @@
  PATH="@X_PATH@:$PATH"
  OLD_IFS=$IFS
  
-+/sbin/initctl -q emit login-session-start DISPLAY_MANAGER=gdm
++if [ ! -d /run/systemd/system ]; then
++  /sbin/initctl -q emit login-session-start DISPLAY_MANAGER=gdm
++fi
 +
  gdmwhich () {
    COMMAND="$1"
    OUTPUT=
-Index: gdm-3.0.0/data/PreSession.in
+Index: gdm-3.12.2/data/PreSession.in
 ===================================================================
---- gdm-3.0.0.orig/data/PreSession.in	2010-10-01 13:54:28.000000000 +0200
-+++ gdm-3.0.0/data/PreSession.in	2011-05-30 17:35:40.919075634 +0200
-@@ -7,3 +7,5 @@
+--- gdm-3.12.2.orig/data/PreSession.in
++++ gdm-3.12.2/data/PreSession.in
+@@ -7,3 +7,7 @@
  # Note that output goes into the .xsession-errors file for easy debugging
  #
  PATH="@X_PATH@:$PATH"
 +
-+/sbin/initctl -q emit desktop-session-start DISPLAY_MANAGER=gdm
++if [ ! -d /run/systemd/system ]; then
++  /sbin/initctl -q emit desktop-session-start DISPLAY_MANAGER=gdm
++fi

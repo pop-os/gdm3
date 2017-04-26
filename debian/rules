@@ -1,68 +1,28 @@
 #!/usr/bin/make -f
 
-include /usr/share/cdbs/1/rules/autoreconf.mk
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/gnome.mk
-include /usr/share/gnome-pkg-tools/1/rules/uploaders.mk
-include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
-include /usr/share/gnome-pkg-tools/1/rules/patch-translations.mk
--include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
-
 GNOME_MODULE := gdm
 
-DEB_CONFIGURE_SCRIPT_ENV += X_PATH="/usr/bin" \
-			    X_SERVER_PATH="/usr/bin" \
-			    X_SERVER="/usr/bin/Xorg"
+include /usr/share/dpkg/architecture.mk
+-include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
-DEB_CONFIGURE_EXTRA_FLAGS += --disable-scrollkeeper \
-		--enable-ipv6=yes \
-		--with-at-spi-registryd-directory=/usr/lib/at-spi \
-		--with-check-accelerated-directory=/usr/lib/gnome-session \
-		--with-consolekit-directory=/usr/lib/ConsoleKit \
-		--with-authentication-agent-directory=/usr/lib/policykit-1-gnome \
-		--with-sysconfsubdir=gdm \
-		--with-working-directory=/var/lib/gdm \
-		--with-xauth-dir=/run/gdm \
-		--with-pid-file=/run/gdm.pid \
-		--with-log-dir=/var/log/gdm \
-		--with-screenshot-dir=/run/gdm/greeter \
-		--with-defaults-conf=/usr/share/gdm/defaults.conf \
-		--with-lang-file=/etc/default/locale \
-		--with-incomplete-locales \
-		--without-systemd \
-		--without-systemdsystemunitdir \
-		--with-initial-vt=7 \
-		--disable-split-authentication
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
+include /usr/share/dpkg/buildflags.mk
 
-ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
-	DEB_CONFIGURE_EXTRA_FLAGS += --enable-debug
+ifeq (linux,$(DEB_HOST_ARCH_OS))
+CONFFLAGS += \
+	--enable-wayland-support \
+	--with-selinux \
+	--with-plymouth
+else
+CONFFLAGS += \
+	--disable-wayland-support \
+	--without-selinux \
+	--with-vt-switch-workaround
 endif
 
-DEB_MAKE_EXTRA_ARGS += authdir=/var/lib/gdm
-
-DEB_DH_INSTALLINIT_ARGS := --noscripts
-DEB_DH_MAKESHLIBS_ARGS_gdm := --no-act
-
-DEB_DH_GIREPOSITORY_ARGS_gdm := -l$(CURDIR)/gui/libgdm /usr/lib/gdm/
-
-binary-install/gdm::
-	mv debian/gdm/usr/sbin/gdm-binary debian/gdm/usr/sbin/gdm
-	dh_installpam -pgdm --name=gdm-autologin
-	rm -rf debian/gdm/run
-	rm -rf debian/gdm/usr/include
-	rm -rf debian/gdm/usr/lib/pkgconfig
-	# rm -vf debian/gdm/usr/share/gdm/autostart/LoginWindow/gnome-session-check-accelerated.desktop
-	install -m 644 debian/xterm.desktop debian/gdm/usr/share/gdm/greeter/applications/xterm.desktop
-	install -m 644 debian/xsession.desktop debian/gdm/usr/share/gdm/greeter/applications/xsession.desktop
-	# we install onboard (debian/onboard.desktop), and do not have gok
-	install -m 644 debian/onboard.desktop debian/gdm/usr/share/gdm/greeter/applications/
-	rm -vf debian/gdm/usr/share/gdm/greeter/applications/gok.desktop
-	# we do not currently need a PK agent in the gdm session
-	rm debian/gdm/usr/share/gdm/greeter/applications/polkit-gnome-authentication-agent-1.desktop
-	cd debian/gdm/usr/lib/gdm && \
-		rm -f lib*.a lib*.la lib*.so *.gir
-	cd debian/gdm/usr/lib/gnome-shell && \
-		ln -s ../gdm/*.typelib . && ln -s ../gdm/libgdm*.so.? .
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+CONFFLAGS += --enable-debug
+endif
 
 INFILES := $(wildcard debian/*.desktop.in)
 OUTFILES := $(INFILES:.desktop.in=.desktop)
@@ -70,20 +30,72 @@ OUTFILES := $(INFILES:.desktop.in=.desktop)
 %.desktop: %.desktop.in
 	intltool-merge -d debian/po-up $< $@
 
-build/gdm:: $(OUTFILES)
+PODFILES := $(wildcard debian/*.pod)
+MANPAGES := $(patsubst %.pod,%,$(PODFILES))
 
-MANPAGES := $(patsubst %.pod,%,$(wildcard debian/*.pod))
-
-common-build-arch:: $(MANPAGES)
-
-clean::
-	rm -f $(MANPAGES)
-	rm -f $(OUTFILES) config.guess
-	rm -f data/gdm.schemas data/gdm.schemas.in
-
-%: %.pod
+$(MANPAGES): $(PODFILES)
 	pod2man --section=$(shell echo $@ | sed 's/.*\.//') \
 		--release="GNOME $(DEB_GNOME_VERSION)" \
 		--center="Debian GNU/Linux" \
 		$< \
 		| sed -e 's/debian:://' >$@
+
+%:
+	dh $@ --with gnome,gir --without systemd
+
+override_dh_autoreconf:
+	dh_autoreconf --as-needed
+
+override_dh_auto_configure:
+	X_PATH="/usr/bin" \
+	X_SERVER_PATH="/usr/bin" \
+	X_SERVER="/usr/bin/Xorg" \
+	dh_auto_configure -- \
+		--libexecdir=\$${prefix}/lib/gdm3 \
+		--enable-ipv6=yes \
+		--enable-gdm-xsession \
+		--with-at-spi-registryd-directory=/usr/lib/at-spi \
+		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
+		--with-sysconfsubdir=gdm3 \
+		--with-working-directory=/var/lib/gdm3 \
+		--with-xauth-dir=/var/run/gdm3 \
+		--with-pid-file=/var/run/gdm3.pid \
+		--with-log-dir=/var/log/gdm3 \
+		--with-screenshot-dir=/var/run/gdm3/greeter \
+		--with-defaults-conf=/usr/share/gdm/defaults.conf \
+		--with-lang-file=/etc/default/locale \
+		--disable-split-authentication \
+		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
+		--with-ran-once-marker-directory=/var/run/gdm3 \
+		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
+		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security/
+		$(CONFFLAGS)
+
+override_dh_auto_build: $(OUTFILES) $(MANPAGES)
+	dh_auto_build
+
+override_dh_install:
+	dh_install --list-missing
+	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
+#	chmod 755 debian/gdm3/etc/gdm3/Xsession
+	chmod 755 debian/gdm3/usr/share/gdm/generate-config
+	dh_installpam -pgdm3 --name=gdm-autologin
+	dh_installpam -pgdm3 --name=gdm-launch-environment
+	dh_installpam -pgdm3 --name=gdm-password
+	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
+	rm -rf debian/gdm3/var/run
+	rm -rf debian/gdm3/usr/include
+	rm -rf debian/gdm3/usr/lib/pkgconfig
+	rm -rf debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/*.la
+
+override_dh_installinit:
+	dh_installinit --noscripts --no-start
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -f $(MANPAGES)
+	rm -f $(OUTFILES)
+	rm -f data/gdm.schemas data/gdm.schemas.in
+
+override_dh_auto_test:
+	# disable for now until make check in po/ works.

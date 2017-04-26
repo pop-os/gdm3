@@ -1,0 +1,56 @@
+=head1 NAME
+
+gdm-screenshot - take a picture of the screen
+
+=head1 SYNOPSIS
+
+B<gdm-screenshot> [OPTION...]
+
+=head1 DESCRIPTION
+
+B<gdm-screenshot> is a utility for taking screenshots of the entire screen and
+saving them as PNG image files.
+
+=head1 OPTIONS
+
+B<Help Options:>
+
+=over 4
+
+=item B<-h>, B<--help>
+
+Show help options
+
+=item B<--help-all>
+
+Show all help options
+
+=item B<--help-gtk>
+
+Show GTK+ Options
+
+=back
+
+B<Application Options:>
+
+=over 4
+
+=item B<-d>, B<--debug>
+
+Debugging output
+
+=item B<--display>=I<DISPLAY>
+
+X display to use
+
+=back
+
+=head1 SEE ALSO
+
+gdm3(8).
+
+=head1 AUTHORS
+
+B<gdm-screenshot> is part of the B<GDM> software package, which is part of
+the GNOME project. This manpage was written by Nathan Handler
+<nhandler@ubuntu.com> for the Debian system, but may be used by others.

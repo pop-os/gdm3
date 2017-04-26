@@ -1,3 +1,0 @@
-debian/greeter.gsettings		etc/gdm
-debian/default.desktop			usr/share/gdm/BuiltInSessions
-debian/insserv.conf.d			etc

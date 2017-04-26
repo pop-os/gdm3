@@ -1,0 +1,4 @@
+usr/include/gdm
+usr/share/gir-1.0/
+usr/lib/*/pkgconfig/gdm.pc
+usr/lib/*/libgdm.so

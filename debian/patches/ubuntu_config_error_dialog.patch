@@ -1,0 +1,129 @@
+Description: Show warning dialog in case of error in ~/.profile etc.
+ By using bash instead of sh, a syntax error in a sourced file does
+ not cause a fatal error, but the user is alerted via a dialog in the
+ same way as for other types of errors.
+Bug-Ubuntu: https://launchpad.net/bugs/678421
+Forwarded: https://bugzilla.gnome.org/738970
+Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+
+Index: gdm-3.17.4/configure.ac
+===================================================================
+--- gdm-3.17.4.orig/configure.ac
++++ gdm-3.17.4/configure.ac
+@@ -1456,7 +1456,7 @@ fi
+ if test x$os_solaris = xyes ; then
+    XSESSION_SHELL=/bin/ksh
+ else
+-   XSESSION_SHELL=/bin/sh
++   XSESSION_SHELL=/bin/bash
+ fi
+ 
+ #
+Index: gdm-3.17.4/data/config-error-dialog.sh
+===================================================================
+--- /dev/null
++++ gdm-3.17.4/data/config-error-dialog.sh
+@@ -0,0 +1,29 @@
++# Copyright (C) 2014 Canonical Ltd
++# Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
++#
++# This program is free software: you can redistribute it and/or modify it under
++# the terms of the GNU General Public License as published by the Free Software
++# Foundation, version 3 of the License.
++#
++# See http://www.gnu.org/copyleft/gpl.html the full text of the license.
++
++# This file may be sourced by the function source_with_error_check() in
++# /etc/gdm/Xsession
++
++export TEXTDOMAIN=gdm
++. /usr/bin/gettext.sh
++
++PARA1=$(eval_gettext 'Error found when loading $CONFIG_FILE:')
++PARA2=$(gettext 'As a result the session will not be configured correctly.
++You should fix the problem as soon as feasible.')
++
++TEXT="$PARA1\n\n$(fold -s $ERR)\n\n$PARA2"
++
++if [ -x /usr/bin/kdialog ]; then
++	TEXT_FILE=$(mktemp --tmpdir config-err-kdialog-XXXXXX)
++	echo -n "$TEXT" > "$TEXT_FILE"
++	kdialog --textbox "$TEXT_FILE" 500 300
++	rm -f "$TEXT_FILE"
++elif [ -x /usr/bin/zenity ]; then
++	zenity --warning --no-wrap --text="$TEXT"
++fi
+Index: gdm-3.17.4/data/Makefile.am
+===================================================================
+--- gdm-3.17.4.orig/data/Makefile.am
++++ gdm-3.17.4/data/Makefile.am
+@@ -204,6 +204,7 @@ uninstall-hook:
+ 	rm -f \
+ 	$(DESTDIR)$(GDM_CUSTOM_CONF) \
+ 	$(DESTDIR)$(gdmconfdir)/Xsession \
++	$(DESTDIR)$(gdmconfdir)/config-error-dialog.sh \
+ 	$(DESTDIR)$(initdir)/Default \
+ 	$(DESTDIR)$(postlogindir)/Default.sample \
+ 	$(DESTDIR)$(predir)/Default \
+@@ -235,6 +236,8 @@ if ENABLE_GDM_XSESSION
+ 	$(INSTALL_SCRIPT) Xsession $(DESTDIR)$(gdmconfdir)/Xsession
+ endif
+ 
++	$(INSTALL_DATA) $(srcdir)/config-error-dialog.sh $(DESTDIR)$(gdmconfdir)/config-error-dialog.sh
++
+ 	if test '!' -d $(DESTDIR)$(initdir); then \
+ 		$(mkinstalldirs) $(DESTDIR)$(initdir); \
+ 		chmod 755 $(DESTDIR)$(initdir); \
+Index: gdm-3.17.4/data/Xsession.in
+===================================================================
+--- gdm-3.17.4.orig/data/Xsession.in
++++ gdm-3.17.4/data/Xsession.in
+@@ -29,12 +29,32 @@ command="$@"
+ # good for debugging where things went wrong
+ echo "$0: Beginning session setup..."
+ 
++# temporary storage of error messages
++ERR=$(mktemp --tmpdir config-err-XXXXXX)
++
++source_with_error_check () {
++  CONFIG_FILE="$1"
++  . "$CONFIG_FILE" 2>"$ERR"
++  if [ -s "$ERR" ]; then
++    . /etc/gdm3/config-error-dialog.sh
++  fi
++  cat "$ERR" >&2
++  truncate -s 0 "$ERR"
++}
++
+ # First read /etc/profile and .profile
+-test -f /etc/profile && . /etc/profile
+-test -f "$HOME/.profile" && . "$HOME/.profile"
++for file in /etc/profile "$HOME/.profile"; do
++  if [ -f "$file" ]; then
++    source_with_error_check "$file"
++  fi
++done
++
+ # Second read /etc/xprofile and .xprofile for X specific setup
+-test -f /etc/xprofile && . /etc/xprofile
+-test -f "$HOME/.xprofile" && . "$HOME/.xprofile"
++for file in /etc/xprofile "$HOME/.xprofile"; do
++  if [ -f "$file" ]; then
++    source_with_error_check "$file"
++  fi
++done
+ 
+ # Translation stuff
+ if [ -x "@libexecdir@/gdmtranslate" ] ; then
+Index: gdm-3.17.4/po/POTFILES.in
+===================================================================
+--- gdm-3.17.4.orig/po/POTFILES.in
++++ gdm-3.17.4/po/POTFILES.in
+@@ -39,6 +39,7 @@ daemon/gdm-x-session.c
+ daemon/main.c
+ daemon/session-worker-main.c
+ daemon/test-session-client.c
++data/config-error-dialog.sh
+ data/gdm.schemas.in.in
+ data/org.gnome.login-screen.gschema.xml.in
+ libgdm/gdm-user-switching.c

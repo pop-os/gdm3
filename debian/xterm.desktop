@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=Recovery Console
-Comment=Failsafe session with only xterm
-Exec=xterm
-TryExec=xterm
-Icon=
-Type=Application
-X-Ubuntu-Gettext-Domain=gdm
