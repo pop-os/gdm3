@@ -11,3 +11,4 @@ ubuntu_nvidia_prime.patch
 revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
 git_fix-crash-if-session-does-not-start.patch
+git_restore-session-name-override.patch

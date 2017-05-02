@@ -1,3 +1,13 @@
+gdm3 (3.24.1-0ubuntu2) artful; urgency=medium
+
+  * Add git_restore-session-name-override.patch:
+    - Explicitly set gdm's session-name to 'gnome'. This fixes the login
+      screen not starting when the default session is set to something else,
+      such as when a Ubuntu (Unity) user installs gnome-shell and chooses
+      gdm but does not install ubuntu-gnome-desktop (LP: #1686257)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 26 Apr 2017 14:52:18 -0400
+
 gdm3 (3.24.1-0ubuntu1) artful; urgency=medium
 
   * New upstream release (LP: #1685500)
