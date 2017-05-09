@@ -6,3 +6,4 @@
 94_retain_xorg_log.patch
 Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch
 pam_gdm-allow-setting-pam-module-dir-at-configure-ti.patch
+stop-greeter-explicitly-when-finishing-display.patch
