@@ -1,8 +1,16 @@
 gdm3 (3.22.3-2) UNRELEASED; urgency=medium
 
+  [ Laurent Bigonville ]
   * d/p/stop-greeter-explicitly-when-finishing-display.patch: Properly stop
     the greeter processes when restarting gdm, this fixes the respawn loop and
     allow gdm to restart properly (Closes: #857995)
+
+  [ Michael Biebl ]
+  * Setup pulseaudio to run as systemd user service for Debian-gdm.
+    Otherwise, if we start pulseaudio within the session, the idle-timeout of
+    pulseaudio will prevent the old session scope to be properly terminated
+    when the gdm service is restarted and the old logind session will remain
+    in state "closing".
 
  -- Laurent Bigonville <bigon@debian.org>  Tue, 09 May 2017 18:29:37 +0200
 
