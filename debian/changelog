@@ -1,8 +1,12 @@
-gdm3 (3.22.3-3) UNRELEASED; urgency=medium
+gdm3 (3.24.2-1) UNRELEASED; urgency=medium
 
+  * New upstream release
+  * debian/rules: Don't skip dh_auto_test
   * Add 93_translate-default-desktop.patch:
     - Fix 'make check' by marking a Debian-specific file as translatable
-  * debian/rules: Don't skip dh_auto_test
+  * Drop patches applied in new release:
+    - pam_gdm-allow-setting-pam-module-dir-at-configure-ti.patch
+    - stop-greeter-explicitly-when-finishing-display.patch
 
  -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 19 May 2017 22:19:32 -0400
 
