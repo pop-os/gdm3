@@ -1,3 +1,15 @@
+gdm3 (3.24.2-0ubuntu1) artful; urgency=medium
+
+  * New upstream bug fix release
+    + Update session type when we know username (and user's session)
+    + Fix bug leading to reauthentication happening outside the session
+    + Make sure greeter is killed and reaped when gdm is restarted
+  * d/p/git_restore-session-name-override.patch,
+        git_fix-crash-if-session-does-not-start.patch
+    - Dropped, included in upstream release
+
+ -- Tim Lunn <tim@feathertop.org>  Fri, 12 May 2017 19:05:41 +1000
+
 gdm3 (3.24.1-0ubuntu2) artful; urgency=medium
 
   * Add git_restore-session-name-override.patch:
