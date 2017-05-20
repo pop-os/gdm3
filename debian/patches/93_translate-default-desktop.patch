@@ -2,16 +2,13 @@ Description: Fix 'make check' in po/
 Author: Jeremy Bicha <jbicha@ubuntu.com>
 Forwarded: not-needed
 ---
- po/POTFILES.in |    1 +
+ po/POTFILES.skip |    1 +
  1 file changed, 1 insertion(+)
 
---- a/po/POTFILES.in
-+++ b/po/POTFILES.in
-@@ -41,6 +41,7 @@ daemon/session-worker-main.c
- daemon/test-session-client.c
- data/gdm.schemas.in.in
- data/org.gnome.login-screen.gschema.xml.in
+--- a/po/POTFILES.skip
++++ b/po/POTFILES.skip
+@@ -7,3 +7,4 @@
+ # remove these unless you fix "make distcheck" a different way.
+ #
+ data/gdm.schemas.in
 +debian/default.desktop.in
- libgdm/gdm-user-switching.c
- utils/gdmflexiserver.c
- utils/gdm-screenshot.c
