@@ -1,4 +1,96 @@
-gdm3 (3.21.90-1) UNRELEASED; urgency=medium
+gdm3 (3.22.3-2) unstable; urgency=medium
+
+  [ Laurent Bigonville ]
+  * d/p/stop-greeter-explicitly-when-finishing-display.patch: Properly stop
+    the greeter processes when restarting gdm, this fixes the respawn loop and
+    allow gdm to restart properly (Closes: #857995)
+
+  [ Michael Biebl ]
+  * Setup pulseaudio to run as systemd user service for Debian-gdm.
+    Otherwise, if we start pulseaudio within the session, the idle-timeout of
+    pulseaudio will prevent the old session scope to be properly terminated
+    when the gdm service is restarted and the old logind session will remain
+    in state "closing".
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 09 May 2017 23:51:57 +0200
+
+gdm3 (3.22.3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Add Build-Depends on libxcb1-dev. Upstream switched from xlib to xcb for
+    the main gdm process to be more robust in cases where the display
+    connection has gone away.
+  * Use --with-pam-mod-dir configure switch to set the location of the pam
+    module directory instead of moving the .so file around manually.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 16 Mar 2017 21:46:47 +0100
+
+gdm3 (3.22.1-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Michael Biebl ]
+  * Stop setting authdir, has been dropped upstream in favour of xauthdir.
+
+  [ Jeremy Bicha ]
+  * debian/greeter.dconf-defaults:
+    - Use the new emblem-debian-white.png for default login screen logo
+      (Closes: #833529)
+
+  [ Simon McVittie ]
+  * Work around upgrades not being done offline:
+    - Add a non-upstreamable patch to edit D-Bus messages from libgdm
+      to the session worker and adapt them from the pre-3.16 interface
+      to the post-3.16 interface. Only do this if a flag file in /run
+      has been created, so that this workaround will only be active
+      until the next reboot.
+    - gdm3.preinst: Create that flag file on upgrades. (Closes: #789118)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 29 Jan 2017 11:07:50 +0000
+
+gdm3 (3.22.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh debian/patches/16_xserver_path.patch.
+  * Strip debian/tmp/ from .install files.
+  * Bump debhelper compat level to 10.
+  * Remove migration code from pre-wheezy.
+  * Stop passing start and stop runlevels to update-rc.d. Those are no longer
+    supported with dependency based boot.
+  * Do not hard-code path for deluser/delgroup.
+  * Completely disable the dh-systemd addon via --without systemd. We use
+    debconf and custom maintainer scripts to enable/disable and
+    start/stop/reload the gdm service.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 17 Oct 2016 00:17:17 +0200
+
+gdm3 (3.22.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Mon, 19 Sep 2016 21:47:00 +0200
+
+gdm3 (3.21.91-1) unstable; urgency=low
+
+  [ Andreas Henriksson ]
+  * New upstream beta release.
+  * Convert from cdbs to dh.
+  * Bump debhelper compat to 9
+
+  [ Laurent Bigonville ]
+  * debian/gdm3.gdm-autologin.pam: Add a missing bit to automagically unlock
+    the keyring when autologin on a computer using LUKS root filesystem. This
+    is not yet working out-of-the-box in debian as it require some plumbing
+    at early-boot (cryptsetup) or systemd in the initramfs.
+
+  [ Michael Biebl ]
+  * Drop remaining ConsoleKit build dependencies and configure switches.
+    Support for ConsoleKit is most likely not coming back.
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 07 Sep 2016 22:39:51 +0200
+
+gdm3 (3.21.90-1) unstable; urgency=medium
 
   [ Andreas Henriksson ]
   * New upstream beta release.
@@ -11,7 +103,7 @@ gdm3 (3.21.90-1) UNRELEASED; urgency=medium
   [ Laurent Bigonville ]
   * Ship new pam_gdm.so PAM module and update gdm-autologin PAM service file
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 31 Aug 2016 09:34:46 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 31 Aug 2016 10:28:16 +0200
 
 gdm3 (3.20.1-1) unstable; urgency=medium
 

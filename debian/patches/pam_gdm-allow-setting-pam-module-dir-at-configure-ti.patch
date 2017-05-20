@@ -1,0 +1,63 @@
+From 5ed388af0ab4c62dc51efbb4cf3345d8fa634fca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?R=C3=A9mi=20Cardona?= <remi@gentoo.org>
+Date: Mon, 21 Nov 2016 08:18:32 +0100
+Subject: [PATCH] pam_gdm: allow setting pam module dir at configure time
+
+Code taken almost verbatim from gnome-keyring.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=774776
+(cherry picked from commit c6633b311f7ed8560a5c6847110d872d017672a6)
+---
+ configure.ac        | 11 ++++++++++-
+ pam_gdm/Makefile.am |  2 +-
+ 2 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6613097b..e09831ad 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -487,7 +487,7 @@ dnl ---------------------------------------------------------------------------
+ dnl - Check for PAM stuff
+ dnl ---------------------------------------------------------------------------
+ 
+-dnl PAM prefix
++dnl PAM prefix (configuration files)
+ withval=""
+ AC_ARG_WITH(pam-prefix,
+             AS_HELP_STRING([--with-pam-prefix=<prefix>],
+@@ -503,6 +503,14 @@ else
+ fi
+ AC_SUBST(PAM_PREFIX)
+ 
++dnl PAM dir (dynamic modules)
++AC_ARG_WITH([pam-mod-dir],
++            [AS_HELP_STRING([--with-pam-mod-dir=DIR],
++                            [directory to install pam modules in])],
++            [], [with_pam_mod_dir='${libdir}/security'])
++PAM_MOD_DIR="$with_pam_mod_dir"
++AC_SUBST(PAM_MOD_DIR)
++
+ have_pam=no
+ AC_CHECK_LIB(pam, pam_start, have_pam=yes)
+ 
+@@ -1592,6 +1600,7 @@ echo "
+ 
+         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
+         PAM prefix:               ${PAM_PREFIX}
++        PAM module dir:           ${PAM_MOD_DIR}
+         PAM config:               ${with_default_pam_config}
+         X server:                 ${X_SERVER}
+ "
+diff --git a/pam_gdm/Makefile.am b/pam_gdm/Makefile.am
+index 61d672b4..6b92cfcf 100644
+--- a/pam_gdm/Makefile.am
++++ b/pam_gdm/Makefile.am
+@@ -36,4 +36,4 @@ pam_gdm_LTLIBRARIES = \
+ 	pam_gdm.la \
+ 	$(END_OF_LIST)
+ 
+-pam_gdmdir = $(libdir)/security
++pam_gdmdir = $(PAM_MOD_DIR)
+-- 
+2.11.0
+

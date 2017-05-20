@@ -9,6 +9,9 @@ if [ "$1" = "install" -o "$1" = "upgrade" ] && [ -n "$2" ] &&
     fi
 fi
 
-#DEBHELPER#
+if [ -n "$2" ] && dpkg --compare-versions "$2" lt 3.22; then
+    echo "Enabling compatibility workaround for upgrades from Debian 8..."
+    touch "/run/gdm3-upgraded-from-debian-8"
+fi
 
-exit 0
+#DEBHELPER#

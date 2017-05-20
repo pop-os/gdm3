@@ -1,0 +1,115 @@
+From 27365c4863a3a5127541ed9ac77cb29500466ab8 Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@debian.org>
+Date: Wed, 25 Jan 2017 10:58:28 +0000
+Subject: [PATCH] Hack D-Bus messages from Debian 8 libgdm to work with this
+ version
+
+There is one extra argument. Add that argument, setting it to FALSE,
+which makes this gdm behave like the only code path in Debian 8.
+
+Please remove this patch after Debian 9 is released.
+
+Forwarded: no, Debian-specific
+---
+ daemon/gdm-session-worker.c | 81 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
+
+Index: b/daemon/gdm-session-worker.c
+===================================================================
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -3122,6 +3122,80 @@
+         return TRUE;
+ }
+ 
++/* A horrible hack to cope with reauthentication requests coming from
++ * Debian 8's libgdm, which might still be resident in memory if a user
++ * was running gnome-shell and lets it lock during the upgrade. */
++static GDBusMessage *
++rewrite_messages (GDBusConnection *connection,
++                  GDBusMessage *message,
++                  gboolean incoming,
++                  gpointer nil)
++{
++        g_autoptr (GDBusMessage) ret = NULL;
++        GVariant *body;
++        const gchar *service_name, *user_name, *x11_display, *x11_authority;
++        const gchar *display_device, *display_seat, *hostname;
++        gboolean display_is_local;
++
++        if (!incoming ||
++            g_dbus_message_get_message_type (message) !=
++                    G_DBUS_MESSAGE_TYPE_METHOD_CALL ||
++            g_dbus_message_get_num_unix_fds (message) != 0 ||
++            g_strcmp0 (g_dbus_message_get_interface (message),
++                       "org.gnome.DisplayManager.Worker") != 0 ||
++            g_strcmp0 (g_dbus_message_get_member (message),
++                       "SetupForUser") != 0 ||
++            g_strcmp0 (g_dbus_message_get_signature (message),
++                       "ssss" "sssb") != 0)
++                return message;
++
++        g_warning ("Patching old SetupForUser message from Debian 8 libgdm");
++
++        ret = g_dbus_message_copy (message, NULL);
++
++        /* If we can't copy it for whatever reason, just give up */
++        if (ret == NULL)
++        {
++                g_warning ("Failed to patch old SetupForUser message");
++                return message;
++        }
++
++        body = g_dbus_message_get_body (message);
++
++        g_variant_get (body,
++                       "(" "&s&s&s&s" "&s&s&sb" ")",
++
++                       &service_name,
++                       &user_name,
++                       &x11_display,
++                       &x11_authority,
++
++                       &display_device,
++                       &display_seat,
++                       &hostname,
++                       &display_is_local);
++
++        /* The new API has one aditional boolean argument, display_is_initial.
++         * Set it to FALSE to make gdm behave like it did in Debian 8. */
++        g_dbus_message_set_body (ret,
++                                 g_variant_new ("(" "ssss" "sssb" "b" ")",
++
++                                                service_name,
++                                                user_name,
++                                                x11_display,
++                                                x11_authority,
++
++                                                display_device,
++                                                display_seat,
++                                                hostname,
++                                                display_is_local,
++
++                                                FALSE));
++
++        g_object_unref (message);
++        return g_steal_pointer (&ret);
++}
++
+ static GObject *
+ gdm_session_worker_constructor (GType                  type,
+                                 guint                  n_construct_properties,
+@@ -3149,6 +3223,13 @@
+                 exit (1);
+         }
+ 
++        if (worker->priv->is_reauth_session &&
++            g_file_test ("/run/gdm3-upgraded-from-debian-8",
++                         G_FILE_TEST_EXISTS)) {
++                g_dbus_connection_add_filter (worker->priv->connection,
++                                              rewrite_messages, NULL, NULL);
++        }
++
+         worker->priv->manager = GDM_DBUS_WORKER_MANAGER (gdm_dbus_worker_manager_proxy_new_sync (worker->priv->connection,
+                                                                                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                                                                                  NULL, /* dbus name */
