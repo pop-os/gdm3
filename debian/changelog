@@ -1,6 +1,8 @@
 gdm3 (3.24.2-1) UNRELEASED; urgency=medium
 
   * New upstream release
+  * debian/control.in:
+    - Bump minimum accountsservice to 0.6.35
   * debian/rules: Don't skip dh_auto_test
   * Add 93_translate-default-desktop.patch:
     - Fix 'make check' by marking a Debian-specific file as translatable
