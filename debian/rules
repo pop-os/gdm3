@@ -61,6 +61,7 @@ override_dh_auto_configure:
 		--with-xauth-dir=/var/run/gdm3 \
 		--with-pid-file=/var/run/gdm3.pid \
 		--with-log-dir=/var/log/gdm3 \
+		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-lang-file=/etc/default/locale \
@@ -68,7 +69,6 @@ override_dh_auto_configure:
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
-		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security/
 		$(CONFFLAGS)
 
 override_dh_auto_build: $(OUTFILES) $(MANPAGES)
@@ -86,7 +86,6 @@ override_dh_install:
 	rm -rf debian/gdm3/var/run
 	rm -rf debian/gdm3/usr/include
 	rm -rf debian/gdm3/usr/lib/pkgconfig
-	rm -rf debian/gdm3/lib/$(DEB_HOST_MULTIARCH)/security/*.la
 
 override_dh_installinit:
 	dh_installinit --noscripts --no-start
@@ -96,6 +95,3 @@ override_dh_auto_clean:
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
 	rm -f data/gdm.schemas data/gdm.schemas.in
-
-override_dh_auto_test:
-	# disable for now until make check in po/ works.

@@ -3,9 +3,9 @@
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
+93_translate-default-desktop.patch
 94_retain_xorg_log.patch
 ubuntu_run_xsession.d.patch
-ubuntu_upstart_event.patch
 ubuntu_xresources_is_a_dir.patch
 ubuntu_nvidia_prime.patch
 revert_override_LANG_with_accountservices.patch

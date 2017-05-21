@@ -1,79 +1,12 @@
-gdm3 (3.24.2-0ubuntu1) artful; urgency=medium
+gdm3 (3.24.2-1ubuntu2) artful; urgency=medium
 
-  * New upstream bug fix release
-    + Update session type when we know username (and user's session)
-    + Fix bug leading to reauthentication happening outside the session
-    + Make sure greeter is killed and reaped when gdm is restarted
-  * d/p/git_restore-session-name-override.patch,
-        git_fix-crash-if-session-does-not-start.patch
-    - Dropped, included in upstream release
+  * Drop gdm3.upstart
+  * Really enable dh_auto_test
 
- -- Tim Lunn <tim@feathertop.org>  Fri, 12 May 2017 19:05:41 +1000
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 20 May 2017 22:49:19 -0400
 
-gdm3 (3.24.1-0ubuntu2) artful; urgency=medium
+gdm3 (3.24.2-1ubuntu1) artful; urgency=medium
 
-  * Add git_restore-session-name-override.patch:
-    - Explicitly set gdm's session-name to 'gnome'. This fixes the login
-      screen not starting when the default session is set to something else,
-      such as when a Ubuntu (Unity) user installs gnome-shell and chooses
-      gdm but does not install ubuntu-gnome-desktop (LP: #1686257)
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 26 Apr 2017 14:52:18 -0400
-
-gdm3 (3.24.1-0ubuntu1) artful; urgency=medium
-
-  * New upstream release (LP: #1685500)
-  * Drop git_dont-cache-ignore-wayland.patch:
-    - Applied in new release
-  * Add git_fix-crash-if-session-does-not-start.patch:
-    - Backport 3.24 commit to fix a crash bug
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 22 Apr 2017 08:44:35 -0400
-
-gdm3 (3.24.0-0ubuntu2) zesty; urgency=medium
-
-  * Add git_dont-cache-ignore-wayland.patch:
-    - Stop over-agressive caching that broke fallback mode in some cases.
-      Backported from 3.24.1
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 02 Apr 2017 21:23:05 -0400
-
-gdm3 (3.24.0-0ubuntu1) zesty; urgency=medium
-
-  * New upstream release
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 20 Mar 2017 19:31:12 -0400
-
-gdm3 (3.23.92-0ubuntu1) zesty; urgency=medium
-
-  * New upstream release
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 13 Mar 2017 20:44:42 -0400
-
-gdm3 (3.23.91.1-0ubuntu1) zesty; urgency=medium
-
-  * New upstream release
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 06 Mar 2017 12:49:06 -0500
-
-gdm3 (3.23.91-0ubuntu1) zesty; urgency=medium
-
-  * New upstream release
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 28 Feb 2017 09:59:53 -0500
-
-gdm3 (3.23.4-0ubuntu1) zesty; urgency=medium
-
-  * New upstream release
-  * debian/rules:
-    - Use new --with-pam-mod-dir option instead of manually
-      moving the pam modules
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 15 Feb 2017 22:25:44 -0500
-
-gdm3 (3.22.1-1ubuntu1) zesty; urgency=medium
-
-  [ Jeremy Bicha ]
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
     + control.in:
@@ -93,8 +26,6 @@ gdm3 (3.22.1-1ubuntu1) zesty; urgency=medium
         ("System Default") to the session chooser.
       - Don't install debian/Xsession
     + ubuntu_run_xsession.d.patch
-    + ubuntu_upstart_event.patch:
-      - Emit upstart events
     + ubuntu_xresources_is_a_dir.patch
       - Fix loading from /etc/X11/Xresources/*
     + ubuntu_nvidia_prime.patch:
@@ -109,11 +40,76 @@ gdm3 (3.22.1-1ubuntu1) zesty; urgency=medium
     + 09_default_session.patch:
       - Dropped, all the other Ubuntu flavors use LightDM and it only takes a
         gsettings override to set a different default session
+  * Drop ubuntu_upstart_event.patch:
+    - Ubuntu does not offer upstart any more
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 20 May 2017 22:13:09 -0400
+
+gdm3 (3.24.2-1) experimental; urgency=medium
+
+  [ Jeremy Bicha ]
+  * New upstream release
+  * debian/control.in:
+    - Bump minimum accountsservice to 0.6.35
+  * debian/rules: Don't skip dh_auto_test
+  * Add 93_translate-default-desktop.patch:
+    - Fix 'make check' by marking a Debian-specific file as translatable
+  * Drop patches applied in new release:
+    - pam_gdm-allow-setting-pam-module-dir-at-configure-ti.patch
+    - stop-greeter-explicitly-when-finishing-display.patch
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 21 May 2017 01:47:02 +0200
+
+gdm3 (3.22.3-2) unstable; urgency=medium
+
+  [ Laurent Bigonville ]
+  * d/p/stop-greeter-explicitly-when-finishing-display.patch: Properly stop
+    the greeter processes when restarting gdm, this fixes the respawn loop and
+    allow gdm to restart properly (Closes: #857995)
+
+  [ Michael Biebl ]
+  * Setup pulseaudio to run as systemd user service for Debian-gdm.
+    Otherwise, if we start pulseaudio within the session, the idle-timeout of
+    pulseaudio will prevent the old session scope to be properly terminated
+    when the gdm service is restarted and the old logind session will remain
+    in state "closing".
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 09 May 2017 23:51:57 +0200
+
+gdm3 (3.22.3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Add Build-Depends on libxcb1-dev. Upstream switched from xlib to xcb for
+    the main gdm process to be more robust in cases where the display
+    connection has gone away.
+  * Use --with-pam-mod-dir configure switch to set the location of the pam
+    module directory instead of moving the .so file around manually.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 16 Mar 2017 21:46:47 +0100
+
+gdm3 (3.22.1-2) unstable; urgency=medium
+
+  * Team upload.
 
   [ Michael Biebl ]
   * Stop setting authdir, has been dropped upstream in favour of xauthdir.
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 11 Dec 2016 14:58:43 -0500
+  [ Jeremy Bicha ]
+  * debian/greeter.dconf-defaults:
+    - Use the new emblem-debian-white.png for default login screen logo
+      (Closes: #833529)
+
+  [ Simon McVittie ]
+  * Work around upgrades not being done offline:
+    - Add a non-upstreamable patch to edit D-Bus messages from libgdm
+      to the session worker and adapt them from the pre-3.16 interface
+      to the post-3.16 interface. Only do this if a flag file in /run
+      has been created, so that this workaround will only be active
+      until the next reboot.
+    - gdm3.preinst: Create that flag file on upgrades. (Closes: #789118)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 29 Jan 2017 11:07:50 +0000
 
 gdm3 (3.22.1-1) unstable; urgency=medium
 
