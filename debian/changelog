@@ -1,10 +1,10 @@
-gdm3 (3.22.3-3) UNRELEASED; urgency=medium
+gdm3 (3.22.3-3) unstable; urgency=medium
 
   * libgdm1: add breaks/replaces on good old gdm. Who knows how many users
     still have this package from squeeze and would otherwise get a broken
     dist-upgrade to stretch (hopefully not many). Closes: 781535.
 
- -- Emilio Pozuelo Monfort <pochu@debian.org>  Tue, 06 Jun 2017 20:10:09 +0200
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Tue, 06 Jun 2017 20:17:04 +0200
 
 gdm3 (3.22.3-2) unstable; urgency=medium
 
