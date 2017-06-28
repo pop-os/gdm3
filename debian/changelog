@@ -1,3 +1,9 @@
+gdm3 (3.24.2-1ubuntu3) UNRELEASED; urgency=medium
+
+  * debian/control.in: Update Vcs field
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 28 Jun 2017 07:49:48 -0400
+
 gdm3 (3.24.2-1ubuntu2) artful; urgency=medium
 
   * Drop gdm3.upstart
