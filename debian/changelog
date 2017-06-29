@@ -1,8 +1,13 @@
 gdm3 (3.24.2-1ubuntu3) UNRELEASED; urgency=medium
 
   * debian/control.in: Update Vcs field
+  * Add revert_drop_gdm_shell_session.patch:
+    - Revert commit that requires gnome-session to be installed
+      (LP: #1701243, Closes: #850291)
+  * debian/gdm3.install:
+    - Install gnome-session file
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 28 Jun 2017 07:49:48 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 29 Jun 2017 07:38:39 -0400
 
 gdm3 (3.24.2-1ubuntu2) artful; urgency=medium
 
