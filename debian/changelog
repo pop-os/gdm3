@@ -1,12 +1,13 @@
-gdm3 (3.22.3-4) UNRELEASED; urgency=medium
+gdm3 (3.22.3-4) unstable; urgency=medium
 
+  [ Jeremy Bicha ]
   * Add revert_drop_gdm_shell_session.patch:
     - Backport commit to allow GDM to work without gnome-session installed
       (Closes: #850291)
   * debian/gdm3.install:
     - Install gnome-session file
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 29 Jun 2017 20:39:12 -0400
+ -- Michael Biebl <biebl@debian.org>  Fri, 30 Jun 2017 10:33:04 +0200
 
 gdm3 (3.22.3-3) unstable; urgency=medium
 
