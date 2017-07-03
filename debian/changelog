@@ -1,3 +1,15 @@
+gdm3 (3.24.2-1ubuntu4) UNRELEASED; urgency=medium
+
+  * debian/gdm3.config
+    - Only prompt the user to choose display managers when we haven't already
+      determined a migration to gdm3 is recommended.
+  * debian/control.in
+    - Explicitly depend on ubuntu-session so we can ensure gdm3 configure gets
+      run after ubuntu-session's configure to handle the transition from
+      lightdm to gdm3
+
+ -- Ken VanDine <ken.vandine@canonical.com>  Mon, 03 Jul 2017 15:27:29 -0400
+
 gdm3 (3.24.2-1ubuntu3) artful; urgency=medium
 
   * debian/control.in: Update Vcs field
