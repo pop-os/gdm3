@@ -1,4 +1,4 @@
-gdm3 (3.22.3-5) UNRELEASED; urgency=medium
+gdm3 (3.22.3-5) unstable; urgency=medium
 
   * Prevent gdm from claiming any Bluetooth audio devices.
     PulseAudio currently doesn't properly release Bluetooth devices if the
@@ -9,7 +9,7 @@ gdm3 (3.22.3-5) UNRELEASED; urgency=medium
     Bluetooth devices become accessible in the user session.
     (Closes: #805414)
 
- -- Michael Biebl <biebl@debian.org>  Mon, 03 Jul 2017 14:46:40 +0200
+ -- Michael Biebl <biebl@debian.org>  Mon, 03 Jul 2017 15:03:34 +0200
 
 gdm3 (3.22.3-4) unstable; urgency=medium
 
