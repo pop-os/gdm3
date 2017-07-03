@@ -10,3 +10,4 @@ ubuntu_xresources_is_a_dir.patch
 ubuntu_nvidia_prime.patch
 revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
+revert_drop_gdm_shell_session.patch
