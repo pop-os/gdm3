@@ -88,6 +88,13 @@ if ! [ -L $USERUNITDIR/sockets.target.wants/pulseaudio.socket ]; then
   ln -sf $UNIT $USERUNITDIR/sockets.target.wants
 fi
 
+# Ship a PulseAudio configuration which disables Bluetooth support
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=805414
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839993
+if ! [ -f /var/lib/gdm3/.config/pulse/default.pa ]; then
+  cp /usr/share/gdm/default.pa /var/lib/gdm3/.config/pulse/default.pa
+fi
+
 chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
 if [ -L /etc/pam.d/gdm-welcome ]; then

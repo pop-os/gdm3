@@ -18,6 +18,7 @@ usr/share/dconf/
 var/*
 
 debian/Xsession				etc/gdm3
+debian/default.pa			usr/share/gdm
 debian/greeter.dconf-defaults*		usr/share/gdm
 debian/default.desktop			usr/share/gdm/BuiltInSessions
 debian/generate-config			usr/share/gdm

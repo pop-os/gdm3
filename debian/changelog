@@ -1,3 +1,16 @@
+gdm3 (3.22.3-5) UNRELEASED; urgency=medium
+
+  * Prevent gdm from claiming any Bluetooth audio devices.
+    PulseAudio currently doesn't properly release Bluetooth devices if the
+    session it runs in becomes inactive. This is problematic as gdm starts a
+    PulseAudio instance for a11y purposes which continues to run after the
+    user has logged in. As a workaround, ship a custom PulseAudio
+    configuration for gdm which unloads the bluetooth driver modules so the
+    Bluetooth devices become accessible in the user session.
+    (Closes: #805414)
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 03 Jul 2017 14:46:40 +0200
+
 gdm3 (3.22.3-4) unstable; urgency=medium
 
   [ Jeremy Bicha ]
