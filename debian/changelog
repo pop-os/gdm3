@@ -1,3 +1,9 @@
+gdm3 (3.24.2-3) UNRELEASED; urgency=medium
+
+  * debian/control.in: Bump Standards-Version to 4.0.0 (no further changes)
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 01:36:45 +0200
+
 gdm3 (3.24.2-2) experimental; urgency=medium
 
   * Drop d/p/Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch now
