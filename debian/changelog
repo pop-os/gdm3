@@ -1,14 +1,14 @@
-gdm3 (3.24.2-2) UNRELEASED; urgency=medium
+gdm3 (3.24.2-2) experimental; urgency=medium
 
   * Drop d/p/Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch now
     that debian Stretch has been released
   * Drop d/p/09_default_session.patch: Start the "gnome" session by default,
     "default" is always starting a X11 session but we want to start a Wayland
     one starting from now.
-  * debian/patches/92_systemd_unit.patch: Do not comment the BusName=
-    directive anymore, gdm doesn't seem to be killed on reload anymore
+  * debian/patches/92_systemd_unit.patch: Uncomment the BusName= directive,
+    gdm doesn't seem to be killed on reload anymore
 
- -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 00:09:02 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 01:30:35 +0200
 
 gdm3 (3.24.2-1) experimental; urgency=medium
 
