@@ -5,8 +5,10 @@ gdm3 (3.24.2-2) UNRELEASED; urgency=medium
   * Drop d/p/09_default_session.patch: Start the "gnome" session by default,
     "default" is always starting a X11 session but we want to start a Wayland
     one starting from now.
+  * debian/patches/92_systemd_unit.patch: Do not comment the BusName=
+    directive anymore, gdm doesn't seem to be killed on reload anymore
 
- -- Laurent Bigonville <bigon@debian.org>  Wed, 05 Jul 2017 12:25:06 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 00:09:02 +0200
 
 gdm3 (3.24.2-1) experimental; urgency=medium
 
