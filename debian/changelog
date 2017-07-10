@@ -1,4 +1,4 @@
-gdm3 (3.24.2-1ubuntu4) UNRELEASED; urgency=medium
+gdm3 (3.24.2-1ubuntu4) artful; urgency=medium
 
   * debian/gdm3.config
     - Only prompt the user to choose display managers when we haven't already
