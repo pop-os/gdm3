@@ -70,7 +70,6 @@ Depends: ${shlibs:Depends},
          libglib2.0-bin (>= 2.35.0),
          dconf-cli (>= 0.20),
          dconf-gsettings-backend (>= 0.20),
-         ubuntu-session,
          ucf,
          x11-common (>= 1:7.6+11),
          x11-xserver-utils
