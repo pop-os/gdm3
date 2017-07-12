@@ -1,4 +1,4 @@
-gdm3 (3.24.2-1ubuntu7) UNRELEASED; urgency=medium
+gdm3 (3.24.2-1ubuntu7) artful; urgency=medium
 
   * debian/gdm3.config: Check the version of gdm3 instead of ubuntu-session.
     If ubuntu-session wasn't installed, the previous version generated stderr
@@ -8,7 +8,7 @@ gdm3 (3.24.2-1ubuntu7) UNRELEASED; urgency=medium
     instead we can compare the version of gdm3 itself, and do this transition
     when we upgrade from an old version or install gdm3 for the first time.
 
- -- Iain Lane <iain.lane@canonical.com>  Wed, 12 Jul 2017 12:20:45 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Wed, 12 Jul 2017 15:08:19 +0100
 
 gdm3 (3.24.2-1ubuntu6) artful; urgency=medium
 
