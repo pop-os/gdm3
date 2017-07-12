@@ -1,4 +1,4 @@
-gdm3 (3.24.2-1ubuntu6) UNRELEASED; urgency=medium
+gdm3 (3.24.2-1ubuntu6) artful; urgency=medium
 
   * debian/patches/ubuntu_prefer_x11_session.patch:
     Prefer X11 session over wayland. As we are not ready yet for
@@ -6,7 +6,7 @@ gdm3 (3.24.2-1ubuntu6) UNRELEASED; urgency=medium
     choice was made. (LP: #1703601)
     This will be reverted once we switch to wayland by default.
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 12 Jul 2017 10:33:32 +0200
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 12 Jul 2017 10:34:46 +0200
 
 gdm3 (3.24.2-1ubuntu5) artful; urgency=medium
 
