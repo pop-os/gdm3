@@ -24,3 +24,6 @@ debian/greeter.dconf-defaults*		usr/share/gdm
 debian/generate-config			usr/share/gdm
 debian/insserv.conf.d			etc
 data/dconf/defaults/*			usr/share/gdm/dconf
+# Add the default.pa file to disable Bluetooth audio in GDM. LP: #1703415
+debian/default.pa                       usr/share/gdm
+
