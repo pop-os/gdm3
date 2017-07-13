@@ -12,3 +12,4 @@ revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
 revert_drop_gdm_shell_session.patch
 ubuntu_prefer_x11_session.patch
+Avoid-double-NULL-terminated-array-LP-1704050.patch

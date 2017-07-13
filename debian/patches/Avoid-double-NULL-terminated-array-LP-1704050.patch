@@ -1,0 +1,31 @@
+From cb8042fc87937abf80928b489d847128a38cd8a9 Mon Sep 17 00:00:00 2001
+From: Daniel van Vugt <daniel.van.vugt@canonical.com>
+Date: Thu, 13 Jul 2017 16:13:05 +0800
+Subject: [PATCH] Avoid double-NULL terminated array (LP: #1704050)
+
+If you then g_array_append_val wayland_search_dir you get:
+   {..., NULL, wayland_search_dir, NULL}
+and so the call to g_strdupv never finds wayland_search_dir. And then
+Wayland logins don't work.
+
+Neither G_N_ELEMENTS nor g_array_append_vals treat NULL as a special value.
+Only g_strdupv does.
+---
+ daemon/gdm-session.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index ff3a1acb..0b832231 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -348,7 +348,6 @@ get_system_session_dirs (GdmSession *self)
+                 DMCONFDIR "/Sessions/",
+                 DATADIR "/gdm/BuiltInSessions/",
+                 DATADIR "/xsessions/",
+-                NULL
+         };
+ 
+         static const char *wayland_search_dir = DATADIR "/wayland-sessions/";
+-- 
+2.11.0
+
