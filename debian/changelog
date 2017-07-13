@@ -1,3 +1,16 @@
+gdm3 (3.24.2-1ubuntu9) UNRELEASED; urgency=medium
+
+  * debian/default.pa
+    - Added new file to disable Bluetooth audio devices in PulseAudio from
+      gdm3. (LP: #1703415) (LP: #1489651)
+  * debian/gd3.install
+    - Added details of the default.pa file
+  * debian/gd3.postinst
+    - Added installation of default.pa and creation of dir if it doesn't
+      exist.
+
+ -- Will Cooke <will@whizzy.org>  Thu, 13 Jul 2017 12:14:34 +0100
+
 gdm3 (3.24.2-1ubuntu8) artful; urgency=medium
 
   * Avoid double-NULL terminated array that breaks append operations

@@ -88,6 +88,13 @@ if ! [ -L $USERUNITDIR/sockets.target.wants/pulseaudio.socket ]; then
   ln -sf $UNIT $USERUNITDIR/sockets.target.wants
 fi
 
+# Install PA workaround for LP:#1703415
+# Stops GDM using Bluetooth audio so that it's available in the users session
+if ! [ -f /var/lib/gdm3/.config/pulse/default.pa ]; then
+  mkdir -p /var/lib/gdm3/.config/pulse
+  cp /usr/share/gdm/default.pa /var/lib/gdm3/.config/pulse/default.pa
+fi
+
 chown -R gdm:gdm /var/lib/gdm3
 
 if [ -L /etc/pam.d/gdm-welcome ]; then
