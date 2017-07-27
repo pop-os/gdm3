@@ -13,7 +13,6 @@ usr/share/gdm/gdb-cmd
 usr/share/gdm/locale.alias
 usr/share/gdm/greeter
 usr/share/gdm/*.schemas
-usr/share/gnome-session/
 usr/share/dconf/
 var/*
 

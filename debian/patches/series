@@ -1,10 +1,6 @@
-09_default_session.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
+93_translate-default-desktop.patch
 94_retain_xorg_log.patch
-Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch
-pam_gdm-allow-setting-pam-module-dir-at-configure-ti.patch
-stop-greeter-explicitly-when-finishing-display.patch
-revert_drop_gdm_shell_session.patch

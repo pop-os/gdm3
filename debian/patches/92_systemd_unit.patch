@@ -1,6 +1,6 @@
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -20,14 +20,17 @@
+@@ -20,14 +20,16 @@ After=rc-local.service plymouth-start.se
  OnFailure=plymouth-quit.service
  
  [Service]
@@ -14,9 +14,7 @@
  Restart=always
 +RestartSec=1s
  IgnoreSIGPIPE=no
--BusName=org.gnome.DisplayManager
-+# GDM is killed upon reload if BusName is set, let us forget it for now
-+#BusName=org.gnome.DisplayManager
+ BusName=org.gnome.DisplayManager
  StandardOutput=syslog
  StandardError=inherit
  EnvironmentFile=-@LANG_CONFIG_FILE@
