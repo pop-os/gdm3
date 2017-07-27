@@ -1,7 +1,9 @@
 gdm3 (3.24.2-3) UNRELEASED; urgency=medium
 
   * Release to unstable (Closes: #869943)
-  * debian/control.in: Bump Standards-Version to 4.0.0 (no further changes)
+  * debian/control.in:
+    - Bump Standards-Version to 4.0.0 (no further changes)
+    - Bump gnome-settings-daemon dependency to 3.24
 
  -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 01:36:45 +0200
 
