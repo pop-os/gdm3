@@ -1,4 +1,4 @@
-gdm3 (3.24.2-3) UNRELEASED; urgency=medium
+gdm3 (3.24.2-3) unstable; urgency=medium
 
   * Release to unstable (Closes: #869943)
   * debian/control.in:
@@ -10,7 +10,7 @@ gdm3 (3.24.2-3) UNRELEASED; urgency=medium
   * debian/gdm3.install:
     - Install gnome-session file
 
- -- Laurent Bigonville <bigon@debian.org>  Mon, 07 Aug 2017 13:09:47 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 07 Aug 2017 14:11:43 +0200
 
 gdm3 (3.24.2-2) experimental; urgency=medium
 
