@@ -1,3 +1,14 @@
+gdm3 (3.25.90.1-0ubuntu1) UNRELEASED; urgency=medium
+
+  * New upstream release
+  * debian/control.in:
+    - Bump minimum gnome-settings-daemon to 3.24
+  * Drop patches applied in new release:
+    - Avoid-double-NULL-terminated-array-LP-1704050.patch
+    - revert_drop_gdm_shell_session.patch
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 14 Aug 2017 14:22:18 -0400
+
 gdm3 (3.24.2-1ubuntu9) artful; urgency=medium
 
   * debian/default.pa
