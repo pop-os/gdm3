@@ -1,3 +1,11 @@
+gdm3 (3.25.90.1-0ubuntu2) UNRELEASED; urgency=medium
+
+  * debian/patches/ubuntu_prefer_x11_session.patch:
+    - remove x11 session preference now that both Ubuntu and GNOME
+      switched to wayland
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 21 Aug 2017 10:27:39 +0200
+
 gdm3 (3.25.90.1-0ubuntu1) artful; urgency=medium
 
   * New upstream release
