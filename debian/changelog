@@ -2,6 +2,7 @@ gdm3 (3.25.90.1-2) UNRELEASED; urgency=medium
 
   * New upstream release
   * Drop revert_drop_gdm_shell_session.patch: Applied in new release
+  * Bump Standards-Version to 4.1.0
 
  -- Jeremy Bicha <jbicha@debian.org>  Thu, 31 Aug 2017 21:33:01 -0400
 
