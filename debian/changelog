@@ -1,3 +1,12 @@
+gdm3 (3.25.90.1-0ubuntu3) UNRELEASED; urgency=medium
+
+  * debian/patches/95_hide_x11_sessions_with_nvidia_kms.patch: Patch from
+    Alberto Milone. On nvidia, if the user has enabled KMS, don't show X11
+    sessions and force Wayland instead since X11 won't work there. (LP:
+    #1697882)
+
+ -- Iain Lane <iain.lane@canonical.com>  Mon, 04 Sep 2017 17:20:00 +0100
+
 gdm3 (3.25.90.1-0ubuntu2) artful; urgency=medium
 
   * debian/patches/ubuntu_prefer_x11_session.patch:
