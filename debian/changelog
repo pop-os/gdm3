@@ -6,6 +6,7 @@ gdm3 (3.25.90.1-0ubuntu4) UNRELEASED; urgency=medium
   [ Iain Lane ]
   * We only need to do the above for gdm3 itself. This will make future
     enablement a bit easier; maintaining arch lists is error prone.
+  * debian/rules: Only do gdm3 things when we're building gdm3.
 
  -- Jeremy Bicha <jbicha@debian.org>  Mon, 04 Sep 2017 14:38:11 -0400
 
