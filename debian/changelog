@@ -1,4 +1,4 @@
-gdm3 (3.25.90.1-0ubuntu4) UNRELEASED; urgency=medium
+gdm3 (3.25.90.1-0ubuntu4) artful; urgency=medium
 
   [ Jeremy Bicha ]
   * Don't build for s390x since gnome-shell isn't available there
@@ -8,7 +8,7 @@ gdm3 (3.25.90.1-0ubuntu4) UNRELEASED; urgency=medium
     enablement a bit easier; maintaining arch lists is error prone.
   * debian/rules: Only do gdm3 things when we're building gdm3.
 
- -- Jeremy Bicha <jbicha@debian.org>  Mon, 04 Sep 2017 14:38:11 -0400
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 07 Sep 2017 16:51:10 +0100
 
 gdm3 (3.25.90.1-0ubuntu3) artful; urgency=medium
 
