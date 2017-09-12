@@ -1,3 +1,20 @@
+gdm3 (3.26.0-1) UNRELEASED; urgency=medium
+
+  * New upstream stable release
+    - Fix for unauthenticated unlock when autologin is enabled
+      (CVE-2017-12164)
+    - Fix for going to normal mode after classic
+    - crasher fix when user switching
+    - make sure reauthentication is run in right context
+  * debian/patches/01_gdm-session-Calculate-fallback-session-name-without-.patch:
+    Cherry-pick from upstream. Calculate the default (`fallback') session in
+    the same way as gnome-shell does, fixing an out-of-sync issue between the
+    greeter and gdm's idea of the first session. (LP: #1705157)
+  * debian/patches/92_systemd_unit.patch: No need to patch to send HUP - this
+    is done upstream now.
+
+ -- Iain Lane <laney@debian.org>  Tue, 12 Sep 2017 17:30:57 +0100
+
 gdm3 (3.25.90.1-2) unstable; urgency=medium
 
   * New upstream release
