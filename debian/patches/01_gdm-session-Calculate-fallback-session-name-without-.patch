@@ -32,6 +32,9 @@ removing ".desktop" from the filename.
 https://bugs.launchpad.net/ubuntu/+source/gnome-session/+bug/1705157
 
 https://bugzilla.gnome.org/show_bug.cgi?id=787304
+
+Applied-Upstream: 3.26.1
+
 ---
  daemon/gdm-session.c | 17 +++++------------
  1 file changed, 5 insertions(+), 12 deletions(-)
