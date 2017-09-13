@@ -1,4 +1,4 @@
-gdm3 (3.26.0-1) UNRELEASED; urgency=medium
+gdm3 (3.26.0-1) unstable; urgency=medium
 
   * New upstream stable release
     - Fix for unauthenticated unlock when autologin is enabled
@@ -13,7 +13,7 @@ gdm3 (3.26.0-1) UNRELEASED; urgency=medium
   * debian/patches/92_systemd_unit.patch: No need to patch to send HUP - this
     is done upstream now.
 
- -- Iain Lane <laney@debian.org>  Tue, 12 Sep 2017 17:30:57 +0100
+ -- Iain Lane <laney@debian.org>  Wed, 13 Sep 2017 16:20:09 +0100
 
 gdm3 (3.25.90.1-2) unstable; urgency=medium
 
