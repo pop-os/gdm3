@@ -1,8 +1,6 @@
-Index: b/data/gdm.service.in
-===================================================================
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -20,15 +20,16 @@
+@@ -20,15 +20,16 @@ After=rc-local.service plymouth-start.se
  OnFailure=plymouth-quit.service
  
  [Service]
@@ -18,8 +16,8 @@ Index: b/data/gdm.service.in
  StandardOutput=syslog
  StandardError=inherit
  EnvironmentFile=-@LANG_CONFIG_FILE@
++ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
 -
 -[Install]
 -Alias=display-manager.service
-+ExecReload=/usr/share/gdm/generate-config
