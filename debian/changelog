@@ -1,6 +1,6 @@
 gdm3 (3.26.1-1) unstable; urgency=medium
 
-  * New upstream bugfix release
+  * New upstream bugfix release (Closes: #873199)
     - Drop d/p/01_gdm-session-Calculate-fallback-session-name-without-.patch,
       applied upstream
   * debian/control.in: Bump Standards-Version to 4.1.1 (no further changes)
