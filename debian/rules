@@ -59,6 +59,7 @@ override_dh_auto_configure:
 		--with-sysconfsubdir=gdm3 \
 		--with-working-directory=/var/lib/gdm3 \
 		--with-xauth-dir=/var/run/gdm3 \
+		--with-run-dir=/var/run/gdm3 \
 		--with-pid-file=/var/run/gdm3.pid \
 		--with-log-dir=/var/log/gdm3 \
 		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
