@@ -42,7 +42,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
                xserver-xorg-dev
-Standards-Version: 4.1.0
+Standards-Version: 4.1.1
 Vcs-Svn: svn://anonscm.debian.org/pkg-gnome/desktop/unstable/gdm3/
 Vcs-Browser: https://anonscm.debian.org/viewvc/pkg-gnome/desktop/unstable/gdm3/
 
