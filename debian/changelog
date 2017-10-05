@@ -1,10 +1,10 @@
 gdm3 (3.26.1-3) unstable; urgency=medium
 
   * debian/patches/92_systemd_unit.patch:
-    - Reorder the ExecReload= directive to regenerate the config files before
+    - Reorder the ExecReload= directives to regenerate the config files before
       reloading gdm itself
     - Drop the ExecStartPre= hack introduced to detect which DM is the default
-      one, almost all the other DM are properly providing the
+      one, almost all the other DM's are properly providing the
       display-manager.service symlink now
 
  -- Laurent Bigonville <bigon@debian.org>  Thu, 05 Oct 2017 01:53:20 +0200
