@@ -1,0 +1,85 @@
+From 9606bf42d179dde4fd913fcb9304e01560fd855e Mon Sep 17 00:00:00 2001
+From: Iain Lane <iain@orangesquash.org.uk>
+Date: Tue, 12 Sep 2017 13:28:39 +0100
+Subject: [PATCH] gdm-session: Calculate fallback session name without
+ ".desktop"
+
+When the user has not ever selected a session from the selector, we will
+log them into the `fallback' session, which is calculated by looking at
+all installed sessions and picking the first one in the list.
+
+There is a bug that the visually selected session presented in the
+greeter can be different from the fallback session calculated inside
+GDM. This happens because the two sort sessions differently.
+
+Inside GDM we calculate the fallback session by comparing the full
+basename of the file:
+
+>>> GLib.strcmp0("gnome-xorg.desktop", "gnome.desktop")
+-1
+
+Whereas gnome-shell calls gdm_get_session_ids(), which returns IDs
+without the ".desktop" extension. Those are then sorted:
+
+>>> GLib.strcmp0("gnome-xorg", "gnome")
+45
+
+which gives a different ordering.
+
+Fix this bug by calculating the fallback session in the same way, by
+removing ".desktop" from the filename.
+
+https://bugs.launchpad.net/ubuntu/+source/gnome-session/+bug/1705157
+
+https://bugzilla.gnome.org/show_bug.cgi?id=787304
+
+Applied-Upstream: 3.26.1
+
+---
+ daemon/gdm-session.c | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
+
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index 0b832231..063c5a2d 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -573,8 +573,8 @@ get_fallback_session_name (GdmSession *self)
+                         }
+ 
+                         if (get_session_command_for_file (self, base_name, NULL)) {
+-
+-                                g_sequence_insert_sorted (sessions, g_strdup (base_name), (GCompareDataFunc) g_strcmp0, NULL);
++                                name = g_strndup (base_name, strlen (base_name) - strlen (".desktop"));
++                                g_sequence_insert_sorted (sessions, name, (GCompareDataFunc) g_strcmp0, NULL);
+                         }
+                 } while (base_name != NULL);
+ 
+@@ -589,22 +589,15 @@ get_fallback_session_name (GdmSession *self)
+                 g_error ("GdmSession: no session desktop files installed, aborting...");
+ 
+         do {
+-               if (g_sequence_get (session)) {
+-                       char *base_name;
+-
+-                       g_free (name);
+-                       base_name = g_sequence_get (session);
+-                       name = g_strndup (base_name,
+-                                         strlen (base_name) -
+-                                         strlen (".desktop"));
+-
++               name = g_sequence_get (session);
++               if (name) {
+                        break;
+                }
+                session = g_sequence_iter_next (session);
+         } while (!g_sequence_iter_is_end (session));
+ 
+         g_free (self->priv->fallback_session_name);
+-        self->priv->fallback_session_name = name;
++        self->priv->fallback_session_name = g_strdup (name);
+ 
+         g_sequence_free (sessions);
+ 
+-- 
+2.11.0
+

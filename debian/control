@@ -7,7 +7,7 @@ Section: gnome
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Andreas Henriksson <andreas@fatal.se>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>
+Uploaders: Andreas Henriksson <andreas@fatal.se>, Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 10),
                dconf-cli (>= 0.19.90),
@@ -19,8 +19,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                libcanberra-gtk3-dev (>= 0.4),
                libfontconfig1-dev (>= 2.5.0),
                libaccountsservice-dev (>= 0.6.35),
-               gnome-settings-daemon-dev (>= 3.24),
-               gnome-settings-daemon (>= 3.24),
+               gnome-settings-daemon-dev (>= 3.24.0),
+               gnome-settings-daemon (>= 3.24.0),
                libnss3-dev (>= 3.11.1),
                libxcb1-dev,
                libx11-dev,
@@ -47,7 +47,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
                xserver-xorg-dev
-Standards-Version: 3.9.8
+Standards-Version: 4.1.0
 Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm3
@@ -58,7 +58,7 @@ Depends: ${shlibs:Depends},
          libgdm1 (= ${binary:Version}),
          gir1.2-gdm-1.0 (= ${binary:Version}),
          adduser,
-         bash (>= 4.3), 
+         bash (>= 4.3),
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          libpam-systemd [linux-any],

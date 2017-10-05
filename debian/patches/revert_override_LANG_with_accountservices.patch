@@ -8,11 +8,11 @@ This reverts commit db94ed31b79c90528d922d705ff3484216817415.
  daemon/gdm-session.c | 12 ------------
  1 file changed, 12 deletions(-)
 
-Index: gdm3/daemon/gdm-session.c
+Index: gdm3-3.26.0/daemon/gdm-session.c
 ===================================================================
---- gdm3.orig/daemon/gdm-session.c
-+++ gdm3/daemon/gdm-session.c
-@@ -2501,7 +2501,6 @@ set_up_session_environment (GdmSession *
+--- gdm3-3.26.0.orig/daemon/gdm-session.c	2017-09-14 08:25:04.005510874 -0400
++++ gdm3-3.26.0/daemon/gdm-session.c	2017-09-14 08:25:04.001510817 -0400
+@@ -2518,7 +2518,6 @@ set_up_session_environment (GdmSession *
  {
          GdmSessionDisplayMode display_mode;
          gchar *desktop_names;
@@ -20,7 +20,7 @@ Index: gdm3/daemon/gdm-session.c
  
          if (self->priv->selected_program == NULL) {
                  gdm_session_set_environment_variable (self,
-@@ -2522,19 +2521,6 @@ set_up_session_environment (GdmSession *
+@@ -2539,19 +2538,6 @@ set_up_session_environment (GdmSession *
  
          set_up_session_language (self);
  

@@ -14,11 +14,11 @@ Subject: Add hook to run prime-offload (as root) move Prime helpers into the
  create mode 100644 data/Prime
  create mode 100644 data/PrimeOff
 
-diff --git a/common/gdm-common.c b/common/gdm-common.c
-index effd4bc..a01531e 100644
---- a/common/gdm-common.c
-+++ b/common/gdm-common.c
-@@ -990,7 +990,7 @@ gdm_run_script (const char *dir,
+Index: gdm3-3.26.0/common/gdm-common.c
+===================================================================
+--- gdm3-3.26.0.orig/common/gdm-common.c	2017-09-14 08:24:10.584748891 -0400
++++ gdm3-3.26.0/common/gdm-common.c	2017-09-14 08:24:10.580748834 -0400
+@@ -677,7 +677,7 @@ gdm_run_script (const char *dir,
                  goto out;
          }
  
@@ -27,13 +27,11 @@ index effd4bc..a01531e 100644
                                            display_name,
                                            display_hostname,
                                            display_x11_authority_file);
-diff --git a/daemon/gdm-display.c b/daemon/gdm-display.c
-index 20cda93..e83b198 100644
-diff --git a/daemon/gdm-x-session.c b/daemon/gdm-x-session.c
-index 3cc7d40..a801ace 100644
---- a/daemon/gdm-x-session.c
-+++ b/daemon/gdm-x-session.c
-@@ -169,6 +169,11 @@ on_x_server_finished (GSubprocess  *subprocess,
+Index: gdm3-3.26.0/daemon/gdm-x-session.c
+===================================================================
+--- gdm3-3.26.0.orig/daemon/gdm-x-session.c	2017-09-14 08:24:10.584748891 -0400
++++ gdm3-3.26.0/daemon/gdm-x-session.c	2017-09-14 08:24:10.580748834 -0400
+@@ -172,6 +172,11 @@ on_x_server_finished (GSubprocess  *subp
          if (cancelled) {
                  goto out;
          }
@@ -45,7 +43,7 @@ index 3cc7d40..a801ace 100644
  
          if (g_subprocess_get_if_exited (subprocess)) {
                  int exit_status;
-@@ -499,6 +504,11 @@ spawn_session (State        *state,
+@@ -614,6 +619,11 @@ spawn_session (State        *state,
  
          g_debug ("Running X session");
  
@@ -56,11 +54,11 @@ index 3cc7d40..a801ace 100644
 +
          launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
  
-         g_subprocess_launcher_setenv (launcher, "DISPLAY", state->display_name, TRUE);
-diff --git a/data/Makefile.am b/data/Makefile.am
-index 7d521bb..7cd0c7e 100644
---- a/data/Makefile.am
-+++ b/data/Makefile.am
+         if (state->environment != NULL) {
+Index: gdm3-3.26.0/data/Makefile.am
+===================================================================
+--- gdm3-3.26.0.orig/data/Makefile.am	2017-09-14 08:24:10.584748891 -0400
++++ gdm3-3.26.0/data/Makefile.am	2017-09-14 08:24:10.584748891 -0400
 @@ -10,6 +10,8 @@ SUBDIRS =			\
  initdir = $(gdmconfdir)/Init
  postdir = $(gdmconfdir)/PostSession
@@ -70,7 +68,7 @@ index 7d521bb..7cd0c7e 100644
  postlogindir = $(gdmconfdir)/PostLogin
  workingdir = $(GDM_WORKING_DIR)
  xauthdir = $(GDM_XAUTH_DIR)
-@@ -154,6 +156,8 @@ EXTRA_DIST +=			\
+@@ -172,6 +174,8 @@ EXTRA_DIST +=			\
  	Xsession.in 		\
  	Init.in 		\
  	PreSession.in 		\
@@ -79,7 +77,7 @@ index 7d521bb..7cd0c7e 100644
  	PostSession.in 		\
  	PostLogin 		\
  	org.gnome.login-screen.gschema.xml.in \
-@@ -204,6 +208,8 @@ uninstall-hook:
+@@ -236,6 +240,8 @@ uninstall-hook:
  	$(DESTDIR)$(initdir)/Default \
  	$(DESTDIR)$(postlogindir)/Default.sample \
  	$(DESTDIR)$(predir)/Default \
@@ -88,7 +86,7 @@ index 7d521bb..7cd0c7e 100644
  	$(DESTDIR)$(postdir)/Default \
  	$(DESTDIR)$(sysconfdir)/dconf/db/gdm \
  	$(DESTDIR)$(sysconfdir)/dconf/profile/gdm \
-@@ -254,6 +260,24 @@ install-data-hook: gdm.conf-custom Xsession Init PostSession PreSession $(system
+@@ -282,6 +288,24 @@ endif
  	fi
  	$(INSTALL_SCRIPT) PreSession $(DESTDIR)$(predir)/Default
  
@@ -113,11 +111,10 @@ index 7d521bb..7cd0c7e 100644
  	if test '!' -d $(DESTDIR)$(postdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(postdir); \
  		chmod 755 $(DESTDIR)$(postdir); \
-diff --git a/data/Prime b/data/Prime
-new file mode 100644
-index 0000000..30caf03
---- /dev/null
-+++ b/data/Prime
+Index: gdm3-3.26.0/data/Prime
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm3-3.26.0/data/Prime	2017-09-14 08:24:10.584748891 -0400
 @@ -0,0 +1,6 @@
 +#!/bin/sh
 +
@@ -125,11 +122,10 @@ index 0000000..30caf03
 +if [ -f "$primeoffload" ]; then
 +    $primeoffload
 +fi
-diff --git a/data/PrimeOff b/data/PrimeOff
-new file mode 100644
-index 0000000..5a61c3c
---- /dev/null
-+++ b/data/PrimeOff
+Index: gdm3-3.26.0/data/PrimeOff
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdm3-3.26.0/data/PrimeOff	2017-09-14 08:24:10.584748891 -0400
 @@ -0,0 +1,6 @@
 +#!/bin/sh
 +

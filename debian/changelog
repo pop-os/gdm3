@@ -1,135 +1,17 @@
-gdm3 (3.25.90.1-0ubuntu4) artful; urgency=medium
-
-  [ Jeremy Bicha ]
-  * Don't build for s390x since gnome-shell isn't available there
-
-  [ Iain Lane ]
-  * We only need to do the above for gdm3 itself. This will make future
-    enablement a bit easier; maintaining arch lists is error prone.
-  * debian/rules: Only do gdm3 things when we're building gdm3.
-
- -- Iain Lane <iain.lane@canonical.com>  Thu, 07 Sep 2017 16:51:10 +0100
-
-gdm3 (3.25.90.1-0ubuntu3) artful; urgency=medium
-
-  * debian/patches/95_hide_x11_sessions_with_nvidia_kms.patch: Patch from
-    Alberto Milone. On nvidia, if the user has enabled KMS, don't show X11
-    sessions and force Wayland instead since X11 won't work there. (LP:
-    #1697882)
-
- -- Iain Lane <iain.lane@canonical.com>  Mon, 04 Sep 2017 17:21:20 +0100
-
-gdm3 (3.25.90.1-0ubuntu2) artful; urgency=medium
-
-  * debian/patches/ubuntu_prefer_x11_session.patch:
-    - remove x11 session preference now that both Ubuntu and GNOME
-      switched to wayland
-
- -- Didier Roche <didrocks@ubuntu.com>  Mon, 21 Aug 2017 14:06:45 +0200
-
-gdm3 (3.25.90.1-0ubuntu1) artful; urgency=medium
-
-  * New upstream release
-  * debian/control.in:
-    - Bump minimum gnome-settings-daemon to 3.24
-  * Drop patches applied in new release:
-    - Avoid-double-NULL-terminated-array-LP-1704050.patch
-    - revert_drop_gdm_shell_session.patch
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 14 Aug 2017 14:35:09 -0400
-
-gdm3 (3.24.2-1ubuntu9) artful; urgency=medium
-
-  * debian/default.pa
-    - Added new file to disable Bluetooth audio devices in PulseAudio from
-      gdm3. (LP: #1703415) (LP: #1489651)
-  * debian/gdm3.install
-    - Added details of the default.pa file
-  * debian/gdm3.postinst
-    - Added installation of default.pa and creation of dir if it doesn't
-      exist.
-
- -- Will Cooke <will@whizzy.org>  Thu, 13 Jul 2017 12:14:34 +0100
-
-gdm3 (3.24.2-1ubuntu8) artful; urgency=medium
-
-  * Avoid double-NULL terminated array that breaks append operations
-    and so prevents Wayland sessions from working (LP: #1704050)
-
- -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Thu, 13 Jul 2017 16:29:46 +0800
-
-gdm3 (3.24.2-1ubuntu7) artful; urgency=medium
-
-  * debian/gdm3.config: Check the version of gdm3 instead of ubuntu-session.
-    If ubuntu-session wasn't installed, the previous version generated stderr
-    output. (It didn't fail, because the dpkg-query call was first in the
-    pipeline and the awk call always succeeds.) If gdm3 was configured before
-    ubuntu-session then this check wouldn't have worked either. I think that
-    instead we can compare the version of gdm3 itself, and do this transition
-    when we upgrade from an old version or install gdm3 for the first time.
-
- -- Iain Lane <iain.lane@canonical.com>  Wed, 12 Jul 2017 15:08:19 +0100
-
-gdm3 (3.24.2-1ubuntu6) artful; urgency=medium
-
-  * debian/patches/ubuntu_prefer_x11_session.patch:
-    Prefer X11 session over wayland. As we are not ready yet for
-    switching to wayland yet, let's prefer X11 session when no specific
-    choice was made. (LP: #1703601)
-    This will be reverted once we switch to wayland by default.
-
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 12 Jul 2017 10:34:46 +0200
-
-gdm3 (3.24.2-1ubuntu5) artful; urgency=medium
-
-  * debian/gdm3.config
-    - Handle the transition from lightdm in gdm3 rather than ubuntu-session
-  * debian/control.in
-    - Dropped depends for ubuntu-session
-
- -- Ken VanDine <ken.vandine@canonical.com>  Tue, 11 Jul 2017 17:21:10 -0400
-
-gdm3 (3.24.2-1ubuntu4) artful; urgency=medium
-
-  * debian/gdm3.config
-    - Only prompt the user to choose display managers when we haven't already
-      determined a migration to gdm3 is recommended.
-  * debian/control.in
-    - Explicitly depend on ubuntu-session so we can ensure gdm3 configure gets
-      run after ubuntu-session's configure to handle the transition from
-      lightdm to gdm3
-
- -- Ken VanDine <ken.vandine@canonical.com>  Mon, 03 Jul 2017 15:27:29 -0400
-
-gdm3 (3.24.2-1ubuntu3) artful; urgency=medium
-
-  * debian/control.in: Update Vcs field
-  * Add revert_drop_gdm_shell_session.patch:
-    - Revert commit that requires gnome-session to be installed
-      (LP: #1701243, Closes: #850291)
-  * debian/gdm3.install:
-    - Install gnome-session file
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 29 Jun 2017 10:44:24 -0400
-
-gdm3 (3.24.2-1ubuntu2) artful; urgency=medium
-
-  * Drop gdm3.upstart
-  * Really enable dh_auto_test
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 20 May 2017 22:49:19 -0400
-
-gdm3 (3.24.2-1ubuntu1) artful; urgency=medium
+gdm3 (3.26.0-1ubuntu1) artful; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
     + control.in:
       - Don't recommend desktop-base
       - Depend on bash for ubuntu_config_error_dialog.patch
+      - Update Vcs field
+      - Don't build for s390x since gnome-shell isn't available there
     + rules:
       - Don't override default user/group
       - --enable-gdm-xsession to install upstream Xsession script
       - override dh_installinit with --no-start to avoid session being killed
+      - Only do gdm3 things when we're building gdm3
     + rules, README.Debian, gdm3.8.pod:
       Use upstream custom.conf instead of daemon.conf
     + gdm3.{postinst,postrm}: rename user and group back to gdm
@@ -139,6 +21,19 @@ gdm3 (3.24.2-1ubuntu1) artful; urgency=medium
       - Stop installing default.desktop. It adds unnecessary clutter
         ("System Default") to the session chooser.
       - Don't install debian/Xsession
+    + debian/gdm3.config
+      - Only prompt the user to choose display managers when we haven't
+        already determined a migration to gdm3 is recommended.
+      - Handle the transition from lightdm in gdm3 rather than
+        ubuntu-session
+      - Check the version of gdm3 instead of ubuntu-session. If
+        ubuntu-session wasn't installed, the previous version generated
+        stderr output. (It didn't fail, because the dpkg-query call was
+        first in the pipeline and the awk call always succeeds.) If gdm3
+        was configured before ubuntu-session then this check wouldn't have
+        worked either. I think that instead we can compare the version of
+        gdm3 itself, and do this transition when we upgrade from an old
+        version or install gdm3 for the first time.
     + ubuntu_run_xsession.d.patch
     + ubuntu_xresources_is_a_dir.patch
       - Fix loading from /etc/X11/Xresources/*
@@ -151,13 +46,72 @@ gdm3 (3.24.2-1ubuntu1) artful; urgency=medium
     + ubuntu_config_error_dialog.patch:
       - Show warning dialog in case of error in ~/.profile etc. and
         don't let a syntax error make the login fail (LP: #678421).
-    + 09_default_session.patch:
-      - Dropped, all the other Ubuntu flavors use LightDM and it only takes a
-        gsettings override to set a different default session
-  * Drop ubuntu_upstart_event.patch:
-    - Ubuntu does not offer upstart any more
+    + Add revert_drop_gdm_shell_session.patch:
+      - Revert commit that requires gnome-session to be installed
+    + debian/default.pa
+      - Added new file to disable Bluetooth audio devices in PulseAudio from
+        gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/patches/95_hide_x11_sessions_with_nvidia_kms.patch: Patch from
+      Alberto Milone. On nvidia, if the user has enabled KMS, don't show X11
+      sessions and force Wayland instead since X11 won't work there.
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 20 May 2017 22:13:09 -0400
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Thu, 14 Sep 2017 08:09:09 -0400
+
+gdm3 (3.26.0-1) unstable; urgency=medium
+
+  * New upstream stable release
+    - Fix for unauthenticated unlock when autologin is enabled
+      (CVE-2017-12164)
+    - Fix for going to normal mode after classic
+    - crasher fix when user switching
+    - make sure reauthentication is run in right context
+  * debian/patches/01_gdm-session-Calculate-fallback-session-name-without-.patch:
+    Cherry-pick from upstream. Calculate the default (`fallback') session in
+    the same way as gnome-shell does, fixing an out-of-sync issue between the
+    greeter and gdm's idea of the first session. (LP: #1705157)
+  * debian/patches/92_systemd_unit.patch: No need to patch to send HUP - this
+    is done upstream now.
+
+ -- Iain Lane <laney@debian.org>  Wed, 13 Sep 2017 16:20:09 +0100
+
+gdm3 (3.25.90.1-2) unstable; urgency=medium
+
+  * New upstream release
+  * Drop revert_drop_gdm_shell_session.patch: Applied in new release
+  * Bump Standards-Version to 4.1.0
+
+ -- Jeremy Bicha <jbicha@debian.org>  Thu, 31 Aug 2017 21:36:30 -0400
+
+gdm3 (3.24.2-3) unstable; urgency=medium
+
+  * Release to unstable (Closes: #869943)
+  * debian/control.in:
+    - Bump Standards-Version to 4.0.0 (no further changes)
+    - Bump gnome-settings-daemon dependency to 3.24
+  * Add revert_drop_gdm_shell_session.patch:
+    - Backport commit to allow GDM to work without gnome-session installed
+      (Closes: #850291)
+  * debian/gdm3.install:
+    - Install gnome-session file
+
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 07 Aug 2017 14:11:43 +0200
+
+gdm3 (3.24.2-2) experimental; urgency=medium
+
+  * Drop d/p/Hack-D-Bus-messages-from-Debian-8-libgdm-to-work-wit.patch now
+    that debian Stretch has been released
+  * Drop d/p/09_default_session.patch: Start the "gnome" session by default,
+    "default" is always starting a X11 session but we want to start a Wayland
+    one starting from now.
+  * debian/patches/92_systemd_unit.patch: Uncomment the BusName= directive,
+    gdm doesn't seem to be killed on reload anymore
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 06 Jul 2017 01:30:35 +0200
 
 gdm3 (3.24.2-1) experimental; urgency=medium
 
