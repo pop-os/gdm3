@@ -1,13 +1,10 @@
-Index: b/data/gdm.service.in
-===================================================================
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -20,15 +20,16 @@
+@@ -20,15 +20,15 @@ After=rc-local.service plymouth-start.se
  OnFailure=plymouth-quit.service
  
  [Service]
 -ExecStart=@sbindir@/gdm
-+ExecStartPre=/bin/sh -c '[ "$(cat /etc/X11/default-display-manager 2>/dev/null)" = "/usr/sbin/gdm3" ]'
 +ExecStartPre=/usr/share/gdm/generate-config
 +ExecStart=@sbindir@/gdm3
  KillMode=mixed
@@ -18,8 +15,8 @@ Index: b/data/gdm.service.in
  StandardOutput=syslog
  StandardError=inherit
  EnvironmentFile=-@LANG_CONFIG_FILE@
++ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
 -
 -[Install]
 -Alias=display-manager.service
-+ExecReload=/usr/share/gdm/generate-config
