@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY version "2.26.0">
+<!ENTITY date "02/10/2009">
+<!ENTITY mdash "&#8212;">
+<!ENTITY percnt "&#x0025;">
+]>
+<article id="index" lang="id">
+  <articleinfo>
+    <title>Manual Rujukan Manajer Tampilan GNOME</title>
+
+    <revhistory>
+      <revision><revnumber>0.0</revnumber> <date>2008-09</date></revision>
+    </revhistory>
+
+    <abstract role="description">
+      <para>GDM adalah Manajer Tampilan GNOME, suatu program log masuk grafis.</para>
+    </abstract>
+
+    <authorgroup>
+      <author><firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation></author>
+      <author><firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation></author>
+      <author><firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation></author>
+      <author><firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation></author>
+      <author role="maintainer"><firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation></author>
+    </authorgroup>
+    <copyright><year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder></copyright>
+    <copyright><year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder></copyright>
+    <copyright><year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder></copyright>
+    <copyright><year>2003</year> <year>2011</year> <holder>Oracle dan/atau afiliasinya. Semua hak dipertahankan.</holder></copyright>
+
+      <legalnotice id="legalnotice">
+	<para>Hak diberikan untuk menyalin, mendistribusikan, dan/atau mengubah dokumen ini di bawah persyaratan GNU Free Documentation License (GFDL, Lisensi Dokumentasi Bebas GNU), Versi 1.1 atau sebarang versi setelahnya yang dipublikasikan oleh Free Software Foundation tanpa Invariant Section, tanpa Front-Cover Texts, dan tanpa Back-Cover Texts. Anda dapat menemukan salinan dari GFDL pada <ulink type="help" url="ghelp:fdl">taut</ulink> ini atau di dalam berkas COPYING-DOCS yang didistribusikan bersama panduan ini.</para>
+         <para>Manual ini adalah bagian dari suatu koleksi manual GNOME yang disebarkan di bawah GDFL. Bila Anda ingin menyebarkan manual ini secara terpisah dari koleksi, Anda dapat melakukannya dengan menambahkan salinan lisensi ke manual, sebagaimana dijelaskan di bagian 6 dari lisensi.</para>
+
+	<para>Banyak nama yang dipakai oleh perusahaan-perusahaan untuk membedakan produk dan layanan mereka diklaim sebagai merek dagang. Ketika nama-nama tersebut muncul di dalam sebarang dokumentasi GNOME, and anggota Projek Dokumentasi GNOME disadarkan atas merek dagang tersebut, maka nama-nama akan ditulis dalam huruf besar atau huruf awal huruf besar.</para>
+
+	<para>DOKUMEN DAN VERSI YANG DOKUMEN YANG DIMODIFIKASI DISEDIAKAN DI BAWAH PERSYARATAN LISENSI GNU FREE DOCUMENTATION DENGAN PENGERTIAN LEBIH LANJUT BAHWA: <orderedlist>
+		<listitem>
+		  <para>DOKUMEN DISEDIAKAN DALAM BENTUK "APA ADANYA", TANPA JAMINAN APAPUN, YANG DINYATAKAN MAUPUN TERSIRAT, TERMASUK, TANPA PEMBATASAN, JAMINAN BAHWA DOKUMEN ATAU VERSI YANG DIMODIFIKASI DARI DOKUMEN BEBAS DARI KERUSAKAN YANG DAPAT DIPERJUALBELIKAN, COCOK UNTUK KEPERLUAN TERTENTU ATAU TAK MELANGGAR. SEMUA RESIKO ATAS KUALITAS, KETEPATAN, DAN KINERJA DOKUMEN ATAU VERSI YANG DIMODIFIKASI ADA PADA ANDA. BILA SEBARANG DOKUMEN ATAU VERSI YANG DIMODIFIKASI DARI DOKUMEN TERBUKTI RUSAK DALAM HAL APAPUN, ANDA (BUKAN PENULIS AWAL, PENGARANG, ATAU SEBARANG PENYUMBANG) MENANGGUNG BIAYA UNTUK PELAYANAN, PERBAIKAN, ATAU KOREKSI YANG DIPERLUKAN. DISKLAIMER JAMINAN INI MENJADI BAGIAN ESENSIAL DARI LISENSI INI. TIDAK ADA PEMAKAIAN SEBARANG DOKUMEN ATAU VERSI YANG DIMODIFIKASI DARI DOKUMEN YANG DIIJINKAN KECUALI DI BAWAH DISKLAIMER INI, DAN</para>
+		</listitem>
+		<listitem>
+		  <para>TIDAK DI BAWAH KEADAAN APAPUN DAN TIDAK DI BAWAH TEORI HUKUM, APAKAH TORT (TERMASUK KETIDAKPEDULIAN), KONTRAK, ATAU APAPUN, DIMANA PENGARANG, PENULIS AWAL, SEBARANG PENYUMBANG, ATAU SEBARANG DISTRIBUTOR DOKUMEN ATAU VERSI YANG DIMODIFIKASI DARI DOKUMEN, ATAU SEBARANG SUPPLIER DARI SEBARANG PIHAK, BERTANGGUNG JAWAB ATAS SEBARANG ORANG BAGI SEBARANG KERUSAKAN LANGSUNG, TAK LANGSUNG, KHUSUS, INSIDENTAL, ATAU KONSEKUENSIAL DARI APAPUN TERMASUK, TANPA PEMBATASAN, KERUSAKAN ATAS HILANGNYA GOODWILL, BERHENTINYA PEKERJAAN, KEGAGALAN KOMPUTER, ATAU MALFUNGSI, ATAU SEBARANG DAN SEMUA KERUSAKAN LAIN ATAU KEHILANGAN YANG TIMBUL KARENA ATAU TERKAIT DENGAN PENGGUNAAN DOKUMEN DAN VERSI YANG DIMODIFIKASI DARI DOKUMEN, BAHKAN BILA PIHAK TERSEBUT MESTINYA TELAH DIBERITAHU TENTANG KEMUNGKINAN KERUSAKAN TERSEBUT.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+    <releaseinfo>Manual ini menjelaskan Manajer Tampilan GNOME versi 2.26.0. Terakhir diperbarui pada 02/10/2009.</releaseinfo>  
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Andika Triwidada</firstname>
+      </personname>
+      <email>andika@gmail.com</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2010</year>
+      
+        <year>2011</year>
+      
+        <year>2012</year>
+      
+        <year>2013.</year>
+      
+      <holder>Andika Triwidada</holder>
+    </copyright>
+  </articleinfo>
+
+  <!-- ============= Preface ================================== -->
+
+  <sect1 id="preface">
+    <title>Istilah dan Konvensi yang Dipakai di Manual Ini</title>
+
+    <para>Manual ini menjelaskan Manajer Tampilan GNOME versi 2.26.0. Terakhir diperbarui pada 02/10/2009.</para>  
+
+    <para>Chooser/Pemilih - Suatu program yang dipakai untuk memilih suatu host jauh untuk mengelola tampilan dari jauh pada tampilan yang tersambung (<command>gdm-host-chooser</command>).</para>
+
+    <para>FreeDesktop - Organisasi yang menyediakan standar desktop, seperti misalnya Spesifikasi Entri Desktop yang dipakai oleh GDM. <ulink type="http" url="http://www.freedesktop.org/"> http://www.freedesktop.org</ulink>.</para>
+    <para>GDM - Manajer Tampilan GNOME. Dipakai untuk menjelaskan paket perangkat lunak secara utuh.</para>
+
+    <para>Greeter/Penyapa - Jendela log masuk grafis (disediakan oleh <command>gdm-simple-greeter</command>).</para>
+
+    <para>PAM - Pluggable Authentication Mechanism</para>
+
+    <para>XDMCP - X Display Manage Protocol</para>
+
+    <para>Xserver - Suatu implementasi Sistem X Window. Misalnya Xserver Xorg yang disediakan oleh X.org Foundation <ulink type="http" url="http://www.x.org/">http://www.x.org</ulink>.</para>
+
+    <para>Path yang diawali dengan suatu kata yang diapit oleh tanda lebih dari dan kurang dari, posisinya relatif terhadap prefiks instalasi. Artinya <filename>&lt;share&gt;/pixmaps/</filename> mengacu ke <filename>/usr/share/pixmaps</filename> bila GDM ditata dengan <command>--prefix=/usr</command>.</para>
+  </sect1>
+
+  <!-- ============= Overview ================================= -->
+
+  <sect1 id="overview">
+    <title>Ringkasan</title>
+
+    <sect2 id="introduction">
+      <title>Perkenalan</title>
+
+      <para>Manajer Tampilan GNOME (GNOME Display Manager, GDM) adalah manajer tampilan yang mengimplementasikan semua fitur signifikan yang diperlukan untuk mengelola tampilan yang tersambung langsung dan jarak jauh. GDM ditulis dari awal dan tidak memuat sebarang kode XDM atau X Consortium.</para>
+
+      <para>Catat bahwa GDM dapat dikonfigurasi, dan banyak tatanan konfigurasi memiliki dampak keamanan. Masalah-masalah yang mesti diwaspadai disorot pada dokumen ini.</para> 
+
+      <para>Mohon dicatat bahwa beberap Sistem Operasi menata GDM untuk berperilaku berbeda dengan nilai bawaan sebagaimana dijelaskan dalam dokumen ini. Bila GDM sepertinya tidak berperilaku seperti yang didokumentasikan, maka periksalah bila ada konfigurasi terkait yang mungkin berbeda dengan yang dijelaskan disini.</para>
+
+      <para>Untuk informasi lebih lanjut tentang GDM, silakan mengacu ke situs web projek di <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/"> http://wiki.gnome.org/Projects/GDM</ulink>.</para>
+
+      <para>Untuk diskusi atau pertanyaan tentang GDM, silakan mengacu ke milis <address><email>gdm-list@gnome.org</email></address>. List ini diarsipkan, dan merupakan sumber daya yang bagus untuk memeriksa dan mencari jawaban atas pertanyaan umum. List ini diarsipkan di <ulink type="http" url="http://mail.gnome.org/archives/gdm-list/"> http://mail.gnome.org/archives/gdm-list/</ulink> dan memiliki fasilitas pencarian untuk mencari pesan dengan kata kunci.</para>
+
+      <para>Mohon kirim laporan kutu atau permintaan perbaikan ke kategori "gdm" pada <ulink type="http" url="http://bugzilla.gnome.org/"> http://bugzilla.gnome.org</ulink>.</para>
+    </sect2>
+
+    <sect2 id="stability">
+      <title>Stabilitas Antar Muka</title>
+
+      <para>GDM 2.20 dan sebelumnya mendukung antar muka konfigurasi stabil. Namun, codebase-nya ditulis ulang secara lengkap bagi GDM 2.22, dan tak sepenuhnya kompatibel ke belakang dengan rilis-rilis yang lebih lama. Hal ini sebagian karena berbagai hal bekerja secara berbeda, sehingga beberapa opsi jadi tak masuk akal, sebagian lagi karena sebagian opsi tak pernah masuk akal, dan sebagian karena beberapa fungsionalitas belum diimplementasi ulang.</para>
+
+      <para>Antarmuka yang didukung terus secara stabil termasuk skrip Xsession, Init, PreSession, PostSession, dan PostLogin. Beberapa opsi konfigurasi daemon dalam berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> didukung terus. <filename>~/.dmrc</filename> dan lokasi gambar peramban muka juga masih didukung.</para>
+
+      <para>GDM 2.20 dan sebelumnya mendukung kemampuan pengelolaan tampilan berganda dengan kartu grafis yang terpisah seperti yang dipakai pada lingkungan server terminal, log masuk ke jendela melalui program seperti Xnest atau Xephyr, program gdmsetup, tema penyapa berbasis XML, dan kemampuan menjalankan pemilih XDMCP dari layar log masuk. Fitur-fitur tersebut tak ditambahkan kembali selama penulisan ulang 2.22.</para>
+
+    </sect2>
+
+    <sect2 id="functionaldesc">
+      <title>Penjelasan Fungsional</title>
+
+<!--
+<para>
+        TODO - Would be good to discuss D-Bus, perhaps the new GObject model,
+               and to explain the reasons why the rewrite made GDM better.
+               From a high-level overview perspective, rather than the
+               technical aspects.
+</para>
+-->
+
+      <para>GDM bertanggung jawab mengelola tampilan pada sistem. Ini termasuk mengotentikasi pengguna, memulai sesi pengguna, dan mengakhiri sesi pengguna. GDM dapat ditata dan berbagai cara penataannya diuraikan dalam bagian "Menata GDM" dari dokumen ini. GDM juga membantu pengguna cacat.</para>
+
+      <para>GDM menyediakan kemampuan mengelola tampilan konsol utama, dan tampilan yang diluncurkan melalui VT. Ini terpadu dengan program lain, seperti Fast User Switch Applet (FUSA, aplet berganti pengguna secara cepat) dan gnome-screensaver untuk mengelola tampilan berganda pada konsol melalui antar muka Xserver Virtual Terminal (VT). Ini juga dapat mengelola tampilan XDMCP.</para>
+
+      <para>Tanpa peduli jenis tampilan, GDM akan melakukan hal berikut ketika mengelola tampilan. Dia akan memulai proses Xserver, lalu menjalankan skrip <filename>Init</filename> sebagai pengguna root, dan mengawali program penyapa pada tampilan.</para>
+
+      <para>Program penyapa (greeter) dijalankan sebagai pengguna/grup biasa "gdm". Pengguna dan grup ini dijelaskan dalam bagian "Keamanan" dari dokumen ini. Fungsi utama program penyapa adalah untuk menyediakan mekanisme memilih akun untuk log masuk dan untuk mendorong dialog antara pengguna dan sistem ketika mengotentikasi akun tersebut. Proses otentikasi ini didorong oleh Pluggable Authentication Modules (PAM). Modul PAM menentukan sapaan apa (bila ada) yang ditampilkan ke pengguna untuk mengotentikasi. Pada sistem umum, program penyapa akan meminta nama pengguna dan sandi untuk otentikasi. Namun beberapa sistem mungkin ditata untuk memakai mekanisme pelengkap seperti sidik jari atau pembaca SmartCard. GDM dapat ditata untuk mendukung alternatif tersebut secara paralel dengan ekstensi log masuk penyapa dan opsi <command>--enable-split-authentication</command> <filename>./configure</filename>, atau satu setiap saat melalui konfigurasi PAM sistem.</para>
+
+      <para>Ekstensi smartcard dapat diaktifkan atau dimatikan melalui kunci gsettings <filename>org.gnome.display-manager.extensions.smartcard.active</filename>.</para>
+
+      <para>Serupa dengan itu, ekstensi sidik jari dapat diaktifkan atau dimatikan melalui kunci gsettings <filename>org.gnome.display-manager.extensions.fingerprint.active</filename>.</para>
+
+      <para>GDM dan PAM dapat ditata untuk tidak memerlukan masukan, yang akan menyebabkan GDM otomatis log masuk dan memulai suatu sesi, yang dapat berguna bagi beberapa lingkungan, seperti sistem pengguna tunggal atau kios.</para>
+
+      <para>Selain otentikasi, program penyapa mengijinkan pengguna memilih sesi mana yang dimulai dan bahasa mana yang dipakai. Sesi didefinisikan oleh berkas yang memiliki akhiran .desktop dan informasi lebih lanjut tentang berkas ini dapat ditemukan dalam bagian "Konfigurasi Bahasa dan Sesi Pengguna GDM" dari dokumen ini. Secara bawaan, GDM ditata untuk menampilkan peramban wajah sehingga pengguna dapat memilih akunnya dengan mengklik pada suatu gambar daripada mesti mengetikkan nama penggunanya. GDM mencatat sesi dan bahasa baku pengguna dalam <filename>~/.dmrc</filename> milik pengguna dan akan memakai baku ini bila pengguna tak memilih sesi atau bahasa dalam GUI log masuk.</para>
+
+      <para>Setelah mengotentikasi pengguna, daemon menjalankan skrip <filename>PostLogin</filename> sebagai root, lalu menjalankan skrip <filename>PreSession</filename> sebagai root. Setelah menjalankan skrip tersebut, sesi pengguna dimulai. Ketika pengguna keluar dari sesinya, skrip <filename>PostSession</filename> dijalankan sebagai root. Skrip-skrip tersebut disediakan sebagai kaitan bagi distribusi dan pengguna akhir untuk menggubah bagaimana sesi dikelola. Sebagai contoh, memakai kait tersebut Anda dapat menyiapkan suatu mesin yang membuat direktori $HOME milik pengguna sambil jalan, dan menghapusnya saat log keluar. Perbedaan antara skrip <filename>PostLogin</filename> dan <filename>PreSession</filename> adalah bahwa <filename>PostLogin</filename> dijalankan sebelum pemanggilan pam_open_session sehingga merupakan tempat yang tepat untuk melakukan apapun yang mesti dijalankan  sebelum sesi pengguna diinisialisasi. Skrip <filename>PreSession</filename> dipanggil setelah inisialisasi sesi.</para>
+    </sect2>
+
+    <sect2 id="greeterpanel">
+      <title>Panel Penyapa</title>
+      <para>Program penyapa GDM menampilkan suatu panel yang dilabuhkan di dasar layar yang menyediakan fungsionalitas tambahan. Ketika seorang pengguna dipilih, panel mengijinkan pengguna memilih sesi, bahasa, dan tata letak papan tik mana yang dipakai setelah log masuk. Pemilih tata letak papan tik juga mengubah tata letak papan tik yang dipakai ketika mengetikkan sandi Anda. Panel juga memuat wilayah bagi layanan log masuk untuk menampilkan ikon status. Beberapa contoh ikon status termasuk ikon baterai untuk pemakaian baterai sekarang, dan ikon untuk mengaktifkan fitur-fitur aksesibilitas. Program penyapa juga menyediakan tombol-tombol yang memungkinkan pengguna mematikan atau memulai ulang sistem. Mungkin juga untuk menata GDM agar tidak menyediakan tombol matikan dan mulai ulang bila diinginkan. GDM juga dapat ditata melalui PolicyKit (atau melalui RBAC pada Oracle Solaris) untuk menuntut pengguna agar memiliki otorisasi yang sesuai sebelum menerima permintaan mematikan atau memulai ulang.</para>
+
+      <para>Perhatikan bahwa fitur tata letak papan tik hanya tersedia pada sistem yang mendukung libxklavier.</para>
+    </sect2>
+
+    <sect2 id="accessibility">
+      <title>Aksesibilitas</title>
+
+        <para>GDM mendukung "Log Masuk Aksesibel", yang memungkinkan pengguna log masuk ke sesi desktop mereka walaupun mereka tak dapat dengan mudah menggunakan layar, tetikus, atau papan tik secara biasa. Tersedia fitur-fitur Teknologi Aksesibilitas seperti papan tik pada layar, pembaca layar, pembesar layar, dan aksesibilitas papan tik Xserver AccessX. Juga dimungkinkan untuk mengaktifkan teks besar atau ikon dan kendali-kendali kontras tinggi, bila diperlukan. Lihat bagian "Konfigurasi Aksesibilitas" dari dokumen untuk informasi lebih lanjut tentang bagaimana berbagai fitur aksesibilitas dapat ditata.</para>
+
+        <para>Pada beberapa Sistem Operasi, perlu dipastikan bahwa pengguna GDM adalah anggota dari grup "audio" agar program AT yang memerlukan keluaran audio (seperti misalnya teks-ke-suara) berfungsi.</para>
+    </sect2>
+
+    <sect2 id="facebrowser">
+      <title>Peramban Wajah GDM</title>
+
+      <para>Peramban Wajah adalah antar muka yang memungkinkan pengguna memilih nama dengan mengklik gambar. Fitur ini dapat diaktifkan atau dimatikan melalui kunci GSettings org.gnome.login-screen disable-user-list dan bawaannya aktif. Ketika dimatikan, pengguna mesti mengetikkan nama penggunanya secara lengkap. Ketika diaktifkan, ini menampilkan semua pengguna lokal yang dapat log masuk pada sistem (semua akun pengguna yang didefinisikan di dalam berkas /etc/passwd yang memiliki shell yang valid dan UID cukup tinggi) dan pengguna jauh yang baru-baru ini log masuk. Peramban wajah dalam GDM 2.20 dan sebelumnya akan mencoba menampilkan semua pengguna jauh, yang akan menyebabkan masalah kinerja pada pemasangan di enterprise yang besar.</para>
+
+      <para>Peramban Wajah ditata untuk menampilkan pengguna yang paling sering log masuk di puncak daftar. Ini membantu memastikan bahwa pengguna yang sering log masuk dapat menemukan gambar log masuk mereka secara cepat.</para>
+
+      <para>Peramban Wajah mendukung "pencarian type-ahead" yang secara dinamis memindah pemilihan wajah ketika pengguna mengetikkan ke nama pengguna yang berkaitan dalam daftar. Ini berarti bahwa pengguna dengan nama pengguna yang panjang hanya perlu mengetikkan beberapa karakter pertama dari nama pengguna sebelum butir yang benar dalam daftar menjadi terpilih.</para>
+
+      <para>Ikon yang dipakai oleh GDM dapat dipasang secara global oleh sysadmin atau dapat ditempatkan pada direktori rumah pengguna. Bila dipasang secara global mereka mesti ada di direktori <filename>&lt;share&gt;/pixmaps/faces/</filename> dan nama berkas mesti merupakan nama pengguna. Berkas gambar wajah mesti merupakan gambar standar yang dapat dibaca oleh GTK+, seperti misalnya PNG atau JPEG. Ikon wajah yang ditempatkan di direktori wajah global mesti dapat dibaca oleh pengguna GDM.</para>
+
+<!--
+<para>
+        TODO - In the old GDM the ~/gnome2/gdm file is used, but the new code
+               seems to use ~/.gnome/gdm.  Error?
+</para>
+-->
+      <para>Bila tak ada ikon global bagi pengguna, GDM akan mencari berkas gambar dalam direktori $HOME pengguna. Pertama kali GDM akan mencari gambar wajah pengguna dalam <filename>~/.face</filename>. Bila tak ditemukan, akan dicoba <filename>~/.face.icon</filename>. Bila masih tak ditemukan, akan dipakai nilai yang didefinisikan bagi "face/picture=" dalam berkas <filename>~/.gnome2/gdm</filename>.</para>
+
+      <para>Bila seorang pengguna tak memiliki gambar wajah, GDM akan memakai ikon "stock_person" yang didefinisikan dalam tema GTK+ kini. Bila gambar itu tak didefinisikan, maka akan kembali ke gambar wajah generik.</para>
+
+      <para>Perhatikan bahwa memuat dan menskalakan ikon wajah yang terletak di direktori rumah pengguna jauh bisa merupakan tugas yang sangat menghabiskan waktu. Karena tak praktis untuk memuat gambar lewat NIS atau NFS, GDM tak mencoba memuat gambar wajah dari direktori rumah jauh.</para>
+
+      <para>Ketika peramban dinyalakan, nama pengguna yang valid pada komputer dipaparkan untuk dilihat oleh semua orang. Bila XDMCP diaktifkan, maka nama pengguna dipaparkan ke pengguna jauh. Ini tentu saja membatasi keamanan karena pengguna yang berniat jahat tak perlu lagi menebak nama pengguna yang valid. Dalam beberapa lingkungan yang sangat terbatas, peramban wajah mungkin tidak pada tempatnya.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcp">
+      <title>XDMCP</title>
+
+<!--
+<para>
+        TODO - What XDMCP features actually work?   I know that the
+               chooser is missing.
+</para>
+-->
+
+      <para>Daemon GDM dapat ditata untuk mendengarkan dan mengelola permintaan X Display Manager Protocol (XDMCP) dari tampilan jauh. Secara baku dukungan XDMCP dimatikan, tapi dapat dinyalakan bila dikehendaki. Bila GDM dibangun dengan dukungan TCP Wrapper, maka daemon hanya akan memberikan akses ke host yang dinyatakan pada bagian layanan GDM dalam berkas konfigurasi TCP Wrapper.</para>
+
+      <para>GDM menyertakan beberapa penangkal yang membuatnya lebih kebal terhadap serangan denial of service pada layanan XDMCP. Banyak parameter protokol, tenggang waktu jabat tangan, dsb. dapat ditala secara halus. Konfigurasi bawaan mestinya berjalan dengan cukup baik pada kebanyakan sistem.</para>
+
+      <para>Secara baku GDM mendengarkan permintaan XDMCP pada port UDP normal yang dipakai oleh XDMCP, port 177, dan akan menjawab permintaan QUERY dan BROADCAST_QUERY dengan mengirim paket WILLING ke peminta.</para>
+
+      <para>GDM juga dapat ditata untuk menjawab permintaan INDIRECT dan menyajikan suatu pemilih host ke tampilan jauh. GDM akan mengingat pilihan pengguna dan meneruskan permintaan seterusnya ke pengelola yang dipilih. GDM juga mendukung ekstensi ke protokol yang membuatnya melupakan pengalihan sekali koneksi pengguna sukses. Ekstensi ini hanya didukung bila kedua daemon adalah GDM. Ini transparan dan akan diabaikan oleh XDM atau daemon lain yang mengimplementasikan XDMCP.</para>
+
+      <para>Bila XDMCP sepertinya tak bekerja, pastikan bahwa semua mesin dinyatakan dalam <filename>/etc/hosts</filename>.</para>
+
+      <para>Lihat ke bagian "Keamanan" untuk informasi tentang aspek-aspek keamanan ketika memakai XDMCP.</para>
+    </sect2>
+
+    <sect2 id="logging">
+      <title>Log</title>
+
+      <para>GDM memakai syslog untuk mencatat galat dan status. Itu juga dapat mencatat informasi pengawakutuan, yang dapat berguna untuk menelusuri masalah bila GDM tak bekerja dengan baik. Keluaran awakutu dapat diaktifkan dengan menata kunci debug/Enable ke "true" dalam berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename>.</para>
+
+      <para>Keluaran dari berbagai Xserver disimpan di dalam direktori log GDM, yang biasanya <filename>&lt;var&gt;/log/gdm/</filename>. Sebarang pesan Xserver disimpan ke berkas yang dikaitkan dengan nilai tampilan, <filename>&lt;display&gt;.log</filename>.</para>
+
+      <para>Keluaran sesi disalurkan melalui daemon GDM ke berkas <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</filename> yang biasanya mengembang menjadi <filename>~/.cache/gdm/session.log</filename>. Berkas ditimpa setiap kali log masuk, sehingga log keluar dan masuk lagi ke pengguna yang sama melalui GDM akan menyebabkan sebarang pesan dari sesi sebelumnya hilang.</para>
+
+      <para>Catat bahwa bila GDM tak bisa membuat berkas ini karena beberapa alasan, maka berkas cadangan akan dibuat dengan nama <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log.XXXXXXXX</filename> dimana <filename>XXXXXXXX</filename> adalah beberapa karakter acak.</para>
+    </sect2>
+
+    <sect2 id="fusa">
+      <title>Pindah Pengguna Dengan Cepat</title>
+
+      <para>GDM mengijinkan beberapa pengguna log masuk bersamaan. Setelah salah satu pengguna log masuk, pengguna lain dapat log masuk melalui Penukar Pengguna pada Panel GNOME, atau dari tombol "Ganti Pengguna" pada dialog Kunci Layar dari Screensaver GNOME. Sesi aktif dapat ditukar bolak balik memakai mekanisme yang sama. Perhatikan bahwa beberapa distribusi mungkin tidak menambahkan Penukar Pengguna ke konfigurasi panel bawaan. Itu dapat ditambahkan memakai menu konteks panel.</para>
+      <para>Catat bahwa fitur ini tersedia pada sistem yang mendukung Terminal Virtual. Fitur ini tak akan berfungsi bila Terminal Virtual tak tersedia.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Security ================================= -->
+
+  <sect1 id="security">
+    <title>Keamanan</title>
+
+    <sect2 id="gdmuser">
+      <title>Grup dan Pengguna GDM</title>
+
+      <para>Untuk alasan keamanan, id pengguna dan grup yang terdedikasi disarankan untuk operasi yang benar. Pengguna dan grup ini biasanya "gdm" pada kebanyakan sistem, tapi dapat ditata ke sebarang pengguna atau grup. Semua program GUI GDM dijalankan sebagai pengguna ini, sehingga program yang berinteraksi dengan pengguna dijalankan dalam suatu kotak pasir. Pengguna dan grup ini mesti memiliki hak terbatas.</para>
+
+      <para>Satu-satunya hak khusus yang diperlukan oleh pengguna "gdm" adalah kemampuan membaca dan menulis berkas Xauth ke direktori <filename>&lt;var&gt;/run/gdm</filename> directory. Direktori <filename>&lt;var&gt;/run/gdm</filename> mesti dimiliki oleh root:gdm dan hak 1777.</para>
+
+      <para>Anda jangan, dalam keadaan apapun, menata pengguna/grup GDM ke sesuatu yang dapat diakses dengan mudah oleh pengguna lain, seperti misalnya pengguna <filename>nobody</filename>. Sebarang pengguna yang mendapat akses ke kunci Xauth dapat menyadap dan mengendalikan program GUI yang berjalan pada sesi terkait atau melakukan serangan denial-of-service padanya. Penting untuk memastikan bahwa sistem ditata secara benar sehingga hanya pengguna "gdm" punya akses ke berkas tersebut dan tak mudah untuk log masuk ke akun ini. Sebagai contoh, akun mesti disiapkan untuk tak memiliki sandi atau mengijinkan pengguna bukan root untuk log masuk ke akun.</para>
+
+      <para>Konfigurasi penyapa GDM disimpan di dalam GConf. Untuk mengijinkan pengguna GDM menulis konfigurasi, pengguna "gdm" perlu memiliki direktori $HOME yang dapat ditulisi. Pengguna dapat menata konfigurasi bawaan GConf sesuai keinginan untuk menghindari perlunya menyediakan pengguna "gdm" dengan direktori $HOME yang dapat ditulisi. Namun beberapa fitur GDM mungkin mati bila tak bisa menulis informasi keadaan ke konfigurasi GConf.</para>
+    </sect2>
+
+    <sect2 id="PAM">
+      <title>PAM</title>
+
+      <para>GDM memakai PAM untuk otentikasi log masuk. PAM kependekan dari Pluggable Authentication Module (modul otentikasi yang dapat ditempelkan), dan dipakai oleh kebanyakan program yang meminta otentikasi pada komputer Anda. Itu mengijinkan administrator untuk menata perilaku otentikasi spesifik bagi program log masuk yang berbeda (seperti misalnya ssh, log masuk GUI, screensaver, dsb.)</para>
+
+      <para>PAM itu rumit dan dapat ditata dalam sangat banyak cara, dan dokumentasi ini bukan bertujuan untuk menjelaskan hal ini secara rinci. Alih-alih, ini ditujukan untuk memberi ringkasan tentang bagaimana konfigurasi PAM berhubungan dengan GDM, bagaimana PAM umumnya ditata dengan GDM, dan masalah-masalah yang telah diketahui. Diharapkan bahwa orang yang perlu melakukan konfigurasi PAM akan membaca lebih jauh dokumentasi PAM untuk memahami bagaimana menata PAM dan memahami istilah-istilah yang dipakai pada bagian ini.</para>
+        
+      <para>Konfigurasi PAM memiliki antar muka yang berbeda namun mirip pada Sistem Operasi yang berbeda, sehingga periksalah halaman man <ulink type="help" url="man:pam.d">pam.d</ulink> atau <ulink type="help" url="man:pam.conf">pam.conf</ulink> untuk rinciannya. Pastikan bahwa Anda membaca dokumentasi PAM dan merasa nyaman dengan implikasi keamanan dari perubahan apapun yang hendak Anda lakukan pada konfigurasi Anda.</para>
+
+      <para>Perhatikan bahwa, secara baku, GDM memakai nama layanan PAM "gdm" untuk log masuk normal dan nama layanan PAM "gdm-autologin" untuk log masuk otomatis. Layanan-layanan ini mungkin tak didefinisikan dalam berkas konfigurasi pam.d atau pam.conf Anda. Bila tak ada entri, maka GDM akan memakai perilaku PAM bawaan. Pada kebanyakan sistem ini mestinya berjalan baik. Namun, fitur log masuk otomatis mungkin tak bekerja bila layanan gdm-autologin tak terdefinisi.</para>
+
+      <para>Skrip <filename>PostLogin</filename> dijalankan sebelum pam_open_session dipanggil, dan skrip <filename>PreSession</filename> dipanggil setelahnya. Ini memungkinkan administrator sistem untuk menambahkan sebarang penskripan ke proses log masuk sebelum atau setelah PAM menginisialisasi sesi.</para>
+
+      <para>Bila Anda hendak membuat GDM bekerja dengan mekanisme otentikasi jenis lain (seperti misalnya sidik jari atau pembaca SmartCard), maka Anda mesti mengimplementasikan ini memakai modul layanan PAM bagi jenis otentikasi yang diinginkan daripada mencoba mengubah kode GDM secara langsung. Lihatlah dokumentasi PAM pada sistem Anda. Bagaimana melakukan hal ini sering didiskusikan di milis <address><email>gdm-list@gnome.org</email></address>, sehingga Anda dapat mengacu ke arsip milis untuk informasi lebih lanjut.</para>
+
+      <para>PAM memiliki beberapa keterbatasan dalam kemampuan bekerja dengan banyak tipe otentikasi pada saat yang sama, seperti mendukung kemampuan menerima SmartCard dan kemampuan mengetikkan nama pengguna serta sandi ke dalam program log masuk. Ada teknik-teknik yang dipakai untuk membuat ini bekerja, dan yang terbaik adalah meneliti bagaimana masalah ini secara umum dipecahkan ketika menyiapkan konfigurasi seperti itu.</para>
+
+      <para>Bila log masuk otomatis tak bekerja pada suatu sistem, periksa apakah stack PAM "gdm-autologin" didefinisikan di dalam konfigurasi PAM. Agar ini bekerja, perlu memakai modul PAM yang tak melakukan otentikasi, atau yang sekedar mengembalikan PAM_SUCCESS dari semua antar muka publiknya. Dengan asumsi bahwa sistem Anda memiliki modul PAM pam_allow.so yang melakukan hal ini, konfigurasi PAM yang mengaktifkan "gdm-autologin" akan terlihat seperti ini:</para>
+
+<screen>
+       gdm-autologin auth  required    pam_unix_cred.so.1
+       gdm-autologin auth  sufficient  pam_allow.so.1
+       gdm-autologin account  sufficient  pam_allow.so.1
+       gdm-autologin session  sufficient  pam_allow.so.1
+       gdm-autologin password  sufficient  pam_allow.so.1
+</screen>
+
+      <para>Penataan di atas akan menyebabkan tiadanya entri lastlog. Bila suatu entri lastlog dikehendaki, maka gunakan yang berikut bagi sesi:</para>
+
+<screen>
+       gdm-autologin session required pam_unix_session.so.1
+</screen>
+
+      <para>Bila komputer dipakai oleh beberapa orang, yang membuat log masuk otomatis tidak cocok, Anda mungkin hendak mengijinkan beberapa pengguna untuk log masuk tanpa mengetikkan sandi. Fitur ini dapat diaktifkan sebagai opsi per pengguna dalam perkakas users-admin dari gnome-system-tools; ini dicapai dengan memeriksa apakah pengguna tersebut anggota dari grup Unix bernama "nopasswdlogin" sebelum menanyakan sandi. Agar ini bekerja, berkas konfigurasi PAM bagi layanan "gdm" mesti memuat suatu baris seperti:</para>
+
+<screen>
+      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
+</screen>
+
+    </sect2>
+
+    <sect2 id="utmpwtmp">
+      <title>utmp dan wtmp</title>
+
+      <para>GDM menjangkitkan entri Basis Data Akunting Pengguna utmp dan wtmp saat log masuk dan log keluar sesi. Basis data utmp memuat informasi akunting dan akses pengguna yang diakses oleh perintah seperti <command>finger</command>, <command>last</command>, <command>login</command>, dan <command>who</command>. Basis data wtmp memuat riwayat informasi akunting dan akses pengguna bagi basis data utmp. Lihatlah halaman man <ulink type="help" url="man:utmp">utmp</ulink> dan <ulink type="help" url="man:wtmp">wtmp</ulink> pada sistem Anda untuk informasi lebih jauh.</para>
+    </sect2>
+
+    <sect2 id="xauth">
+      <title>Skema Otentikasi Xserver</title>
+
+      <para>Berkas otorisasi Xserver disimpan dalam subdirektori <filename>&lt;var&gt;/run/gdm</filename> yang baru dibuat saat awal mula. Berkas-berkas ini dipakai untuk menyimpan dan berbagi "sandi" antara klien X dan Xserver. "Sandi" ini unik bagi setiap sesi log masuk, sehingga pengguna dari sesi satu tak bisa menyadap pengguna sesi lain.</para>
+
+      <para>GDM hanya mendukung skema otentikasi Xserver MIT-MAGIC-COOKIE-1. Secara normal hanya sedikit keuntungan yang didapat dari skema lain, dan tak ada upaya untuk mengimplementasi mereka sejauh ini. Sangat berhati-hatilah untuk memakai XDMCP karena cookie otentikasi Xserver disalurkan lewat jaringan sebagai teks polos. Bila penyadapan mungkin, maka penyerang cukup sekedar menyadap sandi otentikasi saat Anda log masuk, tak peduli skema otentikasi yang dipakai. Bila penyadapan dimungkinkan dan tak diharapkan, maka Anda mesti memakai ssh untuk membungkus koneksi X daripada memakai XDMCP. Anda dapat menganggap XDMCP sebagai telnet mode grafis, yang memiliki masalah keamanan sama. Dalam kebanyakan kasus, ssh -Y mesti lebih disukai daripada fitur XDMCP GDM.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpsecurity">
+      <title>Keamanan XDMCP</title>
+
+      <para>Walaupun tampilan Anda dilindungi oleh cookies, XEvents dan juga ketikan saat memasukkan sandi masih akan dilewatkan jaringan dalam bentuk teks polos. Sangat mudah untuk menangkap itu.</para>
+
+      <para>XDMCP terutama berguna untuk menjalankan thin client seperti di lab terminal. Thin client itu hanya akan perlu jaringan untuk mengakses server, sehingga kebijakan keamanan terbaik adalah untuk menempatkan thin client tersebut pada jaringan terpisah yang tak dapat diakses oleh dunia luar, dan hanya dapat menyambung ke server. Satu-satunya titik yang perlu akses keluar adalah server. Jenis penyiapan ini tak boleh memakai unmanaged hub atau jaringa lain yang dapat disadap.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpaccess">
+      <title>Kendali Akses XDMCP</title>
+
+      <para>Kendali akses XDMCP dilakukan memakai TCP wrappers. Memang mungkin untuk mengompail GDM tanpa dukungan TCP wrappers, sehingga fitur ini mungkin tak didukung pada beberapa Sistem Operasi.</para>
+
+      <para>Anda mesti memakai nama deamon <command>gdm</command> dalam berkas <filename>&lt;etc&gt;/hosts.allow</filename> dan <filename>&lt;etc&gt;/hosts.deny</filename>. Sebagai contoh untuk menolak komputer dari <filename>.evil.domain</filename> yang berusaha log masuk, maka tambahkan</para>
+<screen>
+gdm: .evil.domain
+</screen>
+      <para>ke <filename>&lt;etc&gt;/hosts.deny</filename>. Anda mungkin juga perlu menambah</para>
+<screen>
+gdm: .your.domain
+</screen>
+      <para>ke <filename>&lt;etc&gt;/hosts.allow</filename> bila biasanya Anda menolak semua layanan dari semua host. Lihat halaman man <ulink type="help" url="man:hosts.allow">hosts.allow(5)</ulink> untuk rinciannya.</para>
+    </sect2>
+
+    <sect2 id="firewall">
+      <title>Keamanan Firewall</title>
+
+      <para>Walaupun GDM mencoba untuk mengakali penyerang potensial yang mencoba mengambil keuntungan dari XDMCP, masih disarankan bagi Anda untuk memblokir port XDMCP (biasanya UDP port 177) pada firewall Anda kecuali bila memang diperlukan. GDM menjaga dari serangan denial of service, tapi protokol X masih tak aman secara inheren dan mestinya hanya dipakai dalam suatu lingkungan yang terkendali. Setiap koneksi remote juga menghabiskan banyak sumber daya, sehingga jauh lebih mudah melakukan serangan denial of service melalui XDMCP daripada menyerang suatu server web.</para>
+
+      <para>Juga bijaksana untuk memblokir semua port Xserver. Ini adalah port TCP 6000+ (satu bagi setiap nomor tampilan) pada firewall Anda. Perhatikan bahwa GDM akan memakai tampilan nomor 20 dan yang lebih tinggi bagi server on-demand yang fleksibel.</para>
+
+      <para>X bukan protokol yang aman ketika dipakai di Internet, dan XDMCP bahkan lebih tidak aman lagi.</para>
+    </sect2>
+
+    <sect2 id="policykit">
+      <title>PolicyKit</title>
+
+<!--
+<para>
+        TODO - Should we say more?
+</para>
+-->
+
+      <para>GDM dapat ditata untuk memakai PolicyKit yang mengijinkan administrator sistem mengendalikan apakah layar log masuk mesti menyediakan tombol matikan dan mulai ulang pada layar penyapa.</para>
+
+      <para>Tombol-tombol ini masing-masing dikendalikan oleh aksi <filename>org.freedesktop.consolekit.system.stop-multiple-users</filename> dan <filename>org.freedesktop.consolekit.system.restart-multiple-users</filename>. Kebijakan bagi aksi-aksi ini dapat disiapkan memakai perkakas polkit-gnome-authorization, atau program baris perintah polkit-auth.</para>
+ 
+    </sect2>
+
+    <sect2 id="rbac">
+      <title>RBAC (Role Based Access Control)</title>
+
+      <para>GDM dapat ditata untuk memakai RBAC sebagai pengganti PolicyKit. Dalam hal ini konfigurasi RBAC dipakai untuk mengendalikan apakah layar log masuk mesti menyediakan tombol matikan dan mulai ulang pada layar penyapa.</para>
+
+      <para>Sebagai contoh, pada Oracle Solaris, otorisasi "solaris.system.shutdown" dipakai untuk mengendalikan ini. Cukup ubah berkas <filename>/etc/user_attr</filename> sehingga pengguna "gdm" memiliki otorisasi ini.</para>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= ConsoleKit ================================ -->
+
+  <sect1 id="consolekit">
+    <title>Dukungan untuk ConsoleKit</title>
+
+<!--
+<para>
+    TODO - Should we update these docs?  Probably should mention any 
+           configuration that users may want to do for using it with GDM?
+           If so, perhaps this section should be moved to a subsection of
+           the "Configure" section?
+</para>
+-->
+
+    <para>GDM menyertakan dukungan bagi pengumuman informasi log masuk pengguna dengan framework akunting sesi log masuk dan pengguna yang dikenal sebagai ConsoleKit. ConsoleKit dapat mencatat semua pengguna yang kini log masuk, sehingga dapat dipakai sebagai pengganti berkas utmp atau utmpx yang tersedia pada kebanyakan Sistem Operasi mirip Unix.</para>
+
+    <para>Ketika GDM akan membuat proses log masuk baru bagi seorang pengguna, ia akan memanggil metoda dengan hak khusus dari ConsoleKit untuk membuka sesi baru bagi pengguna ini. Pada saat ini GDM juga menyediakan informasi untuk ConsoleKit tentang sesi pengguna ini seperti: ID pengguna, Nama tampilan X11 yang akan dikaitkan dengan sesi ini, nama host tempat sesi berasal (berguna pada kasus sesi XDMCP), apakah sesi ini dicantol atau tidak, dsb. Sebagai entitas yang mengawali proses pengguna, GDM berada pada posisi yang unik untuk mengetahui tentang sesi pengguna dan untuk dipercaya menyediakan kepingan informasi ini. Penggunaan metode dengan hak khusus ini dibatasi oleh pemakaian kebijakan keamanan bus pesan sistem D-BUS.</para>
+
+    <para>Bila penguna dengan sesi yang telah ada telah diotentikasi pada GDM dan meminta melanjutkan sesi tersebut, GDM memanggil suatu metoda dengan hak khusus dari ConsoleKit untuk membuka kunci sesi tersebut. Rincian tepatnya dari apa yang terjadi ketika sesi menerima sinyal buka kunci ini tak terdefinisi dan spesifik sesi. Namun kebanyakan sesi akan membuka kunci screensaver sebagai respon.</para>
+
+    <para>Ketika pengguna memilih untuk log keluar, atau bila GDM atau sesi keluar tak disangka-sangka, sesi pengguna akan dikeluarkan dari daftar ConsoleKit.</para>
+  </sect1>
+
+  <!-- ============= Configuration ============================= -->
+
+  <sect1 id="configuration">
+    <title>Konfigurasi</title>
+
+    <para>GDM memiliki sejumlah antar muka konfigurasi. Ini termasuk titik integrasi skrip, konfigurasi daemon, konfigurasi penyapa, pengaturan sesi umum, integrasi dengan konfigurasi gnome-settings-daemon, dan konfigurasi sesi. Integrasi tipe ini diuraikan secara rinci di bawah.</para>
+
+    <sect2 id="scripting">
+      <title>Titik Integrasi Skrip</title>
+      
+      <para>Titik integrasi skrip GDM dapat ditemukan dalam direktori <filename>&lt;etc&gt;/gdm/</filename>:</para>
+
+<screen>
+Xsession
+Init/
+PostLogin/
+PreSession/
+PostSession/
+</screen>
+
+      <para>Skrip <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename>, dan <filename>PostSession</filename> semua bekerja seperti dijelaskan di bawah.</para>
+
+      <para>Untuk setiap jenis skirp, secara baku yang akan dieksekusi dinamai "Default" dan disimpan dalam suatu direktori yang berkaitan dengan tipe skrip. Maka skrip <filename>Init</filename> baku adalah <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Suatu skrip per tampilan dapat disediakan, dan bila ada akan dijalankan sebagai pengganti skrip bawaan. Skrip demikian disimpan di dalam direktori yang sama dengan skrip bawaan dan memiliki nama yang sama dengan nilai DISPLAY Xserver bagi tampilan tersebut. Sebagai contoh, bila skrip <filename>&lt;Init&gt;/:0</filename> ada, itu akan dijalankan bagi DISPLAY ":0".</para>
+
+     <para>Semua skrip ini dijalankan dengan privilese root dan mengembalikan 0 bila dijalankan dengan sukses, dan kode kembalian bukan nol bila ada kegagalan yang mesti menyebabkan sesi login digugurkan. Perhatikan juga bahwa GDM akan memblok sampai skrip selesai, sehingga bila salah satu skrip ini hang, ini akan menyebabkan proses log masuk juga hang.</para>
+
+      <para>Ketika Xserver sebagai GUI log masuk telah sukses dimulai, tapi sebelum GUI log masuk benar-benar ditampilkan, GDM akan menjalankan skrip <filename>Init</filename>. Skrip ini berguna untuk memulai program yang mesti dijalankan ketika layar log masuk tampil, atau untuk melakukan inisialisasi khusus apapun bila diperlukan.</para>
+
+      <para>Setelah pengguna sukses terotentikasi GDM akan menjalankan skrip <filename>PostLogin</filename>. Ini dilakukan sebelum penyiapan sesi manapun dilakukan, termasuk sebelum pemanggilan pam_open_session. Skrip ini berguna untuk melakukan inisialisasi sesi apapun yang perlu terjadi sebelum sesi mulai. Sebagai contoh, Anda mungkin perlu menyiapkan direktori $HOME pengguna bila diperlukan.</para>
+
+      <para>Setelah sesi pengguna diinisialisasi, GDM akan menjalankan skrip <filename>PreSession</filename>. Skrip ini berguna untuk melakukan sebarang inisialisasi sesi yang perlu terjadi setelah sesi diinisialisasi. Ini dapat dipakai untuk manajemen sesi atau akunting, misalnya.</para>
+
+      <para>Ketika seorang pengguna mengakhiri sesinya, GDM akan menjalankan skrip <filename>PostSession</filename>. Perhatikan bahwa Xserver bakal telah berhenti saat skrip ini dijalankan, sehingga itu tak boleh diakses.</para>
+
+      <para>Perhatikan bahwa skrip <filename>PostSession</filename> akan dijalankan bahkan ketika tampilan gagal merespon karena galat I/O atau yang serupa. Jadi tak ada jaminan bahwa aplikasi X akan bekerja selama eksekusi skrip.</para>
+
+      <para>Semua skrip di atas akan menata variabel lingkungan <filename>$RUNNING_UNDER_GDM</filename> ke <filename>yes</filename>. Bila skrip juga dipakai bersama dengan manajer tampilan lain, ini memungkinkan Anda mengidentifikasi ketika GDM sedang memanggil skrip ini, sehingga Anda dapat menjalankan kode khusus ketika GDM sedang dipakai.</para>
+    </sect2>
+
+    <sect2 id="autostart">
+      <title>Konfigurasi Autostart</title>
+      
+      <para>Direktori <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename> memuat berkas dalam format yang dinyatakan oleh "FreeDesktop.org Desktop Application Autostart Specification". Fitur standar dalam spesifikasi itu boleh dipakai untuk menyatakan program yang mesti dijalankan ulang secara otomatis atau hanya diluncurkan bila suatu nilai konfigurasi GConf ditata, dsb.</para>
+
+      <para>Berkas <filename>.desktop</filename> apapun dalam direktori ini akan menyebabkan program yang terkait dijalankan secara otomatis dengan penyapa GUI log masuk. Secara baku, GDM dilengkapi dengan berkas yang akan otomatis menjalankan penyapa GUI log masuk gdm-simple-greeter, aplikasi gnome-power-manager, gnome-settings-daemon, dan manajer jendela metacity. Program-program ini diperlukan agar program penyapa dapat bekerja. Sebagai tambahan, berkas desktop disediakan untuk menjalankan berbagai program AT bila nilai konfigurasi yang dinyatakan dalam bagian Konfigurasi Aksesabilitas di bawah ditata.</para>
+    </sect2>
+
+    <sect2 id="xsessionscript">
+      <title>Skrip Xsession</title>
+
+      <para>Ada juga skrip <filename>Xsession</filename> yang terletak di <filename>&lt;etc&gt;/gdm/Xsession</filename> yang dipanggil antara skrip <filename>PreSession</filename> dan <filename>PostSession</filename>. Skrip ini tak mendukung per-tampilan seperti skrip lain. Skrip ini dipakai untuk benar-benar memulai sesi pengguna. Skrip ini dijalankan sebagai pengguna, dan akan menjalankan sesi apapun yang dinyatakan oleh berkas sesi Desktop yang dipilih pengguna untuk dimulai.</para>
+    </sect2>
+
+    <sect2 id="daemonconfig">
+      <title>Konfigurasi Daemon</title>
+
+      <para>Daemon GDM dikonfigurasi memakai berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename>. Nilai baku disimpan di GConf dalam berkas <filename>gdm.schemas</filename>. Disarankan bahwa pengguna akhir mengubah berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> karena berkas skema mungkin tertimpa ketika pengguna memutakhirkan sistem mereka untuk mendapatkan versi GDM yang lebih baru.</para>
+
+      <para>Perhatikan bahwa GDM versi lebih lama mendukung opsi konfigurasi tambahan yang tak didukung lagi pada versi GDM terakhir.</para>
+
+      <para>Berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> berformat <filename>keyfile</filename>. Kata kunci dalam kurung siku mendefinisikan bagian grup, string sebelum tanda sama dengan adalah kunci dan data setelah tanda sama dengan mewakili nilai mereka. Baris kosong atau baris yang diawali dengan tanda pagar (#) diabaikan.</para>
+
+      <para>Berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> mendukung bagian grup "[daemon]", "[security]", dan "[xdmcp]". Dalam setiap grup, ada pasangan kunci/nilai tertentu yang dapat dinyatakan untuk mengubah bagaimana GDM bertingkahlaku. Sebagai contoh, untuk mengaktifkan log masuk dengan tenggang waktu dan menyatakan bahwa pengguna yang log masuknya diberi tenggang waktu adalah pengguna bernama "you", Anda perlu mengubah berkas sehingga memuat baris-baris berikut:</para>
+     
+<screen>
+[daemon]
+TimedLoginEnable=true
+TimedLogin=you
+</screen>
+
+      <para>Daftar lengkap dari kunci konfigurasi yang didukung adalah sebagai berikut:</para>
+
+      <sect3 id="choosersection">
+        <title>[chooser]</title>
+        <variablelist>
+
+          <varlistentry>
+            <term>Multicast</term>
+            <listitem>
+              <synopsis>Multicast=false</synopsis>
+              <para>Bila true dan IPv6 diaktifkan, chooser akan mengirim suatu query multicast ke jaringan lokal dan mengumpulkan jawaban dari host yang telah bergabung ke grup multicast.</para>
+            </listitem>
+          </varlistentry>
+         
+          <varlistentry>
+            <term>MulticastAddr</term>
+            <listitem>
+              <synopsis>MulticastAddr=ff02::1</synopsis>
+              <para>Ini adalaha alamat multicast Link-local.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="daemonsection">
+        <title>[daemon]</title>
+        <variablelist>
+          <varlistentry>
+            <term>TimedLoginEnable</term>
+            <listitem>
+              <synopsis>TimedLoginEnable=false</synopsis>
+              <para>Bila pengguna yang diberikan dalam <filename>TimedLogin</filename> mesti log masuk setelah sekian detik (diatur dengan <filename>TimedLoginDelay</filename> tanpa aktivitas pada layar log masuk. Ini berguna bagi terminal akses publik atau bahkan penggunaan di rumah. Bila pengguna memakai papan tik atau meramban menu, tenggang waktu akan direset ke <filename>TimedLoginDelay</filename> atau 30 detik, manapun yang lebih tinggi. Bila pengguna tak memasukkan nama tapi hanya menekan tombol ENTER ketika program log masuk meminta nama pengguna, maka GDM akan menganggap bahwa pengguna ingin log masuk seketika sebagai pengguna yang dikenai tenggang waktu. Perhatikan bahwa sandi tak akan diminta bagi pengguna ini sehingga Anda mesti berhati-hati, walaupun bilan menggunakan PAM ini dapat diatur untuk meminta masukan sandi sebelum mengijinkan log masuk. Lihatlah bagian "Keamanan-&gt;PAM" dari manual untuk informasi lebih jauh, atau untuk bantuan bila fitur ini sepertinya tak bekerja.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLogin</term>
+            <listitem>
+              <synopsis>TimedLogin=</synopsis>
+              <para>Ini adalah pengguna yang mesti dilogmasukkan setelah sekian detik tanpa aktivitas seperti yang dinyatakan.</para>
+              <para>Bila nilai diakhiri dengan batang vertikal (simbol pipa), maka GDM akan menjalankan program yang dinyatakan dan memakai nilai apapun yang dikembalikan pada standard out dari program sebagai pengguna. Program dijalankan dengan variabel lingkungan DISPLAY ditata sehingga mungkin untuk menyatakan pengguna dengan cara  per-tampilan. Sebagai contoh bila nilainya adalah "/usr/bin/getloginuser|", maka program "/usr/bin/getloginuser" akan dijalankan untuk mendapat nilai pengguna.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLoginDelay</term>
+            <listitem>
+              <synopsis>TimedLoginDelay=30</synopsis>
+              <para>Tundaan dalam detik sebelum pengguna <filename>TimedLogin</filename> akan dilogmasukkan.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLoginEnable</term>
+            <listitem>
+              <synopsis>AutomaticLoginEnable=false</synopsis>
+              <para>Bila berisi true, pengguna yang diberikan dalam <filename>AutomaticLogin</filename> mesti dilogmasukkan seketika. Fitur ini seperti log masuk dengan tenggang waktu 0 detik.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLogin</term>
+            <listitem>
+              <synopsis>AutomaticLogin=</synopsis>
+              <para>Ini adalah pengguna yang mesti seketika log masuk bila <filename>AutomaticLoginEnable</filename> berisi true.</para>
+              <para>Bila nilai diakhiri dengan batang vertikal (simbol pipa), maka GDM akan menjalankan program yang dinyatakan dan memakai nilai apapun yang dikembalikan pada standard out dari program sebagai pengguna. Program dijalankan dengan variabel lingkungan DISPLAY ditata sehingga mungkin untuk menyatakan pengguna dengan cara  per-tampilan. Sebagai contoh bila nilainya adalah "/usr/bin/getloginuser|", maka program "/usr/bin/getloginuser" akan dijalankan untuk mendapat nilai pengguna.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>User</term>
+            <listitem>
+              <synopsis>User=gdm</synopsis>
+              <para>Nama pengguna yang menjalankan penyapa dan program GUI lainnya. Lihat kunci konfigurasi <filename>Group</filename> dan bagian "Keamanan-&gt;Pengguna Dan Grup GDM" dari dokumentasi ini untuk informasi lebih lanjut.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Group</term>
+            <listitem>
+              <synopsis>Group=gdm</synopsis>
+              <para>Nama grup yang menjalankan penyapa dan program GUI lainnya. Lihat kunci konfigurasi <filename>Group</filename> dan bagian "Keamanan-&gt;Pengguna Dan Grup GDM" dari dokumentasi ini untuk informasi lebih lanjut.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="debugsection">
+        <title>Opsi Debug</title>
+      
+        <variablelist>
+          <title>[debug]</title>
+          
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Untuk memungkinkan pengawakutuan, atur kunci debug/Enable ke "true" dalam berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> dan mulai ulang GDM. Maka keluaran pengawakutuan akan kemudian dikirim ke  berkas log sistem (<filename>&lt;var&gt;/log/messages</filename> atau <filename>&lt;var&gt;/adm/messages</filename> bergantung kepada Sistem Operasi Anda).</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="greetersection">
+        <title>Opsi Greeter</title>
+      
+        <variablelist>
+          <title>[greeter]</title>
+          
+          <varlistentry>
+            <term>IncludeAll</term>
+            <listitem>
+              <synopsis>IncludeAll=true</synopsis>
+              <para>Bila berisi true, maka peramban wajah akan menampilkan semua pengguna pada mesin lokal. Bila berisi false, maka peramban wajah hanya akan menampilkan pengguna yang baru-baru ini log masuk.</para>
+
+              <para>Bila kunci ini berisi true, GDM akan memanggil fgetpwent() untuk memperoleh daftar pengguna lokal pada sistem. Sebarang pengguna dengan id pengguna kurang dari 500 (atau 100 bila menjalankan Oracle Solaris) tak akan lolos saringan. Peramban Wajah juga akan menampilkan sebarang pengguna yang sebelumnya log masuk ke sistem (sebagai contoh pengguna NIS/LDAP). Daftar ini didapat dari pemanggilan antar muka ConsoleKit <command>ck-history</command>. Ini juga akan menyingkirkan pengguna yang tak memiliki shell yang valid (shell valid adalah sebarang shell yang dikembalikan oleh getusershell() - /sbin/nologin atau /bin/false dianggap sebagai shell yang tak valid walaupun getusershell() mengembalikan mereka).</para>
+
+              <para>Bila berisi false, maka GDM hanya sekedar menampilkan pengguna yang sebelumnya pernah log masuk ke sistem (pengguna lokal atau NIS/LDAP) dengan memanggil antar muka ConsoleKit <command>ck-history</command>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Include</term>
+            <listitem>
+              <synopsis>Include=</synopsis>
+              <para>Diisi dengan daftar pengguna yang selalu disertakan dalam Peramban Wajah. Nilai ini diisi dengan daftar pengguna yang dipisah dengan koma. Nilai bawaan adalah kosong.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Exclude</term>
+            <listitem>
+              <synopsis>Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
+              <para>Diisi dengan daftar pengguna yang selalu tidak disertakan dalam Peramban Wajah. Nilai ini diisi dengan daftar pengguna yang dipisah dengan koma. Perhatikan bahwa pengaturan dalam <filename>custom.conf</filename> menimpa nilai bawaan, sehingga ketika Anda hendak menambahkan pengguna ke daftar, maka Anda perlu menata nilai ke nilai bawaan dengan pengguna tambahan ditambahkan ke daftar.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="securitysection">
+        <title>Opsi Keamanan</title>
+      
+        <variablelist>
+          <title>[security]</title>
+          
+          <varlistentry>
+            <term>DisallowTCP</term>
+            <listitem>
+              <synopsis>DisallowTCP=true</synopsis>
+              <para>Bila berisi true, maka selalu menambahkan <filename>-nolisten tcp</filename> ke baris perintah ketika memulai Xserver yang dicantol, sehingga melarang koneksi TCP. Ini konfigurasi yang lebih aman bila Anda tak memakai koneksi jauh.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="xdmcpsection">
+        <title>Dukungan XDMCP</title>
+
+        <variablelist>
+          <title>[xdmcp]</title>
+          
+          <varlistentry>
+            <term>DisplaysPerHost</term>
+            <listitem>
+              <synopsis>DisplaysPerHost=1</synopsis>
+              <para>Untuk mencegah penyerang memenuhi antrian yang tertunda, GDM hanya akanmengijinkan satu koneksi bagi setiap komputer jauh. Bila Anda ingin menyediakanlayanan tampilan ke komputer yang memiliki lebih dari satu layar, Anda mesti menaikkan nilai ini.</para>
+
+              <para>Perhatikan bahwa cacah DISPLAY tercantol yang diijinkan tak dibatasi. Hanya koneksi jauh melalui XDMCP yang dibatasi oleh opsi konfigurasi ini.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Menata ini ke true memungkinkan dukungan XDMCP yang mengijinkan tampilan jauh/terminal X dikelola oleh GDM.</para>
+            
+              <para><filename>gdm</filename> mendengarkan permintaan pada UDP port 177. Lihat opsi Port untuk informasi lebih jauh.</para>
+              
+              <para>Bila GDM dikompail untuk mendukungnya, akses dari tampilan jauh dapat dikendalikan memakai pustaka TCP Wrapper. Nama layanan adalah <filename>gdm</filename></para>
+            
+              <para>Ada mesti menambah <screen>
+gdm:.my.domain
+</screen> ke <filename>&lt;etc&gt;/hosts.allow</filename> Anda, bergantung kepada konfigurasi TCP Wrapper Anda. Lihat halaman man <ulink type="help" url="man:hosts.allow">hosts.allow</ulink> untuk rinciannya.</para>
+              
+              <para>Mohon diperhatikan bahwa XDMCP bukan protokol yang aman dan ide yang bagus untuk memblokir UDP port 177 pada firewall Anda kecuali Anda memang memerlukannya.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>HonorIndirect</term>
+            <listitem>
+              <synopsis>HonorIndirect=true</synopsis>
+              <para>Fungsikan pemilihan XDMCP INDIRECT (yaitu eksekusi jauh dari <filename>gdmchooser</filename>) bagi X-terminal yang tak menyediakan peramban tampilannya sendiri.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxPending</term>
+            <listitem>
+              <synopsis>MaxPending=4</synopsis>
+              <para>Untuk menghindari serangan penyangkalan layanan, GDM memiliki antrian sambungan yang tertunda berukuran tetap. Hanya MaxPending tampilan yang dapat dimulai pada saat yang sama.</para>
+            
+              <para>Mohon dicatat bahwa parameter ini tak membatasi cacah tampilan jauh yang dapat dikelola. Ini hanya membatasi cacah tampilan yang mengawali koneksi secara simultan.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxSessions</term>
+            <listitem>
+              <synopsis>MaxSessions=16</synopsis>
+              <para>Menentukan cacah maksimum dari koneksi tampilan jauh yang akan dikelola secara simultan. Yaitu cacah total tampilan jauh yang dapat memakai host Anda.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxWait</term>
+            <listitem>
+              <synopsis>MaxWait=30</synopsis>
+              <para>Ketika GDM siap untuk mengelola suatu tampilan, suatu paket ACCEPT dikirim kepadanya, yang memuat id sesi unik yang akan dipakai dalam percakapan XDMCP di masa mendatang.</para>
+            
+              <para>GDM lalu akan menempatkan id sesi ke dalam antrian tertunda yang menunggu tampilan merespon dengan permintaan MANAGE.</para>
+            
+              <para>Bila tak ada respon yang diterima dalam MaxWait detik, GDM akan menyatakan bahwa tampilan mati dan menghapusnya dari antrian tertunda, membebaskan slot bagi tampilan lain.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxWaitIndirect</term>
+            <listitem>
+              <synopsis>MaxWaitIndirect=30</synopsis>
+              <para>Parameter MaxWaitIndirect menentukan berapa detik maksimum antara waktu ketika pengguna memilih suatu host dan query tak langsung kelanjutannya dimana pengguna tersambung ke host. Ketika tenggang waktu dilampaui, informasi tentang host yang dipilih dilupakan dan slot tak langsung dibebaskan bagi tampilan lain. Informasi mungkin dilupakan lebih awal bila ada lebih banyak host mencoba mengirim query tak langsung daripada <filename>MaxPendingIndirect</filename>.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>PingIntervalSeconds</term>
+            <listitem>
+              <synopsis>PingIntervalSeconds=60</synopsis>
+              <para>Bila Xserver tak merespon dalam sekian detik yang dinyatakan, maka koneksi dihentikan dan sesi diakhiri. Ketika ini terjadi daemon mati dengan sinyal ALARM. Perhatikan bahwa GDM 2.20 dan sebelumnya mengalikan 2 pengaturan ini, sehingga mungkin perlu menaikkan tenggang waktu bila meningkatkan dari GDM 2.20 dan sebelumnya ke versi yang lebih baru.</para>
+
+              <para>Perhatikan bahwa GDM di masa lalu biasa memiliki kunci konfigurasi <filename>PingInterval</filename> dalam satuan menit. Untuk kebanyakan tujuan Anda akan menginginkan pengaturan ini agar kurang dari satu meni. Namun karena dalam kebanyakan kasus dimana XDMCP akan dipakai (seperti pada lab terminal), lag lebih dari sekitar 15 detik sesungguhnya berarti bahwa terminal dimatikan atau dimulai ulang dan Anda ingin mengakhiri sesi tersebut.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Port</term>
+            <listitem>
+              <synopsis>Port=177</synopsis>
+              <para>Nomor port UDP yang mesti didengar oleh <filename>gdm</filename> bagi permintaan XDMCP. Jangan mengubah ini kecuali Anda tahu apa yang Anda lakukan.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Willing</term>
+            <listitem>
+              <synopsis>Willing=&lt;etc&gt;/gdm/Xwilling</synopsis>
+              <para>Ketika mesin mengirim balik paket WILLING setelah QUERY, dia mengirim string yang memberikan status terkini dari server ini. Pesan baku adalah ID sistem, tapi mungkin untuk membuat skrip yang menampilkan pesan ubahan. Bila skrip ini tak ada atau kunci ini kosong maka pesan baku yang dikirim. Bila skrip ini sukses dan menghasilkan suatu keluaran, baris pertama keluaran yang akan dikirim (dan hanya baris pertama). Itu dijalankan paling sering sekali dalam 3 detik untuk mencegah kemungkinan denial of service dengan membanjiri mesin dengan paket QUERY.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+    </sect2>
+
+    <sect2 id="greeterconfiguration">
+        <title>Konfigurasi Penyapa Sederhana</title>
+
+        <para>Penyapa bawaan GDM dinamai Simple Greeter dan ditata melalui GConf. Nilai bawaan disimpan dalam GConf pada berkas <filename>gdm-simple-greeter.schemas</filename>. Nilai bawaan ini dapat ditimpa bila pengguna "gdm" memiliki direktori $HOME yang dapat ditulisi untuk menyimpan tatanan GConf. Nilai-nilai ini dapat disunting memakai program <command>gconftool-2</command> atau <command>gconf-editor</command>. Opsi konfigurasi berikut didukung:</para>
+
+        <variablelist>
+          <title>Kunci Konfigurasi Penyapa</title>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_enable</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Mengendalikan apakah teks pesan banner ditampilkan.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_text</term>
+            <listitem>
+              <synopsis>NULL (string)</synopsis>
+              <para>Menyatakan pesan banner teks untuk ditampilkan pada jendela penyapa.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Mengendalikan apakah menampilkan tombol hidupkan ulang komputer pada jendela log masuk.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_user_list</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Bila true, maka peramban wajah dengan pengguna yang dikenal tak ditampilkan di jendela log masuk.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/logo_icon_name</term>
+            <listitem>
+              <synopsis>komputer (string)</synopsis>
+              <para>Tata ke nama ikon ditemakan untuk dipakai bagi logo penyapa.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-languages</term>
+            <listitem>
+              <synopsis>[] (daftar string)</synopsis>
+              <para>Tata ke daftar bahasa yang akan ditampilkan secara baku dalam jendela log masuk. Nilai baku adalah "[]". Dengan tatanan bawaan hanya bahasa bawaan sistem yang ditampilkan dan opsi "Lainnya..." yang memunculkan suatu kotak dialog yang menampilkan daftar lengkap bahasa yang tersedia tempat pengguna dapat memilih.</para>
+
+              <para>Pengguna tak diharapkan mengubah pengaturan ini secara manual. Sebagai gantinya, GDM melacak sebarang bahasa yang dipilih dalam kunci konfigurasi ini, dan akan menampilkan mereka dalam kotak kombo bahasa bersama dengan pilihan "Lainnya...". Dengan cara ini, bahasa yang umum dipilih akan lebih mudah dipilih.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-layouts</term>
+            <listitem>
+              <synopsis>[] (daftar string)</synopsis>
+              <para>Ditata ke daftar tata letak papan tik yang secara baku akan ditampilkan pada panel log masuk. Nilai bawaan adalah "[]". Dengan pengaturan baku hanya tata letak papan tik bawaan sistem yang ditampilkan dan opsi "Lainnya..." yang memunculkan kotak dialog yang menunjukkan daftar lengkap tata letak papan tik yang tersedia yang dapat dipilih oleh pengguna.</para>
+
+              <para>Pengguna tak diharapkan mengubah pengaturan ini secara manual. Sebagai gantinya, GDM melacak sebarang tata letak papan tik yang dipilih dalam kunci konfigurasi ini, dan akan menampilkan mereka dalam kotak kombo tata letak papan tik bersama dengan pilihan "Lainnya...". Dengan cara ini, tata letak papan tik yang umum dipilih akan lebih mudah dipilih.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Mengendalikan apakah compiz dipakai sebagai manajer jendela menggantikan metacity.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+    </sect2>
+
+    <sect2 id="accessibilityconfiguration">
+     <title>Konfigurasi Aksesibilitas</title>
+
+      <para>Seksi ini menjelaskan opsi konfigurasi aksesibilitas yang tersedia dalam GDM.</para>
+
+      <sect3 id="accessibilitydialog">
+        <title>Dialog Aksesibilitas GDM Dan Kunci GConf</title>
+
+        <para>Panel penyapa GDM pada layar log masuk menampilkan ikon aksesibilitas. Bila ikon tersebut diklik akan membuka Dialog Aksesibilitas GDM. Dalam Dialog Aksesibilitas GDM, ada daftar kotak contreng, sehingga pengguna dapat mengaktifkan atau menonaktifkan perkakas bantu yang terkait.</para>
+
+        <para>Kotak contreng yang terkait dengan perkakas bantu papan tik pada layar, pembesar layar, dan pembaca layar beraksi pada tiga kunci GConf yang diuraikan pada seksi selanjutnya dari dokumen ini. Dengan mengaktifkan atau mematikan kotak-kotak contreng ini, kunci GConf yang terkait akan ditata ke "true" atau "false". Ketika kunci GConf diisi dengan true, perkakas bantu yang terkait ke kunci GConf ini diluncurkan. Ketika kunci GConf diisi dengan "false", perkakas bantu terkait kunci GConf ini diakhiri bila berjalan. Kunci-kunci GConf ini tak direset ke keadaan bawaan secara otomatis setelah pengguna log masuk. Konsekuensinya, perkakas bantu yang berjalan selama sesi log masuk terakhir akan otomatis diluncurkan pada sesi log masuk selanjutnya.</para>
+
+        <para>Kotak contreng lain dalam Dialog Aksesibilitas GDM tak memiliki kunci GConf yang berkaitan karena tak ada program tambahan yang diluncurkan untuk menyediakan fitur aksesibilitas yang mereka tawarkan. Ops lain ini berkaitan dengan fitur aksesibilitas yang disediakan oleh Xserver, yang selalu berjalan selama sesi GDM.</para>
+      </sect3>
+
+      <sect3 id="accessibilitygconfconfiguration">
+        <title>Kunci GConf Aksesibilitas</title>
+
+        <para>GDM menawarkan kunci GConf berikut untuk mengendalikan fitur aksesibilitasnya:</para>
+
+        <variablelist>
+          <title>Kunci Konfigurasi GDM</title>
+
+          <varlistentry>
+            <term>/desktop/gnome/interface/accessibility</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Mengendalikan apakah infrastruktur Aksesibilitas akan dimulai dengan GUI GDM. Ini diperlukan oleh banyak program teknologi aksesibilitas agar bekerja.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Bila ditata, alat asistif yang dikaitkan ke kunci GConf ini akan dimulai dengan program GUI GDM. Secara baku ini adalah aplikasi pembesaran layar.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_keyboard_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Bila ditata, alat asistif yang dikaitkan ke kunci GConf ini akan dimulai dengan program GUI GDM. Secara baku ini adalah aplikasi papan tik di layar.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_reader_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Bila ditata, alat asistif yang dikaitkan ke kunci GConf ini akan dimulai dengan program GUI GDM. Secara baku ini adalah aplikasi pembaca layar.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="accessibilitytoolsconfiguration">
+        <title>Mengaitkan Kunci GConf ke Alat Aksesibilitas</title>
+
+        <para>Untuk kunci GConf screen_magnifier_enabled, screen_keyboard_enabled, dan screen_reader_enabled, perkakas asistif yang diluncurkan bergantung kepada berkas desktop yang terletak di direktori autostart GDM sebagaimana diuraikan dalam bagian "Konfigurasi Mulai Otomatis" dari manual ini. Sebarang berkas desktop dalam direktori autostart GDM dapat ditautkan ke kunci GConf ini dengan menyatakan kunci GConf itu dalam nilai AutostartCondition pada berkas desktop. Maka baris AutostartCondition dalam berkas desktop secara persis bisa salah satu dari berikut:</para>
+
+<screen>
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
+</screen>
+
+        <para>Ketika suatu kunci aksesibilitas berisi true, maka sebarang program yang ditautkan ke kunci tersebut dalam suatu berkas desktop autostart GDM akan diluncurkan (kecuali kunci Tersembunyi diisi true dalam berkas desktop tersebut). Suatu kunci GConf tunggal bahkan dapat memulai beberapa perkakas asistif bila ada beberapa berkas desktop dengan AutostartCondition ini dalam direktori autostart GDM.</para>
+      </sect3>
+
+      <sect3 id="accessibilitytoolexample">
+        <title>Contoh Pengubahan Konfigurasi Alat Aksesibilitas</title>
+
+        <para>Sebagai contoh, bila GNOME didistribusikan dengan GOK sebagai papan tik pada layar bawaan, maka ini dapat digantikan dengan program lain bila dikehendaki. Untuk mengganti GOK dengan aplikasi papan tik pada layar "onboard" dan sebagai tambah mengaktifkan perkakas asistif "mousetweaks" untuk dukungan dwelling, maka konfigurasi berikut diperlukan.</para>
+
+        <para>Buatlah suatu berkas desktop bagi onboard dan yang kedua bagi mousetweaks; sebagai contoh, onboard.desktop dan mousetweaks.desktop. Berkas-berkas ini mesti ditempatkan dalam direktori autostart GDM dan dalam format yang diterangkan dalam bagian "Konfigurasi Mulai Otomatis" dari dokumen ini.</para>
+
+        <para>Berikut ini adalah contoh berkas <filename>onboard.desktop</filename>:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Onboard Onscreen Keyboard
+Comment=Use an on-screen keyboard
+TryExec=onboard
+Exec=onboard --size 500x180 -x 20 -y 10
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Berikut ini adalah contoh berkas <filename>mousetweaks.desktop</filename>:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Software Mouse-Clicks
+Comment=Perform clicks by dwelling with the pointer
+TryExec=mousetweaks
+Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Perhatikan baris dengan AutostartCondition yang menautkan kedua berkas desktop ke kunci GConf bagi papan tik pada layar.</para>
+
+        <para>Untuk mencegah GOK dimulai, berkas desktop bagi papan tik pada layar GOK mesti dihapus atau dimatikan. Bila tidak maka onboard dan GOK akan dimulai secara simultan. Ini dapat dilakukan dengan menghapus berkas gok.desktop dari direktori mulai-sendiri GDM atau dengan menambahkan pengaturan kunci "Hidden=true" ke berkas gok.desktop.</para>
+
+        <para>Setelah membuat perubahan ini, GOK tak akan lagi dimulai ketika pengguna mengaktifkan papan tik pada layar dalam sesi GDM, tapi sebagai gantinya yang akan diluncurkan adalah onboard dan mousetweaks.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="generalsessionconfig">
+      <title>Tatanan Sesi Umum</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to be more specific about
+                 how lock down management is handled.
+</para>
+-->
+        <para>Penyapa GDM memakai beberapa dari framework yang sama dengan yang akan dipakai oleh sesi desktop Anda. Maka itu dipengaruhi oleh sejumlah pengaturan GConf yang sama. Bagi setiap pengaturan ini Penyapa akan memakai nilai bawaan kecuali ditimpa secara spesifik oleh a) kebijakan wajib terpasang GDM b) kebijakan wajib sistem. GDM memasang kebijakan wajibnya sendiri untuk mengunci beberapa pengaturan demi keamanan.</para>
+    </sect2>
+
+    <sect2 id="gnomesettingsdaemon">
+      <title>Daemon Penataan GNOME</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to give a more complete
+                 list of plugins that users might want to consider disabling.
+                 Also, shouldn't we list the sound/active key in the Greeter
+                 configuration setting?  Oddly I do not find this key used
+                 in anything but the chooser in SVN.
+</para>
+-->
+
+        <para>GDM mengaktifkan plugin gnome-settings-daemon berikut: a11y-keyboard, background, sound, xsettings.</para>
+
+        <para>Ini bertanggungjawab bagi hal-hal seperti gambar latar, pengaturan fonta dan tema, kejadian-kejadian bersuara, dsb.</para>
+
+        <para>Plugin juga dapat dinonaktifkan memakai GConf. Sebagai contoh, bila Anda ingin mematikan plugin suara maka hapuskan tatanan kunci berikut: <filename>/apps/gdm/simple-greeter/settings-manager-plugins/sound/active</filename>.</para>
+    </sect2>
+
+    <sect2 id="sessionconfig">
+      <title>Konfigurasi Sesi GDM</title>
+
+      <para>Sesi GDM dinyatakan memakai Spesifikasi Entri Desktop FreeDesktop.org, yang dapat dirujuk pada URL berikut: <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"> http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</ulink>.</para>
+
+      <para>Secara baku, GDM akan memasang berkas desktop dalam direktori <filename>&lt;share&gt;/xsessions</filename>. GDM akan mencari dalam direktori berikut, sesuai urutan, untuk mencari berkas desktop: <filename>&lt;etc&gt;/X11/sessions/</filename>, <filename>&lt;dmconfdir&gt;/Sessions</filename>, <filename>&lt;share&gt;/xsessions</filename>, dan <filename>&lt;share&gt;/gdm/BuiltInSessions</filename>. Secara baku <filename>&lt;dmconfdir&gt;</filename> ditata ke <filename>&lt;etc&gt;/dm/</filename> kecuali GDM ditata untuk memakai direktori lain melalui opsi "--with-dmconfdir".</para>
+
+      <para>Suatu sesi dapat dimatikan dengan menyunting berkas desktop dan menambahkan baris berikut: <filename>Hidden=true</filename>.</para>
+
+      <para>Berkas desktop GDM mendukung ekstensi spesifik GDM, suatu kunci bernama "X-GDM-BypassXsession". Bila kunci itu tak dinyatakan dalam suatu berkas desktop, nilai bawaannya adalah "false". Bila kunci ini dinyatakan dengan nilai "true" dalam suatu berkas desktop, maka GDM akan meluncurkan program yang dinyatakan oleh kunci "Exec" berkas desktop secara langsung ketika mengawali sesi pengguna. Itu tidak akan menjalankan program melalui skrip <filename>&lt;etc&gt;/gdm/Xsession</filename>, yang merupakan perilaku normal. Karena mem-bypass skrip <filename>&lt;etc&gt;/gdm/Xsession</filename> menghindari menyiapkan sesi pengguna dengan pengaturan pengguna dan sistem normal, sesi yang dimulai dengan cara ini dapat berguna untuk mengawakutu masalah dalam skrip pengguna atau sistem yang mungkin mencegah seorang pengguna untuk mengawali suatu sesi.</para>
+
+    </sect2>
+
+    <sect2 id="userconfig">
+      <title>Konfigurasi Bahasa dan Sesi Pengguna GDM </title>
+      <para>Pilihan bahasa dan sesi baku pengguna disimpan di dalam berkas <filename>~/.dmrc</filename>. Ketika pengguna log masuk untuk pertama kali, berkas ini dibuat dan diisi dengan pilihan awal pengguna. Pengguna dapat mengubah nilai bawaan ini hanya dengan mengubah ke nilai yang berbeda ketika sedang log masuk. GDM akan mengingat perubahan ini untuk log masuk seterusnya.</para>
+
+      <para>Berkas <filename>~/.dmrc</filename> memakai standar format <filename>INI</filename>. Dia memiliki satu bagian bernama <filename>[Desktop]</filename> yang memiliki dua kunci: <filename>Session</filename> dan <filename>Language</filename>.</para>
+
+      <para>Kunci <filename>Session</filename> menyatakan nama basis dari berkas <filename>.desktop</filename> sesi yang biasanya ingin dipakai oleh pengguna tanpa ekstensi <filename>.desktop</filename>. Kunci <filename>Language</filename> menyatakan bahasa bawaan yang ingin dipakai oleh pengguna. Bila salah satu kunci tersebut hilang, akan dipakai bawaan sistem. Berkas biasanya nampak sebagai berikut:</para>
+
+<screen>
+[Desktop]
+Session=gnome
+Language=id_ID.UTF-8
+</screen>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= GDM Commands ============================= -->
+
+  <sect1 id="binaries">
+    <title>Perintah GDM</title>
+
+    <sect2 id="sbindir_binaries">
+      <title>Perintah Pengguna Root GDM</title>
+
+      <para>Paket GDM menyediakan perintah berikut di <filename>sbindir</filename> yang dimaksudkan untuk dijalankan oleh pengguna root:</para>
+
+      <sect3 id="gdmcommandline">
+        <title>Opsi Perintah Baris <command>gdm</command></title>
+
+        <para><command>gdm</command> adalah daemon utama yang menyiapkan lingkungan log masuk grafis dan memulai para pembantu yang diperlukan.</para>
+
+        <variablelist>
+          <title>Opsi Perintah Baris <command>gdm</command></title>
+
+          <varlistentry>
+            <term>-?, --help</term>
+            <listitem>
+              <para>Memberi kilasan singkat atas opsi perintah baris.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--fatal-warnings</term>
+            <listitem>
+              <para>Buat semua peringatan menyebabkan GDM keluar.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--timed-exit</term>
+            <listitem>
+              <para>Keluar setelah 30 detik. Berguna untuk pengawakutuan.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--version</term>
+            <listitem>
+              <para>Cetak versi daemon GDM.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="gdmrestartcommandline">
+        <title>Opsi Perintah Baris <command>gdm-restart</command></title>
+
+        <para><command>gdm-restart</command> menghentikan dan memulai ulang GDM dengan mengirim sinyal HUP ke daemon GDM. Perintah ini akan seketika menghentikan semua sesi dan melog keluar pengguna yang sedang log masuk dengan GDM.</para>
+      </sect3>
+
+      <sect3 id="gdmsaferestartcommandline">
+        <title>Opsi Perintah Baris <command>gdm-safe-restart</command></title>
+  
+        <para><command>gdm-safe-restart</command> menghentikan dan memulai ulang GDM dengan mengirim sinyal USR1 ke daemon GDM. GDM akan direstart segera setelah semua pengguna log keluar.</para>
+      </sect3>
+
+      <sect3 id="gdmstopcommandline">
+        <title>Opsi Perintah Baris <command>gdm-stop</command></title>
+
+        <para><command>gdm-stop</command> menghentikan GDM dengan cara mengirim sinyal TERM ke daemon GDM.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Troubleshooting =========================== -->
+
+  <sect1 id="troubleshooting">
+    <title>Penanganan Masalah</title>
+<!--
+<para>
+      TODO - any other tips we should add?  Might be useful to highlight any
+             common D-Bus configuration issues?
+</para>
+-->
+
+    <para>Bagian ini membahas petunjuk-petunjuk yang berguna agar GDM dapat berjalan. Secara umum, bila Anda menemui masalah saat memakai GDM, Anda dapat mengirim kutu atau surel ke milis gdm-list. Informasi tentang bagaimana melakukan ini ada pada bagian pengantar dokumen ini.</para>
+
+    <para>Bila GDM gagal bekerja dengan benar, sangat baik untuk menyertakan informasi awakutu. Untuk mengaktifkan pengawakutuan, tata kunci debug/Enable ke "true" di berkas <filename>&lt;etc&gt;/gdm/custom.conf</filename> dan mulai ulang GDM. Lalu gunakan GDM sampai titik kegagalan, dan keluaran awakutu akan dikirim ke berkas log sistem (<filename>&lt;var&gt;/log/messages</filename> atau <filename>&lt;var&gt;/adm/messages</filename> bergantung kepada Sistem Operasi Anda). Bila Anda berbagi keluaran ini dengan komunitas GDM melalui laporan kutu atau surel, mohon hanya sertakan informasi awakutu yang terkait GDM dan bukan seluruh berkas karena itu bisa jadi besar. Bila Anda tidak melihat keluaran syslog GDM apapun, mungkin Anda perlu menata ulang syslog (lihat halaman man <ulink type="help" url="man:syslog">syslog</ulink>).</para>
+
+    <sect2 id="wontstart">
+      <title>GDM Tidak Akan Dimulai</title>
+
+      <para>Banyak masalah yang dapat menyebabkan GDM gagal berjalan, tapi bagian ini akan membahas beberapa masalah umum dan bagaimana melacak suatu masalah memulai GDM. Beberapa masalah akan menyebabkan GDM merespon dengan pesan galat atau dialog ketika ia mencoba memulai, tapi bisa menjadi sulit melacak masalah ketika GDM gagal diam-diam.</para>
+
+      <para>Pertama pastikan bahwa Xserver ditata dengan benar. Berkas konfigurasi GDM memuat suatu perintah di bagian [server-Standard] yang dipakai untuk memulai Xserver. Periksa bahwa perintah ini bekerja baik pada sistem Anda. Menjalankan perintah ini dari konsol mestinya memulai Xserver. Bila gagal, maka masalahnya boleh jadi pada konfigurasi Xserver Anda. Lihat log galat Xserver Anda untuk ide apa kemungkinan masalahnya. Masalah mungkin juga karena bahwa Xserver Anda memerlukan opsi perintah baris yang berbeda. Bila begitu, maka ubahlah perintah Xserver di berkas konfigurasi GDM sehingga tepat bagi sistem Anda.</para>
+
+      <para>Pastikan juga bahwa direktori <filename>/tmp</filename> memiliki kepemilikan dan ijin yang memadai, dan sistem berkas mesin tak penuh. Masalah-masalah ini akan menyebabkan GDM gagal dijalankan.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Application License ============================= -->
+
+  <sect1 id="license">
+    <title>Lisensi</title>
+    <para>Program ini adalah perangkat lunak bebas; Anda dapat menyebarluaskannya dan/atau mengubahnya di bawah syarat <ulink type="help" url="gnome-help:gpl"> <citetitle>GNU General Public License</citetitle></ulink> sebagaimana dipublikasikan oleh Free Software Foundation; baik versi 2 dari Lisensi, atau (terserah pilihan Anda) versi setelahnya.</para>
+    <para>Program ini didistribusikan dengan harapan akan berguna, tetapi TANPA ADANYA JAMINAN; termasuk tanpa jaminan KETERDAGANGAN atau KECOCOKAN UNTUK TUJUAN TERTENTU. Lihat <citetitle>GNU General Public License</citetitle> untuk rincian lebih lanjut.</para>
+    <para>Suatu salinan dari <citetitle>GNU General Public License</citetitle> disertakan sebagai lampiran dari <citetitle>Panduan Pengguna GNOME</citetitle>. Anda juga dapat memperoleh salinan dari <citetitle>GNU General Public License</citetitle> dari Free Software Foundation dengan mengunjungi <ulink type="http" url="http://www.fsf.org">laman Web mereka</ulink> atau dengan mengirim surat ke <address>
+      Free Software Foundation, Inc.
+      <street>51 Franklin Street, Fifth Floor</street>
+      <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>
+      <country>USA</country>
+      </address></para>
+  </sect1>
+</article>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

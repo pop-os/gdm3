@@ -17,9 +17,12 @@ usr/share/gnome-session/
 usr/share/dconf/
 var/*
 
-debian/Xsession				etc/gdm3
+# debian/Xsession				etc/gdm3
 debian/greeter.dconf-defaults*		usr/share/gdm
-debian/default.desktop			usr/share/gdm/BuiltInSessions
+# Don't install unnecessary "System X11 Default" on Ubuntu
+# debian/default.desktop			usr/share/gdm/BuiltInSessions
 debian/generate-config			usr/share/gdm
 debian/insserv.conf.d			etc
 data/dconf/defaults/*			usr/share/gdm/dconf
+# Add the default.pa file to disable Bluetooth audio in GDM. LP: #1703415
+debian/default.pa                       usr/share/gdm

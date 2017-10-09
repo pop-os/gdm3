@@ -8,6 +8,8 @@ include /usr/share/dpkg/architecture.mk
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 include /usr/share/dpkg/buildflags.mk
 
+binaries := $(shell dh_listpackages)
+
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 CONFFLAGS += \
 	--enable-wayland-support \
@@ -54,9 +56,9 @@ override_dh_auto_configure:
 		--libexecdir=\$${prefix}/lib/gdm3 \
 		--disable-static \
 		--enable-ipv6=yes \
+		--enable-gdm-xsession \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
 		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
-		--with-custom-conf=/etc/gdm3/daemon.conf \
 		--with-sysconfsubdir=gdm3 \
 		--with-working-directory=/var/lib/gdm3 \
 		--with-xauth-dir=/var/run/gdm3 \
@@ -66,7 +68,6 @@ override_dh_auto_configure:
 		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
-		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-lang-file=/etc/default/locale \
 		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
@@ -79,21 +80,24 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 
 override_dh_install:
 	find debian/tmp -name '*.la' -print -delete
+	rm -rf debian/*/var/lib/gdm3/.[cgl]*
 	rm -rf debian/tmp/var/run
 	dh_install
+ifneq ($(filter gdm3,$(binaries)),)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
-	chmod 755 debian/gdm3/etc/gdm3/Xsession
+#	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
 	dh_installpam -pgdm3 --name=gdm-autologin
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
 	dh_installpam -pgdm3 --name=gdm-fingerprint
+endif
 
 override_dh_missing:
 	dh_missing --list-missing
 
 override_dh_installinit:
-	dh_installinit --noscripts
+	dh_installinit --noscripts --no-start
 
 override_dh_auto_clean:
 	dh_auto_clean

@@ -12,7 +12,7 @@ B<gdm3> is the equivalent of xdm(1x) or wdm(1x), but uses the GNOME
 libraries to provide a GNOME look-and-feel. It provides the GNOME
 equivalent of a "login:" prompt.
 
-B<gdm3> reads F</etc/gdm3/daemon.conf> for its configuration. For each
+B<gdm3> reads F</etc/gdm3/custom.conf> for its configuration. For each
 local display, gdm starts an X server and runs a minimal GNOME session
 including a graphical greeter. If configured so, the main gdm process
 also listens for XDMCP requests from remote displays. These requests
