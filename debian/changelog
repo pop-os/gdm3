@@ -56,9 +56,8 @@ gdm3 (3.26.1-3ubuntu1) UNRELEASED; urgency=medium
     + debian/gdm3.postinst
       - Added installation of default.pa and creation of dir if it doesn't
         exist.
-    + debian/patches/95_hide_x11_sessions_with_nvidia_kms.patch: Patch from
-      Alberto Milone. On nvidia, if the user has enabled KMS, don't show X11
-      sessions and force Wayland instead since X11 won't work there.
+  * Drop 95_hide_x11_sessions_with_nvidia_kdms.patch:
+    - No longer needed with nvidia-384
 
  -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 08 Oct 2017 10:14:20 -0400
 

@@ -4,7 +4,6 @@
 92_systemd_unit.patch
 93_translate-default-desktop.patch
 94_retain_xorg_log.patch
-95_hide_x11_sessions_with_nvidia_kms.patch
 ubuntu_run_xsession.d.patch
 ubuntu_xresources_is_a_dir.patch
 ubuntu_nvidia_prime.patch
