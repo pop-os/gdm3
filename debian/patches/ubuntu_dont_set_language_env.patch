@@ -1,0 +1,20 @@
+Description: Don't set language environment
+ Setting of the users' language environment is handled by PAM in
+ Ubuntu. The settings are stored in ~/.pam_environment, and PAM's
+ reading of that file is triggered by /etc/pam.d/gdm-password or
+ /etc/pam.d/gdm-autologin.
+Bug-Ubuntu: https://launchpad.net/bugs/1662031
+Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+Forwarded: not-needed
+
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -2539,7 +2539,7 @@
+                 gdm_session_set_environment_variable (self, "XDG_CURRENT_DESKTOP", desktop_names);
+         }
+ 
+-        set_up_session_language (self);
++        // set_up_session_language (self);
+ 
+         display_mode = gdm_session_get_display_mode (self);
+         if (display_mode == GDM_SESSION_DISPLAY_MODE_REUSE_VT) {
