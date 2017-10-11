@@ -1,11 +1,11 @@
-gdm3 (3.26.1-3ubuntu2) UNRELEASED; urgency=medium
+gdm3 (3.26.1-3ubuntu2) artful; urgency=medium
 
   * debian/patches/ubuntu_dont_set_language_env.patch:
     - Don't run the set_up_session_language() function, since it
       overrides variable values set by ~/.pam_environment
       (LP: #1662031). Thanks to Olivier Tilloy for debugging!
 
- -- Gunnar Hjalmarsson <gunnarhj@ubuntu.com>  Tue, 10 Oct 2017 00:22:00 +0200
+ -- Gunnar Hjalmarsson <gunnarhj@ubuntu.com>  Wed, 11 Oct 2017 13:20:09 +0200
 
 gdm3 (3.26.1-3ubuntu1) artful; urgency=medium
 
