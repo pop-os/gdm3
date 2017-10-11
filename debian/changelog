@@ -1,3 +1,12 @@
+gdm3 (3.26.1-3ubuntu3) UNRELEASED; urgency=medium
+
+  * debian/patches/ubuntu_ignore_sessions_xorg_suffix.patch: Ignore session
+    IDs ending with "-xorg" under X11. In combination with a gnome-session
+    patch, this ensures a proper fallback session is selected by gdm when
+    wayland is not enabled (LP: #1718446).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 11 Oct 2017 18:57:51 +0200
+
 gdm3 (3.26.1-3ubuntu2) artful; urgency=medium
 
   * debian/patches/ubuntu_dont_set_language_env.patch:
