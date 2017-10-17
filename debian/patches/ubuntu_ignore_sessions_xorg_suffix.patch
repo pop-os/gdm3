@@ -27,7 +27,7 @@ Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1718446
 +
 +                if (is_x11 && g_str_has_suffix (filename, "-xorg.desktop")) {
 +                        char *base_name = g_strndup (filename, strlen (filename) - strlen ("-xorg.desktop"));
-+                        char *fallback_name = g_strconcat(base_name, ".desktop", NULL);
++                        char *fallback_name = g_strconcat (base_name, ".desktop", NULL);
 +                        g_free (base_name);
 +                        char *fallback_path = g_build_filename (dirname, fallback_name, NULL);
 +                        g_free (fallback_name);
