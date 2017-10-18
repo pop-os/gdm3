@@ -1,4 +1,4 @@
-gdm3 (3.26.1-3ubuntu3) UNRELEASED; urgency=medium
+gdm3 (3.26.1-3ubuntu3) artful; urgency=medium
 
   * debian/patches/ubuntu_ignore_sessions_xorg_suffix.patch: Ignore session
     IDs ending with "-xorg" under X11. In combination with a gnome-session
