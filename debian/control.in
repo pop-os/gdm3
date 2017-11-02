@@ -47,7 +47,7 @@ Standards-Version: 4.1.1
 Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm3
-Architecture: amd64 arm64 armhf i386 ppc64el
+Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},

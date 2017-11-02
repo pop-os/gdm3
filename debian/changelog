@@ -3,6 +3,7 @@ gdm3 (3.26.2.1-0ubuntu1) UNRELEASED; urgency=medium
   * New upstream release (LP: #1729713)
   * Drop ubuntu_ignore_sessions_xorg_suffix.patch:
     - Applied in new release
+  * Allow building on s390x
 
  -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 02 Nov 2017 19:29:44 -0400
 
