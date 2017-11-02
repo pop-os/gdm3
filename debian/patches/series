@@ -10,4 +10,3 @@ ubuntu_nvidia_prime.patch
 revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
 ubuntu_dont_set_language_env.patch
-ubuntu_ignore_sessions_xorg_suffix.patch
