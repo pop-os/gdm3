@@ -1,4 +1,4 @@
-gdm3 (3.26.2.1-0ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.26.2.1-0ubuntu1) bionic; urgency=medium
 
   * New upstream release (LP: #1729713)
   * Drop ubuntu_ignore_sessions_xorg_suffix.patch:
