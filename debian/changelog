@@ -1,6 +1,7 @@
 gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
 
   * New upstream release
+  * Refresh patches
 
  -- Michael Biebl <biebl@debian.org>  Sun, 05 Nov 2017 20:26:31 +0100
 

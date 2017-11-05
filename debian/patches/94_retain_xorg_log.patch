@@ -5,9 +5,11 @@ Date: Sat, 08 Nov 2014 17:10:47 +0000
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
 Forwarded: no
 
+Index: b/daemon/gdm-server.c
+===================================================================
 --- a/daemon/gdm-server.c
 +++ b/daemon/gdm-server.c
-@@ -243,12 +243,14 @@
+@@ -235,12 +235,14 @@
           * missing, or c) we are running for the main seat 'seat0'. */
  
  #ifdef ENABLE_SYSTEMD_JOURNAL
