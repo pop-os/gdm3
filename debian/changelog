@@ -9,6 +9,8 @@ gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
   * Drop obsolete maintainer scripts code handling upgrades from pre-jessie
   * Disable static libraries as we don't install them anyway
   * Updated Greek translation by Vangelis Skarmoutsos. (Closes: #867563)
+  * Drop 11_xephyr_nested.patch from debian/po-up/POTFILES.in as this patch
+    has been dropped
 
  -- Michael Biebl <biebl@debian.org>  Sun, 05 Nov 2017 21:09:16 +0100
 
