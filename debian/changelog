@@ -1,4 +1,4 @@
-gdm3 (3.26.2.1-1) unstable; urgency=medium
+gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
 
   * New upstream release
   * Refresh patches
