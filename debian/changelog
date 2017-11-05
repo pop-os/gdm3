@@ -7,6 +7,7 @@ gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
   * Update symbols files for libgdm1 for the ChoiceList API additions
   * Use dh_missing to list uninstalled files
   * Drop obsolete maintainer scripts code handling upgrades from pre-jessie
+  * Disable static libraries as we don't install them anyway
 
  -- Michael Biebl <biebl@debian.org>  Sun, 05 Nov 2017 20:26:31 +0100
 

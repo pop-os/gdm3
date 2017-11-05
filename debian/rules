@@ -52,6 +52,7 @@ override_dh_auto_configure:
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
 		--libexecdir=\$${prefix}/lib/gdm3 \
+		--disable-static \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
 		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
@@ -78,7 +79,6 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 
 override_dh_install:
 	find debian/tmp -name '*.la' -print -delete
-	find debian/tmp -name '*.a' -print -delete
 	rm -rf debian/tmp/var/run
 	dh_install
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
