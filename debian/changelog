@@ -5,6 +5,7 @@ gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
   * Drop obsolete libdbus-glib-1-dev Build-Depends
   * Drop obsolete alternative plymouth-dev Build-Depends
   * Update symbols files for libgdm1 for the ChoiceList API additions
+  * Use dh_missing to list uninstalled files
 
  -- Michael Biebl <biebl@debian.org>  Sun, 05 Nov 2017 20:26:31 +0100
 
