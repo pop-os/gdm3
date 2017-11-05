@@ -8,6 +8,7 @@ gdm3 (3.26.2.1-1) UNRELEASED; urgency=medium
   * Use dh_missing to list uninstalled files
   * Drop obsolete maintainer scripts code handling upgrades from pre-jessie
   * Disable static libraries as we don't install them anyway
+  * Updated Greek translation by Vangelis Skarmoutsos. (Closes: #867563)
 
  -- Michael Biebl <biebl@debian.org>  Sun, 05 Nov 2017 21:09:16 +0100
 
