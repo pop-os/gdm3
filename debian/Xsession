@@ -65,7 +65,7 @@ internal_errormsg () {
   # the user would have dismissed the error we want reported before seeing the
   # request to report it.
   errormsg "$*" \
-           "Please report the installed version of the \"xfree86-common\"" \
+           "Please report the installed version of the \"x11-common\"" \
            "package and the complete text of this error message to" \
            "<debian-x@lists.debian.org>."
 }
