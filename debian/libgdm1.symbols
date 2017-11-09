@@ -31,12 +31,14 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_client_get_remote_greeter_sync@Base 3.8.3
  gdm_client_get_type@Base 3.8.3
  gdm_client_get_user_verifier@Base 3.8.3
+ gdm_client_get_user_verifier_choice_list@Base 3.26.2.1
  gdm_client_get_user_verifier_finish@Base 3.8.3
  gdm_client_get_user_verifier_sync@Base 3.8.3
  gdm_client_new@Base 3.8.3
  gdm_client_open_reauthentication_channel@Base 3.8.3
  gdm_client_open_reauthentication_channel_finish@Base 3.8.3
  gdm_client_open_reauthentication_channel_sync@Base 3.8.3
+ gdm_client_set_enabled_extensions@Base 3.26.2.1
  gdm_get_session_ids@Base 3.8.3
  gdm_get_session_name_and_description@Base 3.8.3
  gdm_goto_login_session_sync@Base 3.8.3
@@ -133,10 +135,31 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_user_verifier_call_cancel@Base 3.8.3
  gdm_user_verifier_call_cancel_finish@Base 3.8.3
  gdm_user_verifier_call_cancel_sync@Base 3.8.3
+ gdm_user_verifier_call_enable_extensions@Base 3.26.2.1
+ gdm_user_verifier_call_enable_extensions_finish@Base 3.26.2.1
+ gdm_user_verifier_call_enable_extensions_sync@Base 3.26.2.1
+ gdm_user_verifier_choice_list_call_select_choice@Base 3.26.2.1
+ gdm_user_verifier_choice_list_call_select_choice_finish@Base 3.26.2.1
+ gdm_user_verifier_choice_list_call_select_choice_sync@Base 3.26.2.1
+ gdm_user_verifier_choice_list_complete_select_choice@Base 3.26.2.1
+ gdm_user_verifier_choice_list_emit_choice_query@Base 3.26.2.1
+ gdm_user_verifier_choice_list_get_type@Base 3.26.2.1
+ gdm_user_verifier_choice_list_interface_info@Base 3.26.2.1
+ gdm_user_verifier_choice_list_override_properties@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_get_type@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new_finish@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new_for_bus@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new_for_bus_finish@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new_for_bus_sync@Base 3.26.2.1
+ gdm_user_verifier_choice_list_proxy_new_sync@Base 3.26.2.1
+ gdm_user_verifier_choice_list_skeleton_get_type@Base 3.26.2.1
+ gdm_user_verifier_choice_list_skeleton_new@Base 3.26.2.1
  gdm_user_verifier_complete_answer_query@Base 3.8.3
  gdm_user_verifier_complete_begin_verification@Base 3.8.3
  gdm_user_verifier_complete_begin_verification_for_user@Base 3.8.3
  gdm_user_verifier_complete_cancel@Base 3.8.3
+ gdm_user_verifier_complete_enable_extensions@Base 3.26.2.1
  gdm_user_verifier_emit_conversation_started@Base 3.8.3
  gdm_user_verifier_emit_conversation_stopped@Base 3.8.3
  gdm_user_verifier_emit_info@Base 3.8.3
@@ -160,6 +183,9 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_user_verifier_proxy_new_sync@Base 3.8.3
  gdm_user_verifier_skeleton_get_type@Base 3.8.3
  gdm_user_verifier_skeleton_new@Base 3.8.3
+ gdm_worker_manager_call_choice_list_query@Base 3.26.2.1
+ gdm_worker_manager_call_choice_list_query_finish@Base 3.26.2.1
+ gdm_worker_manager_call_choice_list_query_sync@Base 3.26.2.1
  gdm_worker_manager_call_hello@Base 3.8.3
  gdm_worker_manager_call_hello_finish@Base 3.8.3
  gdm_worker_manager_call_hello_sync@Base 3.8.3
@@ -175,6 +201,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_worker_manager_call_secret_info_query@Base 3.8.3
  gdm_worker_manager_call_secret_info_query_finish@Base 3.8.3
  gdm_worker_manager_call_secret_info_query_sync@Base 3.8.3
+ gdm_worker_manager_complete_choice_list_query@Base 3.26.2.1
  gdm_worker_manager_complete_hello@Base 3.8.3
  gdm_worker_manager_complete_info@Base 3.8.3
  gdm_worker_manager_complete_info_query@Base 3.8.3

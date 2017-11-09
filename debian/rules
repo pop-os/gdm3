@@ -52,6 +52,7 @@ override_dh_auto_configure:
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
 		--libexecdir=\$${prefix}/lib/gdm3 \
+		--disable-static \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
 		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
@@ -77,17 +78,19 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 	dh_auto_build
 
 override_dh_install:
-	dh_install --list-missing
+	find debian/tmp -name '*.la' -print -delete
+	rm -rf debian/tmp/var/run
+	dh_install
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
 	dh_installpam -pgdm3 --name=gdm-autologin
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
-	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
-	rm -rf debian/gdm3/var/run
-	rm -rf debian/gdm3/usr/include
-	rm -rf debian/gdm3/usr/lib/pkgconfig
+	dh_installpam -pgdm3 --name=gdm-fingerprint
+
+override_dh_missing:
+	dh_missing --list-missing
 
 override_dh_installinit:
 	dh_installinit --noscripts
