@@ -82,7 +82,8 @@ Recommends: zenity,
             at-spi2-core,
             desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
-          gnome-orca
+          gnome-orca,
+          libpam-fprintd (>= 0.8.0-2)
 Provides: x-display-manager
 Breaks: xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
