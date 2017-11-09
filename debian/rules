@@ -87,6 +87,7 @@ override_dh_install:
 	dh_installpam -pgdm3 --name=gdm-autologin
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
+	dh_installpam -pgdm3 --name=gdm-fingerprint
 
 override_dh_missing:
 	dh_missing --list-missing
