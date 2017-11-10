@@ -54,6 +54,7 @@ override_dh_auto_configure:
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
 		--libexecdir=\$${prefix}/lib/gdm3 \
+		--disable-static \
 		--enable-ipv6=yes \
 		--enable-gdm-xsession \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
@@ -78,7 +79,10 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 	dh_auto_build
 
 override_dh_install:
-	dh_install --list-missing
+	find debian/tmp -name '*.la' -print -delete
+	rm -rf debian/*/var/lib/gdm3/.[cgl]*
+	rm -rf debian/tmp/var/run
+	dh_install
 ifneq ($(filter gdm3,$(binaries)),)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 #	chmod 755 debian/gdm3/etc/gdm3/Xsession
@@ -86,11 +90,11 @@ ifneq ($(filter gdm3,$(binaries)),)
 	dh_installpam -pgdm3 --name=gdm-autologin
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
-	rm -rf debian/gdm3/var/lib/gdm3/.[cgl]*
-	rm -rf debian/gdm3/var/run
-	rm -rf debian/gdm3/usr/include
-	rm -rf debian/gdm3/usr/lib/pkgconfig
+	dh_installpam -pgdm3 --name=gdm-fingerprint
 endif
+
+override_dh_missing:
+	dh_missing --list-missing
 
 override_dh_installinit:
 	dh_installinit --noscripts --no-start

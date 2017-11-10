@@ -1,65 +1,4 @@
-gdm3 (3.26.2.1-0ubuntu1) bionic; urgency=medium
-
-  * New upstream release (LP: #1729713)
-  * Drop ubuntu_ignore_sessions_xorg_suffix.patch:
-    - Applied in new release
-  * Allow building on s390x
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 02 Nov 2017 19:29:44 -0400
-
-gdm3 (3.26.1-3ubuntu3) artful; urgency=medium
-
-  * debian/patches/ubuntu_ignore_sessions_xorg_suffix.patch: Ignore session
-    IDs ending with "-xorg" under X11. In combination with a gnome-session
-    patch, this ensures a proper fallback session is selected by gdm when
-    wayland is not enabled (LP: #1718446).
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 11 Oct 2017 18:57:51 +0200
-
-gdm3 (3.26.1-3ubuntu2) artful; urgency=medium
-
-  * debian/patches/ubuntu_dont_set_language_env.patch:
-    - Don't run the set_up_session_language() function, since it
-      overrides variable values set by ~/.pam_environment
-      (LP: #1662031). Thanks to Olivier Tilloy for debugging!
-
- -- Gunnar Hjalmarsson <gunnarhj@ubuntu.com>  Wed, 11 Oct 2017 13:20:09 +0200
-
-gdm3 (3.26.1-3ubuntu1) artful; urgency=medium
-
-  * Merge with Debian. See 3.26.0-1ubuntu1 for remaining changes.
-  * Drop 95_hide_x11_sessions_with_nvidia_kdms.patch:
-    - No longer needed with nvidia-384
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 09 Oct 2017 13:50:51 -0400
-
-gdm3 (3.26.1-3) unstable; urgency=medium
-
-  * debian/patches/92_systemd_unit.patch:
-    - Reorder the ExecReload= directives to regenerate the config files before
-      reloading gdm itself
-    - Drop the ExecStartPre= hack introduced to detect which DM is the default
-      one, almost all the other DM's are properly providing the
-      display-manager.service symlink now
-
- -- Laurent Bigonville <bigon@debian.org>  Thu, 05 Oct 2017 01:53:20 +0200
-
-gdm3 (3.26.1-2) unstable; urgency=medium
-
-  * debian/rules: Explicitly pass --with-run-dir to the configure
-
- -- Laurent Bigonville <bigon@debian.org>  Thu, 05 Oct 2017 00:30:24 +0200
-
-gdm3 (3.26.1-1) unstable; urgency=medium
-
-  * New upstream bugfix release (Closes: #873199)
-    - Drop d/p/01_gdm-session-Calculate-fallback-session-name-without-.patch,
-      applied upstream
-  * debian/control.in: Bump Standards-Version to 4.1.1 (no further changes)
-
- -- Laurent Bigonville <bigon@debian.org>  Wed, 04 Oct 2017 10:12:45 +0200
-
-gdm3 (3.26.0-1ubuntu1) artful; urgency=medium
+gdm3 (3.26.2.1-2ubuntu1) UNRELEASED; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -95,16 +34,19 @@ gdm3 (3.26.0-1ubuntu1) artful; urgency=medium
         worked either. I think that instead we can compare the version of
         gdm3 itself, and do this transition when we upgrade from an old
         version or install gdm3 for the first time.
-    + ubuntu_run_xsession.d.patch
-    + ubuntu_xresources_is_a_dir.patch
+    + Add ubuntu_run_xsession.d.patch
+    + Add ubuntu_xresources_is_a_dir.patch
       - Fix loading from /etc/X11/Xresources/*
-    + ubuntu_nvidia_prime.patch:
+    + Add ubuntu_nvidia_prime.patch:
       - Add hook to run prime-offload (as root) and prime-switch if
         nvidia-prime is installed (LP: #1262068)
-    + revert_override_LANG_with_accountservices.patch:
+    + Add revert_override_LANG_with_accountservices.patch:
       - On Ubuntu accountservices only stores the language and not the
         full locale as needed by LANG.
-    + ubuntu_config_error_dialog.patch:
+    + Add ubuntu_dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment (LP: #1662031)
+    + Add ubuntu_config_error_dialog.patch:
       - Show warning dialog in case of error in ~/.profile etc. and
         don't let a syntax error make the login fail (LP: #678421).
     + Add revert_drop_gdm_shell_session.patch:
@@ -117,11 +59,58 @@ gdm3 (3.26.0-1ubuntu1) artful; urgency=medium
     + debian/gdm3.postinst
       - Added installation of default.pa and creation of dir if it doesn't
         exist.
-    + debian/patches/95_hide_x11_sessions_with_nvidia_kms.patch: Patch from
-      Alberto Milone. On nvidia, if the user has enabled KMS, don't show X11
-      sessions and force Wayland instead since X11 won't work there.
 
- -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Thu, 14 Sep 2017 08:09:09 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 09 Oct 2017 13:50:51 -0400
+
+gdm3 (3.26.2.1-2) unstable; urgency=medium
+
+  * debian/gdm3.gdm-fingerprint.pam: Add PAM service to allow the user to
+    authenticate using fingerprints. This requires installing libpam-fprintd
+    (>= 0.8.0-2) and that the fprintd module is NOT included in common-auth
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 09 Nov 2017 13:22:14 +0100
+
+gdm3 (3.26.2.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * Refresh patches
+  * Drop obsolete libdbus-glib-1-dev Build-Depends
+  * Drop obsolete alternative plymouth-dev Build-Depends
+  * Update symbols files for libgdm1 for the ChoiceList API additions
+  * Use dh_missing to list uninstalled files
+  * Drop obsolete maintainer scripts code handling upgrades from pre-jessie
+  * Disable static libraries as we don't install them anyway
+  * Updated Greek translation by Vangelis Skarmoutsos. (Closes: #867563)
+  * Drop 11_xephyr_nested.patch from debian/po-up/POTFILES.in as this patch
+    has been dropped
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 06 Nov 2017 16:11:34 +0100
+
+gdm3 (3.26.1-3) unstable; urgency=medium
+
+  * debian/patches/92_systemd_unit.patch:
+    - Reorder the ExecReload= directives to regenerate the config files before
+      reloading gdm itself
+    - Drop the ExecStartPre= hack introduced to detect which DM is the default
+      one, almost all the other DM's are properly providing the
+      display-manager.service symlink now
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 05 Oct 2017 01:53:20 +0200
+
+gdm3 (3.26.1-2) unstable; urgency=medium
+
+  * debian/rules: Explicitly pass --with-run-dir to the configure
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 05 Oct 2017 00:30:24 +0200
+
+gdm3 (3.26.1-1) unstable; urgency=medium
+
+  * New upstream bugfix release (Closes: #873199)
+    - Drop d/p/01_gdm-session-Calculate-fallback-session-name-without-.patch,
+      applied upstream
+  * debian/control.in: Bump Standards-Version to 4.1.1 (no further changes)
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 04 Oct 2017 10:12:45 +0200
 
 gdm3 (3.26.0-1) unstable; urgency=medium
 

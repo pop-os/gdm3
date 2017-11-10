@@ -1,11 +1,6 @@
 # debconf templates for xorg-x11 package
 # Greek translation
 #
-#
-# Copyrights:
-# Branden Robinson, 2000-2004
-# Konstantinos Margaritis <markos@debian.org>, 2004
-#
 # This file is distributed under the same license as the xorg-x11 package.
 # Please see debian/copyright.
 #
@@ -21,25 +16,30 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
+# Copyrights:
+# Branden Robinson, 2000-2004
+# Konstantinos Margaritis <markos@debian.org>, 2004
+# Vangelis Skarmoutsos <skarmoutsosv@gmail.com>, 2017
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: gdm3@packages.debian.org\n"
 "POT-Creation-Date: 2012-09-11 23:23+0200\n"
-"PO-Revision-Date: 2005-12-19 18:40+0200\n"
-"Last-Translator: Konstantinos Margaritis <markos@debian.org>\n"
+"PO-Revision-Date: 2017-07-07 15:15+0300\n"
+"Last-Translator: Vangelis Skarmoutsos <skarmoutsosv@gmail.com>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #. Type: select
 #. Description
 #: ../gdm3.templates:2001
-#, fuzzy
 msgid "Default display manager:"
-msgstr "Επιλέξτε τον επιθυμητό διαχειριστή οθόνης."
+msgstr "Προεπιλεγμένος διαχειριστής οθόνης:"
 
 #. Type: select
 #. Description
@@ -48,26 +48,24 @@ msgid ""
 "A display manager is a program that provides graphical login capabilities "
 "for the X Window System."
 msgstr ""
-"Ο διαχειριστής οθόνης είναι ένα πρόγραμμα που προσφέρει τη δυνατότητα "
-"σύνδεσης στο σύστημα παραθύρων X μέσω γραφικού περιβάλλοντος."
+"Ο διαχειριστής οθόνης είναι ένα πρόγραμμα που παρέχει δυνατότητες σύνδεσης "
+"στο σύστημα παραθύρων X μέσω γραφικού περιβάλλοντος."
 
 #. Type: select
 #. Description
 #: ../gdm3.templates:2001
-#, fuzzy
 msgid ""
 "Only one display manager can manage a given X server, but multiple display "
 "manager packages are installed. Please select which display manager should "
 "run by default."
 msgstr ""
 "Μόνο ένας διαχειριστής οθόνης μπορεί να χειρίζεται ένα συγκεκριμένο "
-"εξυπηρετητή X, αλλά περισσότεροι από ένας είναι εγκατεστημένοι. Παρακαλώ "
-"επιλέξτε τον διαχειριστή οθόνης που θα εκτελείται ως προκαθορισμένος."
+"εξυπηρετητή X, αλλά είναι εγκατεστημένοι περισσότεροι διαχειριστές οθόνης. "
+"Παρακαλώ επιλέξτε ποιος διαχειριστής οθόνης θα εκτελείται ως προεπιλεγμένος."
 
 #. Type: select
 #. Description
 #: ../gdm3.templates:2001
-#, fuzzy
 msgid ""
 "Multiple display managers can run simultaneously if they are configured to "
 "manage different servers; to achieve this, configure the display managers "
@@ -75,9 +73,9 @@ msgid ""
 "check for a default display manager."
 msgstr ""
 "Πολλαπλοί διαχειριστές οθόνης μπορούν να τρέχουν ταυτόχρονα, αν έχουν "
-"ρυθμιστεί να χειρίζονται διαφορετικούς διακομιστές X. Για να επιτευχθεί "
+"ρυθμιστεί να χειρίζονται διαφορετικούς εξυπηρετητές X. Για να επιτευχθεί "
 "αυτό, ρυθμίστε τους διαχειριστές οθόνης κατάλληλα, επεξεργαστείτε τα αρχεία "
-"εκκίνησής τους στον κατάλογο /etc/init.d, και απενεργοποιήστε τον έλεγχο για "
+"εκκίνησής τους στο /etc/init.d, και απενεργοποιήστε τον έλεγχο για "
 "προκαθορισμένο διαχειριστή οθόνης."
 
 #, fuzzy
