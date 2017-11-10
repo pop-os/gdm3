@@ -1,4 +1,4 @@
-gdm3 (3.26.2.1-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.26.2.1-2ubuntu1) bionic; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -6,7 +6,6 @@ gdm3 (3.26.2.1-2ubuntu1) UNRELEASED; urgency=medium
       - Don't recommend desktop-base
       - Depend on bash for ubuntu_config_error_dialog.patch
       - Update Vcs field
-      - Don't build for s390x since gnome-shell isn't available there
     + rules:
       - Don't override default user/group
       - --enable-gdm-xsession to install upstream Xsession script
@@ -51,9 +50,8 @@ gdm3 (3.26.2.1-2ubuntu1) UNRELEASED; urgency=medium
         don't let a syntax error make the login fail (LP: #678421).
     + Add revert_drop_gdm_shell_session.patch:
       - Revert commit that requires gnome-session to be installed
-    + debian/default.pa
-      - Added new file to disable Bluetooth audio devices in PulseAudio from
-        gdm3.
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
     + debian/gdm3.install
       - Added details of the default.pa file
     + debian/gdm3.postinst
