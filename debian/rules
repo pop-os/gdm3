@@ -79,6 +79,7 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 
 override_dh_install:
 	find debian/tmp -name '*.la' -print -delete
+	rm -rf debian/tmp/var/lib/gdm3/.[cgl]*
 	rm -rf debian/tmp/var/run
 	dh_install
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
