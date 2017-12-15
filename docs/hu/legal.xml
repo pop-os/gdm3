@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<legalnotice id="legalnotice">
+	<para>Jelen dokumentum szabadon másolható, terjeszthető és/vagy módosítható a GNU Free Documentation License (GFDL) 1.1-es verziója vagy a Free Software Foundation által kiadott ennél frissebb verziója alatt, a „Nem változtatható szakaszok”, „Címlapszövegek” és a „Hátlapszövegek” kivételével. A GFDL leírása ezen a <ulink type="help" url="ghelp:fdl">hivatkozás</ulink> érhető el, vagy a jelen dokumentációban található COPYING-DOCS fájlban.</para>
+         <para>Ez a kézikönyv része a GFDL alatt megjelenő GNOME dokumentációk gyűjteményének. A kézikönyv a gyűjteménytől függetlenül szabadon terjeszthető, a licenc másolatát mellékelve a 6. fejezetben leírtaknak megfelelően.</para>
+
+	<para>Számos név, amelyet cégek használnak termékeik és szolgáltatásuk megkülönböztetésére, védjegy alá esnek. Ahol ezek a nevek megjelennek a GNOME dokumentációkban és a GNOME Dokumentációs Projekt tagjai tájékozottak az adott védjegyről, ott ezek nagy kezdőbetűvel vagy csupa nagy betűvel szerepelnek.</para>
+
+	<para>A DOKUMENTUM ÉS A DOKUMENTUM MÓDOSÍTOTT VERZIÓJA A GNU FREE DOCUMENTATION LICENSE (GFDL) ALATT JELENIK MEG AZ ALÁBBI ÉRTELMEZÉSSEL: <orderedlist>
+		<listitem>
+		  <para>A DOKUMENTUM „JELEN ÁLLAPOTÁBAN” KERÜL KIADÁSRA MINDENFÉLE GARANCIAVÁLLALÁS NÉLKÜL, LEGYEN AZ KIFEJEZETT VAGY BELEÉRTETT, BELEÉRTVE, DE NEM KIZÁRÓLAGOSAN A FORGALOMBA HOZHATÓSÁGRA VAGY ALKALMAZHATÓSÁGRA, A JELEN DOKUMENTUMNAK VAGY ANNAK MÓDOSÍTOTT VERZIÓJÁNAK HIBAMENTESSÉGÉRE VONATKOZÓ GARANCIÁKAT. A DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT VÁLTOZATÁNAK MINŐSÉGÉBŐL ÉS FELHASZNÁLHATÓSÁGÁBÓL FAKADÓ ÖSSZES KOCKÁZAT A FELHASZNÁLÓT TERHELI. HA A DOKUMENTUM BIZONYÍTOTTAN HIBÁS, A FELHASZNÁLÓNAK MAGÁNAK (NEM A DOKUMENTUM ÍRÓJÁNAK, KIADÓJÁNAK VAGY BÁRMELY KÖZREMŰKÖDŐNEK) KELL VÁLLALNIA A JAVÍTÁSHOZ SZÜKSÉGES MINDEN KÖLTSÉGET. A JELEN GARANCIAELUTASÍTÁS A JELEN LICENC LÉNYEGI RÉSZE. A LEFEDETT DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT VERZIÓJÁNAK HASZNÁLATA CSAK A JELEN ELUTASÍTÁSSAL EGYÜTT ENGEDÉLYEZETT, ÉS</para>
+		</listitem>
+		<listitem>
+		  <para>KÖRÜLMÉNYEKTŐL ÉS HATÁLYOS JOGSZABÁLYOKTÓL, A KÁRTÓL (BELEÉRTVE A GONDATLANSÁGOT), SZERZŐDÉS VAGY EGYEBEKTŐL FÜGGETLENÜL,A SZERZŐ, A DOKUMENTUM ÍRÓJA VAGY BÁRMELY FÉL BESZÁLLÍTÓJA NEM TEHETŐK FELELŐSSÉ A KÁROKÉRT, BELEÉRTVE MINDEN VÉLETLEN, VAGY KÖVETKEZMÉNYES KÁRT, AMELY A PROGRAM HASZNÁLATÁBÓL VAGY A HASZNÁLAT MEGAKADÁLYOZÁSÁBÓL SZÁRMAZIK (BELEÉRTVE, DE NEM KIZÁRÓLAGOSAN AZ ADATVESZTÉST ÉS A HELYTELEN ADATFELDOLGOZÁST, VALAMINT A MÁS PROGRAMOKKAL VALÓ HIBÁS EGYÜTTMŰKÖDÉST), MÉG AKKOR SEM, HA EZEN FELEK TUDATÁBAN VOLTAK, HOGY ILYEN KÁROK KELETKEZHETNEK.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>

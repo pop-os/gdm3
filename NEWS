@@ -1,0 +1,271 @@
+================
+Version 3.26.2.1
+================
+- Fix newly introduced race leading to crash for some users
+
+==============
+Version 3.26.2
+==============
+- Use dconf to force vitruvian man on panel
+- hide -xorg sessions under X11
+- don't add bogus wtmp entries
+- wait for X server to die before respawning
+- misc
+- Translation updates
+
+==============
+Version 3.26.1
+==============
+- Check for Xwayland before agreeing to do wayland
+- misc wayland fixes
+- xdmcp fixes
+- minor clean ups
+- allow gnome initial-setup to be forced from kernel command line
+- Translation updates
+
+==============
+Version 3.26.0
+==============
+- Fix for unauthenticated unlock when autologin is enabled (CVE-2017-12164)
+- Translation updates
+
+===============
+Version 3.25.92
+===============
+- Fix for going to normal mode after classic
+- crasher fix when user switching
+- make sure reauthentication is run in right context
+- send hangup signal to gdm when systemctl request reload
+- Translation updates
+
+=================
+Version 3.25.90.1
+=================
+- Fix breakage in greeter and initial setup
+- Translation updates
+
+===============
+Version 3.25.90
+===============
+- Fix for going to normal mode after classic
+- Translation updates
+
+================
+Version 3.25.4.1
+================
+- brown bag release to fix conflict with latest g-s-d release
+
+===============
+Version 3.25.4
+===============
+- wayland w/ --disable-user-display-server fix
+- Make login screen session separate from user session again
+- Translation updates
+
+===============
+Version 3.25.3
+===============
+- crasher fix
+- x11/wayland selection fix
+- greeter lifecycle fix
+- systemd unit installation fix
+- drop lock down of non-existent setting
+- Translation updates
+
+===============
+Version 3.24.1
+===============
+- Don't set DCONF_PROFILE for gnome-initial-setup
+- Remove deprecated a11y keys
+- autologin fixes
+- xdmcp fixes
+- user switching fixes
+- Translation updates
+
+===============
+Version 3.24.0
+===============
+
+===============
+Version 3.23.92
+===============
+- Be more robust against misconfigured autologin systems
+
+=================
+Version 3.23.91.1
+=================
+- Fix regression in wayland fallback code
+- Fix for headless sessions
+- Change around how PostLogin/PostSession scripts are run
+- Fix XDMCP in network environments with poor network resolution
+- Don't try to user switch with XDMCP
+- Translation updates
+
+===============
+Version 3.23.91
+===============
+- Small fix to environment variable importing
+- Add configure knob to turn off user X server
+
+==============
+Version 3.23.4
+==============
+- Make X11DisplayName property accurate
+- Fix bug that forced wayland on second logins even if user didn't pick it
+- kill clients from display on logout (multiseat and xdmcp only)
+- send hangup to process group when session exits
+- allow specifying pam_gdm install location to configure
+
+==============
+Version 3.22.1
+==============
+- Fix wayland login after Xorg logout for a user
+- Prefer /usr/bin/X to /usr/bin/Xorg
+
+==============
+Version 3.22.0
+==============
+- autologin fixes
+- Translation updates
+
+===============
+Version 3.21.91
+===============
+- fix autologin on non-LUKS systems
+- import environment from systemd user manager
+
+===============
+Version 3.21.90
+===============
+- Use LUKS password for to unlock gnome-keyring at login (when autologin is enabled)
+- Translation updates
+
+==============
+Version 3.21.4
+==============
+- Small crasher fix
+- Translation updates
+
+==============
+Version 3.21.3
+==============
+- Translation updates
+
+==============
+Version 3.21.2
+==============
+- Import DISPLAY into user bus
+- Translation updates
+
+==============
+Version 3.20.1
+==============
+- Fix passwordless logins on Debian/Ubuntu
+- Don't allow passwordless XDMCP logins
+- Fix redhat pam configuration
+- Translation updates
+
+==============
+Version 3.20.0
+==============
+- Translation updates
+
+===============
+Version 3.19.92
+===============
+- leak fix
+- Translation updates
+
+===============
+Version 3.19.91
+===============
+- Fix log output
+- Fix timed login
+- Fix openembedded pam configuration
+- Translation updates
+
+===============
+Version 3.19.90
+===============
+- Better build goo output
+- Support dbus user bus better
+- Fix bug that prevents wayland sessions, from being wayland sometimes
+- Translation updates
+
+================
+Version 3.19.4.1
+================
+- Fix crasher introduced in 3.19.4
+- Translation updates
+
+==============
+Version 3.19.4
+==============
+- Don't override PAM message for password change
+- Disable GVFS when we don't need it
+- Fail better when no sessions are installed
+- Support gnome-session in different PREFIX than GDM
+- doc updates
+- ensure unlock screen gets told when verification completes
+- Translation updates
+
+==============
+Version 3.19.2
+==============
+- Get rid of "custom" session
+- Separate X sessions and Wayland sessions
+- Hide Wayland sessions if the login screen is on X
+- Pass session mode to the shell via environment
+- Rename gnome-wayland session to gnome
+- Use -listen instead of -nolisten for new Xorg
+- Translation updates
+
+==============
+Version 3.18.0
+==============
+- Translation updates
+
+===============
+Version 3.17.92
+===============
+- Fix log out after autologin
+- Translation updates
+
+===============
+Version 3.17.90
+===============
+- Fix GDM_LANG corruption that sometimes fails login
+- Rework wtmp handling
+- Code clean ups
+- Translation updates
+
+==============
+Version 3.17.4
+==============
+- Fixes to handle gdm restarts better
+- Crasher fix on logout of wayland sessoin
+- systemd build updates
+- Translation updates
+
+================
+Version 3.17.3.1
+================
+- Ship systemd unit file (woops)
+
+==============
+Version 3.17.3
+==============
+- Support env.d directory for manipulating session environment
+- Drop ConsoleKit support
+- Translation updates
+
+==============
+Version 3.17.2
+==============
+- BSD fixes
+- Don't build Xsession by default
+- Fix monitor hotplug segfault
+- kdbus fixes
+- Translation updates
+
+For older NEWS updates, please see git.

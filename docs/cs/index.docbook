@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY version "2.26.0">
+<!ENTITY date "02/10/2009">
+<!ENTITY mdash "&#8212;">
+<!ENTITY percnt "&#x0025;">
+]>
+<article id="index" lang="cs">
+  <articleinfo>
+    <title>Referenční příručka ke Správci zobrazení GNOME</title>
+
+    <revhistory>
+      <revision><revnumber>0.0</revnumber> <date>2008-09</date></revision>
+    </revhistory>
+
+    <abstract role="description">
+      <para>GDM je GNOME Display Manager, grafický přihlašovací program.</para>
+    </abstract>
+
+    <authorgroup>
+      <author><firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation></author>
+      <author><firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation></author>
+      <author><firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation></author>
+      <author><firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation></author>
+      <author role="maintainer"><firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation></author>
+    </authorgroup>
+    <copyright><year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder></copyright>
+    <copyright><year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder></copyright>
+    <copyright><year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder></copyright>
+    <copyright><year>2003</year> <year>2011</year> <holder>Oracle a/nebo jeho pobočky. Všechna práva vyhrazena.</holder></copyright>
+
+      <legalnotice id="legalnotice">
+	<para>Je povoleno kopírovat, šířit a/nebo upravovat tento dokument za podmínek GNU Free Documentation License (GFDL) ve verzi 1.1 nebo v jakékoli další verzi vydané nadací Free Software Foundation; bez neměnných oddílů, bez textů předních desek a bez textů zadních desek. Kopii licence GFDL naleznete pod <ulink type="help" url="ghelp:fdl">tímto odkazem</ulink> nebo v souboru COPYING-DOCS dodávaném s touto příručkou.</para>
+         <para>Tato příručka je součástí sbírky příruček GNOME šířených za podmínek licence GNU FDL. Pokud chcete tento dokument šířit odděleně od sbírky, musíte přiložit kopii licence dle popisu v oddílu 6 dané licence.</para>
+
+	<para>Mnoho názvů použitých firmami k zviditelnění produktů nebo služeb jsou ochranné známky. Na místech, kde jsou tyto názvy v dokumentaci použity a členové Dokumentačního projektu GNOME jsou si vědomi skutečnosti, že se jedná o ochrannou známku, je takovýto název psán velkými písmeny celý nebo s velkým písmenem na začátku.</para>
+
+	<para>DOKUMENT A JEHO UPRAVENÉ VERZE JSOU ŠÍŘENY V SOULADU SE ZNĚNÍM LICENCE GNU FREE DOCUMENTATION LICENSE S NÁSLEDUJÍCÍM USTANOVENÍM: <placeholder-1/></para>
+  </legalnotice>
+
+
+
+    <releaseinfo>Tato příručka popisuje GNOME Display Manager ve verzi 2.26.0. Naposledy byla aktualizovaná 2.10.2009.</releaseinfo>  
+  </articleinfo>
+
+  <!-- ============= Preface ================================== -->
+
+  <sect1 id="preface">
+    <title>Termíny a konvence použité v této příručce</title>
+
+    <para>Tato příručka popisuje GNOME Display Manager ve verzi 2.26.0. Naposledy byla aktualizovaná 2.10.2009.</para>  
+
+    <para>Chooser – Program používaný k výběru vzdáleného hostitele pro správu displeje vzdáleně na připojeném displeji (<command>gdm-host-chooser</command>).</para>
+
+    <para>FreeDesktop – Orgranizace poskytující standardy pro pracovní prostředí, například specifikaci položek pracovní plochy, kterou používá GDM. <ulink type="http" url="http://www.freedesktop.org/"> http://www.freedesktop.org</ulink>.</para>
+    <para>GDM – GNOME Display Manager. Používá se k označení softwarového balíčku jako celku.</para>
+
+    <para>Greeter – Grafické přihlašovací okno (poskytuje <command>gnome-shell</command>).</para>
+
+    <para>PAM – Pluggable Authentication Mechanism (ověřovací mechanizmus používající zásuvné moduly)</para>
+
+    <para>XDMCP – X Display Manage Protocol (protokol pro správu displejů X)</para>
+
+    <para>Xserver – Implementace X Window System. Například Xorg Xserver poskytovaný X.org Foundation <ulink type="http" url="http://www.x.org/">http://www.x.org</ulink>.</para>
+
+    <para>Cesty, které začínají slovem v lomených závorkách, jsou relativní vůči instalačnímu prefixu. Např. <filename>&lt;share&gt;/pixmaps/</filename> odkazuje na <filename>/usr/share/pixmaps</filename> v případě, že byl GDM konfigurován s <command>--prefix=/usr</command>.</para>
+  </sect1>
+
+  <!-- ============= Overview ================================= -->
+
+  <sect1 id="overview">
+    <title>Přehled</title>
+
+    <sect2 id="introduction">
+      <title>Úvod</title>
+
+      <para>GNOME Display Manager (GDM) je správce displejů, který implementuje všechny podstatné funkce požadované pro správu připojených a vzdálených displejů. GDM byl napsán od nuly a neobsahuje žádný kód od XDM nebo X Consortium.</para>
+
+      <para>Poznamenejme, že GDM je nastavitelné a řada nastavení ovlivňuje bezpečnost. Zásadní věci, kterých byste si měli být vědomi, jsou v dokumentu zvýrazněny.</para> 
+
+      <para>Vezměte prosím na vědomí, že některé operační systémy nastavují chování GDM na jiné hodnoty, než jsou ty výchozí popsané v tomto dokumentu. Pokud se vám bude zdát, že se GDM nechová, jak je zde popisováno, podívejte se, jestli příslušné nastavení nemá jinou hodnotu, než je uvedeno zde.</para>
+
+      <para>S dalšími informacemi ohledně GDM vás odkážeme na webové stránky projektu <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/"> http://wiki.gnome.org/Projects/GDM</ulink>.</para>
+
+      <para>Ohledně diskuzí a požadavků na GDM se obraťte do poštovní konference <address><email>gdm-list@gnome.org</email></address> Tato konference je archivovaná a je dobrým zdrojem, kde najít odpovědi na běžné dotazy. Archivovaná je na <ulink type="http" url="http://mail.gnome.org/archives/gdm-list/"> http://mail.gnome.org/archives/gdm-list/</ulink> a lze v ní vyhledávat zprávy podle klíčových slov.</para>
+
+      <para>Chybová hlášení a žádosti o vylepšení podávejte prosím do kategorie „gdm“ na <ulink type="http" url="http://bugzilla.gnome.org/"> http://bugzilla.gnome.org</ulink>.</para>
+    </sect2>
+
+    <sect2 id="stability">
+      <title>Stabilita rozhraní</title>
+
+      <para>GDM 2.20 a starší podporuje stabilní rozhraní pro nastavení. Ve verzi GDM 2.22 byl ale kompletně přepsán všechen kód a není zcela zpětně kompatibilní se staršími vydáními. To je částečně dáno tím, že věci pracují jinak, takže některé volby nemají smysl, částečně proto, že některé volby neměly nikdy smysl a částečně proto, že některá funkcionalita nebyla zatím znovu implementována.</para>
+
+      <para>Mezi rozhraní, která jsou nadále podporována stabilním způsobem, patří skripty Init, PreSession, PostSession, PostLogin a Xsession. Nadále jsou podporovány některé volby nastavení démona v souboru <filename>&lt;etc&gt;/gdm/custom.conf</filename>. A také je stále podporováno <filename>~/.dmrc</filename> a umístění obrázků pro prohlížeč obličejů.</para>
+
+      <para>GDM 2.20 a starší podporoval schopnost spravovat více displejů přes oddělené grafické karty, jako se to používá v prostředích terminálových serverů, přihlašování okna přes programy jako Xnest nebo Xephyr, program gdmsetup, motivy uvítání definované v XML a schopnost spouštět XDMCP chooser z přihlašovací obrazovky. Tyto funkce nebyly při přepisování verze 2.22 přidány zpět.</para>
+
+    </sect2>
+
+    <sect2 id="functionaldesc">
+      <title>Popis funkčnosti</title>
+
+<!--
+<para>
+        TODO - Would be good to discuss D-Bus, perhaps the new GObject model,
+               and to explain the reasons why the rewrite made GDM better.
+               From a high-level overview perspective, rather than the
+               technical aspects.
+</para>
+-->
+
+      <para>GDM je zodpovědný za správu displejů v systému. To zahrnuje ověřování uživatelů, spouštění uživatelských sezení a jejich ukončování. GDM je nastavitelný a způsoby, jak jej nastavit, jsou popsány v kapitole „Nastavení GDM“ v tomto dokumentu. GDM je také přístupné pro uživatele s postižením.</para>
+
+      <para>GDM poskytuje schopnost spravovat displej hlavní konzoly a displeje spuštěné přes VT. Je integrován s ostatními programy, jeko je Fast User Switch Applet (FUSA) a gnome-screensaver, aby spravoval více displejů na konzole přes rozhraní Xserver Virtual Terminal (VT). Může také spravovat displeje XDMCP.</para>
+
+      <para>Bez ohledu na typ displeje, provádí GDM při správě displeje následující. Spustí proces Xserveru, následně spustí skript <filename>Init</filename> pod superuživatelem root a spustí na displeji uvítací program.</para>
+
+      <para>Uvítací program je spuštěn pod neprivilegovaným uživatelem/skupinou „gdm“. Tento uživatel a skupina jsou popsáni v kapitole „Bezpečnost“ tohoto dokumentu. Hlavní funkcí uvítacího programu je poskytovat mechanizmus pro výběr účtu pro přihlášení a řídit dialog mezi uživatelem a systémem, když se ověřuje účet. Proces ověřování je řízen pomocí PAM (Pluggable Authentication Modules). Moduly PAM určují, jaké dotazy (pokud vůbec nějaké) se ohledně ověření mají uživateli zobrazit. Na běžném systému bude uvítací program pro ověření požadovat uživatelské jméno a heslo. Některé systémy ale mohou být nastaveny, aby používaly doplňkové mechanizmy, jako je otisk prstu nebo čtečka čipových karet. GDM může být nastaven, aby podporoval tyto alternativy souběžně s přihlašovacími rozšířeními uvítacího programu a volbou <command>--enable-split-authentication</command> v <filename>./configure</filename> nebo jednu po druhé přes nastavení PAM.</para>
+
+      <para>Rozšíření pro čipové karty může být povoleno nebo zakázáno přes klíč gsettings <filename>org.gnome.display-manager.extensions.smartcard.active</filename>.</para>
+
+      <para>Obdobně rozšíření pro otisky prstů může být povoleno nebo zakázáno přes klíč gsettings <filename>org.gnome.display-manager.extensions.fingerprint.active</filename>.</para>
+
+      <para>GDM a PAM lze natavit tak, že nepožadují žádný vstup, což způsobí, že GDM provede automatické přihlášení a prostě spustí sezení, což se může hodit v některých případy, jako jsou jednouživatelské systémy nebo kiosky.</para>
+
+      <para>Navíc k ověření, umožňuje uvítací program uživateli vybrat si, které sezení se má spustit a jaký se má použít jazyk. Sezení jsou definována pomocí souborů, které mají připonu .desktop a více informací o těchto souborech najdete v kapitole „Nastavení uživatelova sezení a jazyka v GDM“. Ve výchozím stavu je GDM nastaveno, by zobrazovalo prohlížeč obličejů, takže uživatel může vybrat svůj účet kliknutím na obrázek namísto vypisování svého uživatelského jména. GDM si pamatuje výchozí sezení a jazyk uživatele v uživatelově souboru <filename>~/.dmrc</filename> a použije tyto výchozí hodnoty, když si uživatel nevybere sezení a jazyk v přihlašovacím rozhraní.</para>
+
+      <para>Po ověření uživatele démon spustí jako superuživatel root skript <filename>PostLogin</filename> a následně jako superuživatel root skript <filename>PreSession</filename>. Po provedení těchto skriptů je uživatelské sezení nastartováno. Když uživatel své sezení ukončí, je pod superuživatelem root spuštěn skript <filename>PostSession</filename>. Tyto skripty jsou poskytovány jako háčky pro distributory a koncové uživatele, aby si mohli přizpůsobit, jak má být sezení spravováno. Například byste pomocí těchto háčků mohli spustit stroj, který za běhu vytvoří uživatelovu složku $HOME a při odhlášení ji smaže. Rozdíl mezi skripty <filename>PostLogin</filename> a <filename>PreSession</filename> je v tom, že <filename>PostLogin</filename> je spuštěn před voláním pam_open_session, takže je to pravé místo pro vykonání čehokoliv, co by mělo být uděláno před tím, než je inicializováno uživatelovo sezení. Skript <filename>PreSession</filename> je volán po inicializaci sezení.</para>
+    </sect2>
+
+    <sect2 id="greeterpanel">
+      <title>Uvítací panel</title>
+      <para>Uvítací program GDM zobrazuje panel umístěný v dolní části obrazovky, který poskytuje dodatečnou funkcionalitu. Když je vybrán uživatel, umožní panel uživateli vybrat si, které sezení, jazyk a rozvržení klávesnice chce po přihlášení používat. Výběr rozvržení klávesnice se bude týkat i psaní hesla. Panel rovněž obsahuje oblast pro přihlašovací služby, aby v něm mohli zobrazit svoji stavovou ikonu. Příkladem některých stavových ikon je ikona baterie a ikona pro zapnutí funkcí zpřístupnění. Uvítací program rovněž poskytuje tlačítka, která umožňují uživateli vypnout nebo restartovat systém. Když je potřeba, je možné GDM nastavit tak, aby tlačítka pro vypnutí a restart nenabízel. GDM je také možné nastavit přes PolicyKit (nebo přes RBAC v OS Oracle Solaris), aby po uživateli požadoval příslušné ověření, než příjme požadavek na vypnutí nebo restart.</para>
+
+      <para>Upozorňujeme, že funkce rozvržení klávesnice je dostupná jen na systémech, které podporují libxklavier.</para>
+    </sect2>
+
+    <sect2 id="accessibility">
+      <title>Zpřístupnění</title>
+
+        <para>GDM podporuje „Zpřístupněné přihlášení“, které umožňuje uživateli přihlásit se do svého sezení pracovního prostředí, i když nemůže jednoduše použít obrazovku, myš nebo klávesnici obvyklým způsobem. K dispozici jsou funkce technologie zpřístupnění (AT – Accessible Technology), jako je klávesnice na obrazovce, čtečka obrazovky, lupa obrazovky a klávesnice Xserver AccessX. Pokud je potřeba, je také možné zapnout velký text nebo ikony a ovládací prvky s vysokým kontrastem. Na informace, jak je možné různé funkce zpřístupnění nastavit, se podívejte do kapitoly „Nastavení zpřístupnění“ v tomto dokumentu.</para>
+
+        <para>V některých operačních systémech je nutné zajistit, aby uživatel GDM byl členem skupiny „audio“ pro programy AT, které pro svoji funkčnost požadují zvukový výstup (např. čtení textu).</para>
+    </sect2>
+
+    <sect2 id="facebrowser">
+      <title>Prohlížeč obličejů GDM</title>
+
+      <para>Prohlížeč obličejů je rozhraní, které umožňuje uživatelům vybrat si uživatelské jméno kliknutím na obrázek. Tuto funkcionalitu je možné povolit nebo zakázat pomocí klíče GSettings org.gnome.login-screen/disable-user-list a ve výchozím stavu je zapnutá. Když ji vypnete, musí uživatel své uživatelské jméno celé napsat ručně. Když je povolená, zobrazí se všichni místní uživatelé, kteří mají povolené přihlášení do systému (všechny uživatelské účty definované v souboru /etc/passwd, které mají platný shell a dostatečně vysoké UID) a vzdálené uživatele, kteří se přihlašovali v nedávné době. Prohlížeč obličejů v GDM 2.20 a starším by se pokusil zobrazit všechny vzdálené uživatele, co způsobovalo výkonostní problémy v rozsáhlých firemních prostředích.</para>
+
+      <para>Prohlížeč obličejů je nastaven, aby zobrazoval uživatele, kteří se přihlašují nejčastěji, v horní části seznamu. To zajistí, že uživatelé, kteří se přihlašují nejčastěji, mohou svůj obrázek najít velmi rychle.</para>
+
+      <para>Prohlížeč obličejů podporuje „hledání psaním“, které dynamicky přesouvá výběr obličeje tak, jak uživatel píše v seznamu příslušné uživatelské jméno. To znamená, že uživateli s dlouhým uživatelským jménem z něj stačí napsat pár prvních znaků, aby se v seznamu vybrala správná položka.</para>
+
+      <para>Ikony používané GDM mohou být nainstalované globálně správcem systému nebo mohou být umístěny v domovské složce uživatele. Když jsou nainstalovány globálně, měly by být ve složce <filename>&lt;share&gt;/pixmaps/faces/</filename> a název souboru by měl odpovídat jménu uživatele. Obrázek s obličejem by měl být standardní obrázek, kerý umí číst GTK+, jako je PNG nebo JPEG. Obrázky s obličeji umístěné v globální složce s obličeji musí být přístupné ke čtení uživatelem GDM.</para>
+
+<!--
+<para>
+        TODO - In the old GDM the ~/gnome2/gdm file is used, but the new code
+               seems to use ~/.gnome/gdm.  Error?
+</para>
+-->
+      <para>Když pro uživatele není k dispozici globální ikona, podívá se GDM po souboru s obrázkem do složky $HOME uživatele. Nejprve se GDM dívá po obrázku s uživatelovým obličejem do <filename>~/.face</filename>. V případě, že jej nenajde, zkusí <filename>~/.face.icon</filename>. Pokud jej stále nenajde, použije hodnotu definovanou pro „face/picture=“ v souboru <filename>~/.gnome2/gdm</filename>.</para>
+
+      <para>V případě, že uživatel nemá určen obrázek s obličejem, použije GDM ikonu „stock_person“ definovanou v aktuálním motivu GTK+. Pokud takový obrázek definován není, použije se náhradní obecný obrázek obličeje.</para>
+
+      <para>Uvědomte si prosím, že načtení a přeškálování ikon s obličeji umístěními ve vzdálených domovských složkách uživatelů může být časově náročný úkol. Protože není praktické načítat obrázky přes NIS nebo NFS, nepokouší se GDM načíst obrázky obličejů ze vzdálených domovských složek.</para>
+
+      <para>Když je prohlížeč zapnut, jsou vystavena uživatelská jména všem, kdo se podívají. Když je povoleno XDMCP, jsou uživatelská jména vystavena i vzdáleným uživatelům. Tím se samozřejmě oslabuje bezpečnost vůči záškodnickým uživatelům, kteří tak nemusí hádat platná uživatelská jména. V některých prostředích s přísnými podmínkami tak nemusí být prohlížeč obličejů vhodný.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcp">
+      <title>XDMCP</title>
+
+<!--
+<para>
+        TODO - What XDMCP features actually work?   I know that the
+               chooser is missing.
+</para>
+-->
+
+      <para>Démon GDM může být nastaven, aby naslouchal a spravoval požadavky XDMCP (X Display Manage Protocol) ze vzdálených displejů. Ve výchozím stavu je podpora XDMCP vypnutá, ale na přání ji lze zapnout. Pokud je GDM sestaven s podporou knihovny TCP Wrapper, umožní démon přístup jen hostitelům uvedeným v oddíle služby GDM v souboru s nastavením pro TCP Wrapper.</para>
+
+      <para>GDM obsahuje několik opatření, která jej činí odolnějším vůči útokům DoS (Denial of Service) na službu XDMCP. Většinu parametrů protokolu, časový limit dohadování atd. je možné vyladit. Výchozí nastavení by mělo rozumně fungovat na většině systémů.</para>
+
+      <para>GDM ve výchozím stavu naslouchá požadavkům XDMCP na normálním portu UDP používaném protokolem XDMCP, tj. port 117, a reaguje na požadavky QUERY a BROADCAST_QUERY zasláním paketu WILLING původci.</para>
+
+      <para>GDM může být také nastaveno, aby reagovalo na dotazy INDIRECT a prezentovalo chooser hostitele pro vzdálený displej. GDM si pamatuje, co si uživatel zvolil, a předává následující požadavky do zvoleného správce. GDM rovněž podporuje rozšíření protokolu, které dělá to, že zapomene přesměrování, jakmile je připojení uživatele úspěšné. Toto rozšíření je podporováno, jen když jsou oba démoni GDM. Je transparentní a bude ignorováno XDM nebo jinými démony, kteří implementují XDMCP.</para>
+
+      <para>Pokud to vypadá, že XDMCP nepracuje, ujistěte se, že všechny stroje jsou uvedeny v <filename>/etc/hosts</filename>.</para>
+
+      <para>Podívejte se do kapitoly „Bezpečnost“ na informace o bezpečnosti související s používáním XDMCP.</para>
+    </sect2>
+
+    <sect2 id="logging">
+      <title>Záznamy</title>
+
+      <para>GDM používá syslog k zaznamenávání chyb a stavu. Může také zaznamenávat ladicí informace, které mohou být použitelné pro vyhledávání problémů, když GDM nepracuje správně. Ladicí výstup může být zapnut nastavením klíče debug/Enable na „true“ v souboru <filename>&lt;etc&gt;/gdm/custom.conf</filename>.</para>
+
+      <para>Výstup z různých Xserverů se uchovává ve složce se záznamy GDM, kterou je normálně <filename>&lt;var&gt;/log/gdm/</filename>. Všechny zprávy Xserveru jsou ukládány do souboru spřaženého s hodnotou displeje, <filename>&lt;display&gt;.log</filename>.</para>
+
+      <para>Výstup sezení je rourou propojen přes démona GDM do souboru <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</filename>, kterým je obvykle konkrétně <filename>~/.cache/gdm/session.log</filename>. Soubor je při každém sezení přepsán, takže každé odhlášení a opětovné přihlášení toho samého uživatele přes GDM způsobí ztrátu všech zpráv z předchozích sezení.</para>
+
+      <para>Upozorňujeme, že když GDM z nějakého důvodu nemůže tento soubor vytvořit, tak je vytvořen záložní soubor s názvem <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log.XXXXXXXX</filename>, kde <filename>XXXXXXXX</filename> jsou ve skutečnosti nějaké náhodné znaky.</para>
+    </sect2>
+
+    <sect2 id="fusa">
+      <title>Rychlé přepínání uživatelů</title>
+
+      <para>GDM umožňuje, aby bylo naráz přihlášeno více uživatelů. Po té, co se přihlásí jeden uživatel, mohou se další uživatelé přihlásit pomocí „Přepnout uživatele“ na panelu GNOME nebo pomocí tlačítka „Přepnout uživatele“ v dialogovém okně zamykací obrazovky. Aktivní sezení můžete měnit tam a zpět pomocí stejného postupu. Někteří distributoři nemusí přepínač uživatele přidat do výchozího nastavení panelu. V takovém připadě si jej můžete přidat pomocí kontextové nabídky panelu.</para>
+      <para>Upozorňujeme, že tato funkčnost je dostupná na systémech, které podporují virtuální terminály. Pokud nejsou virtuální terminály dostupné, nebude tato funkčnost pracovat.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Security ================================= -->
+
+  <sect1 id="security">
+    <title>Bezpečnost</title>
+
+    <sect2 id="gdmuser">
+      <title>Uživatel a skupina GDM</title>
+
+      <para>Z bezpečnostních důvodů je pro vybrané operace doporučován vyhrazený uživatel a skupina. Tento uživatel a skupina jsou normálně na většině systémů „gdm“, ale je možné nastavit libovolného uživatele a skupinu. Všechny programy GDM s grafickým rozhraním běží pod tímto uživatelem, takže jsou programy komunikující s uživatelem uzavřené na pískovišti. Tento uživatel a skupina by měli mít omezená oprávnění.</para>
+
+      <para>Jediné speciální oprávnění, které uživatel „gdm“ potřebuje, je schopnost číst a zapisovat soubory Xauth do složky <filename>&lt;var&gt;/run/gdm</filename>. Složka <filename>&lt;var&gt;/run/gdm</filename> by měla mít vlastnictví root:gdm a oprávnění 1777.</para>
+
+      <para>Neměli byste v žádném případě nastavovat uživatele/skupinu GDM na uživatele, který může snadno získat přístup, jako je uživatel <filename>nobody</filename>. Libovolný uživatel, který získá přístup ke klíči Xauth, může odposlouchávat a ovládat spouštění grafických programů běžících ve spojitosti se sezením nebo na něj provádět útoky DoS. Je důležité zajistit, aby byl systém nastaven správně, takže jen uživatel „gdm“ má přístup k těmto souborům a že nebude tak snadné se přihlásit k tomuto účtu. Například byl měl být účet nastaven tak, aby neměl heslo a umožňoval přihlíšení k účtu jiným uživatelům, než těm, co mají oprávnění superuživatele root.</para>
+
+      <para>Nastavení uvítacího programu GDM je uchováno v GConf. Aby uživatel GDM byl schopen nastavení zapsat, je nutné mít pro uživatele „gdm“ oprávnění zapisovat do složky $HOME. Uživatel může nastavit výchozí nastavení GConf podle svého přání, aby předešel potřebě poskytnout uživateli „gdm“ zápis do složky $HOME. Některé funkce GDM však mohou být potom nepřístupné, protože není možné do nastavení GConf zapisovat stavové informace.</para>
+    </sect2>
+
+    <sect2 id="PAM">
+      <title>PAM</title>
+
+      <para>GDM používá k ověřování při příhlášení PAM. PAM je zkratka pro Pluggable Authentication Module (zásuvné ověřovací moduly) a je používán většinou programů, které ve vašem počítači požadují ověření. Umožňuje správcům nastavit konkrétní chování při ověřování z různých přihlašovacích programů (jako je ssh, grafické přihlašovací rozhraní, šetřič obrazovky apod.).</para>
+
+      <para>PAM je komplikovaný a vysoce nastavitelný a tento dokument nemá za cíl vysvětlovat jej do podrobností. Místo toho se zaměříme na podání přehledu, jaký je vztah mezi nastavením PAM a GDM, jak bývá PAM běžně nastaven pro spolupráci s GDM, a na známé problémy. Očekává se, že člověk, který potřebuje PAM nastavovat, si bude muste přečíst dokumentaci k němu, aby pochopil jak se nastavuje a aby rozumněl termínům použitým v této kapitole.</para>
+        
+      <para>Nastavení PAM má různá, ale podobná, rozhraní na různých operačních systémech, takže se podívejte do manuálové stránky <ulink type="help" url="man:pam.d">pam.d</ulink> nebo <ulink type="help" url="man:pam.conf">pam.conf</ulink>. Určitě si přečtěte dokumentaci k PAM a promyslete si, jestli případné změny, které zamýšlíte v nastavení udělat, nemají nějaké bezpečnostní dopady.</para>
+
+      <para>Poznamenejme, že ve výchozím stavu GDM používá službu PAM s názvem „gdm“ pro normální přihlášení a službu PAM s názvem „gdm-autologin“ pro automatické přihlášení. Tyto služby nemusí být ve vašem souboru s nastavením pam.d nebo pam.conf definovány. Pokud v nich není žádná položka, využije GDM výchozí chování PAM. Na většině systému to bude v pořádku fungovat. Avšak funkce automatického přihlášení nemusí pracovat, když služba gdm-autologin není definována.</para>
+
+      <para>Skript <filename>PostLogin</filename> je spuštěn před zavoláním pam_open_session a skript <filename>PreSession</filename> je volán po. To umožňuje správcům systému přidat libovolné skriptování do přihlašovacího procesu před a/nebo po tom, co PAM inicializuje sezení.</para>
+
+      <para>Pokud si přejete zajistit fungování GDM s jinými ověřovacími mechanizmy (jako jsou otisky prstů nebo čtečky čipových karet), měli byste to raději implementovat pomocí modulu služby PAM pro požadovaný typ ověřování, než to zkoušet přímo změnou v kódu GDM. Podívejte se do dokumentace k PAM ve svém systému. Jak se to má udělat je často diskutováno v poštovní konferenci <address><email>gdm-list@gnome.org</email></address>, takže se zkuste na další informace podívat do archivu této konference.</para>
+
+      <para>PAM nemá nijaká omezení týkající se schopnosti pracovat s více typy ověřování naráz, jako třeba podporovat možnost přijímat čipové karty a možnost zadávat uživatelské jméno a heslo do přihlašovacího programu. Existují postupy, které se používají k rozchození takovýchto věcí, a nejlepší je vyhledat si, jak se takovýto problém obvykle řeší, když chcete nějaké konkrétní nastavení.</para>
+
+      <para>Pokud v systému nefunguje automatické přihlášení, zkontrolujte, že je v nastavení PAM definován „gdm-autologin“. Aby to fungovalo, je nutné použít modul PAM, který jednoduše neprovádí žádné ověření nebo prostě vrací PAM_SUCCESS ze všech svých veřejných rozhraní. Předpokládejme, že váš systém má modul PAM pam_allow.so, který tak činí, a nastavení PAM pro povolení „gdm-autologin“ by vypadalo nějak takto:</para>
+
+<screen>
+       gdm-autologin auth  required    pam_unix_cred.so.1
+       gdm-autologin auth  sufficient  pam_allow.so.1
+       gdm-autologin account  sufficient  pam_allow.so.1
+       gdm-autologin session  sufficient  pam_allow.so.1
+       gdm-autologin password  sufficient  pam_allow.so.1
+</screen>
+
+      <para>Nastavení výše způsobí, že nebude vygenerován záznam s posledním přihlášením. Pokud je tento záznam požadován, použijte pro sezení následující:</para>
+
+<screen>
+       gdm-autologin session required pam_unix_session.so.1
+</screen>
+
+      <para>Pokud počítač používá několi lidí, což činí automatické přihlášení nepoužitelným, můžete chtít umožnit některým uživatelům, aby se přihlašovali bez zadávání svého hesla. Tato funkce může být zapnutá jako volba jednotlivých uživatelů v nástroji users-admin z gnome-system-tools. Toho je dosaženo kontrolou, že uživatel je členem unixové skupiny nazývané „nopasswdlogin“, před tím, než je dotázán na heslo. Aby to fungovalo, musí soubor s nastavením PAM pro službu „gdm“ obsahovat řádek jako:</para>
+
+<screen>
+      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
+</screen>
+
+    </sect2>
+
+    <sect2 id="utmpwtmp">
+      <title>utmp a wtmp</title>
+
+      <para>GDM generuje při přihlášení a odhlášení položky do databází uživatelských účtů utmp a wtmp. Databáze utmp obsahuje přístupy uživatelů a informace o účtech, ke kterým je přistupováno příkazy, jako je <command>finger</command>, <command>last</command>, <command>login</command> a <command>who</command>. Databáze wtmp obsahuje historii přístupů uživatelů a informace o účtech pro databázi utmp. Více informací najdete v manuálových stránkách <ulink type="help" url="man:utmp">utmp</ulink> a <ulink type="help" url="man:wtmp">wtmp</ulink></para>
+    </sect2>
+
+    <sect2 id="xauth">
+      <title>Ověřovací schéma Xserveru</title>
+
+      <para>Soubory s ověřením Xserveru jsou uchovány v podsložce nově vytvořené při spuštění ve <filename>&lt;var&gt;/run/gdm</filename>. Tyto soubory jsou používány k uchování a sdílení „hesla“ mezi klientem X a serverem X. Toto „heslo“ je jedinečné pro každé přihlášené sezení, takže uživatel z jednoho sezení nemůže odposlouchávat uživatele z jiného sezení.</para>
+
+      <para>GDM podporuje jen ověřovací schéma Xserveru MIT-MAGIC-COOKIE-1. Z dalších schémat se toho získává jen málo a nebylo vyvinuto žádné úsilí to realizovat. Buďte hlavně obezřetní při používání XDMCP, protože ověřovací cookie jde přes drát jako čistý text. Pokud je možné odposlouchávání, mohl by útočník snadno odposlouchávat vaše ověřovací hesla, když se přihlašujete, bez ohledu na to, jaké ověřovací schéma je použito. Pokud je odposlouchávání možné a nežádoucí, měli byste použít SSH pro tunelování připojení X namísto používání XDMCP. XDMCP byste mohli brát, jako takovou grafickou nadstavbu nad telnetem se stejnými bezpečnostními problémy. Ve většině případů by se ssh -Y mělo upřednostnit před GDM s funkcemi XDMCP.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpsecurity">
+      <title>Bezpečnost XDMCP</title>
+
+      <para>Ačkoliv je váš displej chráněn pomocí cookies, XEvents a tudíž i zmáčknutí kláves provedená při zadávání hesla jdou stále po drátě v podobě čistého textu. Ten je jednoduché zachytit.</para>
+
+      <para>XDMCP je hlavně vhodný pro běh tenkých klientů, jako jsou v terminálových místnostech. Takovýto tenký klient bude vždy potřebovat přístup k serveru a tak se jako nejlepší bezpečnostní zásada jeví mít takovéto tenké klienty na oddělené síti, ke které se nedá dostat z vnějšku a připojit se dá jen k serveru. Jediný bod, ze kterého se potřebujete dostat ven, je vlastní server. V tomto typu instalace byste nikdy neměli použít neřiditelný rozbočovač nebo jiná snadno odposlouchávatelná síťová zařízení.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpaccess">
+      <title>Řízení přístupu k XDMCP</title>
+
+      <para>Řízení přístupu k XDMCP se dělá pomocí knihovny TCP Wrapper. GDM je možné zkompilovat i bez podpory knihovny TCP Wrapper, takže tato funkčnost nemusí být v některých operačních systémech podporována.</para>
+
+      <para>Měli byste použít název démona <command>gdm</command> v souborech <filename>&lt;etc&gt;/hosts.allow</filename> a <filename>&lt;etc&gt;/hosts.deny</filename>. Například pro odmítnutí příhlášení z počítačů v doméně <filename>.zla.domena</filename> přidejte:</para>
+<screen>
+gdm: .zla.domena
+</screen>
+      <para>do <filename>&lt;etc&gt;/hosts.deny</filename>. Můžete také přidat</para>
+<screen>
+gdm: .vase.domena
+</screen>
+      <para>do svého <filename>&lt;etc&gt;/hosts.allow</filename>, když chcete znemožnit všechny služby ze všech počítačů. Podrobnosti viz manuálová stránka <ulink type="help" url="man:hosts.allow">hosts.allow(5)</ulink>.</para>
+    </sect2>
+
+    <sect2 id="firewall">
+      <title>Zabezpečení na firewallu</title>
+
+      <para>I když se GDM snaží přelstít potenciální útočníky zkoušející využít XDMCP, je doporučeno blokovat port XDMCP (normálně to je port UDP 177) na vašem firewallu, pokud jej opravdu nepotřebujete. GDM se chrání vůči útokům DoS, ale protokol X je stále nebezpečný ze své podstaty a měl by být používán jen v prostředích, která máte pod kontrolou. Navíc, každé vzdálené připojení spotřebuje hodně prostředků, takže je mnohem snadnější provést útok DoS přes XDMCP než útočit na webový server.</para>
+
+      <para>Je také moudré zablokovat všechny porty Xserveru. Jedná se o porty TCP 6000+ (jeden pro každý z displejů) na vašem firewallu. Uvědomte si, že GDM bude používat čísla displejů 20 a vyšší pro flexibilní servery na vyžádání.</para>
+
+      <para>X není příliš bezpečný protokol, pokud se používá přes Internet, a XDMCP na to není o moc lépe.</para>
+    </sect2>
+
+    <sect2 id="policykit">
+      <title>PolicyKit</title>
+
+<!--
+<para>
+        TODO - Should we say more?
+</para>
+-->
+
+      <para>GDM je možné nastavit, aby používal PolicyKit, díky čemuž může správce systému určovat, jestli má přihlašovací obrazovka nabízet na uvítací obrazovce tlačítka pro vypnutí a restartování.</para>
+
+      <para>Tato tlačítka jsou řízena činnostmi <filename>org.freedesktop.consolekit.system.stop-multiple-users</filename> a <filename>org.freedesktop.consolekit.system.restart-multiple-users</filename>. Zásady pro tyto činnosti mohou být nastaveny pomocí nástroje polkit-gnome-authorization nebo programem příkazového řádku polkit-auth.</para>
+ 
+    </sect2>
+
+    <sect2 id="rbac">
+      <title>RBAC (Role Based Access Control)</title>
+
+      <para>GDM může k nastavení používat místo PokicyKit také RBAC. V takovém případě se používá nastavení RBAC k řízení, jestli má přihlašovací obrazovka nabízet na uvítací obrazovce tlačítka pro vypnutí a restartování.</para>
+
+      <para>Například v systému Oracle Solaris se k řízení tohoto používá autorizace „solaris.system.shutdown“. Stačí upravit soubor <filename>/etc/user_attr</filename> tak, aby měl uživatel „gdm“ tuto autorizaci.</para>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= ConsoleKit ================================ -->
+
+  <sect1 id="consolekit">
+    <title>Podpora pro ConsoleKit</title>
+
+<!--
+<para>
+    TODO - Should we update these docs?  Probably should mention any 
+           configuration that users may want to do for using it with GDM?
+           If so, perhaps this section should be moved to a subsection of
+           the "Configure" section?
+</para>
+-->
+
+    <para>Součástí GDM je podpora pro zveřejňování informací o přihlášení uživatele, pomocí základního rámce známého jako ConsoleKit, pro účtování uživatelů a přihlašovací sezení. ConsoleKit je schopen sledovat všechny uživatele, kteří jsou aktuálně přihlášení. V tomto ohledu může být použit jako náhrada za soubory utmp a utmpx, které se používají na většině operačních systémů unixového typu.</para>
+
+    <para>Když se GDM chystá vytvořit nový přihlašovací proces pro uživatele, zavolá privilegovanou metodu z ConsoleKit, aby se otevřelo nové sezení pro tohoto uživatele. V tuto chvíli GDM také poskytne pro ConsoleKit informace o tomto uživatelově sezení, jako: uživatelovo ID, název displeje X11 patřícího k sezení, název počítače, ze kterého sezení vzešlo (užitečné v případech sezení XDMCP), zda je či není toto sezení napojeno atd. Jako subjekt, který uživatelský proces inicioval, je GDM v jedinečné pozici vědět o uživatelově sezení a být oprávněno poskytovat tuto trochu informací. Použivání této privilegované metody je omezeno použitím bezpečnostních zásad systémové sběrnice zpráv D-Bus.</para>
+
+    <para>V případě, že uživatel s existujícím sezením byl ověřen v GDM a požaduje obnovení tohoto sezení, GDM zavolá privilegovanou metodu z ConsoleKit, aby se sezení odemklo. Co přesně se má stát, když sezení obdrží signál k odemčení, není definováno a odvisí od daného sezení. Většina sezení však jako odpověď odemkne šetřič obrazovky.</para>
+
+    <para>Když uživatel zvolí odhlášení nebo když GDM nebo sezení neočekávaně skončí, bude uživatelovu sezení zrušena registrace v ConsoleKit.</para>
+  </sect1>
+
+  <!-- ============= Configuration ============================= -->
+
+  <sect1 id="configuration">
+    <title>Nastavení</title>
+
+    <para>GDM má několik rozhraní pro nastavení. Patří k nim skriptování integračních bodů, nastavení démona, nastavení uvítání, obecné nastavení sezení, nastavení integrace s gnome-settings-daemon a nastavení sezení. Tyto typy integrace jsou podrobně popsány níže.</para>
+
+    <sect2 id="scripting">
+      <title>Skriptování integračních bodů</title>
+      
+      <para>Skripty GDM pro integrační body najdete ve složce <filename>&lt;etc&gt;/gdm/</filename>.</para>
+
+<screen>
+Xsession
+Init/
+PostLogin/
+PreSession/
+PostSession/
+</screen>
+
+      <para>Skripty <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename> a <filename>PostSession</filename> pracují podle popisu uvedeného dále.</para>
+
+      <para>Pro každý typ skriptu, se ten, který bude proveden, nazývá „Default“ a je uložen ve složce související s daným typem skriptu. Takže výchozí skript <filename>Init</filename> je <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Mohou být poskytnuty i skripty pro jednotlivé displeje, a když existují, budou spuštěny místo výchozího skriptu. Takovéto skripty jsou uloženy ve stejné složce, jako výchozí skript a mají stejný název jako hodnota DISPLAY Xserveru pro daný displej. Například, když existuje skript <filename>&lt;Init&gt;/:0</filename>, bude spuštěn pro DISPLAY rovno „:0“.</para>
+
+     <para>Všechny tyto skripty jsou spuštěny s oprávněními superuživatele root a vrací 0, když byl běh úspěšný, a nenulovou návratovou hodnotu, když selhalo něco, co má za následek přerušení přihlašovacího sezení. Uvědomte si také, že GDM je až do dokončení těchto skriptů blokováno, takže když skript zamrzne, zamrzne i celý přihlašovací proces.</para>
+
+      <para>Když je úspěšně spuštěn Xserver pro grafické přihlašovací rozhraní, ale před tím, než je grafické přihlašovací rozhraní zobrazeno, spustí GDM skript <filename>Init</filename>. Tento skript se hodí pro spuštní programů, které by měly být spuštěny během zobrazení přihlašovací obrazovky nebo pro provedení speciální inicializace, pokud je potřeba.</para>
+
+      <para>Po té, co je uživatel úspěšně ověřen, spustí GDM skript <filename>PostLogin</filename>. Provede se to před spuštěním sezení, i před voláním pam_open_session. Tento skript se hodí pro inicializaci sezení, kterou je potřeba udělat před spuštěním sezení. Například můžete nastavit složku $HOME uživatele, pokud je to potřeba.</para>
+
+      <para>Po té, co je uživatelovo sezení inicializováno, spustí GDM skript <filename>PreSession</filename>. Tento skript se hodí pro provádění libovolných inicializací sezení, které jsou potřeba k úspěchu po té, co bylo sezení inicializováno. Například může být použit pro správu sezení nebo účtování.</para>
+
+      <para>Když uživatel ukončí své sezení, spustí GDM skript <filename>PostSession</filename>. Upozorňujeme, že během provádění tohoto skriptu je zastaven Xserver, takže by se k němu nemělo přistupovat.</para>
+
+      <para>Vezměte na vědomí, že skript <filename>PostSession</filename> bude spuštěn, i když displej nebude reagovat kvůli chybě V/V apod. Z toho důvodu není žádná záruka, že během provádění tohoto skriptu budou fungovat apliace X.</para>
+
+      <para>Všechny výše uvedené skripty nastaví proměnnou prostředí <filename>$RUNNING_UNDER_GDM</filename> na <filename>yes</filename>. Pokud jsou skripty také sdíleny s ostatními správci displejů, umožňuje vám to zjistit, že tyto skripty volá GDM a použít tak kód specifický pro GDM.</para>
+    </sect2>
+
+    <sect2 id="autostart">
+      <title>Nastavení automatického spuštění</title>
+      
+      <para>Složka <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename> obsahuje soubory ve formátu definovaném v „FreeDesktop.org Desktop Application Autostart Specification“ (specifikace automatického spouštění aplikací pracovního prostředí). Standardní vlastnosti ze specifikace můžete použít k určení programů, které by se měly automaticky spustit nebo spustit jen, když je nastavena hodnota v nastavení GConf apod.</para>
+
+      <para>Soubory <filename>.desktop</filename> v této složce způsobí, že k nim přidružené programy se automaticky spustí spolu s grafickým přihlašovacím rozhraním uvítacího programu. Ve výchozím stavu je GDM šířen se soubory, které automaticky spouští vlastní uvítací program gdm-simple-greeter, aplikaci gnome-power-manager, démona gnome-settings-daemon a okenního správce metacity. Tyto programy jsou zapotřebí, aby uvítací program fungoval. Navíc soubory .desktop poskytují spuštění různých programů s asistenčními nástroji, když jsou nastaveny hodnoty uvedené níže v kapitole Nastavení zpřístupnění.</para>
+    </sect2>
+
+    <sect2 id="xsessionscript">
+      <title>Skript Xsession</title>
+
+      <para>Existuje také skript <filename>Xsession</filename> umístěný v <filename>&lt;etc&gt;/gdm/Xsession</filename>, který je volán mezi skripty <filename>PreSession</filename> a <filename>PostSession</filename>. Tento skript není podporován pro jednotlivé displeje, jako ostatní skripty. Používá se pro skutečné spuštění uživatelského sezení. Tento skritp je spouštěn pod daným uživatelem a spustí vše, co sezení specifikuje v souboru sezení pracovní plochy, který si uživatel vybral.</para>
+    </sect2>
+
+    <sect2 id="daemonconfig">
+      <title>Nastavení démona</title>
+
+      <para>Démon GDM se nastavuje pomocí souboru <filename>&lt;etc&gt;/gdm/custom.conf</filename>. Výchozí hodnoty se uchovávají v GConf v souboru <filename>gdm.schemas</filename>. Doporučuje se, aby koncový uživatel měnil soubor <filename>&lt;etc&gt;/gdm/custom.conf</filename>, protože soubor se schématem může být přepsán novou verzí GDM při aktualizaci systému.</para>
+
+      <para>Upozorňujeme, že starší verze GDM podporovala další volby nastavení, které v posledních verzích GDM již nadále podporovány nejsou.</para>
+
+      <para>Soubor <filename>&lt;etc&gt;/gdm/custom.conf</filename> je ve formátu <filename>keyfile</filename> (soubor s klíči). Klíčová slova v hranatých závorkách definují oddíly, řetězce před znakem „=“ jsou klíče a data za znakem rovnítka představují jeho hodnotu. Prázdné řádky nebo řádky začínající znakem „#“ jsou ignorovány.</para>
+
+      <para>Soubor <filename>&lt;etc&gt;/gdm/custom.conf</filename> podporuje skupiny „[daemon]“, „[security]“ a „[xdmcp]“. V rámci každé skupiny jsou konkrétní páry klíč/hodnota, které mohou být zadány, aby změnily chování GDM. Například, když chcete povolit příhlášení po uplynutí času a určit k tomu uživatele se jménem „vy“, upravili byste soubor tak, aby obsahoval následující řádky:</para>
+     
+<screen>
+[daemon]
+TimedLoginEnable=true
+TimedLogin=vy
+</screen>
+
+      <para>Následuje úplný seznam podporovaných klíčů nastavení:</para>
+
+      <sect3 id="choosersection">
+        <title>[chooser]</title>
+        <variablelist>
+
+          <varlistentry>
+            <term>Multicast</term>
+            <listitem>
+              <synopsis>Multicast=false</synopsis>
+              <para>Když je zapnuto a je povoleno IPv6, chooser odešle vícesměrový dotaz do místní sítě a sesbírá odpovědi od počítačů, které se zapojily do skupiny.</para>
+            </listitem>
+          </varlistentry>
+         
+          <varlistentry>
+            <term>MulticastAddr</term>
+            <listitem>
+              <synopsis>MulticastAddr=ff02::1</synopsis>
+              <para>Jedná se o vícesměrovou adresu Link-local.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="daemonsection">
+        <title>[daemon]</title>
+        <variablelist>
+          <varlistentry>
+            <term>TimedLoginEnable</term>
+            <listitem>
+              <synopsis>TimedLoginEnable=false</synopsis>
+              <para>Jestli by měl být uživatel uvedený v <filename>TimedLogin</filename> přihlášen po počtu sekund (nastavením v <filename>TimedLoginDelay</filename>) nečinnosti přihlašovací obrazovky. To se hodí pro veřejně přístupné terminály a samozřejmě i pro domácí použití. Když uživatel použije klávesnici nebo bude procházet nabídku, vrátí se odpočet na <filename>TimedLoginDelay</filename> nebo 30 sekund, podle toho, co je vyšší. Pokud uživatel nezadá uživatelské jméno, ale jen zmáčkne klávesu Enter během toho, co přihlašovací program čeká na zadání uživatelského jména, bude GDM předpokládat, že uživatel se chce ihned přihlásit jako uživatel uvedený v načasovaném přihlášení. Upozorňujeme, že pro tohoto uživatele nebude požadováno žádné heslo, takže buďte opatrní, i když pomocí PAM je možné nastavit požadavek na zadání hesla před tím, než se umožní přihlášení. Na další informace, nebo nápovědu když to nefunguje, se podívejte do kapitoly „Bezpečnost&gt;&gt;PAM“</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLogin</term>
+            <listitem>
+              <synopsis>TimedLogin=</synopsis>
+              <para>Jedná se o uživatele, který by měl být přihlášen po uplynutí zadaného počtu vteřin nečinnosti.</para>
+              <para>Pokud hodnota končí svislou čárou | (symbol roury), spustí GDM zadaný program a použije cokoliv, co program vrátí na standardní výstup, jako uživatele. Program je spuštěn s nastavenou proměnnou prostředí DISPLAY, takže je možné určit uživatele pro každý displej zvlášť. Například, když je hodnota „/usr/bin/getloginuser|“, pak bude spuštěn program „/usr/bin/getloginuser“, aby od něj byla zjištěna hodnota s uživatelem.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLoginDelay</term>
+            <listitem>
+              <synopsis>TimedLoginDelay=30</synopsis>
+              <para>Doba, v sekundách, po jejímž uplynutí bude přihlášen uživatel <filename>TimeLogin</filename>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLoginEnable</term>
+            <listitem>
+              <synopsis>AutomaticLoginEnable=false</synopsis>
+              <para>Když je zapnuto, měl by být ihned přihlášen uživatel uvedený v <filename>AutomaticLogin</filename>. Podobá se to funkci přihlášení po uplynutí času, akorát s časem 0 sekund.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLogin</term>
+            <listitem>
+              <synopsis>AutomaticLogin=</synopsis>
+              <para>Jedná se o uživatele, který by měl být ihned přihlášen, když je zapnuto <filename>AutomaticLoginEnable</filename>.</para>
+              <para>Pokud hodnota končí svislou čárou | (symbol roury), spustí GDM zadaný program a použije cokoliv, co program vrátí na standardní výstup, jako uživatele. Program je spuštěn s nastavenou proměnnou prostředí DISPLAY, takže je možné určit uživatele pro každý displej zvlášť. Například, když je hodnota „/usr/bin/getloginuser|“, pak bude spuštěn program „/usr/bin/getloginuser“, aby od něj byla zjištěna hodnota s uživatelem.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>User</term>
+            <listitem>
+              <synopsis>User=gdm</synopsis>
+              <para>Jméno uživatele, pod kterým má běžet uvítání a další programy s grafickým rozhraním. Ohledně dalších informací se podívejte na klíč nastavení <filename>Group</filename> a kapitolu „Security-&gt;GDM User And Group“ v tomto dokumentu.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Group</term>
+            <listitem>
+              <synopsis>Group=gdm</synopsis>
+              <para>Název skupiny, pod kterou má běžet uvítání a další programy s grafickým rozhraním. Ohledně dalších informací se podívejte na klíč nastavení <filename>User</filename> a kapitolu „Security-&gt;GDM User And Group“ v tomto dokumentu.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="debugsection">
+        <title>Volby ladění</title>
+      
+        <variablelist>
+          <title>[debug]</title>
+          
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Když chcete povolit ladění, nastavte v souboru <filename>&lt;etc&gt;/gdm/custom.conf</filename> klíč debug/Enable na „true“ a restartujte GDM. Výstup ladění se bude posílat do souboru se systémovým záznamem (<filename>&lt;var&gt;/log/messages</filename> nebo <filename>&lt;var&gt;/adm/messages</filename> v závislosti na vašem operačním systému).</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="greetersection">
+        <title>Volby uvítání</title>
+      
+        <variablelist>
+          <title>[greeter]</title>
+          
+          <varlistentry>
+            <term>IncludeAll</term>
+            <listitem>
+              <synopsis>IncludeAll=true</synopsis>
+              <para>Kdy je nastaveno na true, bude prohlížeč obličejů zobrazovat všechny uživatele na místním stroji. Pokud na false, bude zobrazovat jen uživatele, kteří se nedávno přihlašovali.</para>
+
+              <para>Když je tento klíč nastaven na true, bude GDM volat fgetpwent(), aby získal seznam místních uživatelů v systému. Všichni uživatelé s ID menším než 500 (nebo 100 v Oracle Solaris) jsou odfiltrováni. Prohlížeč obličejů zobrazí také všechny uživatele, kteří se nedávno přihlašovali do systému (např. uživatele NIS/LDAP). Jejich seznam získá voláním rozhraní <command>ck-history</command> v ConsoleKit. Odfiltrováni budou také všichni uživatelé, kteří nemají platný shell (platné shelly jsou ty, které vrací getusershell() – /sbin/nologin nebo /bin/false jsou považovány za neplatné shelly, i když je getusershell() uvede).</para>
+
+              <para>Když je vypnuto, pak GDM mnohem jednodušeji zobrazí uživatele, kteří byli před tím přihlášeni do systému (místní nebo uživatele NIS/LDAP), pomocí volání rozhraní ConsoleKit <command>ck-history</command>.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Include</term>
+            <listitem>
+              <synopsis>Include=</synopsis>
+              <para>Nastavte na seznam uživatelů, kteří mají být vždy zahrnuti do prohlížeče obličejů. Tato hodnota je nastavena na seznam uživatelů oddělených čárkami. Ve výchozím stavu je tato hodnota prázdná.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Exclude</term>
+            <listitem>
+              <synopsis>Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
+              <para>Nastavte na seznam uživatelů, kteří mají být vždy vynecháni v prohlížeči obličejů. Tato hodnota je nastavena na seznam uživatelů oddělených čárkami. Upozorňujeme, že nastavení v <filename>custom.conf</filename> přepisuje výchozí hodnotu, takže když si přejete přidat do seznamu další uživatele, potřebujete nastavit hodnotu na výchozí hodnou a další uživatele přidat nakonec.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="securitysection">
+        <title>Bezpečnostní volby</title>
+      
+        <variablelist>
+          <title>[security]</title>
+          
+          <varlistentry>
+            <term>DisallowTCP</term>
+            <listitem>
+              <synopsis>DisallowTCP=true</synopsis>
+              <para>Pokud je zapnuto, přidá se při spouštění Xserveru na příkazový řádek přepínač <filename>-nolisten tcp</filename>, čímž se zakáže připojení TCP. Je to bezpečnější nastavení pro případy, kdy se nepoužívají vzdálená připojení.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="xdmcpsection">
+        <title>XDCMP Support</title>
+
+        <variablelist>
+          <title>[xdmcp]</title>
+          
+          <varlistentry>
+            <term>DisplaysPerHost</term>
+            <listitem>
+              <synopsis>DisplaysPerHost=1</synopsis>
+              <para>Aby se zabránilo útočníkům v přeplnění fronty, umožní GDM jen jedno připojení pro každý ze vzdálených počítačů. Pokud chcete poskytovat služby displeje počítačům s více než jednou obrazovkou, musíte tuto hodnotu zvýšit.</para>
+
+              <para>Upozorňujeme, že počet povolených připojení displejů není omezen. Touto volbou nastavení se omezí je vzdálená připojení přes XDMCP.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Nastavením tohoto údaje na true se povolí podpora XDMCP umožňující, aby vzdálené displeje/X terminály byly spravovány pomocí GDM.</para>
+            
+              <para><filename>gdm</filename> naslouchá požadavkům na portu UDP 177. Další podrobnosti viz volba Port.</para>
+              
+              <para>V případě, že je GDM zkompilováno tak, aby to podporovalo, přístup ze vzdálených displejů může být řízen pomocí knihovny TCP Wrappers. Název služby je <filename>gdm</filename>.</para>
+            
+              <para>Měli byste přidat <screen>
+gdm:.moje.domena
+</screen> do svého <filename>&lt;etc&gt;/hosts.allow</filename>, v závislosti na svém nastavení TCP Wrappers. Podrobnosti viz manuálová stránka <ulink type="help" url="man:hosts.allow">hosts.allow</ulink>.</para>
+              
+              <para>Uvědomte si prosím, že XDMCP není zlášť bezpečný protokol, a proto je dobrý nápad blokovat port UDP 177 na vašem firewallu, pokud jej vyloženě nepotřebujete.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>HonorIndirect</term>
+            <listitem>
+              <synopsis>HonorIndirect=true</synopsis>
+              <para>Povoluje výběr INDIRECT u XDMCP (např. vzdáleným spuštěním <filename>gdmchooser</filename>) pro X-terminály, které neposkytují své vlastní procházení displejů.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxPending</term>
+            <listitem>
+              <synopsis>MaxPending=4</synopsis>
+              <para>Aby se předešlo útokům typu DoS (zahlcení pásma), má GDM pevnou velikost fronty pro příchozí připojení. Naráz lze spustit jen MaxPending displejů.</para>
+            
+              <para>Upozorňujeme, že tento parametr neomezuje počet vzdálených displejů, které mohou být spravovány. Omezuje jen počet displejů zahajujících naráz připojení.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxSessions</term>
+            <listitem>
+              <synopsis>MaxSessions=16</synopsis>
+              <para>Určuje maximální počet připojení vzdálených displejů, které mohou být spravovány naráz. Tj. celkový počet vzdálených displejů, které může používat váš hostitel.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxWait</term>
+            <listitem>
+              <synopsis>MaxWait=30</synopsis>
+              <para>Když je GDM připraveno spravovat displej, zašle mu paket ACCEPT obsahující jedinečné ID sezení, které bude používáno v následující konverzaci XDMCP.</para>
+            
+              <para>GDM umístí ID sezení do fronty, kde čeká na odezvu s požadavkem MANAGE od displeje.</para>
+            
+              <para>Pokud do MaxWait sekund nedorazí odezva, prohlásí GDM displej za mrtvý a vymaže jej z fronty, aby uvolnil slot pro jiný displej.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxWaitIndirect</term>
+            <listitem>
+              <synopsis>MaxWaitIndirect=30</synopsis>
+              <para>Parametr MaxWaitIndirect určuje maximální počet sekund mezi časem, kdy uživatel zvolí hostitele, a následným nepřímým dotazem, kdy je uživatel připojen k hostiteli. Když je dosaženo časového limitu, je informace o zvoleném hostiteli zahozena a nepřímý slot uvolněn pro další displej. Informace může být zahozena dříve, když se pokouší poslat nepřímý dotaz více hostitelů, než <filename>MaxPendingIndirect</filename>.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>PingIntervalSeconds</term>
+            <listitem>
+              <synopsis>PingIntervalSeconds=60</synopsis>
+              <para>Pokud Xserver neodpoví v zadaném počtu sekund, je připojení zastaveno a sezení ukončeno. Když se tak stane, podřízený démon skončí se signálem ALARM. Upozorňujeme, že GDM 2.20 a starší násobí toto nastavení dvěma, takže při povýšení z GDM 2.20 a staršího na novější verzi může být potřeba časový limit zvýšit.</para>
+
+              <para>Všimněte si, že GDM míval v minulosti klíč nastavení <filename>PingInterval</filename>, který byl také v minutách. Ve většíne případů nechcete, aby toto nastavení bylo nižší než jedna minuta. Avšak ve většině případů, kdy by bylo použito XDMCP (třeba v terminálových místnostech), by zpoždění o více než přibližně 15 sekund ve skutečnosti znamenalo, že terminál byl vypnut nebo restartován a vy chcete ukončit sezení.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Port</term>
+            <listitem>
+              <synopsis>Port=177</synopsis>
+              <para>Číslo portu UDP, na kterém by měl <filename>gdm</filename> naslouchat požadavkům XDMCP. Tento údaj neměňte, pokud přesně nevíte, co děláte.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Willing</term>
+            <listitem>
+              <synopsis>Willing=&lt;etc&gt;/gdm/Xwilling</synopsis>
+              <para>Když stroj odešle zpět paket WILLING, po té co obdržel QUERY, pošle řetězec, který uvádí aktuální stav serveru. Výchozí zprávou je ID systému, ale je možné vytvořit skript, který zobrazí vlastní zprávu. Pokud skript neexistuje nebo je tento klíč prázdný, je odeslána výchozí zpráva. Pokud je skript úspěšný a vytvoří nějaký výstup, je první řádek jeho výstupu odeslán (a právě jen první řádek). Spuštěn je nanejvýše každé 3 vteřiny, aby se předešlo možným útokům DoS zahlcujícím stroj pakety QUERY.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+    </sect2>
+
+    <sect2 id="greeterconfiguration">
+        <title>Nastavení jednoduchého uvítání</title>
+
+        <para>Výchozí uvítání GDM se nazývá jednoduché uvítání a je nastaveno přes GConf. Výchozí hodnoty jsou uchovány v GConf v souboru <filename>gdm-simple-greeter.schemas</filename>. Tyto výchozí hodnoty mohou být přepsány, když má uživatel „gdm“ zapisovatelnou složku  $HOME, ve které se uchovávají nastavení GConf. Tyto hodnoty mohou být změněny pomocí programů <command>gconftool-2</command> nebo <command>gconf-editor</command>. Podporovány jsou následující volby nastavení:</para>
+
+        <variablelist>
+          <title>Klíče s nastavením uvítání</title>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_enable</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Řídí, jestli se má zobrazit panel s textem zprávy.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_text</term>
+            <listitem>
+              <synopsis>NULL (řetězec)</synopsis>
+              <para>Definuje text pro panel se zprávou, který se má zobrazit v uvítacím okně.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Řídí, jestli se mají zobrazit restartovací tlačítka v přihlašovacím okně.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_user_list</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Když je zapnuto, prohlížeč obličejů se známými uživateli nebude v přihlašovacím okně zobrazen.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/logo_icon_name</term>
+            <listitem>
+              <synopsis>computer (řetězec)</synopsis>
+              <para>Nastavte na název ikony z motivu, která se má použít jako logo v uvítání.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-languages</term>
+            <listitem>
+              <synopsis>[] (seznam řetězců)</synopsis>
+              <para>Nastavte na seznam jazyků, které se mají zobrazit jako výchozí v přihlašovacím okně. Výchozí hodnota je „[]“. S tímto výchozím nastavením se zobrazí jen výchozí jazyk systému a volba „Další…“, která rozbalí dialogové okno nabízející úplný seznam dostupných jazyků, z kterých si uživatel může vybrat.</para>
+
+              <para>Není zamýšleno, aby uživatelé měnili toto nastavení ručně. Místo toho GDM uchovává v tomto klíči nastavení sled dříve vybraných jazyků a zobrazuje je v rozbalovacím seznamu jazyků vedle volby „Další…“. Díky tomu je snažší vybrat běžně vybírané jazyky.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-layouts</term>
+            <listitem>
+              <synopsis>[] (seznam řetězců)</synopsis>
+              <para>Nastavte na seznam rozvržení klávesnic, která se mají zobrazit jako výchozí v přihlašovacím okně. Výchozí hodnota je „[]“. S tímto výchozím nastavením se zobrazí jen výchozí rozvržení klávesnice systému a volba „Další…“, která rozbalí dialogové okno nabízející úplný seznam dostupných rozvržení klávesnic, z kterých si uživatel může vybrat.</para>
+
+              <para>Není zamýšleno, aby uživatelé měnili toto nastavení ručně. Místo toho GDM uchovává v tomto klíči nastavení sled dříve vybraných rozvržení klávesnic a zobrazuje je v rozbalovacím seznamu rozvržení klávesnic vedle volby „Další…“. Díky tomu je snažší vybrat běžně vybíraná rozvržení klávesnic.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Řídí, jestli se má místo metacity použít jako okenní správce compiz.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+    </sect2>
+
+    <sect2 id="accessibilityconfiguration">
+     <title>Nastavení zpřístupnění</title>
+
+      <para>Tato část popisuje volby nastavení zpřístupnění dostupné v GDM.</para>
+
+      <sect3 id="accessibilitydialog">
+        <title>Dialogové okno zpřístupnění GDM a klíče GConf</title>
+
+        <para>Uvítací panel GDM na přihlašovací obrazovce zobrazuje ikonu zpřístupnění. Kliknutí na ikonu otevře dialogové okno zpřístupnění GDM. V tomto dialogovém okně je seznam zaškrtávacích políček, takže uživatel můžete povolit nebo zakázat příslušné asistenční nástroje.</para>
+
+        <para>Zaškrtávací políčka, která odpovídají asistenčním nástrojům klávesnice na obrazovce, lupa obrazovky a čtečka obrazovky ovlivňují tři klíče GConf, jak je popsáno v další části tohoto dokumentu. Povolením nebo zákázáním pomocí těchto zaškrtávacích políček se příslušné klíče GConf nastaví na „true“ nebo „false“. Když je klíč GConf nastaven na „true“, je odkazovaný asistenční nástroj spuštěn.  Když je nastaven na „false“, je běžící asistenční nástroj odkazovaný tímto klíčem ukončen. Tyto klíče GConf se nevrací automaticky na výchozí hodnoty, když se uživatel přihlásí. V důsledku toho, že asistenční nástroje byly spuštěny během posledního přihlášovacího sezení GDM, budou automticky spuštěny i při následujícím přihlašovacím sezení GDM.</para>
+
+        <para>Ostatní zaškrtávací políčka v dialogovém okně zpřístupnění GDM nemají odpovídající klíče GConf, protože není spouštěn žádný dodatečný program, který by poskytoval funkce zpřístupnění, který nabízejí. Tyto další volby odpovídají funkcím zpřístupnění, které poskytuje Xserver, který během sezení GDM vždy běží.</para>
+      </sect3>
+
+      <sect3 id="accessibilitygconfconfiguration">
+        <title>Klíče GConf pro zpřístupnění</title>
+
+        <para>GDM nabízí následujíc klíče GConf, které ovládají jeho funkce zpřístupnění:</para>
+
+        <variablelist>
+          <title>Klíče s nastavením GDM</title>
+
+          <varlistentry>
+            <term>/desktop/gnome/interface/accessibility</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Řídí, jestli se má spolu s grafickým rozhraním GDM spustit infrastruktura zpřístupnění. To je zapotřebí, aby mohla fungovat většina programů s technologiemi zpřístupnění.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Když je nastaveno, spustí se spolu s programem s grafickým rozhraním GDM i nástroje zpřístupnění odkazované tímto klíčem GConf. Ve výchozím stavu se jedná o aplikaci lupa obrazovky.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_keyboard_enabled</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Když je nastaveno, spustí se spolu s programem s grafickým rozhraním GDM i nástroje zpřístupnění odkazované tímto klíčem GConf. Ve výchozím stavu se jedná o aplikaci klávesnice na obrazovce.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_reader_enabled</term>
+            <listitem>
+              <synopsis>false (pravdivostní)</synopsis>
+              <para>Když je nastaveno, spustí se spolu s programem s grafickým rozhraním GDM i nástroje zpřístupnění odkazované tímto klíčem GConf. Ve výchozím stavu se jedná o aplikaci čtečka obrazovky.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="accessibilitytoolsconfiguration">
+        <title>Provázání nástrojů zpřístpnění s klíči GConf</title>
+
+        <para>Pro klíče GConf screen_magnifier_enabled, the screen_keyboard_enabled a the screen_reader_enabled závisí asistenční nástroje, které se mají spustit, na souborech .desktop umístěných ve složce GDM pro automatické spouštění, jak je popsáno v kapitole „Nastavení automatického spouštění“ v této příručce. Libovolný soubor .desktop ve složce GDM pro automatické spouštění může být provázán s klíčem GConf uvedením tohoto klíče GConf v hodnotě AutostartCondition v souboru .desktop. Takže konkrétní řádek AutostartCondition v souboru .desktop by mohl být jeden z následujících:</para>
+
+<screen>
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
+</screen>
+
+        <para>Když je klíč zpřístupnění zapnutý, pak libovolný program, který je provázán s tímto klíčem v souboru .desktop pro automatické spuštění, bude spuštěn (pokud není v souboru .desktop nastaven klíč Hidden na true). Jeden klíč GConf může spustit i více asistenčních nástrojů, pokud existuje ve složce GDM pro automatické spouštění více souborů .desktop s tímto klíčem AutostartCondition.</para>
+      </sect3>
+
+      <sect3 id="accessibilitytoolexample">
+        <title>Příklad úprav nastavení nástrojů pro zpřístupnění</title>
+
+        <para>Například, pokud je GNOME šířeno s GOK jako výchozí klávesnicí na obrazovce, může být tato nahrazena jiným programem podle potřeby. Abyste nahradili GOK pomocí aplikace „onboard“ a navíc aktivovali asistenční nástroj „mousetweaks“ pro softwarové klikání, je potřeba následující nastavení.</para>
+
+        <para>Vytvořte jeden soubor .desktop pro onboard a druhý pro mousetweaks. Například onboard.desktop a mousetweaks.desktop. Tyto soubory musí být umístěny ve složce GDM pro automatické spouštění a musí být ve formátu osvětleném v kapitole „Nastavení automatického spuštění“ v tomto dokumentu.</para>
+
+        <para>Následuje příklad souboru <filename>onboard.desktop</filename>:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Onboard Onscreen Keyboard
+Name[cs]=Klávesnice na obrazovce
+Comment=Use an on-screen keyboard
+Comment[cs]=Použít klávesnici na obrazovce
+TryExec=onboard
+Exec=onboard --size 500x180 -x 20 -y 10
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Následuje příklad souboru <filename>mousetweaks.desktop</filename>:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Software Mouse-Clicks
+Name[cs]=Klikání softwarovou myší
+Comment=Perform clicks by dwelling with the pointer
+Comment[cs]=Provádět softwarové klikání ukazatelem
+TryExec=mousetweaks
+Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Všimněte si řádku AutostartCondition, který spojuje oba soubory .desktop do klíče GConf pro klávesnici na obrazovce.</para>
+
+        <para>Aby se zabránilo spuštění GOK, musí se odstranit soubor .desktop pro klávesnici na obrazovce GOK nebo musí být deaktivován. Jinak se spustí naráz onboard i GOK. Můžete to provést odstraněním souboru gok.desktop ze složky GDM pro automatické spouštění nebo přidáním klíče nastavení „Hidden=true“ do souboru gok.desktop.</para>
+
+        <para>Po provedení těchto změn se již nebude nadále spouštět GOK, když uživatel aktivuje klávesnici na obrazovce v sezení GDM. Místo toho se spustí onboard a mousetweak.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="generalsessionconfig">
+      <title>Obecná nastavení sezení</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to be more specific about
+                 how lock down management is handled.
+</para>
+-->
+        <para>Uvítací program GDM používá ten stejný základní rámec, jako sezení vašeho pracovního prostředí. Z toho důvou jej ovlivňuje několik stejných nastavení GConf. Pro každé z těchto nastavení uvítací progrm použije výchozí hodnoty, pokud nejsou konkrétně přepsány a) povinnou zásadou nainstalovanou GDM b) systémovou povinnou zásadou. GDM instaluje své vlastní povinné zásady, aby z bezpečnostních důvodů uzamknul některá nastavení.</para>
+    </sect2>
+
+    <sect2 id="gnomesettingsdaemon">
+      <title>Démon nastavení GNOME</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to give a more complete
+                 list of plugins that users might want to consider disabling.
+                 Also, shouldn't we list the sound/active key in the Greeter
+                 configuration setting?  Oddly I do not find this key used
+                 in anything but the chooser in SVN.
+</para>
+-->
+
+        <para>GDM zapíná následující zásuvné moduly gnome-settings-daemon: a11y-keyboard, background, sound, xsettings.</para>
+
+        <para>Ty zodpovídají za takově věci, jako je obrázek na pozadí, nastavení písma a motivu, zvukové události atd.</para>
+
+        <para>Zásuvné moduly je možné zakázat pomocí GConf. Například, když chcete zakázat zvukový zásuvný modul, zrušte nastavení následujícího klíče: <filename>/apps/gdm/simple-greeter/settings-manager-plugins/sound/active</filename>.</para>
+    </sect2>
+
+    <sect2 id="sessionconfig">
+      <title>Nastavení sezení GDM</title>
+
+      <para>Sezení GDM se definují na základě specifikace položek pracovní plochy (Desktop Entry Specification) od FreeDesktop.org, kterou najdete na následujcí adrese URL: <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"> http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</ulink>.</para>
+
+      <para>Standardně bude GDM instalovat soubory .desktop do složky <filename>&lt;share&gt;/xsessions</filename>. GDM prohledává následující složky v tomto pořadí, aby našel soubory .desktop: <filename>&lt;etc&gt;/X11/sessions/</filename>, <filename>&lt;dmconfdir&gt;/Sessions</filename>, <filename>&lt;share&gt;/xsessions</filename> a <filename>&lt;share&gt;/gdm/BuiltInSessions</filename>. Jako výchozí hodnota pro <filename>&lt;dmconfdir&gt;</filename> je <filename>&lt;etc&gt;/dm/</filename>, pokud není GDM nakonfigurován, aby používal jinou složku, pomocí volby „--with-dmconfdir“.</para>
+
+      <para>Sezení je možné zakázat upravou souboru .desktop a přidáním řádku: <filename>Hidden=true</filename>.</para>
+
+      <para>U svých souborů .desktop podporuje GDM rozšíření specifické jen pro něj, klíč s názvem „X-GDM-BypassXsession“. Pokud klíč není v souboru .desktop uveden, je jeho výchozí hodnotou „false“. Pokud je v souboru .desktop uveden s hodnotou „true“, spustí GDM program uvedený v klíči „Exec“ v souboru .desktop přímo, když spouští uživatelovo sezení. Nebude program spouštět přes skript <filename>&lt;etc&gt;/gdm/Xsession</filename>, což je normální chování. Protože se obejde skript <filename>&lt;etc&gt;/gdm/Xsession</filename>, zabrání se vytvoření uživatelského sezení s normálním systémem a nastaveními uživatele, může být sezení spuštěné tímto způsobem vhodné pro ladění problémů v systému nebo pro uživatelské skripty, které mohou zabránit uživateli v možnosti spouštět sezení.</para>
+
+    </sect2>
+
+    <sect2 id="userconfig">
+      <title>Nastavení uživatelova sezeni a jazyka v GDM</title>
+      <para>Výchozí volby pro uživatelovo sezení a jazyk jsou uchovány v souboru <filename>~/.dmrc</filename>. Když se uživatel přihlašuje poprvé, je soubor vytvořen s jeho počáteční volbou. Tyto výchozí hodnoty pak může změnit jednoduše tak, že změní hodnotu na jinou během přihlašování. GDM si bude pamatovat tuto změnu pro následující přihlášení.</para>
+
+      <para>Soubor <filename>~/.dmrc</filename> je ve standardním formátu <filename>INI</filename>. Má jeden oddíl nazývaný <filename>[Desktop]</filename>, který má dva klíče: <filename>Session</filename> a <filename>Language</filename>.</para>
+
+      <para>Klíč <filename>Session</filename> určuje základní název souboru <filename>.desktop</filename> pro sezení, který si uživatel přeje normálně používat bez přípony <filename>.desktop</filename>. Klíč <filename>Language</filename> určuje jazyk, který si uživatel přeje používat jako výchozí. Pokud některý z těchto klíčů chybí, je použita výchozí hodnota systému. Normálně by měl soubor vypadat následovně:</para>
+
+<screen>
+[Desktop]
+Session=gnome
+Language=cs_CZ.UTF-8
+</screen>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= GDM Commands ============================= -->
+
+  <sect1 id="binaries">
+    <title>Příkazy GDM</title>
+
+    <sect2 id="sbindir_binaries">
+      <title>Příkazy GDM pro superuživatele root</title>
+
+      <para>Balíček GDM obsahuje následující příkazy v <filename>sbindir</filename>, u kterých je zamýšleno, že je bude spouštět superuživatel root:</para>
+
+      <sect3 id="gdmcommandline">
+        <title>Přepínače příkazové řádky příkazu <command>gdm</command></title>
+
+        <para><command>gdm</command> je hlavní démon, který nastavuje grafické přihlašovací prostředí a spouští potřebné pomocníky.</para>
+
+        <variablelist>
+          <title>Přepínače příkazové řádky příkazu <command>gdm</command></title>
+
+          <varlistentry>
+            <term>-?, --help</term>
+            <listitem>
+              <para>Podá stručný přehled o přepínačích příkazové řádky.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--fatal-warnings</term>
+            <listitem>
+              <para>Způsobí, že všechna varování povedou k ukončení GDM.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--timed-exit</term>
+            <listitem>
+              <para>Ukončit po 30 vteřinách. Užitečné pro ladění.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--version</term>
+            <listitem>
+              <para>Vypíše verzi démona GDM.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="gdmrestartcommandline">
+        <title>Přepínač příkazového řádku příkazu <command>gdm-restart</command></title>
+
+        <para><command>gdm-restart</command> zastaví a spustí GDM pomocí zaslání signálu HUP démonu GDM. Tento příkaz okamžitě ukončí všechna sezení a odhlásí uživatele aktuálně přihlášené pomocí GDM.</para>
+      </sect3>
+
+      <sect3 id="gdmsaferestartcommandline">
+        <title>Přepínač příkazového řádku příkazu <command>gdm-safe-restart</command></title>
+  
+        <para><command>gdm-restart</command> zastaví a spustí GDM pomocí zaslání signálu USR1 démonu GDM. GDM bude restartováno hned, jak se odhlásí všichni uživatelé.</para>
+      </sect3>
+
+      <sect3 id="gdmstopcommandline">
+        <title>Přepínač příkazového řádku příkazu <command>gdm-stop</command></title>
+
+        <para><command>gdm-restart</command> zastaví GDM pomocí zaslání signálu TERM démonu GDM.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Troubleshooting =========================== -->
+
+  <sect1 id="troubleshooting">
+    <title>Řešení problémů</title>
+<!--
+<para>
+      TODO - any other tips we should add?  Might be useful to highlight any
+             common D-Bus configuration issues?
+</para>
+-->
+
+    <para>V této části jsou probírány užitečné tipy pro fungování GDM. Obecně, pokud máte s používáním GDM nějaký problém, můžete zaslat chybové hlášení nebo poslat e-mail do poštoví konference gdm-list. Informace, jak se to dělá, najdete v úvodní části tohoto dokumentu.</para>
+
+    <para>Když se nedaří, aby GDM fungoval správně, je vždy dobrý nápad zahrnout ladicí informace. Ty povolíte nastavením klíče debug/Enable na „true“ v souboru <filename>&lt;etc&gt;/gdm/custom.conf</filename> a restartováním GDM. Pak použijte GDM v místě, ve kterém selhává, a ladicí výstup bude odeslán do souboru se systémovým záznamem (<filename>&lt;var&gt;/log/messages</filename> nebo <filename>&lt;var&gt;/adm/messages</filename> podle vašeho operačního systému). Pokud sdílíte tento výstup s komunitou GDM přes hlášení chyb nebo e-mail, zahrňte prosím pouze údaje vztahující se k chybě GDM a neposílejte soubor celý, protože může být velký. V případě, že nevidíte v systémovém záznamu žádný výstup z GDM, musíte správně nastavit syslog (viz manuálová stránka <ulink type="help" url="man:syslog">syslog</ulink>).</para>
+
+    <sect2 id="wontstart">
+      <title>GDM se nespouští</title>
+
+      <para>Existuje řada problémů, které mohou způsobit, že spuštění GDM selže, ale v této části je probíráno pár nejběžnějších problémů a postup, jak pátrat po příčinách problémů se spuštěním GDM. Některé problémy způsobí, že GDM při pokusu o spuštění reaguje chybovým hlášením nebo dialogovým oknem, ale když selže oznámení, může být obtížné problém vysledovat.</para>
+
+      <para>Nejprve se ujistěte, že je Xserver správně nastavený. Soubor s nastavením GDM obsahuje v části [server-Standard] příkaz, který se používá ke spuštění Xserveru. Ověřte si, že tento příkaz funguje na vašem systému. Spuštění tohoto příkazu v konzoli by mělo spustit Xserver. Pokud selže, je problém pravděpodobně s nastavením Xserveru. Podívejte se do chybových záznamů Xserveru, jestli vás nenavedou, v čem by problém mohl být. Může být i v tom, že Xserver vyžaduje jiné přepínače příkazového řádku. Pokud tomu tak je, upravte příkaz Xserveru v souboru s nastavením GDM, aby byl správně pro váš systém.</para>
+
+      <para>Rovněž se ujistěte, že složka <filename>/tmp</filename> má správného vlastníka a oprávnění a že souborový systém počítače není přeplněný. Tyto problémy způsobují selhání při spuštění GDM.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Application License ============================= -->
+
+  <sect1 id="license">
+    <title>Licence</title>
+    <para>Tento program je svobodný software. Můžete jej dále šířit a/nebo upravovat za dodržení podmínek <ulink type="help" url="gnome-help:gpl"><citetitle>GNU General Public License</citetitle></ulink>, tak jak ji vydala Free Software Foundation ve verzi 2 nebo (dle vaší volby) novější.</para>
+    <para>Tento program je šířen s přesvědčením, že může být užitečný, ale BEZ JAKÝCHKOLIV ZÁRUK, bez předpokládané záruky na OBCHODOVATELNOST nebo VHODNOST PRO URČITÝ ÚČEL. Více podrobností najdete v <citetitle>GNU General Public License</citetitle>.</para>
+    <para>Kopie <citetitle>GNU General Public License</citetitle> je zahrnuta v dodatku <citetitle>Uživatelské přiručky GNOME</citetitle>. Kopii <citetitle>GNU General Public License</citetitle> můžete také získat od Free Software Foundation navštívením <ulink type="http" url="http://www.fsf.org">jejich webu</ulink> nebo zasláním žádosti na <address>
+      Free Software Foundation, Inc.
+      <street>51 Franklin Street, Fifth Floor</street>
+      <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>
+      <country>USA</country>
+      </address></para>
+  </sect1>
+</article>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

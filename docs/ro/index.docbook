@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY version "2.26.0">
+<!ENTITY date "02/10/2009">
+<!ENTITY mdash "&#8212;">
+<!ENTITY percnt "&#x0025;">
+]>
+<article id="index" lang="ro">
+  <articleinfo>
+    <title>Manualul Managerului de ecran GNOME</title>
+
+    <revhistory>
+      <revision><revnumber>0.0</revnumber> <date>2008-09</date></revision>
+    </revhistory>
+
+    <abstract role="description">
+      <para>Managerul de ecran GNOME este un program de autentificare vizuală.</para>
+    </abstract>
+
+    <authorgroup>
+      <author><firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation></author>
+      <author><firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation></author>
+      <author><firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation></author>
+      <author><firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation></author>
+      <author role="maintainer"><firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation></author>
+    </authorgroup>
+    <copyright><year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder></copyright>
+    <copyright><year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder></copyright>
+    <copyright><year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder></copyright>
+    <copyright><year>2003</year> <year>2011</year> <holder>Oracle și/sau afiliații săi. Toate drepturile rezervate.</holder></copyright>
+
+      <legalnotice id="legalnotice">
+	<para>Se acordă permisiunea de a copia, distribui și/sau modifica acest document în conformitate cu termenii licenței de documentație liberă GNU (GFDL), Versiunea 1.1 sau altă versiune ulterioară publicată de Fundația pentru programe libere (Free Software Foundation), fără Invariant Sections, Front-Cover Texts sau Back-Cover Texts. Puteți găsi o copie a licenței GFDL la acestă <ulink type="help" url="ghelp:fdl">legatură</ulink> sau în fișierul COPYING-DOCS distribuit cu acest manual.</para>
+         <para>Acest manual face parte din colecția de manuale GNOME distribuite sub licența GFDL. Dacă doriți să distribuiți acest manual separat de colecție, aveți posibilitatea de a face acest lucru adăugând o copie a licenței manualului, așa cum este descris în secțiunea 6 din licență.</para>
+
+	<para>Multe dintre numele folosite de companii pentru a distinge produsele și serviciile lor sunt declarate ca mărci comerciale. În cazul în care aceste nume apar în orice documente GNOME, și membrii proiectului de documentație GNOME sunt conștienți de aceste mărci, numele sunt scrise în majuscule sau cu primele litere cu capital.</para>
+
+	<para>DOCUMENTUL SAU VERSIUNILE MODIFICATE ALE ACESTUIA SUNT FURNIZATE SUB TERMENII LICENȚEI LIBERE DE DOCUMENTAȚIE GNU, ÎNȚELEGÂNDU-SE URMATOARELE: <orderedlist>
+		<listitem>
+		  <para>DOCUMENTUL ESTE OFERIT „CA ATARE”, FĂRĂ NICIUN FEL DE GARANȚIE, FIE EXPLICITĂ SAU IMPLICITĂ, INCLUZÂND, FĂRĂ LIMITARE, GARANȚII CĂ DOCUMENTUL SAU VERSIUNEA MODIFICATĂ A ACESTUIA ESTE FĂRĂ DEFECTE, POTRIVITĂ PENTRU UN SCOP PARTICULAR SAU PENTRU A NU ÎNCĂLCA NICIUN DREPT. ÎNTREGUL RISC PRIVIND CALITATEA, PRECIZIA ȘI PERFORMANȚA DOCUMENTULUI SAU A VERSIUNII MODIFICATE A ACESTUIA ESTE AL DUMNEAVOASTRĂ. ÎN CAZ CĂ ORICE DOCUMENT SAU VERSIUNE MODIFICATĂ SE DOVEDEȘTE A FI DEFECTĂ ÎN ORICE PRIVINȚĂ, DUMNEAVOASTRĂ (NU SCRIITORUL INIȚIAL, AUTOR SAU ORICE CONTRIBUABIL) VĂ ASUMAȚI COSTUL NECESAR ÎNTREȚINERII, REPARAȚIILOR SAU CORECTURILOR. ACEST CERTIFICAT DE NEGARANȚIE REPREZINTĂ O PARTE ESENȚIALA A ACESTEI LICENȚE. NICIO FOLOSIRE A ORICĂRUI DOCUMENT SAU A UNEI VERSIUNI MODIFICATE A UNUIA NU ESTE AUTORIZATĂ DECÂT ÎN ACEST CERTIFICAT DE NEGARANȚIE; ȘI</para>
+		</listitem>
+		<listitem>
+		  <para>ÎN NICIUN CAZ ȘI SUB NICIO TEORIE JURIDICĂ, FIE CĂ ESTE VORBA DE INJURII (INCLUZÂND NEGLIJENȚA), CONTRACT, SAU ALTFEL, AUTORUL, SCRIITOR INIȚIAL, ORICE CONTRIBUABIL, SAU ORICE DISTRIBUITOR AL DOCUMENTULUI SAU A UNEI VERSIUNI MODIFICATE A DOCUMENTULUI, SAU ORICE FURNIZOR AL ACESTOR PĂRȚI, NU VA FI SUPUS NICIUNEI PERSOANE PENTRU ORICE DAUNE DIRECTE, INDIRECTE, SPECIALE, ACCIDENTALE SAU CAUZATE DE ORICE CARACTER, INCLUZÂND, FĂRĂ LIMITARE, DAUNE DE PIERDERE A BUNĂVOINȚEI, ÎNTRERUPEREA LUCRULUI, DEFECTAREA SAU EȘUAREA CALCULATORULUI, SAU ORICE ALTE DAUNE SAU PIERDERI REZULTATE PRIN, SAU ÎN LEGATURA CU FOLOSIREA ACESTUI DOCUMENT SAU A UNEI VERSIUNI MODIFICATE A ACESTUIA, CHIAR DACĂ O PARTE AR FI FOST INFORMATĂ DE POSIBILITĂȚILE ACESTOR DAUNE.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+    <releaseinfo>Acest manual descrie versiunea 2.26.0 a Managerului de ecran GNOME. A fost actualizat ultima dată pe 08/06/2015.</releaseinfo>  
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Daniel Toma </firstname>
+      </personname>
+      <email>daniel.digital2@gmail.com</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2011</year>
+      
+      <holder>Daniel Toma </holder>
+    </copyright>
+  </articleinfo>
+
+  <!-- ============= Preface ================================== -->
+
+  <sect1 id="preface">
+    <title>Termeni și convenții folosite în acest manual</title>
+
+    <para>Acest manual descrie versiunea 2.26.0 a Managerului de ecran GNOME. A fost actualizat ultima dată pe 08/06/2015.</para>  
+
+    <para>Selector - Program folosit pentru a selecta de la distanță un computer gazdă pentru a gestiona de la distanță un afișaj de pe un ecran atașat (<command>gdm-host-chooser</command>).</para>
+
+    <para>FreeDesktop - Organizația care furnizează standarde desktop, cum ar fi Specificația înregistrării desktop folosită de Managerul de ecran GDM. <ulink type="http" url="http://www.freedesktop.org/"> http://www.freedesktop.org</ulink>.</para>
+    <para>GDM - Managerul de ecran GNOME. Folosit pentru a descrie pachetul de programe ca un întreg.</para>
+
+    <para>Aplicație de întâmpinare - Fereastră de autentificare vizuală (oferită de <command>gnome-shell</command>).</para>
+
+    <para>PAM - Mecanism de autentificare conectabil</para>
+
+    <para>XDMCP - Protocol pentru gestionarea afișajului X</para>
+
+    <para>Xserver - O implementare a Sistemului de ferestre X. De exemplu XServerul Xorg furnizat de către fundația X.org <ulink type="http" url="http://www.x.org/">http://www.x.org</ulink>.</para>
+
+    <para>Căile care încep cu un cuvânt între paranteze unghiulare sunt relative față de prefixul instalării. Exemplu <filename>&lt;share&gt;/pixmaps/</filename> se referă la <filename>/usr/share/pixmaps</filename> dacă GDM a fost configurat cu <command>--prefix=/usr</command>.</para>
+  </sect1>
+
+  <!-- ============= Overview ================================= -->
+
+  <sect1 id="overview">
+    <title>Prezentare generală</title>
+
+    <sect2 id="introduction">
+      <title>Introducere</title>
+
+      <para>Managerul de ecran GNOME (GDM) este un manager de ecran care implementează toate funcționalitățile importante necesare pentru gestionarea ecranelor atașate și de la distanță.</para>
+
+      <para>A se reține că GDM este configurabil, și că multe opțiuni de configurație au un impact asupra securității. Problemele despre care trebuie să fiți conștienți sunt evidențiate în acest document.</para> 
+
+      <para>A se reține că unele sisteme de operare configurează GDM în așa fel încât va funcționa altfel decât valorile implicite așa cum sunt prezentate în acest document.</para>
+
+      <para>Pentru mai multe informații despre GDM, consultați situl proiectului <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/"> http://wiki.gnome.org/Projects/GDM</ulink>.</para>
+
+      <para>Pentru discuții sau întrebări despre GDM, înaintați către lista de discuții <address><email>gdm-list@gnome.org</email></address>. Această listă este arhivată, și este o resursă bună pentru a căuta răspunsuri la unele întrebări uzuale. Această listă este arhivată la adresa <ulink type="http" url="http://mail.gnome.org/archives/gdm-list/"> http://mail.gnome.org/archives/gdm-list/</ulink> și are o facilitate pentru a căuta mesaje și cuvinte cheie.</para>
+
+      <para>Vă rugăm să trimiteți orice raport al unei disfuncționalități sau cerere de îmbunătățire către categoria "gdm" în <ulink type="http" url="http://bugzilla.gnome.org/"> http://bugzilla.gnome.org</ulink>.</para>
+    </sect2>
+
+    <sect2 id="stability">
+      <title>Stabilitatea interfeței</title>
+
+      <para>GDM 2.20 și versiunile mai vechi au suportat interfețe cu configurație stabilă. Cu toate acestea, baza de cod a fost rescrisă complet pentru GDM 2.22, și nu mai este complet compatibilă cu versiunile mai vechi. Acesta se datorează faptului că unele lucruri funcționează diferit, deci unele opțiuni nu au sens, deoarece unele opțiuni nu au avut sens niciodată și pentru că unele funcționalități încă nu au fost reimplementate.</para>
+
+      <para>Interfețe care continuă să fie suportate într-o manieră stabilă includ scripturile Init, PreSession, PostSession, PostLogin și Xsession. Unele opțiuni de configurație ale serviciului din fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> continuă să fie suportate. De asemenea, fișierul <filename>~/.dmrc</filename>, și locațiile imaginilor pentru navigatorul de fețe sunt încă suportate.</para>
+
+      <para>GDM 2.20 și versiunile mai vechi au suportat posibilitatea de a gestiona mai multe ecrane cu plăci grafice diferite, cum ar fi folosite în medii de terminal ale serverelor, autentificarea într-o fereastră prin intermediul unui program ca Xnest sau Xephyr, programul gdmsetup, temele de îmtâmpinare bazate pe XML, și posibilitatea de a executa selectorul XDMCP din ecranul de autentificare. Aceste funcționalități nu au fost adăugate la loc dupa rescrierea 2.22.</para>
+
+    </sect2>
+
+    <sect2 id="functionaldesc">
+      <title>Descriere funcțională</title>
+
+<!--
+<para>
+        TODO - Would be good to discuss D-Bus, perhaps the new GObject model,
+               and to explain the reasons why the rewrite made GDM better.
+               From a high-level overview perspective, rather than the
+               technical aspects.
+</para>
+-->
+
+      <para>GDM este responsabil cu gestionarea ecranelor pe sistem. Acest lucru include autentificarea utilizatorilor, pornirea sesiunii utilizatorului, și terminarea sesiunii utilizatorului. GDM este configurabil și modalitațile în care poate fi configurat sunt prezentate în secțiunea „Configurare GDM” a acestui document. GDM este de asemenea accesibil și utilizatorilor cu dizabilități.</para>
+
+      <para>GDM oferă posibilitatea de a gestiona ecranul terminalului principal, și ecranelor pornite prin VT. Este integrat cu alte programe, cum ar fi Miniaplicația de schimbare rapidă a utilizatorului (FUSA) și Protectorul de ecran GNOME pentru a gestiona ecrane multiple în terminal prin interfața Terminalului Virtual Xserver (VT). Poate de asemenea să gestioneze ecrane XDMCP.</para>
+
+      <para>Indiferent de tipul ecranului, GDM va face următoarele când va gestiona ecranul. Va porni un proces Xserver, apoi va executa scriptul <filename>Init</filename> ca administrator, și va porni programul de întâmpinare pe ecran.</para>
+
+      <para>Programul de întâmpinare va fi pornit ca utilizatorul/grupul "gdm" fără privilegii. Acest utilizator și grup sunt descrise în secțiunea „Securitate” a acestui document. Funcțiile principale ale programului de îmtâmpinare este să ofere un mecanism de selectare a unui cont pentru autentificare și să conducă dialogul dintre utilizator și sistem pe durata autentificării acelui cont. Procesul de autentificare este rulat de către Modulele conectabile de autentificare (PAM). Modulele PAM determină ce solicitări (dacă există) se afișează utilizatorului ca să se autentifice. Pe un sistem comun, programul de întâmpinare va cere numele utilizatorului și parola pentru autentificare. Cu toate acestea, unele sisteme ar putea fi configurate să folosească mecanisme suplimentare, cum ar fi cititoare de amprente sau SmartCard-uri. GDM poate fi configurat să suporte aceste alternative în paralel cu extensiile de întâmpinare la autenthificare și opțiunea <command>--enable-split-authentication</command> <filename>./configure</filename>  sau separat prin configurarea de sistem PAM.</para>
+
+      <para>Extensia smartcard poate fi activată sau dezactivată prin cheia gsettings <filename>org.gnome.display-manager.extensions.smartcard.active</filename>.</para>
+
+      <para>De asemenea, extensia pentru amprente poate fi activată sau dezactivată prin cheia gsettings <filename>org.gnome.display-manager.extensions.fingerprint.active</filename>.</para>
+
+      <para>GDM și PAM pot fi configurate să nu necesite intrări, care va cauza GDM să se autentifice automat și să pornească o sesiune, ceea ce poate fi util pentru unele medii, cum ar fi sisteme pentru un singur utilizator sau chioșcuri.</para>
+
+      <para>Pe lângă autentificare, programul de întâmpinare permite utilizatorului să selecteze ce sesiune să pornească și ce limbă să folosească. Sesiunile sunt definite de fișierele ce se termina în sufixul .desktop și mai multe informații despre aceste fișiere poate fi gasită în secțiunea „Sesiunea utilizatorului și configurarea limbii” a acestui document. Inițial, GDM este configurat să afișeze un navigator de fețe pentru ca utilizatorul să își poată selecta contul apăsând clic pe o imagine în loc să își tasteze numele de utilizator. GDM ține evidența sesiunii și limbii implicite a utilizatorului în fișierul <filename>~/.dmrc</filename> și va folosi aceste valori implicite dacă utilizatorul nu alege o sesiune sau o limbă în interfața grafică a autentificării.</para>
+
+      <para>După autentificarea utilizatorului, serviciul execută scriptul <filename>PostLogin</filename> ca administrator, apoi rulează scriptul <filename>PreSession</filename> ca administrator. După executarea acestor scripturi, este pornită sesiunea utilizatorului. Când un utilizator iese din sesiune, scriptul <filename>PostSession</filename> este rulat ca administrator. Aceste scripturi sunt furnizate ca niște cârlige pentru distribuții și utilizatori pentru a personaliza felul în care sesiunile sunt gestionate. De exemplu, folosind aceste cârlige, puteți defini o mașină care va creea dosarul $HOME al utilizatorului pe parcurs, și îl va șterge la închiderea sesiunii. Diferența dintre scripturile <filename>PostLogin</filename> și <filename>PreSession</filename> este că <filename>PostLogin</filename> este executat înainte de apelul pam_open_session, deci este locul potrivit pentru a face lucrurile ce trebuie executate înainte ca sesiunea utilizatorului să fie inițializată.</para>
+    </sect2>
+
+    <sect2 id="greeterpanel">
+      <title>Panoul programului de întâmpinare</title>
+      <para>Programul de întâmpinare GDM afișează un panou atașat în partea de jos a ecranului care oferă funcționalități suplimentare. Când utilizatorul este selectat, panoul permite utilizatorului să selecteze ce sesiune, limbă și aranjament al tastaturii dorește să folosească dupa autentificare. Selectorul aranjamentului tastaturii schimbă aranjamentul tastaturii folosit și la scrierea parolei. Panoul conține și o suprafață pentru ca serviciile de deschidere a sesiunii să lase o iconiță despre stare. Unele iconițe de stare includ o pictogramă a unei baterii pentru consumul de energie electrică, și o iconiță pentru activarea funcționalităților de accesibilitate. Programul de întâmpinare oferă și butoane care permit utilizatorului să închidă sau să repornească sistemul. Este posibil să configurați GDM pentru a nu furniza butoanele de închidere și de repornire, dacă doriți. GDM poate și să fie configurat prin PolicyKit (sau prin RBAC de pe Oracle Solaris) pentru a necesita o autorizație corespunzătoare a utilizatorului înainte de a accepta cererea de închidere sau de repornire.</para>
+
+      <para>A se reține că funcționalitățile pentru aranjamentul tastaturii sunt disponibile doar pe sistemele ce suportă libxklavier.</para>
+    </sect2>
+
+    <sect2 id="accessibility">
+      <title>Accesibilitate</title>
+
+        <para>GDM suportă „Autentificare accesibilă”, permițând utilizatorilor să deschidă sesiunea lor desktop chiar dacă nu pot să folosească ecranul cu ușurință, sau tastatura într-un mod uzual. Tehnologia de accesibilitate (AT) oferă lucruri cum ar fi tastatură pe ecran, cititor de ecran, lupă pentru ecran, și accesibilitatea tastaturii Xserver și AccessX este suportată. De asemenea, este posibil să activați textul mare sau iconițele și controalele cu contrast ridicat. Urmăriți secțiunea "Configurarea accesibilității" din acest document pentru mai multe informații despre cum diferite funcționalități de accesibilitate pot fi configurate.</para>
+
+        <para>Pe unele sisteme de operare, este necesar să fiți sigur că utilizatorul GDM este membru al grupului "audio" pentru ca programele AT ce necesită ieșire sunet (cum ar fi transofrmarea textului în vorbire) să fie funcționale.</para>
+    </sect2>
+
+    <sect2 id="facebrowser">
+      <title>Navigatorul de fețe GDM</title>
+
+      <para>Navigatorul de fețe este infertața ce permite utilizatorilor să își selecteze numele de utilizator, apăsând clic pe o imagine. Acestă funcționalitate poate fi activată sau dezactivată prin cheia  org.gnome.login-screen disable-user-list GSettings și este implicit pornită. Când este dezactivată, utilizatorii trebuie să își scrie numele de utilizator manual. Când este activată, va afișa toți utilizatorii locali care sunt disponibili pentru a deschide o sesiune pe sistem (toate conturile de utilizator definite in fișierul /etc/passwd care au shell valid și un UID suficient de ridicat) și utilizatorii de la distanță care au deschis o sesiune recent. Navigatorul de fețe din versiunea GDM 2.20 sau mai veche ar fi încercat să afișeze toți utilizatorii de la distanță, lucru ce cauza probleme de performanță în întreprinderile mari.</para>
+
+      <para>Navigatorul de fețe este configurat să afișeze utilizatorii care deschid o sesiune cel mai frecvent în partea de sus a listei. Acest lucru asigură că utilizatorii care deschid sesiuni frecvent își pot gasi rapid imaginea lor de autentificare.</para>
+
+      <para>Navigatorul de fețe suportă „completarea automată a căutarii” care mută dinamic selecția de suprafață în timp ce utilizatorul își scrie numele de utilizator în listă. Asta înseamnă că un utilizator cu un nume lung va trebui să scrie doar primele caractere ale numelui pentru ca elementul corect din listă să fie selectat.</para>
+
+      <para>Iconițele folosite de GDM pot fi instalate global de administratorul de sistem sau pot fi localizate în directoarele principale ale fiecarui utilizator. Dacă sunt instalate global ar trebui să fie in dosarul <filename>&lt;share&gt;/pixmaps/faces/</filename> și fișierul ar trebui să fie numele utilizatorului. Imaginile fețelor trebuie să fie imagini standarde pe care GTK+ poate să le citească, cum ar fi PNG sau JPEG. Iconițele fețelor plasate în directorul global trebuie să poată fi citite de un utilizator GDM.</para>
+
+<!--
+<para>
+        TODO - In the old GDM the ~/gnome2/gdm file is used, but the new code
+               seems to use ~/.gnome/gdm.  Error?
+</para>
+-->
+      <para>Dacă nu există o iconiță globală pentru utilizator, GDM va căuta în dosarul $HOME al utilizatorului pentru fișierul imagine. GDM va căuta prima dată imaginea în <filename>~/.face</filename>. Dacă nu este găsită, va incerca <filename>~/.face.icon</filename>. Dacă tot nu este găsită, va folosi valoarea definită pentru "face/picture=" în fișierul <filename>~/.gnome2/gdm</filename>.</para>
+
+      <para>Dacă utilizatorul nu are o imagine de față definită, GDM va folosi iconița "stock_person" din tema GTK+ curentă. Dacă această imagine nu este definită, se va întoarce la o imagine de față generică.</para>
+
+      <para>A se reține că încărcarea și redimensionarea iconițelor de față localizate în dosarele principale ale utilizatorilor de la distanță poate fi o sarcină ce necesită mult timp. Ținând cont că nu este practic să se încarce imagini prin NIS sau NFS, GDM nu va încerca să încarce imaginile de față din dosarele principale de la distanță. </para>
+
+      <para>Când navigatorul este activat, numele de utilizator valide de pe calculator sunt expuse și pot fi văzute de oricine. Dacă XDMCP este activat, atunci numele de utilizator sunt expuse utilizatorilor de la distanță. Asta, desigur, limitează oarecum securitatea ținând cont că un utilizator malițios nu trebuie să ghicească nume de utilizator valide. În unele medii foarte restrictive navigatorul de fețe ar putea să nu fie adecvat.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcp">
+      <title>XDMCP</title>
+
+<!--
+<para>
+        TODO - What XDMCP features actually work?   I know that the
+               chooser is missing.
+</para>
+-->
+
+      <para>Serviciul GDM poate fi configurat să asculte și să gestioneze cereri ale Protocolului de gestionare a ecranelor X (XDMCP) de la ecrane de la distanță. Implicit, suportul XDMCP este dezactivat, dar poate fi activat dacă se dorește acest lucru. Dacă GDM este construit cu suportul TCP Wrapper, atunci serviciul va permite accesul doar calculatoarelor gazdă specificate în secțiunea serviciului GDM din fișierul de configurație a sistemului TCP Wrappers.</para>
+
+      <para>GDM include mai multe măsuri ce îl fac mai rezistent atacurilor de negare a serviciului asupra procesului XDMCP. Mulți dintre parametrii de protocol, limitele de timp alocate conectării, etc. pot fi ajustate detaliat. Configurația implicită ar trebui să funcționeze rezonabil pe majoritatea sistemelor.</para>
+
+      <para>GDM ascultă implicit cererile XDMCP pe portul normal UDP folosit pentru XDMCP, 177, și va răspunde cererilor QUERY și BROADCAST_QUERY trimițând un pachet WILLING către inițiator.</para>
+
+      <para>GDM poate fi configurat și pentru a asculta interogațiile INDIRECT și a prezenta un selector de calculator gazdă ecranului de la distanță. GDM va ține minte alegerea utilizatorului și va înainta cererile ulterioare către managerul ales. GDM suportă și o extensie a protocolului care îl va face să uite redirecționarea când conexiunea utilizatorului reușește. Această extensie este suportată doar dacă amândouă servicii sunt GDM. Este transparentă și va fi ignorată de către XDM sau alte servicii care implementează XDMCP.</para>
+
+      <para>Dacă XDMCP nu funcționează, asigurați-vă că toate mașinile sunt specificate în <filename>/etc/hosts</filename>.</para>
+
+      <para>Consultați secțiunea „Securitate” pentru informații privind probleme de securitate când se folosește XDMCP.</para>
+    </sect2>
+
+    <sect2 id="logging">
+      <title>Jurnalizare</title>
+
+      <para>GDM folosește syslog pentru a înregistra erorile și starea. De asemenea, poate să înregistreze și informații de depanare, care pot fi folositoare pentru urmărirea problemelor dacă GDM nu funcționează corespunzător. Ieșirea de depanare poate fi activată configurând cheia de depanare la „true” în fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename>.</para>
+
+      <para>Ieșirile diferitelor Xservere sunt stocate în dosarul de înregistrări GDM, care este implicit <filename>&lt;var&gt;/log/gdm/</filename>. Orice mesaj al Xserverelor sunt salvate într-un fișier asociat cu valoarea ecranului, <filename>&lt;display&gt;.log</filename>.</para>
+
+      <para>Rezultatul sesiunii este asamblat prin procesul GDM către fișierul<filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</filename>. Fișierul este rescris la fiecare autentificare, deci reautentificarea aceluiași utilizator prin GDM va cauza pierderea tuturor mesajelor din sesiunea anterioară.</para>
+
+      <para>A se reține că dacă GDM nu poate creea acest fișier dintr-un anumit motiv, un fișier de rezervă va fi creat numit <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log.XXXXXXXX</filename>, unde <filename>XXXXXXXX</filename> sunt niște caracterele aleatorii.</para>
+    </sect2>
+
+    <sect2 id="fusa">
+      <title>Schimbarea rapidă a utilizatorului</title>
+
+      <para>GDM permite ca mai mulți utilizatori să dețină sesiuni în același timp. După ce un utilizator a deschis o sesiune, mai mulți utilizatori se pot autentifica prin Comutatorul de utilizatori de pe panoul GNOME, sau prin butonul „Schimbare utilizator” din dialogul ecranului blocat al protectorului de ecran GNOME. Sesiunea activă poate fi modificată folosind același mecanism. Luați aminte că unele distribuții nu adaugă un schimbător de utilizatori în configurația implicită a panoului. Poate fi adăugată folosind meniul contextual al panoului.</para>
+      <para>A se reține că această funcționalitate este disponibilă pe sistemele ce suportă terminale virtuale. Această facilitate nu va funcționa dacă terminalele virtuale nu sunt disponibile.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Security ================================= -->
+
+  <sect1 id="security">
+    <title>Securitate</title>
+
+    <sect2 id="gdmuser">
+      <title>Utilizatorul și grupul GDM</title>
+
+      <para>Din motive de securitate un identificator dedicat al utilizatorului și grupului este recomandat pentru o bună funcționare. Acest utilizator și grup este implicit "gdm" pe majoritatea sistemelor, dar poate fi configurat să fie orice utilizator sau grup. Toate programele cu interfață grafică GDM sunt executate sub acest utilizator, pentru ca programele ce interacționează cu utilizatorului să fie rulate într-un sandbox. Acest utilizator și grup ar trebui să aibă permisiuni limitate.</para>
+
+      <para>Singura permisiune de care are nevoie utilizatorul "gdm" este posibilitatea de a citi și scrie fișiere Xauth către dosarul <filename>&lt;var&gt;/run/gdm</filename>. Dosarul <filename>&lt;var&gt;/run/gdm</filename> ar trebui să aibă apartenența root:gdm și permisiunile 1777.</para>
+
+      <para>În niciun caz nu trebuie să configurați utilizatorul/grupul GDM către un utilizator către care se poate căpăta cu ușurință acces, cum ar fi utilizatorul <filename>nobody</filename>. Orice utilizator care dobândește acces către o cheie Xauth poate să intre și să controleze programele cu interfață grafică deschise în sesiunea asociată sau să efectueze un atac de negare al serviciului. Este important să vă asigurați că sistemul este configurat în mod corespunzător, că doar utilizatorul "gdm" are acces la aceste fișiere și că nu este ușoară autentificarea pe acest cont. De exemplu, contul ar trebui să fie configurat pentru a nu avea parolă sau a permite utilizatorilor care nu au drepturi de administrare să se autentifice pe acest cont.</para>
+
+      <para>Configurația aplicației de întâmpinare GDM este stocată în GConf. Pentru a permite utilizatorului GDM să scrie configurația, este necesar ca utilizatorul "gdm" să aibă un dosar $HOME inscripționabil. Utilizatorii pot configura configurația implicită GConf după plac, pentru a elimina necesitatea de furnizare a utilizatorului "gdm" cu un dosar $HOME inscripționabil.</para>
+    </sect2>
+
+    <sect2 id="PAM">
+      <title>PAM</title>
+
+      <para>GDM folosește PAM pentru autentificare. PAM înseamnă Modul de autentificare conectabil, și este folosit de majoritatea programelor ce necesită autentificare pe calculatorul dumneavoastră. Acesta permite administratorului să configureze comportamentul specific al autentificării pentru diferite programe de autentificare (cum ar fi ssh, interfață grafică de autentificare, protector de ecran, etc.)</para>
+
+      <para>PAM este complex și foarte configurabil, dar această documentație nu intenționează să explice acest lucru în detaliu. În schimb, intenționează să ofere o prezentare generală despre cum configurația PAM se înrudește cu GDM, cum PAM este configurat de obicei cu GDM, și probleme cunoscute. Este de așteptat ca o persoană care are nevoie să configureze PAM să trebuiască să citească mai multă documentație despre PAM pentru a înțelege configurația și termenii folosiți în această secțiune.</para>
+        
+      <para>Configurația PAM are interfețe diferite, dar similare, pe sisteme de operare diferite, deci consultați paginile de manual <ulink type="help" url="man:pam.d">pam.d</ulink> sau <ulink type="help" url="man:pam.conf">pam.conf</ulink> pentru detalii. Asigurați-vă că citiți documentația PAM și că sunteți confortabil privind implicațiile securității ale modificărilor pe care vreți să le faceți în configurația dumneavoastră.</para>
+
+      <para>A se reține că, implicit, GDM folosește serviciul PAM „gdm” pentru autentificarea normală și serviciul PAM „gdm-autologin” pentru autentificarea automată. Aceste servicii pot sau nu fi definite în fișierele de configurație ale dumneavoastră, pam.d sau pam.conf. Dacă nu este o astfel de intrare, GDM va încerca să folosească conduita PAM implicită.</para>
+
+      <para>Scriptul <filename>PostLogin</filename> este executat înaintea apelului pam_open_session, și scriptul <filename>PreSession</filename> este apelat după. Acest lucru permite administratorului de sistem să adauge orice fel de script procesului de autentificare, înainte sau după ce PAM inițializează sesiunea.</para>
+
+      <para>Dacă doriți să faceți GDM să meargă și cu alte tipuri mecanisme de autentificare (cum ar fi cititor de amprentă sau de SmartCard), ar trebui să implementați acest lucru folosind un modul de servicii PAM pentru tipul de autentificare dorit în loc să încercați să modificați codul GDM direct. Consultați documentația PAM de pe sistemul dumneavoastră. Cum să faceți acest lucru este discutat frecvent în lista de discuții <address><email>gdm-list@gnome.org</email></address>, deci puteți înainta către arhivele listate pentru mai multă informație.</para>
+
+      <para>PAM are totuși câteva limite când vine vorba de posibilitatea de lucru cu mai multe tipuri de autentificare în același timp, cum ar fi suportul posibilității de a accepta și SmartCard și tastarea numelui de utilizator și a parolei în programul de autentificare. Sunt tehnici care pot face acest lucru posibil, dar este de preferat să vă documentați despre cum poate fi rezolvată această problemă de obicei când efectuați o asemenea configurație.</para>
+
+      <para>Dacă autentificarea automată nu funcționează pe un sistem, verificați dacă stiva PAM „gdm-autologin” este definită în configurația PAM. Pentru ca acest lucru să funcționeze, trebuie folosit un modul PAM care nu face nicio autentificare, sau returnează PAM_SUCCESS de la toate interfețele publice. Presupunând că sistemul dumneavoastră are un modul PAM pam_allow.so care face acest lucru, o configurație PAM pentru a activa „gdm-autologin” ar arăta astfel:</para>
+
+<screen>
+       gdm-autologin auth  required    pam_unix_cred.so.1
+       gdm-autologin auth  sufficient  pam_allow.so.1
+       gdm-autologin account  sufficient  pam_allow.so.1
+       gdm-autologin session  sufficient  pam_allow.so.1
+       gdm-autologin password  sufficient  pam_allow.so.1
+</screen>
+
+      <para>Configurația de mai sus nu va cauza generarea niciunei intrări de jurnalizare recente. Dacă o înregistrare recentă este dorită, folosiți următorul lucru pentru sesiune:</para>
+
+<screen>
+       gdm-autologin session required pam_unix_session.so.1
+</screen>
+
+      <para>Dacă calculatorul este folosit de mai multe persoane, lucru ce face autentificarea automată nepotrivită, poate doriți să permiteți unora utilizatori să deschidă o sesiune fără să furnizeze parola. Această facilitate poate fi activată ca o opțiune a utilizatorului, din unealta de administrare a utilizatorului din uneltele de sistem gnome; este realizată prin verificarea dacă utilizatorul este membru al unui grup Unix numit „nopasswdlogin” înainte de a cere o parolă. Pentru ca să funcționeze, fișierul de configurație PAM al serviciului „gdm” trebuie să includă o linie ca următoarea:</para>
+
+<screen>
+      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
+</screen>
+
+    </sect2>
+
+    <sect2 id="utmpwtmp">
+      <title>utmp și wtmp</title>
+
+      <para>GDM generează înregistrările utmp și wtmp a Bazei de date a conturilor de utilizator la deschiderea și închiderea sesiunii. Baza de date utmp conține accesul utilizatorului și informații privind contul care pot fi accesate prin comenzi de genul <command>finger</command>, <command>last</command>, <command>login</command>, și <command>who</command>. Baza de date wtmp conține istoricul accesului utilizatorului și informații privind contul din baza de date utmp. Înaintați spre paginile manualului <ulink type="help" url="man:utmp">utmp</ulink> și <ulink type="help" url="man:wtmp">wtmp</ulink> de pe sistemul dumneavoastră pentru mai multe informații.</para>
+    </sect2>
+
+    <sect2 id="xauth">
+      <title>Schema autentificării Xserver</title>
+
+      <para>Fișierele de autorizație ale serverului X sunt stocate într-un nou subdosar al <filename>&lt;var&gt;/run/gdm</filename> la deschidere. Aceste fișiere sunt folosite pentru a stoca și partaja o „parolă” între clienții X și serverul X. Această "parolă" este unică pentru fiecare deschidere a unei sesiuni, pentru ca utilizatorii dintr-o sesiune să nu poată intra peste utilizatorii din alta.</para>
+
+      <para>GDM suportă doar schema de autentificare MIT-MAGIC-COOKIE-1 a serverului X. În mod normal, puține lucruri sunt obținute de la alte scheme și nu există niciun efort de a le implementa până acum. Aveți în mod special grijă când folosiți XDMCP, deoarece cookie-urile de autentificare ale serverului X trec pe fir ca text normal. Dacă furișarea este posibilă, atunci un atacator poate să vă vadă direct parola de autentificare când deschideți o sesiune, fără să se țină cont de schema de autentificare folosită. Dacă furișarea este posibilă și nedorită, ar trebui să folosiți ssh în loc de XDMCP pentru a canaliza o conexiune X. Vă puteți imagina XDMCP ca pe un fel de telnet grafic, având aceleași probleme de securitate. În cele mai multe cazuri, ssh -Y ar trebui să fie de preferat în locul facilităților managerului de ecran XDMCP.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpsecurity">
+      <title>Securitatea XDMCP</title>
+
+      <para>Chiar dacă ecranul dumneavoastră este protejat de cookieuri, evenimentele X, deci și combinațiile de taste când introduceți o parolă vor fi trimise pe fir tot ca text normal. Este fără importanță să le capturăm.</para>
+
+      <para>XDMCP este folosit în primul rând pentru a porni clienți subțiri, cum ar fi în laboratoarele de terminal. Acești clienți subțiri au nevoie de rețea doar pentru a accesa serverul, și se pare că cea mai bună regulă de securitate este de a avea acești clienți subțiri într-o rețea separată pentru a nu putea fi accesați de către lumea exterioară, și se pot conecta doar la server. Singurul punct de unde trebuie să accesați lumea exterioară este serverul. Acest tip de configurație nu ar trebui să folosească un nod neadministrat sau altă rețea ce poate fi furișată.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpaccess">
+      <title>Controlul accesului XDMCP</title>
+
+      <para>Controlul accesului XDMCP este făcut folosind încadratorii TCP. Este posibil să compilați GDM fără suportul pentru încadratori TCP, deci este posibil ca această facilitate să nu fie suportată de unele sisteme de operare.</para>
+
+      <para>Ar trebui să folosiți numele serviciului <command>gdm</command> din fișierele <filename>&lt;etc&gt;/hosts.allow</filename> și <filename>&lt;etc&gt;/hosts.deny</filename>. De exemplu, pentru a refuza calculatoarele din <filename>.domeniu.rău</filename> la deschiderea unei sesiuni, adăugați</para>
+<screen>
+gdm: .domeniu.rău
+</screen>
+      <para>în fișierul <filename>&lt;etc&gt;/hosts.deny</filename>. Este posibil să fie nevoie și de adăugarea</para>
+<screen>
+gdm: .domeniul.dumneavoastră
+</screen>
+      <para>în fișierul <filename>&lt;etc&gt;/hosts.allow</filename> dacă refuzați serviciile de la toate calculatoarele gazdă în mod normal. Consultați paginile manualului <ulink type="help" url="man:hosts.allow">hosts.allow(5)</ulink> pentru detalii.</para>
+    </sect2>
+
+    <sect2 id="firewall">
+      <title>Securitatea paravanului de protecție</title>
+
+      <para>Chiar dacă GDM încearcă să prevină potențiali atacatori care încearcă să profite de XDMCP, se recomandă totuși să blocați portul XDMCP (de obicei portul UDP 177) în paravanul dumneavoastră de proiecție, cu excepția cazului în care chiar este nevoie. GDM protejează împotriva atacurilor de negare a serviciului, dar protocolul X este încă în mod inerent nesigur și ar trebui folosit doar în medii controlate. De asemenea, orice conexiune de la distanță ocupă multe resurse, deci este mult mai ușor ca un atac de negare al serviciului să fie produs prin XDMCP în locul unui server web.</para>
+
+      <para>De asemenea, este prevăzător să blocați toate porturile serverului X. Acestea sunt porturi TCP 6000+ (unul pentru fiecare număr al ecranului) în paravanul de protecție al dumneavoastră. A se reține că GNDM va folosi numere de afișaj de la 20 în sus pentru servere găzduite flexibil.</para>
+
+      <para>Protocolul X nu este foarte sigur când este folosit pe internet, iar XDMCP este și mai nesigur.</para>
+    </sect2>
+
+    <sect2 id="policykit">
+      <title>Trusa de reguli</title>
+
+<!--
+<para>
+        TODO - Should we say more?
+</para>
+-->
+
+      <para>GDM poate fi configurat să folosească Trusa de reguli pentru a permite administratorului de sistem să controleze dacă ecranul de autentificare trebuie să furnizeze butoane pentru închiderea și redeschiderea calculatorului pe ecranul de întâmpinare.</para>
+
+      <para>Aceste butoane sunt controlate de către acțiunile <filename>org.freedesktop.consolekit.system.stop-multiple-users</filename> și <filename>org.freedesktop.consolekit.system.restart-multiple-users</filename>. Regulile privind aceste acțiuni pot fi configurate folosind unealta polkit de autorizație gnome, sau linia de comandă polkit-auth.</para>
+ 
+    </sect2>
+
+    <sect2 id="rbac">
+      <title>RBAC (Controlul accesului bazat pe roluri)</title>
+
+      <para>GDM poate fi configurat să folosească RBAC în loc de Trusa de reguli. În acest caz configurația RBAC este folosită pentru a controla dacă ecranul de autentificare trebuie să furnizeze butoanele de închidere și repornire a calculatorului pe ecranul de întâmpinare.</para>
+
+      <para>De exemplu, pe Oracle Solaris, autorizația „solaris.system.shutdown” este folosită pentru a controla acest lucru. Doar modificați fișierul <filename>/etc/user_attr</filename> în așa fel încât utilizatorul „gdm” să aibă această autorizație.</para>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= ConsoleKit ================================ -->
+
+  <sect1 id="consolekit">
+    <title>Suportul pentru Trusa de consolă</title>
+
+<!--
+<para>
+    TODO - Should we update these docs?  Probably should mention any 
+           configuration that users may want to do for using it with GDM?
+           If so, perhaps this section should be moved to a subsection of
+           the "Configure" section?
+</para>
+-->
+
+    <para>GDM include suport pentru publicarea informațiilor de autentificare a utilizatorilor cu ajutorul platformei de contabilitate a utilizatorului și a sesiunii de autentificare, cunoscută și sub numele de Trusa de consolă. Trusa de consolă are posibilitatea de a urmări toți utilizatorii care au sesiuni deschise. În acest sens, poate fi folosită ca un înlocuitor pentru fișierele utmp sau utmpx care sunt disponibile pe majoritatea sistemelor de operare bazate pe Unix.</para>
+
+    <para>Când GDM este pe cale de a crea un nou proces de autentificare pentru un utilizator, apelează o metodă privilegiată a Trusei de consolă pentru a deschide o noua sesiune pentru acest utilizator. În acest moment GDM oferă și Trusei de consolă informații despre această sesiune a utilizatorului, cum ar fi: identificatorul utilizatorului, numele de afișaj X11 ce va fi asociat cu această sesiune, numele calculatorului gazdă de unde este inițiată sesiunea (folositor în cazul unei sesiuni XDMCP), dacă sesiunea este sau nu atașată, etc. Ca entitatea ce inițializează procesul utilizatorului, GDM este într-o poziție unică de a cunoaște informații despre sesiunea utilizatorului și se poate avea încredere că va oferi acești biți de informație. Folosirea acestei metode privilegiate este restricționată de către folosirea mesajului magistralei de sistem D-Bus de reguli de securitate.</para>
+
+    <para>În cazul în care un utilizator cu o sesiune existentă se autentifică prin GDM și face o cerere de a relua o sesiune existentă, GDM apelează o metodă privilegiată a Trusei de consolă pentru a debloca acea sesiune. Detaliile exacte despre ce se întâmplă când o sesiune primește un semnal de deblocare sunt nedefinite și specifice fiecărei sesiuni în parte. Cu toate acestea, majoritatea sesiunilor vor debloca un protector de ecran ca răspuns.</para>
+
+    <para>Când un utilizator alege să închidă o sesiune, sau dacă GDM sau sesiunea se închid pe neașteptate, sesiunea utilizatorului va fi eliminată din Trusa de consolă.</para>
+  </sect1>
+
+  <!-- ============= Configuration ============================= -->
+
+  <sect1 id="configuration">
+    <title>Configurația</title>
+
+    <para>GDM are mai multe interfețe de configurare. Acestea includ puncte de integrare ale scripturilor, configurarea serviciilor, configurarea programului de întâmpinare, configurări generale ale sesiunii, configurarea integrării cu serviciul de configurări gnome și configurarea sesiunii. Aceste tipuri de integrare sunt detaliate mai jos.</para>
+
+    <sect2 id="scripting">
+      <title>Puncte de integrare ale scripturilor</title>
+      
+      <para>Punctele de integrare ale scripturilor GDM pot fi găsite în dosarul <filename>&lt;etc&gt;/gdm/</filename>.</para>
+
+<screen>
+Xsession
+Init/
+PostLogin/
+PreSession/
+PostSession/
+</screen>
+
+      <para>Scripturile <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename>, și <filename>PostSession</filename> funcționează așa cum este descris mai jos.</para>
+
+      <para>Pentru fiecare tip de script, cel implicit care va fi executat se numește „Default” și este stocat într-un dosar asociat cu tipul scriptului. Deci scriptul implicit <filename>Init</filename> este <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Un script poate fi furnizat pe fiecare ecran în parte, și dacă există va fi executat în loc de scriptul implicit. Acest gen de scripturi sunt stocate în același dosar ca și scriptul implicit și au același nume ca valoarea ecranului serverului X pentru acel ecran. De exemplu, dacă scriptul <filename>&lt;Init&gt;/:0</filename> există, va fi executat pentru ecranul ":0".</para>
+
+     <para>Toate aceste scripturi sunt executate cu permisiuni de administrare și returnează 0 dacă sunt rulate cu succes, și o valoare diferită de zero dacă a existat un eșec care ar trebui să cauzeze sesiunea de autentificare să fie terminată. De asemenea, a se reține că GDM se va bloca până la finalul scriptului, deci dacă unul dintre aceste scripturi rămâne în suspensie, acest lucru va cauza și procesul de autentificare să se blocheze.</para>
+
+      <para>Când serverul X pentru interfața grafică de autentificare a fost pornit cu succes, dar înainte ca interfața grafică de autentificare să fie afișată propriu-zis, GDM va executa scriptul <filename>Init</filename>. Acest script este util pentru programele de pornire care ar trebui să fie executate în timp ce ecranul de autentificare este afișat, sau pentru a face o înițializare specială dacă este necesară.</para>
+
+      <para>După ce utilizatorul a fost autentificat cu succes, GDM va executa scriptul <filename>PostLogin</filename>. Acest lucru este făcut înainte ca pregătirea unei sesiuni să fie gata, incluzând apelul pam_open_session. Acest script este util pentru a face inițializări de sesiune care trebuie să fie rulate înainte de pornirea sesiunii. De exemplu, puteți pregăti dosarul $HOME al utilizatorului dacă este nevoie.</para>
+
+      <para>După ce sesiunea utilizatorului a fost inițializată, GDM va executa scriptul <filename>PreSession</filename>. Acest script este util pentru a face inițializări de sesiune care trebuie să fie executate după ca sesiunea să fie inițializată. Poate fi folosit pentru gestionarea sesiunilor sau a conturilor, de exemplu.</para>
+
+      <para>Când un utilizator își închide sesiunea, GDM va execulta scriptul  <filename>PostSession</filename>. A se reține că serverul X va fi oprit până în momentul rulării acestui script, deci nu trebuie să fie accesat.</para>
+
+      <para>A se reține că scriptul <filename>PostSession</filename> va fi executat chiar dacă afișajul eșuează să răspundă din cauza unei erori I/O sau ceva similar. Astfel, nu este nicio garanție că aplicațiile X vor merge în timpul execuției acestui script.</para>
+
+      <para>Toate scripturile menționate mai sus vor stabili variabila mediului <filename>$RUNNING_UNDER_GDM</filename> la <filename>yes</filename>. Dacă scripturile sunt partajate cu alte managere de ecran, acest lucru vă permite să identificați când GDM apelează aceste scripturi, deci puteți să executați un cod specific când GDM este folosit.</para>
+    </sect2>
+
+    <sect2 id="autostart">
+      <title>Configurarea pornirii automate</title>
+      
+      <para>Dosarul <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename> conține fișiere în formatul specificat de către „FreeDesktop.org - Specificațiile de pornire automată ale aplicațiilor desktop”. Funcționalitățile standard din specificații pot fi folosite pentru a specifica programele care trebuie să repornească automat sau să fie pornite doar dacă o anumită valoare de configurare GConf este stabilită, etc.</para>
+
+      <para>Orice fișier <filename>.desktop</filename> din acest dosar va cauza programul asociat să pornească automat împreună cu interfața grafică de întâmpinare. Implicit, GDM este expediat cu fișiere ce vor porni automat inferfața grafică de întâmpinare în sine, aplicația gnome de gestionare a energiei, serviciul de configurări gnome, și managerul de ferestre metacity. Aceste programe sunt necesare pentru ca programul de întâmpinare să funcționeze. Adițional, fișiere desktop sunt furnizate pentru pornirea diferitelor programe AT dacă valorile configurației specificate în secțiunea Configurația accesibilității sunt stabilite.</para>
+    </sect2>
+
+    <sect2 id="xsessionscript">
+      <title>Scriptul de sesiune X</title>
+
+      <para>Mai există și un script <filename>Xsession</filename> localizat la <filename>&lt;etc&gt;/gdm/Xsession</filename> care este apelat între scripturile <filename>PreSession</filename> și <filename>PostSession</filename>. Acest script nu suporta afișajul pe fiecare ecran separat, la fel ca celelalte scripturi. Acest script este folosit pentru pornirea propriu-zisă a sesiunii. Acest script este executat sub utilizator și va rula orice sesiune care a fost specificată de către fișierul de sesiune desktop pe care utilizatorul l-a selectat să pornească.</para>
+    </sect2>
+
+    <sect2 id="daemonconfig">
+      <title>Configurarea serviciului</title>
+
+      <para>Serviciul GDM este configurat folosind fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename>. Valorile implicite sunt stocate în fișierul GConf <filename>gdm.schemas</filename>. Este recomandat ca utilizatorii să modifice fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> deoarece fișierul schematic poate fi rescris când un utilizator își actualizează sistemul la o versiune mai noua de GDM.</para>
+
+      <para>A se reține că versiunile mai vechi de GDM au suportat opțiuni de configurare adiționale care nu mai sunt suportate în versiunile cele mai recente de GDM.</para>
+
+      <para>Fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> este în formatul <filename>keyfile</filename>. Cuvintele cheie din paranteze pătrate definesc secțiuni de grupuri, șirurile dinaintea unui semn egal (=) sunt chei și datele de după semnul egal reprezintă valoarea acestora.</para>
+
+      <para>Fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> suportă secțiunile de grupuri „[daemon]”, „[security]”, și „[xdmcp]”. În fiecare grup, există o pereche particulară cheie/valoare care poate fi specificată să modifice cum GDM funcționează. De exemplu, pentru a activa o autentificare temporizată și a specifica numele utilizatorului autentificării respective ca fiind „dumneavoastră”, ar trebui să modificați fișierul în așa fel încât să conțină următoarele linii:</para>
+     
+<screen>
+[daemon]
+TimedLoginEnable=true
+TimedLogin=dumneavoastră
+</screen>
+
+      <para>O listă completă a cheilor de configurare suportate urmează:</para>
+
+      <sect3 id="choosersection">
+        <title>[chooser]</title>
+        <variablelist>
+
+          <varlistentry>
+            <term>Multicast</term>
+            <listitem>
+              <synopsis>Multicast=false</synopsis>
+              <para>Dacă este stabilită la true și IPv6 este activat, selectorul va trimite o interogare de difuzări multiple către rețeaua locală și va colecta răspunsurile de la calculatoarele gazdă care s-au alăturat grupului de difuzare multiplă.</para>
+            </listitem>
+          </varlistentry>
+         
+          <varlistentry>
+            <term>MulticastAddr</term>
+            <listitem>
+              <synopsis>MulticastAddr=ff02::1</synopsis>
+              <para>Aceasta este adresa legăturii locale a difuzării multiple.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="daemonsection">
+        <title>[daemon]</title>
+        <variablelist>
+          <varlistentry>
+            <term>TimedLoginEnable</term>
+            <listitem>
+              <synopsis>TimedLoginEnable=false</synopsis>
+              <para>Dacă utilizatorul precizat în <filename>TimedLogin</filename> ar trebui să fie autentificat după un anumit număr de secunde (stabilite de <filename>TimedLoginDelay</filename>) de inactivitate la ecranul de autentificare. Acest lucru este util pentru terminalele cu acces public sau chiar pentru acasă. Dacă utilizatorul folosește tastatura sau navighează prin meniuri, timpul limită va fi restabilit la <filename>TimedLoginDelay</filename> sau 30 de secunde, oricare e mai mare. Dacă utilizatorul nu furnizează niciun nume de utilizator, ci apasă direct tasta ENTER în timp ce programul autentificării cere un nume de utilizator, GDM va presupune că utilizatorul vrea să deschidă o sesiune imediat, ca utilizatorul cu temporizare. A se reține că nicio parolă nu se va cere pentru acest utilizator, deci fiți prudenți. deși dacă folosiți PAM poate fi configurat să ceară o parolă înaintea autentificării. Consultați secțiunea „Securitatea PAM” a acestui manual pentru mai multe informații, sau pentru ajutor în cazul că această funcționalitate nu funcționează.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLogin</term>
+            <listitem>
+              <synopsis>TimedLogin=</synopsis>
+              <para>Acesta este utilizatorul care ar trebui să deschidă o sesiune după un număr specificat de secunde de inactivitate.</para>
+              <para>Dacă valoarea se termină cu o bară verticală | (simbolul țeavă), GDM va executa programul specificat și va folosi orice valoare este returnată la ieșirea programului, ca utilizatorul respectiv. Programul este executat cu variabila mediului DISPLAY configurată în așa fel încât este posibilă specificarea utilizatorului într-o modalitate pe ecrane separate. De exemplu, dacă valoarea este "/usr/bin/getloginuser|", programul "/usr/bin/getloginuser" va fi executat pentru a obține valoarea numelui de utilizator.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLoginDelay</term>
+            <listitem>
+              <synopsis>TimedLoginDelay=30</synopsis>
+              <para>Întârzierea în secunde înainte ca utilizatorul <filename>TimedLogin</filename> să fie autentificat.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLoginEnable</term>
+            <listitem>
+              <synopsis>AutomaticLoginEnable=false</synopsis>
+              <para>Dacă este stabilită la adevarat (true), utilizatorul precizat la <filename>AutomaticLogin</filename> ar trebui să fie autentificat imediat. Această funcționalitate necesită ca autentificarea temporizată să aibă o întârziere de 0 secunde.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLogin</term>
+            <listitem>
+              <synopsis>AutomaticLogin=</synopsis>
+              <para>Acesta este utilizatorul care ar trebui să fie autentificat automat dacă <filename>AutomaticLoginEnable</filename> este adevărată (true).</para>
+              <para>Dacă valoarea se termină cu o bară verticală | (simbolul țeavă), GDM va executa programul specificat și va folosi orice valoare este returnată la ieșirea programului, ca utilizatorul respectiv. Programul este executat cu variabila mediului DISPLAY configurată în așa fel încât este posibilă specificarea utilizatorului într-o modalitate pe ecrane separate. De exemplu, dacă valoarea este "/usr/bin/getloginuser|", programul "/usr/bin/getloginuser" va fi executat pentru a obține valoarea numelui de utilizator.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>User</term>
+            <listitem>
+              <synopsis>User=gdm</synopsis>
+              <para>Utilizatorul sub care vor rula programul de întâmpinare și alte programe de interfață grafică. Urmăriți cheia de configurare <filename>Grup</filename> și secțiunea „Securitate-&gt;GDM Utilizator și Grup” a acestui manual pentru mai multe informații.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Group</term>
+            <listitem>
+              <synopsis>Group=gdm</synopsis>
+              <para>Numele grupului sub care vor rula programul de întâmpinare și alte programe de interfață grafică. Consultați cheia de configurație <filename>Utilizator</filename> și secțiunea „Securitate-&gt;GDM Utilizator și Grup” a acestui manual pentru mai multe informații.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="debugsection">
+        <title>Opțiuni de depanare</title>
+      
+        <variablelist>
+          <title>[depanare]</title>
+          
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Pentru a activa depanarea, stabiliți cheia depanării ca fiind adevărată ("true") în fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> și reporniți GDM. Apoi, rezultatul depanării va fi trimis către fișierul de jurnalizare al sistemului (<filename>&lt;var&gt;/log/messages</filename> sau <filename>&lt;var&gt;/adm/messages</filename> în funcție de sistemul de operare).</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="greetersection">
+        <title>Opțiuni ale programului de întâmpinare</title>
+      
+        <variablelist>
+          <title>[greeter]</title>
+          
+          <varlistentry>
+            <term>IncludeAll</term>
+            <listitem>
+              <synopsis>IncludeAll=true</synopsis>
+              <para>Dacă este adevarată (true), navigatorul de fețe va afișa toți utilizatorii de pe calculatorul local. Dacă este fals (false), navigatorul de fețe va afișa doar utilizatorii care au deschis o sesiune recent.</para>
+
+              <para>Când această cheie este adevărată (true), GDM va apela fgetpwent() pentru a obține o listă cu utilizatorii locali ai sistemului. Orice utilizator cu identificatorul mai mic decât 500 (sau 100 la rularea pe Oracle Solaris) va fi filtrat. Navigatorul de fețe va afișa și utilizatorii care au deschis o sesiune anterior pe sistem (de exemplu utilizatorii NIS/LDAP). Obține lista apelând <command>ck-history</command> a interfeței Trusei de consolă. Va filtra și utilizatorii care nu au un shell valid (shellurile valide sunt shellurile care sunt returnate de către getusershell() - /sbin/nologin sau /bin/false sunt considerate nevalide chiar dacă sunt returnate de către getusershell() ).</para>
+
+              <para>Dacă este falsă (false), GDM va afișa doar utilizatorii ce au deschis o sesiune anterior pe sistem. (local sau utilizatorii NIS/LDAP), apelând <command>ck-history</command> a interfeței Trusei de consolă.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Include</term>
+            <listitem>
+              <synopsis>Include=</synopsis>
+              <para>Stabiliți la o listă de utilizatori care să fie incluși în navigatorul de fețe. Această valoare este stabilită la o listă de utilizatori separați prin virgulă. Implicit, valoarea este goală.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Exclude</term>
+            <listitem>
+              <synopsis>Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
+              <para>Stabiliți la o listă de utilizatori pentru a-i exlude mereu din navigatorul de fețe. Această valoare este stabilită la o listă de utilizatori separați prin virgulă. A se reține că confiturarea din <filename>custom.conf</filename> înlocuiește valoarea implicită, deci dacă doriți să adăugați utilizatori adiționali în listă, trebuie să stabiliți valoarea implicită cu utilizatorii adiționali atașați listei.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="securitysection">
+        <title>Opțiuni de securitate</title>
+      
+        <variablelist>
+          <title>[security]</title>
+          
+          <varlistentry>
+            <term>DisallowTCP</term>
+            <listitem>
+              <synopsis>DisallowTCP=true</synopsis>
+              <para>Dacă este adevarată (true), adaugă <filename>-nolisten tcp</filename> în linia de comandă la pornirea serverelor X atașate, deci interzicând conexiunea TCP.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="xdmcpsection">
+        <title>Suportul XDCMP</title>
+
+        <variablelist>
+          <title>[xdmcp]</title>
+          
+          <varlistentry>
+            <term>DisplaysPerHost</term>
+            <listitem>
+              <synopsis>DisplaysPerHost=1</synopsis>
+              <para>Pentru a preveni atacatorii să completeze coada de așteptare, GDM va permite doar o conexiune pentru fiecare calculator de la distanță. Dacă doriți să ofere servicii și calculatoarelor cu mai multe ecrane, trebuie să mariți această valoare.</para>
+
+              <para>A se reține că numarul de AFIȘAJE atașate permise nu este limitat. Doar conexiunile de la distanță prin XDMCP sunt limitate de această opțiune de configurație.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Stabilirea acesteia la adevărat (true) permite suportul XDMCP permițând ecranelor/terminalelor X de la distanță să fie gestionate de GDM.</para>
+            
+              <para><filename>gdm</filename> ascultă cererile pe portul UDP 177. Consultați opțiunea Port pentru mai multe informații.</para>
+              
+              <para>Dacă GDM este compilat în așa fel încât să suporte acest lucru, accesul de la ecranele de la distanță poate fi controlat folosind librăria TCP Wrappers. Numele serviciului este <filename>gdm</filename>.</para>
+            
+              <para>Ar trebui să adăugați <screen>
+gdm:.domeniul.meu
+</screen> în fișierul <filename>&lt;etc&gt;/hosts.allow</filename>, lucru ce depinde de configurația TCP Wrappers a dumneavoastră. Consultați paginile manualului <ulink type="help" url="man:hosts.allow">hosts.allow</ulink> pentru detalii.</para>
+              
+              <para>A se reține că XDMCP nu este un protocol foarte securizat și este o idee bună să blocați portul UDP 177 în paravanul dumneavoastră de protecție, exceptând cazul în care chiar aveți nevoie de el.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>HonorIndirect</term>
+            <listitem>
+              <synopsis>HonorIndirect=true</synopsis>
+              <para>Permite XDMCP alegerea indirectă (exemplu executarea de la distanță a <filename>gdmchooser</filename>) pentru terminalele X care nu conțin navigatorul de ecran propriu.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxPending</term>
+            <listitem>
+              <synopsis>MaxPending=4</synopsis>
+              <para>Pentru a evita atacuri de negare a serviciului, GDM a reparat mărimea fixă a cozii de conexiuni în așteptare. Doar un număr de afișaje configurat (MaxPending) poate fi pornit în același timp.</para>
+            
+              <para>A se reține că acest parametru nu limitează numărul de ecrane de la distanță ce pot fi gestionate. Limitează doar numărul de ecrane ce pot inițializa o conexiune simultan.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxSessions</term>
+            <listitem>
+              <synopsis>MaxSessions=16</synopsis>
+              <para>Determină numărul maxim de conexiuni ale ecranelor de la distanță ce pot fi gestionate simultan. Exemplu, numărul total de ecrane de la distanță ce pot fi folosite pe calculatorul gazdă.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxWait</term>
+            <listitem>
+              <synopsis>MaxWait=30</synopsis>
+              <para>Când GDM este pregătit să gestioneze un ecran, un pachet ACCEPT este trimis ce conține un identificator unic al sesiunii care va fi folosit în conexiunile XDMCP viitoare.</para>
+            
+              <para>Apoi, GDM va plasa identificatorul sesiunii în coada de suspensie așteptând ca ecranul să răspundă cu o cerere de GESTIONARE.</para>
+            
+              <para>Dacă niciun răspuns nu este primit în maximul de secunde stabilit prin MaxWait, GDM va declara ecranul inactiv și îl va șterge din lista de așteptare, eliberând o fantă pentru alte ecrane.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxWaitIndirect</term>
+            <listitem>
+              <synopsis>MaxWaitIndirect=30</synopsis>
+              <para>Parametrul de așteptare maximă indirectă (MaxWaitIndirect) determină numărul maxim de secunde dintre momentul în care utilizatorul selectează un calculator gazdă și interogarea indirectă ulterioară când utilizatorul este conectat la calculatorul gazdă. Când limita de timp este depășită, informația despre calculatorul gazdă selectat este uitată și o fantă indirectă este eliberată pentru alte ecrane. Informația ar putea fi uitată mai înainte dacă sunt mai multe calculatoare gazdă ce încearcă să trimită interogări indirecte decât sunt stabilite prin <filename>MaxPendingIndirect</filename>.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>PingIntervalSeconds</term>
+            <listitem>
+              <synopsis>PingIntervalSeconds=60</synopsis>
+              <para>Dacă serverul X nu răspunde într-un număr specificat de secunde, conexiunea este oprită și sesiunea închisă. Când se întamplă acest lucru, serviciul supus este terminat cu un semnal de alarmă. A se reține că GDM 2.20 și versiunile ulterioare înmulțeau această setare cu 2, deci ar putea fi necesar să măriți limita de timp dacă înnoiți GDM 2.20 sau o versiune ulterioară la una mai nouă.</para>
+
+              <para>A se reține că GDM a avut în trecut o cheie de configurație <filename>PingInterval</filename> care era în minute. Pentru cele mai multe scopuri, ar fi bine să aveți această configurare mai mică decât un minut. Cu toate aceastea, în majoritatea cazurilor în care ar fi folosit  XDMCP (cum ar fi laboratoare de terminal), o întârziere mai mare de 15 secunde ar însemna că terminalul a fost închis sau repornit și ați vrea să închideți această sesiune.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Port</term>
+            <listitem>
+              <synopsis>Port=177</synopsis>
+              <para>Numărul portului UDP la care <filename>gdm</filename> ar trebui să asculte pentru cereri XDMCP. Nu schimbați această valoare decât dacă știți ce faceți.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Willing</term>
+            <listitem>
+              <synopsis>Willing=&lt;etc&gt;/gdm/Xwilling</synopsis>
+              <para>Când un calculator trimite un pachet de DISPUNERE înapoi după o INTEROGARE, trimite un șir care oferă starea curentă a serverului. Mesajul implicit este identificatorul sistemului, dar este posibilă crearea unui script ce afișează un mesaj personalizat. Dacă scriptul nu există sau cheia este goală, se va trimite mesajul implicit. Dacă scriptul reușește și produce o ieșire, prima linie a ieșirii este trimisă (doar prima linie). Se execută cel mai des la un interval de 3 secunde pentru a preveni posibilele atacurile de negare a serviciului să încarce calculatorul cu pachete de INTEROGARE.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+    </sect2>
+
+    <sect2 id="greeterconfiguration">
+        <title>Configurarea programului simplu de întâmpinare</title>
+
+        <para>Programul de întâmpinare implicit este apelat de programul simplu de întâmpinare și este configurat prin GConf. Valorile implicite sunt stocate în GConf în fișierul <filename>gdm-simple-greeter.schemas</filename>. Aceste valori implicite pot fi rescrise dacă utilizatorul "gdm" are un dosar $HOME inscripționabil pentru a stoca configurările GConf. Aceste valori pot fi modificate folosind programele <command>gconftool-2</command> sau <command>gconf-editor</command>. Opțiunile următoare de configurare sunt suportate:</para>
+
+        <variablelist>
+          <title>Chei de configurare a programului de întâmpinare</title>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_enable</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Controlează dacă mesajul text al bannerului este afișat.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_text</term>
+            <listitem>
+              <synopsis>NULL (șir)</synopsis>
+              <para>Specifică mesajul text al bannerului ce va fi afișat în fereastra programului de întâmpinare.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Controlează dacă să afișeze sau nu butoanele de repornire în fereastra de autentificare.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_user_list</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Dacă este adevărat (true), navigatorul de fețe cu utilizatorii cunoscuți nu va fi afișat în fereastra de autentificare.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/logo_icon_name</term>
+            <listitem>
+              <synopsis>computer (șir)</synopsis>
+              <para>Stabiliți numele iconiței temă care să fie folosită ca sigla programului de întâmpinare.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-languages</term>
+            <listitem>
+              <synopsis>[] (listă șiruri)</synopsis>
+              <para>Stabiliți o listă a limbilor ce vor fi afișate implicit în panoul de autentificare. Valoarea implicită este „[]”. Cu valoarea implicită doar limba implicită pe sistem va fi afișată, și opțiunea „Altele...” care va deschide un dialog ce va afișa lista întreagă a tuturor limbilor disponibile pentru utilizator.</para>
+
+              <para>Nu este nevoie ca utilizatorii să modifice manual această configurare. În schimb, GDM urmărește limbile selectate în această cheie de configurare, și le va afișa în lista de selecție ale limbilor alături de alegerea „Altele...”. În acest mod, limbile folosite des sunt mai ușor de selectat.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-layouts</term>
+            <listitem>
+              <synopsis>[] (listă șiruri)</synopsis>
+              <para>Stabiliți o listă a aranjamentelor de tastatură ce vor fi afișate implicit în panoul de autentificare. Valoarea implicită este „[]”. Cu valoarea implicită doar aranjamentul de tastatură implicit pe sistem va fi afișat, și opțiunea „Altele...” care va deschide un dialog ce va afișa lista întreagă a tuturor aranjamentelor disponibile pentru utilizator.</para>
+
+              <para>Nu este nevoie ca utilizatorii să modifice manual această configurare. În schimb, GDM urmărește aranjamentele de tastatură selectate în această cheie de configurare, și le va afișa în lista de selecție ale aranjamentelor alături de alegerea „Altele...”. În acest mod, aranjamentele de tastatură folosite des sunt mai ușor de selectat.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Controlează dacă compiz este sau nu folosit ca managerul de ferestre în locul lui metacity.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+    </sect2>
+
+    <sect2 id="accessibilityconfiguration">
+     <title>Configurarea accesibilității</title>
+
+      <para>Această secțiune descrie opțiunile de configurare a accesibilității disponibile în GDM.</para>
+
+      <sect3 id="accessibilitydialog">
+        <title>Dialogul de accesibilitate și cheile GConf</title>
+
+        <para>Panoul programului de întâmpinare de pe ecranul de autentificare afișează o iconiță de accesibilitate. Apăsând clic pe acea iconiță veți deschide dialogul de accesibilitate. În acest dialog, există o listă de căsuțe de bifare ce permit utilizatorului să activeze sau dezactiveze uneltele asociate ajutătoare.</para>
+
+        <para>Căsuțele de bifare care corespund cu uneltele ajutătoare: tastatura virtuală, lupa pentru ecran și cititorul de ecran se bazează pe trei chei GConf care sunt descrise în această secțiune a documentului. Pentru a activa sau dezactiva aceste căsuțe de bifare, cheia GConf corespunzătoare trebuie să fie stabilită „adevărată” (true) sau „falsă” (false). Când o cheie GConf este stabilită să fie adevărată, uneltele ajutătoare legate de acea cheie sunt pornite. Când cheia GConf este stabilită să fie falsă, toate uneltele ajutătoare legate de acea cheie sunt închise. Aceste chei GConf nu sunt restabilite automat la valoarea implicită atunci când utilizatorul deschide o sesiune. În consecință, uneltele ajutătoare care au fost rulate în timpul ultimei sesiuni de autentificare GDM vor fi pornite automat și la următoarea sesiune.</para>
+
+        <para>Celelalte căsuțe de bifare din dialogul de accesibilitate nu au chei GConf corespunzătoare, deoarece niciun program suplimentar nu este pornit pentru a furniza facilitatea de accesibilitate ce o oferă. Aceste opțiuni corespund cu facilitățile de accesibilitate care sunt oferite de serverul X, care vor fi mereu pornite în timpul sesiunii GDM.</para>
+      </sect3>
+
+      <sect3 id="accessibilitygconfconfiguration">
+        <title>Cheile GConf de accesibilitate</title>
+
+        <para>GDM oferă următoarele chei GConf pentru a controla funcționalitățile de accesibilitate:</para>
+
+        <variablelist>
+          <title>Cheile de configurare GDM</title>
+
+          <varlistentry>
+            <term>/desktop/gnome/interface/accessibility</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Controlează dacă infrastructura accesibilității va fi sau nu pornită în același timp cu interfața grafică GDM. Acest lucru este necesar pentru ca multe programe de tehnologie a accesibilității să funcționeze.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Dacă este stabilită, uneltele ajutătoare legate de această cheie GConf vor fi pornite în același timp cu program de inferfață grafică GDM. În mod implicit, aceasta este aplicația lupei pentru ecran.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_keyboard_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Dacă este stabilită, uneltele ajutătoare legate de această cheie GConf vor fi pornite în același timp cu program de inferfață grafică GDM. În mod implicit, aceasta este aplicația tastaturii virtuale.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_reader_enabled</term>
+            <listitem>
+              <synopsis>false (boolean)</synopsis>
+              <para>Dacă este stabilită, uneltele ajutătoare legate de această cheie GConf vor fi pornite în același timp cu program de inferfață grafică GDM. În mod implicit, aceasta este aplicația cititorului de ecran.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="accessibilitytoolsconfiguration">
+        <title>Legarea cheilor GConf cu uneltele de accesibilitate</title>
+
+        <para>Pentru cheile activate GConf: lupa pentru ecran, tastatura virtuală și cititorul de ecran, uneltele ajutătoare care sunt pornite depind de fișierele desktop localizate în dosarul de pornire automată GDM, așa cum este descris în secțiunea  „Configurarea pornirii automate” a acestui manual. Orice fișier desktop din dosarul de pornire automată GDM poate fi legat de aceste chei GConf specificând acea cheie ca valoarea condiției de pornire automată (AutostartCondition) din fișierul desktop. Linia condiției de pornire automată din fișierul desktop ar putea fi una din următoarele:</para>
+
+<screen>
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
+</screen>
+
+        <para>Când o cheie de accesibilitate este stabilită la adevărat, orice program care este legat de acea cheie în fișierul de pornite automată desktop, va fi pornit (cu excepția cazului în care cheia ascunsă, Hidden, din acel fișier desktop este adevărată).</para>
+      </sect3>
+
+      <sect3 id="accessibilitytoolexample">
+        <title>Exemplu de modificare a configurării uneltelor de accesibilitate</title>
+
+        <para>De exemplu, dacă GNOME este distribuit cu GOK ca tastatura virtuală implicită, acest lucru poate fi înlocuit cu un program diferit dacă se dorește. Pentru a înlocui GOK cu aplicația tastaturii virtuale "onboard" și, suplimentar, a activa unealta ajutătoare "ajustare maus" pentru sportul de staționare, urmatoarea configurare este necesară.</para>
+
+        <para>Creați un fișier desktop pentru aplicația onboard și altul pentru aplicația de ajustare a mausului; de exemplu, onboard.desktop și ajustaremaus.desktop. Aceste fișiere trebuie puse în dosarul GDM de pornire automată și să fie în formatul explicat în secțiunea „Configurare pornire automată” a acestui document.</para>
+
+        <para>Un exemplu al fișierului <filename>onboard.desktop</filename> ar putea fi:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Tastatură virtuală onboard
+Comment=Folosiți o tastatură virtuală
+TryExec=onboard
+Exec=onboard --size 500x180 -x 20 -y 10
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accesibilitate;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Un exemplu al fișierului <filename>ajustaremaus.desktop</filename> ar putea fi:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ajustare Maus
+Comment=Apăsați clic staționând cu cursorul
+TryExec=mousetweaks
+Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accesibilitate;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Observați linia cu condiția de pornire automată care face legătura dintre fișierele desktop și cheile GConf pentru tastatura virtuală.</para>
+
+        <para>Pentru a dezactiva pornirea aplicației GOK, fișierul desktop pentru tastatura virtuală GOK trebuie eliminat sau dezactivat. Altfel, aplicațiile onboard și GOK ar fi pornite simultan. Acest lucru se poate face prin ștergerea fișierului gok.desktop din dosarul GDM de pornire automată, sau adăugarea cheii de ascundere "Hidden=true" în fișierul gok.desktop.</para>
+
+        <para>După aceste modificări, GOK nu va mai fi pornit atunci când utilizatorul va activa tastatura virtuală în sesiunea GDM; dar aplicațiile onboard și de ajustare maus vor vi deschise în schimb.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="generalsessionconfig">
+      <title>Configurările generale ale sesiunii</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to be more specific about
+                 how lock down management is handled.
+</para>
+-->
+        <para>Programul de întâmpinare GDM folosește unele din aceleași platforme pe care le folosește și sesiunea desktop. În felul acesta, este influențat de către același numar de configurări GConf. Pentru fiecare configurare, programul de întâmpinare va folosi configurările implicite cu excepția cazului în care au fost înlocuite de către a) regulile obligatorii instalate ale managerului de ecran b) regulile obligatorii ale sistemului. GDM își instalează propriile reguli obligatorii pentru a bloca unele configurări din motive de securitate.</para>
+    </sect2>
+
+    <sect2 id="gnomesettingsdaemon">
+      <title>Serviciul de configurări GNOME</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to give a more complete
+                 list of plugins that users might want to consider disabling.
+                 Also, shouldn't we list the sound/active key in the Greeter
+                 configuration setting?  Oddly I do not find this key used
+                 in anything but the chooser in SVN.
+</para>
+-->
+
+        <para>GDM activează următoarele module ale serviciului de configurări gnome: a11y-tastatură, fundal, sunet, setări x.</para>
+
+        <para>Acestea sunt responsabile pentru lucruri precum imaginea de fundal, fontul și configurările temei, evenimentele sonore, etc.</para>
+
+        <para>De asemenea, și modulele pot fi dezactivate folosind GConf. De exemplu, dacă doriți să dezactivați un modul sonor, deselectați următoarea cheie: <filename>/apps/gdm/simple-greeter/settings-manager-plugins/sound/active</filename>.</para>
+    </sect2>
+
+    <sect2 id="sessionconfig">
+      <title>Configurarea sesiunii GDM</title>
+
+      <para>Sesiunile GDM sunt specificate folosind Specificațiile intrărilor desktop FreeDesktop.org, care pot fi citite urmărind: <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"> http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</ulink>.</para>
+
+      <para>Implicit, GDM va instala fișierele desktop în dosarul <filename>&lt;share&gt;/xsessions</filename>. GDM va căuta următoarele dosare pentru a găsi fișierele desktop: <filename>&lt;etc&gt;/X11/sessions/</filename>, <filename>&lt;dmconfdir&gt;/Sessions</filename>, <filename>&lt;share&gt;/xsessions</filename>, și <filename>&lt;share&gt;/gdm/BuiltInSessions</filename>. Implicit, <filename>&lt;dmconfdir&gt;</filename> este stabilit la <filename>&lt;etc&gt;/dm/</filename>, excepție făcând cazul în care GDM este configurat să folosească un dosar diferit folosind opțiunea "--with-dmconfdir".</para>
+
+      <para>O sesiune poate fi dezactivată modificând fișierul desktop și adăugând următoarea linie: <filename>Hidden=true</filename>.</para>
+
+      <para>Un fișier desktop GDM suportă o extensie specifică GDM, o cheie numită „X-GDM-BypassXsession”. Dacă cheia nu este specificată într-un fișier desktop, valoarea implicită este „falsă”. Dacă cheia este specificată ca fiind „adevărată” într-un fișier desktop, GDM va porni programul specificat de către cheia „Exec” din fișierul desktop direct la deschiderea unei sesiuni de utilizator. Nu va executa programul prin scriptul <filename>&lt;etc&gt;/gdm/Xsession</filename>, care reprezintă funcționarea normală. Ținând cont că evitarea scriptului <filename>&lt;etc&gt;/gdm/Xsession</filename> ocolește configurarea sesiunii utilizatorului cu sistemul normal și configurările utilizatorului, sesiunea pornită astfel poate fi folositoare pentru probleme de depanare în sistem sau scripturi ale utilizatorilor care îl pot preveni să fie capabil să deschidă o sesiune.</para>
+
+    </sect2>
+
+    <sect2 id="userconfig">
+      <title>Configurarea sesiunii utilizatorului și a limbii</title>
+      <para>Configurările implicite ale sesiunii utilizatorului și limbii sunt stocate în fișierul <filename>~/.dmrc</filename>. Când un utilizator deschide o sesiune pentru prima dată, acest fișier este creat cu alegerile inițiale ale utilizatorului. Acesta poate modifica aceste valori implicite, modificând direct o valoare la deschiderea unei sesiuni. GDM va ține minte modificarea la autentificările ulterioare.</para>
+
+      <para>Fișierul <filename>~/.dmrc</filename> are formatul standard <filename>INI</filename>. Conține o secțiune numită <filename>[Desktop]</filename>, care are doua chei: <filename>Session</filename> și <filename>Language</filename>.</para>
+
+      <para>Cheia sesiune, <filename>Session</filename>, specifică numele de bază a fișierului <filename>.desktop</filename> a sesiunii pe care utilizatorul vrea să il folosească în mod normal fără extensia <filename>.desktop</filename>. Cheia limbii, <filename>Language</filename>, specifică limba pe care utilizatorul dorește să o folosească în mod implicit. Dacă oricare dintre aceste key lipsește, valoarea implicită a sistemului va fi folosită. Fișierul ar trebui să arate după cum urmează:</para>
+
+<screen>
+[Desktop]
+Session=gnome
+Language=ro_RO.UTF-8
+</screen>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= GDM Commands ============================= -->
+
+  <sect1 id="binaries">
+    <title>Comenzi GDM</title>
+
+    <sect2 id="sbindir_binaries">
+      <title>Comenzile administratorului GDM</title>
+
+      <para>Pachetul GDM furnizează următoarele comenzi în <filename>sbindir</filename> destinate folosirii de către administrator:</para>
+
+      <sect3 id="gdmcommandline">
+        <title><command>gdm</command> Opțiunile liniilor de comandă</title>
+
+        <para><command>gdm</command> este principalul serviciu care inaugurează mediul grafic de autentificare și pornește ajutătorii necesari.</para>
+
+        <variablelist>
+          <title><command>gdm</command> Opțiunile liniilor de comandă</title>
+
+          <varlistentry>
+            <term>-?, --help</term>
+            <listitem>
+              <para>Oferă o prezentare generala a opțiunilor liniilor de comandă.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--fatal-warnings</term>
+            <listitem>
+              <para>Face ca toate avertismentele să cauzeze închiderea aplicației GDM.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--timed-exit</term>
+            <listitem>
+              <para>Închidere după 30 de secunde. Folositoare pentru depanare.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--version</term>
+            <listitem>
+              <para>Afișează versiunea serviciului GDM.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="gdmrestartcommandline">
+        <title><command>gdm-restart</command> Opțiunile liniilor de comandă</title>
+
+        <para><command>gdm-restart</command> oprește și repornește GDM, trimițând un semnal HUP către serviciul GDM. Comanda aceasta va închide toate sesiunile, incluzând cele ale utilizatorilor autentificați prin GDM.</para>
+      </sect3>
+
+      <sect3 id="gdmsaferestartcommandline">
+        <title><command>gdm-safe-restart</command> Opțiunile liniilor de comandă</title>
+  
+        <para><command>gdm-safe-restart</command> oprește și repornește GDM trimițând un semnal USR1 serviciului GDM. GDM va reporni când toți utilizatorii și-au închis sesiunea.</para>
+      </sect3>
+
+      <sect3 id="gdmstopcommandline">
+        <title><command>gdm-stop</command> Opțiunile liniilor de comandă</title>
+
+        <para><command>gdm-stop</command> oprește GDM trimițând un semnal TERM către serviciul GDM.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Troubleshooting =========================== -->
+
+  <sect1 id="troubleshooting">
+    <title>Depanare</title>
+<!--
+<para>
+      TODO - any other tips we should add?  Might be useful to highlight any
+             common D-Bus configuration issues?
+</para>
+-->
+
+    <para>Această secțiune oferă sfaturi ajutătoare despre repararea programului GDM. În general, dacă aveți probleme folosind GDM, puteți trimite un raport al unei defecțiuni către lista de discuții gdm. Informații despre cum să faceți acest lucru puteți găsi la secțiunea Introducere a acestui document.</para>
+
+    <para>Dacă GDM eșuează sau nu funcționează corespunzător, este o idee bună să includeți și informațiile de depanare. Pentru a activa depanarea, configurați cheia debug/Enable ca fiind „adevărată” în fișierul <filename>&lt;etc&gt;/gdm/custom.conf</filename> și reporniți GDM. Apoi folosiți GDM până când eșuează, și rezultatul depanării va fi trimis fișierului de jurnalizare al sistemului (<filename>&lt;var&gt;/log/messages</filename> sau <filename>&lt;var&gt;/adm/messages</filename>, depinde de sistemul de operare). Dacă distribuiți acest rezultat comunității GDM printr-un raport de defecțiune sau email, vă rugăm să includeți informația de depanare a programului GDM și nu întregul fișier ținând cont că poate fi foarte mare. Dacă nu vedeți niciun rezultat al programului GDM în jurnalizarea sistemului, este posibil să trebuiască să configurați jurnalizarea sistemului (citiți paginile manualului <ulink type="help" url="man:syslog">syslog</ulink>).</para>
+
+    <sect2 id="wontstart">
+      <title>GDM nu pornește</title>
+
+      <para>Există multe probleme ce pot cauza programul GDM să eșueze la pornire, dar această secțiune va prezenta câteva probleme comune și modalități de a urmări o problemă cu pornirea GDM. Unele probleme vor cauza GDM să răspundă cu un mesaj de eroare sau un dialog când se încearcă pornirea, dar poate fi dificil de localizat problemele când GDM eșuează silențios.</para>
+
+      <para>Verificați dacă serverul X a fost configurat corespunzător. Fișierul de configurare GDM conține o comandă în secțiunea [server-Standard] care este folosită pentru a porni serverul X. Verificați dacă această comandă funcționează pe sistemul dumneavoastră. Executarea comenzii din terminal ar trebui să pornească serverul X. Dacă acest lucru eșuează, cel mai probabil problema are de-a face cu configurările serverului X. Urmăriți jurnalizarea erorilor serverului X căutând o idee despre problemă. Problema poate fi și că serverul X al dumneavoastră necesită opțiuni de linii de comandă diferite. Dacă este cazul acesta, modificați comanda serverului X din fișierul de configurație pentru a fi corectă pentru sistemul dumneavoastră.</para>
+
+      <para>Verificați dacă dosarul <filename>/tmp</filename> are apartenență și permisiuni corespunzătoare și că sistemul de fișiere al calculatorului dumneavoastră nu este plin.  </para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Application License ============================= -->
+
+  <sect1 id="license">
+    <title>Licență</title>
+    <para>Acesta este un program liber; puteți să il redistribuiți și/sau modifcați sub termenii <ulink type="help" url="gnome-help:gpl"> <citetitle>GNU General Public License</citetitle></ulink>, după cum a fost publicată de către Free Software Foundation; fie versiunea a 2-a licenței, fie (la alegerea dumneavoastră) orice versiune ulterioară.</para>
+    <para>Acest program este distribuit în speranța că va fi folositor, dar FĂRĂ NICIO GARANȚIE; chiar și fără garanția implicită de CALITATE ACCEPTABILĂ DIN PUNCT DE VEDERE COMERCIAL sau POTRIVIRE PENTRU UN SCOP PARTICULAR. Consultați <citetitle>GNU General Public License</citetitle> pentru mai multe informații</para>
+    <para>O copie a licenței <citetitle>GNU General Public License</citetitle> este inclusă ca un apendice în <citetitle>Ghidul utilizatorilor GNOME</citetitle>. Puteți obține o copie a licenței <citetitle>GNU General Public License</citetitle> și de la fundația Free Software Foundation, vizitând <ulink type="http" url="http://www.fsf.org">situl acestora</ulink> sau scriind la adresa <address>
+      Free Software Foundation, Inc.
+      <street>51 Franklin Street, Fifth Floor</street>
+      <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>
+      <country>USA</country>
+      </address></para>
+  </sect1>
+</article>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY version "2.26.0">
+<!ENTITY date "02/10/2009">
+<!ENTITY mdash "&#8212;">
+<!ENTITY percnt "&#x0025;">
+]>
+<article id="index" lang="de">
+  <articleinfo>
+    <title>GNOME-Anmeldefenster-Referenzhandbuch</title>
+
+    <revhistory>
+      <revision><revnumber>0.0</revnumber> <date>2008-09</date></revision>
+    </revhistory>
+
+    <abstract role="description">
+      <para>GDM ist das Anmeldefenster für GNOME, ein Programm zur grafischen Anmeldung am System.</para>
+    </abstract>
+
+    <authorgroup>
+      <author><firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation></author>
+      <author><firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation></author>
+      <author><firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation></author>
+      <author><firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation></author>
+      <author role="maintainer"><firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation></author>
+    </authorgroup>
+    <copyright><year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder></copyright>
+    <copyright><year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder></copyright>
+    <copyright><year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder></copyright>
+    <copyright><year>2003</year> <year>2011</year> <holder>Oracle und/oder Partner. Alle Rechte vorbehalten.</holder></copyright>
+
+      <legalnotice id="legalnotice">
+	<para>Das vorliegende Dokument kann gemäß den Bedingungen der GNU Free Documentation License (GFDL), Version 1.1 oder jeder späteren, von der Free Software Foundation veröffentlichten Version ohne unveränderbare Abschnitte sowie ohne Texte auf dem vorderen und hinteren Buchdeckel kopiert, verteilt und/oder modifiziert werden. Eine Kopie der GFDL finden Sie unter diesem <ulink type="help" url="ghelp:fdl">Link</ulink> oder in der mit diesem Handbuch gelieferten Datei COPYING-DOCS.</para>
+         <para>Dieses Handbuch ist Teil einer Sammlung von GNOME-Handbüchern, die unter der GFDL veröffentlicht werden. Wenn Sie dieses Handbuch getrennt von der Sammlung weiterverbreiten möchten, können Sie das tun indem Sie eine Kopie der Lizenz zum Handbuch hinzufügen wie es in Abschnitt 6 der Lizenz beschrieben ist.</para>
+
+	<para>Viele der Namen, die von Unternehmen verwendet werden um ihre Produkte und Dienstleistungen von anderen zu unterscheiden, sind eingetragene Warenzeichen. An den Stellen, an denen diese Namen in einer GNOME-Dokumentation erscheinen, werden die Namen in Großbuchstaben oder mit einem großen Anfangsbuchstaben geschrieben, wenn das GNOME Documentation Project auf diese Warenzeichen hingewiesen wird.</para>
+
+	<para>DAS DOKUMENT UND VERÄNDERTE FASSUNGEN DES DOKUMENTS WERDEN UNTER DEN BEDINGUNGEN DER GNU FREE DOCUMENTATION LICENSE ZUR VERFÜGUNG GESTELLT MIT DEM WEITERGEHENDEN VERSTÄNDNIS, DASS: <orderedlist>
+		<listitem>
+		  <para>DIESES DOKUMENT WIRD »WIE VORLIEGEND« GELIEFERT, OHNE GARANTIEN IRGENDEINER ART, SOWOHL AUSDRÜCKLICH GENANNTE ALS AUCH ANGEDEUTETE. DIES BEZIEHT SICH AUCH OHNE EINSCHRÄNKUNG AUF GARANTIEN, DASS DIESES DOKUMENT ODER VERÄNDERTE FASSUNGEN DIESES DOKUMENTS FREI VON HANDELSDEFEKTEN, FÜR EINEN BESTIMMTEN ZWECK GEEIGNET IST ODER DASS ES KEINE RECHTE DRITTER VERLETZT. DAS VOLLE RISIKO WAS QUALITÄT, GENAUIGKEIT UND LEISTUNG DES DOKUMENTS ODER VERÄNDERTE FASSUNGEN DES DOKUMENTS LIEGT BEI IHNEN. SOLLTE EIN DOKUMENT ODER EINE VERÄNDERTE FASSUNG DAVON FEHLER IRGENDEINER ART BEINHALTEN, TRAGEN SIE (NICHT DER URSPRUNGSAUTOR, DER AUTOR ODER EIN MITWIRKENDER) DIE KOSTEN FÜR NOTWENDIGE DIENSTLEISTUNGEN, REPARATUREN ODER FEHLERKORREKTUREN. DIESER HAFTUNGSAUSSCHLUSS IST EIN ESSENZIELLER TEIL DIESER LIZENZ. DIE VERWENDUNG EINES DOKUMENTS ODER EINER VERÄNDERTEN VERSION DES DOKUMENTS IST NICHT GESTATTET AUSSER UNTER BEACHTUNG DIESES HAFTUNGSAUSSCHLUSSES UND</para>
+		</listitem>
+		<listitem>
+		  <para>UNTER KEINEN UMSTÄNDEN UND AUF BASIS KEINER RECHTSGRUNDLAGE, EGAL OB DURCH UNERLAUBTEN HANDLUNGEN (EINSCHLIESSLICH FAHRLÄSSIGKEIT), VERTRAG ODER ANDERWEITIG KANN DER AUTOR, URSPRUNGSAUTOR, EIN MITWIRKENDER ODER EIN VERTRIEBSPARTNER DIESES DOKUMENTS ODER EINER VERÄNDERTEN FASSUNG DES DOKUMENTS ODER EIN ZULIEFERER EINER DIESER PARTEIEN, HAFTBAR GEMACHT WERDEN FÜR DIREKTE, INDIREKTE, SPEZIELLE, VERSEHENTLICHE ODER FOLGESCHÄDEN JEGLICHER ART, EINSCHLIEßLICH UND OHNE EINSCHRÄNKUNGEN SCHÄDEN DURCH VERLUST VON KULANZ, ARBEITSAUSFALL, COMPUTERVERSAGEN ODER COMPUTERFEHLFUNKTIONEN ODER ALLE ANDEREN SCHÄDEN ODER VERLUSTE, DIE SICH AUS ODER IN VERBINDUNG MIT DER VERWENDUNG DES DOKUMENTS UND VERÄNDERTER FASSUNGEN DES DOKUMENTS ERGEBEN, AUCH WENN DIE OBEN GENANNTEN PARTEIEN ÜBER DIE MÖGLICHKEIT SOLCHER SCHÄDEN INFORMIERT WAREN.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+    <releaseinfo>Dieses Handbuch beschreibt Version 2.26.0 des GNOME-Anmeldefensters. Es wurde zuletzt am 20.07.2009 aktualisiert.</releaseinfo>  
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Mario Blättermann</firstname>
+      </personname>
+      <email>mario.blaettrmann@gmail.com</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2008</year>
+      
+        <year>2010-2012</year>
+      
+      <holder>Mario Blättermann</holder>
+    </copyright>
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Christian Kirbach</firstname>
+      </personname>
+      <email>Christian.Kirbach@googlemail.com</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2009</year>
+      
+        <year>2013</year>
+      
+        <year>2015</year>
+      
+      <holder>Christian Kirbach</holder>
+    </copyright>
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Benjamin Steinwender</firstname>
+      </personname>
+      <email>b@stbe.at</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2014</year>
+      
+      <holder>Benjamin Steinwender</holder>
+    </copyright>
+  </articleinfo>
+
+  <!-- ============= Preface ================================== -->
+
+  <sect1 id="preface">
+    <title>Begriffe und Schreibweisen, die in diesem Handbuch verwendet werden</title>
+
+    <para>Dieses Handbuch beschreibt Version 2.26.0 des GNOME-Anmeldefensters. Es wurde zuletzt am 20.07.2009 aktualisiert.</para>  
+
+    <para>Wähler - Ein Programm, das zum Auswählen eines entfernten Rechners verwendet wird, um eine dortige Anzeige fernzusteuern (<command>gdm-host-chooser</command>).</para>
+
+    <para>FreeDesktop - Die Organisation, die Desktop-Standards bereitstellt, wie die Spezifikation der Desktop-Einträge, die von GDM verwendet werden. <ulink type="http" url="http://www.freedesktop.org/"> http://www.freedesktop.org</ulink>.</para>
+    <para>GDM - GNOME Anmeldefenster. Diese Bezeichnung wird zur Beschreibung des Softwarepakets als Ganzes verwendet.</para>
+
+    <para>Begrüßer - Das Fenster zur grafischen Anmeldung (bereitgestellt durch <command>gnome-shell</command>).</para>
+
+    <para>PAM - Pluggable Authentication Mechanism</para>
+
+    <para>XDMCP - X Displaymanager-Protokoll</para>
+
+    <para>Xserver - Eine Implementierung des »X Window System«. Beispielsweise der Xorg Xserver, der durch die »X.org Foundation« (<ulink type="http" url="http://www.x.org/">http://www.x.org</ulink>) bereit gestellt wird.</para>
+
+    <para>Pfade, die mit einem Wort in eckigen Klammern beginnen, sind relativ zum Installations-Präfix. Beispielsweise bezieht sich <filename>&lt;share&gt;/pixmaps/</filename> auf <filename>/usr/share/pixmaps</filename>, wenn GDM mit <command>--prefix=/usr</command> konfiguriert wurde.</para>
+  </sect1>
+
+  <!-- ============= Overview ================================= -->
+
+  <sect1 id="overview">
+    <title>Überblick</title>
+
+    <sect2 id="introduction">
+      <title>Einführung</title>
+
+      <para>Das Gnome-Anmeldefenster (GDM) ist ein Anmeldebildschirm, der über alle wichtigen Merkmale verfügt, um lokale oder entfernte Anzeigen zu verwalten. GDM wurde komplett neu geschrieben und enthält keinen Code aus XDM oder anderweitig vom X-Konsortium stammenden Code.</para>
+
+      <para>Beachten Sie, dass GDM in hohem Maße konfigurierbar ist. Viele Einstellungen können die Systemsicherheit beeinflussen. Punkte, die Sie besonders beachten sollten, werden in diesem Dokument hervorgehoben dargestellt.</para> 
+
+      <para>Bitte beachten Sie, dass GDM auf einigen Betriebssystemen abweichend von den in diesem Dokument beschriebenen Standardwerten vorkonfiguriert wird. Falls GDM von diesem Dokument abzuweichen scheint, dann prüfen Sie bitte, ob die diesbezügliche Konfiguration von der hier beschriebenen abweichen darf.</para>
+
+      <para>Weitere Informationen über GDM finden Sie auf der Projekt-Website: <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/">http://wiki.gnome.org/Projects/GDM</ulink>.</para>
+
+      <para>Für Anfragen oder Diskussionen oder über GDM wenden Sie sich bitte an die Mailingliste <address><email>gdm-list@gnome.org</email></address>. Diese Liste wird archiviert und ist eine hervorragende Quelle für Antworten auf allgemeine Fragen. Die Liste wird auf <ulink type="http" url="http://mail.gnome.org/archives/gdm-list/"> http://mail.gnome.org/archives/gdm-list/</ulink> archiviert und bietet eine Suchfunktion für Schlüsselwörter und Textpassagen.</para>
+
+      <para>Bitte senden Sie alle Fehlermeldungen oder Verbesserungsvorschläge an <ulink type="http" url="http://bugzilla.gnome.org/">http://bugzilla.gnome.org</ulink>, Kategorie »gdm«.</para>
+    </sect2>
+
+    <sect2 id="stability">
+      <title>Stabilität der Schnittstelle</title>
+
+      <para>GDM 2.20 und ältere Versionen unterstützen stabile Schnittstellen zur Konfiguration. Die Codebasis wurde jedoch für GDM 2.22 vollständig neu geschrieben und ist nicht gänzlich kompatibel mit älteren Versionen. Dies liegt einerseits daran, dass es anders arbeitet und einige Optionen überflüssig werden oder noch nie sinnvoll waren und andererseits, dass einige Funktionalität noch nicht wieder implementiert worden ist.</para>
+
+      <para>Schnittstellen, die auch in Zukunft fortlaufend unverändert unterstützt werden, beinhalten die Init-, PreSession-, PostSession-, PostLogin- und Xsession-Skripte. Einige Konfigurationsoptionen des Daemon in der Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> werden fortlaufend unterstützt. Ebenfalls werden die Datei <filename>~/.dmrc</filename> und die Speicherorte der Fotos des Benutzeralbums weiterhin unterstützt. </para>
+
+      <para>GDM 2.20 und ältere verfügten über die Fähigkeit, mehrere Bildschirme über verschiedene Grafikkarten anzusteuern. Sie kommt zur Anwendung in Umgebungen mit Terminal Server, einem Anmeldefenster mittels eines Programms wie Xnest oder Xephyr, dem Programm »gdmsetup«, XML-basierten Themen des Begrüßungsbildschirms. Es wurde auch die Fähigkeit unterstützt, den XDMCP-Wähler vom Anmeldebildschirm aus zu starten. Diese Merkmale wurden nicht während der Neuprogrammierung für 2.22 hinzugefügt.</para>
+
+    </sect2>
+
+    <sect2 id="functionaldesc">
+      <title>Funktionsbeschreibung</title>
+
+<!--
+<para>
+        TODO - Would be good to discuss D-Bus, perhaps the new GObject model,
+               and to explain the reasons why the rewrite made GDM better.
+               From a high-level overview perspective, rather than the
+               technical aspects.
+</para>
+-->
+
+      <para>GDM ist für die Verwaltung der Anzeigen des Systems zuständig. Dies beinhaltet die Legitimation der Benutzer, den Start und das Beenden der Benutzersitzung. GDM ist konfigurierbar, die diesbezüglichen Möglichkeiten werden im Abschnitt »GDM konfigurieren« in diesem Dokument beschrieben. GDM ist auch von Benutzern mit Behinderungen nutzbar.</para>
+
+      <para>GDM ermöglicht die Verwaltung der Hauptanzeige und über VT (Xserver Virtual Terminal) gestarteter Anzeigen. Es ist integriert in andere Anwendungen wie dem Benutzerwechsel und dem GNOME Bildschirmschoner, um mehrere Anzeigen auf der lokalen Konsole über die VT-Schnittstelle zu verwalten. Es kann auch XDMCP-Anzeigen verwalten.</para>
+
+      <para>Unabhängig von deren Typ führt GDM folgendes bei der Verwaltung der Anzeige aus: GDM startet den X-Server-Prozess, führt danach mit Systemverwalterrechten das <filename>Init</filename>-Skript aus, und startet dann auf der Anzeige das Begrüßer-Programm.</para>
+
+      <para>Das Begrüßer-Programm wird mit den Rechten des unprivilegierten Benutzers/der Gruppe »gdm« ausgeführt. Die Hauptfunktion des Begrüßer-Programms besteht in der Legitimation des Benutzers. Der Legitimationsprozess wird durch PAM (Pluggable Authentication Modules) gesteuert. Die PAM-Module stellen fest, welche Eingabeaufforderungen (falls vorhanden) dem Benutzer angezeigt werden sollen. Auf einem gewöhnlichen System fordert das Begrüßer-Programm die Eingabe von Benutzername von Passwort zur Legitimation an. Wie auch immer, einige Systeme können auch so konfiguriert sein, dass sie andere Legitimationsmechanismen wie Fingerabdruckerkennung oder SmartCard-Leser nutzen. GDM kann so konfiguriert werden, dass diese Anmeldemethoden parallel zu den Anmeldeerweiterungen des Begrüßers und der Option <command>--enable-split-authentication</command> für <filename>./configure</filename> unterstützt werden, oder einmalig über die PAM-Konfiguration des Systems.</para>
+
+      <para>Die Smartcard-Erweiterung kann über den GSettings-Schlüssel <filename>org.gnome.display-manager.extensions.smartcard.active</filename> aktiviert oder deaktiviert werden.</para>
+
+      <para>Ebenso ist das für die Fingerabdruckleser-Erweiterung über den Schlüssel <filename>org.gnome.display-manager.extensions.fingerprint.active</filename> möglich.</para>
+
+      <para>GDM und PAM können so konfiguriert werden, dass keinerlei Eingabe erforderlich ist und automatisch ein Benutzer angemeldet und eine Sitzung gestartet wird. Das kann in bestimmten Umgebungen sinnvoll sein, zum Beispiel auf Systemen mit einem einzigen Benutzer oder für öffentlich aufgestellte Rechner.</para>
+
+      <para>Zusätzlich zur Legitimation ermöglicht das Begrüßer-Programm dem Benutzer die Auswahl der zu startenden Sitzung und der zu verwendenden Sprache. Sitzungen werden in Dateien mit der Endung ».desktop« definiert. Weitere Informationen finden Sie im Abschnitt »Konfiguration der GDM-Benutzersitzung und Sprache« dieses Dokuments. Per Vorgabe ist GDM so konfiguriert, dass ein Benutzeralbum angezeigt wird, in welchem der Benutzer sein Benutzerkonto durch Anklicken eines Bildes auswählen kann, anstatt seinen Benutzernamen einzugeben. GDM speichert die voreingestellte Sitzung und Sprache des Benutzers in der Datei <filename>~/.dmrc</filename>. Falls der Benutzer keine Sitzung oder Sprache in der grafischen Anmeldung auswählt, verwendet GDM diese Vorgabewerte.</para>
+
+      <para>Nach der Legitimierung eines Benutzers führt der Dämon das <filename>PostLogin</filename>-Skript  und dann das <filename>PreSession</filename>-Skript als »root« aus. Danach wird die Benutzersitzung gestartet. Sobald der Benutzer die Sitzung beendet wird das <filename>PostSession</filename>-Skript als »root« ausgeführt. Diese Skripte werden als Ansatzpunkt für Distributionen und Endanwender zur Verfügung gestellt, um den Ablauf von Sitzungen anzupassen. Zum Beispiel könnten Sie diese Ansatzpunkte zum automatischen Erstellen des persönlichen Ordners und automatischen Löschen bei Abmeldung verwenden. Der Unterschied zwischen dem <filename>PostLogin</filename>- und dem <filename>PreSession</filename>-Skript ist, dass das  <filename>PostLogin</filename>-Skript vor dem Aufruf »pam_open_session« gestartet wird, d.h. dort ist der richtige Ort um alles zu erledigen, was vor der Initialisierung der Benutzersitzung erledigt werden soll. Das <filename>PreSession</filename>-Skript wird nach der Initialisierung aufgerufen.</para>
+    </sect2>
+
+    <sect2 id="greeterpanel">
+      <title>Das Panel des Begrüßers</title>
+      <para>Das GDM-Anmeldefenster zeigt ein Panel auf dem unteren Bildschirmrand, das weitere Funktionen zur Verfügung stellt. Sobald ein Benutzer ausgewählt wurde, ermöglicht das Panel die Wahl einer Sitzung, einer Sprache und einer Tastaturbelegung für den Zeitraum nach der Anmeldung. Der Belegungswähler belegt die Tastatur entsprechend auch bei Eingabe des Passwortes. Das Panel beinhaltet ebenfalls einen Bereich für Statussymbole von Anmeldediensten. Beispiele für Statussymbole sind ein Symbol für den Ladezustand des Akkus und die Aktivierung der Barrierefreiheit. Im Anmeldefenster werden auch Knöpfe zum Herunterfahren oder Neustart des Systems angezeigt.GDM kann nach Wunsch so konfiguriert werden, dass die Knöpfe nicht angezeigt werden. GDM kann auch mittels »PolicyKit« (oder mittels »RBAC« in Oracle Solaris) so eingestellt werden, dass eine Legitimierung für ein Herunterfahren oder für einen Neustart angefordert wird.</para>
+
+      <para>Beachten Sie, dass die Merkmale zur Tastaturbelegung nur auf Systemen verfügbar sind, die »libxklavier« unterstützen.</para>
+    </sect2>
+
+    <sect2 id="accessibility">
+      <title>Barrierefreiheit</title>
+
+        <para>GDM unterstützt die »Barrierefreie Anmeldung«, welche den Benutzern die Anmeldung an ihrer Sitzung erlaubt, die nicht auf die übliche Weise den Bildschirm, die Maus oder die Tastatur nutzen können. Barrierefreiheits-(AT)-Technologien wie Bildschirmtastatur, Bildschirmleser, Bildschirmlupe und der AccessX-Tastaturzugriff des X-Servers sind verfügbar. Es ist ebenso möglich, den Text zu vergrößern oder kontrastreiche Symbole oder Bedienelemente zu verwendet, falls dies erforderlich ist. Ziehen Sie den Abschnitt »Konfiguration der Barrierefreiheit« dieses Dokuments zu Rate, um weitere Informationen über die verschiedenen Barrierefreiheitsfunktionen zu erhalten.</para>
+
+        <para>Auf einigen Betriebssystemen kann es notwendig sein, dass der Benutzer »gdm« Mitglied der Gruppe »audio« ist, um Barrierefreiheits-Programmen die Audioausgabe (z.B. bei Umwandlung von Text in Sprache) zu ermöglichen.</para>
+    </sect2>
+
+    <sect2 id="facebrowser">
+      <title>Das GDM-Benutzeralbum</title>
+
+      <para>Das Benutzeralbum ist die Oberfläche, welche es Benutzern ermöglicht, Ihren Benutzernamen durch Klicken mit der Maus auf ein Foto auszuwählen. Dieses Sondermerkmal kann über den GSettings-Schlüssel »org.gnome.login-screen disable-user-list« ein- oder ausgeschaltet werden. Wenn es ausgeschaltet ist, müssen die Benutzer Ihren vollständigen Benutzernamen eingeben. Wenn es eingeschaltet ist, werden alle lokalen Benutzer angezeigt, die sich am System anmelden dürfen (alle Benutzerkonten, die in der Datei »/etc/passwd« definiert sind und eine gültige Shell und eine genügend große Benutzerkennzahl haben) sowie entfernte Benutzer, die sich vor kurzem angemeldet haben. Die Benutzeralben in GDM 2.20 und ältere versuchen alle entfernten Benutzer anzuzeigen, was zu Problemen in großen Unternehmensnetzen führte.</para>
+
+      <para>Im Benutzeralbum werden die Benutzer mit den häufigsten Anmeldungen im oberen Bereich der Liste angezeigt. Dadurch wird sichergestellt, dass die Benutzer mit den häufigsten Anmeldungen ihr Bild schneller finden können.</para>
+
+      <para>Das Benutzeralbum unterstützt Suchen-beim-Eingeben, was dynamisch die Auswahl anpasst, während der Benutzer seinen entsprechenden Benutzernamen aus der Liste eingibt. Dies bedeutet, dass ein Benutzer mit einem langem Benutzernamen nur die ersten Buchstaben eingeben muss, um den gewünschten Eintrag in der Liste auszuwählen.</para>
+
+      <para>Die von GDM verwendeten Symbole können systemweit vom Systemverwalter installiert oder auch in den persönlichen Ordnern der Benutzer gespeichert werden. Bei systemweiter Installation sollten sich die Symbole im Ordner <filename>&lt;share&gt;/pixmaps/faces/</filename> befinden. Der Dateiname sollte dem jeweiligen Benutzernamen entsprechen. Die Bilddateien sollten in einem von GTK+ lesbaren Format vorliegen, wie beispielsweise PNG oder JPEG. Wenn die Symbole systemweit installiert werden, muss der Benutzer »gdm« in diesem Ordner Leserechte haben.</para>
+
+<!--
+<para>
+        TODO - In the old GDM the ~/gnome2/gdm file is used, but the new code
+               seems to use ~/.gnome/gdm.  Error?
+</para>
+-->
+      <para>Falls es kein globales Symbol für den Benutzer gibt, sucht GDM im persönlichen Ordner des Benutzers ($HOME) nach der Bilddatei. Zunächst wird nach der Bilddatei des Benutzers in <filename>~/.face</filename> gesucht. Falls diese nicht gefunden wird, wird nach <filename>~/.face.icon</filename> gesucht. Falls auch diese Datei nicht gefunden wird, wird der in der Datei <filename>~/.gnome2/gdm</filename> für »face/picture« gespeicherte Wert verwendet.</para>
+
+      <para>Falls ein Benutzer keine definierte Bilddatei hat, verwendet GDM das Symbol »stock_person« des aktuellen GTK+-Themas. Wenn ein solches Bild nicht definiert ist, dann wird ein generisches Benutzerbild verwendet.</para>
+
+      <para>Bitte beachten Sie, dass das Laden und Skalieren der Benutzerbilder aus entfernten persönlichen Ordnern viel Zeit in Anspruch nehmen kann. Weil es unpraktikabel ist, Bilder über NIS oder NFS zu laden, versucht GDM keine Bilder aus entfernten persönlichen Ordnern zu laden.</para>
+
+      <para>Wenn das Benutzeralbum aktiviert ist, werden auf dem Computer vorhandene gültige Benutzernamen für jeden sichtbar dargestellt. Dies schränkt natürlich in gewissem Maße die Sicherheit ein, weil ein böswilliger Benutzer die gültigen Benutzernamen nicht sehen sollte. In einigen sehr sicherheitskritischen Umgebungen sollte das Benutzeralbum nicht verwendet werden.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcp">
+      <title>XDMCP</title>
+
+<!--
+<para>
+        TODO - What XDMCP features actually work?   I know that the
+               chooser is missing.
+</para>
+-->
+
+      <para>Der GDM-Dienst kann so eingestellt werden, dass auf »X Display Manage Protocol (XDMCP)«-Anfragen von entfernten Anzeigen reagiert wird und diese bearbeitet werden. Nach Vorgabe ist die Unterstützung für XDMCP nicht abgeschaltet, kann aber auf Wunsch aktiviert werden. Wenn GDM mit Unterstützung für »TCP Wrapper« erstellt wurde, so wird der Dienst nur Zugriff von Rechnern zulassen, die im Abschnitt »GDM service« in der Konfigurationsdatei von »TCP Wrappers« festgelegt sind.</para>
+
+      <para>GDM enthält verschiedene Mechanismen, die es robuster gegenüber Überlastungsangriffen auf den XDMCP-Dienst machen. Sehr viele Protokollparameter wie Handshake-Zeitabläufe usw. können fein abgestimmt werden. Die vorausgewählte Konfiguration sollte auf den meisten Systemen vernünftig funktionieren.</para>
+
+      <para>Laut Voreinstellung lauscht GDM auf XDMCP-Anfragen auf dem für XDMCP üblichen Port 177 und antwortet auf »QUERY«- und »BROADCAST_QUERY«-Anfragen mit einem »WILLING«-Paket an den Initiator.</para>
+
+      <para>GDM kann auch konfiguriert werden, um »INDIRECT«-Anfragen zu berücksichtigen und eine Rechnerauswahl dem entfernten Bildschirm zu präsentieren. GDM wird sich die Benutzerwahl merken und folgende Anfragen an den gewählten Verwalter weiterleiten. Es unterstützt ebenfalls eine Erweiterung zum Protokoll, die die Umleitung bei erfolgreicher Verbindung vergisst. Diese Erweiterung wird nur unterstützt, wenn beide Dienste durch GDM bereit gestellt werden. Sie ist transparent und wird von XDM oder anderen XDMCP-Diensten ignoriert.</para>
+
+      <para>Falls XDMCP nicht zu funktionieren scheint, stellen Sie bitte sicher, dass alle betreffenden Rechner in der Datei <filename>/etc/hosts</filename> benannt sind.</para>
+
+      <para>Informationen über Sicherheitsaspekte bei der Verwendung von XDMCP finden Sie im Abschnitt »Sicherheit«.</para>
+    </sect2>
+
+    <sect2 id="logging">
+      <title>Protokollführung</title>
+
+      <para>Zur Fehler- und Statusprotokollierung wird »syslog« von GDM verwendet. Es können auch Diagnosemeldungen protokolliert werden, die zur Fehlersuche nützlich sein können, falls GDM nicht richtig funktioniert. Die Diagnoseausgabe kann durch Setzen des Schlüssels »debug/Enable« auf »wahr« in der Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> aktiviert werden.</para>
+
+      <para>Die Ausgaben verschiedenster XServer werden im GDM-Protokollordner abgelegt, welcher normalerweise <filename>&lt;var&gt;/log/gdm/</filename> ist. Jede Meldung des Xserver wird in einer Datei abgespeichert, die mit dem Anzeigewert <filename>&lt;display&gt;.log</filename> verknüpft ist.</para>
+
+      <para>Die Sitzungsausgabe wird durch den GDM-Dienst in die Datei <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</filename> weitergeleitet. Das ist üblicherweise die Datei <filename>~/.cache/gdm/session.log</filename>. Die Datei wird bei jeder Anmeldung neu überschrieben, was bedeutet, dass durch Ab- und Anmelden mit GDM mit dem gleichem Benutzernamen Nachrichten aus der vorhergehenden Sitzung verloren gehen.</para>
+
+      <para>Beachten Sie: Falls GDM aus irgendwelchen Gründen diese Datei nicht erstellen kann, wird eine Fallback-Datei namens <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log.XXXXXXXX</filename> angelegt, wobei <filename>XXXXXXXX</filename> aus zufällig erzeugten Zeichen generiert wird.</para>
+    </sect2>
+
+    <sect2 id="fusa">
+      <title>Schneller Benutzerwechsel</title>
+
+      <para>GDM ermöglicht es, dass mehrere Benutzer gleichzeitig angemeldet sind. Sobald ein Benutzer angemeldet ist, können sich weitere Benutzer über den Benutzerwechsler, über das GNOME-Panel oder über den Knopf »Benutzer wechseln« im Dialog des Bildschirmschoners anmelden. Die aktive Sitzung kann beliebig mit dem selben Verfahren gewählt werden. Beachten Sie, dass einige Distributionen den Benutzerwechsler nicht per Vorgabe zum Panel hinzufügen. Er kann über das Panelmenü jederzeit hinzugefügt werden. </para>
+      <para>Beachten Sie, dass diese Funktion nur auf Systemen verfügbar ist, die »Virtuelle Terminals« unterstützen. Falls diese nicht unterstütz werden, arbeitet diese Funktion nicht.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Security ================================= -->
+
+  <sect1 id="security">
+    <title>Sicherheit</title>
+
+    <sect2 id="gdmuser">
+      <title>Der Benutzer GDM und die Gruppe GDM</title>
+
+      <para>Aus Sicherheitsgründen werden ein dedizierter Benutzer und eine Gruppenkennung für den ordnungsgemäßen Betrieb empfohlen. Benutzer und Gruppe heißen normalerweise »gdm« auf den meisten Systemen, können aber beliebig benannt werden. Alle grafischen GDM-Benutzeroberflächen werden unter diesem Benutzerkonto gestartet, das heißt alle Programme laufen in der eigenen Umgebung des Benutzerkontos. Das Konto und die Gruppe sollten eingeschränkte Rechte haben.</para>
+
+      <para>Das einzige spezielle vom Benutzer »gdm« benötigte Privileg sind Lese- und Schreibrechte für die Xauth-Dateien im Ordner <filename>&lt;var&gt;/run/gdm</filename>. Der Ordner <filename>&lt;var&gt;/run/gdm</filename> sollte dem Benutzer root und der Gruppe gdm gehören und die oktalen Zugriffsrechte 1777 haben.</para>
+
+      <para>Sie sollte unter keinen Umständen GDM ein Benutzerkonto und eine Gruppenkennung zuweisen, zu denen ein Benutzer leicht Zugang bekommen kann, wie z.B. das Benutzerkonto <filename>nobody</filename>. Jeder Benutzer, der Zugriff auf einen Xauth-Schlüssel erlangt, kann in der zugehörigen Sitzung eine Benutzeroberfläche belauschen und steuern oder einen Überlastungsangriff auf diese Sitzung starten. Es ist wichtig sicherzustellen, dass das System richtig konfiguriert ist, so dass nur das »gdm«-Benutzerkonto Zugriff auf diese Dateien hat und eine Anmeldung mit diesem Konto nicht einfach möglich ist. Zum Beispiel sollte das Konto nicht ohne Passwort angelegt sein oder eine Anmeldung anderer als Administratoren erlauben.</para>
+
+      <para>Die Konfiguration des GDM-Begrüßers wird in GConf gespeichert. Um dem Benutzer »gdm« die Speicherung der Konfiguration zu ermöglichen, benötigt dieser einen schreibbaren persönlichen Ordner ($HOME). Die Benutzer dürfen die vorgegebenen GConf-Einstellungen dahingehend ändern, dass der Benutzer »gdm« auf einen solchen Ordner verzichten kann. Allerdings könnten einige GDM-Funktionen nicht verfügbar sein, falls das Speichern von Statusinformationen in den GConf-Einstellungen nicht möglich ist.</para>
+    </sect2>
+
+    <sect2 id="PAM">
+      <title>PAM</title>
+
+      <para>GDM verwendet PAM für die Legitimation beim Anmelden. Die Abkürzung PAM steht für »Pluggable Authentication Module« und wird von den meisten Programmen auf Ihrem Computer verwendet, die eine Legitimation erfordern. Dies ermöglicht dem Systemverwalter, ein spezifisches Anmeldeverhalten für verschiedene Anmeldeprogramme einzustellen, wie beispielsweise SSH, grafische Anmeldung, Bildschirmschoner usw.</para>
+
+      <para>PAM ist kompliziert und umfangreich konfigurierbar. Diese Dokumentation beabsichtigt nicht die Konfiguration detailliert zu erklären, es wird jedoch ein Überblick gegeben, wie sich die PAM-Konfiguration auf GDM bezieht, und wie PAM allgemein mit GDM konfiguriert wird. Es wird vorausgesetzt, dass jemand, der PAM konfigurieren will, sich auch weiter in die PAM-Dokumentation vertiefen müsste, um die Konfiguration von PAM und die in diesem Abschnitt verwendeten Begriffe zu verstehen.</para>
+        
+      <para>Die Konfiguration von PAM hat verschiedene, aber ähnliche Schnittstellen auf unterschiedlichen Betriebssystemen. Lesen Sie die Hilfeseiten zu <ulink type="help" url="man:pam.d">pam.d</ulink> und <ulink type="help" url="man:pam.conf">pam.conf</ulink> für weitere Details. Lesen Sie unbedingt die Dokumentation zu PAM und machen Sie sich mit den Auswirkungen beabsichtigter Konfigurationsänderungen auf die Sicherheit vertraut.</para>
+
+      <para>Beachten Sie, dass GDM per Vorgabe den PAM-Dienstnamen »gdm« für die normale Anmeldung und den PAM-Dienstnamen »gdm-autologin« für die automatische Anmeldung verwendet. Diese Dienste dürften nicht in Ihren Konfigurationsdateien »pam.d« oder »pam.conf« definiert sein. Falls dort kein Eintrag existiert, wendet GDM das vorgegebene PAM-Verhalten an. Auf den meisten Systemen funktioniert das recht gut. Allerdings funktioniert die automatische Anmeldung nicht, wenn der Dienst »gdm-autologin« nicht definiert ist.</para>
+
+      <para>Das <filename>PostLogin</filename>-Skript wird ausgeführt, bevor pam_open_session aufgerufen wird, das <filename>PreSession</filename>-Skript danach. Dies ermöglicht dem Systemverwalter, diverse Skripte zum Anmeldeprozess hinzuzufügen, entweder bevor oder nachdem PAM die Sitzung initialisiert.</para>
+
+      <para>Wenn Sie möchten, dass GDM mit anderen Authentifizierungsmechanismen wie Fingerabdruckerkennung oder SmartCard-Lesegeräten zusammenarbeitet, sollten Sie dies als PAM-Servicemodul implementieren, anstatt den GDM-Code direkt zu verändern. Ziehen Sie die PAM-Dokumentation Ihres Systems zu Rate. Von Zeit zu Zeit wird auch in der Mailingliste <address><email>gdm-list@gnome.org</email></address> darüber diskutiert, daher dürften Sie weitere Informationen dazu auch in den Mailinglist-Archiven finden.</para>
+
+      <para>PAM hat einige Einschränkungen bezüglich der Fähigkeit, mit mehreren Legitimationsarten gleichzeitig umzugehen, wie die Unterstützung für sowohl die Anmeldung mittels SmartCard als auch über die Eingabe von Benutzername und Passwort im Anmeldeprogramm. Es gibt jedoch Möglichkeiten, dass auch das funktioniert. Am besten ist es, beim Erstellen einer solchen Konfiguration zunächst nach allgemein funktionierenden Lösungen für dieses Problem zu suchen.</para>
+
+      <para>Falls die automatische Anmeldungen auf einem System nicht funktioniert, überprüfen Sie, ob der Abschnitt »gdm-autologin« in der Konfiguration von PAM definiert ist. Damit sie funktioniert, ist es erforderlich ein PAM-Modul zu verwenden, das gar keine Legitimierung durchführt, oder das einfach »PAM_SUCCESS« aus allen öffentlichen Schnittstellen zurückgibt. Wenn man davon ausgeht, dass ein System das PAM-Modul »pam_allow.so« installiert hat, welches genau dies tut, so würde eine PAM-Konfiguration zum Einschalten von »gdm-autologin« folgendermaßen aussehen:</para>
+
+<screen>
+       gdm-autologin auth  required    pam_unix_cred.so.1
+       gdm-autologin auth  sufficient  pam_allow.so.1
+       gdm-autologin account  sufficient  pam_allow.so.1
+       gdm-autologin session  sufficient  pam_allow.so.1
+       gdm-autologin password  sufficient  pam_allow.so.1
+</screen>
+
+      <para>Die obige Konfiguration wird keinen lastlog-Eintrag erzeugen. Falls ein Eintrag gewünscht wird, verwenden Sie die folgende für die Sitzung:</para>
+
+<screen>
+       gdm-autologin session required pam_unix_session.so.1
+</screen>
+
+      <para>Wenn der Computer von verschiedenen Benutzern verwendet wird, ist eine automatische Anmeldung nicht sinnvoll, aber vielleicht möchten Sie einigen Benutzern eine Anmeldung ohne Passwort ermöglichen. Dieses Merkmal kann einzeln für jeden Benutzer mit dem Werkzeug »Benutzer und Gruppen« aktiviert werden; es wird durch Zuweisen des Benutzers zur Benutzergruppe »nopasswdlogin« vor Eingabe eines Passwortes erreicht. Damit es funktioniert muss die PAM-Konfigurationsdatei für den Service »gdm« z.B  folgende Zeile enthalten:</para>
+
+<screen>
+      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
+</screen>
+
+    </sect2>
+
+    <sect2 id="utmpwtmp">
+      <title>utmp und wtmp</title>
+
+      <para>GDM erstellt utmp- und wtmp-Einträge in der Benutzerdatenbank bei Anmeldung und Abmeldung von einer Sitzung. Die utmp-Datenbank enthält Informationen zu Benutzerrechten und -konten, auf die solche Befehle wie <command>finger</command>, <command>last</command>, <command>login</command>, und <command>who</command> zugreifen. Die wtmp-Datenbank enthält die Chronik der Benutzerrechte und -konten für die utmp-Datenbank. Schauen Sie für weitere Informationen in die Handbücher von <ulink type="help" url="man:utmp">utmp</ulink> und <ulink type="help" url="man:wtmp">wtmp</ulink>.</para>
+    </sect2>
+
+    <sect2 id="xauth">
+      <title>Legitimierungsschema des XServer</title>
+
+      <para>Die Dateien des XServer zur Legitimierung werden beim Start in einem neu erstellten Unterordner von <filename>&lt;var&gt;/run/gdm</filename> abgelegt. Die Dateien werden zum Hinterlegen und Austauschen eines »Passworts« zwischen X-Clients und dem XServer verwendet. Dieses »Passwort« ist für jede laufende Sitzung eindeutig, so dass Benutzer aus einer Sitzung nicht die eines anderen Benutzers belauschen können.</para>
+
+      <para>GDM unterstützt nur das Legitimierungsschema »MIT-MAGIC-COOKIE-1« des Xserver. Normalerweise ist der Mehrwert anderer Schemata gering. Daher wurden bisher keine Anstrengungen unternommen, sie zu implementieren. Seien Sie beim Einsatz von XDMCP vorsichtig, weil der Xserver Legitimations-Cookie unverschlüsselt gesendet wird. Falls ein Mithören möglich ist, kann ein Angreifer das Legitimationspasswort während der Anmeldung unabhängig vom verwendeten Schema erspähen. Wenn ein Belauschen möglich, aber unerwünscht ist, dann sollte eine X-Verbindung getunnelt werden, anstatt dem XDMCP einzusetzen. Sie können sich XDMCP als eine Art grafisches Telnet mit den gleichen Sicherheitsproblemen vorstellen. In dem meisten Fällen sollte »ssh -Y« dem Leistungsmerkmal XDMCP vorgezogen werden.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpsecurity">
+      <title>XDMCP-Sicherheit</title>
+
+      <para>Obwohl Ihre Anzeige durch Cookies geschützt wird, werden XEvents und damit auch Tastatureingaben von Passwörtern unverschlüsselt versendet. Sie können sehr leicht belauscht werden.</para>
+
+      <para>XDMCP ist vorrangig nützlich zum Betreiben von Thin Clients an Terminal-Servern. Diese Thin Clients benötigen lediglich ein Netzwerk, um auf den Server zugreifen zu können. Daher scheint es die sicherheitstechnisch beste Lösung zu sein, die Thin Clients in einem separaten Netzwerk zu belassen, das keine Verbindung zur Außenwelt hat und sich nur mit dem Server verbinden kann. Der einzige Zugangspunkt nach außen ist der Server. In dieser Art der Konfiguration gibt es keinen unverwalteten Hub oder ein anderes ausspähbares Netzwerk.</para>
+
+    </sect2>
+
+    <sect2 id="xdmcpaccess">
+      <title>XDMCP-Zugangskontrolle</title>
+
+      <para>Die XDMCP-Zugangskontrolle geschieht mittels TCP-Wrappern. Es ist möglich, GDM ohne Unterstützung für TCP-Wrapper zu konfigurieren, so dass diese Funktion auf manchen Betriebssystemen vielleicht nicht unterstützt wird.</para>
+
+      <para>Sie sollten den Dienstnamen <command>gdm</command> in den Dateien <filename>&lt;etc&gt;/hosts.allow</filename> und <filename>&lt;etc&gt;/hosts.deny</filename> verwenden. Um zum Beispiel die Anmeldung von Computern aus der Domäne  <filename>.evil.domain</filename> zu verhindern, fügen Sie</para>
+<screen>
+gdm: .evil.domain
+</screen>
+      <para>der Datei <filename>&lt;etc&gt;/hosts.deny</filename> hinzu. Sie können auch</para>
+<screen>
+gdm: .your.domain
+</screen>
+      <para>der Datei <filename>&lt;etc&gt;/hosts.allow</filename> hinzufügen, wenn Sie normalerweise alle Dienste von allen Rechnern erlauben. Lesen Sie die Hilfeseiten zu <ulink type="help" url="man:hosts.allow">hosts.allow(5)</ulink> für weitere Informationen.</para>
+    </sect2>
+
+    <sect2 id="firewall">
+      <title>Firewall-Sicherheit</title>
+
+      <para>Obwohl GDM bemüht ist, mögliche Angreifer auf XDMCP auszutricksen, ist es dennoch ratsam, dass der XDMCP-Port (normalerweise UDP Port 177) durch Ihre Firewall geblockt wird, falls Sie es nicht unbedingt benötigen. GDM schützt vor verteilten Überlastungsangriffen, aber das X-Protokoll ist von Natur aus unsicher und sollte nur in sicheren Umgebungen verwendet werden. Ebenfalls werden durch jede entfernte Verbindung viele Systemressourcen belegt, was einen Überlastungsangriff mittels XDMCP leichter macht als gegen einen Webserver.</para>
+
+      <para>Es ist ratsam, alle Ports des XServer zu blockieren. Das sind die TCP-Ports 6000+ (einer für jede Anzeige) auf Ihrer Firewall. Bedenken Sie, dass GDM die Anzeigennummern 20 und höhere für die flexiblen Bedarfsserver verwendet.</para>
+
+      <para>X ist kein besonders sicheres Protokoll im Netz, und XDMCP ist sogar noch unsicherer.</para>
+    </sect2>
+
+    <sect2 id="policykit">
+      <title>PolicyKit</title>
+
+<!--
+<para>
+        TODO - Should we say more?
+</para>
+-->
+
+      <para>GDM kann so konfiguriert werden, das PolicyKit verwendet wird. Dies ermöglicht dem Systemverwalter die Entscheidung darüber, ob der Anmeldebildschirm die Knöpfe zum Ausschalten und Neustart des Rechners im Begrüßer anzeigen soll oder nicht.</para>
+
+      <para>Diese Knöpfe werden durch die Aktionen  <filename>org.freedesktop.consolekit.system.stop-multiple-users</filename> und <filename>org.freedesktop.consolekit.system.restart-multiple-users</filename> gesteuert. Die Richtlinie für diese Aktionen kann mit dem Werkzeug »Zugriffsberechtigungen« (polkit-gnome-authorization) oder mit dem Befehlszeilenprogramm »polkit-auth« festgelegt werden.</para>
+ 
+    </sect2>
+
+    <sect2 id="rbac">
+      <title>RBAC (Role Based Access Control)</title>
+
+      <para>GDM kann so konfiguriert werden, dass RBAC anstelle von PolicyKit verwendet wird. In diesem Fall wird die RBAC-Konfiguration verwendet, um festzulegen, ob im Begrüßungsbildschirm die Knöpfe für Herunterfahren und Neustart angezeigt werden.</para>
+
+      <para>Zum Beispiel wird bei Oracle Solaris die Legitimation »solaris.system.shutdown« zum Steuern verwendet. Ändern Sie einfach die Datei <filename>/etc/user_attr</filename> so, dass der Benutzer »gdm« diese Legitimation hat.</para>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= ConsoleKit ================================ -->
+
+  <sect1 id="consolekit">
+    <title>Unterstützung für ConsoleKit</title>
+
+<!--
+<para>
+    TODO - Should we update these docs?  Probably should mention any 
+           configuration that users may want to do for using it with GDM?
+           If so, perhaps this section should be moved to a subsection of
+           the "Configure" section?
+</para>
+-->
+
+    <para>GDM unterstützt das Veröffentlichen von Benutzerkontoinformationen mit dem Framework Consolekit. ConsoleKit ermöglicht die Mitverfolgung aller angemeldeter Benutzer. In dieser Hinsicht kann es als Ersatz für utmp- und utmpx-Dateien verwendet werden, die auf den meisten Unix-Betriebssystemen zur Verfügung stehen.</para>
+
+    <para>Wenn GDM einen neuen Anmeldeprozess für einen Benutzer erstellt ruft es eine privilegierte Methode von ConsoleKit auf, um eine neue Sitzung für den Benutzer zu öffnen. Zu diesem Zeitpunkt liefert GDM auch Informationen über die Benutzersitzung an ConsoleKit wie z.B.: Die Benutzerkennung, der Name der X11-Anzeige der zugehörigen Sitzung, der Rechnername, auf dem die Sitzung läuft (nützlich bei XDMCP-Sitzungen), ob die Sitzung angebunden ist usw. GDM ist als die Instanz, die den Benutzerprozess startet, in einer einzigartigen Lage über alle Vorgänge zu wissen und ihm wird vertraut, die Informationen über die Sitzung geben zu können. Der Gebrauch der privilegierten Methode wird durch die Richtlinien des System-Nachrichtenbus D-Bus eingeschränkt.</para>
+
+    <para>Wenn sich ein Benutzer mit einer bereits bestehenden Sitzung bei GDM authentifiziert hat und die Sitzung fortsetzen möchte, dann wird von GDM eine privilegierte Methode von ConsoleKit zum Entsperren der Sitzung aufgerufen. Die genauen Details was passiert, wenn die Sitzung das Signal zum Entsperren erhält, sind nicht festgelegt und von der Sitzung abhängig. Allerdings werden die meisten Sitzungen darauf hin den Bildschirmschoner entsperren.</para>
+
+    <para>Wenn sich der Benutzer abmeldet oder GDM oder die Sitzung unerwartet beendet wird, so wird die ConsoleKit-Registrierung der Sitzung gelöscht.</para>
+  </sect1>
+
+  <!-- ============= Configuration ============================= -->
+
+  <sect1 id="configuration">
+    <title>Konfiguration</title>
+
+    <para>GDM verfügt über eine Reihe von Konfigurationsschnittstellen. Diese beinhalten Integrationspunkte für Skripte, die Daemon-Konfiguration, die Begrüßer-Konfiguration, allgemeine Sitzungseinstellungen, die Einbindung der Konfiguration des »gnome-settings-daemon« und die Sitzungskonfiguration. All diese Konfigurationsarten werden nachfolgend detailliert beschrieben.</para>
+
+    <sect2 id="scripting">
+      <title>Skripting-Integrationspunkte</title>
+      
+      <para>Die Integrationspunkte für Skripte von GDM können im Ordner <filename>&lt;etc&gt;/gdm/</filename> gefunden werden:</para>
+
+<screen>
+Xsession
+Init/
+PostLogin/
+PreSession/
+PostSession/
+</screen>
+
+      <para>Die <filename>Init</filename>-, <filename>PostLogin</filename>-, <filename>PreSession</filename>- und <filename>PostSession</filename>-Skripte arbeiten alle wie unten beschrieben.</para>
+
+      <para>Für jeden Typ Skripts wird das Vorgabe-Skript, das ausgeführt wird, »Default« genannt und es wird in einem Ordner abgelegt, der mit dem Skripttyp assoziiert ist. D.h. das Vorgabe-Skript von <filename>Init</filename> lautet <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Es kann ein Skript je Anzeige verwendet werden, und falls es existiert wird es an Stelle des Vorgabe-Skripts ausgeführt. Diese Skripte werden im selben Ordner abgelegt und haben den selben Namen wie der »DISPLAY«-Wert des Xserver für diese Anzeige. Falls zum Beispiel das Skript <filename>&lt;Init&gt;/:0</filename> existiert wird es für die Anzeige »:0« ausgeführt.</para>
+
+     <para>Alle diese mit Systemverwalterrechten ausgeführten Skripte geben den Wert 0 zurück, falls die Ausführung erfolgreich war. Falls ein Fehler auftrat, der zum Abbruch der Anmeldesitzung führte, wird ein von 0 verschiedener Wert zurückgegeben. Beachten Sie auch, dass GDM bis zum Beenden der Skripte blockiert ist. Wenn eines dieser Skripte hängt, dann bleibt der Anmeldevorgang ebenfalls hängen.</para>
+
+      <para>Wenn der Xserver für den Anmeldebildschirm erfolgreich gestartet wurde, aber vor der Darstellung des Bildschirms, wird das Skript <filename>Init</filename> von GDM ausgeführt. Dieses Skript ist zum Starten von Programmen nützlich, die ausgeführt werden sollen, während der Anmeldebildschirm angezeigt wird, oder - falls erforderlich - für beliebige Initialisierungen.</para>
+
+      <para>Nachdem der Benutzer erfolgreich authentifiziert wurde wird von GDM das Skript <filename>PostLogin</filename> ausgeführt. Dies wird vor dem Aufsetzen einer Sitzung getan, auch vor dem Aufruf von »pam_open_session«. Dieses Skript ist nützlich für Initialisierungen, die vor dem Start der Sitzung geschehen müssen. Zum Beispiel könnte hier der persönliche Ordner des Benutzers angelegt werden.</para>
+
+      <para>Nach der Initialisierung der Sitzung wird das Skript <filename>PreSession</filename> von GDM ausgeführt. Dieses Skript ist nützlich für Initialisierungen, die nach dem Start der Sitzung geschehen müssen. Zum Beispiel kann es für die Sitzungsverwaltung oder die Benutzerverwaltung verwendet werden.</para>
+
+      <para>Wenn der Benutzer seine Sitzung beendet, führt GDM das Skript  <filename>PostSession</filename> aus. Beachten Sie, dass der XServer gestoppt wird und während der Ausführung des Skripts nicht läuft. Daher kann in dieser Zeit nicht auf den X-Server zugegriffen werden.</para>
+
+      <para>Bedenken Sie, dass das Skript <filename>PostSession</filename> selbst dann ausgeführt wird, wenn die Anzeige z.B. wegen eines Ein-/Ausgabefehlers oder ähnlichem nicht mehr reagiert. Somit gibt es keine Garantie, dass X-Anwendungen während der Skriptausführung funktionieren.</para>
+
+      <para>Alle der oben genannten Skripte setzen die Umgebungsvariable <filename>$RUNNING_UNDER_GDM</filename> auf <filename>yes</filename>. Falls die Skripte auch durch andere Anmeldefenster genutzt werden, ermöglicht Ihnen dies die eindeutige Identifizierung des Aufrufs durch GDM. Auf diese Weise können Sie bestimmten Code ausführen, wenn GDM zum Einsatz kommt.</para>
+    </sect2>
+
+    <sect2 id="autostart">
+      <title>Autostart-Einstellungen</title>
+      
+      <para>Der Ordner <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename> enthält Dateien im Format der »FreeDesktop.org Desktop Application Autostart Specification«. Funktionsmerkmale der Spezifikation können verwendet werden, um Programme anzugeben, die automatisch neugestartet oder ausgeführt werden sollen, wenn ein bestimmter Wert in der GConf-Konfiguration festgelegt ist usw.</para>
+
+      <para>Alle <filename>.desktop</filename>-Dateien in diesem Ordner werden einen automatischen Start der verknüpften Programme bei Erscheinen des Begrüßers auslösen. Von Haus aus wird GDM mit Dateien geliefert, die den einfachen grafischen Begrüßer, die Energieverwaltung, den Einstellungsdienst und den Fensterverwalter Metacity automatisch starten. Jene Programme werden vom Begrüßer benötigt. Zusätzlich werden Desktop-Dateien zum Starten verschiedener AT-Programme geliefert, wenn die im Abschnitt zur Barrierefreiheit angegebenen Konfigurationswerte eingestellt sind.</para>
+    </sect2>
+
+    <sect2 id="xsessionscript">
+      <title>Xsession-Skript</title>
+
+      <para>Es gibt auch ein Skript <filename>Xsession</filename> im Ordner  <filename>&lt;etc&gt;/gdm/Xsession</filename>, das zwischen den Skripten  <filename>PreSession</filename> und <filename>PostSession</filename> aufgerufen wird. Dieses Skript unterscheidet nicht zwischen verschiedenen Anzeigen im Gegensatz zu den anderen. Es wird zum eigentlichen Starten der Benutzersitzung verwendet. Das Skript wird mit den Rechten des Benutzers ausgeführt und führt die Sitzung aus, die in der gewählten Desktop-Sitzungsdatei des Benutzers festgelegt ist.</para>
+    </sect2>
+
+    <sect2 id="daemonconfig">
+      <title>Daemon-Konfiguration</title>
+
+      <para>Der GDM-Daemon wird über die Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> konfiguriert. Die voreingestellten Werte sind in der GConf-Datei <filename>gdm.schemas</filename> hinterlegt. Es wird empfohlen, dass Endanwender die Datei <filename>/etc/gdm/custom.conf</filename> anpassen, weil die Datei mit den Schemata überschrieben werden könnte, wenn die installierte Version von GDM aktualisiert wird.</para>
+
+      <para>Beachten Sie, dass ältere Versionen von GDM zusätzliche Einstellungsoptionen unterstützen, die in neueren GDM-Versionen nicht mehr verfügbar sind.</para>
+
+      <para>Die Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> ist im Schema  <filename>keyfile</filename> formatiert. Schlüsselwörter in eckigen Klammern legen Gruppenabschnitte fest, Zeichenketten vor einem Gleichheitszeichen »=« sind Schlüssel und der zugehörige Wert steht hinter dem Gleichheitszeichen. Leere Zeilen und mit einer Raute (»#«) eingeleitete Zeilen werden ignoriert.</para>
+
+      <para>In der Datei <filename>/etc/gdm/custom.conf</filename> werden die Gruppenabschnitte »[daemon]«, »[security]« und »[xdmcp]« erkannt. Innerhalb jeder Gruppe legen bestimmte Paare aus Schlüsselwort und Wert das Verhalten von GDM fest. Zum Beispiel muss die Datei folgende Zeilen für eine automatische Anmeldung des Benutzers »Mustermann« enthalten:</para>
+     
+<screen>
+[daemon]
+TimedLoginEnable=true
+TimedLogin=Mustermann
+</screen>
+
+      <para>Es folgt die vollständige Liste unterstützter Konfigurationsschlüssel:</para>
+
+      <sect3 id="choosersection">
+        <title>[chooser]</title>
+        <variablelist>
+
+          <varlistentry>
+            <term>Multicast</term>
+            <listitem>
+              <synopsis>Multicast=false</synopsis>
+              <para>Falls wahr und IPv6 aktiviert ist, so sendet der Wähler Multicast-Anfragen ins lokale Netzwerk und sammelt Antworten von den Rechnern, die der Multicast-Gruppe beigetreten sind.</para>
+            </listitem>
+          </varlistentry>
+         
+          <varlistentry>
+            <term>MulticastAddr</term>
+            <listitem>
+              <synopsis>MulticastAddr=ff02::1</synopsis>
+              <para>Dies ist die Link-Local Multicast-Adresse.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="daemonsection">
+        <title>[daemon]</title>
+        <variablelist>
+          <varlistentry>
+            <term>TimedLoginEnable</term>
+            <listitem>
+              <synopsis>TimedLoginEnable=false</synopsis>
+              <para>Legt fest, ob der mit <filename>TimedLogin</filename> festgelegte Benutzer nach einer bestimmten Anzahl inaktiver Sekunden (definiert durch <filename>TimedLoginDelay</filename>) auf dem Anmeldebildschirm angemeldet werden soll. Diese Funktion ist für öffentliche Zugangsrechner oder sogar für Heimanwender nützlich. Sobald der Benutzer die Tastatur benutzt oder Menüs öffnet, wird der Zähler auf 30 Sekunden oder auf <filename>TimedLoginDelay</filename> zurück gesetzt, je nachdem, welche Zahl größer ist. Wenn der Benutzer trotz Aufforderung keinen Benutzernamen eingibt und die Eingabetaste drückt, dann geht GDM davon aus, dass der Benutzer mit automatischer Anmeldung sich sofort anmelden möchte. Bedenken Sie, dass für diesen Benutzer kein Passwort abgefragt wird. Seien Sie also vorsichtig, auch wenn bei Verwendung von PAM eine Passworteingabe bei Anmeldung erzwungen werden kann. Lesen Sie im Handbuch den Abschnitt »Sicherheit - PAM« für weitere Informationen oder für Hilfe, wenn dieses Merkmal nicht zu funktionieren scheint.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLogin</term>
+            <listitem>
+              <synopsis>TimedLogin=</synopsis>
+              <para>Dieser Benutzer wird nach einer bestimmten Anzahl inaktiver Sekunden automatisch angemeldet.</para>
+              <para>Wenn der Wert mit einem senkrechten Strich »|« (Unix-Umleitung) endet, dann wird GDM das angegebene Programm ausführen und die Standardausgabe des Programms als Benutzernamen verwenden. Das Programm wird mit gesetzter Variable »DISPLAY« ausgeführt, so dass es möglich ist, je nach Anzeige einen anderen Benutzer zu haben. Zum Beispiel für den Fall, dass der Wert »/usr/bin/getloginuser|« ist, wird das Programm »/usr/bin/getloginuser« ausgeführt, um den Benutzer zu ermitteln.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>TimedLoginDelay</term>
+            <listitem>
+              <synopsis>TimedLoginDelay=30</synopsis>
+              <para>Verzögerung in Sekunden, bevor der durch <filename>TimedLogin</filename> festgelegte Benutzer angemeldet wird.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLoginEnable</term>
+            <listitem>
+              <synopsis>AutomaticLoginEnable=false</synopsis>
+              <para>Legt fest, ob der durch <filename>AutomaticLogin</filename> festgelegte Benutzer sofort angemeldet werden soll. Dieses Merkmal entspricht einer verzögerten Anmeldung mit einer Verzögerung von 0 Sekunden.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>AutomaticLogin</term>
+            <listitem>
+              <synopsis>AutomaticLogin=</synopsis>
+              <para>Dieser Benutzer wird sofort angemeldet, wenn <filename>AutomaticLoginEnable</filename> wahr ist.</para>
+              <para>Wenn der Wert mit einem senkrechten Strich »|« (Unix-Umleitung) endet, dann wird GDM das angegebene Programm ausführen und die Standardausgabe des Programms als Benutzernamen verwenden. Das Programm wird mit gesetzter Variable »DISPLAY« ausgeführt, so dass es möglich ist, je nach Anzeige einen anderen Benutzer zu haben. Zum Beispiel für den Fall, dass der Wert »/usr/bin/getloginuser|« ist, wird das Programm »/usr/bin/getloginuser« ausgeführt, um den Benutzer zu ermitteln.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>User</term>
+            <listitem>
+              <synopsis>User=gdm</synopsis>
+              <para>Der Benutzername, unter dem der Begrüßer und andere grafische Programme ausgeführt werden. Lesen Sie für weitere Informationen über den Konfigurationsschlüssel <filename>Group</filename> und im Abschnitt »Sicherheit - GDM-Benutzer und Gruppen«.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Group</term>
+            <listitem>
+              <synopsis>Group=gdm</synopsis>
+              <para>Die Gruppe, unter welcher der Begrüßer und andere grafische Programme ausgeführt werden. Lesen Sie für weitere Informationen über den Konfigurationsschlüssel <filename>Benutzer</filename> und im Abschnitt »Sicherheit - GDM-Benutzer und Gruppen«.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="debugsection">
+        <title>Optionen zur Fehlerdiagnose</title>
+      
+        <variablelist>
+          <title>[debug]</title>
+          
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Um die Diagnoseausgabe zu aktivieren, setzen Sie den Schlüssel »debug/Enable« in der Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> auf »wahr« und starten Sie GDM neu. Dann wird die Fehlerdiagnoseausgabe in der Systemprotokolldatei gespeichert, entweder <filename>&lt;var&gt;/log/messages</filename> oder <filename>&lt;var&gt;/adm/messages</filename>, abhängig von Ihrem Betriebssystem.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="greetersection">
+        <title>Optionen des Begrüßers</title>
+      
+        <variablelist>
+          <title>[greeter]</title>
+          
+          <varlistentry>
+            <term>IncludeAll</term>
+            <listitem>
+              <synopsis>IncludeAll=true</synopsis>
+              <para>Falls wahr, so werden im Benutzeralbum alle Benutzer des lokalen Rechners angezeigt. Falls falsch, so werden im Benutzeralbum nur alle jüngst angemeldeten Benutzer angezeigt.</para>
+
+              <para>Wenn der Schlüssel wahr ist, wird GDM fgetpwent() aufrufen, um eine Liste der lokalen Benutzer des Systems zu ermitteln. Alle Benutzer mit einer Kennung kleiner als 500 (oder 100 auf Oracle Solaris-Systemen) werden dabei nicht angezeigt. Das Benutzeralbum wird ebenfalls alle Benutzer anzeigen, die sich zuvor am System angemeldet haben (wie zum Beispiel NIS/LDAP-Benutzer). GDM ermittelt die Liste per Aufruf der ConsoleKit-Schnittstelle ck-history. Es wird auch diejenigen Benutzer mit ungültiger Shell aussortieren (alle Shells, die getusershell() zurückgeben, sind gültige. <filename>/sbin/nologin</filename> oder <filename>/bin/false</filename> werden als ungültige Shells angesehen, selbst wenn sie getusershell() zurückgeben).</para>
+
+              <para>Wenn auf »falsch« gesetzt, dann wird GDM nur Benutzer anzeigen, die sich zuvor am System angemeldet haben (lokal oder über NIS/LDAP), indem die ConsoleKit-Schnittstelle ck-history aufgerufen wird.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Include</term>
+            <listitem>
+              <synopsis>Include=</synopsis>
+              <para>Legt eine Liste von Benutzern fest, die immer im Benutzeralbum angezeigt werden sollen. Dieser Wert ist eine Liste von Benutzern, die durch Kommata getrennt sind. Per Vorgabe ist dieser Wert leer.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Exclude</term>
+            <listitem>
+              <synopsis>Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
+              <para>Legt eine Liste von Benutzern fest, die immer von der Anzeige im Benutzeralbum ausgeschlossen werden sollen. Beachten Sie, dass der Wert in der Datei <filename>custom.conf</filename> den Vorgabewert überschreibt. Wenn Sie zusätzliche Benutzer zu dieser Liste hinzufügen wollen, müssen Sie den Wert auf den Vorgabewert setzen und zusätzliche Benutzer an die Liste anhängen.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="securitysection">
+        <title>Sicherheitsoptionen</title>
+      
+        <variablelist>
+          <title>[security]</title>
+          
+          <varlistentry>
+            <term>DisallowTCP</term>
+            <listitem>
+              <synopsis>DisallowTCP=true</synopsis>
+              <para>Falls aktiviert, wird beim Starten verbundener X-Server immer ein <filename>-nolisten tcp</filename> an die Befehlszeile angehängt, was eine TCP-Verbindung verhindert. Diese Konfiguration ist sicherer, wenn Sie keine entfernten Verbindungen verwenden.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="xdmcpsection">
+        <title>XDMCP-Unterstützung</title>
+
+        <variablelist>
+          <title>[xdmcp]</title>
+          
+          <varlistentry>
+            <term>DisplaysPerHost</term>
+            <listitem>
+              <synopsis>DisplaysPerHost=1</synopsis>
+              <para>Um Angriffe durch Füllen der Warteschlange zu verhindern, erlaubt GDM nur eine Verbindung für jeden entfernten Rechner. Wenn Sie Anzeigedienste für Rechner mit mehr als einem Bildschirm bereitstellen möchten, sollten Sie diesen Wert entsprechend erhöhen.</para>
+
+              <para>Beachten Sie, dass die Anzahl erlaubter angebundener Anzeigen nicht beschränkt ist. Nur entfernte Verbindungen mittels XDMCP werden durch diese Option beschränkt.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Enable</term>
+            <listitem>
+              <synopsis>Enable=false</synopsis>
+              <para>Legt fest, ob Unterstützung für XDMCP aktiviert wird, so dass entfernte Anzeigen/X-Terminals durch GDM verwaltet werden.</para>
+            
+              <para><filename>gdm</filename> horcht nach Anfragen am UDP-Port 177. Weitere Informationen finden Sie in den Port-Optionen.</para>
+              
+              <para>Falls GDM mit Unterstützung dafür kompiliert wurde, kann der Zugriff auf entfernte Displays mit Hilfe der Bibliothek »TCP Wrappers« gesteuert werden. Der Name des Dienstes lautet <filename>gdm</filename>.</para>
+            
+              <para>Sie sollten <screen>
+gdm:.my.domain
+</screen> zu Ihrer Datei <filename>&lt;etc&gt;/hosts.allow</filename>, in Abhängigkeit zur Konfiguration der TCP-Wrappers hinzufügen. Lesen Sie die Hilfeseite zu <ulink type="help" url="man:hosts.allow">hosts.allow</ulink> für genauere Informationen.</para>
+              
+              <para>Bitte beachten Sie, dass XDMCP kein ausgesprochen sicheres Protokoll ist. Es könnte daher eine gute Idee sein, in Ihrer Firewall-Konfiguration den UDP-Port 177 zu blockieren, falls Sie ihn nicht wirklich unbedingt brauchen.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>HonorIndirect</term>
+            <listitem>
+              <synopsis>HonorIndirect=true</synopsis>
+              <para>Aktiviert den Wähler durch »XDMCP INDIRECT« (d.h. ein entferntes Ausführen von  <filename>gdmchooser</filename>) für X-Terminals, die keinen eigenen Wähler bereit stellen.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxPending</term>
+            <listitem>
+              <synopsis>MaxPending=4</synopsis>
+              <para>Zur Vermeidung von massiven Überlastungsangriffen besitzt GDM eine Warteschlange fester Länge von ausstehenden Verbindungen. Es können höchstens so viele Anzeigen gleichzeitig gestartet werden, wie in »MaxPending« angegeben ist.</para>
+            
+              <para>Bitte beachten Sie, dass dieser Parameter nicht die Anzahl der verwaltbaren entfernten Displays begrenzt, sondern lediglich die Anzahl der Displays, die eine Verbindung gleichzeitig initiieren.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxSessions</term>
+            <listitem>
+              <synopsis>MaxSessions=16</synopsis>
+              <para>Bestimmt die maximale Anzahl Verbindungen zu entfernten Displays, die gleichzeitig verwaltet werden. Anders ausgedrückt, die Gesamtzahl entfernter Displays, die Ihr Rechner nutzen kann.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>MaxWait</term>
+            <listitem>
+              <synopsis>MaxWait=30</synopsis>
+              <para>Wenn GDM zur Verwaltung einer Anzeige bereit ist , wird an diese ein »ACCEPT«-Paket mit einer eindeutigen Sitzungskennung gesendet, die bei weiterer Kommunikation verwendet wird.</para>
+            
+              <para>GDM wird dann die Sitzungskennung in die Liste ausstehender Verbindungen einfügen und auf eine »MANAGE«-Anfrage als Antwort der Anzeige warten.</para>
+            
+              <para>Wenn keine Antwort innerhalb »MaxWait« Sekunden empfangen wird, dann wird GDM die Anzeige als verschwunden ansehen und den Eintrag aus der Liste ausstehender Verbindungen entfernen und einen freien Platz für eine andere Anzeige schaffen.</para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>MaxWaitIndirect</term>
+            <listitem>
+              <synopsis>MaxWaitIndirect=30</synopsis>
+              <para>Der Parameter »MaxWaitIndirect« bestimmt die maximale Anzahl erlaubter Sekunden zwischen der Rechnerauswahl eines Benutzers und der folgenden indirekten Anfrage an den Rechner, wo der Benutzer verbunden ist. Wenn der Zähler abläuft, werden die Informationen über den gewählten Rechner verworfen und der indirekte Platz für andere Anzeigen frei gemacht. Die Informationen können früher verworfen werden falls mehr Rechner versuchen indirekte Anfragen zu senden, als durch  <filename>MaxPendingIndirect</filename> erlaubt.</para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>PingIntervalSeconds</term>
+            <listitem>
+              <synopsis>PingIntervalSeconds=60</synopsis>
+              <para>Wenn der Xserver nicht in der festgelegten Anzahl Sekunden antwortet, dann wird die Verbindung unterbrochen und die Sitzung beendet. In diesem Fall wird der Daemon mit einem ALARM-Signal beendet. Beachten Sie, dass GDM 2.20 und ältere diese Einstellung mit 2 multiplizierten, d.h. es kann erforderlich sein, dass der Zeitablauf bei einer Aktualisierung von GDM 2.20 oder älteren auf eine neuere Version erhöht werden muss.</para>
+
+              <para>Beachten Sie, dass in der Vergangenheit GDM einen Konfigurationsschlüssel »<filename>PingInterval</filename>« hatte, der auch die Einheit Minuten hatte. Für die meisten Zwecke kann diese Einstellung kleiner als eine Minute gewählt werden. Jedoch würde in den meisten Fällen, in denen XDMCP verwendet wird (wie in Terminal-Laboren), eine Verzögerung von mehr als etwa 15 Sekunden dazu führen, dass das Terminal ausgeschaltet oder neu gestartet wird, und man die Sitzung beenden möchte.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Port</term>
+            <listitem>
+              <synopsis>Port=177</synopsis>
+              <para>Die UDP-Portnummer, auf der <filename>gdm</filename> nach XDMCP-Anfragen horchen soll. Ändern Sie den Wert nur dann, wenn Sie genau wissen, was Sie tun.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>Willing</term>
+            <listitem>
+              <synopsis>Willing=&lt;etc&gt;/gdm/Xwilling</synopsis>
+              <para>Wenn der Rechner ein »WILLING«-Paket nach einem »QUERY« zurücksendet, so wird eine Zeichenkette gesendet, die den aktuellen Status des Server vermittelt. Die vorgegebene Nachricht ist die Systemkennung, aber es ist möglich ein Skript zu erstellen, das angepasste Nachrichten anzeigen lässt. Wenn das Skript nicht vorhanden ist oder der Schlüssel leer ist, so wird die Vorgabenachricht gesendet. Wenn das Skript existiert und eine Ausgabe zurückgibt, dann wird (nur) die erste Zeile der Ausgabe gesendet. Es wird höchstens alle 3 Sekunden ausgeführt, um eine möglich Überlastung des Rechners durch eine Flut von »QUERY«-Paketen zu verhindern.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+    </sect2>
+
+    <sect2 id="greeterconfiguration">
+        <title>Einfache Konfiguration des Begrüßers</title>
+
+        <para>Der voreingestellte GDM-Begrüßer heißt »einfacher Begrüßer« und wird mit GConf konfiguriert. Die Vorgabewerte werden in GConf in der Datei <filename>gdm-simple-greeter.schemas</filename> hinterlegt. Diese Werte können aufgehoben werden, wenn der Benutzer »gdm« einen schreibbaren persönlichen Ordner zum Speichern der GConf-Einstellungen besitzt. Die Werte können mit den Programmen <command>gconftool-2</command> oder <command>gconf-editor</command> bearbeitet werden. Die folgenden Einstellungsoptionen werden unterstützt:</para>
+
+        <variablelist>
+          <title>Konfigurationsschlüssel für den Begrüßer</title>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_enable</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die Bannernachricht angezeigt wird.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/banner_message_text</term>
+            <listitem>
+              <synopsis>NULL (Zeichenkette)</synopsis>
+              <para>Legt die Textnachricht im Banner des Begrüßerfensters fest.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die Knöpfe für den Neustart im Anmeldefenster angezeigt werden.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/disable_user_list</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob das Benutzeralbum mit bekannten Benutzern nicht im Anmeldefenster angezeigt wird.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/logo_icon_name</term>
+            <listitem>
+              <synopsis>computer (Zeichenkette)</synopsis>
+              <para>Legt den Symbolnamen des Themas für das Logo im Begrüßer fest.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-languages</term>
+            <listitem>
+              <synopsis>[] (Liste aus Zeichenketten)</synopsis>
+              <para>Legt die Liste aller Sprachen fest, die als Voreinstellung im Anmeldefenster angezeigt werden. Der Vorgabewert ist »[]«. Mit dem Vorgabewert wird nur die systemweit voreingestellte Sprache angezeigt und die Option »Weitere …«, die ein Dialogfenster mit allen verfügbaren Sprachen zum Auswählen einblendet.</para>
+
+              <para>Benutzer sollten diese Einstellung nicht manuell ändern. GDM merkt sich die gewählten Sprachen in diesem Konfigurationsschlüssel und sie werden im Auswahlfeld zusammen mit den Sprachen aus dem Dialogfeld »Weitere …« angezeigt. Auf diese Weise können oft gewählte Sprachen leichter ausgewählt werden.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/recent-layouts</term>
+            <listitem>
+              <synopsis>[] (Liste aus Zeichenketten)</synopsis>
+              <para>Legt die voreingestellte Liste der im Panel angezeigten Tastaturbelegungen fest. Mit dem Vorgabewert wird nur die systemweit voreingestellte Tastaturbelegung angezeigt und die Option »Weitere …«, die ein Dialogfenster mit allen verfügbaren Belegungen zum Auswählen einblendet.</para>
+
+              <para>Benutzer sollten diese Einstellung nicht manuell ändern. GDM merkt sich die gewählten Tastaturbelegungen in diesem Konfigurationsschlüssel und sie werden im Auswahlfeld zusammen mit den Belegungen aus dem Dialogfeld »Weitere …« angezeigt. Auf diese Weise können oft gewählte Tastaturbelegungen leicht ausgewählt werden.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob Compiz als Fenstermanager anstelle von Metacity verwendet wird.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+    </sect2>
+
+    <sect2 id="accessibilityconfiguration">
+     <title>Konfiguration der Barrierefreiheit</title>
+
+      <para>Dieser Abschnitt beschreibt die Konfiguration der Einstellungen der Barrierefreiheit in GDM.</para>
+
+      <sect3 id="accessibilitydialog">
+        <title>GDM-Dialog zur Barrierefreiheit und GConf-Schlüssel</title>
+
+        <para>Das Begrüßer-Panel von GDM zeigt im Anmeldebildschirm ein Barrierefreiheits-Symbol. Ein Klick auf das Symbol öffnet den Dialog der GDM-Barrierefreiheit. Im Dialog gibt es eine Liste von Ankreuzfeldern zum Aktivieren und Deaktivieren verschiedener Hilfstechnologien.</para>
+
+        <para>Die Ankreuzfelder für die Hilfswerkzeuge Bildschirmtastatur, Bildschirmlupe und Bildschirmleser wirken sich auf drei GConf-Schlüssel aus, die im nächsten Abschnitt der Hilfeseite beschrieben werden. Durch Auswählen der Ankreuzfelder wird der entsprechende GConf-Schlüssel auf »wahr« oder »falsch« eingestellt. Wenn der GConf-Schlüssel auf wahr gesetzt ist, werden die mit diesem Schlüssel verknüpften Hilfswerkzeuge gestartet. Wenn der GConf-Schlüssel auf falsch gesetzt ist, werden alle mit diesem Schlüssel verknüpften Hilfswerkzeuge beendet. Diese Schlüssel werden nicht automatisch auf eine Voreinstellung zurückgesetzt, nachdem sich ein Benutzer angemeldet hat. Das bedeutet, dass die aktiven Hilfstechnologien der letzten GDM-Sitzung auch automatisch in folgenden Sitzungen gestartet werden.</para>
+
+        <para>Die anderen Ankreuzfelder im GDM-Dialog zur Barrierefreiheit haben keine zugeordneten GConf-Schlüssel, weil kein zusätzliches Programm zur Aktivierung der Merkmale gestartet werden muss. Sie entsprechen Merkmalen der Barrierefreiheit, die vom Xserver bedient werden können, der immer während einer GDM-Sitzung läuft.</para>
+      </sect3>
+
+      <sect3 id="accessibilitygconfconfiguration">
+        <title>GConf-Schlüssel der Barrierefreiheit</title>
+
+        <para>GDM bietet die folgenden GConf-Schlüssel zur Steuerung der Barrierefreiheit:</para>
+
+        <variablelist>
+          <title>Konfigurationsschlüssel von GDM</title>
+
+          <varlistentry>
+            <term>/desktop/gnome/interface/accessibility</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die Barrierefreiheits-Infrastruktur zusammen mit der GDM-Benutzeroberfläche gestartet werden soll. Dies ist für die Funktion von Barrierefreiheits-Anwendungen notwendig.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die mit diesem GConf-Schlüssel verknüpften Hilfstechnologien mit der GDM-Oberfläche gestartet werden. Die Voreinstellung ist eine Bildschirmlupe.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_keyboard_enabled</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die mit diesem GConf-Schlüssel verknüpften Hilfstechnologien mit der GDM-Oberfläche gestartet werden. Die Voreinstellung ist eine Bildschirmtastatur.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>/desktop/gnome/applications/at/screen_reader_enabled</term>
+            <listitem>
+              <synopsis>falsch (Boolesche Variable)</synopsis>
+              <para>Legt fest, ob die mit diesem GConf-Schlüssel verknüpften Hilfstechnologien mit der GDM-Oberfläche gestartet werden. Die Voreinstellung ist ein Bildschirmleser.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="accessibilitytoolsconfiguration">
+        <title>GConf-Schlüssel mit Werkzeugen der Barrierefreiheit verknüpfen</title>
+
+        <para>Bei den GConf-Schlüsseln »screen_magnifier_enabled«, »the screen_keyboard_enabled« und »screen_reader_enabled« hängt das Hilfswerkzeug, das gestartet wird, von den .desktop-Dateien im Autostart-Ordner von GDM ab, wie es im Abschnitt »Autostart-Einstellungen« dieses Handbuchs beschrieben wird. Jede .desktop-Datei im Autostart-Ordner von GDM kann mit diesen GConf-Schlüsseln verknüpft werden über den Eintrag »AutostartCondition« in der .desktop-Datei. Eine Zeile mit dem Eintrag »AutostartCondition« könnte genau so aussehen wie eine der Folgenden:</para>
+
+<screen>
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
+</screen>
+
+        <para>Wenn ein Schlüssel der Barrierefreiheit auf wahr festgelegt ist, dann wird jedes Programm gestartet, dass in einer .desktop-Datei von GDM mit dem Schlüssel verknüpft ist (es sei denn, der Schlüssel ist in einer .desktop-Datei auf »Hidden« (versteckt) gesetzt). Ein einziger GConf-Schlüssel kann sogar mehrere Hilfswerkzeuge starten, wenn mehrere .desktop-Dateien mit diesem Schlüssel »AutostartCondition« im Autostart-Ordner von GDM sind.</para>
+      </sect3>
+
+      <sect3 id="accessibilitytoolexample">
+        <title>Beispiel zur Bearbeitung der Einstellungen eines Werkzeuges der Barrierefreiheit</title>
+
+        <para>Wenn zum Beispiel GOK in Ihrer GNOME-Version als Bildschirmtastatur voreingestellt ist, dann könnte es durch ein anderes bevorzugtes Programm ersetzt werden. Um GOK durch die Bildschirmtastatur »onboard« zu ersetzen und zusätzlich das Hilfswerkzeug »mousetweaks« zur Unterstützung des verzögerten Klicks zu aktivieren, wird die folgende Konfiguration benötigt.</para>
+
+        <para>Erstellen Sie eine .desktop-Datei für »onboard« und eine zweite für »mousetweaks«, zum Beispiel mit den Namen »onboard.desktop« und »mousetweaks.desktop«. Diese Dateien müssen im Autostart-Ordner von GDM abgelegt werden und im wie in Abschnitt »Autostart-Einstellungen« beschriebenen Format vorliegen.</para>
+
+        <para>Im Folgenden ist ein Beispiel für eine Datei <filename>onboard.desktop</filename>:</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Onboard Onscreen Keyboard
+Comment=Use an on-screen keyboard
+TryExec=onboard
+Exec=onboard --size 500x180 -x 20 -y 10
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Im Folgenden ein Beispiel der Datei <filename>mousetweaks.desktop</filename> :</para>
+
+<screen>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Software Mouse-Clicks
+Comment=Perform clicks by dwelling with the pointer
+TryExec=mousetweaks
+Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Accessibility;
+AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
+</screen>
+
+        <para>Beachten Sie die Zeile mit »AutostartCondition«, die beide .desktop-Dateien mit dem GConf-Schlüssel für die Bildschirmtastatur verknüpft.</para>
+
+        <para>Um den Start von GOK zu verhindern, muss die .desktop-Datei für die GOK-Bildschirmtastatur entfernt oder deaktiviert werden. Anderenfalls würden onboard und GOK zugleich gestartet werden. Dies kann durch Löschen der Datei »gok.desktop« aus dem Autostart-Ordner von GDM erzielt werden, oder durch Hinzufügen der Schlüsseleinstellung »Hidden=true« in der Datei »gok.desktop«.</para>
+
+        <para>Nach dem Durchführen diese Änderungen wird GOK nicht mehr gestartet, wenn der Benutzer die Bildschirmtastatur in der GDM-Sitzung aktiviert; jedoch werden stattdessen »onboard« und »mousetweaks« gestartet.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="generalsessionconfig">
+      <title>Allgemeine Sitzungseinstellungen</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to be more specific about
+                 how lock down management is handled.
+</para>
+-->
+        <para>Der GDM-Begrüßer verwendet einen Teil des Framework, das Ihre Sitzung verwendet. Einige GConf-Einstellungen werden gemeinsam verwendet. Der Begrüßer verwendet die Vorgabewerte, wenn diese nicht explizit durch a) zwingende GDM-Richtlinien oder b) zwingende Systemrichtlinien überschrieben werden. GDM installiert eine eigene zwingende Richtlinie zum Einschränken des Zugriffs auf einige Sicherheitseinstellungen.</para>
+    </sect2>
+
+    <sect2 id="gnomesettingsdaemon">
+      <title>GNOME-Einstellungsdaemon</title>
+<!--
+<para>
+          TODO - I think this section should be expanded upon.  What specific
+                 keys are of interest, or would some users be likely to want
+                 to configure?  Also, would be good to give a more complete
+                 list of plugins that users might want to consider disabling.
+                 Also, shouldn't we list the sound/active key in the Greeter
+                 configuration setting?  Oddly I do not find this key used
+                 in anything but the chooser in SVN.
+</para>
+-->
+
+        <para>GDM aktiviert die folgenden Plugins von gnome-settings-daemon: a11y-keyboard, background, sound, xsettings.</para>
+
+        <para>Diese sind verantwortlich für Dinge wie das Hintergrundbild, die Schrift, die Einstellungen für das Thema, Klänge etc.</para>
+
+        <para>Plugins können auch mittels GConf deaktiviert werden. Wenn Sie beispielsweise das Sound-Plugin deaktivieren wollen, dann deaktivieren Sie den folgenden Schlüssel: <filename>/apps/gdm/simple-greeter/settings-manager-plugins/sound/active</filename>.</para>
+    </sect2>
+
+    <sect2 id="sessionconfig">
+      <title>GDM-Sitzungseinstellungen</title>
+
+      <para>GDM-Sitzungen werden durch die Spezifikation zum FreeDesktop.org Desktop-Eintrag angegeben, welche unter der folgenden Adresse abgerufen werden kann: <ulink url="http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec"> http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</ulink>.</para>
+
+      <para>Laut Vorgabe wird GDM die .desktop-Dateien in den Ordner <filename>&lt;share&gt;/xsessions</filename> installieren. GDM durchsucht die folgenden Ordner in angegebener Reihenfolge nach .desktop-Dateien: <filename>&lt;etc&gt;/X11/sessions/</filename>, <filename>&lt;dmconfdir&gt;/Sessions</filename>, <filename>&lt;share&gt;/xsessions</filename> und <filename>&lt;share/gdm/BuiltInSessions</filename>. Nach Voreinstellung ist <filename>&lt;dmconfdir&gt;</filename> eingestellt auf <filename>&lt;etc&gt;/dm/</filename>, es sei denn, GDM ist durch die Option »--with-dmconfdir« angehalten, einen anderen Ordner zu verwenden.</para>
+
+      <para>Eine Sitzung kann deaktiviert werden, indem Sie die Desktop-Datei bearbeiten und die folgende Zeile hinzufügen: <filename>Hidden=true</filename> .</para>
+
+      <para>Die Desktop-Dateien von GDM unterstützen eine GDM-spezifische Erweiterung, einen Schlüssel namens »X-GDM-BypassXsession«. Falls der Schlüssel in einer *.desktop-Datei nicht enthalten ist, wird der Wert per Vorgabe auf »falsch« gesetzt. Falls der Schlüssel in einer *.desktop-Datei enthalten ist, startet GDM das Programm, welches im »Exec«-Schlüssel der *.desktop-Datei angegeben ist, direkt nach dem Start der Benutzersitzung. Das Programm wird nicht über das <filename>&lt;etc&gt;/gdm/Xsession</filename>-Skript ausgeführt, was normalerweise geschieht. Durch Umgehen des <filename>&lt;etc&gt;/gdm/Xsession</filename>-Skripts wird vermieden, die Benutzersitzung mit den normalen System- und Benutzereinstellungen zu starten. Auf diese Weise gestartete Sitzungen können für die Fehlerdiagnose des Systems genutzt werden oder zum Test von Benutzerskripten, die möglicherweise einen Benutzer am Start einer Sitzung hindern.</para>
+
+    </sect2>
+
+    <sect2 id="userconfig">
+      <title>Konfiguration der GDM-Benutzersitzung und Sprache</title>
+      <para>Die Standardsitzung des Benutzers und die Sprachauswahl werden in der Datei <filename>~/.dmrc</filename> gespeichert. Wenn sich ein Benutzer erstmalig anmeldet, wird diese Datei anhand der vom Benutzer eingegebenen Werte angelegt. Der Benutzer kann diese Standardwerte jedes Mal beim Anmelden durch einfache Neueingabe ändern. GDM speichert diese Änderungen für folgende Anmeldungen.</para>
+
+      <para>Die Datei <filename>~/.dmrc</filename> wird im <filename>INI</filename>-Format gespeichert. Sie beinhaltet einen mit <filename>[Desktop]</filename> bezeichneten Abschnitt, welcher zwei Schlüssel enthält: <filename>Session</filename> und <filename>Language</filename>.</para>
+
+      <para>Der Schlüssel <filename>Session</filename> definiert den Basisnamen der <filename>.desktop</filename>-Datei, die der Benutzer normalerweise verwenden will, aber ohne die Erweiterung »<filename>.desktop</filename>«. Der Schlüssel <filename>Language</filename> legt die voreingestellte Sprache fest, die der Benutzer verwenden möchte. Wenn irgendein Schlüssel fehlt, so wird die systemweite Vorgabe verwendet. Die Datei sieht normalerweise folgendermaßen aus:</para>
+
+<screen>
+[Desktop]
+Session=gnome
+Language=de_DE.UTF-8
+</screen>
+    </sect2>
+
+  </sect1>
+
+  <!-- ============= GDM Commands ============================= -->
+
+  <sect1 id="binaries">
+    <title>GDM-Befehle</title>
+
+    <sect2 id="sbindir_binaries">
+      <title>GDM-Systemverwalter-Befehle</title>
+
+      <para>Das GDM-Paket stellt in <filename>sbindir</filename> folgende verschiedene Befehle bereit, die mit den Rechten des Systemverwalters ausgeführt werden:</para>
+
+      <sect3 id="gdmcommandline">
+        <title><command>gdm</command>-Befehlszeilenoptionen</title>
+
+        <para><command>gdm</command> ist der Hauptdienst, der einen grafischen Anmeldebildschirm bereit stellt und notwendige Hilfsprogramme startet.</para>
+
+        <variablelist>
+          <title><command>gdm</command>-Befehlszeilenoptionen</title>
+
+          <varlistentry>
+            <term>-?, --help</term>
+            <listitem>
+              <para>Zeigt einen Überblick der Befehlszeilenoptionen an.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--fatal-warnings</term>
+            <listitem>
+              <para>Alle Warnungen führen zum Beenden von GDM.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--timed-exit</term>
+            <listitem>
+              <para>Abbruch nach 30 Sekunden. Dies ist nützlich für Debugging-Zwecke.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>--version</term>
+            <listitem>
+              <para>Zeigt die Version des GDM-Daemons.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+
+      <sect3 id="gdmrestartcommandline">
+        <title><command>gdm-restart</command>-Befehlszeilenoptionen</title>
+
+        <para>Der Befehl <command>gdm-restart</command> beendet GDM und startet ihn neu, indem an den GDM-Daemon ein HUP-Signal gesendet wird. Dieser Befehl beendet unmittelbar alle Sitzungen der Benutzer, die gegenwärtig über GDM angemeldet sind. </para>
+      </sect3>
+
+      <sect3 id="gdmsaferestartcommandline">
+        <title><command>gdm-safe-restart</command>-Befehlszeilenoptionen</title>
+  
+        <para>Der Befehl <command>gdm-safe-restart</command> beendet GDM und startet ihn neu, indem an den GDM-Daemon ein USR1-Signal gesendet wird. GDM wird neu gestartet, sobald sich alle Benutzer abgemeldet haben.</para>
+      </sect3>
+
+      <sect3 id="gdmstopcommandline">
+        <title><command>gdm-stop</command>-Befehlszeilenoptionen</title>
+
+        <para>Der Befehl <command>gdm-stop</command> beendet GDM, indem an den GDM-Daemon ein TERM-Signal gesendet wird.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Troubleshooting =========================== -->
+
+  <sect1 id="troubleshooting">
+    <title>Fehlerbehandlung</title>
+<!--
+<para>
+      TODO - any other tips we should add?  Might be useful to highlight any
+             common D-Bus configuration issues?
+</para>
+-->
+
+    <para>Dieser Abschnitt bietet nützliche Tipps, wie Sie GDM zum Laufen bringen. Allgemein können Sie bei Problemen bei der Benutzung von GDM einen Fehlerbericht einschicken oder eine Nachricht an die Mailingliste »gdm-list« senden. Weitere Informationen finden Sie im Abschnitt »Einführung« dieses Dokuments.</para>
+
+    <para>Falls GDM nicht richtig arbeitet, sollten Informationen zur Fehlerdiagnose erhoben werden. Um die Fehlerdiagnose zu aktivieren, setzen Sie den Schlüssel »debug/Enable« in der Datei <filename>&lt;etc&gt;/gdm/custom.conf</filename> auf »wahr« und starten Sie GDM neu. Bringen Sie dann GDM zu dem Punkt des Versagens, und die Diagnosemeldungen werden im Systemprotokoll gespeichert (abhängig vom Betriebssystem <filename>&lt;var&gt;/log/messages</filename> oder <filename>&lt;var&gt;/adm/messages</filename>). Wenn Sie diese Ausgaben in der GDM-Gemeinschaft durch einen Fehlerbericht oder eine E-Mail veröffentlichen, dann legen Sie bitte nur die für GDM relevanten Diagnosemeldungen und nicht die vollständige Datei bei. Falls Sie keine Ausgaben von GDM im Protokoll sehen, müssen Sie eventuell syslog konfigurieren (Lesen Sie dazu die Hilfeseiten von <ulink type="help" url="man:syslog">syslog</ulink>).</para>
+
+    <sect2 id="wontstart">
+      <title>GDM startet nicht</title>
+
+      <para>Es gibt viele Probleme, die GDM am Starten hindern können. In diesem Abschnitt werden einige allgemeine Probleme behandelt, sowie die Möglichkeiten, wie man den Gründen für diese Startprobleme auf die Spur kommen kann. In einigen Fällen meldet sich GDM bei einem missglückten Startversuch mit einer Fehlermeldung zu Wort. Wenn der GDM-Start allerdings ohne Fehlermeldung abgebrochen wird, kann die Problemsuche schwierig werden.</para>
+
+      <para>Zunächst stellen Sie bitte sicher, dass der X-Server sauber konfiguriert ist. Die GDM-Konfigurationsdatei enthält einen Befehl im Abschnitt [server-Standard], der für den Start des X-Servers verwendet wird. Stellen sie sicher, dass dieser Befehl auf Ihrem System funktioniert. Wenn Sie diesen Befehl in einer Textkonsole ausführen, sollte der X-Server starten. Falls der Start scheitert, liegt das Problem möglicherweise in der Konfiguration Ihres X-Servers. Ziehen Sie die X-Server-Logdatei zu Rate, um festzustellen, wo das Problem liegen könnte. Es könnte beispielsweise sein, dass der X-Server abweichende Befehlszeilenoptionen benötigt. In diesem Fall ändern Sie bitte bitte den X-Server-Befehl in der GDM-Konfigurationsdatei so ab, wie es Ihr System erfordert.</para>
+
+      <para>Stellen Sie ebenfalls sicher, dass das <filename>/tmp</filename>-Verzeichnis die richtigen Eigentumsverhältnisse und Zugriffsrechte hat, und dass das Dateisystem nicht voll ist. Solche Probleme werden den Start von GDM verhindern.</para>
+    </sect2>
+  </sect1>
+
+  <!-- ============= Application License ============================= -->
+
+  <sect1 id="license">
+    <title>Lizenz</title>
+    <para>Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder ändern unter den Bedingungen der <ulink type="help" url="gnome-help:gpl"><citetitle>GNU General Public License</citetitle></ulink> wie sie von der Free Software Foundation veröffentlicht wurde; entweder in Version 2 der Lizenz oder (nach Ihrer Wahl) jeder neueren Version.</para>
+    <para>Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, aber OHNE JEGLICHE GARANTIE; auch ohne eine GEBRAUCHSTAUGLICHKEITSGARANTIE oder eine Garantie über die TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK. Lesen Sie die <citetitle><ulink type="help" url="gnome-help:gpl">GNU General Public License</ulink></citetitle> für genauere Hinweise.</para>
+    <para>Eine Kopie der <citetitle>GNU General Public License</citetitle> ist im Anhang des <citetitle>GNOME Benutzerhandbuchs</citetitle> enthalten. Sie können außerdem eine Kopie der <citetitle><ulink type="help" url="gnome-help:gpl">GNU General Public License</ulink></citetitle> von der Free Software Foundation erhalten, indem Sie auf <ulink type="http" url="http://www.fsf.org">ihre Internetseite</ulink> gehen oder schreiben Sie an die <address>
+      Free Software Foundation, Inc.
+      <street>51 Franklin Street, Fifth Floor</street>
+      <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>
+      <country>USA</country>
+      </address></para>
+  </sect1>
+</article>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

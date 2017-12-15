@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<legalnotice id="legalnotice">
+	<para>Se acordă permisiunea de a copia, distribui și/sau modifica acest document în conformitate cu termenii licenței GNU Free Documentation License (GFDL), Versiunea 1.1 sau altă versiune ulterioară publicată de Free Software Foundation <ulink type="help" url="ghelp:fdl">legătură</ulink> sau în fișierul COPYING-DOCS distribuit cu acest manual.</para>
+         <para>Acest manual face parte din colecția de manuale GNOME distribuite sub licența GFDL. Dacă doriți să distribuiți acest manual separat de colecție, aveți posibilitatea de a face acest lucru adăugând o copie a licenței manualului, așa cum este descris în secțiunea 6 din licență.</para>
+
+	<para>Multe dintre numele folosite de companii pentru a distinge produsele și serviciile lor sunt declarate ca mărci comerciale. În cazul în care aceste nume apar în orice documente GNOME, și membrii proiectului de documentație GNOME sunt conștienți de aceste mărci, numele sunt scrise în majuscule sau cu primele litere cu capital.</para>
+
+	<para>DOCUMENTUL SAU VERSIUNILE MODIFICATE ALE ACESTUIA SUNT FURNIZATE SUB TERMENII LICENȚEI LIBERE DE DOCUMENTAȚIE GNU, ÎNȚELEGÂNDU-SE URMATOARELE: <orderedlist>
+		<listitem>
+		  <para>DOCUMENTUL ESTE OFERIT „CA ATARE”, FĂRĂ NICIUN FEL DE GARANȚIE, FIE EXPLICITĂ SAU IMPLICITĂ, INCLUZÂND, FĂRĂ LIMITARE, GARANȚII CĂ DOCUMENTUL SAU VERSIUNEA MODIFICATĂ A ACESTUIA ESTE FĂRĂ DEFECTE, POTRIVITĂ PENTRU UN SCOP PARTICULAR SAU PENTRU A NU ÎNCĂLCA NICIUN DREPT. ÎNTREGUL RISC PRIVIND CALITATEA, PRECIZIA ȘI PERFORMANȚA DOCUMENTULUI SAU A VERSIUNII MODIFICATE A ACESTUIA ESTE AL DUMNEAVOASTRĂ. ÎN CAZ CĂ ORICE DOCUMENT SAU VERSIUNE MODIFICATĂ SE DOVEDEȘTE A FI DEFECTĂ ÎN ORICE PRIVINȚĂ, DUMNEAVOASTRĂ (NU SCRIITORUL INIȚIAL, AUTOR SAU ORICE CONTRIBUABIL) VĂ ASUMAȚI COSTUL NECESAR ÎNTREȚINERII, REPARAȚIILOR SAU CORECTURILOR. ACEST CERTIFICAT DE NEGARANȚIE REPREZINTĂ O PARTE ESENȚIALA A ACESTEI LICENȚE. NICIO FOLOSIRE A ORICĂRUI DOCUMENT SAU A UNEI VERSIUNI MODIFICATE A UNUIA NU ESTE AUTORIZATĂ DECÂT ÎN ACEST CERTIFICAT DE NEGARANȚIE; ȘI</para>
+		</listitem>
+		<listitem>
+		  <para>ÎN NICIUN CAZ ȘI SUB NICIO TEORIE JURIDICĂ, FIE CĂ ESTE VORBA DE INJURII (INCLUZÂND NEGLIJENȚA), CONTRACT, SAU ALTFEL, AUTORUL, SCRIITOR INIȚIAL, ORICE CONTRIBUABIL, SAU ORICE DISTRIBUITOR AL DOCUMENTULUI SAU A UNEI VERSIUNI MODIFICATE A DOCUMENTULUI, SAU ORICE FURNIZOR AL ACESTOR PĂRȚI, NU VA FI SUPUS NICIUNEI PERSOANE PENTRU ORICE DAUNE DIRECTE, INDIRECTE, SPECIALE, ACCIDENTALE SAU CAUZATE DE ORICE CARACTER, INCLUZÂND, FĂRĂ LIMITARE, DAUNE DE PIERDERE A BUNĂVOINȚEI, ÎNTRERUPEREA LUCRULUI, DEFECTAREA SAU EȘUAREA CALCULATORULUI, SAU ORICE ALTE DAUNE SAU PIERDERI REZULTATE PRIN, SAU ÎN LEGATURA CU FOLOSIREA ACESTUI DOCUMENT SAU A UNEI VERSIUNI MODIFICATE A ACESTUIA, CHIAR DACĂ O PARTE AR FI FOST INFORMATĂ DE POSIBILITĂȚILE ACESTOR DAUNE.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
