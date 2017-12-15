@@ -1,0 +1,14 @@
+# mirrors system-auth / system(-local)-login
+# except for the authentication method, which is:
+# always permit login
+
+auth        [success=ok default=1] pam_gdm.so
+-auth       optional    pam_gnome_keyring.so
+auth        sufficient  pam_permit.so
+
+account     include     system-local-login
+
+password    include     system-local-login
+
+session     include     system-local-login
+-session    optional    pam_gnome_keyring.so auto_start

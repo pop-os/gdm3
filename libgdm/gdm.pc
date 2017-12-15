@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/lib64
+includedir=${prefix}/include
+
+Name: GDM Client Library
+Description: Client Library for communicating with GDM daemon
+Version: 3.26.2.1
+Libs: -L${libdir} -lgdm
+Cflags: -I${includedir}/gdm
