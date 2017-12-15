@@ -1,4 +1,4 @@
-gdm3 (3.26.2.1-3) UNRELEASED; urgency=medium
+gdm3 (3.26.2.1-3) unstable; urgency=medium
 
   * Drop debian/gdm3.preinst: Obsolete after Debian 9 "Stretch"
   * Update Vcs fields for conversion to git
@@ -6,7 +6,7 @@ gdm3 (3.26.2.1-3) UNRELEASED; urgency=medium
   * Bump Standards-Version to 4.1.2
   * Mark gir1.2-gdm-1.0 as Multi-Arch: same
 
- -- Jeremy Bicha <jbicha@debian.org>  Thu, 09 Nov 2017 18:48:31 -0500
+ -- Jeremy Bicha <jbicha@debian.org>  Thu, 14 Dec 2017 22:03:12 -0500
 
 gdm3 (3.26.2.1-2) unstable; urgency=medium
 
