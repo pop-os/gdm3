@@ -1,4 +1,4 @@
-gdm3 (3.26.2.1-2ubuntu2) UNRELEASED; urgency=medium
+gdm3 (3.26.2.1-2ubuntu2) bionic; urgency=medium
 
   * ubuntu_prefer_ubuntu_session_fallback.patch:
     Prefer ubuntu session as fallback over GNOME.
