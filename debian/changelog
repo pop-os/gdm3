@@ -1,3 +1,14 @@
+gdm3 (3.26.2.1-2ubuntu2) bionic; urgency=medium
+
+  * ubuntu_prefer_ubuntu_session_fallback.patch:
+    Prefer ubuntu session as fallback over GNOME.
+    As GNOME, optionnally installed, is a Wayland session and ubuntu
+    is now transitionned as a Xorg session, the fallback will prefer
+    naturally the GNOME session. Ensure we prioritize the ubuntu
+    session in fallback order.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 06 Feb 2018 10:51:05 +0100
+
 gdm3 (3.26.2.1-2ubuntu1) bionic; urgency=medium
 
   * Merge with Debian. Remaining changes:
