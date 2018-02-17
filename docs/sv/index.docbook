@@ -374,7 +374,7 @@ gdm: .din.domän
     <sect2 id="rbac">
       <title>RBAC (Roll-baserad tillgångskontroll)</title>
 
-      <para>GDM kan konfigureras att använda RBAC istället för PolicyKit. I detta fallet används RBAC-konfigurationen för att kontrollera huruvida inloggningsskärmen ska erbjuda nedstängnings- och omstartsknapparna på inloggningsskärmen.</para>
+      <para>GDM kan konfigureras att använda RBAC istället för PolicyKit. I detta fall används RBAC-konfigurationen för att kontrollera huruvida inloggningsskärmen ska erbjuda nedstängnings- och omstartsknapparna på inloggningsskärmen.</para>
 
       <para>I Oracle Solaris används till exempel ”solaris.system.shutdown”-tillståndet för att styra detta. Modifiera helt enkelt filen <filename>/etc/user_attr</filename> så att ”gdm”-användaren har detta tillstånd.</para>
     </sect2>
@@ -397,7 +397,7 @@ gdm: .din.domän
 
     <para>GDM inkluderar stöd för att publicera användarens inloggningsinformation via användar- och inloggningssessionsramverket känt som ConsoleKit. ConsoleKit kan hålla reda på alla användare som för närvarande är inloggade. I detta avseende kan det användas som en ersättare för utmp- eller utmpx-filerna som finns på de flesta Unix-lika operativsystemen.</para>
 
-    <para>När GDM ska skapa en ny inloggningsprocess för en användare kommer det att anropa en privilegierad metod i ConsoleKit för att öppna en ny session för denna användaren. Vid detta tillfälle kommer GDM också att ge ConsoleKit information om denna användarsessionen som till exempel: användar-ID:t, X11-displaynamnet som kommer att associeras med sessionen, värdnamnet från vilken sessionen härrör (användbart för XDMCP-sessioner), huruvida denna session är knuten, etc. Som entiteten som initierar användarprocessen sitter GDM i den unika positionen att känna till användarsessionen och är betrodd med dessa bitar av information. Användningen av denna privilegierade metod är begränsad av säkerhetspolicyn för D-Bus systemmeddelandebuss.</para>
+    <para>När GDM ska skapa en ny inloggningsprocess för en användare kommer det att anropa en privilegierad metod i ConsoleKit för att öppna en ny session för denna användare. Vid detta tillfälle kommer GDM också att ge ConsoleKit information om denna användarsessionen som till exempel: användar-ID:t, X11-displaynamnet som kommer att associeras med sessionen, värdnamnet från vilken sessionen härrör (användbart för XDMCP-sessioner), huruvida denna session är knuten, etc. Som entiteten som initierar användarprocessen sitter GDM i den unika positionen att känna till användarsessionen och är betrodd med dessa bitar av information. Användningen av denna privilegierade metod är begränsad av säkerhetspolicyn för D-Bus systemmeddelandebuss.</para>
 
     <para>Om en användare med en existerande session har autentiserats via GDM och begära att återuppta denna existerande session kommer GDM att anropa en privilegierad metod i ConsoleKit för att låsa upp den sessionen. De precisa detaljer om vad som händer när session får denna upplåsningssignal är odefinierade och sessionspecifika. Men de flesta sessioner kommer att låsa upp en skärmsläckare som svar på detta.</para>
 
@@ -980,7 +980,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 
     <sect2 id="userconfig">
       <title>GDM-användarsession och språkkonfiguration</title>
-      <para>Användarens standard session och språkval sparas i filen <filename>~/.dmrc</filename>. När en användare loggar in för första gången, skapas denna filen med användarens första val. Användaren kan ändras dessa standardvärden genom att helt enkelt ändra till andra värden vid inloggning. GDM kommer att komma ihåg denna ändring vid nästföljande inloggningar.</para>
+      <para>Användarens standard session och språkval sparas i filen <filename>~/.dmrc</filename>. När en användare loggar in för första gången, skapas denna fil med användarens första val. Användaren kan ändras dessa standardvärden genom att helt enkelt ändra till andra värden vid inloggning. GDM kommer att komma ihåg denna ändring vid nästföljande inloggningar.</para>
 
       <para>Filen <filename>~/.dmrc</filename> följer standard <filename>INI</filename>-format. Det har ett avsnitt kallat <filename>[Desktop]</filename> som har två nycklar: <filename>Session</filename> och <filename>Language</filename>.</para>
 

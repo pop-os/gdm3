@@ -1,10 +1,11 @@
-prefix=/usr
+prefix=/usr/local
 exec_prefix=${prefix}
-libdir=/usr/lib64
+libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: GDM Client Library
 Description: Client Library for communicating with GDM daemon
-Version: 3.26.2.1
+Version: 3.27.90
 Libs: -L${libdir} -lgdm
 Cflags: -I${includedir}/gdm
+Requires: gobject-2.0
