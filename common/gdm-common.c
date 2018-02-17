@@ -26,6 +26,7 @@
 #include <locale.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <grp.h>
 #include <pwd.h>
 
 #include <glib.h>
@@ -95,6 +96,24 @@ gdm_get_pwent_for_name (const char     *name,
         }
 
         return (pwent != NULL);
+}
+
+static gboolean
+gdm_get_grent_for_gid (gint           gid,
+                       struct group **grentp)
+{
+        struct group *grent;
+
+        do {
+                errno = 0;
+                grent = getgrgid (gid);
+        } while (grent == NULL && errno == EINTR);
+
+        if (grentp != NULL) {
+                *grentp = grent;
+        }
+
+        return (grent != NULL);
 }
 
 int
@@ -586,6 +605,13 @@ gdm_get_script_environment (const char *username,
 
                         g_hash_table_insert (hash, g_strdup ("SHELL"),
                                              g_strdup (pwent->pw_shell));
+
+                        /* Also get group name and propagate down */
+                        struct group *grent;
+
+                        if (gdm_get_grent_for_gid (pwent->pw_gid, &grent)) {
+                                g_hash_table_insert (hash, g_strdup ("GROUP"), g_strdup (grent->gr_name));
+                        }
                 }
         }
 
@@ -594,8 +620,13 @@ gdm_get_script_environment (const char *username,
         }
 
         /* Runs as root */
-        g_hash_table_insert (hash, g_strdup ("XAUTHORITY"), g_strdup (display_x11_authority_file));
-        g_hash_table_insert (hash, g_strdup ("DISPLAY"), g_strdup (display_name));
+        if (display_x11_authority_file) {
+                g_hash_table_insert (hash, g_strdup ("XAUTHORITY"), g_strdup (display_x11_authority_file));
+        }
+
+        if (display_name) {
+                g_hash_table_insert (hash, g_strdup ("DISPLAY"), g_strdup (display_name));
+        }
         g_hash_table_insert (hash, g_strdup ("PATH"), g_strdup (GDM_SESSION_DEFAULT_PATH));
         g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
 

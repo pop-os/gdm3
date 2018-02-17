@@ -99,7 +99,7 @@
 
       <para>Tingueu en compte que el GDM es pot configurar i que molts paràmetres de configuració poden afectar a la seguretat. En aquest document es ressalten els temes en què s'ha de vigilar.</para> 
 
-      <para>Tingueu en compte que alguns sistemes operatius configuren el GDM per comportar-se de forma diferent als valors per defecte que es descriuen en aquest document. Si el GDM no sembla que es comporta com s'explica aquí, comproveu si alguna configuració relacionada és diferent a la descrita aquí.</para>
+      <para>Tingueu en compte que alguns sistemes operatius configuren el GDM per comportar-se de forma diferent als valors per defecte que es descriuen en aquest document. Si el GDM no sembla que es comporta com s'explica aquí, comproveu si alguna configuració relacionada és diferent de la descrita aquí.</para>
 
       <para lang="en">
         For further information about GDM, refer to the project website at
@@ -251,9 +251,9 @@
 
       <para>L'únic privilegi especial que necessita l'usuari «gdm» és la capacitat de llegir i escriure fitxers Xauth al directori <filename>&lt;var&gt;/run/gdm</filename>. El propietari del directori <filename>&lt;var&gt;/run/gdm</filename> hauria de ser root i del grup gdm amb els permisos 1777.</para>
 
-      <para>No hauríeu, baix cap concepte, de configurar l'usuari/grup del GDM a un usuari sobre el qual un usuari pogués guanyar-ne fàcilment accés, com ara l'usuari <filename>nobody</filename>. Qualsevol usuari que guanyi accés a una clau Xauth pot tafanejar i controlar programes en execució de la interfície gràfica d'usuari associats a la sessió, o realitzar-hi un atac de denegació de servei. És important assegurar-se que el sistema està configurat adequadament de manera que només l'usuari «gdm» té accés a aquests fitxers i que no és fàcil entrar a aquest compte. Per exemple, el compte s'hauria de configurar perquè no tingui contrasenya o no permetre que usuaris no primaris puguin entrar-hi.</para>
+      <para>No hauríeu, de cap manera, de configurar l'usuari/grup del GDM a un usuari sobre el qual un usuari pogués guanyar-ne fàcilment accés, com ara l'usuari <filename>nobody</filename>. Qualsevol usuari que guanyi accés a una clau Xauth pot tafanejar i controlar programes en execució de la interfície gràfica d'usuari associats a la sessió, o realitzar-hi un atac de denegació de servei. És important assegurar-se que el sistema està configurat adequadament de manera que només l'usuari «gdm» té accés a aquests fitxers i que no és fàcil entrar a aquest compte. Per exemple, el compte s'hauria de configurar perquè no tingui contrasenya o no permetre que usuaris no primaris puguin entrar-hi.</para>
 
-      <para>La configuració del rebedor del GDM s'emmagatzema al GConf. Per permetre que l'usuari GDM pugui escriure la configuració, és necessari que l'usuari «gdm» tingui un directori d'usuari amb permisos d'escriptura. Els usuaris poden configurar la configuració per defecte del GConf com desitgin per evitar la necessitat de proporcionar a l'usuari «gdm» un directori d'usuari amb permisos d'escriptura. Tot i això, es poden inhabilitar algunes funcions del GDM si no es pot escriure informació d'estat a la configuració del GConf</para>
+      <para>La configuració del rebedor del GDM s'emmagatzema al GConf. Per permetre que l'usuari GDM pugui escriure la configuració, és necessari que l'usuari «gdm» tingui un directori d'usuari amb permisos d'escriptura. Els usuaris poden configurar la configuració per defecte del GConf com desitgin per evitar la necessitat de proporcionar a l'usuari «gdm» un directori d'usuari amb permisos d'escriptura. Tot i això, es poden inhabilitar algunes funcions del GDM si no es pot escriure informació d'estat a la configuració del GConf.</para>
     </sect2>
 
     <sect2 id="PAM">
@@ -263,7 +263,7 @@
 
       <para>El PAM és complicat i altament configurable i en aquesta documentació no s'intenta d'explicar-lo amb pèls i senyals. La idea és donar una visió global de com afecta la configuració del PAM al GDM, com es configura normalment el PAM amb el GDM i els problemes coneguts. S'espera que qui hagi de realitzar una configuració del PAM llegirà més documentació del PAM per entendre com configurar-lo i entendre'n els termes utilitzats en aquesta secció.</para>
         
-      <para>La configuració del PAM te interfícies diferents, però similars, segons el sistema operatiu, de manera que comproveu les pàgines del manual del <ulink type="help" url="man:pam.d">pam.d</ulink> o del <ulink type="help" url="man:pam.conf">pam.conf</ulink> per obtenir-ne tots els detalls. Assegureu-vos que llegiu la documentació del PAM i que esteu segurs de les implicacions de seguretat que qualsevol canvi que intenteu realitzar a la configuració pot ocasionar.</para>
+      <para>La configuració del PAM té interfícies diferents, però similars, segons el sistema operatiu, de manera que comproveu les pàgines del manual del <ulink type="help" url="man:pam.d">pam.d</ulink> o del <ulink type="help" url="man:pam.conf">pam.conf</ulink> per obtenir-ne tots els detalls. Assegureu-vos que llegiu la documentació del PAM i que esteu segurs de les implicacions de seguretat que qualsevol canvi que intenteu realitzar a la configuració pot ocasionar.</para>
 
       <para>Tingueu en compte que, per defecte, el GDM utilitza el nom de servei del PAM «gdm» per a una entrada normal i el nom de servei del PAM «gdm-autologin» per a una entrada automàtica. Pot ser que aquests serveis no estiguin definits al fitxer de configuració pam.d o pam.conf. Si no hi ha cap entrada el GDM utilitzarà el comportament per defecte del PAM. A la majoria de sistemes aquest hauria de funcionar sense cap problema. Tot i això, la funció d'entrada automàtica podria no funcionar si el servei gdm-autologin no està definit.</para>
 
@@ -317,7 +317,7 @@
 
       <para>Encara que la pantalla està protegida per galetes, els XEvents i les pulsacions de tecles quan s'introdueix la contrasenya encara circularan per la xarxa com a text pla. És trivial capturar-les.</para>
 
-      <para>L'XDMCP és útil principalment per executar clients lleugers com ara en terminals de laboratori. Aquests clients lleugers només necessiten la xarxa per accedir al servidor i per tant sembla que la millor política de seguretat és tenir aquests clients lleugers en una xarxa separada a la qual no es pot accedir des del món exterior i només es pot connectar al servidor. L'únic punt des d'on necessiteu accedir a fora és el servidor. Aquest tipus de configuració no hauria d'utilitzar un concentrador no gestionat o una altre xarxa que es pugui vigilar.</para>
+      <para>L'XDMCP és útil principalment per executar clients lleugers com ara en terminals de laboratori. Aquests clients lleugers només necessiten la xarxa per accedir al servidor i per tant sembla que la millor política de seguretat és tenir aquests clients lleugers en una xarxa separada a la qual no es pot accedir des del món exterior i només es pot connectar al servidor. L'únic punt des d'on necessiteu accedir a fora és el servidor. Aquest tipus de configuració no hauria d'utilitzar un concentrador no gestionat o una altra xarxa que es pugui vigilar.</para>
 
     </sect2>
 
@@ -417,7 +417,7 @@ PostSession/
 
       <para>Els scripts <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename> i <filename>PostSession</filename> funcionen tal com es descriu a sota.</para>
 
-      <para>Per a cada tipus d'script, el que s'executarà per defecte s'anomena «Default» i s'emmagatzema en un directori associat amb el tipus d'script. De manera que l'script per defecte de l'<filename>Init</filename> es troba a <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Es pot proporcionar un script per pantalla, si existeix, s'executarà en lloc de l'script per defecte. Aquests es troben al mateix directori que l'script per defecte i tenen el mateix nom que el valor DISPLAY del servidor d'X per a aquesta pantalla. Per exemple, si existeix l'script <filename>&lt;Init&gt;/:0</filename>, aquest s'executarà si la pantalla és «:0»</para>
+      <para>Per a cada tipus d'script, el que s'executarà per defecte s'anomena «Default» i s'emmagatzema en un directori associat amb el tipus d'script. De manera que l'script per defecte de l'<filename>Init</filename> es troba a <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Es pot proporcionar un script per pantalla, si existeix, s'executarà en lloc de l'script per defecte. Aquests es troben al mateix directori que l'script per defecte i tenen el mateix nom que el valor DISPLAY del servidor d'X per a aquesta pantalla. Per exemple, si existeix l'script <filename>&lt;Init&gt;/:0</filename>, aquest s'executarà si la pantalla és «:0».</para>
 
      <para>Tots aquests scripts s'executen amb privilegis d'usuari primari i retornen 0 si s'executen correctament i retornen un codi diferent de zero si hi ha alguna fallada que hauria de causar que s'interrompés la sessió d'entrada. Tingueu en compte que el GDM es blocarà fins que l'script finalitzi, de manera que si algun d'aquests scripts es penja, això provocarà que el procés d'entrada també es pengi.</para>
 
@@ -496,7 +496,7 @@ TimedLogin=usuari
             <term>TimedLoginEnable</term>
             <listitem>
               <synopsis>TimedLoginEnable=false</synopsis>
-              <para>Si l'usuari especificat a <filename>TimedLogin</filename> hauria d'entrar després d'un nombre de segons (especificats a <filename>TimedLoginDelay</filename>) d'inactivitat a la pantalla d'entrada. Això és útil per a terminals d'accés públic o fins i tot per ús domèstic. Si l'usuari utilitza el teclat o els menús de navegació, es reiniciarà el temps d'espera a <filename>TimedLoginDelay</filename> o 30 segons, el que sigui més alt. Si l'usuari no introdueix cap nom d'usuari si no que prem la tecla de retorn mentre el programa d'entrada sol·licita el nom d'usuari, el GDM assumirà que l'usuari vol entrar immediatament com a l'usuari definit a <filename>TimedLogin</filename>. Tingueu en compte que no se sol·licitarà cap contrasenya per aquest usuari de manera que hauríeu d'anar amb compte, tot i que si utilitzeu el PAM es podria configurar perquè sigui necessari introduir la contrasenya abans de permetre l'entrada. Per obtenir més informació consulteu la secció «Seguretat-&gt;PAM» del manual o per obtenir ajuda si aquesta funció no sembla funcionar.</para>
+              <para>Si l'usuari especificat a <filename>TimedLogin</filename> hauria d'entrar després d'un nombre de segons (especificats a <filename>TimedLoginDelay</filename>) d'inactivitat a la pantalla d'entrada. Això és útil per a terminals d'accés públic o fins i tot per ús domèstic. Si l'usuari utilitza el teclat o els menús de navegació, es reiniciarà el temps d'espera a <filename>TimedLoginDelay</filename> o 30 segons, el que sigui més alt. Si l'usuari no introdueix cap nom d'usuari sinó que prem la tecla de retorn mentre el programa d'entrada sol·licita el nom d'usuari, el GDM assumirà que l'usuari vol entrar immediatament com a l'usuari definit a <filename>TimedLogin</filename>. Tingueu en compte que no se sol·licitarà cap contrasenya per aquest usuari de manera que hauríeu d'anar amb compte, tot i que si utilitzeu el PAM es podria configurar perquè sigui necessari introduir la contrasenya abans de permetre l'entrada. Per obtenir més informació consulteu la secció «Seguretat-&gt;PAM» del manual o per obtenir ajuda si aquesta funció no sembla funcionar.</para>
             </listitem>
           </varlistentry>
 
@@ -1040,7 +1040,7 @@ Language=ca_ES.UTF-8
       <sect3 id="gdmrestartcommandline">
         <title>Opcions de la línia d'ordres del <command>gdm-restart</command></title>
 
-        <para>El <command>gdm-restart</command> atura i torna a iniciar el GDM enviant una senyal HUP al dimoni del GDM. Aquesta ordre finalitzarà immediatament totes les sessions i farà sortir als usuaris que estan connectats actualment amb el GDM.</para>
+        <para>El <command>gdm-restart</command> atura i torna a iniciar el GDM enviant un senyal HUP al dimoni del GDM. Aquesta ordre finalitzarà immediatament totes les sessions i farà sortir als usuaris que estan connectats actualment amb el GDM.</para>
       </sect3>
 
       <sect3 id="gdmsaferestartcommandline">
