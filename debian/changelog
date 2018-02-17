@@ -1,5 +1,6 @@
-gdm3 (3.26.2.1-4) UNRELEASED; urgency=medium
+gdm3 (3.27.90-1) UNRELEASED; urgency=medium
 
+  * New upstream development release
   * Update Vcs fields for migration to https://salsa.debian.org/
 
  -- Jeremy Bicha <jbicha@debian.org>  Fri, 19 Jan 2018 19:18:29 -0500
