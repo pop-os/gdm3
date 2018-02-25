@@ -1,10 +1,10 @@
-gdm3 (3.27.90-0ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.27.90-0ubuntu1) bionic; urgency=medium
 
   * New upstream release
   * Install new files
   * Have libgdm-dev depend on libglib2.0-dev
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 17 Feb 2018 16:09:10 -0500
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 25 Feb 2018 14:57:39 -0500
 
 gdm3 (3.26.2.1-2ubuntu2) bionic; urgency=medium
 
