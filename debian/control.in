@@ -117,6 +117,7 @@ Section: libdevel
 Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libgdm1 (= ${binary:Version}),
+         libglib2.0-dev (>= 2.36.0),
          gir1.2-gdm-1.0 (= ${binary:Version}),
          ${shlibs:Depends},
          ${misc:Depends},

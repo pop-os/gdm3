@@ -72,9 +72,6 @@ gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
 		-e 's,[@]ALWAYS_RESTART_SERVER[@],$(ALWAYS_RESTART_SERVER),g' \
 		-e 's,[@]X_CONFIG_OPTIONS[@],$(X_CONFIG_OPTIONS),g' \
 		-e 's,[@]X_SERVER[@],$(X_SERVER),g' \
-		-e 's,[@]X_XNEST_CMD[@],$(X_XNEST_CMD),g' \
-		-e 's,[@]X_XNEST_CONFIG_OPTIONS[@],$(X_XNEST_CONFIG_OPTIONS),g' \
-		-e 's,[@]X_XNEST_UNSCALED_FONTPATH[@],$(X_XNEST_UNSCALED_FONTPATH),g' \
 		-e 's,[@]GDM_RBAC_SYSCMD_KEYS[@],$(GDM_RBAC_SYSCMD_KEYS),g' \
 		-e 's,[@]datadir[@],$(datadir),g' \
 		-e 's,[@]gdmconfdir[@],$(gdmconfdir),g' \
@@ -161,12 +158,16 @@ if ENABLE_ARCH_PAM_CONFIG
 pam_files = $(pam_arch_files)
 endif
 
+udevrulesdir = $(prefix)/lib/udev/rules.d
+udevrules_DATA = 61-gdm.rules
+
 EXTRA_DIST +=			\
 	$(dconf_db_files)	\
 	$(schemas_in_files)	\
 	$(schemas_DATA)		\
 	$(dbusconf_in_files)	\
 	$(localealias_DATA)	\
+	$(udevrules_DATA)	\
 	gdm.schemas.in.in	\
 	gdm.conf-custom.in 	\
 	Xsession.in 		\

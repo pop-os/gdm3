@@ -161,10 +161,11 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(dbusconfdir)" "$(DESTDIR)$(dconfdbdir)" \
 	"$(DESTDIR)$(dconfprofiledir)" "$(DESTDIR)$(localealiasdir)" \
 	"$(DESTDIR)$(schemasdir)" "$(DESTDIR)$(sessiondir)" \
-	"$(DESTDIR)$(systemdsystemunitdir)"
+	"$(DESTDIR)$(systemdsystemunitdir)" \
+	"$(DESTDIR)$(udevrulesdir)"
 DATA = $(dbusconf_DATA) $(dconfdb_DATA) $(dconfprofile_DATA) \
 	$(localealias_DATA) $(schemas_DATA) $(session_DATA) \
-	$(systemdsystemunit_DATA)
+	$(systemdsystemunit_DATA) $(udevrules_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 am__recursive_targets = \
@@ -270,7 +271,6 @@ EXTRA_DYNAMIC_LIBS = @EXTRA_DYNAMIC_LIBS@
 EXTRA_FLEXI_LIBS = @EXTRA_FLEXI_LIBS@
 EXTRA_SETUP_LIBS = @EXTRA_SETUP_LIBS@
 EXTRA_TEST_LIBS = @EXTRA_TEST_LIBS@
-EXTRA_XNEST_LIBS = @EXTRA_XNEST_LIBS@
 FGREP = @FGREP@
 GDMCHOOSER = @GDMCHOOSER@
 GDM_CUSTOM_CONF = @GDM_CUSTOM_CONF@
@@ -283,6 +283,7 @@ GDM_RAN_ONCE_MARKER_DIR = @GDM_RAN_ONCE_MARKER_DIR@
 GDM_RAN_ONCE_MARKER_DIR_EXPANDED = @GDM_RAN_ONCE_MARKER_DIR_EXPANDED@
 GDM_RAN_ONCE_MARKER_FILE = @GDM_RAN_ONCE_MARKER_FILE@
 GDM_RAN_ONCE_MARKER_FILE_EXPANDED = @GDM_RAN_ONCE_MARKER_FILE_EXPANDED@
+GDM_RUNTIME_CONF = @GDM_RUNTIME_CONF@
 GDM_RUN_DIR = @GDM_RUN_DIR@
 GDM_SCREENSHOT_DIR = @GDM_SCREENSHOT_DIR@
 GDM_SESSION_DEFAULT_PATH = @GDM_SESSION_DEFAULT_PATH@
@@ -414,9 +415,6 @@ X_PATH = @X_PATH@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_SERVER = @X_SERVER@
 X_SERVER_PATH = @X_SERVER_PATH@
-X_XNEST_CMD = @X_XNEST_CMD@
-X_XNEST_CONFIG_OPTIONS = @X_XNEST_CONFIG_OPTIONS@
-X_XNEST_UNSCALED_FONTPATH = @X_XNEST_UNSCALED_FONTPATH@
 YELP_LC_DIST = @YELP_LC_DIST@
 YELP_LC_MEDIA_LINKS = @YELP_LC_MEDIA_LINKS@
 abs_builddir = @abs_builddir@
@@ -486,9 +484,10 @@ EXTRA_DIST = gnome-login.session.in $(pam_redhat_files) \
 	$(pam_openembedded_files) $(pam_exherbo_files) \
 	$(pam_lfs_files) $(pam_arch_files) $(dconf_db_files) \
 	$(schemas_in_files) $(schemas_DATA) $(dbusconf_in_files) \
-	$(localealias_DATA) gdm.schemas.in.in gdm.conf-custom.in \
-	Xsession.in Init.in PreSession.in PostSession.in PostLogin \
-	org.gnome.login-screen.gschema.xml.in $(NULL) gdm.service.in
+	$(localealias_DATA) $(udevrules_DATA) gdm.schemas.in.in \
+	gdm.conf-custom.in Xsession.in Init.in PreSession.in \
+	PostSession.in PostLogin org.gnome.login-screen.gschema.xml.in \
+	$(NULL) gdm.service.in
 SUBDIRS = \
 	applications		\
 	autostart		\
@@ -569,6 +568,8 @@ pam_arch_files = pam-arch/gdm-autologin.pam	\
 @ENABLE_LFS_PAM_CONFIG_TRUE@pam_files = $(pam_lfs_files)
 @ENABLE_OPENEMBEDDED_PAM_CONFIG_TRUE@pam_files = $(pam_openembedded_files)
 @ENABLE_REDHAT_PAM_CONFIG_TRUE@pam_files = $(pam_redhat_files)
+udevrulesdir = $(prefix)/lib/udev/rules.d
+udevrules_DATA = 61-gdm.rules
 CLEANFILES = Xsession gdm.conf-custom Init PreSession PostSession \
 	$(gsettings_SCHEMAS) greeter-dconf-defaults $(NULL) \
 	gdm.service $(am__append_2)
@@ -773,6 +774,27 @@ uninstall-systemdsystemunitDATA:
 	@list='$(systemdsystemunit_DATA)'; test -n "$(systemdsystemunitdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(systemdsystemunitdir)'; $(am__uninstall_files_from_dir)
+install-udevrulesDATA: $(udevrules_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(udevrules_DATA)'; test -n "$(udevrulesdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(udevrulesdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(udevrulesdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(udevrulesdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(udevrulesdir)" || exit $$?; \
+	done
+
+uninstall-udevrulesDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(udevrules_DATA)'; test -n "$(udevrulesdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(udevrulesdir)'; $(am__uninstall_files_from_dir)
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.
@@ -933,7 +955,7 @@ check: check-recursive
 all-am: Makefile $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(dbusconfdir)" "$(DESTDIR)$(dconfdbdir)" "$(DESTDIR)$(dconfprofiledir)" "$(DESTDIR)$(localealiasdir)" "$(DESTDIR)$(schemasdir)" "$(DESTDIR)$(sessiondir)" "$(DESTDIR)$(systemdsystemunitdir)"; do \
+	for dir in "$(DESTDIR)$(dbusconfdir)" "$(DESTDIR)$(dconfdbdir)" "$(DESTDIR)$(dconfprofiledir)" "$(DESTDIR)$(localealiasdir)" "$(DESTDIR)$(schemasdir)" "$(DESTDIR)$(sessiondir)" "$(DESTDIR)$(systemdsystemunitdir)" "$(DESTDIR)$(udevrulesdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -992,7 +1014,7 @@ info-am:
 install-data-am: install-dbusconfDATA install-dconfdbDATA \
 	install-dconfprofileDATA install-localealiasDATA \
 	install-schemasDATA install-sessionDATA \
-	install-systemdsystemunitDATA
+	install-systemdsystemunitDATA install-udevrulesDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-recursive
@@ -1040,7 +1062,7 @@ ps-am:
 uninstall-am: uninstall-dbusconfDATA uninstall-dconfdbDATA \
 	uninstall-dconfprofileDATA uninstall-localealiasDATA \
 	uninstall-schemasDATA uninstall-sessionDATA \
-	uninstall-systemdsystemunitDATA
+	uninstall-systemdsystemunitDATA uninstall-udevrulesDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) uninstall-hook
 .MAKE: $(am__recursive_targets) install-am install-data-am \
@@ -1057,14 +1079,16 @@ uninstall-am: uninstall-dbusconfDATA uninstall-dconfdbDATA \
 	install-info install-info-am install-localealiasDATA \
 	install-man install-pdf install-pdf-am install-ps \
 	install-ps-am install-schemasDATA install-sessionDATA \
-	install-strip install-systemdsystemunitDATA installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-dbusconfDATA uninstall-dconfdbDATA \
+	install-strip install-systemdsystemunitDATA \
+	install-udevrulesDATA installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
+	ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-dbusconfDATA uninstall-dconfdbDATA \
 	uninstall-dconfprofileDATA uninstall-hook \
 	uninstall-localealiasDATA uninstall-schemasDATA \
-	uninstall-sessionDATA uninstall-systemdsystemunitDATA
+	uninstall-sessionDATA uninstall-systemdsystemunitDATA \
+	uninstall-udevrulesDATA
 
 .PRECIOUS: Makefile
 
@@ -1104,9 +1128,6 @@ gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
 		-e 's,[@]ALWAYS_RESTART_SERVER[@],$(ALWAYS_RESTART_SERVER),g' \
 		-e 's,[@]X_CONFIG_OPTIONS[@],$(X_CONFIG_OPTIONS),g' \
 		-e 's,[@]X_SERVER[@],$(X_SERVER),g' \
-		-e 's,[@]X_XNEST_CMD[@],$(X_XNEST_CMD),g' \
-		-e 's,[@]X_XNEST_CONFIG_OPTIONS[@],$(X_XNEST_CONFIG_OPTIONS),g' \
-		-e 's,[@]X_XNEST_UNSCALED_FONTPATH[@],$(X_XNEST_UNSCALED_FONTPATH),g' \
 		-e 's,[@]GDM_RBAC_SYSCMD_KEYS[@],$(GDM_RBAC_SYSCMD_KEYS),g' \
 		-e 's,[@]datadir[@],$(datadir),g' \
 		-e 's,[@]gdmconfdir[@],$(gdmconfdir),g' \
