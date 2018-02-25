@@ -1,3 +1,9 @@
+gdm3 (3.27.90-2) UNRELEASED; urgency=medium
+
+  * Have libgdm-dev depend on libglib2.0-dev
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sun, 25 Feb 2018 15:42:14 -0500
+
 gdm3 (3.27.90-1) experimental; urgency=medium
 
   * New upstream development release
