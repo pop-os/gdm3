@@ -1,3 +1,9 @@
+gdm3 (3.27.92-0ubuntu1) bionic; urgency=medium
+
+  * New upstream release
+
+ -- Tim Lunn <tim@feathertop.org>  Fri, 09 Mar 2018 19:09:14 +1100
+
 gdm3 (3.27.90-0ubuntu1) bionic; urgency=medium
 
   * New upstream release
@@ -1642,7 +1648,7 @@ gdm3 (2.29.92-1) experimental; urgency=low
 
  -- Luca Bruno <lethalman88@gmail.com>  Thu, 01 Apr 2010 12:49:57 +0200
 
-gdm3 (2.28.1-1) UNRELEASED; urgency=low
+gdm3 (2.28.1-1) bionic; urgency=low
 
   [ Josselin Mouette ]
   * New upstream release.
@@ -1712,7 +1718,7 @@ gdm3 (2.28.1-1) UNRELEASED; urgency=low
 
  -- Josselin Mouette <joss@debian.org>  Mon, 15 Mar 2010 21:27:29 +0100
 
-gdm (2.26.1-1) UNRELEASED; urgency=low
+gdm (2.26.1-1) bionic; urgency=low
 
   * New upstream release.
   * Completely revamp patches. The patches remaining are:
