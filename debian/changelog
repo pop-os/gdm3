@@ -1,10 +1,10 @@
-gdm3 (3.28.0-1) UNRELEASED; urgency=medium
+gdm3 (3.28.0-1) unstable; urgency=medium
 
   * New upstream release
   * Have libgdm-dev depend on libglib2.0-dev
   * Release to unstable
 
- -- Jeremy Bicha <jbicha@debian.org>  Sun, 25 Feb 2018 15:42:14 -0500
+ -- Jeremy Bicha <jbicha@debian.org>  Tue, 13 Mar 2018 15:40:46 -0400
 
 gdm3 (3.27.90-1) experimental; urgency=medium
 
