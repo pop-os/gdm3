@@ -1,6 +1,8 @@
 gdm3 (3.28.0-0ubuntu1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * d/p/ubuntu_prefer_ubuntu_session_fallback.patch: fix spelling
+    in patch description that caused a lintian warning.
 
  -- Tim Lunn <tim@feathertop.org>  Fri, 30 Mar 2018 13:24:20 +1100
 

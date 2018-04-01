@@ -1,6 +1,6 @@
 Description: Prefer ubuntu session as fallback over GNOME
- As GNOME, optionnally installed, is a Wayland session and ubuntu
- is now transitionned as a Xorg session, the fallback will prefer
+ As GNOME, optionally installed, is a Wayland session and ubuntu
+ is now transitioned as a Xorg session, the fallback will prefer
  naturally the GNOME session. Ensure we prioritize the ubuntu
  session in fallback order.
 Author: Didier Roche <didrocks@ubuntu.com>
