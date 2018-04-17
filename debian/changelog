@@ -1,8 +1,8 @@
-gdm3 (3.28.1-1) UNRELEASED; urgency=medium
+gdm3 (3.28.1-1) unstable; urgency=medium
 
   * New upstream release 
 
- -- Tim Lunn <tim@feathertop.org>  Mon, 16 Apr 2018 17:37:28 +1000
+ -- Tim Lunn <tim@feathertop.org>  Tue, 17 Apr 2018 18:04:22 +1000
 
 gdm3 (3.28.0-1) unstable; urgency=medium
 
