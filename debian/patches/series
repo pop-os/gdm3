@@ -1,3 +1,5 @@
+0001-libgdm-Don-t-unref-a-connection-that-s-in-use.patch
+0002-libgdm-add-weak-pointer-for-connection-object.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
