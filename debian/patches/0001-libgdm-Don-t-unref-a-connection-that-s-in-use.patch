@@ -1,0 +1,36 @@
+From 68910f303a571dbe8ee4df57018c27a50b26aa7e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marco=20Trevisan=20=28Trevi=C3=B1o=29?= <mail@3v1n0.net>
+Date: Wed, 9 May 2018 15:43:27 +0100
+Subject: [PATCH 1/2] libgdm: Don't unref a connection that's in use
+
+If an async task tries to reuse an open connection,
+it erroneously explicitly unrefs it. That is incorrect,
+because there are weak references in use to handle
+disposing the connection when its no longer in use.
+
+This commit makes sure the local connection object
+in open_connection is nullified so the connection
+doesn't get autofree'd.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=795940
+(cherry picked from commit 4654042d22c71da599d60a7e2f0570acf3d4a166)
+---
+ libgdm/gdm-client.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/libgdm/gdm-client.c b/libgdm/gdm-client.c
+index bcae8ba2..c017bf86 100644
+--- a/libgdm/gdm-client.c
++++ b/libgdm/gdm-client.c
+@@ -583,6 +583,8 @@ gdm_client_open_connection_finish (GdmClient      *client,
+ 
+         if (client->priv->connection == NULL) {
+                 client->priv->connection = g_steal_pointer (&connection);
++        } else if (client->priv->connection == connection) {
++                connection = NULL;
+         }
+ 
+         finish_pending_opens (client, NULL);
+-- 
+2.17.0
+
