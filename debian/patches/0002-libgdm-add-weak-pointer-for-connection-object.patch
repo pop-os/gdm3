@@ -8,7 +8,8 @@ connection to GDM when the connection is disposed.
 
 This commit adds a weak pointer to correct that mistake.
 
-https://bugzilla.gnome.org/show_bug.cgi?id=795940
+Bug-Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=795940
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1766137
 (cherry picked from commit ccba35d58ae27b02979310d5914a96186afa31de)
 ---
  libgdm/gdm-client.c | 12 ++++++++++++

@@ -12,7 +12,8 @@ This commit makes sure the local connection object
 in open_connection is nullified so the connection
 doesn't get autofree'd.
 
-https://bugzilla.gnome.org/show_bug.cgi?id=795940
+Bug-Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=795940
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1766137
 (cherry picked from commit 4654042d22c71da599d60a7e2f0570acf3d4a166)
 ---
  libgdm/gdm-client.c | 2 ++
