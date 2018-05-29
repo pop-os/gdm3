@@ -47,6 +47,8 @@ gdm3 (3.28.2-1ubuntu1) UNRELEASED; urgency=medium
     + debian/patches/0001-libgdm-Don-t-unref-a-connection-that-s-in-use.patch,
       debian/patches/0002-libgdm-add-weak-pointer-for-connection-object.patch:
       These are included in this upstream release.
+  * We think this is going to fix the "can't login after wrong password" bug
+    for real this time. (LP: #1766137)
 
  -- Iain Lane <iain.lane@canonical.com>  Tue, 29 May 2018 10:47:43 +0100
 
