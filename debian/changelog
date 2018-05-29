@@ -1,4 +1,4 @@
-gdm3 (3.28.2-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.28.2-1ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -50,7 +50,7 @@ gdm3 (3.28.2-1ubuntu1) UNRELEASED; urgency=medium
   * We think this is going to fix the "can't login after wrong password" bug
     for real this time. (LP: #1766137)
 
- -- Iain Lane <iain.lane@canonical.com>  Tue, 29 May 2018 10:47:43 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 29 May 2018 12:03:39 +0100
 
 gdm3 (3.28.2-1) unstable; urgency=medium
 
