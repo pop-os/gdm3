@@ -20,6 +20,9 @@ You have another version of autoconf.  It may work, but is not guaranteed to.
 If you have problems, you may need to regenerate the build system entirely.
 To do so, use the procedure documented by the package, typically 'autoreconf'.])])
 
+# Increment this whenever this file is changed.
+#serial 1
+
 dnl GLIB_GSETTINGS
 dnl Defines GSETTINGS_SCHEMAS_INSTALL which controls whether
 dnl the schema should be compiled
@@ -720,8 +723,8 @@ check-help:
 	    xmlpath="$$lc:$(srcdir)/$$lc"; \
 	  fi; \
 	  for page in $(HELP_FILES); do \
-	    echo "$(XMLLINT) --noout --noent --path $$xmlpath --xinclude $$d$$lc/$$page"; \
-	    $(XMLLINT) --noout --noent --path "$$xmlpath" --xinclude "$$d$$lc/$$page"; \
+	    echo "$(XMLLINT) --nonet --noout --noent --path $$xmlpath --xinclude $$d$$lc/$$page"; \
+	    $(XMLLINT) --nonet --noout --noent --path "$$xmlpath" --xinclude "$$d$$lc/$$page"; \
 	  done; \
 	done
 
