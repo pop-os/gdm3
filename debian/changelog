@@ -78,12 +78,6 @@ gdm3 (3.28.1-1) unstable; urgency=medium
 
  -- Tim Lunn <tim@feathertop.org>  Tue, 17 Apr 2018 18:04:22 +1000
 
-gdm3 (3.28.0-1ubuntu1) UNRELEASED; urgency=medium
-
-  * Temporary merge
-
- -- Iain Lane <iain.lane@canonical.com>  Tue, 29 May 2018 10:27:50 +0100
-
 gdm3 (3.28.0-1) unstable; urgency=medium
 
   * New upstream release
