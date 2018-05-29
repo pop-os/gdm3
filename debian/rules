@@ -1,14 +1,13 @@
 #!/usr/bin/make -f
+-include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
+
+include /usr/share/dpkg/architecture.mk
+include /usr/share/dpkg/buildflags.mk
 
 GNOME_MODULE := gdm
 
-include /usr/share/dpkg/architecture.mk
--include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
-
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
-include /usr/share/dpkg/buildflags.mk
-
-binaries := $(shell dh_listpackages)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 CONFFLAGS += \
@@ -80,10 +79,9 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 
 override_dh_install:
 	find debian/tmp -name '*.la' -print -delete
-	rm -rf debian/*/var/lib/gdm3/.[cgl]*
+	rm -rf debian/tmp/var/lib/gdm3/.[cgl]*
 	rm -rf debian/tmp/var/run
 	dh_install
-ifneq ($(filter gdm3,$(binaries)),)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 #	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
@@ -91,10 +89,12 @@ ifneq ($(filter gdm3,$(binaries)),)
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
 	dh_installpam -pgdm3 --name=gdm-fingerprint
-endif
 
 override_dh_missing:
 	dh_missing --list-missing
+
+override_dh_makeshlibs:
+	dh_makeshlibs -- -c4
 
 override_dh_installinit:
 	dh_installinit --noscripts --no-start
