@@ -1,7 +1,14 @@
-gdm3 (3.28.0-0ubuntu1.2) UNRELEASED; urgency=medium
+gdm3 (3.28.2-0ubuntu1.1) UNRELEASED; urgency=medium
 
   * debian/gbp.conf: Add with 'bionic' configuration.
   * debian/control{,.in}: Update Vcs-* for git.
+  * New upstream release (LP: #1773968):
+    - Reference counting fixes for GdmClient (LP: #1766137)
+    - ensure plymouth is quit properly even when local greeter is disabled
+    - make sure GDM doesn't hang when called with unknown command line arguments
+  * debian/patches/0001-libgdm-Don-t-unref-a-connection-that-s-in-use.patch,
+    debian/patches/0002-libgdm-add-weak-pointer-for-connection-object.patch:
+    Drop, included in this release.
 
  -- Iain Lane <laney@debian.org>  Tue, 29 May 2018 13:18:11 +0100
 
