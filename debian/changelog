@@ -1,4 +1,4 @@
-gdm3 (3.28.2-0ubuntu1.1) UNRELEASED; urgency=medium
+gdm3 (3.28.2-0ubuntu1.1) bionic; urgency=medium
 
   * debian/gbp.conf: Add with 'bionic' configuration.
   * debian/control{,.in}: Update Vcs-* for git.
@@ -10,7 +10,7 @@ gdm3 (3.28.2-0ubuntu1.1) UNRELEASED; urgency=medium
     debian/patches/0002-libgdm-add-weak-pointer-for-connection-object.patch:
     Drop, included in this release.
 
- -- Iain Lane <laney@debian.org>  Tue, 29 May 2018 13:18:11 +0100
+ -- Iain Lane <laney@debian.org>  Tue, 29 May 2018 13:23:25 +0100
 
 gdm3 (3.28.0-0ubuntu1.1) bionic; urgency=medium
 
