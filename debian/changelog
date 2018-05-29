@@ -34,8 +34,6 @@ gdm3 (3.28.2-1ubuntu1) UNRELEASED; urgency=medium
     + Add ubuntu_config_error_dialog.patch:
       - Show warning dialog in case of error in ~/.profile etc. and
         don't let a syntax error make the login fail (LP: #678421).
-    + Add revert_drop_gdm_shell_session.patch:
-      - Revert commit that requires gnome-session to be installed
     + Add debian/default.pa
       - Disable Bluetooth audio devices in PulseAudio from gdm3.
     + debian/gdm3.install
