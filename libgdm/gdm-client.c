@@ -460,6 +460,10 @@ gdm_client_open_connection_sync (GdmClient      *client,
                         g_clear_pointer (&client->priv->address, g_free);
                         goto out;
                 }
+
+                g_object_add_weak_pointer (G_OBJECT (client->priv->connection),
+                                           (gpointer *)
+                                           &client->priv->connection);
         } else {
                 client->priv->connection = g_object_ref (client->priv->connection);
         }
@@ -583,6 +587,10 @@ gdm_client_open_connection_finish (GdmClient      *client,
 
         if (client->priv->connection == NULL) {
                 client->priv->connection = g_steal_pointer (&connection);
+                g_object_add_weak_pointer (G_OBJECT (client->priv->connection),
+                                           (gpointer *) &client->priv->connection);
+        } else if (client->priv->connection == connection) {
+                connection = NULL;
         }
 
         finish_pending_opens (client, NULL);
@@ -816,8 +824,8 @@ gdm_client_get_user_verifier_sync (GdmClient     *client,
                                    &client->priv->manager);
                 g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
                                    (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->connection);
+                                   g_object_unref,
+                                   client->priv->connection);
 
                 if (client->priv->enabled_extensions != NULL) {
                         gboolean res;
@@ -1186,8 +1194,8 @@ gdm_client_get_greeter_sync (GdmClient     *client,
                                    &client->priv->manager);
                 g_object_weak_ref (G_OBJECT (client->priv->greeter),
                                    (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->connection);
+                                   g_object_unref,
+                                   client->priv->connection);
 
                 query_for_timed_login_requested_signal (client->priv->greeter);
         }
@@ -1370,8 +1378,8 @@ gdm_client_get_remote_greeter_sync (GdmClient     *client,
                                    &client->priv->manager);
                 g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
                                    (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->connection);
+                                   g_object_unref,
+                                   client->priv->connection);
         }
 
         return client->priv->remote_greeter;
@@ -1553,8 +1561,8 @@ gdm_client_get_chooser_sync (GdmClient     *client,
                                    &client->priv->manager);
                 g_object_weak_ref (G_OBJECT (client->priv->chooser),
                                    (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->connection);
+                                   g_object_unref,
+                                   client->priv->connection);
         }
 
         return client->priv->chooser;
@@ -1612,6 +1620,12 @@ gdm_client_finalize (GObject *object)
                 g_object_remove_weak_pointer (G_OBJECT (client->priv->chooser),
                                               (gpointer *)
                                               &client->priv->chooser);
+        }
+
+        if (client->priv->connection != NULL) {
+                g_object_remove_weak_pointer (G_OBJECT (client->priv->connection),
+                                              (gpointer *)
+                                              &client->priv->connection);
         }
 
         g_clear_object (&client->priv->manager);
