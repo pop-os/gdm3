@@ -1,0 +1,21 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Fri, 1 Jun 2018 17:20:17 +0200
+Subject: libgdm: Don't leak connection on sync re-authentication
+
+---
+ libgdm/gdm-client.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libgdm/gdm-client.c b/libgdm/gdm-client.c
+index 3629214..335a040 100644
+--- a/libgdm/gdm-client.c
++++ b/libgdm/gdm-client.c
+@@ -604,7 +604,7 @@ gdm_client_open_reauthentication_channel_sync (GdmClient     *client,
+                                                GCancellable  *cancellable,
+                                                GError       **error)
+ {
+-        GDBusConnection *connection;
++        g_autoptr(GDBusConnection) connection = NULL;
+         g_autoptr(GdmManager) manager = NULL;
+         GdmUserVerifier *user_verifier = NULL;
+         gboolean         ret;

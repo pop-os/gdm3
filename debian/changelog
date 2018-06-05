@@ -1,3 +1,23 @@
+gdm3 (3.28.2-0ubuntu1.2) UNRELEASED; urgency=medium
+
+  * debian/patches/libgdm-drop-support-for-serializing-multiple-opens.patch,
+    debian/patches/libgdm-fix-pointer-boolean-task-confusion.patch,
+    debian/patches/libgdm-don-t-keep-manager-proxy-around-longer-than-we-nee.patch,
+    debian/patches/libgdm-use-g_object_unref-instead-of-g_clear_object-for-w.patch,
+    debian/patches/libgdm-get-connection-explicitly.patch,
+    debian/patches/libgdm-Drop-weak-refs-on-the-GDBusConnection.patch,
+    debian/patches/libgdm-Unref-the-manager-propagated-from-task.patch,
+    debian/patches/libgdm-Don-t-double-ref-the-connection-got-from-task.patch,
+    debian/patches/libgdm-Don-t-leak-connection-on-sync-re-authentication.patch,
+    debian/patches/libgdm-Use-auto-pointers-and-cleanup-code.patch,
+    debian/patches/libgdb-Try-to-reuse-connections-from-the-available-proxie.patch,
+    debian/patches/libgdm-Don-t-save-manager-address.patch,
+    debian/patches/libgdm-Return-NULL-on-invalid-client-instances.patch:
+    - Cherry picks commits from upstream 3.28 branch to propely fix ref-counting
+      issues on GdmClient (LP: #1766137)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 05 Jun 2018 02:43:05 +0200
+
 gdm3 (3.28.2-0ubuntu1.1) bionic; urgency=medium
 
   * debian/gbp.conf: Add with 'bionic' configuration.
