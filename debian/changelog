@@ -1,4 +1,4 @@
-gdm3 (3.28.2-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.28.2-2ubuntu1) cosmic; urgency=medium
 
   [ Iain Lane ]
   * Merge with Debian. Remaining changes:
@@ -47,7 +47,7 @@ gdm3 (3.28.2-2ubuntu1) UNRELEASED; urgency=medium
   * debian/patches/ubuntu_nvidia_prime.patch:
     - Fix install file paths
 
- -- Iain Lane <laney@debian.org>  Tue, 05 Jun 2018 09:38:55 +0100
+ -- Iain Lane <laney@debian.org>  Tue, 05 Jun 2018 10:11:10 +0100
 
 gdm3 (3.28.2-2) unstable; urgency=medium
 
