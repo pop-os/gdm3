@@ -1,0 +1,64 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Tue, 15 May 2018 23:02:36 +0200
+Subject: libgdm: use g_object_unref instead of g_clear_object for weakrefs
+
+At the moment we add a weakref on each proxy to the connection
+object.  For the _sync variant functions, When the weakref fires,
+they call g_clear_object, clearing the connection, even if other
+proxies still have a reference.
+
+This commit changes that weak ref code to use g_object_unref instead.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=795940
+---
+ libgdm/gdm-client.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/libgdm/gdm-client.c b/libgdm/gdm-client.c
+index c34121e..e02e3ea 100644
+--- a/libgdm/gdm-client.c
++++ b/libgdm/gdm-client.c
+@@ -764,8 +764,8 @@ gdm_client_get_user_verifier_sync (GdmClient     *client,
+                                            &client->priv->user_verifier);
+                 g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
+                                    (GWeakNotify)
+-                                   g_clear_object,
+-                                   &client->priv->connection);
++                                   g_object_unref,
++                                   client->priv->connection);
+ 
+                 if (client->priv->enabled_extensions != NULL) {
+                         gboolean res;
+@@ -1119,8 +1119,8 @@ gdm_client_get_greeter_sync (GdmClient     *client,
+                                            &client->priv->greeter);
+                 g_object_weak_ref (G_OBJECT (client->priv->greeter),
+                                    (GWeakNotify)
+-                                   g_clear_object,
+-                                   &client->priv->connection);
++                                   g_object_unref,
++                                   client->priv->connection);
+ 
+                 query_for_timed_login_requested_signal (client->priv->greeter);
+         }
+@@ -1294,8 +1294,8 @@ gdm_client_get_remote_greeter_sync (GdmClient     *client,
+                                            &client->priv->remote_greeter);
+                 g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
+                                    (GWeakNotify)
+-                                   g_clear_object,
+-                                   &client->priv->connection);
++                                   g_object_unref,
++                                   client->priv->connection);
+         }
+ 
+         return client->priv->remote_greeter;
+@@ -1468,8 +1468,8 @@ gdm_client_get_chooser_sync (GdmClient     *client,
+                                            &client->priv->chooser);
+                 g_object_weak_ref (G_OBJECT (client->priv->chooser),
+                                    (GWeakNotify)
+-                                   g_clear_object,
+-                                   &client->priv->connection);
++                                   g_object_unref,
++                                   client->priv->connection);
+         }
+ 
+         return client->priv->chooser;
