@@ -11,6 +11,7 @@ libgdm-Use-auto-pointers-and-cleanup-code.patch
 libgdb-Try-to-reuse-connections-from-the-available-proxie.patch
 libgdm-Don-t-save-manager-address.patch
 libgdm-Return-NULL-on-invalid-client-instances.patch
+daemon-gdm-session-record.c-open-close-the-utmp-database.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch

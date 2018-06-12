@@ -1,3 +1,10 @@
+gdm3 (3.28.2-3) UNRELEASED; urgency=medium
+
+  * debian/patches/daemon-gdm-session-record.c-open-close-the-utmp-database.patch:
+    - Keep the number of logged-in consistent with reality (LP: #1776487)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 12 Jun 2018 18:58:45 +0200
+
 gdm3 (3.28.2-2) unstable; urgency=medium
 
   * debian/patches/libgdm-drop-support-for-serializing-multiple-opens.patch,
