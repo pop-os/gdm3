@@ -1,4 +1,4 @@
-gdm3 (3.28.2-0ubuntu2) UNRELEASED; urgency=medium
+gdm3 (3.28.2-0ubuntu1.3) UNRELEASED; urgency=medium
 
   * debian/patches/daemon-gdm-session-record.c-open-close-the-utmp-database.patch:
     - Keep the number of logged-in consistent with reality (LP: #1776487)
