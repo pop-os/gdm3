@@ -46,8 +46,9 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
                xserver-xorg-dev
-Standards-Version: 4.1.1
-Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
+Standards-Version: 4.1.2
+Vcs-Browser: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gdm3
+Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gdm3
 
 Package: gdm3
 Architecture: linux-any
@@ -140,6 +141,7 @@ Description: GNOME Display Manager (development files)
 Package: gir1.2-gdm-1.0
 Section: introspection
 Architecture: linux-any
+Multi-Arch: same
 Depends: ${gir:Depends},
          ${shlibs:Depends},
          ${misc:Depends}
