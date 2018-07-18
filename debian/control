@@ -5,7 +5,8 @@
 Source: gdm3
 Section: gnome
 Priority: optional
-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>, Tim Lunn <tim@feathertop.org>
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 10.3),
@@ -45,9 +46,8 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
                xserver-xorg-dev
-Standards-Version: 4.1.2
-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
+Standards-Version: 4.1.1
+Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gdm/ubuntu
 
 Package: gdm3
 Architecture: linux-any
@@ -57,6 +57,7 @@ Depends: ${shlibs:Depends},
          libgdm1 (= ${binary:Version}),
          gir1.2-gdm-1.0 (= ${binary:Version}),
          adduser,
+         bash (>= 4.3),
          libpam-modules (>= 0.72-1),
          libpam-runtime (>= 0.76-13.1),
          libpam-systemd [linux-any],
@@ -80,7 +81,7 @@ Recommends: zenity,
             x11-xkb-utils,
             xserver-xorg,
             at-spi2-core,
-            desktop-base (>= 6)
+#            desktop-base (>= 6)
 Suggests: libpam-gnome-keyring,
           gnome-orca,
           libpam-fprintd (>= 0.8.0-2)
@@ -139,7 +140,6 @@ Description: GNOME Display Manager (development files)
 Package: gir1.2-gdm-1.0
 Section: introspection
 Architecture: linux-any
-Multi-Arch: same
 Depends: ${gir:Depends},
          ${shlibs:Depends},
          ${misc:Depends}

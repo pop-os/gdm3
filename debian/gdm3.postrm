@@ -27,14 +27,14 @@ if [ "$1" = "purge" ] ; then
 	rm -rf /var/run/gdm3
 	rm -rf /var/log/gdm3
 	rm -rf /var/cache/gdm
-        if getent passwd Debian-gdm >/dev/null; then
+        if getent passwd gdm >/dev/null; then
                 if which deluser >/dev/null; then
-                        deluser --system Debian-gdm || echo "Could not remove Debian-gdm user."
+                        deluser --system gdm || echo "Could not remove gdm user."
                 fi
         fi
-        if getent group Debian-gdm >/dev/null; then
+        if getent group gdm >/dev/null; then
                 if which delgroup >/dev/null; then
-                        delgroup --system Debian-gdm || echo "Could not remove Debian-gdm group."
+                        delgroup --system gdm || echo "Could not remove gdm group."
                 fi
         fi
 fi

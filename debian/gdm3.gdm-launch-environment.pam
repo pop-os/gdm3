@@ -5,6 +5,6 @@ auth    required        pam_permit.so
 session optional        pam_keyinit.so force revoke
 session required        pam_limits.so
 session required        pam_env.so readenv=1
-session required        pam_env.so readenv=1 envfile=/etc/default/locale
+session required        pam_env.so readenv=1 user_readenv=1 envfile=/etc/default/locale
 @include common-session
 @include common-password

@@ -7,19 +7,19 @@ set -e
 THIS_PACKAGE=gdm3
 DEFAULT_DISPLAY_MANAGER_FILE=/etc/X11/default-display-manager
 
-# creating Debian-gdm group if it isn't already there
-if ! getent group Debian-gdm >/dev/null; then
-        addgroup --system --force-badname --quiet Debian-gdm
+# creating gdm group if it isn't already there
+if ! getent group gdm >/dev/null; then
+        addgroup --system --force-badname --quiet gdm
 fi
 
-# creating Debian-gdm user if it isn't already there
-if ! getent passwd Debian-gdm >/dev/null; then
+# creating gdm user if it isn't already there
+if ! getent passwd gdm >/dev/null; then
         adduser --system --force-badname --quiet \
-            --ingroup Debian-gdm \
+            --ingroup gdm \
             --home /var/lib/gdm3 --no-create-home \
             --shell /bin/false \
-            Debian-gdm
-        usermod -c "Gnome Display Manager" Debian-gdm
+            gdm
+        usermod -c "Gnome Display Manager" gdm
 fi
 
 # debconf is not a registry, so we only fiddle with the default file if 
@@ -72,7 +72,14 @@ if ! [ -L $USERUNITDIR/sockets.target.wants/pulseaudio.socket ]; then
   ln -sf $UNIT $USERUNITDIR/sockets.target.wants
 fi
 
-chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
+# Install PA workaround for LP:#1703415
+# Stops GDM using Bluetooth audio so that it's available in the users session
+if ! [ -f /var/lib/gdm3/.config/pulse/default.pa ]; then
+  mkdir -p /var/lib/gdm3/.config/pulse
+  cp /usr/share/gdm/default.pa /var/lib/gdm3/.config/pulse/default.pa
+fi
+
+chown -R gdm:gdm /var/lib/gdm3
 
 if [ -L /etc/pam.d/gdm-welcome ]; then
     rm -f /etc/pam.d/gdm-welcome
