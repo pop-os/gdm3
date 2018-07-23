@@ -1,3 +1,10 @@
+gdm3 (3.28.2-3ubuntu2) cosmic; urgency=medium
+
+  * debian/patches/unblock-sigusr1.patch:
+    - Unblock SIGUSR1 before PAM. (LP: #1782152)
+
+ -- Dariusz Gadomski <dariusz.gadomski@canonical.com>  Mon, 23 Jul 2018 10:58:27 +0200
+
 gdm3 (3.28.2-3ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
