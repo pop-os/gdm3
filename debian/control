@@ -74,7 +74,8 @@ Depends: ${shlibs:Depends},
          dconf-gsettings-backend (>= 0.20),
          ucf,
          x11-common (>= 1:7.6+11),
-         x11-xserver-utils
+         x11-xserver-utils,
+         procps
 Recommends: zenity,
             xserver-xephyr,
             x11-xkb-utils,
