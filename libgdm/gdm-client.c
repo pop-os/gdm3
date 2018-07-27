@@ -40,8 +40,6 @@
 
 struct GdmClientPrivate
 {
-        GdmManager         *manager;
-
         GdmUserVerifier    *user_verifier;
         GHashTable         *user_verifier_extensions;
 
@@ -51,7 +49,6 @@ struct GdmClientPrivate
         GDBusConnection    *connection;
         char               *address;
 
-        GList              *pending_opens;
         char              **enabled_extensions;
 };
 
@@ -75,34 +72,24 @@ gdm_client_error_quark (void)
 }
 
 static void
-on_got_manager (GdmManager          *manager,
+on_got_manager (GObject             *object,
                 GAsyncResult        *result,
                 GTask               *task)
 {
         GdmClient *client;
-        GdmManager       *new_manager;
-        GError           *error;
+        GError    *error;
+        g_autoptr(GdmManager) manager = NULL;
 
         client = GDM_CLIENT (g_async_result_get_source_object (G_ASYNC_RESULT (task)));
 
         error = NULL;
-        new_manager = gdm_manager_proxy_new_finish (result, &error);
-
-        if (client->priv->manager == NULL) {
-                client->priv->manager = new_manager;
-
-        } else {
-                g_object_ref (client->priv->manager);
-                g_object_unref (new_manager);
-
-                g_clear_error (&error);
-        }
+        manager = gdm_manager_proxy_new_finish (result, &error);
 
         if (error != NULL) {
                 g_task_return_error (task, error);
         } else {
                 g_task_return_pointer (task,
-                                       g_object_ref (client->priv->manager),
+                                       g_object_ref (manager),
                                        (GDestroyNotify) g_object_unref);
         }
 
@@ -122,14 +109,6 @@ get_manager (GdmClient           *client,
                            cancellable,
                            callback,
                            user_data);
-
-        if (client->priv->manager != NULL) {
-                g_task_return_pointer (task,
-                                       g_object_ref (client->priv->manager),
-                                       (GDestroyNotify) g_object_unref);
-                g_object_unref (task);
-                return;
-        }
 
         gdm_manager_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                        G_DBUS_PROXY_FLAGS_NONE,
@@ -391,11 +370,13 @@ on_got_manager_for_reauthentication (GdmClient           *client,
                                      GTask               *task)
 {
         GCancellable *cancellable;
+        GdmManager   *manager;
         char         *username;
         GError       *error;
 
         error = NULL;
-        if (!g_task_propagate_boolean (G_TASK (result), &error)) {
+        manager = g_task_propagate_pointer (G_TASK (result), &error);
+        if (manager == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
@@ -403,7 +384,7 @@ on_got_manager_for_reauthentication (GdmClient           *client,
 
         cancellable = g_task_get_cancellable (task);
         username = g_object_get_data (G_OBJECT (task), "username");
-        gdm_manager_call_open_reauthentication_channel (client->priv->manager,
+        gdm_manager_call_open_reauthentication_channel (manager,
                                                         username,
                                                         cancellable,
                                                         (GAsyncReadyCallback)
@@ -412,64 +393,59 @@ on_got_manager_for_reauthentication (GdmClient           *client,
 
 }
 
-static gboolean
-gdm_client_open_connection_sync (GdmClient      *client,
-                                 GCancellable   *cancellable,
-                                 GError        **error)
+static GDBusConnection *
+gdm_client_get_connection_sync (GdmClient      *client,
+                                GCancellable   *cancellable,
+                                GError        **error)
 {
+        g_autoptr(GdmManager) manager = NULL;
         gboolean ret;
 
         g_return_val_if_fail (GDM_IS_CLIENT (client), FALSE);
 
-        if (client->priv->manager == NULL) {
-                client->priv->manager = gdm_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                                            G_DBUS_PROXY_FLAGS_NONE,
-                                                                            "org.gnome.DisplayManager",
-                                                                            "/org/gnome/DisplayManager/Manager",
-                                                                            cancellable,
-                                                                            error);
-
-                if (client->priv->manager == NULL) {
-                        goto out;
-                }
-        } else {
-                client->priv->manager = g_object_ref (client->priv->manager);
+        if (client->priv->connection != NULL) {
+                return g_object_ref (client->priv->connection);
         }
+
+        manager = gdm_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                      G_DBUS_PROXY_FLAGS_NONE,
+                                                      "org.gnome.DisplayManager",
+                                                      "/org/gnome/DisplayManager/Manager",
+                                                      cancellable,
+                                                      error);
+
+        if (manager == NULL) {
+                goto out;
+        }
+
+        ret = gdm_manager_call_open_session_sync (manager,
+                                                  &client->priv->address,
+                                                  cancellable,
+                                                  error);
+
+        if (!ret) {
+                goto out;
+        }
+
+        g_debug ("GdmClient: connecting to address: %s", client->priv->address);
+
+        client->priv->connection = g_dbus_connection_new_for_address_sync (client->priv->address,
+                                                                           G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT,
+                                                                           NULL,
+                                                                           cancellable,
+                                                                           error);
 
         if (client->priv->connection == NULL) {
-                ret = gdm_manager_call_open_session_sync (client->priv->manager,
-                                                          &client->priv->address,
-                                                          cancellable,
-                                                          error);
-
-                if (!ret) {
-                        g_clear_object (&client->priv->manager);
-                        goto out;
-                }
-
-                g_debug ("GdmClient: connecting to address: %s", client->priv->address);
-
-                client->priv->connection = g_dbus_connection_new_for_address_sync (client->priv->address,
-                                                                                   G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT,
-                                                                                   NULL,
-                                                                                   cancellable,
-                                                                                   error);
-
-                if (client->priv->connection == NULL) {
-                        g_clear_object (&client->priv->manager);
-                        g_clear_pointer (&client->priv->address, g_free);
-                        goto out;
-                }
-
-                g_object_add_weak_pointer (G_OBJECT (client->priv->connection),
-                                           (gpointer *)
-                                           &client->priv->connection);
-        } else {
-                client->priv->connection = g_object_ref (client->priv->connection);
+                g_clear_pointer (&client->priv->address, g_free);
+                goto out;
         }
 
+        g_object_add_weak_pointer (G_OBJECT (client->priv->connection),
+                                   (gpointer *)
+                                   &client->priv->connection);
+
  out:
-        return client->priv->connection != NULL;
+        return client->priv->connection;
 }
 
 static void
@@ -534,71 +510,50 @@ on_got_manager_for_opening_connection (GdmClient           *client,
                                        GTask               *task)
 {
         GCancellable *cancellable;
+        GdmManager   *manager;
         GError       *error;
 
         error = NULL;
-        if (!g_task_propagate_boolean (G_TASK (result), &error)) {
+        manager = g_task_propagate_pointer (G_TASK (result), &error);
+        if (manager == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
         }
 
         cancellable = g_task_get_cancellable (task);
-        gdm_manager_call_open_session (client->priv->manager,
+        gdm_manager_call_open_session (manager,
                                        cancellable,
                                        (GAsyncReadyCallback)
                                        on_session_opened,
                                        task);
 }
 
-static void
-finish_pending_opens (GdmClient *client,
-                      GError    *error)
+static GDBusConnection *
+gdm_client_get_connection_finish (GdmClient      *client,
+                                  GAsyncResult   *result,
+                                  GError        **error)
 {
-    GList *node;
-
-    for (node = client->priv->pending_opens;
-         node != NULL;
-         node = node->next) {
-
-        GTask *task = node->data;
-
-        g_task_return_error (task, error);
-        g_object_unref (task);
-    }
-    g_clear_pointer (&client->priv->pending_opens,
-                     (GDestroyNotify) g_list_free);
-}
-
-static gboolean
-gdm_client_open_connection_finish (GdmClient      *client,
-                                   GAsyncResult   *result,
-                                   GError        **error)
-{
-        g_autoptr(GDBusConnection) connection = NULL;
+        GDBusConnection *connection = NULL;
 
         g_return_val_if_fail (GDM_IS_CLIENT (client), FALSE);
 
         connection = g_task_propagate_pointer (G_TASK (result), error);
         if (connection == NULL) {
-                finish_pending_opens (client, *error);
-                return FALSE;
+                return NULL;
         }
 
         if (client->priv->connection == NULL) {
-                client->priv->connection = g_steal_pointer (&connection);
+                client->priv->connection = connection;
                 g_object_add_weak_pointer (G_OBJECT (client->priv->connection),
                                            (gpointer *) &client->priv->connection);
-        } else if (client->priv->connection == connection) {
-                connection = NULL;
         }
 
-        finish_pending_opens (client, NULL);
-        return TRUE;
+        return g_object_ref (connection);
 }
 
 static void
-gdm_client_open_connection (GdmClient           *client,
+gdm_client_get_connection (GdmClient           *client,
                             GCancellable        *cancellable,
                             GAsyncReadyCallback  callback,
                             gpointer             user_data)
@@ -620,17 +575,11 @@ gdm_client_open_connection (GdmClient           *client,
             return;
         }
 
-        if (client->priv->pending_opens == NULL) {
-            get_manager (client,
-                         cancellable,
-                         (GAsyncReadyCallback)
-                         on_got_manager_for_opening_connection,
-                         task);
-        } else {
-                client->priv->pending_opens = g_list_prepend (client->priv->pending_opens,
-                                                              task);
-        }
-
+        get_manager (client,
+                     cancellable,
+                     (GAsyncReadyCallback)
+                     on_got_manager_for_opening_connection,
+                     task);
 }
 
 /**
@@ -654,28 +603,25 @@ gdm_client_open_reauthentication_channel_sync (GdmClient     *client,
                                                GError       **error)
 {
         GDBusConnection *connection;
+        g_autoptr(GdmManager) manager = NULL;
         GdmUserVerifier *user_verifier = NULL;
         gboolean         ret;
         char            *address;
 
         g_return_val_if_fail (GDM_IS_CLIENT (client), FALSE);
 
-        if (client->priv->manager == NULL) {
-                client->priv->manager = gdm_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                                            G_DBUS_PROXY_FLAGS_NONE,
-                                                                            "org.gnome.DisplayManager",
-                                                                            "/org/gnome/DisplayManager/Manager",
-                                                                            cancellable,
-                                                                            error);
+        manager = gdm_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                      G_DBUS_PROXY_FLAGS_NONE,
+                                                      "org.gnome.DisplayManager",
+                                                      "/org/gnome/DisplayManager/Manager",
+                                                      cancellable,
+                                                      error);
 
-                if (client->priv->manager == NULL) {
-                        goto out;
-                }
-        } else {
-                client->priv->manager = g_object_ref (client->priv->manager);
+        if (manager == NULL) {
+                goto out;
         }
 
-        ret = gdm_manager_call_open_reauthentication_channel_sync (client->priv->manager,
+        ret = gdm_manager_call_open_reauthentication_channel_sync (manager,
                                                                    username,
                                                                    &address,
                                                                    cancellable,
@@ -705,18 +651,6 @@ gdm_client_open_reauthentication_channel_sync (GdmClient     *client,
                                                           SESSION_DBUS_PATH,
                                                           cancellable,
                                                           error);
-
-        if (user_verifier != NULL) {
-                g_object_weak_ref (G_OBJECT (user_verifier),
-                                   (GWeakNotify)
-                                   g_object_unref,
-                                   connection);
-
-                g_object_weak_ref (G_OBJECT (user_verifier),
-                                   (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->manager);
-        }
 
  out:
         return user_verifier;
@@ -799,15 +733,19 @@ gdm_client_get_user_verifier_sync (GdmClient     *client,
                                    GCancellable  *cancellable,
                                    GError       **error)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
+
         if (client->priv->user_verifier != NULL) {
                 return g_object_ref (client->priv->user_verifier);
         }
 
-        if (!gdm_client_open_connection_sync (client, cancellable, error)) {
+        connection = gdm_client_get_connection_sync (client, cancellable, error);
+
+        if (connection == NULL) {
                 return NULL;
         }
 
-        client->priv->user_verifier = gdm_user_verifier_proxy_new_sync (client->priv->connection,
+        client->priv->user_verifier = gdm_user_verifier_proxy_new_sync (connection,
                                                                         G_DBUS_PROXY_FLAGS_NONE,
                                                                         NULL,
                                                                         SESSION_DBUS_PATH,
@@ -818,15 +756,6 @@ gdm_client_get_user_verifier_sync (GdmClient     *client,
                 g_object_add_weak_pointer (G_OBJECT (client->priv->user_verifier),
                                            (gpointer *)
                                            &client->priv->user_verifier);
-                g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
-                                   (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->manager);
-                g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
-                                   (GWeakNotify)
-                                   g_object_unref,
-                                   client->priv->connection);
-
                 if (client->priv->enabled_extensions != NULL) {
                         gboolean res;
 
@@ -865,22 +794,25 @@ gdm_client_get_user_verifier_sync (GdmClient     *client,
 }
 
 static void
-on_connection_opened_for_user_verifier (GdmClient          *client,
-                                        GAsyncResult       *result,
-                                        GTask              *task)
+on_connection_for_user_verifier (GdmClient          *client,
+                                 GAsyncResult       *result,
+                                 GTask              *task)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
         GCancellable *cancellable;
         GError       *error;
 
         error = NULL;
-        if (!gdm_client_open_connection_finish (client, result, &error)) {
+        connection = gdm_client_get_connection_finish (client, result, &error);
+
+        if (connection == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
         }
 
         cancellable = g_task_get_cancellable (task);
-        gdm_user_verifier_proxy_new (client->priv->connection,
+        gdm_user_verifier_proxy_new (connection,
                                      G_DBUS_PROXY_FLAGS_NONE,
                                      NULL,
                                      SESSION_DBUS_PATH,
@@ -923,10 +855,10 @@ gdm_client_get_user_verifier (GdmClient           *client,
                 return;
         }
 
-        gdm_client_open_connection (client,
+        gdm_client_get_connection (client,
                                     cancellable,
                                     (GAsyncReadyCallback)
-                                    on_connection_opened_for_user_verifier,
+                                    on_connection_for_user_verifier,
                                     task);
 }
 
@@ -962,16 +894,6 @@ gdm_client_get_user_verifier_finish (GdmClient       *client,
         g_object_add_weak_pointer (G_OBJECT (client->priv->user_verifier),
                                    (gpointer *)
                                    &client->priv->user_verifier);
-
-        g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
-                           (GWeakNotify)
-                           g_object_unref,
-                           client->priv->connection);
-
-        g_object_weak_ref (G_OBJECT (client->priv->user_verifier),
-                           (GWeakNotify)
-                           g_clear_object,
-                           &client->priv->manager);
 
         return user_verifier;
 }
@@ -1040,22 +962,25 @@ on_greeter_proxy_created (GObject            *source,
 }
 
 static void
-on_connection_opened_for_greeter (GdmClient          *client,
-                                  GAsyncResult       *result,
-                                  GTask              *task)
+on_connection_for_greeter (GdmClient          *client,
+                           GAsyncResult       *result,
+                           GTask              *task)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
         GCancellable *cancellable;
         GError       *error;
 
         error = NULL;
-        if (!gdm_client_open_connection_finish (client, result, &error)) {
+        connection = gdm_client_get_connection_finish (client, result, &error);
+
+        if (connection == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
         }
 
         cancellable = g_task_get_cancellable (task);
-        gdm_greeter_proxy_new (client->priv->connection,
+        gdm_greeter_proxy_new (connection,
                                G_DBUS_PROXY_FLAGS_NONE,
                                NULL,
                                SESSION_DBUS_PATH,
@@ -1098,10 +1023,10 @@ gdm_client_get_greeter (GdmClient           *client,
                 return;
         }
 
-        gdm_client_open_connection (client,
+        gdm_client_get_connection (client,
                                     cancellable,
                                     (GAsyncReadyCallback)
-                                    on_connection_opened_for_greeter,
+                                    on_connection_for_greeter,
                                     task);
 }
 
@@ -1138,16 +1063,6 @@ gdm_client_get_greeter_finish (GdmClient       *client,
                                    (gpointer *)
                                    &client->priv->greeter);
 
-        g_object_weak_ref (G_OBJECT (client->priv->greeter),
-                           (GWeakNotify)
-                           g_object_unref,
-                           client->priv->connection);
-
-        g_object_weak_ref (G_OBJECT (client->priv->greeter),
-                           (GWeakNotify)
-                           g_clear_object,
-                           &client->priv->manager);
-
         return greeter;
 }
 
@@ -1169,15 +1084,19 @@ gdm_client_get_greeter_sync (GdmClient     *client,
                              GCancellable  *cancellable,
                              GError       **error)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
+
         if (client->priv->greeter != NULL) {
                 return g_object_ref (client->priv->greeter);
         }
 
-        if (!gdm_client_open_connection_sync (client, cancellable, error)) {
+        connection = gdm_client_get_connection_sync (client, cancellable, error);
+
+        if (connection == NULL) {
                 return NULL;
         }
 
-        client->priv->greeter = gdm_greeter_proxy_new_sync (client->priv->connection,
+        client->priv->greeter = gdm_greeter_proxy_new_sync (connection,
                                                             G_DBUS_PROXY_FLAGS_NONE,
                                                             NULL,
                                                             SESSION_DBUS_PATH,
@@ -1188,14 +1107,6 @@ gdm_client_get_greeter_sync (GdmClient     *client,
                 g_object_add_weak_pointer (G_OBJECT (client->priv->greeter),
                                            (gpointer *)
                                            &client->priv->greeter);
-                g_object_weak_ref (G_OBJECT (client->priv->greeter),
-                                   (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->manager);
-                g_object_weak_ref (G_OBJECT (client->priv->greeter),
-                                   (GWeakNotify)
-                                   g_object_unref,
-                                   client->priv->connection);
 
                 query_for_timed_login_requested_signal (client->priv->greeter);
         }
@@ -1225,22 +1136,25 @@ on_remote_greeter_proxy_created (GObject            *object,
 }
 
 static void
-on_connection_opened_for_remote_greeter (GdmClient          *client,
-                                         GAsyncResult       *result,
-                                         GTask              *task)
+on_connection_for_remote_greeter (GdmClient          *client,
+                                  GAsyncResult       *result,
+                                  GTask              *task)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
         GCancellable *cancellable;
         GError       *error;
 
         error = NULL;
-        if (!gdm_client_open_connection_finish (client, result, &error)) {
+        connection = gdm_client_get_connection_finish (client, result, &error);
+
+        if (connection == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
         }
 
         cancellable = g_task_get_cancellable (task);
-        gdm_remote_greeter_proxy_new (client->priv->connection,
+        gdm_remote_greeter_proxy_new (connection,
                                       G_DBUS_PROXY_FLAGS_NONE,
                                       NULL,
                                       SESSION_DBUS_PATH,
@@ -1283,10 +1197,10 @@ gdm_client_get_remote_greeter (GdmClient           *client,
                 return;
         }
 
-        gdm_client_open_connection (client,
+        gdm_client_get_connection (client,
                                     cancellable,
                                     (GAsyncReadyCallback)
-                                    on_connection_opened_for_remote_greeter,
+                                    on_connection_for_remote_greeter,
                                     task);
 }
 
@@ -1323,16 +1237,6 @@ gdm_client_get_remote_greeter_finish (GdmClient     *client,
                                    (gpointer *)
                                    &client->priv->remote_greeter);
 
-        g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
-                           (GWeakNotify)
-                           g_object_unref,
-                           client->priv->connection);
-
-        g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
-                           (GWeakNotify)
-                           g_clear_object,
-                           &client->priv->manager);
-
         return remote_greeter;
 }
 
@@ -1353,15 +1257,19 @@ gdm_client_get_remote_greeter_sync (GdmClient     *client,
                                     GCancellable  *cancellable,
                                     GError       **error)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
+
         if (client->priv->remote_greeter != NULL) {
                 return g_object_ref (client->priv->remote_greeter);
         }
 
-        if (!gdm_client_open_connection_sync (client, cancellable, error)) {
+        connection = gdm_client_get_connection_sync (client, cancellable, error);
+
+        if (connection == NULL) {
                 return NULL;
         }
 
-        client->priv->remote_greeter = gdm_remote_greeter_proxy_new_sync (client->priv->connection,
+        client->priv->remote_greeter = gdm_remote_greeter_proxy_new_sync (connection,
                                                                           G_DBUS_PROXY_FLAGS_NONE,
                                                                           NULL,
                                                                           SESSION_DBUS_PATH,
@@ -1372,14 +1280,6 @@ gdm_client_get_remote_greeter_sync (GdmClient     *client,
                 g_object_add_weak_pointer (G_OBJECT (client->priv->remote_greeter),
                                            (gpointer *)
                                            &client->priv->remote_greeter);
-                g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
-                                   (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->manager);
-                g_object_weak_ref (G_OBJECT (client->priv->remote_greeter),
-                                   (GWeakNotify)
-                                   g_object_unref,
-                                   client->priv->connection);
         }
 
         return client->priv->remote_greeter;
@@ -1407,22 +1307,25 @@ on_chooser_proxy_created (GObject            *source,
 }
 
 static void
-on_connection_opened_for_chooser (GdmClient          *client,
-                                  GAsyncResult       *result,
-                                  GTask              *task)
+on_connection_for_chooser (GdmClient          *client,
+                           GAsyncResult       *result,
+                           GTask              *task)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
         GCancellable *cancellable;
         GError       *error;
 
         error = NULL;
-        if (!gdm_client_open_connection_finish (client, result, &error)) {
+        connection = gdm_client_get_connection_finish (client, result, &error);
+
+        if (connection == NULL) {
                 g_task_return_error (task, error);
                 g_object_unref (task);
                 return;
         }
 
         cancellable = g_task_get_cancellable (task);
-        gdm_chooser_proxy_new (client->priv->connection,
+        gdm_chooser_proxy_new (connection,
                                G_DBUS_PROXY_FLAGS_NONE,
                                NULL,
                                SESSION_DBUS_PATH,
@@ -1465,10 +1368,10 @@ gdm_client_get_chooser (GdmClient           *client,
                 return;
         }
 
-        gdm_client_open_connection (client,
+        gdm_client_get_connection (client,
                                     cancellable,
                                     (GAsyncReadyCallback)
-                                    on_connection_opened_for_chooser,
+                                    on_connection_for_chooser,
                                     task);
 }
 
@@ -1505,16 +1408,6 @@ gdm_client_get_chooser_finish (GdmClient       *client,
                                    (gpointer *)
                                    &client->priv->chooser);
 
-        g_object_weak_ref (G_OBJECT (client->priv->chooser),
-                           (GWeakNotify)
-                           g_object_unref,
-                           client->priv->connection);
-
-        g_object_weak_ref (G_OBJECT (client->priv->chooser),
-                           (GWeakNotify)
-                           g_clear_object,
-                           &client->priv->manager);
-
         return chooser;
 }
 
@@ -1535,16 +1428,19 @@ gdm_client_get_chooser_sync (GdmClient     *client,
                              GCancellable  *cancellable,
                              GError       **error)
 {
+        g_autoptr(GDBusConnection) connection = NULL;
 
         if (client->priv->chooser != NULL) {
                 return g_object_ref (client->priv->chooser);
         }
 
-        if (!gdm_client_open_connection_sync (client, cancellable, error)) {
+        connection = gdm_client_get_connection_sync (client, cancellable, error);
+
+        if (connection == NULL) {
                 return NULL;
         }
 
-        client->priv->chooser = gdm_chooser_proxy_new_sync (client->priv->connection,
+        client->priv->chooser = gdm_chooser_proxy_new_sync (connection,
                                                             G_DBUS_PROXY_FLAGS_NONE,
                                                             NULL,
                                                             SESSION_DBUS_PATH,
@@ -1555,14 +1451,6 @@ gdm_client_get_chooser_sync (GdmClient     *client,
                 g_object_add_weak_pointer (G_OBJECT (client->priv->chooser),
                                            (gpointer *)
                                            &client->priv->chooser);
-                g_object_weak_ref (G_OBJECT (client->priv->chooser),
-                                   (GWeakNotify)
-                                   g_clear_object,
-                                   &client->priv->manager);
-                g_object_weak_ref (G_OBJECT (client->priv->chooser),
-                                   (GWeakNotify)
-                                   g_object_unref,
-                                   client->priv->connection);
         }
 
         return client->priv->chooser;
@@ -1628,7 +1516,6 @@ gdm_client_finalize (GObject *object)
                                               &client->priv->connection);
         }
 
-        g_clear_object (&client->priv->manager);
         g_clear_object (&client->priv->connection);
 
         g_strfreev (client->priv->enabled_extensions);
