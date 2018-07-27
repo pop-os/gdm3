@@ -64,14 +64,6 @@ ucfr gdm3 /etc/gdm3/greeter.dconf-defaults
 # debconf hangs if gdm3 gets started below without this
 db_stop || true
 
-# Setup pulseaudio to run as user service
-UNIT=/usr/lib/systemd/user/pulseaudio.socket
-USERUNITDIR=/var/lib/gdm3/.config/systemd/user
-if ! [ -L $USERUNITDIR/sockets.target.wants/pulseaudio.socket ]; then
-  mkdir -p $USERUNITDIR/sockets.target.wants
-  ln -sf $UNIT $USERUNITDIR/sockets.target.wants
-fi
-
 chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
 if [ -L /etc/pam.d/gdm-welcome ]; then
