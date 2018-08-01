@@ -1,3 +1,13 @@
+gdm3 (3.28.2-0ubuntu1.4) bionic-security; urgency=medium
+
+  * SECURITY UPDATE: Use-after-free of disposed transient displays
+    - d/p/0001-display-store-Pass-the-display-object-rather-than-th.patch:
+      display-store: Pass the display object rather than the id in the removed
+      signal
+    - CVE-2018-14424
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Wed, 01 Aug 2018 15:11:08 +0100
+
 gdm3 (3.28.2-0ubuntu1.3) bionic; urgency=medium
 
   * debian/patches/daemon-gdm-session-record.c-open-close-the-utmp-database.patch:
