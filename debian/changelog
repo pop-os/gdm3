@@ -1,3 +1,10 @@
+gdm3 (3.28.2-3ubuntu4) UNRELEASED; urgency=medium
+
+  * ubuntu_nvidia_prime.patch:
+    - Run scripts for Prime before and after Gdm sessions (LP: #1778011).
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 30 Jul 2018 18:31:17 +0200
+
 gdm3 (3.28.2-3ubuntu2) cosmic; urgency=medium
 
   * debian/patches/unblock-sigusr1.patch:
