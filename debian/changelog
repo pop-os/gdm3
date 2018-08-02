@@ -1,4 +1,4 @@
-gdm3 (3.28.2-3ubuntu4) UNRELEASED; urgency=medium
+gdm3 (3.28.2-3ubuntu4) cosmic; urgency=medium
 
   * ubuntu_nvidia_prime.patch:
     - Run scripts for Prime before and after Gdm sessions (LP: #1778011).
