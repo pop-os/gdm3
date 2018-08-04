@@ -103,4 +103,4 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
-	rm -f data/gdm.schemas
+	rm -f data/gdm.schemas data/61-gdm.rules
