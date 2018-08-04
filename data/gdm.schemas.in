@@ -15,12 +15,12 @@
     <schema>
       <key>daemon/User</key>
       <signature>s</signature>
-      <default>gdm</default>
+      <default>@GDM_USERNAME@</default>
     </schema>
     <schema>
       <key>daemon/Group</key>
       <signature>s</signature>
-      <default>gdm</default>
+      <default>@GDM_GROUPNAME@</default>
     </schema>
     <schema>
       <key>daemon/AutomaticLoginEnable</key>
@@ -127,7 +127,8 @@
     <schema>
       <key>xdmcp/Willing</key>
       <signature>s</signature>
-      <default>/etc/gdm/Xwilling</default>
+      <default>@gdmconfdir@/Xwilling</default>
     </schema>
   </schemalist>
 </gdmschemafile>
+

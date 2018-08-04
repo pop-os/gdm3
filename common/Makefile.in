@@ -93,10 +93,14 @@ host_triplet = @host@
 noinst_PROGRAMS = test-log$(EXEEXT) $(am__EXEEXT_1)
 subdir = common
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
-	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
-	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
-	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
+	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
+	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
+	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -109,16 +113,7 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libgdmcommon_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-am__libgdmcommon_la_SOURCES_DIST = gdm-address.h gdm-address.c \
-	gdm-common.h gdm-common.c gdm-profile.c gdm-profile.h \
-	gdm-settings.c gdm-settings.h gdm-settings-backend.c \
-	gdm-settings-backend.h gdm-settings-desktop-backend.c \
-	gdm-settings-desktop-backend.h gdm-settings-keys.h \
-	gdm-settings-utils.h gdm-settings-utils.c \
-	gdm-settings-direct.c gdm-settings-direct.h gdm-log.h \
-	gdm-log.c mkdtemp.c mkdtemp.h
-@MKDTEMP_MISSING_TRUE@am__objects_1 = libgdmcommon_la-mkdtemp.lo
-am__objects_2 =
+am__objects_1 =
 am_libgdmcommon_la_OBJECTS = libgdmcommon_la-gdm-address.lo \
 	libgdmcommon_la-gdm-common.lo libgdmcommon_la-gdm-profile.lo \
 	libgdmcommon_la-gdm-settings.lo \
@@ -126,7 +121,7 @@ am_libgdmcommon_la_OBJECTS = libgdmcommon_la-gdm-address.lo \
 	libgdmcommon_la-gdm-settings-desktop-backend.lo \
 	libgdmcommon_la-gdm-settings-utils.lo \
 	libgdmcommon_la-gdm-settings-direct.lo \
-	libgdmcommon_la-gdm-log.lo $(am__objects_1) $(am__objects_2)
+	libgdmcommon_la-gdm-log.lo $(am__objects_1)
 libgdmcommon_la_OBJECTS = $(am_libgdmcommon_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -138,7 +133,7 @@ libgdmcommon_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(LDFLAGS) -o $@
 am__EXEEXT_1 =
 PROGRAMS = $(noinst_PROGRAMS)
-am_test_log_OBJECTS = test-log.$(OBJEXT) $(am__objects_2)
+am_test_log_OBJECTS = test-log.$(OBJEXT) $(am__objects_1)
 test_log_OBJECTS = $(am_test_log_OBJECTS)
 test_log_DEPENDENCIES = libgdmcommon.la $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -177,7 +172,7 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libgdmcommon_la_SOURCES) $(test_log_SOURCES)
-DIST_SOURCES = $(am__libgdmcommon_la_SOURCES_DIST) $(test_log_SOURCES)
+DIST_SOURCES = $(libgdmcommon_la_SOURCES) $(test_log_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -234,7 +229,6 @@ CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
-ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
@@ -302,10 +296,12 @@ GDM_SESSION_DEFAULT_PATH = @GDM_SESSION_DEFAULT_PATH@
 GDM_USERNAME = @GDM_USERNAME@
 GDM_WORKING_DIR = @GDM_WORKING_DIR@
 GDM_XAUTH_DIR = @GDM_XAUTH_DIR@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
+GMSGFMT_015 = @GMSGFMT_015@
 GNOME_SETTINGS_DAEMON_DIR = @GNOME_SETTINGS_DAEMON_DIR@
 GREP = @GREP@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
@@ -320,14 +316,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
-INTLTOOL_MERGE = @INTLTOOL_MERGE@
-INTLTOOL_PERL = @INTLTOOL_PERL@
-INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
-INTLTOOL_V_MERGE = @INTLTOOL_V_MERGE@
-INTLTOOL_V_MERGE_OPTIONS = @INTLTOOL_V_MERGE_OPTIONS@
-INTLTOOL__v_MERGE_ = @INTLTOOL__v_MERGE_@
-INTLTOOL__v_MERGE_0 = @INTLTOOL__v_MERGE_0@
+INTLLIBS = @INTLLIBS@
+INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 INTROSPECTION_CFLAGS = @INTROSPECTION_CFLAGS@
 INTROSPECTION_COMPILER = @INTROSPECTION_COMPILER@
 INTROSPECTION_GENERATE = @INTROSPECTION_GENERATE@
@@ -349,6 +339,8 @@ LIBEXECDIR = @LIBEXECDIR@
 LIBGDM_CFLAGS = @LIBGDM_CFLAGS@
 LIBGDM_GIR_INCLUDES = @LIBGDM_GIR_INCLUDES@
 LIBGDM_LIBS = @LIBGDM_LIBS@
+LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBSELINUX_CFLAGS = @LIBSELINUX_CFLAGS@
@@ -358,6 +350,8 @@ LIBWRAP_LIBS = @LIBWRAP_LIBS@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LOCALSTATEDIR = @LOCALSTATEDIR@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 LT_AGE = @LT_AGE@
 LT_CURRENT = @LT_CURRENT@
@@ -368,6 +362,7 @@ MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
+MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
 NM = @NM@
 NMEDIT = @NMEDIT@
@@ -393,6 +388,7 @@ PLUGIN_LIBTOOL_FLAGS = @PLUGIN_LIBTOOL_FLAGS@
 PLYMOUTH_CFLAGS = @PLYMOUTH_CFLAGS@
 PLYMOUTH_LIBS = @PLYMOUTH_LIBS@
 PLYMOUTH_QUIT_SERVICE = @PLYMOUTH_QUIT_SERVICE@
+POSUB = @POSUB@
 RANLIB = @RANLIB@
 RBAC_LIBS = @RBAC_LIBS@
 SBINDIR = @SBINDIR@
@@ -414,6 +410,8 @@ WARN_CFLAGS = @WARN_CFLAGS@
 XDMCP_LIBS = @XDMCP_LIBS@
 XEVIE_OPTION = @XEVIE_OPTION@
 XGETTEXT = @XGETTEXT@
+XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 XINERAMA_LIBS = @XINERAMA_LIBS@
 XLIB_CFLAGS = @XLIB_CFLAGS@
 XLIB_LIBS = @XLIB_LIBS@
@@ -467,8 +465,6 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
-intltool__v_merge_options_ = @intltool__v_merge_options_@
-intltool__v_merge_options_0 = @intltool__v_merge_options_0@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
@@ -522,8 +518,6 @@ noinst_LTLIBRARIES = \
 
 gdmdir = $(datadir)/gdm
 gdm_DATA = gdb-cmd
-@MKDTEMP_MISSING_FALSE@MKDTEMP_FILES = 
-@MKDTEMP_MISSING_TRUE@MKDTEMP_FILES = mkdtemp.c mkdtemp.h
 libgdmcommon_la_SOURCES = \
 	gdm-address.h		\
 	gdm-address.c		\
@@ -544,7 +538,6 @@ libgdmcommon_la_SOURCES = \
 	gdm-settings-direct.h	\
 	gdm-log.h		\
 	gdm-log.c		\
-	$(MKDTEMP_FILES) 	\
 	$(NULL)
 
 libgdmcommon_la_CPPFLAGS = \
@@ -575,8 +568,6 @@ test_log_LDADD = \
 	$(NULL)
 
 EXTRA_DIST = \
-	mkdtemp.c 		\
-	mkdtemp.h		\
 	$(gdm_DATA)		\
 	$(NULL)
 
@@ -593,9 +584,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu common/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign common/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu common/Makefile
+	  $(AUTOMAKE) --foreign common/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -656,7 +647,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgdmcommon_la-gdm-settings-direct.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgdmcommon_la-gdm-settings-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgdmcommon_la-gdm-settings.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgdmcommon_la-mkdtemp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-log.Po@am__quote@
 
 .c.o:
@@ -742,13 +732,6 @@ libgdmcommon_la-gdm-log.lo: gdm-log.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gdm-log.c' object='libgdmcommon_la-gdm-log.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgdmcommon_la_CPPFLAGS) $(CPPFLAGS) $(libgdmcommon_la_CFLAGS) $(CFLAGS) -c -o libgdmcommon_la-gdm-log.lo `test -f 'gdm-log.c' || echo '$(srcdir)/'`gdm-log.c
-
-libgdmcommon_la-mkdtemp.lo: mkdtemp.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgdmcommon_la_CPPFLAGS) $(CPPFLAGS) $(libgdmcommon_la_CFLAGS) $(CFLAGS) -MT libgdmcommon_la-mkdtemp.lo -MD -MP -MF $(DEPDIR)/libgdmcommon_la-mkdtemp.Tpo -c -o libgdmcommon_la-mkdtemp.lo `test -f 'mkdtemp.c' || echo '$(srcdir)/'`mkdtemp.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgdmcommon_la-mkdtemp.Tpo $(DEPDIR)/libgdmcommon_la-mkdtemp.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mkdtemp.c' object='libgdmcommon_la-mkdtemp.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgdmcommon_la_CPPFLAGS) $(CPPFLAGS) $(libgdmcommon_la_CFLAGS) $(CFLAGS) -c -o libgdmcommon_la-mkdtemp.lo `test -f 'mkdtemp.c' || echo '$(srcdir)/'`mkdtemp.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

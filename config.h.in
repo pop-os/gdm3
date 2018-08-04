@@ -49,21 +49,18 @@
 #undef HAVE_LOGWTMP
 
 
-/* Define this variable if the code to use the setpenv function can be
-   compiled and used */
-#undef CAN_USE_SETPENV
-
 /* Define if we have ipv6 */
 #undef ENABLE_IPV6
+
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#undef ENABLE_NLS
 
 /* enable profiling */
 #undef ENABLE_PROFILING
 
 /* Set if we build with RBAC support */
 #undef ENABLE_RBAC_SHUTDOWN
-
-/* Define if split authentication is enabled */
-#undef ENABLE_SPLIT_AUTHENTICATION
 
 /* Define to enable systemd journal support */
 #undef ENABLE_SYSTEMD_JOURNAL
@@ -98,20 +95,35 @@
 /* Define if have adt */
 #undef HAVE_ADT
 
+/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+#undef HAVE_CFLOCALECOPYCURRENT
+
+/* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+#undef HAVE_CFPREFERENCESCOPYAPPVALUE
+
 /* Define to 1 if you have the `clearenv' function. */
 #undef HAVE_CLEARENV
 
 /* Define to 1 if you have the <crt_externs.h> header file. */
 #undef HAVE_CRT_EXTERNS_H
 
+/* Define if the GNU dcgettext() function is already present or preinstalled.
+   */
+#undef HAVE_DCGETTEXT
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if you have the <execinfo.h> header file. */
-#undef HAVE_EXECINFO_H
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#undef HAVE_GETTEXT
 
 /* Define to 1 if you have the `getutxent' function. */
 #undef HAVE_GETUTXENT
+
+/* Define if you have the iconv() function and it works. */
+#undef HAVE_ICONV
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
@@ -121,9 +133,6 @@
 
 /* linux audit support */
 #undef HAVE_LIBAUDIT
-
-/* Define if we have libgen.h */
-#undef HAVE_LIBGEN_H
 
 /* Define to 1 if you have the <libutil.h> header file. */
 #undef HAVE_LIBUTIL_H
@@ -145,9 +154,6 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
-
-/* Have GlibC function to make temp dirs */
-#undef HAVE_MKDTEMP
 
 /* Have non-POSIX function getpwnam_r */
 #undef HAVE_NONPOSIX_GETPWNAM_R
@@ -278,14 +284,8 @@
 /* Define if have xfree xinerama */
 #undef HAVE_XFREE_XINERAMA
 
-/* Define if Xft functionality is available */
-#undef HAVE_XFT2
-
 /* Define if have xinerama */
 #undef HAVE_XINERAMA
-
-/* Define if have xinput */
-#undef HAVE_XINPUT
 
 /* XServer disables tcp access by default */
 #undef HAVE_XSERVER_THAT_DEFAULTS_TO_LOCAL_ONLY
