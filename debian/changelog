@@ -1,6 +1,7 @@
 gdm3 (3.29.90-1) UNRELEASED; urgency=medium
 
   * New upstream development release
+    - Unblock SIGUSR1 before PAM (Closes: #905277, LP: #1782152)
   * Rebase patch series
     - Drop patches from 3.28.2-2 and 3.28.2-3, applied upstream
   * Bump GLib build-dependency to 2.44 as per configure.ac
