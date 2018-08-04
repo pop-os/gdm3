@@ -4,6 +4,7 @@ Subject: reinstate Xorg.N.log at Xorg maintainers' request
 
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
 Forwarded: no
+Origin: vendor, Debian
 ---
  daemon/gdm-server.c | 10 ++++++----
  1 file changed, 6 insertions(+), 4 deletions(-)

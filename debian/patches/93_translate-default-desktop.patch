@@ -3,6 +3,7 @@ Date: Sat, 4 Aug 2018 21:08:27 +0100
 Subject: Fix 'make check' in po/
 
 Forwarded: not-needed
+Origin: vendor, Debian
 ---
  po/POTFILES.skip | 1 +
  1 file changed, 1 insertion(+)

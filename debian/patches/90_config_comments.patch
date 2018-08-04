@@ -1,3 +1,20 @@
+From: Josselin Mouette <joss@debian.org>
+Date: Wed, 6 Oct 2010 00:10:48 +0200
+Subject: Add some comments in the daemon.conf file to explain the available
+ options
+
+Thanks to Joey Hess.
+
+Last-Update: 2016-03-15 by Andreas Henriksson
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=598666
+Origin: vendor, Debian
+Forwarded: no
+---
+ data/gdm.conf-custom.in | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/data/gdm.conf-custom.in b/data/gdm.conf-custom.in
+index 9b63ba9..b6ba63c 100644
 --- a/data/gdm.conf-custom.in
 +++ b/data/gdm.conf-custom.in
 @@ -1,9 +1,20 @@
@@ -6,7 +23,7 @@
 +# See /usr/share/gdm/gdm.schemas for a list of available options.
  
  [daemon]
- # Uncoment the line below to force the login screen to use Xorg
+ # Uncomment the line below to force the login screen to use Xorg
  #WaylandEnable=false
  
 +# Enabling automatic login
