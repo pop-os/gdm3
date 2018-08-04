@@ -28,6 +28,8 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#include <systemd/sd-login.h>
+
 #include "gdm-common.h"
 #include "gdm-manager.h"
 #include "gdm-display-factory.h"
@@ -59,6 +61,11 @@ struct GdmLocalDisplayFactoryPrivate
 
         guint            seat_new_id;
         guint            seat_removed_id;
+
+#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+        char            *tty_of_active_vt;
+        guint            active_vt_watch_id;
+#endif
 };
 
 enum {
@@ -185,6 +192,19 @@ store_display (GdmLocalDisplayFactory *factory,
         gdm_display_store_add (store, display);
 }
 
+static gboolean
+gdm_local_display_factory_use_wayland (void)
+{
+#ifdef ENABLE_WAYLAND_SUPPORT
+        gboolean wayland_enabled = FALSE;
+        if (gdm_settings_direct_get_boolean (GDM_KEY_WAYLAND_ENABLE, &wayland_enabled)) {
+                if (wayland_enabled && g_file_test ("/usr/bin/Xwayland", G_FILE_TEST_IS_EXECUTABLE) )
+                        return TRUE;
+        }
+#endif
+        return FALSE;
+}
+
 /*
   Example:
   dbus-send --system --dest=org.gnome.DisplayManager \
@@ -208,6 +228,8 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
 
 #ifdef ENABLE_USER_DISPLAY_SERVER
         display = gdm_local_display_new ();
+        if (gdm_local_display_factory_use_wayland ())
+                g_object_set (G_OBJECT (display), "session-type", "wayland", NULL);
 #else
         if (display == NULL) {
                 guint32 num;
@@ -249,23 +271,22 @@ on_display_status_changed (GdmDisplay             *display,
                            GdmLocalDisplayFactory *factory)
 {
         int              status;
-        GdmDisplayStore *store;
         int              num;
         char            *seat_id = NULL;
         char            *session_type = NULL;
+        char            *session_class = NULL;
         gboolean         is_initial = TRUE;
         gboolean         is_local = TRUE;
 
         num = -1;
         gdm_display_get_x11_display_number (display, &num, NULL);
 
-        store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
-
         g_object_get (display,
                       "seat-id", &seat_id,
                       "is-initial", &is_initial,
                       "is-local", &is_local,
                       "session-type", &session_type,
+                      "session-class", &session_class,
                       NULL);
 
         status = gdm_display_get_status (display);
@@ -278,14 +299,14 @@ on_display_status_changed (GdmDisplay             *display,
                 if (num != -1) {
                         g_hash_table_remove (factory->priv->used_display_numbers, GUINT_TO_POINTER (num));
                 }
-                gdm_display_store_remove (store, display);
+                gdm_display_factory_queue_purge_displays (GDM_DISPLAY_FACTORY (factory));
 
                 /* if this is a local display, do a full resync.  Only
                  * seats without displays will get created anyway.  This
                  * ensures we get a new login screen when the user logs out,
                  * if there isn't one.
                  */
-                if (is_local) {
+                if (is_local && g_strcmp0 (session_class, "greeter") != 0) {
                         /* reset num failures */
                         factory->priv->num_failures = 0;
 
@@ -295,7 +316,7 @@ on_display_status_changed (GdmDisplay             *display,
         case GDM_DISPLAY_FAILED:
                 /* leave the display number in factory->priv->used_display_numbers
                    so that it doesn't get reused */
-                gdm_display_store_remove (store, display);
+                gdm_display_factory_queue_purge_displays (GDM_DISPLAY_FACTORY (factory));
 
                 /* Create a new equivalent display if it was static */
                 if (is_local) {
@@ -330,6 +351,7 @@ on_display_status_changed (GdmDisplay             *display,
 
         g_free (seat_id);
         g_free (session_type);
+        g_free (session_class);
 }
 
 static gboolean
@@ -358,12 +380,33 @@ create_display (GdmLocalDisplayFactory *factory,
 {
         GdmDisplayStore *store;
         GdmDisplay      *display = NULL;
+        char            *active_session_id = NULL;
+        int              ret;
 
-        /* Ensure we don't create the same display more than once */
         store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
-        display = gdm_display_store_find (store, lookup_by_seat_id, (gpointer) seat_id);
-        if (display != NULL) {
-                return NULL;
+
+        ret = sd_seat_get_active (seat_id, &active_session_id, NULL);
+
+        if (ret == 0) {
+                char *login_session_id = NULL;
+
+                /* If we already have a login window, switch to it */
+                if (gdm_get_login_window_session_id (seat_id, &login_session_id)) {
+                        if (g_strcmp0 (active_session_id, login_session_id) != 0) {
+                                gdm_activate_session_by_id (factory->priv->connection, seat_id, login_session_id);
+                        }
+                        g_clear_pointer (&login_session_id, g_free);
+                        g_clear_pointer (&active_session_id, g_free);
+                        return NULL;
+                }
+                g_clear_pointer (&active_session_id, g_free);
+        } else if (!sd_seat_can_multi_session (seat_id)) {
+                /* Ensure we don't create the same display more than once */
+                display = gdm_display_store_find (store, lookup_by_seat_id, (gpointer) seat_id);
+
+                if (display != NULL) {
+                        return NULL;
+                }
         }
 
         g_debug ("GdmLocalDisplayFactory: Adding display on seat %s", seat_id);
@@ -447,14 +490,8 @@ gdm_local_display_factory_sync_seats (GdmLocalDisplayFactory *factory)
 
                 if (g_strcmp0 (seat, "seat0") == 0) {
                         is_initial = TRUE;
-#ifdef ENABLE_WAYLAND_SUPPORT
-                        gboolean wayland_enabled = FALSE;
-                        if (gdm_settings_direct_get_boolean (GDM_KEY_WAYLAND_ENABLE, &wayland_enabled)) {
-                                if (wayland_enabled && g_file_test ("/usr/bin/Xwayland", G_FILE_TEST_IS_EXECUTABLE) ) {
-                                        session_type = "wayland";
-                                }
-                        }
-#endif
+                        if (gdm_local_display_factory_use_wayland ())
+                                session_type = "wayland";
                 } else {
                         is_initial = FALSE;
                 }
@@ -497,9 +534,150 @@ on_seat_removed (GDBusConnection *connection,
         delete_display (GDM_LOCAL_DISPLAY_FACTORY (user_data), seat);
 }
 
+#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+static gboolean
+lookup_by_session_id (const char *id,
+                      GdmDisplay *display,
+                      gpointer    user_data)
+{
+        const char *looking_for = user_data;
+        const char *current;
+
+        current = gdm_display_get_session_id (display);
+        return g_strcmp0 (current, looking_for) == 0;
+}
+
+static void
+maybe_stop_greeter_display (GdmDisplay *display)
+{
+        g_autofree char *display_session_type = NULL;
+
+        if (gdm_display_get_status (display) != GDM_DISPLAY_MANAGED)
+                return;
+
+        g_object_get (G_OBJECT (display),
+                      "session-type", &display_session_type,
+                      NULL);
+
+        /* we can only stop greeter for wayland sessions, since
+         * X server would jump back on exit */
+        if (g_strcmp0 (display_session_type, "wayland") != 0)
+                return;
+
+        gdm_display_stop_greeter_session (display);
+        gdm_display_unmanage (display);
+        gdm_display_finish (display);
+}
+
+static gboolean
+on_vt_changed (GIOChannel    *source,
+               GIOCondition   condition,
+               GdmLocalDisplayFactory *factory)
+{
+        GIOStatus status;
+        static const char *tty_of_initial_vt = "tty" GDM_INITIAL_VT;
+        g_autofree char *tty_of_previous_vt = NULL;
+        g_autofree char *tty_of_active_vt = NULL;
+        g_autofree char *login_session_id = NULL;
+        g_autofree char *active_session_id = NULL;
+        const char *session_type = NULL;
+        int ret;
+
+        g_io_channel_seek_position (source, 0, G_SEEK_SET, NULL);
+
+        if (condition & G_IO_PRI) {
+                g_autoptr (GError) error = NULL;
+                status = g_io_channel_read_line (source, &tty_of_active_vt, NULL, NULL, &error);
+
+                if (error != NULL) {
+                        g_warning ("could not read active VT from kernel: %s", error->message);
+                }
+                switch (status) {
+                        case G_IO_STATUS_ERROR:
+                            return G_SOURCE_REMOVE;
+                        case G_IO_STATUS_EOF:
+                            return G_SOURCE_REMOVE;
+                        case G_IO_STATUS_AGAIN:
+                            return G_SOURCE_CONTINUE;
+                        case G_IO_STATUS_NORMAL:
+                            break;
+                }
+        }
+
+        if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
+                return G_SOURCE_REMOVE;
+
+        if (tty_of_active_vt == NULL)
+                return G_SOURCE_CONTINUE;
+
+        g_strchomp (tty_of_active_vt);
+
+        /* don't do anything if we're on the same VT we were before */
+        if (g_strcmp0 (tty_of_active_vt, factory->priv->tty_of_active_vt) == 0)
+                return G_SOURCE_CONTINUE;
+
+        tty_of_previous_vt = g_steal_pointer (&factory->priv->tty_of_active_vt);
+        factory->priv->tty_of_active_vt = g_steal_pointer (&tty_of_active_vt);
+
+        /* if the old VT was running a wayland login screen kill it
+         */
+        if (gdm_get_login_window_session_id ("seat0", &login_session_id)) {
+                unsigned int vt;
+
+                ret = sd_session_get_vt (login_session_id, &vt);
+                if (ret == 0 && vt != 0) {
+                        g_autofree char *tty_of_login_window_vt = NULL;
+
+                        tty_of_login_window_vt = g_strdup_printf ("tty%u", vt);
+
+                        if (g_strcmp0 (tty_of_login_window_vt, tty_of_previous_vt) == 0) {
+                                GdmDisplayStore *store;
+                                GdmDisplay *display;
+
+                                store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
+                                display = gdm_display_store_find (store,
+                                                                  lookup_by_session_id,
+                                                                  (gpointer) login_session_id);
+
+                                if (display != NULL)
+                                        maybe_stop_greeter_display (display);
+                        }
+                }
+        }
+
+        /* if user jumped back to initial vt and it's empty put a login screen
+         * on it (unless a login screen is already running elsewhere, then
+         * jump to that login screen)
+         */
+        if (strcmp (factory->priv->tty_of_active_vt, tty_of_initial_vt) != 0) {
+                return G_SOURCE_CONTINUE;
+        }
+
+        ret = sd_seat_get_active ("seat0", &active_session_id, NULL);
+
+        if (ret == 0) {
+                g_autofree char *state = NULL;
+                ret = sd_session_get_state (active_session_id, &state);
+
+                /* if there's something already running on the active VT then bail */
+                if (ret == 0 && g_strcmp0 (state, "closing") != 0)
+                        return G_SOURCE_CONTINUE;
+        }
+
+        if (gdm_local_display_factory_use_wayland ())
+                session_type = "wayland";
+
+        create_display (factory, "seat0", session_type, TRUE);
+
+        return G_SOURCE_CONTINUE;
+}
+#endif
+
 static void
 gdm_local_display_factory_start_monitor (GdmLocalDisplayFactory *factory)
 {
+        g_autoptr (GIOChannel) io_channel = NULL;
+
         factory->priv->seat_new_id = g_dbus_connection_signal_subscribe (factory->priv->connection,
                                                                          "org.freedesktop.login1",
                                                                          "org.freedesktop.login1.Manager",
@@ -520,6 +698,19 @@ gdm_local_display_factory_start_monitor (GdmLocalDisplayFactory *factory)
                                                                              on_seat_removed,
                                                                              g_object_ref (factory),
                                                                              g_object_unref);
+
+#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+        io_channel = g_io_channel_new_file ("/sys/class/tty/tty0/active", "r", NULL);
+
+        if (io_channel != NULL) {
+                factory->priv->active_vt_watch_id =
+                        g_io_add_watch (io_channel,
+                                        G_IO_PRI,
+                                        (GIOFunc)
+                                        on_vt_changed,
+                                        factory);
+        }
+#endif
 }
 
 static void
@@ -535,6 +726,14 @@ gdm_local_display_factory_stop_monitor (GdmLocalDisplayFactory *factory)
                                                       factory->priv->seat_removed_id);
                 factory->priv->seat_removed_id = 0;
         }
+#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+        if (factory->priv->active_vt_watch_id) {
+                g_source_remove (factory->priv->active_vt_watch_id);
+                factory->priv->active_vt_watch_id = 0;
+        }
+
+        g_clear_pointer (&factory->priv->tty_of_active_vt, g_free);
+#endif
 }
 
 static void

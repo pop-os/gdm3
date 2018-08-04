@@ -1,12 +1,12 @@
 
 AC_PREREQ([2.60])
 AC_INIT([gdm],
-        [3.29.1],
+        [3.29.90],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gdm])
 
 AC_CONFIG_SRCDIR([daemon/gdm-manager.c])
 
-AM_INIT_AUTOMAKE([1.11.2 no-dist-gzip dist-xz tar-ustar -Wall])
+AM_INIT_AUTOMAKE([1.11.2 no-dist-gzip dist-xz tar-ustar -Wall foreign])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_MAINTAINER_MODE([enable])
 
@@ -50,7 +50,8 @@ enable_documentation=yes
 AM_CONDITIONAL(ENABLE_DOCUMENTATION, test x$enable_documentation = xyes)
 
 # i18n stuff
-IT_PROG_INTLTOOL([0.40.0])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 GETTEXT_PACKAGE=gdm
 AC_SUBST(GETTEXT_PACKAGE)
@@ -60,7 +61,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
-GLIB_REQUIRED_VERSION=2.36.0
+GLIB_REQUIRED_VERSION=2.44.0
 GTK_REQUIRED_VERSION=2.91.1
 LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
 ACCOUNTS_SERVICE_REQUIRED_VERSION=0.6.35
@@ -184,16 +185,6 @@ AC_ARG_ENABLE(gdm-xsession,
                              [Enable installing the gdm Xsession file @<:@default=no@:>@]),,
               enable_gdm_xsession=no)
 AM_CONDITIONAL(ENABLE_GDM_XSESSION, test x$enable_gdm_xsession = xyes)
-
-AC_ARG_ENABLE(split-authentication,
-	      AS_HELP_STRING([--enable-split-authentication],
-                             [Enable multiple simultaneous PAM conversations during login @<:@default=yes@:>@]),,
-              enable_split_authentication=yes)
-AM_CONDITIONAL(ENABLE_SPLIT_AUTHENTICATION, test x$enable_split_authentication = xyes)
-
-if test x$enable_split_authentication = xyes; then
-  AC_DEFINE(ENABLE_SPLIT_AUTHENTICATION, 1, [Define if split authentication is enabled])
-fi
 
 AC_ARG_ENABLE(user-display-server,
 	      AS_HELP_STRING([--enable-user-display-server],
@@ -339,7 +330,6 @@ AC_CHECK_TYPE(socklen_t,,
 #include <sys/socket.h>
 #endif
 )
-AC_CHECK_HEADERS(sys/sockio.h)
 AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
 
 dnl checks needed for Darwin compatibility to linux **environ.
@@ -383,16 +373,6 @@ AC_CHECK_FUNC(sched_yield,[
 AC_CHECK_FUNC(inet_aton,,[
 	      AC_CHECK_LIB(resolv,inet_aton, [
 			   EXTRA_CHOOSER_LIBS="$EXTRA_CHOOSER_LIBS -lresolv"])])
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for mkdtemp
-dnl ---------------------------------------------------------------------------
-
-mkdtemp_missing=false
-AC_CHECK_FUNC(mkdtemp,
-    [AC_DEFINE([HAVE_MKDTEMP], 1, [Have GlibC function to make temp dirs])],
-    mkdtemp_missing=true)
-AM_CONDITIONAL(MKDTEMP_MISSING, test x$mkdtemp_missing = xtrue)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for IPv6
@@ -556,24 +536,6 @@ AC_CHECK_LIB(keyutils, keyctl_read, [
 AC_SUBST(KEYUTILS_LIBS)
 AC_SUBST(KEYUTILS_CFLAGS)
 
-dnl Check if we can use the setpenv function to add specialvariable
-dnl to the environment (such as the /etc/environment file under AIX)
-AC_LINK_IFELSE([
-	AC_LANG_PROGRAM([[
-		#ifdef HAVE_USERSEC_H
-		#include <usersec.h>
-		#endif
-		]],[[
-		return (setpenv(NULL, (PENV_INIT | PENV_NOEXEC), NULL, NULL));
-		]])],
-	can_use_setpenv=yes,
-	can_use_setpenv=no)
-
-if test x$can_use_setpenv = xyes ; then
-	AC_DEFINE(CAN_USE_SETPENV,,[Define this variable if the code to use
-		the setpenv function can be compiled and used])
-fi
-
 #
 # Can we use BSD's setusercontext
 #
@@ -586,12 +548,6 @@ AC_CHECK_HEADER(login_cap.h, [
 #
 AC_CHECK_HEADERS(sys/sockio.h, [
 		 AC_DEFINE(HAVE_SYS_SOCKIO_H, 1, [Define if we have sys/sockio.h])])
-
-#
-# Check for libgen.h
-#
-AC_CHECK_HEADERS(libgen.h, [
-		 AC_DEFINE(HAVE_LIBGEN_H, 1, [Define if we have libgen.h])])
 
 
 dnl ---------------------------------------------------------------------------
@@ -812,46 +768,6 @@ AC_SUBST(LIBWRAP_LIBS)
 
 
 dnl ---------------------------------------------------------------------------
-dnl - Check for XFT2 (for gdm-settings-daemon)
-dnl ---------------------------------------------------------------------------
-
-if $PKG_CONFIG --exists xft ; then
-  AC_DEFINE(HAVE_XFT2,,[Define if Xft functionality is available])
-fi
-
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for Xinput
-dnl ---------------------------------------------------------------------------
-
-have_xinput=
-AC_CHECK_LIB(Xi, XOpenDevice, XINPUT_LIBS=-lXi)
-if test "x$XINPUT_LIBS" = x; then
-  save_LIBS="$LIBS"
-  for xinputpath in $x_libraries /usr/X11R6/lib /usr/openwin/lib; do
-    LIBS="-L$xinputpath -lXi"
-    if test x$os_solaris = xyes ; then
-       XINPUT_RPATH_FLAGS="-R$xinputpath"
-    fi
-    AC_MSG_CHECKING(for -lXi in $xinputpath)
-    AC_TRY_LINK([], [XOpenDevice()], [
-	AC_MSG_RESULT(yes)
-	XINPUT_LIBS="$XINPUT_RPATH_FLAGS -L$xinputpath -lXi"
-        LIBS="$save_LIBS"
-	break],[AC_MSG_RESULT(no)])
-  done
-  if test "x$XINPUT_LIBS" = x; then
-    AC_MSG_ERROR(Couldn't find the XInput library. Check config.log for details)
-  fi
-fi
-AC_CHECK_HEADER(X11/extensions/XInput.h, have_xinput=yes)
-if test "x$have_xinput" = xyes; then
-   AC_DEFINE(HAVE_XINPUT, 1, [Define if have xinput])
-   X_EXTRA_LIBS="$X_EXTRA_LIBS $XINPUT_LIBS"
-fi
-
-
-dnl ---------------------------------------------------------------------------
 dnl - Check for Xinerama
 dnl ---------------------------------------------------------------------------
 
@@ -1040,12 +956,6 @@ AC_SUBST(RBAC_LIBS)
 
 
 dnl ---------------------------------------------------------------------------
-dnl check for backtrace support
-dnl ---------------------------------------------------------------------------
-
-AC_CHECK_HEADERS(execinfo.h)
-
-dnl ---------------------------------------------------------------------------
 dnl check for process control
 dnl ---------------------------------------------------------------------------
 
@@ -1201,12 +1111,6 @@ AC_SUBST(EXTRA_FLEXI_LIBS)
 AC_SUBST(EXTRA_DYNAMIC_LIBS)
 AC_SUBST(EXTRA_SETUP_LIBS)
 AC_SUBST(EXTRA_TEST_LIBS)
-
-# Check for Solaris logindevperm support
-#
-AC_CHECK_LIB(devinfo, di_devperm_login, [
-                        AC_DEFINE(HAVE_LOGINDEVPERM)
-                            PAM_LIBS="$PAM_LIBS -ldevinfo" ])
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for X Server location

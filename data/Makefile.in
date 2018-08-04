@@ -92,10 +92,14 @@ host_triplet = @host@
 @ENABLE_GDM_XSESSION_TRUE@am__append_2 = Xsession
 subdir = data
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
-	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
-	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
-	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
+	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
+	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
+	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -222,7 +226,6 @@ am__relativize = \
   done; \
   reldir="$$dir2"
 ACLOCAL = @ACLOCAL@
-ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
@@ -290,10 +293,12 @@ GDM_SESSION_DEFAULT_PATH = @GDM_SESSION_DEFAULT_PATH@
 GDM_USERNAME = @GDM_USERNAME@
 GDM_WORKING_DIR = @GDM_WORKING_DIR@
 GDM_XAUTH_DIR = @GDM_XAUTH_DIR@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMSGFMT = @GMSGFMT@
+GMSGFMT_015 = @GMSGFMT_015@
 GNOME_SETTINGS_DAEMON_DIR = @GNOME_SETTINGS_DAEMON_DIR@
 GREP = @GREP@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
@@ -308,14 +313,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
-INTLTOOL_MERGE = @INTLTOOL_MERGE@
-INTLTOOL_PERL = @INTLTOOL_PERL@
-INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
-INTLTOOL_V_MERGE = @INTLTOOL_V_MERGE@
-INTLTOOL_V_MERGE_OPTIONS = @INTLTOOL_V_MERGE_OPTIONS@
-INTLTOOL__v_MERGE_ = @INTLTOOL__v_MERGE_@
-INTLTOOL__v_MERGE_0 = @INTLTOOL__v_MERGE_0@
+INTLLIBS = @INTLLIBS@
+INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 INTROSPECTION_CFLAGS = @INTROSPECTION_CFLAGS@
 INTROSPECTION_COMPILER = @INTROSPECTION_COMPILER@
 INTROSPECTION_GENERATE = @INTROSPECTION_GENERATE@
@@ -337,6 +336,8 @@ LIBEXECDIR = @LIBEXECDIR@
 LIBGDM_CFLAGS = @LIBGDM_CFLAGS@
 LIBGDM_GIR_INCLUDES = @LIBGDM_GIR_INCLUDES@
 LIBGDM_LIBS = @LIBGDM_LIBS@
+LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBSELINUX_CFLAGS = @LIBSELINUX_CFLAGS@
@@ -346,6 +347,8 @@ LIBWRAP_LIBS = @LIBWRAP_LIBS@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LOCALSTATEDIR = @LOCALSTATEDIR@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 LT_AGE = @LT_AGE@
 LT_CURRENT = @LT_CURRENT@
@@ -356,6 +359,7 @@ MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
+MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
 NM = @NM@
 NMEDIT = @NMEDIT@
@@ -381,6 +385,7 @@ PLUGIN_LIBTOOL_FLAGS = @PLUGIN_LIBTOOL_FLAGS@
 PLYMOUTH_CFLAGS = @PLYMOUTH_CFLAGS@
 PLYMOUTH_LIBS = @PLYMOUTH_LIBS@
 PLYMOUTH_QUIT_SERVICE = @PLYMOUTH_QUIT_SERVICE@
+POSUB = @POSUB@
 RANLIB = @RANLIB@
 RBAC_LIBS = @RBAC_LIBS@
 SBINDIR = @SBINDIR@
@@ -402,6 +407,8 @@ WARN_CFLAGS = @WARN_CFLAGS@
 XDMCP_LIBS = @XDMCP_LIBS@
 XEVIE_OPTION = @XEVIE_OPTION@
 XGETTEXT = @XGETTEXT@
+XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 XINERAMA_LIBS = @XINERAMA_LIBS@
 XLIB_CFLAGS = @XLIB_CFLAGS@
 XLIB_LIBS = @XLIB_LIBS@
@@ -455,8 +462,6 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
-intltool__v_merge_options_ = @intltool__v_merge_options_@
-intltool__v_merge_options_0 = @intltool__v_merge_options_0@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
@@ -482,12 +487,11 @@ top_srcdir = @top_srcdir@
 NULL = 
 EXTRA_DIST = gnome-login.session.in $(pam_redhat_files) \
 	$(pam_openembedded_files) $(pam_exherbo_files) \
-	$(pam_lfs_files) $(pam_arch_files) $(dconf_db_files) \
-	$(schemas_in_files) $(schemas_DATA) $(dbusconf_in_files) \
-	$(localealias_DATA) $(udevrules_DATA) gdm.schemas.in.in \
-	gdm.conf-custom.in Xsession.in Init.in PreSession.in \
-	PostSession.in PostLogin org.gnome.login-screen.gschema.xml.in \
-	$(NULL) gdm.service.in
+	$(pam_lfs_files) $(pam_arch_files) $(srcdir)/61-gdm.rules.in \
+	$(dconf_db_files) $(gsettings_SCHEMAS) $(schemas_in_files) \
+	$(schemas_DATA) $(dbusconf_in_files) $(localealias_DATA) \
+	$(udevrules_DATA) gdm.conf-custom.in Xsession.in Init.in \
+	PreSession.in PostSession.in PostLogin $(NULL) gdm.service.in
 SUBDIRS = \
 	applications		\
 	autostart		\
@@ -571,8 +575,7 @@ pam_arch_files = pam-arch/gdm-autologin.pam	\
 udevrulesdir = $(prefix)/lib/udev/rules.d
 udevrules_DATA = 61-gdm.rules
 CLEANFILES = Xsession gdm.conf-custom Init PreSession PostSession \
-	$(gsettings_SCHEMAS) greeter-dconf-defaults $(NULL) \
-	gdm.service $(am__append_2)
+	greeter-dconf-defaults $(NULL) gdm.service $(am__append_2)
 DISTCLEANFILES = \
 	$(dbusconf_DATA)		\
 	gdm.schemas			\
@@ -599,9 +602,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu data/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign data/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu data/Makefile
+	  $(AUTOMAKE) --foreign data/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -1107,14 +1110,10 @@ PostSession: $(srcdir)/PostSession.in
 gdm.conf-custom: $(srcdir)/gdm.conf-custom.in
 	sed	-e 's,[@]GDM_DEFAULTS_CONF[@],$(GDM_DEFAULTS_CONF),g' \
 		<$(srcdir)/gdm.conf-custom.in >gdm.conf-custom
-
-@INTLTOOL_SCHEMAS_RULE@
-@INTLTOOL_XML_NOMERGE_RULE@
 greeter-dconf-defaults: $(dconf_db_files)
 	$(AM_V_GEN) dconf compile $@ $(srcdir)/dconf/defaults
 @GSETTINGS_RULES@
-
-gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
+$(schemas_DATA): $(schemas_in_files)
 	sed	-e 's,[@]GDMPREFETCHCMD[@],$(GDMPREFETCHCMD),g' \
 		-e 's,[@]GDM_CUSTOM_CONF[@],$(GDM_CUSTOM_CONF),g' \
 		-e 's,[@]GDM_USER_PATH[@],$(GDM_USER_PATH),g' \
@@ -1137,11 +1136,14 @@ gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
 		-e 's,[@]logdir[@],$(logdir),g' \
 		-e 's,[@]pixmapdir[@],$(pixmapdir),g' \
 		-e 's,[@]sbindir[@],$(sbindir),g' \
-		<$(srcdir)/gdm.schemas.in.in >gdm.schemas.in
+		<$(srcdir)/gdm.schemas.in >gdm.schemas
 
 gnome-login.session: $(srcdir)/gnome-login.session.in
 	sed	-e 's,[@]libexecdir[@],$(libexecdir),g' \
 		-e 's,[@]CHECK_ACCELERATED_DIR[@],$(CHECK_ACCELERATED_DIR),g' \
+		< $< > $@.tmp && mv $@.tmp $@
+61-gdm.rules: $(srcdir)/61-gdm.rules.in
+	sed	-e 's,[@]libexecdir[@],$(libexecdir),g' \
 		< $< > $@.tmp && mv $@.tmp $@
 
 gdm.service: $(srcdir)/gdm.service.in
