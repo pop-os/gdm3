@@ -4,6 +4,7 @@ gdm3 (3.29.90-1) UNRELEASED; urgency=medium
   * Rebase patch series
     - Drop patches from 3.28.2-2 and 3.28.2-3, applied upstream
   * Bump GLib build-dependency to 2.44 as per configure.ac
+  * Build-depend on gettext 0.19.8 instead of intltool as per configure.ac
 
  -- Simon McVittie <smcv@debian.org>  Fri, 27 Jul 2018 11:04:59 +0100
 
