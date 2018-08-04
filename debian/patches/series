@@ -1,17 +1,3 @@
-libgdm-drop-support-for-serializing-multiple-opens.patch
-libgdm-fix-pointer-boolean-task-confusion.patch
-libgdm-don-t-keep-manager-proxy-around-longer-than-we-nee.patch
-libgdm-use-g_object_unref-instead-of-g_clear_object-for-w.patch
-libgdm-get-connection-explicitly.patch
-libgdm-Drop-weak-refs-on-the-GDBusConnection.patch
-libgdm-Unref-the-manager-propagated-from-task.patch
-libgdm-Don-t-double-ref-the-connection-got-from-task.patch
-libgdm-Don-t-leak-connection-on-sync-re-authentication.patch
-libgdm-Use-auto-pointers-and-cleanup-code.patch
-libgdb-Try-to-reuse-connections-from-the-available-proxie.patch
-libgdm-Don-t-save-manager-address.patch
-libgdm-Return-NULL-on-invalid-client-instances.patch
-daemon-gdm-session-record.c-open-close-the-utmp-database.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch

@@ -1,6 +1,8 @@
 gdm3 (3.29.90-1) UNRELEASED; urgency=medium
 
   * New upstream development release
+  * Rebase patch series
+    - Drop patches from 3.28.2-2 and 3.28.2-3, applied upstream
 
  -- Simon McVittie <smcv@debian.org>  Fri, 27 Jul 2018 11:04:59 +0100
 
