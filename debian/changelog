@@ -1,3 +1,53 @@
+gdm3 (3.29.90-1ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge with Debian (LP: #1785789). Remaining changes:
+    + README.Debian: update for correct paths in Ubuntu
+    + control.in:
+      - Don't recommend desktop-base
+      - Depend on bash for ubuntu_config_error_dialog.patch
+      - Update Vcs field
+    + rules:
+      - Don't override default user/group
+      - --enable-gdm-xsession to install upstream Xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, README.Debian, gdm3.8.pod:
+      Use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.postinst, gdm3.prerm: don't kill gdm on upgrade
+    + gdm3.*.pam: Make pam_env read ~/.pam_environment
+    + gdm3.install:
+      - Stop installing default.desktop. It adds unnecessary clutter
+        ("System Default") to the session chooser.
+      - Don't install debian/Xsession
+    + Add ubuntu_run_xsession.d.patch
+    + Add ubuntu_xresources_is_a_dir.patch
+      - Fix loading from /etc/X11/Xresources/*
+    + Add ubuntu_nvidia_prime.patch:
+      - Add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + Add revert_override_LANG_with_accountservices.patch:
+      - On Ubuntu accountservices only stores the language and not the
+        full locale as needed by LANG.
+    + Add ubuntu_dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + Add ubuntu_config_error_dialog.patch:
+      - Show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: Don't set Debian settings in the
+      greeter's dconf DB
+  * debian/patches/unblock-sigusr1.patch: Drop, included in 3.29.90.
+  * debian/patches/ubuntu_*: Refresh.
+
+ -- Iain Lane <laney@debian.org>  Tue, 07 Aug 2018 11:56:39 +0100
+
 gdm3 (3.29.90-1) experimental; urgency=medium
 
   * Team upload
