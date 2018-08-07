@@ -1,3 +1,16 @@
+From: Josselin Mouette <joss@debian.org>
+Date: Sat, 10 May 2014 22:52:23 +0200
+Subject: Point to a dconf path in /var/lib/gdm3 instead of the one in
+ $DATADIR
+
+Origin: vendor, Debian
+Forwarded: no
+---
+ data/dconf/gdm.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/dconf/gdm.in b/data/dconf/gdm.in
+index 4d8bf17..2118723 100644
 --- a/data/dconf/gdm.in
 +++ b/data/dconf/gdm.in
 @@ -1,2 +1,2 @@

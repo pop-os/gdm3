@@ -68,7 +68,6 @@ override_dh_auto_configure:
 		--with-screenshot-dir=/var/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-lang-file=/etc/default/locale \
-		--disable-split-authentication \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
 		--with-ran-once-marker-directory=/var/run/gdm3 \
 		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
@@ -103,4 +102,4 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
-	rm -f data/gdm.schemas data/gdm.schemas.in
+	rm -f data/gdm.schemas data/61-gdm.rules

@@ -1,15 +1,19 @@
 From: Simon McVittie <smcv@debian.org>
+Date: Sat, 8 Nov 2014 17:10:47 +0000
 Subject: reinstate Xorg.N.log at Xorg maintainers' request
-Date: Sat, 08 Nov 2014 17:10:47 +0000
 
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771
 Forwarded: no
+Origin: vendor, Debian
+---
+ daemon/gdm-server.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Index: b/daemon/gdm-server.c
-===================================================================
+diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
+index 83fba99..73a257f 100644
 --- a/daemon/gdm-server.c
 +++ b/daemon/gdm-server.c
-@@ -235,12 +235,14 @@
+@@ -235,12 +235,14 @@ gdm_server_init_command (GdmServer *server)
           * missing, or c) we are running for the main seat 'seat0'. */
  
  #ifdef ENABLE_SYSTEMD_JOURNAL

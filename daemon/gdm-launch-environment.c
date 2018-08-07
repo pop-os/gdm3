@@ -121,12 +121,29 @@ build_launch_environment (GdmLaunchEnvironment *launch_environment,
 {
         GHashTable    *hash;
         struct passwd *pwent;
-        static const char * const optional_environment[] = {
-                "LANG", "LANGUAGE", "LC_CTYPE", "LC_NUMERIC", "LC_TIME",
-                "LC_COLLATE", "LC_MONETARY", "LC_MESSAGES", "LC_PAPER",
-                "LC_NAME", "LC_ADDRESS", "LC_TELEPHONE", "LC_MEASUREMENT",
-                "LC_IDENTIFICATION", "LC_ALL", "WINDOWPATH", "XCURSOR_PATH",
-                "XDG_CONFIG_DIRS", NULL
+        static const char *const optional_environment[] = {
+                "GI_TYPELIB_PATH",
+                "LANG",
+                "LANGUAGE",
+                "LC_ADDRESS",
+                "LC_ALL",
+                "LC_COLLATE",
+                "LC_CTYPE",
+                "LC_IDENTIFICATION",
+                "LC_MEASUREMENT",
+                "LC_MESSAGES",
+                "LC_MONETARY",
+                "LC_NAME",
+                "LC_NUMERIC",
+                "LC_PAPER",
+                "LC_TELEPHONE",
+                "LC_TIME",
+                "LD_LIBRARY_PATH",
+                "PATH",
+                "WINDOWPATH",
+                "XCURSOR_PATH",
+                "XDG_CONFIG_DIRS",
+                NULL
         };
         char *system_data_dirs;
         int i;
@@ -200,8 +217,6 @@ build_launch_environment (GdmLaunchEnvironment *launch_environment,
 
                 g_hash_table_insert (hash, g_strdup ("GDM_SEAT_ID"), g_strdup (seat_id));
         }
-
-        g_hash_table_insert (hash, g_strdup ("PATH"), g_strdup (g_getenv ("PATH")));
 
         g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
 

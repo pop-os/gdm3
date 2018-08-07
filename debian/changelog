@@ -1,3 +1,26 @@
+gdm3 (3.29.90-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream development release
+    - Unblock SIGUSR1 before PAM (Closes: #905277, LP: #1782152)
+  * Rebase patch series
+    - Drop patches from 3.28.2-2 and 3.28.2-3, applied upstream
+  * Bump GLib build-dependency to 2.44 as per configure.ac
+  * Build-depend on gettext 0.19.8 as per configure.ac
+  * Continue to build-depend on intltool even though upstream code no
+    longer needs it, because the Debian build still does
+  * Drop obsolete build-dependencies on Xft and Xi
+  * Stop disabling split authentication, which is no longer supported
+    at all
+  * Stop deleting data/gdm.schemas.in during clean. It used to be generated
+    from data/gdm.schemas.in.in but is now a source file in its own right.
+  * Remove generated file data/61-gdm.rules during clean
+  * d/copyright: Update
+  * d/patches/*: Add DEP-3 metadata in gbp-pq format
+  * d/docs: Install README.md instead of README
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 04 Aug 2018 22:14:57 +0100
+
 gdm3 (3.28.2-3ubuntu4) cosmic; urgency=medium
 
   * ubuntu_nvidia_prime.patch:
