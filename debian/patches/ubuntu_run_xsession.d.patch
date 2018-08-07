@@ -1,11 +1,16 @@
-Description: Run /etc/X11/Xsession.d/.
-Author: Martin Pitt <martin.pitt@ubuntu.com>
-Origin: Ubuntu; /etc/X11/Xsession.d is a Debianism/Ubuntuism
+From: Martin Pitt <martin.pitt@ubuntu.com>
+Date: Tue, 7 Aug 2018 11:15:56 +0100
+Subject: Run /etc/X11/Xsession.d/.
 
-Index: gdm3-3.26.0/data/Xsession.in
-===================================================================
---- gdm3-3.26.0.orig/data/Xsession.in	2017-09-14 08:24:04.760665587 -0400
-+++ gdm3-3.26.0/data/Xsession.in	2017-09-14 08:24:04.760665587 -0400
+Origin: Ubuntu; /etc/X11/Xsession.d is a Debianism/Ubuntuism
+---
+ data/Xsession.in | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/data/Xsession.in b/data/Xsession.in
+index 9d79558..8d0d51f 100755
+--- a/data/Xsession.in
++++ b/data/Xsession.in
 @@ -157,6 +157,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
      done
  fi

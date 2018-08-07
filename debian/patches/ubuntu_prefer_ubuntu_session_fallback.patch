@@ -1,16 +1,21 @@
-Description: Prefer ubuntu session as fallback over GNOME
- As GNOME, optionally installed, is a Wayland session and ubuntu
- is now transitioned as a Xorg session, the fallback will prefer
- naturally the GNOME session. Ensure we prioritize the ubuntu
- session in fallback order.
-Author: Didier Roche <didrocks@ubuntu.com>
-Forwarded: not-needed
+From: Didier Roche <didrocks@ubuntu.com>
+Date: Tue, 7 Aug 2018 11:15:57 +0100
+Subject: Prefer ubuntu session as fallback over GNOME
 
-Index: gdm3-3.26.2.1/daemon/gdm-session.c
-===================================================================
---- gdm3-3.26.2.1.orig/daemon/gdm-session.c
-+++ gdm3-3.26.2.1/daemon/gdm-session.c
-@@ -541,6 +541,14 @@ get_fallback_session_name (GdmSession *s
+As GNOME, optionally installed, is a Wayland session and ubuntu
+is now transitioned as a Xorg session, the fallback will prefer
+naturally the GNOME session. Ensure we prioritize the ubuntu
+session in fallback order.
+Forwarded: not-needed
+---
+ daemon/gdm-session.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index 2033f3a..427fec2 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -541,6 +541,14 @@ get_fallback_session_name (GdmSession *self)
                  }
          }
  

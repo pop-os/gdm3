@@ -1,16 +1,26 @@
-Description: Show warning dialog in case of error in ~/.profile etc.
- By using bash instead of sh, a syntax error in a sourced file does
- not cause a fatal error, but the user is alerted via a dialog in the
- same way as for other types of errors.
+From: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+Date: Tue, 7 Aug 2018 11:15:57 +0100
+Subject: Show warning dialog in case of error in ~/.profile etc.
+
+By using bash instead of sh, a syntax error in a sourced file does
+not cause a fatal error, but the user is alerted via a dialog in the
+same way as for other types of errors.
 Bug-Ubuntu: https://launchpad.net/bugs/678421
 Forwarded: https://bugzilla.gnome.org/738970
-Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+---
+ configure.ac                |  2 +-
+ data/Makefile.am            |  3 +++
+ data/Xsession.in            | 28 ++++++++++++++++++++++++----
+ data/config-error-dialog.sh | 29 +++++++++++++++++++++++++++++
+ po/POTFILES.in              |  1 +
+ 5 files changed, 58 insertions(+), 5 deletions(-)
+ create mode 100644 data/config-error-dialog.sh
 
-Index: gdm3-3.26.0/configure.ac
-===================================================================
---- gdm3-3.26.0.orig/configure.ac	2017-09-14 08:25:07.137555429 -0400
-+++ gdm3-3.26.0/configure.ac	2017-09-14 08:25:07.137555429 -0400
-@@ -1500,7 +1500,7 @@ fi
+diff --git a/configure.ac b/configure.ac
+index c785b75..2f7cffe 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1401,7 +1401,7 @@ fi
  if test x$os_solaris = xyes ; then
     XSESSION_SHELL=/bin/ksh
  else
@@ -19,44 +29,10 @@ Index: gdm3-3.26.0/configure.ac
  fi
  
  #
-Index: gdm3-3.26.0/data/config-error-dialog.sh
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm3-3.26.0/data/config-error-dialog.sh	2017-09-14 08:25:07.137555429 -0400
-@@ -0,0 +1,29 @@
-+# Copyright (C) 2014 Canonical Ltd
-+# Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
-+#
-+# This program is free software: you can redistribute it and/or modify it under
-+# the terms of the GNU General Public License as published by the Free Software
-+# Foundation, version 3 of the License.
-+#
-+# See http://www.gnu.org/copyleft/gpl.html the full text of the license.
-+
-+# This file may be sourced by the function source_with_error_check() in
-+# /etc/gdm/Xsession
-+
-+export TEXTDOMAIN=gdm
-+. /usr/bin/gettext.sh
-+
-+PARA1=$(eval_gettext 'Error found when loading $CONFIG_FILE:')
-+PARA2=$(gettext 'As a result the session will not be configured correctly.
-+You should fix the problem as soon as feasible.')
-+
-+TEXT="$PARA1\n\n$(fold -s $ERR)\n\n$PARA2"
-+
-+if [ -x /usr/bin/kdialog ]; then
-+	TEXT_FILE=$(mktemp --tmpdir config-err-kdialog-XXXXXX)
-+	echo -n "$TEXT" > "$TEXT_FILE"
-+	kdialog --textbox "$TEXT_FILE" 500 300
-+	rm -f "$TEXT_FILE"
-+elif [ -x /usr/bin/zenity ]; then
-+	zenity --warning --no-wrap --text="$TEXT"
-+fi
-Index: gdm3-3.26.0/data/Makefile.am
-===================================================================
---- gdm3-3.26.0.orig/data/Makefile.am	2017-09-14 08:25:07.137555429 -0400
-+++ gdm3-3.26.0/data/Makefile.am	2017-09-14 08:25:07.137555429 -0400
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 1290add..03e5756 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
 @@ -237,6 +237,7 @@ uninstall-hook:
  	rm -f \
  	$(DESTDIR)$(GDM_CUSTOM_CONF) \
@@ -74,10 +50,10 @@ Index: gdm3-3.26.0/data/Makefile.am
  	if test '!' -d $(DESTDIR)$(initdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(initdir); \
  		chmod 755 $(DESTDIR)$(initdir); \
-Index: gdm3-3.26.0/data/Xsession.in
-===================================================================
---- gdm3-3.26.0.orig/data/Xsession.in	2017-09-14 08:25:07.137555429 -0400
-+++ gdm3-3.26.0/data/Xsession.in	2017-09-14 08:25:07.137555429 -0400
+diff --git a/data/Xsession.in b/data/Xsession.in
+index 40da9c7..54b1f9a 100755
+--- a/data/Xsession.in
++++ b/data/Xsession.in
 @@ -29,12 +29,32 @@ command="$@"
  # good for debugging where things went wrong
  echo "$0: Beginning session setup..."
@@ -115,15 +91,50 @@ Index: gdm3-3.26.0/data/Xsession.in
  
  # Translation stuff
  if [ -x "@libexecdir@/gdmtranslate" ] ; then
-Index: gdm3-3.26.0/po/POTFILES.in
-===================================================================
---- gdm3-3.26.0.orig/po/POTFILES.in	2017-09-14 08:25:07.137555429 -0400
-+++ gdm3-3.26.0/po/POTFILES.in	2017-09-14 08:25:07.137555429 -0400
-@@ -39,6 +39,7 @@ daemon/gdm-x-session.c
+diff --git a/data/config-error-dialog.sh b/data/config-error-dialog.sh
+new file mode 100644
+index 0000000..08cb7b9
+--- /dev/null
++++ b/data/config-error-dialog.sh
+@@ -0,0 +1,29 @@
++# Copyright (C) 2014 Canonical Ltd
++# Author: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
++#
++# This program is free software: you can redistribute it and/or modify it under
++# the terms of the GNU General Public License as published by the Free Software
++# Foundation, version 3 of the License.
++#
++# See http://www.gnu.org/copyleft/gpl.html the full text of the license.
++
++# This file may be sourced by the function source_with_error_check() in
++# /etc/gdm/Xsession
++
++export TEXTDOMAIN=gdm
++. /usr/bin/gettext.sh
++
++PARA1=$(eval_gettext 'Error found when loading $CONFIG_FILE:')
++PARA2=$(gettext 'As a result the session will not be configured correctly.
++You should fix the problem as soon as feasible.')
++
++TEXT="$PARA1\n\n$(fold -s $ERR)\n\n$PARA2"
++
++if [ -x /usr/bin/kdialog ]; then
++	TEXT_FILE=$(mktemp --tmpdir config-err-kdialog-XXXXXX)
++	echo -n "$TEXT" > "$TEXT_FILE"
++	kdialog --textbox "$TEXT_FILE" 500 300
++	rm -f "$TEXT_FILE"
++elif [ -x /usr/bin/zenity ]; then
++	zenity --warning --no-wrap --text="$TEXT"
++fi
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index e84eef2..0486c56 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -38,6 +38,7 @@ daemon/gdm-x-session.c
  daemon/main.c
  daemon/session-worker-main.c
  daemon/test-session-client.c
 +data/config-error-dialog.sh
- data/gdm.schemas.in.in
- data/org.gnome.login-screen.gschema.xml.in
+ data/org.gnome.login-screen.gschema.xml
  libgdm/gdm-user-switching.c
+ utils/gdmflexiserver.c
