@@ -1,4 +1,4 @@
-gdm3 (3.29.90-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.29.90-1ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian (LP: #1785789). Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -54,7 +54,7 @@ gdm3 (3.29.90-1ubuntu1) UNRELEASED; urgency=medium
       on startup where GDM would try to start two greeters, and often fail to
       start any.
 
- -- Iain Lane <laney@debian.org>  Tue, 07 Aug 2018 11:56:39 +0100
+ -- Iain Lane <laney@ubuntu.com>  Wed, 08 Aug 2018 13:11:05 +0100
 
 gdm3 (3.29.90-1) experimental; urgency=medium
 
