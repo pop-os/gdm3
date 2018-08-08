@@ -1,3 +1,6 @@
+local-display-factory-add-more-debug-messages-to-new-vt-h.patch
+local-display-factory-don-t-start-two-greeters-at-startup.patch
+session-worker-don-t-switch-VTs-if-we-re-already-on-the-r.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
