@@ -1,0 +1,54 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Tue, 7 Aug 2018 14:04:44 -0400
+Subject: session-worker: don't switch VTs if we're already on the right VT
+
+commit 5b5dccbd shows that switching VTs to the same VT isn't
+exactly a no-op. In order to prevent unnecessary wakeups, avoid
+switching VTs if the worker is already on the correct VT.
+
+Bug-Upstream: https://gitlab.gnome.org/GNOME/gdm/issues/409
+Origin: https://gitlab.gnome.org/GNOME/gdm/merge_requests/28
+---
+ daemon/gdm-session-worker.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index c1d89ca..d211cdb 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -968,6 +968,8 @@ jump_to_vt (GdmSessionWorker  *worker,
+ {
+         int fd;
+         int active_vt_tty_fd;
++        int active_vt = -1;
++        struct vt_stat vt_state = { 0 };
+ 
+         g_debug ("GdmSessionWorker: jumping to VT %d", vt_number);
+         active_vt_tty_fd = open ("/dev/tty0", O_RDWR | O_NOCTTY);
+@@ -993,12 +995,20 @@ jump_to_vt (GdmSessionWorker  *worker,
+ 
+         handle_terminal_vt_switches (worker, fd);
+ 
+-        if (ioctl (fd, VT_ACTIVATE, vt_number) < 0) {
+-                g_debug ("GdmSessionWorker: couldn't initiate jump to VT %d: %m",
+-                         vt_number);
+-        } else if (ioctl (fd, VT_WAITACTIVE, vt_number) < 0) {
+-                g_debug ("GdmSessionWorker: couldn't finalize jump to VT %d: %m",
+-                         vt_number);
++        if (ioctl (fd, VT_GETSTATE, &vt_state) <= 0) {
++                g_debug ("GdmSessionWorker: couldn't get current VT: %m");
++        } else {
++                active_vt = vt_state.v_active;
++        }
++
++        if (active_vt != vt_number) {
++                if (ioctl (fd, VT_ACTIVATE, vt_number) < 0) {
++                        g_debug ("GdmSessionWorker: couldn't initiate jump to VT %d: %m",
++                                 vt_number);
++                } else if (ioctl (fd, VT_WAITACTIVE, vt_number) < 0) {
++                        g_debug ("GdmSessionWorker: couldn't finalize jump to VT %d: %m",
++                                 vt_number);
++                }
+         }
+ 
+         close (active_vt_tty_fd);

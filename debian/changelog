@@ -1,3 +1,15 @@
+gdm3 (3.29.90-2) UNRELEASED; urgency=medium
+
+  * debian/gbp.conf: Don't use patch numbers
+  * d/p/local-display-factory-add-more-debug-messages-to-new-vt-h.patch,
+    d/p/local-display-factory-don-t-start-two-greeters-at-startup.patch,
+    d/p/session-worker-don-t-switch-VTs-if-we-re-already-on-the-r.patch:
+    Cherry-pick some patches from upstream MR 28. These fix a race condition
+    on startup where GDM would try to start two greeters, and often fail to
+    start any.
+
+ -- Iain Lane <laney@debian.org>  Wed, 08 Aug 2018 11:37:54 +0100
+
 gdm3 (3.29.90-1ubuntu1) UNRELEASED; urgency=medium
 
   * Merge with Debian (LP: #1785789). Remaining changes:
