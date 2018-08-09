@@ -1,15 +1,17 @@
 From: Tim Lunn <tim@feathertop.org>
 Date: Sat, 22 Mar 2014 00:23:12 +0100
-Subject: Add hook to run prime-offload (as root) move Prime helpers into the
- gdm-x-session wrapper
+Subject: Add hooks to run prime scripts (as root) before and after a
+ gdm-session
 
+This allows enabling and disabling the dGPU on log out.
 ---
  common/gdm-common.c    |  2 +-
- daemon/gdm-x-session.c | 10 ++++++++++
+ daemon/gdm-session.c   |  6 ++++++
+ daemon/gdm-x-session.c |  5 +++++
  data/Makefile.am       | 28 ++++++++++++++++++++++++++--
  data/Prime             |  6 ++++++
  data/PrimeOff          |  6 ++++++
- 5 files changed, 49 insertions(+), 3 deletions(-)
+ 6 files changed, 50 insertions(+), 3 deletions(-)
  create mode 100644 data/Prime
  create mode 100644 data/PrimeOff
 
@@ -26,23 +28,28 @@ index d807c01..71f4554 100644
                                            display_name,
                                            display_hostname,
                                            display_x11_authority_file);
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index 19d26c9..e390130 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -2865,6 +2865,12 @@ gdm_session_close (GdmSession *self)
+ 
+         g_list_free_full (self->priv->outside_connections, g_object_unref);
+         self->priv->outside_connections = NULL;
++
++        /* Run PrimeOff after the session is closed */
++        gdm_run_script (GDMCONFDIR "/PrimeOff", "root",
++                        NULL,
++                        NULL,
++                        NULL);
+ }
+ 
+ void
 diff --git a/daemon/gdm-x-session.c b/daemon/gdm-x-session.c
-index 3b2fcef..08ac5ab 100644
+index 3b2fcef..9a57300 100644
 --- a/daemon/gdm-x-session.c
 +++ b/daemon/gdm-x-session.c
-@@ -172,6 +172,11 @@ on_x_server_finished (GSubprocess  *subprocess,
-         if (cancelled) {
-                 goto out;
-         }
-+        gdm_run_script (GDMCONFDIR "/PrimeOff", "root",
-+                       state->display_name,
-+                       NULL, /* hostname */
-+                       state->auth_file);
-+
- 
-         if (g_subprocess_get_if_exited (subprocess)) {
-                 int exit_status;
-@@ -614,6 +619,11 @@ spawn_session (State        *state,
+@@ -614,6 +614,11 @@ spawn_session (State        *state,
  
          g_debug ("Running X session");
  
