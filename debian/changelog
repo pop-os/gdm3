@@ -1,4 +1,4 @@
-gdm3 (3.29.90-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.29.90-2ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -46,7 +46,7 @@ gdm3 (3.29.90-2ubuntu1) UNRELEASED; urgency=medium
   * debian/patches/ubuntu_nvidia_prime.patch: Restore the change from
     3.28.2-3ubuntu4 which I accidentally dropped, sorry.
 
- -- Iain Lane <laney@debian.org>  Thu, 09 Aug 2018 10:34:24 +0100
+ -- Iain Lane <laney@ubuntu.com>  Thu, 09 Aug 2018 10:44:40 +0100
 
 gdm3 (3.29.90-2) experimental; urgency=medium
 
