@@ -1,3 +1,10 @@
+gdm3 (3.29.90-3) UNRELEASED; urgency=medium
+
+  * display-store: Pass the display object rather than the id in the removed
+    signal (CVE-2018-14424)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 12 Aug 2018 15:38:50 +0100
+
 gdm3 (3.29.90-2) experimental; urgency=medium
 
   * Team upload
