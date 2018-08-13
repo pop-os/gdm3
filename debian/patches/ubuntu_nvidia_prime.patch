@@ -1,24 +1,25 @@
 From: Tim Lunn <tim@feathertop.org>
 Date: Sat, 22 Mar 2014 10:23:12 +1100
-Subject: Add hook to run prime-offload (as root) move Prime helpers into the
- gdm-x-session wrapper
-
++Subject: Add hooks to run prime scripts (as root) before and after a
++ gdm-session
+ 
++This allows enabling and disabling the dGPU on log out.
 ---
- common/gdm-common.c    |  2 +-
- daemon/gdm-display.c   |  1 +
- daemon/gdm-x-session.c | 10 ++++++++++
- data/Makefile.am       | 24 ++++++++++++++++++++++++
- data/Prime             |  6 ++++++
- data/PrimeOff          |  6 ++++++
+ common/gdm-common.c    |    2 +-
+ daemon/gdm-session.c   |    6 ++++++
+ daemon/gdm-x-session.c |    5 +++++
+ data/Makefile.am       |   24 ++++++++++++++++++++++++
+ data/Prime             |    6 ++++++
+ data/PrimeOff          |    6 ++++++
  6 files changed, 48 insertions(+), 1 deletion(-)
  create mode 100644 data/Prime
  create mode 100644 data/PrimeOff
 
-Index: gdm3-3.26.0/common/gdm-common.c
+Index: gdm3-3.28.2/common/gdm-common.c
 ===================================================================
---- gdm3-3.26.0.orig/common/gdm-common.c	2017-09-14 08:24:10.584748891 -0400
-+++ gdm3-3.26.0/common/gdm-common.c	2017-09-14 08:24:10.580748834 -0400
-@@ -677,7 +677,7 @@ gdm_run_script (const char *dir,
+--- gdm3-3.28.2.orig/common/gdm-common.c
++++ gdm3-3.28.2/common/gdm-common.c
+@@ -706,7 +706,7 @@
                  goto out;
          }
  
@@ -27,23 +28,28 @@ Index: gdm3-3.26.0/common/gdm-common.c
                                            display_name,
                                            display_hostname,
                                            display_x11_authority_file);
-Index: gdm3-3.26.0/daemon/gdm-x-session.c
+Index: gdm3-3.28.2/daemon/gdm-session.c
 ===================================================================
---- gdm3-3.26.0.orig/daemon/gdm-x-session.c	2017-09-14 08:24:10.584748891 -0400
-+++ gdm3-3.26.0/daemon/gdm-x-session.c	2017-09-14 08:24:10.580748834 -0400
-@@ -172,6 +172,11 @@ on_x_server_finished (GSubprocess  *subp
-         if (cancelled) {
-                 goto out;
-         }
-+        gdm_run_script (GDMCONFDIR "/PrimeOff", "root",
-+                       state->display_name,
-+                       NULL, /* hostname */
-+                       state->auth_file);
-+
+--- gdm3-3.28.2.orig/daemon/gdm-session.c
++++ gdm3-3.28.2/daemon/gdm-session.c
+@@ -2865,6 +2865,12 @@
  
-         if (g_subprocess_get_if_exited (subprocess)) {
-                 int exit_status;
-@@ -614,6 +619,11 @@ spawn_session (State        *state,
+         g_list_free_full (self->priv->outside_connections, g_object_unref);
+         self->priv->outside_connections = NULL;
++
++        /* Run PrimeOff after the session is closed */
++        gdm_run_script (GDMCONFDIR "/PrimeOff", "root",
++                        NULL,
++                        NULL,
++                        NULL);
+ }
+ 
+ void
+Index: gdm3-3.28.2/daemon/gdm-x-session.c
+===================================================================
+--- gdm3-3.28.2.orig/daemon/gdm-x-session.c
++++ gdm3-3.28.2/daemon/gdm-x-session.c
+@@ -614,6 +614,11 @@
  
          g_debug ("Running X session");
  
@@ -55,11 +61,11 @@ Index: gdm3-3.26.0/daemon/gdm-x-session.c
          launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
  
          if (state->environment != NULL) {
-Index: gdm3-3.26.0/data/Makefile.am
+Index: gdm3-3.28.2/data/Makefile.am
 ===================================================================
---- gdm3-3.26.0.orig/data/Makefile.am	2017-09-14 08:24:10.584748891 -0400
-+++ gdm3-3.26.0/data/Makefile.am	2017-09-14 08:24:10.584748891 -0400
-@@ -10,6 +10,8 @@ SUBDIRS =			\
+--- gdm3-3.28.2.orig/data/Makefile.am
++++ gdm3-3.28.2/data/Makefile.am
+@@ -10,6 +10,8 @@
  initdir = $(gdmconfdir)/Init
  postdir = $(gdmconfdir)/PostSession
  predir = $(gdmconfdir)/PreSession
@@ -68,7 +74,7 @@ Index: gdm3-3.26.0/data/Makefile.am
  postlogindir = $(gdmconfdir)/PostLogin
  workingdir = $(GDM_WORKING_DIR)
  xauthdir = $(GDM_XAUTH_DIR)
-@@ -172,6 +174,8 @@ EXTRA_DIST +=			\
+@@ -173,6 +175,8 @@
  	Xsession.in 		\
  	Init.in 		\
  	PreSession.in 		\
@@ -77,7 +83,7 @@ Index: gdm3-3.26.0/data/Makefile.am
  	PostSession.in 		\
  	PostLogin 		\
  	org.gnome.login-screen.gschema.xml.in \
-@@ -236,6 +240,8 @@ uninstall-hook:
+@@ -237,6 +241,8 @@
  	$(DESTDIR)$(initdir)/Default \
  	$(DESTDIR)$(postlogindir)/Default.sample \
  	$(DESTDIR)$(predir)/Default \
@@ -86,7 +92,7 @@ Index: gdm3-3.26.0/data/Makefile.am
  	$(DESTDIR)$(postdir)/Default \
  	$(DESTDIR)$(sysconfdir)/dconf/db/gdm \
  	$(DESTDIR)$(sysconfdir)/dconf/profile/gdm \
-@@ -282,6 +288,24 @@ endif
+@@ -283,6 +289,24 @@
  	fi
  	$(INSTALL_SCRIPT) PreSession $(DESTDIR)$(predir)/Default
  
@@ -111,10 +117,10 @@ Index: gdm3-3.26.0/data/Makefile.am
  	if test '!' -d $(DESTDIR)$(postdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(postdir); \
  		chmod 755 $(DESTDIR)$(postdir); \
-Index: gdm3-3.26.0/data/Prime
+Index: gdm3-3.28.2/data/Prime
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm3-3.26.0/data/Prime	2017-09-14 08:24:10.584748891 -0400
+--- /dev/null
++++ gdm3-3.28.2/data/Prime
 @@ -0,0 +1,6 @@
 +#!/bin/sh
 +
@@ -122,10 +128,10 @@ Index: gdm3-3.26.0/data/Prime
 +if [ -f "$primeoffload" ]; then
 +    $primeoffload
 +fi
-Index: gdm3-3.26.0/data/PrimeOff
+Index: gdm3-3.28.2/data/PrimeOff
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ gdm3-3.26.0/data/PrimeOff	2017-09-14 08:24:10.584748891 -0400
+--- /dev/null
++++ gdm3-3.28.2/data/PrimeOff
 @@ -0,0 +1,6 @@
 +#!/bin/sh
 +
