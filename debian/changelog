@@ -1,4 +1,4 @@
-gdm3 (3.29.91-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.29.91-1ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -44,7 +44,7 @@ gdm3 (3.29.91-1ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: Don't set Debian settings in the
       greeter's dconf DB
 
- -- Iain Lane <laney@ubuntu.com>  Mon, 13 Aug 2018 20:33:16 +0100
+ -- Iain Lane <laney@ubuntu.com>  Mon, 13 Aug 2018 20:36:38 +0100
 
 gdm3 (3.29.91-1) experimental; urgency=medium
 
