@@ -1,5 +1,6 @@
-gdm3 (3.29.91-1) UNRELEASED; urgency=medium
+gdm3 (3.29.91-1) experimental; urgency=medium
 
+  * Team upload
   * New upstream release
     - d/p/local-display-factory-add-more-debug-messages-to-new-vt-h.patch,
       d/p/local-display-factory-don-t-start-two-greeters-at-startup.patch,
@@ -8,7 +9,7 @@ gdm3 (3.29.91-1) UNRELEASED; urgency=medium
     - d/p/display-store-Pass-the-display-object-rather-than-the-id-.patch:
       Drop patch for CVE-2018-14424, applied upstream
 
- -- Simon McVittie <smcv@debian.org>  Mon, 13 Aug 2018 18:08:43 +0100
+ -- Simon McVittie <smcv@debian.org>  Mon, 13 Aug 2018 18:10:33 +0100
 
 gdm3 (3.29.90-3) experimental; urgency=medium
 
