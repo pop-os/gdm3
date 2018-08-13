@@ -87,6 +87,9 @@ static void     on_display_status_changed               (GdmDisplay             
 
 static gboolean gdm_local_display_factory_sync_seats    (GdmLocalDisplayFactory *factory);
 static gpointer local_display_factory_object = NULL;
+static gboolean lookup_by_session_id (const char *id,
+                                      GdmDisplay *display,
+                                      gpointer    user_data);
 
 G_DEFINE_TYPE (GdmLocalDisplayFactory, gdm_local_display_factory, GDM_TYPE_DISPLAY_FACTORY)
 
@@ -383,6 +386,8 @@ create_display (GdmLocalDisplayFactory *factory,
         char            *active_session_id = NULL;
         int              ret;
 
+        g_debug ("GdmLocalDisplayFactory: %s login display for seat %s requested",
+                 session_type? : "X11", seat_id);
         store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
 
         ret = sd_seat_get_active (seat_id, &active_session_id, NULL);
@@ -392,12 +397,22 @@ create_display (GdmLocalDisplayFactory *factory,
 
                 /* If we already have a login window, switch to it */
                 if (gdm_get_login_window_session_id (seat_id, &login_session_id)) {
-                        if (g_strcmp0 (active_session_id, login_session_id) != 0) {
-                                gdm_activate_session_by_id (factory->priv->connection, seat_id, login_session_id);
+                        GdmDisplay *display;
+
+                        display = gdm_display_store_find (store,
+                                                          lookup_by_session_id,
+                                                          (gpointer) login_session_id);
+                        if (display != NULL && gdm_display_get_status (display) == GDM_DISPLAY_MANAGED) {
+                                if (g_strcmp0 (active_session_id, login_session_id) != 0) {
+                                        g_debug ("GdmLocalDisplayFactory: session %s found, activating.",
+                                                 login_session_id);
+                                        gdm_activate_session_by_id (factory->priv->connection, seat_id, login_session_id);
+                                }
+                                g_clear_pointer (&login_session_id, g_free);
+                                g_clear_pointer (&active_session_id, g_free);
+                                return NULL;
                         }
                         g_clear_pointer (&login_session_id, g_free);
-                        g_clear_pointer (&active_session_id, g_free);
-                        return NULL;
                 }
                 g_clear_pointer (&active_session_id, g_free);
         } else if (!sd_seat_can_multi_session (seat_id)) {
@@ -464,6 +479,7 @@ gdm_local_display_factory_sync_seats (GdmLocalDisplayFactory *factory)
         GVariantIter iter;
         const char *seat;
 
+        g_debug ("GdmLocalDisplayFactory: enumerating seats from logind");
         result = g_dbus_connection_call_sync (factory->priv->connection,
                                               "org.freedesktop.login1",
                                               "/org/freedesktop/login1",
@@ -552,8 +568,10 @@ maybe_stop_greeter_display (GdmDisplay *display)
 {
         g_autofree char *display_session_type = NULL;
 
-        if (gdm_display_get_status (display) != GDM_DISPLAY_MANAGED)
+        if (gdm_display_get_status (display) != GDM_DISPLAY_MANAGED) {
+                g_debug ("GdmLocalDisplayFactory: login window not in managed state, so ignoring");
                 return;
+        }
 
         g_object_get (G_OBJECT (display),
                       "session-type", &display_session_type,
@@ -561,9 +579,12 @@ maybe_stop_greeter_display (GdmDisplay *display)
 
         /* we can only stop greeter for wayland sessions, since
          * X server would jump back on exit */
-        if (g_strcmp0 (display_session_type, "wayland") != 0)
+        if (g_strcmp0 (display_session_type, "wayland") != 0) {
+                g_debug ("GdmLocalDisplayFactory: login window is running on Xorg, so ignoring");
                 return;
+        }
 
+        g_debug ("GdmLocalDisplayFactory: killing login window since its now unused");
         gdm_display_stop_greeter_session (display);
         gdm_display_unmanage (display);
         gdm_display_finish (display);
@@ -583,6 +604,7 @@ on_vt_changed (GIOChannel    *source,
         const char *session_type = NULL;
         int ret;
 
+        g_debug ("GdmLocalDisplayFactory: received VT change event");
         g_io_channel_seek_position (source, 0, G_SEEK_SET, NULL);
 
         if (condition & G_IO_PRI) {
@@ -604,20 +626,36 @@ on_vt_changed (GIOChannel    *source,
                 }
         }
 
-        if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
+        if ((condition & G_IO_ERR) || (condition & G_IO_HUP)) {
+                g_debug ("GdmLocalDisplayFactory: kernel hung up active vt watch");
                 return G_SOURCE_REMOVE;
+        }
 
-        if (tty_of_active_vt == NULL)
+        if (tty_of_active_vt == NULL) {
+                g_debug ("GdmLocalDisplayFactory: unable to read active VT from kernel");
                 return G_SOURCE_CONTINUE;
+        }
 
         g_strchomp (tty_of_active_vt);
 
         /* don't do anything if we're on the same VT we were before */
-        if (g_strcmp0 (tty_of_active_vt, factory->priv->tty_of_active_vt) == 0)
+        if (g_strcmp0 (tty_of_active_vt, factory->priv->tty_of_active_vt) == 0) {
+                g_debug ("GdmLocalDisplayFactory: VT changed to the same VT, ignoring");
                 return G_SOURCE_CONTINUE;
+        }
 
         tty_of_previous_vt = g_steal_pointer (&factory->priv->tty_of_active_vt);
         factory->priv->tty_of_active_vt = g_steal_pointer (&tty_of_active_vt);
+
+        /* don't do anything at start up */
+        if (tty_of_previous_vt == NULL) {
+                g_debug ("GdmLocalDisplayFactory: VT is %s at startup",
+                         factory->priv->tty_of_active_vt);
+                return G_SOURCE_CONTINUE;
+        }
+
+        g_debug ("GdmLocalDisplayFactory: VT changed from %s to %s",
+                 tty_of_previous_vt, factory->priv->tty_of_active_vt);
 
         /* if the old VT was running a wayland login screen kill it
          */
@@ -630,9 +668,12 @@ on_vt_changed (GIOChannel    *source,
 
                         tty_of_login_window_vt = g_strdup_printf ("tty%u", vt);
 
+                        g_debug ("GdmLocalDisplayFactory: tty of login window is %s", tty_of_login_window_vt);
                         if (g_strcmp0 (tty_of_login_window_vt, tty_of_previous_vt) == 0) {
                                 GdmDisplayStore *store;
                                 GdmDisplay *display;
+
+                                g_debug ("GdmLocalDisplayFactory: VT switched from login window");
 
                                 store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
                                 display = gdm_display_store_find (store,
@@ -641,6 +682,8 @@ on_vt_changed (GIOChannel    *source,
 
                                 if (display != NULL)
                                         maybe_stop_greeter_display (display);
+                        } else {
+                                g_debug ("GdmLocalDisplayFactory: VT not switched from login window");
                         }
                 }
         }
@@ -650,6 +693,7 @@ on_vt_changed (GIOChannel    *source,
          * jump to that login screen)
          */
         if (strcmp (factory->priv->tty_of_active_vt, tty_of_initial_vt) != 0) {
+                g_debug ("GdmLocalDisplayFactory: active VT is not initial VT, so ignoring");
                 return G_SOURCE_CONTINUE;
         }
 
@@ -660,12 +704,16 @@ on_vt_changed (GIOChannel    *source,
                 ret = sd_session_get_state (active_session_id, &state);
 
                 /* if there's something already running on the active VT then bail */
-                if (ret == 0 && g_strcmp0 (state, "closing") != 0)
+                if (ret == 0 && g_strcmp0 (state, "closing") != 0) {
+                        g_debug ("GdmLocalDisplayFactory: initial VT is in use, so ignoring");
                         return G_SOURCE_CONTINUE;
+                }
         }
 
         if (gdm_local_display_factory_use_wayland ())
                 session_type = "wayland";
+
+        g_debug ("GdmLocalDisplayFactory: creating new display on seat0 because of VT change");
 
         create_display (factory, "seat0", session_type, TRUE);
 
@@ -757,18 +805,11 @@ on_display_added (GdmDisplayStore        *display_store,
 
 static void
 on_display_removed (GdmDisplayStore        *display_store,
-                    const char             *id,
+                    GdmDisplay             *display,
                     GdmLocalDisplayFactory *factory)
 {
-        GdmDisplay *display;
-
-        display = gdm_display_store_lookup (display_store, id);
-
-        if (display != NULL) {
-                g_signal_handlers_disconnect_by_func (display, G_CALLBACK (on_display_status_changed), factory);
-                g_object_weak_unref (G_OBJECT (display), (GWeakNotify)on_display_disposed, factory);
-
-        }
+        g_signal_handlers_disconnect_by_func (display, G_CALLBACK (on_display_status_changed), factory);
+        g_object_weak_unref (G_OBJECT (display), (GWeakNotify)on_display_disposed, factory);
 }
 
 static gboolean
