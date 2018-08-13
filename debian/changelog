@@ -1,3 +1,24 @@
+gdm3 (3.29.91-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - d/p/local-display-factory-add-more-debug-messages-to-new-vt-h.patch,
+      d/p/local-display-factory-don-t-start-two-greeters-at-startup.patch,
+      d/p/session-worker-don-t-switch-VTs-if-we-re-already-on-the-r.patch:
+      Drop patches from MR 28, applied upstream
+    - d/p/display-store-Pass-the-display-object-rather-than-the-id-.patch:
+      Drop patch for CVE-2018-14424, applied upstream
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 13 Aug 2018 18:10:33 +0100
+
+gdm3 (3.29.90-3) experimental; urgency=medium
+
+  * Team upload
+  * display-store: Pass the display object rather than the id in the removed
+    signal (CVE-2018-14424)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 12 Aug 2018 15:39:13 +0100
+
 gdm3 (3.29.90-2ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
