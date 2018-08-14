@@ -95,8 +95,8 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
-	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/acinclude.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -482,12 +482,12 @@ top_srcdir = @top_srcdir@
 NULL = 
 EXTRA_DIST = gnome-login.session.in $(pam_redhat_files) \
 	$(pam_openembedded_files) $(pam_exherbo_files) \
-	$(pam_lfs_files) $(pam_arch_files) $(dconf_db_files) \
-	$(schemas_in_files) $(schemas_DATA) $(dbusconf_in_files) \
-	$(localealias_DATA) $(udevrules_DATA) gdm.schemas.in.in \
-	gdm.conf-custom.in Xsession.in Init.in PreSession.in \
-	PostSession.in PostLogin org.gnome.login-screen.gschema.xml.in \
-	$(NULL) gdm.service.in
+	$(pam_lfs_files) $(pam_arch_files) $(srcdir)/61-gdm.rules.in \
+	$(dconf_db_files) $(schemas_in_files) $(schemas_DATA) \
+	$(dbusconf_in_files) $(localealias_DATA) $(udevrules_DATA) \
+	gdm.schemas.in.in gdm.conf-custom.in Xsession.in Init.in \
+	PreSession.in PostSession.in PostLogin \
+	org.gnome.login-screen.gschema.xml.in $(NULL) gdm.service.in
 SUBDIRS = \
 	applications		\
 	autostart		\
@@ -1142,6 +1142,9 @@ gdm.schemas.in: $(srcdir)/gdm.schemas.in.in
 gnome-login.session: $(srcdir)/gnome-login.session.in
 	sed	-e 's,[@]libexecdir[@],$(libexecdir),g' \
 		-e 's,[@]CHECK_ACCELERATED_DIR[@],$(CHECK_ACCELERATED_DIR),g' \
+		< $< > $@.tmp && mv $@.tmp $@
+61-gdm.rules: $(srcdir)/61-gdm.rules.in
+	sed	-e 's,[@]libexecdir[@],$(libexecdir),g' \
 		< $< > $@.tmp && mv $@.tmp $@
 
 gdm.service: $(srcdir)/gdm.service.in
