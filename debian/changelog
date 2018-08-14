@@ -1,6 +1,6 @@
 gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
 
-  * New upstream release 3.28.3:
+  * New upstream release 3.28.3 (LP: #1786933):
     - CVE-2018-14424 - double free fix
       + 0001-display-store-Pass-the-display-object-rather-than-th.patch: Drop.
     - lifecycle fixes to libgdm/GdmClient
