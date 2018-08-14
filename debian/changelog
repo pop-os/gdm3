@@ -1,3 +1,31 @@
+gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
+
+  * New upstream release 3.28.3:
+    - CVE-2018-14424 - double free fix
+      + 0001-display-store-Pass-the-display-object-rather-than-th.patch: Drop.
+    - lifecycle fixes to libgdm/GdmClient
+    - follow up fixes dealing with login screen reaping form last release
+    - allow pam modules to use SIGUSR1
+    - set PWD for user session
+    - tell cirrus not to use wayland
+  * Drop backported patches included in this release:
+    - libgdm-drop-support-for-serializing-multiple-opens.patch
+    - libgdm-fix-pointer-boolean-task-confusion.patch
+    - libgdm-don-t-keep-manager-proxy-around-longer-than-we-nee.patch
+    - libgdm-use-g_object_unref-instead-of-g_clear_object-for-w.patch
+    - libgdm-get-connection-explicitly.patch
+    - libgdm-Drop-weak-refs-on-the-GDBusConnection.patch
+    - libgdm-Unref-the-manager-propagated-from-task.patch
+    - libgdm-Don-t-double-ref-the-connection-got-from-task.patch
+    - libgdm-Don-t-leak-connection-on-sync-re-authentication.patch
+    - libgdm-Use-auto-pointers-and-cleanup-code.patch
+    - libgdb-Try-to-reuse-connections-from-the-available-proxie.patch
+    - libgdm-Don-t-save-manager-address.patch
+    - libgdm-Return-NULL-on-invalid-client-instances.patch
+    - daemon-gdm-session-record.c-open-close-the-utmp-database.patch
+
+ -- Iain Lane <laney@debian.org>  Tue, 14 Aug 2018 12:30:50 +0100
+
 gdm3 (3.28.2-0ubuntu1.4) bionic-security; urgency=medium
 
   * SECURITY UPDATE: Use-after-free of disposed transient displays
