@@ -5,7 +5,7 @@ gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
       + 0001-display-store-Pass-the-display-object-rather-than-th.patch: Drop.
     - lifecycle fixes to libgdm/GdmClient
     - follow up fixes dealing with login screen reaping form last release
-    - allow pam modules to use SIGUSR1
+    - allow pam modules to use SIGUSR1 (LP: #1782152)
     - set PWD for user session
     - tell cirrus not to use wayland
   * Drop backported patches included in this release:
