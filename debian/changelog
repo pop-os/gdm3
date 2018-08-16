@@ -1,5 +1,6 @@
 gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
 
+  [ Iain Lane ]
   * New upstream release 3.28.3 (LP: #1786933):
     - CVE-2018-14424 - double free fix
       + 0001-display-store-Pass-the-display-object-rather-than-th.patch: Drop.
@@ -23,6 +24,10 @@ gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
     - libgdm-Don-t-save-manager-address.patch
     - libgdm-Return-NULL-on-invalid-client-instances.patch
     - daemon-gdm-session-record.c-open-close-the-utmp-database.patch
+
+  [ Alberto Milone ]
+  * ubuntu_nvidia_prime.patch:
+    - Run scripts for Prime before and after Gdm sessions (LP: #1778011).
 
  -- Iain Lane <laney@debian.org>  Tue, 14 Aug 2018 12:30:50 +0100
 
