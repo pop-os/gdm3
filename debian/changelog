@@ -1,4 +1,4 @@
-gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
+gdm3 (3.28.3-0ubuntu18.04.1) bionic; urgency=medium
 
   [ Iain Lane ]
   * New upstream release 3.28.3 (LP: #1786933):
@@ -29,7 +29,7 @@ gdm3 (3.28.3-0ubuntu18.04.1) UNRELEASED; urgency=medium
   * ubuntu_nvidia_prime.patch:
     - Run scripts for Prime before and after Gdm sessions (LP: #1778011).
 
- -- Iain Lane <laney@debian.org>  Tue, 14 Aug 2018 12:30:50 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 17 Aug 2018 16:53:31 +0100
 
 gdm3 (3.28.2-0ubuntu1.4) bionic-security; urgency=medium
 
