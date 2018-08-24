@@ -80,6 +80,7 @@ Depends: ${shlibs:Depends},
          x11-common (>= 1:7.6+11),
          x11-xserver-utils
 Recommends: zenity,
+            libpam-fprintd (>= 0.8.0-2),
             xserver-xephyr,
             x11-xkb-utils,
             xserver-xorg,
