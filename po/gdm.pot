@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gdm 3.29.1\n"
+"Project-Id-Version: gdm 3.29.91\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gdm/issues\n"
-"POT-Creation-Date: 2018-07-24 09:02-0400\n"
+"POT-Creation-Date: 2018-08-28 10:11-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,21 +53,21 @@ msgstr ""
 msgid "/dev/urandom is not a character device"
 msgstr ""
 
-#: common/gdm-common.c:477 libgdm/gdm-user-switching.c:209
+#: common/gdm-common.c:498 libgdm/gdm-user-switching.c:209
 msgid "Could not identify the current session."
 msgstr ""
 
-#: common/gdm-common.c:486 libgdm/gdm-user-switching.c:218
+#: common/gdm-common.c:507 libgdm/gdm-user-switching.c:218
 msgid "Could not identify the current seat."
 msgstr ""
 
-#: common/gdm-common.c:496 libgdm/gdm-user-switching.c:228
+#: common/gdm-common.c:517 libgdm/gdm-user-switching.c:228
 msgid ""
 "The system is unable to determine whether to switch to an existing login "
 "screen or start up a new login screen."
 msgstr ""
 
-#: common/gdm-common.c:504 libgdm/gdm-user-switching.c:236
+#: common/gdm-common.c:525 libgdm/gdm-user-switching.c:236
 msgid "The system is unable to start up a new login screen."
 msgstr ""
 
@@ -84,27 +84,27 @@ msgid ""
 "when the problem is corrected."
 msgstr ""
 
-#: daemon/gdm-manager.c:775
+#: daemon/gdm-manager.c:744
 msgid "No display available"
 msgstr ""
 
-#: daemon/gdm-manager.c:844 daemon/gdm-manager.c:1120
+#: daemon/gdm-manager.c:813 daemon/gdm-manager.c:1089
 msgid "No session available"
 msgstr ""
 
-#: daemon/gdm-manager.c:863
+#: daemon/gdm-manager.c:832
 msgid "Chooser session unavailable"
 msgstr ""
 
-#: daemon/gdm-manager.c:875
+#: daemon/gdm-manager.c:844
 msgid "Can only be called before user is logged in"
 msgstr ""
 
-#: daemon/gdm-manager.c:886
+#: daemon/gdm-manager.c:855
 msgid "Caller not GDM"
 msgstr ""
 
-#: daemon/gdm-manager.c:896
+#: daemon/gdm-manager.c:865
 msgid "Unable to open private communication channel"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "The display device"
 msgstr ""
 
-#: daemon/gdm-session.c:1261
+#: daemon/gdm-session.c:1280
 msgid "Could not create authentication helper process"
 msgstr ""
 
@@ -184,15 +184,15 @@ msgstr ""
 msgid "Sorry, that didn’t work. Please try again."
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1170
+#: daemon/gdm-session-worker.c:1180
 msgid "Username:"
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1673 daemon/gdm-session-worker.c:1690
+#: daemon/gdm-session-worker.c:1684 daemon/gdm-session-worker.c:1701
 msgid "no user account available"
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1717
+#: daemon/gdm-session-worker.c:1728
 msgid "Unable to change to user"
 msgstr ""
 
