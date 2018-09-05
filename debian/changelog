@@ -1,4 +1,4 @@
-gdm3 (3.30.0-0ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.30.0-0ubuntu1) cosmic; urgency=medium
 
   * Updated to 3.30.0 release:
     - build fixes
@@ -11,7 +11,7 @@ gdm3 (3.30.0-0ubuntu1) UNRELEASED; urgency=medium
     - install udev rules in the correct folder (following upstream build
       fixes)
 
- -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Sep 2018 08:45:06 +0200
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Sep 2018 11:20:11 +0200
 
 gdm3 (3.29.91-1ubuntu2) cosmic; urgency=medium
 
