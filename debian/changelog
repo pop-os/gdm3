@@ -7,6 +7,9 @@ gdm3 (3.30.0-0ubuntu1) UNRELEASED; urgency=medium
     - initial setup fix
     - flicker fix
     - misc bug fixes
+  * debian/gdm3.install:
+    - install udev rules in the correct folder (following upstream build
+      fixes)
 
  -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Sep 2018 08:45:06 +0200
 
