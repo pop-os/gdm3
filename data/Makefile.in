@@ -572,7 +572,7 @@ pam_arch_files = pam-arch/gdm-autologin.pam	\
 @ENABLE_LFS_PAM_CONFIG_TRUE@pam_files = $(pam_lfs_files)
 @ENABLE_OPENEMBEDDED_PAM_CONFIG_TRUE@pam_files = $(pam_openembedded_files)
 @ENABLE_REDHAT_PAM_CONFIG_TRUE@pam_files = $(pam_redhat_files)
-udevrulesdir = $(prefix)/lib/udev/rules.d
+udevrulesdir = /lib/udev/rules.d
 udevrules_DATA = 61-gdm.rules
 CLEANFILES = Xsession gdm.conf-custom Init PreSession PostSession \
 	greeter-dconf-defaults $(NULL) gdm.service $(am__append_2)
