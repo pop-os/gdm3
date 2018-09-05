@@ -1,3 +1,15 @@
+gdm3 (3.30.0-0ubuntu1) UNRELEASED; urgency=medium
+
+  * Updated to 3.30.0 release:
+    - build fixes
+    - search for sessions in XDG_DATA_DIRS
+    - blacklist some more wayland unfriendly hardware
+    - initial setup fix
+    - flicker fix
+    - misc bug fixes
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Sep 2018 08:45:06 +0200
+
 gdm3 (3.29.91-1ubuntu2) cosmic; urgency=medium
 
   * debian/control.in:
