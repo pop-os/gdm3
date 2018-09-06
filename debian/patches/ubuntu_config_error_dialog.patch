@@ -17,7 +17,7 @@ Forwarded: https://bugzilla.gnome.org/738970
  create mode 100644 data/config-error-dialog.sh
 
 diff --git a/configure.ac b/configure.ac
-index c785b75..2f7cffe 100644
+index 57cc0c2..eba3a5f 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1401,7 +1401,7 @@ fi
@@ -30,7 +30,7 @@ index c785b75..2f7cffe 100644
  
  #
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 1290add..03e5756 100644
+index 7945ea5..0be8e90 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -237,6 +237,7 @@ uninstall-hook:

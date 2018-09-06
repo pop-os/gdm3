@@ -16,10 +16,10 @@ This allows enabling and disabling the dGPU on log out.
  create mode 100644 data/PrimeOff
 
 diff --git a/common/gdm-common.c b/common/gdm-common.c
-index d807c01..71f4554 100644
+index 373d5b8..02a6044 100644
 --- a/common/gdm-common.c
 +++ b/common/gdm-common.c
-@@ -717,7 +717,7 @@ gdm_run_script (const char *dir,
+@@ -721,7 +721,7 @@ gdm_run_script (const char *dir,
                  goto out;
          }
  
@@ -29,10 +29,10 @@ index d807c01..71f4554 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 19d26c9..e390130 100644
+index 04f879a..22319f4 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -2865,6 +2865,12 @@ gdm_session_close (GdmSession *self)
+@@ -2886,6 +2886,12 @@ gdm_session_close (GdmSession *self)
  
          g_list_free_full (self->priv->outside_connections, g_object_unref);
          self->priv->outside_connections = NULL;
@@ -62,7 +62,7 @@ index 3b2fcef..9a57300 100644
  
          if (state->environment != NULL) {
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 75a3818..1290add 100644
+index 7c6a2eb..7945ea5 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -10,6 +10,8 @@ SUBDIRS =			\
