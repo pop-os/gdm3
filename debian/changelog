@@ -1,3 +1,9 @@
+gdm3 (3.30.0-0ubuntu2) cosmic; urgency=medium
+
+  * Revert 7086187, since it breaks Wayland → Xorg fallback
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 06 Sep 2018 18:02:03 +0100
+
 gdm3 (3.30.0-0ubuntu1) cosmic; urgency=medium
 
   * Updated to 3.30.0 release:
