@@ -8,6 +8,10 @@ The login screen is skewed/distorted on arm server, and I couldn't
 find root cause, and no other developer ever has access to the hardware.
 
 https://gitlab.gnome.org/GNOME/mutter/issues/219
+
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1780076
+Bug: https://gitlab.gnome.org/GNOME/mutter/issues/219
+Origin: https://gitlab.gnome.org/GNOME/gdm/merge_requests/38
 ---
  data/61-gdm.rules.in | 2 ++
  1 file changed, 2 insertions(+)

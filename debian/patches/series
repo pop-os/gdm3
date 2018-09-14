@@ -13,4 +13,3 @@ ubuntu_dont_set_language_env.patch
 ubuntu_prefer_ubuntu_session_fallback.patch
 data-Makefile.am.patch
 data-61-gdm.rules.in.patch
-install-udev-rules-in-the-correct-folder.patch

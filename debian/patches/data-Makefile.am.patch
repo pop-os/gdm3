@@ -4,6 +4,10 @@ Subject: data: Makefile.am
 
 The $prefix was /usr in general, but rules in /usr/lib/udev/ can't
 be loaded by udev, so just remove it.
+
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1780076
+Bug: https://gitlab.gnome.org/GNOME/mutter/issues/219
+Origin: https://gitlab.gnome.org/GNOME/gdm/merge_requests/35
 ---
  data/Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
