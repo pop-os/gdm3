@@ -1,0 +1,23 @@
+From: Bin Li <binli@gnome.org>
+Date: Thu, 23 Aug 2018 15:15:24 +0800
+Subject: data: Makefile.am
+
+The $prefix was /usr in general, but rules in /usr/lib/udev/ can't
+be loaded by udev, so just remove it.
+---
+ data/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/Makefile.am b/data/Makefile.am
+index a56f32d..774f2cb 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -160,7 +160,7 @@ if ENABLE_ARCH_PAM_CONFIG
+ pam_files = $(pam_arch_files)
+ endif
+ 
+-udevrulesdir = $(prefix)/lib/udev/rules.d
++udevrulesdir = /lib/udev/rules.d
+ udevrules_DATA = 61-gdm.rules
+ 
+ EXTRA_DIST += $(srcdir)/61-gdm.rules.in

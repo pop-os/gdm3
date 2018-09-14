@@ -1,0 +1,24 @@
+From: Didier Roche <didrocks@ubuntu.com>
+Date: Wed, 5 Sep 2018 09:40:04 +0200
+Subject: install udev rules in the correct folder
+
+* debian/gdm3.install:
+  - install udev rules in the correct folder (following upstream build
+    fixes)
+---
+ debian/gdm3.install | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/debian/gdm3.install b/debian/gdm3.install
+index c69747c..b7438b8 100644
+--- a/debian/gdm3.install
++++ b/debian/gdm3.install
+@@ -3,7 +3,7 @@ lib/systemd/
+ lib/*/security/*.so
+ usr/bin/gdm-screenshot
+ usr/lib/gdm3/gdm-*
+-usr/lib/udev
++lib/udev
+ # gets renamed to gdm3 in binary-install
+ usr/sbin/gdm
+ usr/share/pixmaps/
