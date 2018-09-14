@@ -1,0 +1,27 @@
+From: Bin Li <binli@gnome.org>
+Date: Wed, 29 Aug 2018 16:47:46 +0800
+Subject: data: 61-gdm.rules.in
+
+Disable wayland for Huawei Hi1710 chipsets.
+
+The login screen is skewed/distorted on arm server, and I couldn't
+find root cause, and no other developer ever has access to the hardware.
+
+https://gitlab.gnome.org/GNOME/mutter/issues/219
+
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1780076
+Bug: https://gitlab.gnome.org/GNOME/mutter/issues/219
+Origin: https://gitlab.gnome.org/GNOME/gdm/merge_requests/38
+---
+ data/61-gdm.rules.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index de8e179..c9f6110 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -1,2 +1,4 @@
+ # disable Wayland on Cirrus chipsets
+ ATTR{vendor}=="0x1013", ATTR{device}=="0x00b8", ATTR{subsystem_vendor}=="0x1af4", ATTR{subsystem_device}=="0x1100", RUN+="@libexecdir@/gdm-disable-wayland"
++# disable Wayland on Hi1710 chipsets
++ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", RUN+="@libexecdir@/gdm-disable-wayland"
