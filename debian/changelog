@@ -10,6 +10,11 @@ gdm3 (3.30.0-1) UNRELEASED; urgency=medium
   * Correctly install udev rules in /lib/udev
   * d/p/local-display-factory-ignore-spurios-SeatNew-signal-at-st.patch:
     Drop, applied upstream
+  * d/p/data-disable-wayland-for-proprietary-nvidia-machines.patch:
+    Add patch from upstream to disable Wayland on the Nvidia proprietary
+    driver
+  * d/p/daemon-Move-the-waiting-the-session-to-have-taken-over-th.patch:
+    Add patch from upstream to fix stopping the greeter
 
  -- Simon McVittie <smcv@debian.org>  Sat, 15 Sep 2018 11:42:20 +0100
 
