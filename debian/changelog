@@ -8,6 +8,8 @@ gdm3 (3.30.0-1) UNRELEASED; urgency=medium
     - Should avoid restart loops when trying to use Wayland on Nvidia
       proprietary driver (Closes: #908808)
   * Correctly install udev rules in /lib/udev
+  * d/p/local-display-factory-ignore-spurios-SeatNew-signal-at-st.patch:
+    Drop, applied upstream
 
  -- Simon McVittie <smcv@debian.org>  Sat, 15 Sep 2018 11:42:20 +0100
 
