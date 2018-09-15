@@ -1,9 +1,9 @@
 etc/*
 lib/systemd/
+lib/udev
 lib/*/security/*.so
 usr/bin/gdm-screenshot
 usr/lib/gdm3/gdm-*
-usr/lib/udev
 # gets renamed to gdm3 in binary-install
 usr/sbin/gdm
 usr/share/pixmaps/
