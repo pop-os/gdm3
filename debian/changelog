@@ -1,7 +1,12 @@
-gdm3 (3.29.91-3) UNRELEASED; urgency=medium
+gdm3 (3.30.0-1) UNRELEASED; urgency=medium
 
   [ Alexander Kurtz ]
   * debian/generate-config: Use pkill to SIGHUP the dconf-service process.
+
+  [ Simon McVittie ]
+  * New upstream release
+    - Should avoid restart loops when trying to use Wayland on Nvidia
+      proprietary driver (Closes: #908808)
 
  -- Simon McVittie <smcv@debian.org>  Sat, 15 Sep 2018 11:42:20 +0100
 
