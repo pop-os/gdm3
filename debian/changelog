@@ -1,4 +1,6 @@
-gdm3 (3.30.0-1) UNRELEASED; urgency=medium
+gdm3 (3.30.0-1) unstable; urgency=medium
+
+  * Team upload
 
   [ Alexander Kurtz ]
   * debian/generate-config: Use pkill to SIGHUP the dconf-service process.
@@ -15,8 +17,9 @@ gdm3 (3.30.0-1) UNRELEASED; urgency=medium
     driver
   * d/p/daemon-Move-the-waiting-the-session-to-have-taken-over-th.patch:
     Add patch from upstream to fix stopping the greeter
+  * Upload to unstable
 
- -- Simon McVittie <smcv@debian.org>  Sat, 15 Sep 2018 11:42:20 +0100
+ -- Simon McVittie <smcv@debian.org>  Sun, 16 Sep 2018 12:02:31 +0100
 
 gdm3 (3.29.91-2) experimental; urgency=medium
 
