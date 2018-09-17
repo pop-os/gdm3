@@ -64,6 +64,25 @@ ucfr gdm3 /etc/gdm3/greeter.dconf-defaults
 # debconf hangs if gdm3 gets started below without this
 db_stop || true
 
+# Remove obsolete pulseaudio socket unit, pulseaudio >= 11.1-2 does this for us
+# TODO: This can (and should) be remove after the buster release!
+for symlink in \
+  '/var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket'
+do
+  if [ -L "${symlink}" ]; then
+    rm -- "${symlink}"
+  fi
+done
+for directory in \
+  '/var/lib/gdm3/.config/systemd/user/sockets.target.wants' \
+  '/var/lib/gdm3/.config/systemd/user' \
+  '/var/lib/gdm3/.config/systemd'
+do
+  if [ -d "${directory}" ]; then
+    rmdir --ignore-fail-on-non-empty -- "${directory}"
+  fi
+done
+
 chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
 
 if [ -L /etc/pam.d/gdm-welcome ]; then
