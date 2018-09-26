@@ -1,4 +1,4 @@
-gdm3 (3.30.1-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.30.1-1ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -46,7 +46,7 @@ gdm3 (3.30.1-1ubuntu1) UNRELEASED; urgency=medium
   * debian/patches/Revert-gdm-wayland-session-gdm-x-session-register-after-d.patch:
     Drop - this should be fixed (differently) in 3.30.1.
 
- -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 11:32:06 +0100
+ -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 12:53:37 +0100
 
 gdm3 (3.30.1-1) unstable; urgency=medium
 
