@@ -1,3 +1,94 @@
+gdm3 (3.30.1-1ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge with Debian. Remaining changes:
+    + README.Debian: update for correct paths in Ubuntu
+    + control.in:
+      - Don't recommend desktop-base
+      - Depend on bash for ubuntu_config_error_dialog.patch
+      - Update Vcs field
+    + rules:
+      - Don't override default user/group
+      - --enable-gdm-xsession to install upstream Xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, README.Debian, gdm3.8.pod:
+      Use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.postinst, gdm3.prerm: don't kill gdm on upgrade
+    + gdm3.*.pam: Make pam_env read ~/.pam_environment
+    + gdm3.install:
+      - Stop installing default.desktop. It adds unnecessary clutter
+        ("System Default") to the session chooser.
+      - Don't install debian/Xsession
+    + Add ubuntu_run_xsession.d.patch
+    + Add ubuntu_xresources_is_a_dir.patch
+      - Fix loading from /etc/X11/Xresources/*
+    + Add ubuntu_nvidia_prime.patch:
+      - Add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + Add revert_override_LANG_with_accountservices.patch:
+      - On Ubuntu accountservices only stores the language and not the
+        full locale as needed by LANG.
+    + Add ubuntu_dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + Add ubuntu_config_error_dialog.patch:
+      - Show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: Don't set Debian settings in the
+      greeter's dconf DB
+  * debian/patches/Revert-gdm-wayland-session-gdm-x-session-register-after-d.patch:
+    Drop - this should be fixed (differently) in 3.30.1.
+
+ -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 11:32:06 +0100
+
+gdm3 (3.30.1-1) unstable; urgency=medium
+
+  * New upstream release 3.30.1
+  * Delete patches which are applied upstream.
+    daemon-Move-the-waiting-the-session-to-have-taken-over-th.patch and
+    data-disable-wayland-for-proprietary-nvidia-machines.patch were
+    cherry-picks that are in 3.30.1.
+  * gbp.conf: Update to pkg-gnome's recommendations
+  * debian/control.in: Add procps dependency.
+    4fd7af47aef15b4dbc26fb2063940e3b5315f7b5 only added this in control, and
+    so it would be lost if this were to be regenerated from control.in
+  * Standards-Version → 4.2.1, no changes required
+  * Use udev [linux-any] to determine where to install the udev rules.  Also
+    use dh-exec to only install them on linux-any. This is all a bit moot
+    since we are Architecture: linux-any anyway.
+
+ -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 11:18:06 +0100
+
+gdm3 (3.30.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Alexander Kurtz ]
+  * debian/generate-config: Use pkill to SIGHUP the dconf-service process.
+
+  [ Simon McVittie ]
+  * New upstream release
+    - Should avoid restart loops when trying to use Wayland on Nvidia
+      proprietary driver (Closes: #908808)
+  * Correctly install udev rules in /lib/udev
+  * d/p/local-display-factory-ignore-spurios-SeatNew-signal-at-st.patch:
+    Drop, applied upstream
+  * d/p/data-disable-wayland-for-proprietary-nvidia-machines.patch:
+    Add patch from upstream to disable Wayland on the Nvidia proprietary
+    driver
+  * d/p/daemon-Move-the-waiting-the-session-to-have-taken-over-th.patch:
+    Add patch from upstream to fix stopping the greeter
+  * Upload to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 16 Sep 2018 12:02:31 +0100
+
 gdm3 (3.30.0-0ubuntu2) cosmic; urgency=medium
 
   * Revert 7086187, since it breaks Wayland → Xorg fallback
@@ -18,6 +109,15 @@ gdm3 (3.30.0-0ubuntu1) cosmic; urgency=medium
       fixes)
 
  -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Sep 2018 11:20:11 +0200
+
+gdm3 (3.29.91-2) experimental; urgency=medium
+
+  * Team upload
+  * d/p/local-display-factory-ignore-spurios-SeatNew-signal-at-st.patch:
+    Add patch from upstream to fix startup reliability regression on
+    3.29.x branch
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 20 Aug 2018 08:59:26 +0100
 
 gdm3 (3.29.91-1ubuntu2) cosmic; urgency=medium
 

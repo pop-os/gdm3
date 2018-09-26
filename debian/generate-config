@@ -24,10 +24,6 @@ if [ -d /var/lib/gdm3 ]; then
   fi
 fi
 
-for i in $(pidof dconf-service); do
-  if [ "$(stat -c %U /proc/$i)" = gdm ]; then
-    kill -HUP $i || true
-  fi
-done
+pkill --signal 'HUP' --uid 'gdm' 'dconf-service' || true
 
 exit 0
