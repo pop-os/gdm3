@@ -1,6 +1,7 @@
+#!/usr/bin/dh-exec
 etc/*
 lib/systemd/
-lib/udev
+[linux-any] lib/udev
 lib/*/security/*.so
 usr/bin/gdm-screenshot
 usr/lib/gdm3/gdm-*

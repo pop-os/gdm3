@@ -5,6 +5,7 @@ Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.
 Uploaders: @GNOME_TEAM@
 Build-Depends: gnome-pkg-tools (>= 0.16.3),
                debhelper (>= 10.3),
+               dh-exec,
                dconf-cli (>= 0.19.90),
                gettext (>= 0.19.8),
                intltool,
@@ -39,6 +40,7 @@ Build-Depends: gnome-pkg-tools (>= 0.16.3),
                docbook-xml,
                gsettings-desktop-schemas,
                libsystemd-dev [linux-any],
+               udev [linux-any],
                xserver-xorg-dev
 Standards-Version: 4.2.1
 Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
