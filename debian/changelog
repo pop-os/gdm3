@@ -1,4 +1,4 @@
-gdm3 (3.30.1-1) UNRELEASED; urgency=medium
+gdm3 (3.30.1-1) unstable; urgency=medium
 
   * New upstream release 3.30.1
   * Delete patches which are applied upstream.
@@ -14,7 +14,7 @@ gdm3 (3.30.1-1) UNRELEASED; urgency=medium
     use dh-exec to only install them on linux-any. This is all a bit moot
     since we are Architecture: linux-any anyway.
 
- -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 11:05:12 +0100
+ -- Iain Lane <laney@debian.org>  Wed, 26 Sep 2018 11:18:06 +0100
 
 gdm3 (3.30.0-1) unstable; urgency=medium
 
