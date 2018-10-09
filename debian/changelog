@@ -1,10 +1,10 @@
-gdm3 (3.28.3-0ubuntu18.04.3) UNRELEASED; urgency=medium
+gdm3 (3.28.3-0ubuntu18.04.3) bionic; urgency=medium
 
   [ Bin Li ]
   * Add utils-add-new-gdm-disable-wayland-binary.patch, cherry-picked
     from cosmic. (LP: #1780076)
 
- -- Bin Li <bin.li@canonical.com>  Tue, 09 Oct 2018 15:26:26 +0800
+ -- Bin Li <bin.li@canonical.com>  Tue, 09 Oct 2018 09:42:42 +0100
 
 gdm3 (3.28.3-0ubuntu18.04.2) bionic; urgency=medium
 
