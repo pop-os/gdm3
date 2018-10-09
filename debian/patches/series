@@ -1,3 +1,7 @@
+# Upstream backports
+data-Makefile.am.patch
+data-61-gdm.rules.in.patch
+
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
@@ -11,5 +15,3 @@ revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
 ubuntu_dont_set_language_env.patch
 ubuntu_prefer_ubuntu_session_fallback.patch
-data-Makefile.am.patch
-data-61-gdm.rules.in.patch

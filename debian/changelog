@@ -1,14 +1,16 @@
-gdm3 (3.28.3-0ubuntu18.04.2) UNRELEASED; urgency=medium
+gdm3 (3.28.3-0ubuntu18.04.2) bionic; urgency=medium
 
+  [ Bin Li ]
   * Add patches to disable wayland for Huawei Hi1710 chipsets.(LP: #1780076)
     - data-61-gdm.rules.in.patch
     - data-Makefile.am.patch
+
   [ Didier Roche ]
   * debian/gdm3.install:
     - install udev rules in the correct folder (following upstream build
-      fixes)
+      fixes). Cherry-picked from cosmic by Bin Li.
 
- -- Bin Li <bin.li@canonical.com>  Fri, 14 Sep 2018 17:25:51 +0800
+ -- Bin Li <bin.li@canonical.com>  Fri, 14 Sep 2018 14:23:02 +0100
 
 gdm3 (3.28.3-0ubuntu18.04.1) bionic; urgency=medium
 
