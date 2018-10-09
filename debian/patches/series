@@ -1,6 +1,7 @@
 # Upstream backports
 data-Makefile.am.patch
 data-61-gdm.rules.in.patch
+utils-add-new-gdm-disable-wayland-binary.patch
 
 16_xserver_path.patch
 90_config_comments.patch

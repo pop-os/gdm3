@@ -1,0 +1,118 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Mon, 21 May 2018 11:03:29 -0400
+Subject: utils: add new gdm-disable-wayland binary
+
+We currently disable wayland for cirrus by calling printf
+from a udev rule.  This works, but it's a little too open
+coded to easily write SELinux policy for.
+
+This commit introduces a new program, gdm-disable-wayland,
+that does the same thing, but in a dedicated binary.
+
+A future commit will change the udev rule to use the binary.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=796315
+---
+ utils/Makefile.am           | 14 ++++++++++++
+ utils/gdm-disable-wayland.c | 53 +++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+)
+ create mode 100644 utils/gdm-disable-wayland.c
+
+diff --git a/utils/Makefile.am b/utils/Makefile.am
+index ae3cc01..babe890 100644
+--- a/utils/Makefile.am
++++ b/utils/Makefile.am
+@@ -10,6 +10,8 @@ AM_CPPFLAGS = \
+ 	-DDATADIR=\"$(datadir)\"			\
+ 	-DGDMCONFDIR=\"$(gdmconfdir)\"			\
+ 	-DLOCALSTATEDIR=\""$(localstatedir)"\" 		\
++	-DGDM_RUN_DIR=\"$(GDM_RUN_DIR)\"		\
++	-DGDM_RUNTIME_CONF=\"$(GDM_RUNTIME_CONF)\"	\
+ 	-DGDM_SCREENSHOT_DIR=\""$(GDM_SCREENSHOT_DIR)"\"\
+ 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
+ 	$(UTILS_CFLAGS)					\
+@@ -31,6 +33,10 @@ bin_PROGRAMS = \
+ 	gdm-screenshot		\
+ 	$(NULL)
+ 
++libexec_PROGRAMS = \
++	gdm-disable-wayland	\
++	$(NULL)
++
+ gdmflexiserver_LDADD =		\
+ 	$(top_builddir)/common/libgdmcommon.la	\
+ 	$(GTK_LIBS)		\
+@@ -49,6 +55,14 @@ gdm_screenshot_LDADD =		\
+ 	$(COMMON_LIBS)		\
+ 	$(NULL)
+ 
++gdm_disable_wayland_LDADD =	\
++	$(COMMON_LIBS)		\
++	$(NULL)
++
++gdm_disable_wayland_SOURCES =	\
++	gdm-disable-wayland.c	\
++	$(NULL)
++
+ CLEANFILES = 			\
+ 	$(NULL)
+ 
+diff --git a/utils/gdm-disable-wayland.c b/utils/gdm-disable-wayland.c
+new file mode 100644
+index 0000000..be61c4d
+--- /dev/null
++++ b/utils/gdm-disable-wayland.c
+@@ -0,0 +1,53 @@
++/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
++ *
++ * Copyright (C) 2018 Red Hat, Inc.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
++ *
++ */
++
++#include "config.h"
++
++#include <locale.h>
++#include <stdlib.h>
++#include <sysexits.h>
++
++#include <glib.h>
++
++int
++main (int argc, char *argv[])
++{
++        g_autoptr(GKeyFile) key_file = NULL;
++        g_autoptr(GError) error = NULL;
++        gboolean saved_okay;
++
++        setlocale (LC_ALL, "");
++
++        key_file = g_key_file_new ();
++
++        g_key_file_set_boolean (key_file, "daemon", "WaylandEnable", FALSE);
++
++        g_mkdir_with_parents (GDM_RUN_DIR, 0711);
++
++        saved_okay = g_key_file_save_to_file (key_file, GDM_RUNTIME_CONF, &error);
++
++        if (!saved_okay) {
++                g_printerr ("gdm-disable-wayland: unable to disable wayland: %s",
++                            error->message);
++                return EX_CANTCREAT;
++        }
++
++        return EX_OK;
++}
