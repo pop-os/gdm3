@@ -1,3 +1,10 @@
+gdm3 (3.30.1-1ubuntu3) cosmic; urgency=medium
+
+  * Build-Depend on gjs so that we don't produce uninstallable packages
+    on s390x which doesn't have gjs (LP: #1794721)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 11 Oct 2018 13:52:55 -0400
+
 gdm3 (3.30.1-1ubuntu2) cosmic; urgency=medium
 
   * debian/patches/ubuntu_revert_nvidia_wayland_blacklist.patch:
