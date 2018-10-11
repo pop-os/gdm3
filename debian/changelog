@@ -1,3 +1,17 @@
+gdm3 (3.30.1-1ubuntu2) UNRELEASED; urgency=medium
+
+  * debian/patches/ubuntu_revert_nvidia_wayland_blacklist.patch:
+    Revert nvidia from wayland blacklist
+    With some nvidia hardware using binary driver, if gdm GNOME Shell
+    instance is running under Xorg, after logged in, turn into an infinite
+    restart CPU loop, spiking processor usage to 100%.
+    This is due to an invalid paint context.
+    As on ubuntu, our main user session is using Xorg, having GDM using
+    Wayland is fine, as checked with usptream. So, we can revert nvidia from
+    the blacklist for now. (LP: #1797355)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 11 Oct 2018 17:52:26 +0200
+
 gdm3 (3.30.1-1ubuntu1) cosmic; urgency=medium
 
   * Merge with Debian. Remaining changes:
