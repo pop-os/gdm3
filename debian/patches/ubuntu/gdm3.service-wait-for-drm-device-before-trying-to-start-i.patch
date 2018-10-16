@@ -7,10 +7,10 @@ Forwarded: not-needed
 ---
  configure.ac             |   1 +
  data/Makefile.am         |   1 +
- data/gdm.service.in      |   4 ++
+ data/gdm.service.in      |   1 +
  utils/Makefile.am        |   9 +++++
  utils/gdm-wait-for-drm.c | 101 +++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 116 insertions(+)
+ 5 files changed, 113 insertions(+)
  create mode 100644 utils/gdm-wait-for-drm.c
 
 diff --git a/configure.ac b/configure.ac
@@ -38,17 +38,14 @@ index 4aae042..f5b185a 100644
  		-e 's,[@]LANG_CONFIG_FILE[@],$(LANG_CONFIG_FILE),g' \
  		-e 's,[@]PLYMOUTH_QUIT_SERVICE[@],$(PLYMOUTH_QUIT_SERVICE),g' \
 diff --git a/data/gdm.service.in b/data/gdm.service.in
-index 446e173..89c0bbc 100644
+index 446e173..bb08d0b 100644
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -32,3 +32,7 @@ StandardError=inherit
+@@ -32,3 +32,4 @@ StandardError=inherit
  EnvironmentFile=-@LANG_CONFIG_FILE@
  ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
 +ExecStartPre=@libexecdir@/gdm-wait-for-drm
-+
-+[Install]
-+Alias=display-manager.service
 diff --git a/utils/Makefile.am b/utils/Makefile.am
 index babe890..3eb43c3 100644
 --- a/utils/Makefile.am
