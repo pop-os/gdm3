@@ -1,11 +1,11 @@
-gdm3 (3.30.1-1ubuntu4) UNRELEASED; urgency=medium
+gdm3 (3.30.1-1ubuntu4) cosmic; urgency=medium
 
   * d/p/u/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
     - Wait for the first valid gdm device on pre-start (LP: #1794280)
     + debian/control:
       - Add build-depends on libgudev-1.0-dev
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 16 Oct 2018 14:08:32 -0500
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 16 Oct 2018 20:29:06 +0100
 
 gdm3 (3.30.1-1ubuntu3) cosmic; urgency=medium
 
