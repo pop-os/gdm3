@@ -1,4 +1,6 @@
-gdm3 (3.30.2-1) UNRELEASED; urgency=medium
+gdm3 (3.30.2-1) unstable; urgency=medium
+
+  * Team upload
 
   [ Jeremy Bicha ]
   * Build-Depend on gjs
@@ -14,8 +16,13 @@ gdm3 (3.30.2-1) UNRELEASED; urgency=medium
   [ Simon McVittie ]
   * New upstream release
     - Refresh patch series
+  * d/control.in: Transfer added Breaks in d/control to here.
+    Otherwise it would not be preserved when d/control is regenerated
+    during clean.
+  * Normalize package lists with wrap-and-sort -a
+  * Normalize file lists with wrap-and-sort -a
 
- -- Simon McVittie <smcv@debian.org>  Thu, 15 Nov 2018 09:21:46 +0000
+ -- Simon McVittie <smcv@debian.org>  Thu, 15 Nov 2018 09:29:20 +0000
 
 gdm3 (3.30.1-1) unstable; urgency=medium
 
