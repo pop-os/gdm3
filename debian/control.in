@@ -3,46 +3,46 @@ Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
 Uploaders: @GNOME_TEAM@
-Build-Depends: gnome-pkg-tools (>= 0.16.3),
+Build-Depends: check (>= 0.9.10-2~),
+               dconf-cli (>= 0.19.90),
                debhelper (>= 10.3),
                dh-exec,
-               dconf-cli (>= 0.19.90),
+               docbook-xml,
                gettext (>= 0.19.8),
+               gjs,
+               gnome-pkg-tools (>= 0.16.3),
+               gnome-settings-daemon (>= 3.24.0),
+               gnome-settings-daemon-dev (>= 3.24.0),
+               gobject-introspection (>= 0.10.7-1~),
+               gsettings-desktop-schemas,
                intltool,
-               libglib2.0-dev (>= 2.44.0),
-               libgtk-3-dev (>= 2.91.1),
-               libpango1.0-dev (>= 1.3.0),
+               iso-codes,
+               libaccountsservice-dev (>= 0.6.35),
+               libattr1-dev [linux-any],
+               libaudit-dev [linux-any],
                libcanberra-gtk3-dev (>= 0.4),
                libfontconfig1-dev (>= 2.5.0),
-               libaccountsservice-dev (>= 0.6.35),
-               gjs,
-               gnome-settings-daemon-dev (>= 3.24.0),
-               gnome-settings-daemon (>= 3.24.0),
+               libgirepository1.0-dev (>= 0.9.12),
+               libglib2.0-dev (>= 2.44.0),
+               libgtk-3-dev (>= 2.91.1),
+               libkeyutils-dev [linux-any],
                libnss3-dev (>= 3.11.1),
-               libxcb1-dev,
+               libpam0g-dev,
+               libpango1.0-dev (>= 1.3.0),
+               libplymouth-dev [linux-any],
+               libselinux1-dev [linux-any],
+               libsystemd-dev [linux-any],
+               libwrap0-dev,
                libx11-dev,
                libxau-dev,
-               libxt-dev,
-               libxext-dev,
-               check (>= 0.9.10-2~),
-               libgirepository1.0-dev (>= 0.9.12),
-               gobject-introspection (>= 0.10.7-1~),
-               libpam0g-dev,
-               libkeyutils-dev [linux-any],
+               libxcb1-dev,
                libxdmcp-dev,
-               libwrap0-dev,
+               libxext-dev,
                libxinerama-dev,
-               libplymouth-dev [linux-any],
-               yelp-tools,
-               libselinux1-dev [linux-any],
-               libattr1-dev [linux-any],
-               iso-codes,
-               libaudit-dev [linux-any],
-               docbook-xml,
-               gsettings-desktop-schemas,
-               libsystemd-dev [linux-any],
+               libxt-dev,
                udev [linux-any],
-               xserver-xorg-dev
+               xserver-xorg-dev,
+               yelp-tools
 Standards-Version: 4.2.1
 Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
 Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
@@ -51,42 +51,42 @@ Rules-Requires-Root: no
 Package: gdm3
 Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         libgdm1 (= ${binary:Version}),
-         gir1.2-gdm-1.0 (= ${binary:Version}),
+Depends: accountsservice (>= 0.6.35),
          adduser,
-         libpam-modules (>= 0.72-1),
-         libpam-runtime (>= 0.76-13.1),
-         libpam-systemd [linux-any],
+         dconf-cli (>= 0.20),
+         dconf-gsettings-backend (>= 0.20),
+         gir1.2-gdm-1.0 (= ${binary:Version}),
+         gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
          gnome-session-bin (>= 3.10),
          gnome-settings-daemon (>= 3.24),
          gnome-shell (>= 3.19.92),
-         gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
-         lsb-base (>= 3.2-14),
-         librsvg2-common,
-         accountsservice (>= 0.6.35),
-         policykit-1 (>= 0.105-5~) [linux-any],
          gsettings-desktop-schemas,
+         libgdm1 (= ${binary:Version}),
          libglib2.0-bin (>= 2.35.0),
-         dconf-cli (>= 0.20),
-         dconf-gsettings-backend (>= 0.20),
+         libpam-modules (>= 0.72-1),
+         libpam-runtime (>= 0.76-13.1),
+         libpam-systemd [linux-any],
+         librsvg2-common,
+         lsb-base (>= 3.2-14),
+         policykit-1 (>= 0.105-5~) [linux-any],
+         procps,
          ucf,
          x11-common (>= 1:7.6+11),
          x11-xserver-utils,
-         procps
-Recommends: zenity,
-            xserver-xephyr,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: at-spi2-core,
+            desktop-base (>= 6),
             x11-xkb-utils,
+            xserver-xephyr,
             xserver-xorg,
-            at-spi2-core,
-            desktop-base (>= 6)
-Suggests: libpam-gnome-keyring,
-          gnome-orca,
-          libpam-fprintd (>= 0.8.0-2)
+            zenity
+Suggests: gnome-orca,
+          libpam-fprintd (>= 0.8.0-2),
+          libpam-gnome-keyring
 Provides: x-display-manager
-Breaks: xserver-xorg-core (<< 2:1.17.2-2~),
-        pulseaudio (<< 11.1-2)
+Breaks: pulseaudio (<< 11.1-2),
+        xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -100,9 +100,9 @@ Package: libgdm1
 Section: libs
 Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
+Depends: ${gir:Depends},
          ${misc:Depends},
-         ${gir:Depends}
+         ${shlibs:Depends}
 Breaks: gdm3 (<< 3.18.0-3~)
 Replaces: gdm3 (<< 3.18.0-3~)
 Description: GNOME Display Manager (shared library)
@@ -120,12 +120,12 @@ Package: libgdm-dev
 Section: libdevel
 Architecture: linux-any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libgdm1 (= ${binary:Version}),
+Depends: gir1.2-gdm-1.0 (= ${binary:Version}),
+         libgdm1 (= ${binary:Version}),
          libglib2.0-dev (>= 2.44.0),
-         gir1.2-gdm-1.0 (= ${binary:Version}),
-         ${shlibs:Depends},
+         ${gir:Depends},
          ${misc:Depends},
-         ${gir:Depends}
+         ${shlibs:Depends}
 Description: GNOME Display Manager (development files)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -142,8 +142,8 @@ Section: introspection
 Architecture: linux-any
 Multi-Arch: same
 Depends: ${gir:Depends},
-         ${shlibs:Depends},
-         ${misc:Depends}
+         ${misc:Depends},
+         ${shlibs:Depends}
 Conflicts: gir1.2-gdm3
 Replaces: gir1.2-gdm3
 Description: GObject introspection data for the GNOME Display Manager
