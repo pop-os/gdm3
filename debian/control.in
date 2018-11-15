@@ -85,7 +85,8 @@ Suggests: libpam-gnome-keyring,
           gnome-orca,
           libpam-fprintd (>= 0.8.0-2)
 Provides: x-display-manager
-Breaks: xserver-xorg-core (<< 2:1.17.2-2~)
+Breaks: xserver-xorg-core (<< 2:1.17.2-2~),
+        pulseaudio (<< 11.1-2)
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
