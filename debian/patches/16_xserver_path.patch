@@ -11,7 +11,7 @@ Forwarded: no
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 12d9331..19ebc33 100644
+index a8dcfbe..5e3427b 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1135,7 +1135,10 @@ dnl ---------------------------------------------------------------------------
