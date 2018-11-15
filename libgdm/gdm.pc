@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: GDM Client Library
 Description: Client Library for communicating with GDM daemon
-Version: 3.30.0
+Version: 3.30.2
 Libs: -L${libdir} -lgdm
 Cflags: -I${includedir}/gdm
 Requires: gobject-2.0

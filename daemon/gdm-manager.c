@@ -62,6 +62,7 @@
 #define GDM_MANAGER_DISPLAYS_PATH GDM_DBUS_PATH "/Displays"
 
 #define INITIAL_SETUP_USERNAME "gnome-initial-setup"
+#define ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT GDM_RUN_DIR "/gdm.ran-initial-setup"
 
 typedef struct
 {
@@ -78,6 +79,7 @@ struct GdmManagerPrivate
 #ifdef HAVE_LIBXDMCP
         GdmXdmcpDisplayFactory *xdmcp_factory;
 #endif
+        GdmDisplay             *automatic_login_display;
         GList                  *user_sessions;
         GHashTable             *transient_sessions;
         GHashTable             *open_reauthentication_requests;
@@ -92,7 +94,7 @@ struct GdmManagerPrivate
 #ifdef  WITH_PLYMOUTH
         guint                     plymouth_is_running : 1;
 #endif
-        guint                     ran_once : 1;
+        guint                     did_automatic_login : 1;
 };
 
 enum {
@@ -1272,7 +1274,6 @@ set_up_automatic_login_session (GdmManager *manager,
 {
         GdmSession *session;
         char       *display_session_type = NULL;
-        gboolean is_initial;
 
         /* 0 is root user; since the daemon talks to the session object
          * directly, itself, for automatic login
@@ -1280,12 +1281,11 @@ set_up_automatic_login_session (GdmManager *manager,
         session = create_user_session_for_display (manager, display, 0);
 
         g_object_get (G_OBJECT (display),
-                      "is-initial", &is_initial,
                       "session-type", &display_session_type,
                       NULL);
 
         g_object_set (G_OBJECT (session),
-                      "display-is-initial", is_initial,
+                      "display-is-initial", FALSE,
                       NULL);
 
         g_debug ("GdmManager: Starting automatic login conversation");
@@ -1380,13 +1380,20 @@ set_up_session (GdmManager *manager,
         ActUserManager *user_manager;
         ActUser *user;
         gboolean loaded;
-        gboolean is_initial_display = FALSE;
+        gboolean seat_can_autologin = FALSE, seat_did_autologin = FALSE;
         gboolean autologin_enabled = FALSE;
+        g_autofree char *seat_id = NULL;
         char *username = NULL;
 
-        g_object_get (G_OBJECT (display), "is-initial", &is_initial_display, NULL);
+        g_object_get (G_OBJECT (display), "seat-id", &seat_id, NULL);
 
-        if (!manager->priv->ran_once && is_initial_display)
+        if (g_strcmp0 (seat_id, "seat0") == 0)
+                seat_can_autologin = TRUE;
+
+        if (manager->priv->did_automatic_login || manager->priv->automatic_login_display != NULL)
+                seat_did_autologin = TRUE;
+
+        if (seat_can_autologin && !seat_did_autologin)
                 autologin_enabled = get_automatic_login_details (manager, &username);
 
         if (!autologin_enabled) {
@@ -1477,8 +1484,18 @@ on_display_status_changed (GdmDisplay *display,
                         }
 #endif
 
-                        if (!doing_initial_setup && (status == GDM_DISPLAY_FINISHED || g_strcmp0 (session_type, "x11") == 0)) {
-                                manager->priv->ran_once = TRUE;
+                        if (display == manager->priv->automatic_login_display) {
+                                g_clear_weak_pointer (&manager->priv->automatic_login_display);
+
+                                manager->priv->did_automatic_login = TRUE;
+
+#ifdef ENABLE_WAYLAND_SUPPORT
+                                if (g_strcmp0 (session_type, "wayland") != 0 && status == GDM_DISPLAY_FAILED) {
+                                        /* we're going to fall back to X11, so try to autologin again
+                                         */
+                                        manager->priv->did_automatic_login = FALSE;
+                                }
+#endif
                         }
                         break;
                 default:
@@ -1580,6 +1597,123 @@ create_display_for_user_session (GdmManager *self,
 }
 
 static gboolean
+chown_file (GFile   *file,
+            uid_t    uid,
+            gid_t    gid,
+            GError **error)
+{
+        if (!g_file_set_attribute_uint32 (file, G_FILE_ATTRIBUTE_UNIX_UID, uid,
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                          NULL, error)) {
+                return FALSE;
+        }
+        if (!g_file_set_attribute_uint32 (file, G_FILE_ATTRIBUTE_UNIX_GID, gid,
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                          NULL, error)) {
+                return FALSE;
+        }
+        return TRUE;
+}
+
+static gboolean
+chown_recursively (GFile   *dir,
+                   uid_t    uid,
+                   gid_t    gid,
+                   GError **error)
+{
+        GFile *file = NULL;
+        GFileInfo *info = NULL;
+        GFileEnumerator *enumerator = NULL;
+        gboolean retval = FALSE;
+
+        if (chown_file (dir, uid, gid, error) == FALSE) {
+                goto out;
+        }
+
+        enumerator = g_file_enumerate_children (dir,
+                                                G_FILE_ATTRIBUTE_STANDARD_TYPE","
+                                                G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                                G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                                NULL, error);
+        if (!enumerator) {
+                goto out;
+        }
+
+        while ((info = g_file_enumerator_next_file (enumerator, NULL, error)) != NULL) {
+                file = g_file_get_child (dir, g_file_info_get_name (info));
+
+                if (g_file_info_get_file_type (info) == G_FILE_TYPE_DIRECTORY) {
+                        if (chown_recursively (file, uid, gid, error) == FALSE) {
+                                goto out;
+                        }
+                } else if (chown_file (file, uid, gid, error) == FALSE) {
+                        goto out;
+                }
+
+                g_clear_object (&file);
+                g_clear_object (&info);
+        }
+
+        if (*error) {
+                goto out;
+        }
+
+        retval = TRUE;
+out:
+        g_clear_object (&file);
+        g_clear_object (&info);
+        g_clear_object (&enumerator);
+
+        return retval;
+}
+
+static void
+chown_initial_setup_home_dir (void)
+{
+        GFile *dir;
+        GError *error;
+        char *gis_dir_path;
+        char *gis_uid_path;
+        char *gis_uid_contents;
+        struct passwd *pwe;
+        uid_t uid;
+
+        if (!gdm_get_pwent_for_name (INITIAL_SETUP_USERNAME, &pwe)) {
+                g_warning ("Unknown user %s", INITIAL_SETUP_USERNAME);
+                return;
+        }
+
+        gis_dir_path = g_strdup (pwe->pw_dir);
+
+        gis_uid_path = g_build_filename (gis_dir_path,
+                                         "gnome-initial-setup-uid",
+                                         NULL);
+        if (!g_file_get_contents (gis_uid_path, &gis_uid_contents, NULL, NULL)) {
+                g_warning ("Unable to read %s", gis_uid_path);
+                goto out;
+        }
+
+        uid = (uid_t) atoi (gis_uid_contents);
+        pwe = getpwuid (uid);
+        if (uid == 0 || pwe == NULL) {
+                g_warning ("UID '%s' in %s is not valid", gis_uid_contents, gis_uid_path);
+                goto out;
+        }
+
+        error = NULL;
+        dir = g_file_new_for_path (gis_dir_path);
+        if (!chown_recursively (dir, pwe->pw_uid, pwe->pw_gid, &error)) {
+                g_warning ("Failed to change ownership for %s: %s", gis_dir_path, error->message);
+                g_error_free (error);
+        }
+        g_object_unref (dir);
+out:
+        g_free (gis_uid_contents);
+        g_free (gis_uid_path);
+        g_free (gis_dir_path);
+}
+
+static gboolean
 on_start_user_session (StartUserSessionOperation *operation)
 {
         GdmManager *self = operation->manager;
@@ -1637,6 +1771,8 @@ on_start_user_session (StartUserSessionOperation *operation)
 
                 g_object_ref (display);
                 if (doing_initial_setup) {
+                        g_autoptr(GError) error = NULL;
+
 #if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
                         if (g_strcmp0 (display_session_type, "wayland") == 0) {
                                 g_debug ("GdmManager: closing down initial setup display in background");
@@ -1648,6 +1784,18 @@ on_start_user_session (StartUserSessionOperation *operation)
                                 gdm_display_stop_greeter_session (display);
                                 gdm_display_unmanage (display);
                                 gdm_display_finish (display);
+                        }
+
+                        chown_initial_setup_home_dir ();
+
+                        if (!g_file_set_contents (ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
+                                                  "1",
+                                                  1,
+                                                  &error)) {
+                                g_warning ("GdmDisplay: Could not write initial-setup-done marker to %s: %s",
+                                           ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
+                                           error->message);
+                                g_clear_error (&error);
                         }
                 } else {
                         g_debug ("GdmManager: session has its display server, reusing our server for another login screen");
@@ -1661,17 +1809,21 @@ on_start_user_session (StartUserSessionOperation *operation)
                 g_object_set_data (G_OBJECT (operation->session), "gdm-display", NULL);
                 create_user_session_for_display (operation->manager, display, allowed_uid);
 
+                /* Give the user session a new display object for bookkeeping purposes */
+                create_display_for_user_session (operation->manager,
+                                                 operation->session,
+                                                 session_id);
+
+
                 if (g_strcmp0 (operation->service_name, "gdm-autologin") == 0) {
                         /* remove the unused prepared greeter display since we're not going
                          * to have a greeter */
                         gdm_display_store_remove (self->priv->display_store, display);
                         g_object_unref (display);
-                }
 
-                /* Give the user session a new display object for bookkeeping purposes */
-                create_display_for_user_session (operation->manager,
-                                                 operation->session,
-                                                 session_id);
+                        self->priv->automatic_login_display = g_object_get_data (G_OBJECT (operation->session), "gdm-display");
+                        g_object_add_weak_pointer (G_OBJECT (self->priv->automatic_login_display), (gpointer *) &self->priv->automatic_login_display);
+                }
         }
 
         start_user_session (operation->manager, operation);
@@ -2564,6 +2716,8 @@ gdm_manager_dispose (GObject *object)
         manager = GDM_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
+
+        g_clear_weak_pointer (&manager->priv->automatic_login_display);
 
 #ifdef HAVE_LIBXDMCP
         g_clear_object (&manager->priv->xdmcp_factory);

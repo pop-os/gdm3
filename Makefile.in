@@ -169,9 +169,9 @@ CSCOPE = cscope
 DIST_SUBDIRS = data common pam-extensions daemon libgdm utils pam_gdm \
 	po tests chooser docs
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/data/dconf/gdm.in ABOUT-NLS AUTHORS COPYING \
-	INSTALL NEWS acconfig.h compile config.guess config.rpath \
-	config.sub install-sh ltmain.sh missing
+	$(top_srcdir)/data/dconf/gdm.in ABOUT-NLS AUTHORS COPYING NEWS \
+	acconfig.h compile config.guess config.rpath config.sub \
+	depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -390,6 +390,7 @@ SYSTEMD_CFLAGS = @SYSTEMD_CFLAGS@
 SYSTEMD_LIBS = @SYSTEMD_LIBS@
 SYSTEMD_SYSTEM_UNIT_DIR = @SYSTEMD_SYSTEM_UNIT_DIR@
 SYSTEMD_X_SERVER = @SYSTEMD_X_SERVER@
+UDEV_DIR = @UDEV_DIR@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 WARN_CFLAGS = @WARN_CFLAGS@
@@ -485,7 +486,7 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
 	$(NULL)
 
-AM_DISTCHECK_CONFIGURE_FLAGS = --enable-split-authentication --enable-introspection --without-systemdsystemunitdir
+AM_DISTCHECK_CONFIGURE_FLAGS = --enable-split-authentication --enable-introspection --without-systemdsystemunitdir --without-udevdir
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

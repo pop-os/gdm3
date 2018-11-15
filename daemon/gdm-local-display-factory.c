@@ -49,6 +49,7 @@
 #define GDM_MANAGER_DBUS_NAME               "org.gnome.DisplayManager.LocalDisplayFactory"
 
 #define MAX_DISPLAY_FAILURES 5
+#define WAIT_TO_FINISH_TIMEOUT 10 /* seconds */
 
 struct GdmLocalDisplayFactoryPrivate
 {
@@ -65,6 +66,7 @@ struct GdmLocalDisplayFactoryPrivate
 #if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
         char            *tty_of_active_vt;
         guint            active_vt_watch_id;
+        guint            wait_to_finish_timeout_id;
 #endif
 };
 
@@ -376,7 +378,6 @@ on_display_status_changed (GdmDisplay             *display,
         case GDM_DISPLAY_PREPARED:
                 break;
         case GDM_DISPLAY_MANAGED:
-                finish_waiting_displays_on_seat (factory, seat_id);
                 break;
         case GDM_DISPLAY_WAITING_TO_FINISH:
                 break;
@@ -431,8 +432,7 @@ create_display (GdmLocalDisplayFactory *factory,
 {
         GdmDisplayStore *store;
         GdmDisplay      *display = NULL;
-        char            *active_session_id = NULL;
-        int              ret;
+        g_autofree char *login_session_id = NULL;
 
         g_debug ("GdmLocalDisplayFactory: %s login display for seat %s requested",
                  session_type? : "X11", seat_id);
@@ -449,31 +449,22 @@ create_display (GdmLocalDisplayFactory *factory,
                 return NULL;
         }
 
-        ret = sd_seat_get_active (seat_id, &active_session_id, NULL);
+        /* If we already have a login window, switch to it */
+        if (gdm_get_login_window_session_id (seat_id, &login_session_id)) {
+                GdmDisplay *display;
 
-        if (ret == 0) {
-                char *login_session_id = NULL;
-
-                /* If we already have a login window, switch to it */
-                if (gdm_get_login_window_session_id (seat_id, &login_session_id)) {
-                        GdmDisplay *display;
-
-                        display = gdm_display_store_find (store,
-                                                          lookup_by_session_id,
-                                                          (gpointer) login_session_id);
-                        if (display != NULL && gdm_display_get_status (display) == GDM_DISPLAY_MANAGED) {
-                                if (g_strcmp0 (active_session_id, login_session_id) != 0) {
-                                        g_debug ("GdmLocalDisplayFactory: session %s found, activating.",
-                                                 login_session_id);
-                                        gdm_activate_session_by_id (factory->priv->connection, seat_id, login_session_id);
-                                }
-                                g_clear_pointer (&login_session_id, g_free);
-                                g_clear_pointer (&active_session_id, g_free);
-                                return NULL;
-                        }
-                        g_clear_pointer (&login_session_id, g_free);
+                display = gdm_display_store_find (store,
+                                                  lookup_by_session_id,
+                                                  (gpointer) login_session_id);
+                if (display != NULL &&
+                    (gdm_display_get_status (display) == GDM_DISPLAY_MANAGED ||
+                     gdm_display_get_status (display) == GDM_DISPLAY_WAITING_TO_FINISH)) {
+                        g_object_set (G_OBJECT (display), "status", GDM_DISPLAY_MANAGED, NULL);
+                        g_debug ("GdmLocalDisplayFactory: session %s found, activating.",
+                                 login_session_id);
+                        gdm_activate_session_by_id (factory->priv->connection, seat_id, login_session_id);
+                        return NULL;
                 }
-                g_clear_pointer (&active_session_id, g_free);
         }
 
         g_debug ("GdmLocalDisplayFactory: Adding display on seat %s", seat_id);
@@ -615,10 +606,20 @@ lookup_by_session_id (const char *id,
 }
 
 #if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+static gboolean
+wait_to_finish_timeout (GdmLocalDisplayFactory *factory)
+{
+        finish_waiting_displays_on_seat (factory, "seat0");
+        factory->priv->wait_to_finish_timeout_id = 0;
+        return G_SOURCE_REMOVE;
+}
+
 static void
-maybe_stop_greeter_in_background (GdmDisplay *display)
+maybe_stop_greeter_in_background (GdmLocalDisplayFactory *factory,
+                                  GdmDisplay             *display)
 {
         g_autofree char *display_session_type = NULL;
+        gboolean doing_initial_setup = FALSE;
 
         if (gdm_display_get_status (display) != GDM_DISPLAY_MANAGED) {
                 g_debug ("GdmLocalDisplayFactory: login window not in managed state, so ignoring");
@@ -627,7 +628,14 @@ maybe_stop_greeter_in_background (GdmDisplay *display)
 
         g_object_get (G_OBJECT (display),
                       "session-type", &display_session_type,
+                      "doing-initial-setup", &doing_initial_setup,
                       NULL);
+
+        /* we don't ever stop initial-setup implicitly */
+        if (doing_initial_setup) {
+                g_debug ("GdmLocalDisplayFactory: login window is performing initial-setup, so ignoring");
+                return;
+        }
 
         /* we can only stop greeter for wayland sessions, since
          * X server would jump back on exit */
@@ -638,6 +646,15 @@ maybe_stop_greeter_in_background (GdmDisplay *display)
 
         g_debug ("GdmLocalDisplayFactory: killing login window once its unused");
         g_object_set (G_OBJECT (display), "status", GDM_DISPLAY_WAITING_TO_FINISH, NULL);
+
+        /* We stop the greeter after a timeout to avoid flicker */
+        if (factory->priv->wait_to_finish_timeout_id != 0)
+                g_source_remove (factory->priv->wait_to_finish_timeout_id);
+
+        factory->priv->wait_to_finish_timeout_id =
+                g_timeout_add_seconds (WAIT_TO_FINISH_TIMEOUT,
+                                       (GSourceFunc)wait_to_finish_timeout,
+                                       factory);
 }
 
 static gboolean
@@ -731,7 +748,7 @@ on_vt_changed (GIOChannel    *source,
                                                                   (gpointer) login_session_id);
 
                                 if (display != NULL)
-                                        maybe_stop_greeter_in_background (display);
+                                        maybe_stop_greeter_in_background (factory, display);
                         } else {
                                 g_debug ("GdmLocalDisplayFactory: VT not switched from login window");
                         }
@@ -745,19 +762,6 @@ on_vt_changed (GIOChannel    *source,
         if (strcmp (factory->priv->tty_of_active_vt, tty_of_initial_vt) != 0) {
                 g_debug ("GdmLocalDisplayFactory: active VT is not initial VT, so ignoring");
                 return G_SOURCE_CONTINUE;
-        }
-
-        ret = sd_seat_get_active ("seat0", &active_session_id, NULL);
-
-        if (ret == 0) {
-                g_autofree char *state = NULL;
-                ret = sd_session_get_state (active_session_id, &state);
-
-                /* if there's something already running on the active VT then bail */
-                if (ret == 0 && g_strcmp0 (state, "closing") != 0) {
-                        g_debug ("GdmLocalDisplayFactory: initial VT is in use, so ignoring");
-                        return G_SOURCE_CONTINUE;
-                }
         }
 
         if (gdm_local_display_factory_use_wayland ())
@@ -825,6 +829,10 @@ gdm_local_display_factory_stop_monitor (GdmLocalDisplayFactory *factory)
                 factory->priv->seat_removed_id = 0;
         }
 #if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+        if (factory->priv->wait_to_finish_timeout_id != 0) {
+                g_source_remove (factory->priv->wait_to_finish_timeout_id);
+                factory->priv->wait_to_finish_timeout_id = 0;
+        }
         if (factory->priv->active_vt_watch_id) {
                 g_source_remove (factory->priv->active_vt_watch_id);
                 factory->priv->active_vt_watch_id = 0;
