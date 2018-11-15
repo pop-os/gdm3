@@ -1,3 +1,18 @@
+gdm3 (3.30.1-2) UNRELEASED; urgency=medium
+
+  [ Jeremy Bicha ]
+  * Build-Depend on gjs
+    - In preparation for gjs' removal from s390x (#909536), let's ensure
+      that gdm3 has satisifiable dependencies
+
+  [ Alexander Kurtz ]
+  * debian/generate-config: Drop "exit 0", pointless with set -e
+  * debian/gdm3.postinst: Stop setting up pulseaudio as a user service
+  * debian/gdm3.postinst: Add missing cleanup of
+    /var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 15 Nov 2018 09:20:35 +0000
+
 gdm3 (3.30.1-1) unstable; urgency=medium
 
   * New upstream release 3.30.1
