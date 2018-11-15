@@ -1,6 +1,1 @@
-[Desktop Entry]
-Type=Application
-Name=Dummy URI Handler
-Exec=true %U
-Terminal=false
-StartupNotify=false
+[Default Applications]
