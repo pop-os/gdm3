@@ -4,3 +4,4 @@
 92_systemd_unit.patch
 93_translate-default-desktop.patch
 94_retain_xorg_log.patch
+95_accept_all_layouts.patch

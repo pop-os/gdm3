@@ -1,0 +1,23 @@
+From: Iiro Laiho <news@iirolaiho.net>
+Date: Tue, 5 Feb 2019 21:18:10 +0200
+Subject: Accept all keyboard layouts by default to prevent confusing
+ behaviour (cherry picked from commit
+ 3b9797d759b42b85be309a1b3cbbf52cb3e47de5)
+
+---
+ data/dconf/defaults/00-upstream-settings | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/data/dconf/defaults/00-upstream-settings b/data/dconf/defaults/00-upstream-settings
+index 603903e..0f41899 100644
+--- a/data/dconf/defaults/00-upstream-settings
++++ b/data/dconf/defaults/00-upstream-settings
+@@ -9,6 +9,9 @@
+ [org/gnome/desktop/session]
+ session-name='gnome-login'
+ 
++[org/gnome/desktop/input-sources]
++show-all-sources=true
++
+ [org/gnome/desktop/a11y]
+ always-show-universal-access-status=true
