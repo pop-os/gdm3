@@ -9,14 +9,14 @@
 # Theming options
 # ===============
 #  - Change the GTK+ theme
-# [org/gnome/desktop/interface]
+[org/gnome/desktop/interface]
 # gtk-theme='Adwaita'
 #  - Use another background
-# [org/gnome/desktop/background]
+[org/gnome/desktop/background]
 # picture-uri='file:///usr/share/themes/Adwaita/backgrounds/stripes.jpg'
 # picture-options='zoom'
 #  - Or no background at all
-# [org/gnome/desktop/background]
+[org/gnome/desktop/background]
 # picture-options='none'
 # primary-color='#000000'
 
