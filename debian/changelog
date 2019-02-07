@@ -1,3 +1,20 @@
+gdm3 (3.30.2-2) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * Stop using gnome-get-source and fix pod2man version rule
+  * debian/greeter.dconf-defaults: Uncomment all header lines
+    (Closes: #901892)
+
+  [ Iiro Laiho ]
+  * Cherry-pick fix from 3.31 to allow all keyboard layouts at log in
+    (Closes: #921457)
+
+  [ Aurélien COUDERC ]
+  * Update login screen logo for Debian 10 and support overriding via
+    Debian alternatives. See the desktop-base README.Debian.
+
+ -- Jeremy Bicha <jbicha@debian.org>  Wed, 06 Feb 2019 20:25:34 -0500
+
 gdm3 (3.30.2-1) unstable; urgency=medium
 
   * Team upload
