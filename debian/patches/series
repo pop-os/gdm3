@@ -1,3 +1,7 @@
+manager-don-t-kill-timed-login-session-immediately-after-.patch
+manager-session-Add-some-debugging-around-starting-reauth.patch
+session-Don-t-allow-greeter-operations-on-an-running-sess.patch
+GdmManager-Don-t-perform-timed-login-if-session-gets-star.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch

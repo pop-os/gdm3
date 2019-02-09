@@ -3,6 +3,14 @@ gdm3 (3.30.2-3) UNRELEASED; urgency=medium
   * d/p/95_accept_all_layouts.patch: Fix truncated patch.
     A trailing blank line was declared in the diff header but missing from
     the content.
+  * d/p/manager-don-t-kill-timed-login-session-immediately-after-.patch,
+    d/p/manager-session-Add-some-debugging-around-starting-reauth.patch,
+    d/p/session-Don-t-allow-greeter-operations-on-an-running-sess.patch,
+    d/p/GdmManager-Don-t-perform-timed-login-if-session-gets-star.patch:
+    Update to upstream gnome-3-30 branch at commit 3.30.2-4-gdd4529542
+    - Fix interaction between timed logins and ordinary logins
+      that could lead to the wrong session being unlocked when not using
+      Wayland (CVE-2019-3825, Closes: #921764)
 
  -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:17:31 +0000
 
