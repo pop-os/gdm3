@@ -11,6 +11,9 @@ gdm3 (3.30.2-3) UNRELEASED; urgency=medium
     - Fix interaction between timed logins and ordinary logins
       that could lead to the wrong session being unlocked when not using
       Wayland (CVE-2019-3825, Closes: #921764)
+  * d/greeter.dconf-defaults:
+    Add commented-out power management options to make it easier to disable
+    automatic suspend if desired (see #893964)
 
  -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:17:31 +0000
 
