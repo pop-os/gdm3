@@ -1,3 +1,11 @@
+gdm3 (3.30.2-3) UNRELEASED; urgency=medium
+
+  * d/p/95_accept_all_layouts.patch: Fix truncated patch.
+    A trailing blank line was declared in the diff header but missing from
+    the content.
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:17:31 +0000
+
 gdm3 (3.30.2-2) unstable; urgency=medium
 
   [ Jeremy Bicha ]
