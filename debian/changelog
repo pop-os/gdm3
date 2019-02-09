@@ -1,5 +1,6 @@
-gdm3 (3.30.2-3) UNRELEASED; urgency=medium
+gdm3 (3.30.2-3) unstable; urgency=medium
 
+  * Team upload
   * d/p/95_accept_all_layouts.patch: Fix truncated patch.
     A trailing blank line was declared in the diff header but missing from
     the content.
@@ -15,7 +16,7 @@ gdm3 (3.30.2-3) UNRELEASED; urgency=medium
     Add commented-out power management options to make it easier to disable
     automatic suspend if desired (see #893964)
 
- -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:17:31 +0000
+ -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:38:07 +0000
 
 gdm3 (3.30.2-2) unstable; urgency=medium
 
