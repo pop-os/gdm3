@@ -11,14 +11,11 @@ Wayland is fine, as checked with usptream. So, we can revert nvidia from
 the blacklist for now.
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1797355
 Bug: https://gitlab.gnome.org/GNOME/gdm/issues/429
----
- data/61-gdm.rules.in | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index ad5b87d..c9f6110 100644
---- a/data/61-gdm.rules.in
-+++ b/data/61-gdm.rules.in
+Index: gdm3/data/61-gdm.rules.in
+===================================================================
+--- gdm3.orig/data/61-gdm.rules.in
++++ gdm3/data/61-gdm.rules.in
 @@ -2,5 +2,3 @@
  ATTR{vendor}=="0x1013", ATTR{device}=="0x00b8", ATTR{subsystem_vendor}=="0x1af4", ATTR{subsystem_device}=="0x1100", RUN+="@libexecdir@/gdm-disable-wayland"
  # disable Wayland on Hi1710 chipsets
