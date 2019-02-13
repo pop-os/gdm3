@@ -1,3 +1,20 @@
+gdm3 (3.30.1-1ubuntu6) UNRELEASED; urgency=medium
+
+  * Revert gdm-wait-for-drm changes.
+    systemd itself got fixed to not tag framebuffer devices as
+    master-of-seat, meaning that gdm should not start up until a proper DRM
+    device is available on its own now. That was systemd commit
+    6260d28b8a002a401eab7511f96fd62f471dccdb (v240+).
+    This reverts commits 543d1f72679284e3d8a42020c0cf0ba79e9320c7
+                         f8a165b6331f4c006e69942e7401af441251536d
+                         83b085f0c31de7adb98bfafbe160812709c5b9f8
+                         c70616e722e9bffe18b8dc380c4ee11eb7cad98f
+                         64d353519b1a36023000b8d7b1277751a1d6b464.
+    This change needs *thorough* *testing* on hardware that could previously
+    reproduce bug #1794280, to make sure it is really fixed.
+
+ -- Iain Lane <laney@debian.org>  Wed, 13 Feb 2019 15:26:21 +0000
+
 gdm3 (3.30.1-1ubuntu5) cosmic; urgency=medium
 
   * Remove accidental addition of Install/Alias info in gdm service file.
