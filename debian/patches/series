@@ -16,3 +16,7 @@ revert_override_LANG_with_accountservices.patch
 ubuntu_config_error_dialog.patch
 ubuntu_dont_set_language_env.patch
 ubuntu_prefer_ubuntu_session_fallback.patch
+CVE-2019-3825-1.patch
+CVE-2019-3825-2.patch
+CVE-2019-3825-3.patch
+CVE-2019-3825-4.patch

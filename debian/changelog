@@ -1,3 +1,12 @@
+gdm3 (3.28.3-0ubuntu18.04.4) bionic-security; urgency=medium
+
+  * SECURITY UPDATE: Access to the logged-in user's session
+    - debian/patches/CVE-2019-3825-*.patch: fix in
+      daemon/gdm-manager.c, daemon/gdm-session.c.
+    - CVE-2019-3825
+
+ -- Leonidas S. Barbosa <leo.barbosa@canonical.com>  Tue, 19 Feb 2019 05:33:26 -0300
+
 gdm3 (3.28.3-0ubuntu18.04.3) bionic; urgency=medium
 
   [ Bin Li ]
