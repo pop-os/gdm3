@@ -1,3 +1,9 @@
+gdm3 (3.31.4+git20190225-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Iain Lane <laney@debian.org>  Mon, 25 Feb 2019 15:03:02 +0000
+
 gdm3 (3.30.2-3) unstable; urgency=medium
 
   * Team upload
