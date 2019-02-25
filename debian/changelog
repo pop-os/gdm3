@@ -1,8 +1,23 @@
-gdm3 (3.31.4+git20190225-1) UNRELEASED; urgency=medium
+gdm3 (3.31.4+git20190225-1) experimental; urgency=medium
 
-  * New upstream release
+  * New upstream git snapshot. This is upstream commit
+    4d5e8ca9466a3903c4360cabb3c89ed018dd3e35 plus a Debian patch by Iain Lane
+    to not include some generated files in the tarball - they were leaking the
+    maintainer's prefix. That's forwarded as !61 upstream.
+  * Refresh patches
+    d/p/95_accept_all_layouts.patch,
+    d/p/GdmManager-Don-t-perform-timed-login-if-session-gets-star.patch,
+    d/p/manager-don-t-kill-timed-login-session-immediately-after-.patch,
+    d/p/manager-session-Add-some-debugging-around-starting-reauth.patch,
+    d/p/session-Don-t-allow-greeter-operations-on-an-running-sess.patch:
+    Dropped, applied upstream.
+  * Bump to compat 12.
+    Use the new Build-Depends: debhelper-compat method to specify this, and
+    remove debian/compat accordingly. This compat level (actually it was 11)
+    drops the systemd sequence in preference for using dh_installsystemd. We
+    still don't want to use this, so override it to an empty target.
 
- -- Iain Lane <laney@debian.org>  Mon, 25 Feb 2019 15:03:02 +0000
+ -- Iain Lane <laney@debian.org>  Mon, 25 Feb 2019 16:29:21 +0000
 
 gdm3 (3.30.2-3) unstable; urgency=medium
 
