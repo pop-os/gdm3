@@ -1,3 +1,135 @@
+gdm3 (3.31.4+git20190225-1ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge with Debian. Remaining changes:
+    + README.Debian: update for correct paths in Ubuntu
+    + control.in:
+      - Don't recommend desktop-base
+      - Depend on bash for ubuntu_config_error_dialog.patch
+      - Update Vcs field
+    + rules:
+      - Don't override default user/group
+      - --enable-gdm-xsession to install upstream Xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, README.Debian, gdm3.8.pod:
+      Use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.postinst, gdm3.prerm: don't kill gdm on upgrade
+    + gdm3.*.pam: Make pam_env read ~/.pam_environment
+    + gdm3.install:
+      - Stop installing default.desktop. It adds unnecessary clutter
+        ("System Default") to the session chooser.
+      - Don't install debian/Xsession
+    + Add ubuntu_run_xsession.d.patch
+    + Add ubuntu_xresources_is_a_dir.patch
+      - Fix loading from /etc/X11/Xresources/*
+    + Add ubuntu_nvidia_prime.patch:
+      - Add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + Add revert_override_LANG_with_accountservices.patch:
+      - On Ubuntu accountservices only stores the language and not the
+        full locale as needed by LANG.
+    + Add ubuntu_dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + Add ubuntu_config_error_dialog.patch:
+      - Show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: Don't set Debian settings in the
+      greeter's dconf DB
+
+ -- Iain Lane <iain.lane@canonical.com>  Mon, 25 Feb 2019 17:46:33 +0000
+
+gdm3 (3.31.4+git20190225-1) experimental; urgency=medium
+
+  * New upstream git snapshot. This is upstream commit
+    4d5e8ca9466a3903c4360cabb3c89ed018dd3e35 plus a Debian patch by Iain Lane
+    to not include some generated files in the tarball - they were leaking the
+    maintainer's prefix. That's forwarded as !61 upstream.
+  * Refresh patches
+    d/p/95_accept_all_layouts.patch,
+    d/p/GdmManager-Don-t-perform-timed-login-if-session-gets-star.patch,
+    d/p/manager-don-t-kill-timed-login-session-immediately-after-.patch,
+    d/p/manager-session-Add-some-debugging-around-starting-reauth.patch,
+    d/p/session-Don-t-allow-greeter-operations-on-an-running-sess.patch:
+    Dropped, applied upstream.
+  * Bump to compat 12.
+    Use the new Build-Depends: debhelper-compat method to specify this, and
+    remove debian/compat accordingly. This compat level (actually it was 11)
+    drops the systemd sequence in preference for using dh_installsystemd. We
+    still don't want to use this, so override it to an empty target.
+
+ -- Iain Lane <laney@debian.org>  Mon, 25 Feb 2019 16:29:21 +0000
+
+gdm3 (3.30.2-3) unstable; urgency=medium
+
+  * Team upload
+  * d/p/95_accept_all_layouts.patch: Fix truncated patch.
+    A trailing blank line was declared in the diff header but missing from
+    the content.
+  * d/p/manager-don-t-kill-timed-login-session-immediately-after-.patch,
+    d/p/manager-session-Add-some-debugging-around-starting-reauth.patch,
+    d/p/session-Don-t-allow-greeter-operations-on-an-running-sess.patch,
+    d/p/GdmManager-Don-t-perform-timed-login-if-session-gets-star.patch:
+    Update to upstream gnome-3-30 branch at commit 3.30.2-4-gdd4529542
+    - Fix interaction between timed logins and ordinary logins
+      that could lead to the wrong session being unlocked when not using
+      Wayland (CVE-2019-3825, Closes: #921764)
+  * d/greeter.dconf-defaults:
+    Add commented-out power management options to make it easier to disable
+    automatic suspend if desired (see #893964)
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 09 Feb 2019 11:38:07 +0000
+
+gdm3 (3.30.2-2) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * Stop using gnome-get-source and fix pod2man version rule
+  * debian/greeter.dconf-defaults: Uncomment all header lines
+    (Closes: #901892)
+
+  [ Iiro Laiho ]
+  * Cherry-pick fix from 3.31 to allow all keyboard layouts at log in
+    (Closes: #921457)
+
+  [ Aurélien COUDERC ]
+  * Update login screen logo for Debian 10 and support overriding via
+    Debian alternatives. See the desktop-base README.Debian.
+
+ -- Jeremy Bicha <jbicha@debian.org>  Wed, 06 Feb 2019 20:25:34 -0500
+
+gdm3 (3.30.2-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jeremy Bicha ]
+  * Build-Depend on gjs
+    - In preparation for gjs' removal from s390x (#909536), let's ensure
+      that gdm3 has satisifiable dependencies
+
+  [ Alexander Kurtz ]
+  * debian/generate-config: Drop "exit 0", pointless with set -e
+  * debian/gdm3.postinst: Stop setting up pulseaudio as a user service
+  * debian/gdm3.postinst: Add missing cleanup of
+    /var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket
+
+  [ Simon McVittie ]
+  * New upstream release
+    - Refresh patch series
+  * d/control.in: Transfer added Breaks in d/control to here.
+    Otherwise it would not be preserved when d/control is regenerated
+    during clean.
+  * Normalize package lists with wrap-and-sort -a
+  * Normalize file lists with wrap-and-sort -a
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 15 Nov 2018 09:29:20 +0000
+
 gdm3 (3.30.1-1ubuntu6) UNRELEASED; urgency=medium
 
   * Revert gdm-wait-for-drm changes.

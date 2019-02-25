@@ -41,7 +41,7 @@
 		  <para>DOCUMENT IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE OF THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND</para>
 		</listitem>
 		<listitem>
-		  <para>EN NINGUNHA CIRCUNSTANCIA NIN SEGUNDO NINGÚN ARGUMENTO LEGAL, SEXA POR MOTIVOS CULPOSOS (INCLUÍDA A NEGLIXENCIA), CONTRACTUAIS OU DE OUTRO TIPO, NIN O AUTOR, NIN O REDACTOR INICIAL, NIN CALQUERA COLABORADOR, NIN CALQUERA DISTRIBUIDOR DO DOCUMENTO OU VERSIÓN MODIFICADA DO MESMO, NIN CALQUERA FORNECEDOR DE CALQUERA DE DITAS PARATES, SERÁN RESPONSÁBEIS, ANTE NINGÚN TERCEIRO, DE NINGÚN DANO OU PERXUIZO DIRECTO, INDIRECTO, ESPECIAL, INCIDENTAL OU CONSIGUIENTE DE NINGÚN TIPO, INCLUÍDOS, SEN LIMITACIÓN, OS DANOS POR PERDA DE FONDO DE COMERCIO, INTERRUPCIÓN DO TRABALLO, FALLO OU MAL FUNCIONAMENTO INFORMÁTICO, NIN CALQUERA OUTRO DANO OU PERDA DERIVADA DO USO DO DOCUMENTO E AS VERSIÓNS MODIFICADAS DO MESMO, OU RELACIONADO CON ILO, INCLUSO SE SE COMUNICOU A AQUELA PARTE A POSIBILIDADE DE TALES DANOS.	</para>
+		  <para>EN NINGUNHA CIRCUNSTANCIA NIN SEGUNDO NINGÚN ARGUMENTO LEGAL, SEXA POR MOTIVOS CULPOSOS (INCLUÍDA A NEGLIXENCIA), CONTRACTUAIS OU DE OUTRO TIPO, NIN O AUTOR, NIN O REDACTOR INICIAL, NIN CALQUERA COLABORADOR, NIN CALQUERA DISTRIBUIDOR DO DOCUMENTO OU VERSIÓN MODIFICADA DO MESMO, NIN CALQUERA FORNECEDOR DE CALQUERA DE DITAS PARATES, SERÁN RESPONSÁBEIS, ANTE NINGÚN TERCEIRO, DE NINGÚN DANO OU PERXUIZO DIRECTO, INDIRECTO, ESPECIAL, INCIDENTAL OU CONSIGUIENTE DE NINGÚN TIPO, INCLUÍDOS, SEN LIMITACIÓN, OS DANOS POR PERDA DE FONDO DE COMERCIO, INTERRUPCIÓN DO TRABALLO, FALLO OU MAL FUNCIONAMENTO INFORMÁTICO, NIN CALQUERA OUTRO DANO OU PERDA DERIVADA DO USO DO DOCUMENTO E AS VERSIÓNS MODIFICADAS DO MESMO, OU RELACIONADO CON ILO, INCLUSO SE SE COMUNICOU A AQUELA PARTE A POSIBILIDADE DE TALES DANOS.</para>
 		</listitem>
 	  </orderedlist></para>
   </legalnotice>
@@ -58,7 +58,7 @@
     </othercredit>
     <copyright>
       
-        <year>2012-2016.</year>
+        <year>2012-2019.</year>
       
       <holder>Fran Dieguez</holder>
     </copyright>
@@ -160,7 +160,7 @@
     <sect2 id="accessibility">
       <title>Accesibilidade</title>
 
-        <para>GDM admite «Inicio de sesión accesíbel», o cal lle permite iniciar sesión nunha sesión de escritorio incluso cando non pode usar de forma doada a pantalla, o rato ou o teclado na forma normal. A Tecnoloxía de Accesibilidade (AT) ten características como teclado en pantalla, lector de pantalla, magnificador de pantalla e accesibilidade de teclado AccessX de Xserver. Vaia á sección «Configuración de accesibilidade»do documento para obter máis información sobre como se poden configurar as distintas características de accesibilidade. </para>
+        <para>GDM admite «Inicio de sesión accesíbel», o cal lle permite iniciar sesión nunha sesión de escritorio incluso cando non pode usar de forma doada a pantalla, o rato ou o teclado na forma normal. A Tecnoloxía de Accesibilidade (AT) ten características como teclado en pantalla, lector de pantalla, magnificador de pantalla e accesibilidade de teclado AccessX de Xserver. Vaia á sección «Configuración de accesibilidade»do documento para obter máis información sobre como se poden configurar as distintas características de accesibilidade.</para>
 
         <para>Nalgúns sistemas operativos, é necesario asegurarse que o usuario de GDM é un membro do grupo «audio» para os programas de AT que requiren saída de son (como texto-a-fala) para que sexan funcionais.</para>
     </sect2>
@@ -174,7 +174,7 @@
 
       <para>O explorador de caras admite "busca adiantada" que move dinámicamente a selección de cara mentres o usuario escribe o correspondente nome de usuario na lista. Isto significa que un usuario con un nome de usuario longo só ten que escribir os primeiros caracteres do seu nome antes de que seleccione o elemento correcto na lista.</para>
 
-      <para>As iconas usadas por GDM están instaladas de forma global polo administrador do sistema ou poden estar nos cartafoles persoais dos usuarios. Se está instalada de forma global debería estar no cartafol <filename>&lt;share&gt;/pixmaps/faces/</filename> e o nome de ficheiro debería ser o nome de usuario. Os ficheiros de imaxes de avatar no cartafol «face» global debe poder lerse polo usuario GDM.  </para>
+      <para>As iconas usadas por GDM están instaladas de forma global polo administrador do sistema ou poden estar nos cartafoles persoais dos usuarios. Se está instalada de forma global debería estar no cartafol <filename>&lt;share&gt;/pixmaps/faces/</filename> e o nome de ficheiro debería ser o nome de usuario. Os ficheiros de imaxes de avatar no cartafol «face» global debe poder lerse polo usuario GDM.</para>
 
 <!--
 <para>
@@ -184,7 +184,7 @@
 -->
       <para>Non hai unha icona global para o usuario, GDM bucará no cartafol $HOME do usuario pola imaxe. GDM primeiro mirará o ficheiro de avatar do usuario en <filename>~/.face</filename>. Se non o atopa, tentará <filename>~/.face.icon</filename>. Se aínda non o atopou, usará o valor definido por "face/picture=" no ficheiro <filename>~/.gnome2/gdm</filename>.</para>
 
-      <para>Se o usuario non ten unha imaxe de avatar definida, GDM usará a icona «stock_person» definida no tema GTK+ actual. Se non hai unha imaxe definida, usarase a imaxe de avatar xenérica. </para>
+      <para>Se o usuario non ten unha imaxe de avatar definida, GDM usará a icona «stock_person» definida no tema GTK+ actual. Se non hai unha imaxe definida, usarase a imaxe de avatar xenérica.</para>
 
       <para>Teña en conta que cargar e escalar iconas de avatar localizadas en cartafoles persoais remotos pode ser unha tarefa que leve tempo. Xa que no é práctico cargar imaxes mediante NIS ou NFS, GDM non tentará cargar imaxes desde cartafoles persoais remotos.</para>
 
@@ -245,58 +245,19 @@
 
       <para>Por razóns de seguranza recoméndase ter un id de usuario e group para que funcione correctamente a operación. Este usuario e grupo son «gdm» na maioría dos sistemas normalmente, aínda que poden configurarse para calquera usuario ou grupo. Todos os programs de GUI de GDM executaranse con este usuario, polo que os programas que interactúan con este usuario son executados nunha caixa de area. Este usuario e grupo deberían ter privilexios limitados.</para>
 
-      <para lang="en">
-        The only special privilege the "gdm" user requires is the
-        ability to read and write Xauth files to the
-        <filename>&lt;var&gt;/run/gdm</filename> directory.  The
-        <filename>&lt;var&gt;/run/gdm</filename> directory should have
-        root:gdm ownership and 1777 permissions.
-      </para>
+      <para>O único privilexio especial que o usuario «gdm» é a habilidade de ler e escribir ficheiros Xauth no directorio <filename>&lt;var&gt;/run/gdm</filename>. O directorio <filename>&lt;var&gt;/run/gdm</filename> debería ter root:gdm como propietario e 1777 como permisos.</para>
 
-      <para lang="en">
-        You should not, under any circumstances, configure the GDM user/group
-        to a user which a user could easily gain access to, such as the user
-        <filename>nobody</filename>.  Any user who gains access to an Xauth
-        key can snoop on and control running GUI programs running in the
-        associated session or perform a denial-of-service attack on it.  It
-        is important to ensure that the system is configured properly so that
-        only the "gdm" user has access to these files and that it
-        is not easy to login to this account.  For example, the account should
-        be setup to not have a password or allow non-root users to login to the
-        account.
-      </para>
+      <para>Non debería, baixo ningunha circunstancia, configurar o usuario/grupo de GDM a un usuario cuxo usuario poida ter acceso facilmente, como un usuario <filename>nobody</filename>. Calquera usuario que acceda a unha chave de Xauth pode fisgonear e controlar os programas de GUI en exsecución nunha sesión asociada ou levar a cabo ataques de denegación de servizo. É importante asegurarse que o sistema está configurado correctamente para que só o usuario «gdm» teña acceso a esos ficheiros e que non pode iniciar sesión na súa conta. Por exemplo, a conta debería configurarse para non ter contrasinal ou non permitir que os usuarios non root poidan iniciar sesión na súa conta.</para>
 
-      <para lang="en">
-        The GDM greeter configuration is stored in GConf.  To allow the GDM
-        user to be able to write configuration, it is necessary for the 
-        "gdm" user to have a writable $HOME directory.  Users may
-        configure the default GConf configuration as desired to avoid the 
-        need to provide the "gdm" user with a writable $HOME
-        directory.  However, some features of GDM may be disabled if it is
-        unable to write state information to GConf configuration.
-      </para>
+      <para>A configuración do greeter de GDM está almacenado en GConf. Para permitir ao usuario GDM escribir configuracións é preciso darlle ao usuario «gdm» permisos para escribir no directorio $HOME. Os usuaris poderían configurar a configuración GConf por omisión á que desexe para evitar ter que fornecerlle ao usuario «gdm» un directorio $HOME. Porén, algunhas características de GDM poderían desactivarse se non pode escribir a información de estado na configuración de GConf.</para>
     </sect2>
 
     <sect2 id="PAM">
       <title>PAM</title>
 
-      <para lang="en">
-        GDM uses PAM for login authentication.  PAM stands for Pluggable
-        Authentication Module, and is used by most programs that request
-        authentication on your computer.  It allows the administrator to
-        configure specific authentication behavior for different login programs
-        (such as ssh, login GUI, screensaver, etc.)
-      </para>
+      <para>GDM usa PAM para a autenticación de inicio de sesión. PAM significa Pluggable Authentication Module, e é usado pola maioría dos programas que solicitan autenticacións no seu computador. Permítelle ao administrador configurar comportamentos de autenticación específicos para varios programas de inicio de sesión (como para ssh, GUI de inicio de sesión, etc.)</para>
 
-      <para lang="en">
-        PAM is complicated and highly configurable, and this documentation does
-        not intend to explain this in detail.  Instead, it is intended to give
-        an overview of how PAM configuration relates with GDM, how PAM is
-        commonly configured with GDM, and known issues.  It is expected that
-        a person needing to do PAM configuration would need to do further
-        reading of PAM documentation to understand how to configure PAM and
-        to understand terms used in this section.
-      </para>
+      <para>PAM é complicado e amplamente configurábel, esta documentación non pretende explicar isto en detalle. No lugar, pretende darlle unha pequena vista previa de como a configuración de PAM se relaciona con GDM, como se configura normalmente PAM con GDM, e problemas coñecidos. Agardase que unha persona que precisa configurar PAM precisa debería ter que facer máis aló de ler a documentación de PAM para entender como configuralo e entender os termos usados nesta sección.</para>
         
       <para>A configuración PAM ten interfaces diferentes, pero similares, para os distintos sistemas operativos, polo que comprobe a páxina man <ulink type="help" url="man:pam.d">pam.d</ulink> ou <ulink type="help" url="man:pam.conf">pam.conf</ulink>. Asegúrese que lee a documentación PAM e ten en conta as implicacións de seguridade que calquera cambio que queira facer na súa configuración.</para>
 
@@ -304,35 +265,11 @@
 
       <para>O script <filename>PostLogin</filename> execútase antes de que se chame a pam_open_session, e o script <filename>PreSession</filename> chámase despois. Isto permítelle ao administrador do sistema engadir calquera script no proceso de inicio de sesión antes ou despois de que PAM inicialice a sesión.</para>
 
-      <para lang="en">
-        If you wish to make GDM work with other types of authentication
-        mechanisms (such as a fingerprint or SmartCard reader), then you should
-        implement this by using a PAM service module for the desired
-        authentication type rather than by trying to modify the GDM code
-        directly.  Refer to the PAM documentation on your system.  How to do
-        this is frequently discussed on the 
-        <address><email>gdm-list@gnome.org</email></address> mail list,
-        so you can refer to the list archives for more information.
-      </para>
+      <para>Se desexa facer que GDM traballe con outros tipos de mecanismos de autenticación (como con lectores de pegada dixital ou tarxetas intelixentes), entón terá que implementalo usando un módulo de servizo de PAM para que o tipo de autenticación desexado no lugar de ter que modificar o código de GDM directamente. Olle a documentación de PAM no seu sistema. Como facer isto normalmente discútese na rolda de correo <address><email>gdm-list@gnome.org</email></address>, polo que revise os arquivos da lista para obter máis información.</para>
 
-      <para lang="en">
-        PAM does have some limitations regarding being able to work with 
-        multiple types of authentication at the same time, like supporting
-        the ability to accept either SmartCard and the ability to type the
-        username and password into the login program.  There are techniques
-        that are used to make this work, and it is best to research how this
-        problem is commonly solved when setting up such a configuration.
-      </para>
+      <para>PAM ten algunhas limitacións ao ser capaz de traballar con varios tipos de autenticación ao mesmo tempo, como permitir aceptar tanto unha tarxeta intelixente e permitir escribir un nome de usuario e contrasinal no programa de inicio de sesión. Hai técnicas que poden usarse para facelo funcionar, e é mellor investigar cómo se soluciona normalmente este problema ao configurar dita configuración.</para>
 
-      <para lang="en">
-        If automatic login does not work on a system, check to see if the
-        "gdm-autologin" PAM stack is defined in the PAM configuration.  For
-        this to work, it is necessary to use a PAM module that simply does no
-        authentication, or which simply returns PAM_SUCCESS from all of its
-        public interfaces.  Assuming your system has a pam_allow.so PAM module
-        which does this, a PAM configuration to enable "gdm-autologin" would
-        look like this:
-      </para>
+      <para>Se o inicio de sesión automático non funciona no seu sistema, comprobe se está definido «gdm-autologin» na configuración de PAM. Para facelo funcionar, é preciso usar un módulo de PAM que simplemente non precisa autenticación, ou que simplemente retorna PAM_SUCCESS desde todas as súas interfaces públicas. Asumindo que o seu sistema ten o módulo pam_allow.so que fai isto, a configuración de PAM para activar «gdm-autologin» debería ser semellante a:</para>
 
 <screen>
        gdm-autologin auth  required    pam_unix_cred.so.1
@@ -348,16 +285,7 @@
        gdm-autologin session required pam_unix_session.so.1
 </screen>
 
-      <para lang="en">
-        If the computer is used by several people, which makes automatic login
-        unsuitable, you may want to allow some users to log in without entering
-        their password. This feature can be enabled as a per-user option in
-        the users-admin tool from the gnome-system-tools; it is achieved by
-        checking that the user is member a Unix group called
-        "nopasswdlogin" before asking for a password. For this to work,
-        the PAM configuration file for the "gdm" service must include
-        a line such as:
-      </para>
+      <para>Se o computador é usado por varias personas, o que fai o inicio de sesión automatico non axeitado, pode querer que varios usuarios inicien sesión sen escribir contrasinal. Esta característica pode activarse con unha configuración por usuario na ferramenta de administración de usuarios desde gnome-system-tools; isto faise comprobando que o usuario é membro do grupo de usuarios «nopasswdlogin» antes de preguntarlle polo contrasinal. Para facelo funcionar, o ficheiro de configuración de PAM para o servizo «gdm» debería incluír unha liña como a seguinte:</para>
 
 <screen>
       gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
@@ -366,67 +294,26 @@
     </sect2>
 
     <sect2 id="utmpwtmp">
-      <title lang="en">utmp and wtmp</title>
+      <title>utmp e wtmp</title>
 
-      <para lang="en">
-        GDM generates utmp and wtmp User Accounting Database entries upon
-        session login and logout.  The utmp database contains user access
-        and accounting information that is accessed by commands such as
-        <command>finger</command>, <command>last</command>,
-        <command>login</command>, and <command>who</command>.  The wtmp
-        database contains the history of user access and accounting 
-        information for the utmp database.  Refer to the 
-        <ulink type="help" url="man:utmp">utmp</ulink> and
-        <ulink type="help" url="man:wtmp">wtmp</ulink>
-        man pages on your system for more information.
-      </para>
+      <para>GDM xera entradas de Contas de USuario utmp e wtmp sobre a sesión de inicio e de peche de sesión. A base de datos utmp contén os datos de acceso do usuario e información da sesión que é accesible por ordes como <command>finger</command>, <command>last</command>, <command>login</command> e <command>who</command>.As páxinas man de <ulink type="help" url="man:utmp">utmp</ulink> e <ulink type="help" url="man:wtmp">wtmp</ulink> do seu sistema teñen máis información.</para>
     </sect2>
 
     <sect2 id="xauth">
       <title>Esquema de autenticación do servidor X</title>
 
-      <para lang="en">
-        Xserver authorization files are stored in a newly created subdirectory
-        of <filename>&lt;var&gt;/run/gdm</filename> at start up.  These files
-        are used to store and share a "password" between X clients
-        and the Xserver.  This "password" is unique for each session
-        logged in, so users from one session can't snoop on users from another.
-      </para>
+      <para>Os ficheiros de autorización de Xserver están almacenados nun novo subdirectorio de <filename>&lt;var&gt;/run/gdm</filename> ao iniciar. Estos ficheiros úsanse para almacenar e compartir un «contrasinal» entre os clientes X e o Xserver. Este «contrasinal» é único para cada sesión iniciada, polo que os usuarios dunha sesión non poden fisgonear no resto dos usuarios.</para>
 
-      <para lang="en">
-        GDM only supports the MIT-MAGIC-COOKIE-1 Xserver authentication
-        scheme.  Normally little is gained from the other schemes, and no
-        effort has been made to implement them so far.  Be especially
-        careful about using XDMCP because the Xserver authentication cookie
-        goes over the wire as clear text.  If snooping is possible, then an
-        attacker could simply snoop your authentication password as you log in,
-        regardless of the authentication scheme being used.  If snooping is
-        possible and undesirable, then you should use ssh for tunneling an X
-        connection rather then using XDMCP.  You could think of XDMCP as a sort
-        of graphical telnet, having the same security issues.  In most cases,
-        ssh -Y should be preferred over GDM's XDMCP features.
-      </para>
+      <para>GDM só admite o esquema de autenticación MIT-MAGIC-COOKIE-1. Normalmente pouco se pode gañar doutros esquemas, e non se fixo ningún esforzo por implementar máis aló del. Sexa especialmente coidadoso sobre usar XDMCP xa que a cookie de autenticación de Xserver vai sobre a rede como texto plano. Se é posíbel fisgonear, entón un atacante podería obter o seu contrasinal de autenticación en cando inicie sesión, sen importar o esquema de autenticación usado. Se fisgonear é posíbel e non desexábel, entón debería usar ssh para facer un túnel dunha conexión de X no lugar de usar XDMCP. Pode pensar en XDMCP como un telnet gráfico, tendo os seus mesmos problemas de seguridade. Na maioría dos casos, ssh -Y é preferíbel sobre as características de XDMCP de GDM.</para>
 
     </sect2>
 
     <sect2 id="xdmcpsecurity">
       <title>Seguranza XDMCP</title>
 
-      <para lang="en">
-        Even though your display is protected by cookies, XEvents and thus
-        keystrokes typed when entering passwords will still go over the wire in
-        clear text.  It is trivial to capture these.
-      </para>
+      <para>Aínda que a súa pantalla está protexida por cookies, XEvents e polo tanto as pulsacións de teclas ao escribir contrasinais enviaránse en texto plano polo cable. E é trivial capturalas.</para>
 
-      <para lang="en">
-        XDMCP is primarily useful for running thin clients such as in terminal
-        labs.  Those thin clients will only ever need the network to access
-        the server, and so it seems like the best security policy to have
-        those thin clients on a separate network that cannot be accessed by
-        the outside world, and can only connect to the server.  The only point
-        from which you need to access outside is the server.  This type of set up
-        should never use an unmanaged hub or other sniffable network.
-      </para>
+      <para>XDMCP é útil primordialmente para executar clientes lixeiros como terminais de laboratorio. Estos clientes lixeiros só precisarán acceso por rede ao servidor, polo que semellaran unha política seguranza boa ter os clientes lixeiros nunha rede separada que non poida ser accesible desde o exterior, e só poden conectarse ao servidor. O único punto desde o que precisa ter acceso ao exterior é o servidor. Este tipo de configuración nunca debería usarse nun hub sen xestionar ou nunha rede analizábel.</para>
 
     </sect2>
 
@@ -460,12 +347,7 @@ gdm: .o.seu.dominio
         webserver.
       </para>
 
-      <para lang="en">
-        It is also wise to block all of the Xserver ports.  These are TCP
-        ports 6000+ (one for each display number) on your firewall.  Note that
-        GDM will use display numbers 20 and higher for flexible on-demand
-        servers.
-      </para>
+      <para>Tamén se aconsella bloquear todos os portos de Xserver. Estos portros TCP 6000+ (un para cada número de pantalla) no seu firewall. Teña en conta que GDM usará os números de pantalla 20 e superiores para os servidores baixo demanda flexíbeis.</para>
 
       <para>X non é un protocolo moi seguro ao usalo por internet, e XDMCP é aínda menos seguro.</para>
     </sect2>
@@ -511,19 +393,7 @@ gdm: .o.seu.dominio
 
     <para>GDM inclúe compatibilidade para publicar información de inicio de sesión do usuario co marco de traballo de contas de sesión e usuario coñecido como ConsoleKit. ConsoleKit pode facer un seguemento de todos os usuarios coa sesión aberta actualmente. Neste respecto, pode usarse como un substituto dos ficheiros utmp ou utmpx que están dispoñíbeis na maioría dos sistemas operativos Unix.</para>
 
-    <para lang="en">
-      When GDM is about to create a new login process for a user it will call
-      a privileged method of ConsoleKit in order to open a new session for this
-      user.  At this time GDM also provides ConsoleKit with information about
-      this user session such as: the user ID, the X11 Display name that will be
-      associated with the session, the host-name from which the session
-      originates (useful in the case of an XDMCP session), whether or not this
-      session is attached, etc.  As the entity that initiates the user process,
-      GDM is in a unique position to know about the user session and to be 
-      trusted to provide these bits of information. The use of this privileged 
-      method is restricted by the use of the D-Bus system message bus security 
-      policy.
-    </para>
+    <para>Cando GDM está a piques de crear un novo proceso de inicio de sesión para un usuario chamará a un método privilexiado de ConsoleKit para abrir unha nova sesión para este usuario. Neste momento GDM tamén lle fornece a ConsoleKit información sobre esta sesión de usuario como: o ID de usuario, o nome da pantalla X11 que será asociada coa sesión, o nome do anfitrión desde o que se orixina a sesión (útil nos casos dunha sesión XDMCP), tanto se a sesión é anexada ou non, etc. Como a entidade que inicia o proceso de usuario, GDM está nunha posición única que coñece sobre a sesión de usuario e se confiábel de fornecer estes anacos de información. O uso desde método privilexiado está restrinxido polo uso dunha política de seguridade do bus de mensaxes do sistema D-Bus.</para>
 
     <para>No caso de que un usuario con unha sesión existente se autenticara en GDM e solicite retomar unha sesión existente, GDM chama ao método con privilexios de ConsoleKit para desbloquear a sesión. Os detalles exactos do que acontece cando a sesión recibe este sinal de desbloqueo non están definidos e é específico da sesión. Porén, a maioría das sesións desbloquearán o protector de pantalla en resposta.</para>
 
@@ -552,33 +422,11 @@ PostSession/
 
       <para>Os scripts <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename> e <filename>PostSession</filename> todos funcionan como se describe embaixo.</para>
 
-      <para lang="en">
-        For each type of script, the default one which will be executed is
-        called "Default" and is stored in a directory associated with
-        the script type.  So the default <filename>Init</filename> script is 
-        <filename>&lt;etc&gt;/gdm/Init/Default</filename>.  A per-display
-        script can be provided, and if it exists it will be run instead of the 
-        default script.  Such scripts are stored in the same directory as the
-        default script and have the same name as the Xserver DISPLAY value for
-        that display.  For example, if the <filename>&lt;Init&gt;/:0</filename>
-        script exists, it will be run for DISPLAY ":0".
-     </para>
+      <para>Para cada tipo de script, o por defecto que se executa será chamado «Default» e almacenarase nun directorio asociado co tipo de script. POlo que os scripts por omisitón <filename>Init</filename> esta en <filename>&lt;etc&gt;/gdm/Init/Default</filename>. Fornecerase un script por pantalla, e se existe executarase no lugar do script por omisión. Ditos scripts almacénanse no mesmo directorio que o script por omisión e teñen o mesmo nome que o valor de DISPLAY de Xserver para cada pantalla. Por exemplo, se o script <filename>&lt;Init&gt;/:0</filename>, executarase para DISPLAY «:0».</para>
 
-     <para lang="en">
-        All of these scripts are run with root privilege and return 0 if run
-        successfully, and a non-zero return code if there was any failure that
-        should cause the login session to be aborted.  Also note that GDM will
-        block until the scripts finish, so if any of these scripts hang, this
-        will cause the login process to also hang.
-      </para>
+     <para>Todos estos scripts son executados con privilexios de root e retornan 0 se se executaron con éxto, e un código de erro non cero se houbo algún fallo que podería causar que unha sesión de inicio de sesión sexa abortada. Teña en conta que GDM bloquearase ate que os scripts rematen, polo que se ditos scripts se deteñen, isto causará que o proceso de inicio tamén se deteña.</para>
 
-      <para lang="en">
-        When the Xserver for the login GUI has been successfully started, but
-        before the login GUI is actually displayed, GDM will run the
-        <filename>Init</filename> script.  This script is useful for starting
-        programs that should be run while the login screen is showing, or for
-        doing any special initialization if required.
-      </para>
+      <para>Cando o Xserver para o GUI de inicio de sesión foi iniciado correctamente, pero antes de que o GUI de inicio de sesión se mostre, GDM executará o script <filename>Init</filename>. Este script é útil para iniciar programas que deberían executarse mentres que a pantalla de inicio de sesión se mostra, ou para facer calquera inicialización especial requirida.</para>
 
       <para lang="en">
         After the user has been successfully authenticated GDM will run the
@@ -589,27 +437,11 @@ PostSession/
         user's $HOME directory if needed.
       </para>
 
-      <para lang="en">
-        After the user session has been initialized, GDM will run the
-        <filename>PreSession</filename> script.  This script is useful for
-        doing any session initialization that needs to happen after the 
-        session has been initialized.  It can be used for session management or
-        accounting, for example.
-      </para>
+      <para>Despois de que a sesión de usuario se inicie, GDM executará o script <filename>PreSession</filename>. Este script é útil para facer calquera inicialiación de sesión que precisa levarse a cabo despois de que a sesión fora inicializada. Pode ser útil para a xestión de sesións e contabilización, por exemplo.</para>
 
-      <para lang="en"> 
-        When a user terminates their session, GDM will run the
-        <filename>PostSession</filename> script.  Note that the Xserver will
-        have been stopped by the time this script is run, so it should not be
-        accessed.  
-      </para>
+      <para>Cando un usuario remata a súa sesión, GDM executará o script <filename>PostSession</filename>. Teña en conta que Xserver estará parado para cando o script se execute, polo que non poderá acceder a él.</para>
 
-      <para lang="en">
-        Note that the <filename>PostSession</filename> script will be run
-        even when the display fails to respond due to an I/O error or
-        similar. Thus, there is no guarantee that X applications will work
-        during script execution.
-      </para>
+      <para>Teña en conta que o script <filename>PostSession</filename> executarase aínda cando a pantalla falle ao responder debido a un erro de I/O ou similar. Dito isto, non hai garantía que aplicativos X funcionarán duarante a execución de script.</para>
 
       <para lang="en">
         All of the above scripts will set the
@@ -786,11 +618,7 @@ TimedLogin=you
             <term>AutomaticLoginEnable</term>
             <listitem>
               <synopsis>AutomaticLoginEnable=false</synopsis>
-              <para lang="en">
-                If true, the user given in <filename>AutomaticLogin</filename>
-                should be logged in immediately. This feature is like timed
-                login with a delay of 0 seconds.
-              </para>
+              <para>Se é verdadeiro, o usuario fornecido en <filename>AutomaticLogin</filename> debería iniciar sesión inmediatamente. Esta característica é como un inicio de sesión por tempo con un atraso de 0 segundos.</para>
             </listitem>
           </varlistentry>
 
@@ -798,10 +626,7 @@ TimedLogin=you
             <term>AutomaticLogin</term>
             <listitem>
               <synopsis>AutomaticLogin=</synopsis>
-              <para lang="en">
-                This is the user that should be logged in immediately if
-                <filename>AutomaticLoginEnable</filename> is true.
-              </para>
+              <para>Isto é o usuario que debería inciar sesión inmediatamente se <filename>AutomaticLoginEnable</filename> é verdadeiro.</para>
               <para lang="en">
                 If the value ends with a vertical bar | (the pipe symbol),
                 then GDM will execute the program specified and use whatever
@@ -819,12 +644,7 @@ TimedLogin=you
             <term>User</term>
             <listitem>
               <synopsis>User=gdm</synopsis>
-              <para lang="en">
-                The username under which the greeter and other GUI programs
-                are run.  Refer to the <filename>Group</filename>
-                configuration key and to the "Security-&gt;GDM User And
-                Group" section of this document for more information.
-              </para>
+              <para>Se o nome de usuario baixo o cal a pantalla de benvida e outros programas de GUI se executan. Revise a chave de configuración de <filename>Group</filename> e a sección de «Seguridade-&gt;Grupo e Usuario de GDM» desde documento para máis información.</para>
             </listitem>
           </varlistentry>
 
@@ -832,12 +652,7 @@ TimedLogin=you
             <term>Group</term>
             <listitem>
               <synopsis>Group=gdm</synopsis>
-              <para lang="en">
-                The group name under which the greeter and other GUI programs
-                are run.  Refer to the <filename>User</filename>
-                configuration key and to the "Security-&gt;GDM User And
-                Group" section of this document for more information.
-              </para>
+              <para>Se o grupo baixo o cal a pantalla de benvida e outros programas de GUI se executan. Revise a chave de configuración de <filename>User</filename> e a sección de «Seguridade-&gt;Grupo e Usuario de GDM» desde documento para máis información.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -853,15 +668,7 @@ TimedLogin=you
             <term>Enable</term>
             <listitem>
               <synopsis>Enable=false</synopsis>
-              <para lang="en">
-                To enable debugging, set the debug/Enable key to
-                "true" in the
-                <filename>&lt;etc&gt;/gdm/custom.conf</filename>
-                file and restart GDM.  Then debug output will be sent to the
-                system log file (<filename>&lt;var&gt;/log/messages</filename>
-                or <filename>&lt;var&gt;/adm/messages</filename> depending on
-                your Operating System).
-              </para>
+              <para>Para activar a depuración, estabeleza a chave debug/Enable a «true» no ficheiro <filename>&lt;etc&gt;/gdm/custom.conf</filename> e reinicie GDM. Entón a saída de depuración enviarase ao seu ficheiro de rexistro do sistema (<filename>&lt;var&gt;/log/messages</filename> ou <filename>&lt;var&gt;/adm/messages</filename> dependendo do sistema operativo).</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -877,11 +684,7 @@ TimedLogin=you
             <term>IncludeAll</term>
             <listitem>
               <synopsis>IncludeAll=true</synopsis>
-              <para lang="en">
-                If true, then the face browser will show all users on the local
-                machine.  If false, the face browser will only show users who
-                have recently logged in.
-              </para>
+              <para>Se é verdadeiro, entón o explorador de caras mostrará todos os usuarios da máquina local. Se é falso, o explorador de caras só mostrará os usuarios que iniciaron sesión recentemente.</para>
 
               <para lang="en">
                 When this key is true, GDM will call fgetpwent() to get a list
@@ -897,11 +700,7 @@ TimedLogin=you
                 if getusershell() returns them).
               </para>
 
-              <para lang="en">
-                If false, then GDM more simply only displays users that have
-                previously logged in on the system (local or NIS/LDAP users) by
-                calling the <command>ck-history</command> ConsoleKit interface.
-              </para>
+              <para>Se é falso, entón GDM só mostra os usuarios que iniciaron sesión anteriormente no seu sistema (usuarios locais ou de NIS/LDA) chamando á interface de ConsoleKit <command>ck-history</command>.</para>
             </listitem>
           </varlistentry>
 
@@ -1184,10 +983,7 @@ gdm:.my.domain
             <term>/apps/gdm/simple-greeter/banner_message_text</term>
             <listitem>
               <synopsis>NULL (cadea)</synopsis>
-              <para lang="en">
-                Specifies the text banner message to show on the greeter
-                window.
-              </para>
+              <para>Especifica o mensaxe de texto do banner a mostrar na pantalla de benvida.</para>
             </listitem>
           </varlistentry>
 
@@ -1195,10 +991,7 @@ gdm:.my.domain
             <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para lang="en">
-                Controls whether to show the restart buttons in the login
-                window.
-              </para>
+              <para>Controla se mostrar ou non os botóns de reinicio na pantalla de inicio de sesión.</para>
             </listitem>
           </varlistentry>
 
@@ -1206,10 +999,7 @@ gdm:.my.domain
             <term>/apps/gdm/simple-greeter/disable_user_list</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para lang="en">
-                If true, then the face browser with known users is not shown
-                in the login window.
-              </para>
+              <para>Se é verdadeiro, entón o explorador de caras cos usuarios coñecidos mostrarase na pantalla de inicio de sesión.</para>
             </listitem>
           </varlistentry>
 
@@ -1217,9 +1007,7 @@ gdm:.my.domain
             <term>/apps/gdm/simple-greeter/logo_icon_name</term>
             <listitem>
               <synopsis>computer (cadea)</synopsis>
-              <para lang="en">
-                Set to the themed icon name to use for the greeter logo.
-              </para>
+              <para>Configurado ao nome de tema de iconas para o logotipo da benvida.</para>
             </listitem>
           </varlistentry>
 
@@ -1271,10 +1059,7 @@ gdm:.my.domain
             <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para lang="en">
-                Controls whether compiz is used as the window manager instead
-                of metacity.
-              </para>
+              <para>Controla se se usa compiz como xestor de xanelas no lugar de metacity.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1283,13 +1068,10 @@ gdm:.my.domain
     <sect2 id="accessibilityconfiguration">
      <title>Configuración da accesibilidade</title>
 
-      <para lang="en">
-       This section describes the accessibility configuration options available
-       in GDM.
-      </para>
+      <para>Esta sección describe as opcións de configuración de accesibilidade dispoñibles en GDM.</para>
 
       <sect3 id="accessibilitydialog">
-        <title lang="en">GDM Accessibility Dialog And GConf Keys</title>
+        <title>Diálogo de accesibilidade e chaves de GConf de GDM</title>
 
         <para lang="en">
          The GDM greeter panel at the login screen displays an accessibility
@@ -1336,22 +1118,14 @@ gdm:.my.domain
             <term>/desktop/gnome/interface/accessibility</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para lang="en">
-                Controls whether the Accessibility infrastructure will be
-                started with the GDM GUI.  This is needed for many
-                accessibility technology programs to work.
-              </para>
+              <para>Controla se a infraestrutura de accesibilidade debería iniciarse coa interface de GDM. Isto é requirido para que funcionen varios programas de tecnoloxía de accesibilidade.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para lang="en">
-                If set, then the assistive tools linked to this GConf key will
-                be started with the GDM GUI program.  By default this is a
-                screen magnifier application.
-              </para>
+              <para>Se está configurado entón as ferramentas de asistencia ligadas con esta chave de GConf iniciaranse co programa de interface de GDM. Por omisión isto é o aplicativo de ampliación de pantalla.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -1380,7 +1154,7 @@ gdm:.my.domain
       </sect3>
 
       <sect3 id="accessibilitytoolsconfiguration">
-        <title lang="en">Linking GConf Keys to Accessibility Tools</title>
+        <title>Ligando chaves GConf coas ferramentas de accesibilidade</title>
 
         <para lang="en">
          For the screen_magnifier_enabled, the screen_keyboard_enabled, and the
@@ -1410,7 +1184,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
       </sect3>
 
       <sect3 id="accessibilitytoolexample">
-        <title lang="en">Example Of Modifying Accessibility Tool Configuration</title>
+        <title>Exemplo de modificación da configuración da ferramenta de accesibilidade</title>
 
         <para lang="en">
          For example, if GNOME is distributed with GOK as the default on-screen
@@ -1446,11 +1220,11 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 
         <para>O seguinte é un exemplo de ficheiro <filename>mousetweaks.desktop</filename>:</para>
 
-<screen lang="en">
+<screen>
 [Desktop Entry]
 Encoding=UTF-8
-Name=Software Mouse-Clicks
-Comment=Perform clicks by dwelling with the pointer
+Name=Clics de rato por software
+Comment=Leva a cabo clics pousando o punteiro do rato
 TryExec=mousetweaks
 Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 
 Terminal=false
@@ -1460,10 +1234,7 @@ Categories=GNOME;GTK;Accessibility;
 AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 </screen>
 
-        <para lang="en">
-         Note the line with the AutostartCondition that links both desktop
-         files to the GConf key for the on-screen keyboard.
-        </para>
+        <para>Teña en conta a liña con AutostartCondition que liga ambos ficheiros de escritorio coa chave GConf para o teclado en pantalla.</para>
 
         <para lang="en">
          To disable GOK from starting, the desktop file for the GOK on-screen
@@ -1552,10 +1323,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
         a different directory via the "--with-dmconfdir" option.
       </para>
 
-      <para lang="en">
-        A session can be disabled by editing the desktop file and adding a line
-        as follows: <filename>Hidden=true</filename>.
-      </para>
+      <para>Unha sesión pode desactivarse editando o ficheiro desktop e engadindo unha liña como segue: <filename>Hidden=true</filename>.</para>
 
       <para lang="en">
         GDM desktop files support a GDM-specific extension, a key named
@@ -1626,10 +1394,7 @@ Language=gl_ES.UTF-8
       <sect3 id="gdmcommandline">
         <title>Opcións da liña de ordes de <command>gdm</command></title>
 
-        <para lang="en">
-          <command>gdm</command> is the main daemon which sets up
-          graphical login environment and starts necessary helpers.
-       </para>
+        <para><command>gdm</command> é o daemon principal que configura o ambiente de inicio de sesión gráfico e inicia os axudantes necesarios.</para>
 
         <variablelist>
           <title>Opcións da liña de ordes de <command>gdm</command></title>
@@ -1758,35 +1523,14 @@ Language=gl_ES.UTF-8
 
   <sect1 id="license">
     <title>Licenza</title>
-    <para lang="en">
-      This program is free software; you can redistribute it and/or
-      modify it under the terms of the  <ulink type="help" url="gnome-help:gpl">
-      <citetitle>GNU General Public License</citetitle></ulink> as
-      published by the Free Software Foundation; 
-      either version 2 of the License, or (at your option) any later
-      version.
-    </para>
-    <para lang="en">
-      This program is distributed in the hope that it will be useful, but
-      WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      <citetitle>GNU General Public License</citetitle> for more details.
-    </para>
-    <para lang="en">
-      A copy of the <citetitle>GNU General Public License</citetitle> is
-      included as an appendix to the <citetitle>GNOME Users
-      Guide</citetitle>.  You may also obtain a copy of the
-      <citetitle>GNU General Public License</citetitle> from the Free
-      Software Foundation by visiting
-      <ulink type="http" url="http://www.fsf.org">their Web site</ulink> or by
-      writing to
-      <address lang="en">
+    <para>Este programa é software libre; pode redistribuílo e/ou modificalo baixo os termos da <ulink type="help" url="gnome-help:gpl"><citetitle>Licenza pública xeral de GNU</citetitle></ulink>  como foi publicada pola Fundación de Software Libre; tanto a versión 2 da licenza ou calquera versión posterior (á súa elección).</para>
+    <para>Este programa distribúese coa esperanza de que sexa útil, pero SEN NINGUNHA GARANTÍA. nin sequera a garantía implícita de MERCANTIBILIDADE ou AXEITAMENTo PARA UN PROPÓSITO EN PARTICULAR. Vexa a <citetitle>LIcenza Pública Xeral de GNU</citetitle> para obter máis información.</para>
+    <para>Inclúese unha copia da <citetitle>Licenza Pública Xeral de GNU</citetitle> como un apéndice á <citetitle>Guía de Usuarios de GNOME</citetitle>. Tamén pode obter unha copia da <citetitle>Licenza Pública Xeral de GNU</citetitle> desde a Fundación de Sotware Libre visitando <ulink type="http" url="http://www.fsf.org">o seu sitio web</ulink> ou escribindo a <address>
       Free Software Foundation, Inc.
       <street>51 Franklin Street, Fifth Floor</street>
       <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>
       <country>USA</country>
-      </address>
-    </para>
+      </address></para>
   </sect1>
 </article>
 <!-- Keep this comment at the end of the file

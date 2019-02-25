@@ -6,7 +6,7 @@ XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.
 Uploaders: @GNOME_TEAM@
 Build-Depends: check (>= 0.9.10-2~),
                dconf-cli (>= 0.19.90),
-               debhelper (>= 10.3),
+               debhelper-compat (= 12),
                dh-exec,
                docbook-xml,
                gettext (>= 0.19.8),
@@ -86,10 +86,10 @@ Recommends: at-spi2-core,
             xserver-xorg,
             zenity
 Suggests: gnome-orca,
-          libpam-fprintd (>= 0.8.0-2),
           libpam-gnome-keyring
 Provides: x-display-manager
-Breaks: xserver-xorg-core (<< 2:1.17.2-2~)
+Breaks: pulseaudio (<< 11.1-2),
+        xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.

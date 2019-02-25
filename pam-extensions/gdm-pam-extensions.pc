@@ -1,9 +1,0 @@
-prefix=/usr
-exec_prefix=${prefix}
-libdir=/usr/lib64
-includedir=${prefix}/include
-
-Name: GDM PAM Extensions
-Description: Macros for custom protocols over PAM
-Version: 3.30.1
-Cflags: -I${includedir}/gdm
