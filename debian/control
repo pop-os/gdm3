@@ -9,7 +9,7 @@ Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.
 Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Laurent Bigonville <bigon@debian.org>, Michael Biebl <biebl@debian.org>, Tim Lunn <tim@feathertop.org>
 Build-Depends: check (>= 0.9.10-2~),
                dconf-cli (>= 0.19.90),
-               debhelper (>= 10.3),
+               debhelper-compat (= 12),
                dh-exec,
                docbook-xml,
                gettext (>= 0.19.8),
@@ -80,7 +80,7 @@ Depends: accountsservice (>= 0.6.35),
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: at-spi2-core,
-            desktop-base (>= 10.0.0),
+            desktop-base (>= 6),
             x11-xkb-utils,
             xserver-xephyr,
             xserver-xorg,

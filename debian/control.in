@@ -5,7 +5,7 @@ Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.
 Uploaders: @GNOME_TEAM@
 Build-Depends: check (>= 0.9.10-2~),
                dconf-cli (>= 0.19.90),
-               debhelper (>= 10.3),
+               debhelper-compat (= 12),
                dh-exec,
                docbook-xml,
                gettext (>= 0.19.8),

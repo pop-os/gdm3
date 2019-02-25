@@ -41,7 +41,10 @@ $(MANPAGES): $(PODFILES)
 		| sed -e 's/debian:://' >$@
 
 %:
-	dh $@ --with gnome,gir --without systemd
+	dh $@ --with gnome,gir
+
+# We set this up manually
+override_dh_installsystemd:
 
 override_dh_autoreconf:
 	dh_autoreconf --as-needed
