@@ -17,10 +17,10 @@ Forwarded: https://bugzilla.gnome.org/738970
  create mode 100644 data/config-error-dialog.sh
 
 diff --git a/configure.ac b/configure.ac
-index 57cc0c2..eba3a5f 100644
+index 19ebc33..f763632 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1401,7 +1401,7 @@ fi
+@@ -1409,7 +1409,7 @@ fi
  if test x$os_solaris = xyes ; then
     XSESSION_SHELL=/bin/ksh
  else
@@ -30,10 +30,10 @@ index 57cc0c2..eba3a5f 100644
  
  #
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 7945ea5..0be8e90 100644
+index 32e61a2..4aae042 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
-@@ -237,6 +237,7 @@ uninstall-hook:
+@@ -239,6 +239,7 @@ uninstall-hook:
  	rm -f \
  	$(DESTDIR)$(GDM_CUSTOM_CONF) \
  	$(DESTDIR)$(gdmconfdir)/Xsession \
@@ -41,7 +41,7 @@ index 7945ea5..0be8e90 100644
  	$(DESTDIR)$(initdir)/Default \
  	$(DESTDIR)$(postlogindir)/Default.sample \
  	$(DESTDIR)$(predir)/Default \
-@@ -264,6 +265,8 @@ if ENABLE_GDM_XSESSION
+@@ -266,6 +267,8 @@ if ENABLE_GDM_XSESSION
  	$(INSTALL_SCRIPT) Xsession $(DESTDIR)$(gdmconfdir)/Xsession
  endif
  
