@@ -29,13 +29,13 @@ index 373d5b8..02a6044 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 04f879a..22319f4 100644
+index 6a116a8..1792bfd 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -2886,6 +2886,12 @@ gdm_session_close (GdmSession *self)
+@@ -2970,6 +2970,12 @@ gdm_session_close (GdmSession *self)
  
-         g_list_free_full (self->priv->outside_connections, g_object_unref);
-         self->priv->outside_connections = NULL;
+         g_list_free_full (self->outside_connections, g_object_unref);
+         self->outside_connections = NULL;
 +
 +        /* Run PrimeOff after the session is closed */
 +        gdm_run_script (GDMCONFDIR "/PrimeOff", "root",
@@ -62,7 +62,7 @@ index 3b2fcef..9a57300 100644
  
          if (state->environment != NULL) {
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 162074f..32e61a2 100644
+index 210bf5d..7bca5e4 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -10,6 +10,8 @@ SUBDIRS =			\
@@ -74,7 +74,7 @@ index 162074f..32e61a2 100644
  postlogindir = $(gdmconfdir)/PostLogin
  workingdir = $(GDM_WORKING_DIR)
  xauthdir = $(GDM_XAUTH_DIR)
-@@ -176,6 +178,8 @@ EXTRA_DIST +=			\
+@@ -174,6 +176,8 @@ EXTRA_DIST +=			\
  	Xsession.in 		\
  	Init.in 		\
  	PreSession.in 		\
@@ -83,7 +83,7 @@ index 162074f..32e61a2 100644
  	PostSession.in 		\
  	PostLogin 		\
  	$(NULL)
-@@ -238,6 +242,8 @@ uninstall-hook:
+@@ -237,6 +241,8 @@ uninstall-hook:
  	$(DESTDIR)$(initdir)/Default \
  	$(DESTDIR)$(postlogindir)/Default.sample \
  	$(DESTDIR)$(predir)/Default \
@@ -92,7 +92,7 @@ index 162074f..32e61a2 100644
  	$(DESTDIR)$(postdir)/Default \
  	$(DESTDIR)$(sysconfdir)/dconf/db/gdm \
  	$(DESTDIR)$(sysconfdir)/dconf/profile/gdm \
-@@ -282,7 +288,25 @@ endif
+@@ -281,7 +287,25 @@ endif
  	-if test -f $(DESTDIR)$(predir)/Default; then \
  		cp -f $(DESTDIR)$(predir)/Default $(DESTDIR)$(predir)/Default.orig; \
  	fi
@@ -119,7 +119,7 @@ index 162074f..32e61a2 100644
  
  	if test '!' -d $(DESTDIR)$(postdir); then \
  		$(mkinstalldirs) $(DESTDIR)$(postdir); \
-@@ -291,7 +315,7 @@ endif
+@@ -290,7 +314,7 @@ endif
  	-if test -f $(DESTDIR)$(postdir)/Default; then \
  		cp -f $(DESTDIR)$(postdir)/Default $(DESTDIR)$(postdir)/Default.orig; \
  	fi

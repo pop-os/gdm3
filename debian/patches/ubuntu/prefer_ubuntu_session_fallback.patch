@@ -12,10 +12,10 @@ Forwarded: not-needed
  1 file changed, 8 insertions(+)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 1f721fe..9af85b2 100644
+index 2e6c7d8..a12caed 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -560,6 +560,14 @@ get_fallback_session_name (GdmSession *self)
+@@ -562,6 +562,14 @@ get_fallback_session_name (GdmSession *self)
                  }
          }
  
@@ -29,4 +29,4 @@ index 1f721fe..9af85b2 100644
 +
          name = g_strdup ("gnome");
          if (get_session_command_for_name (self, name, NULL)) {
-                 g_free (self->priv->fallback_session_name);
+                 g_free (self->fallback_session_name);

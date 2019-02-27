@@ -14,7 +14,7 @@ Forwarded: not-needed
  create mode 100644 utils/gdm-wait-for-drm.c
 
 diff --git a/configure.ac b/configure.ac
-index f763632..37fa2ec 100644
+index 86ad66e..686921d 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -76,6 +76,7 @@ PKG_CHECK_MODULES(COMMON,
@@ -26,10 +26,10 @@ index f763632..37fa2ec 100644
  AC_SUBST(COMMON_CFLAGS)
  AC_SUBST(COMMON_LIBS)
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 4aae042..f5b185a 100644
+index 48b9d93..943dec3 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
-@@ -208,6 +208,7 @@ systemdsystemunit =
+@@ -207,6 +207,7 @@ systemdsystemunit =
  gdm.service: $(srcdir)/gdm.service.in
  	$(AM_V_GEN)sed \
  		-e 's,[@]sbindir[@],$(sbindir),g' \
@@ -38,13 +38,13 @@ index 4aae042..f5b185a 100644
  		-e 's,[@]LANG_CONFIG_FILE[@],$(LANG_CONFIG_FILE),g' \
  		-e 's,[@]PLYMOUTH_QUIT_SERVICE[@],$(PLYMOUTH_QUIT_SERVICE),g' \
 diff --git a/data/gdm.service.in b/data/gdm.service.in
-index 446e173..bb08d0b 100644
+index f976cbe..c259923 100644
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -32,3 +32,4 @@ StandardError=inherit
- EnvironmentFile=-@LANG_CONFIG_FILE@
+@@ -33,3 +33,4 @@ EnvironmentFile=-@LANG_CONFIG_FILE@
  ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
+ KeyringMode=shared
 +ExecStartPre=@libexecdir@/gdm-wait-for-drm
 diff --git a/utils/Makefile.am b/utils/Makefile.am
 index babe890..3eb43c3 100644
