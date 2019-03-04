@@ -1,4 +1,4 @@
-gdm3 (3.28.3-0ubuntu18.04.5) UNRELEASED; urgency=medium
+gdm3 (3.28.3-0ubuntu18.04.5) bionic; urgency=medium
 
   * debian/patches/git_autologin_vt.patch:
     - don't run autologin display on tty1, that's more consistent with
