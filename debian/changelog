@@ -1,3 +1,13 @@
+gdm3 (3.28.3-0ubuntu18.04.5) UNRELEASED; urgency=medium
+
+  * debian/patches/git_autologin_vt.patch:
+    - don't run autologin display on tty1, that's more consistent with
+      the normal login case and workarounds a vt switch problem on vt1,
+      thanks Eric Desrochers for tracking the issue/upstream commit
+      (lp: #1817738)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 05 Mar 2019 00:02:26 +0100
+
 gdm3 (3.28.3-0ubuntu18.04.4) bionic-security; urgency=medium
 
   * SECURITY UPDATE: Access to the logged-in user's session

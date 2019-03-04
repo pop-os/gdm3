@@ -2,6 +2,7 @@
 data-Makefile.am.patch
 data-61-gdm.rules.in.patch
 utils-add-new-gdm-disable-wayland-binary.patch
+git_autologin_vt.patch
 
 16_xserver_path.patch
 90_config_comments.patch
