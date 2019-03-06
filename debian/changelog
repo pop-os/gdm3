@@ -1,3 +1,15 @@
+gdm3 (3.28.3-0ubuntu18.04.4pop2) bionic; urgency=medium
+
+  * Backport ioctl_retry patch from cosmic
+
+ -- Michael Aaron Murphy <michael@system76.com>  Mon, 04 Mar 2019 12:28:54 -0700
+
+gdm3 (3.28.3-0ubuntu18.04.4pop1) bionic; urgency=medium
+
+  * Add Pop! session fallback patch
+
+ -- Michael Aaron Murphy <michael@system76.com>  Wed, 20 Feb 2019 10:09:16 -0700
+
 gdm3 (3.28.3-0ubuntu18.04.4) bionic-security; urgency=medium
 
   * SECURITY UPDATE: Access to the logged-in user's session

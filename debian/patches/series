@@ -20,3 +20,7 @@ CVE-2019-3825-1.patch
 CVE-2019-3825-2.patch
 CVE-2019-3825-3.patch
 CVE-2019-3825-4.patch
+
+# Pop!_OS patches
+pop_prefer_pop_session_fallback.patch
+ioctl_retry.patch
