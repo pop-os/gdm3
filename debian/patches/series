@@ -13,3 +13,7 @@ ubuntu_dont_set_language_env.patch
 ubuntu_prefer_ubuntu_session_fallback.patch
 ubuntu_revert_nvidia_wayland_blacklist.patch
 ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
+CVE-2019-3825-1.patch
+CVE-2019-3825-2.patch
+CVE-2019-3825-3.patch
+CVE-2019-3825-4.patch

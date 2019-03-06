@@ -1,3 +1,12 @@
+gdm3 (3.30.1-1ubuntu5.1) cosmic-security; urgency=medium
+
+  * SECURITY UPDATE: Access to the logged-in user's session
+    - debian/patches/CVE-2019-3825-*.patch: fix in
+      daemon/gdm-manager.c, daemon/gdm-session.c.
+    - CVE-2019-3825
+
+ -- Leonidas S. Barbosa <leo.barbosa@canonical.com>  Tue, 19 Feb 2019 05:42:47 -0300
+
 gdm3 (3.30.1-1ubuntu5) cosmic; urgency=medium
 
   * Remove accidental addition of Install/Alias info in gdm service file.
