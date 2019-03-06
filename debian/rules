@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+export CCACHE_DISABLE=1
+
 GNOME_MODULE := gdm
 
 include /usr/share/dpkg/architecture.mk
