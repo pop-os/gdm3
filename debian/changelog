@@ -1,3 +1,11 @@
+gdm3 (3.30.1-1ubuntu5.1pop1) cosmic; urgency=medium
+
+  * Re-add the Wayland blacklist for NVIDIA again.
+  * Prefer the Pop!_OS session
+  * Retry ioctls
+
+ -- Michael Aaron Murphy <michael@system76.com>  Wed, 20 Feb 2019 10:13:59 -0700
+
 gdm3 (3.30.1-1ubuntu5.1) cosmic-security; urgency=medium
 
   * SECURITY UPDATE: Access to the logged-in user's session
