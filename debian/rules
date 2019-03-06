@@ -1,4 +1,7 @@
 #!/usr/bin/make -f
+
+export CCACHE_DISABLE=1
+
 -include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
 include /usr/share/dpkg/architecture.mk
