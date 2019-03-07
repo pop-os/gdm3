@@ -1,0 +1,45 @@
+From 39fb4ff64e6a0653e70a3bfab31da47b49227d59 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Mon, 24 Sep 2018 14:45:38 -0400
+Subject: [PATCH] manager: don't run autologin display on tty1
+
+tty1 is really meant for the login screen.
+If a user autologins on it and we need a login
+screen later, then the login screen has to go
+in some auxiliary VT which isn't very nice.
+
+This commit changes autologin to not use the
+initial vt.
+---
+ daemon/gdm-manager.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/daemon/gdm-manager.c b/daemon/gdm-manager.c
+index ea328381..b1e9b68b 100644
+--- a/daemon/gdm-manager.c
++++ b/daemon/gdm-manager.c
+@@ -1273,7 +1273,6 @@ set_up_automatic_login_session (GdmManager *manager,
+ {
+         GdmSession *session;
+         char       *display_session_type = NULL;
+-        gboolean is_initial;
+ 
+         /* 0 is root user; since the daemon talks to the session object
+          * directly, itself, for automatic login
+@@ -1281,12 +1280,11 @@ set_up_automatic_login_session (GdmManager *manager,
+         session = create_user_session_for_display (manager, display, 0);
+ 
+         g_object_get (G_OBJECT (display),
+-                      "is-initial", &is_initial,
+                       "session-type", &display_session_type,
+                       NULL);
+ 
+         g_object_set (G_OBJECT (session),
+-                      "display-is-initial", is_initial,
++                      "display-is-initial", FALSE,
+                       NULL);
+ 
+         g_debug ("GdmManager: Starting automatic login conversation");
+-- 
+2.18.1
+

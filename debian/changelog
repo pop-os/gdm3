@@ -1,10 +1,26 @@
+gdm3 (3.28.3-0ubuntu18.04.5pop1) bionic; urgency=medium
+
+  * New upstream release
+
+ -- Michael Aaron Murphy <michael@system76.com>  Thu, 07 Mar 2019 12:25:40 -0700
+
+gdm3 (3.28.3-0ubuntu18.04.5) bionic; urgency=medium
+
+  * debian/patches/git_autologin_vt.patch:
+    - don't run autologin display on tty1, that's more consistent with
+      the normal login case and workarounds a vt switch problem on vt1,
+      thanks Eric Desrochers for tracking the issue/upstream commit
+      (lp: #1817738)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 05 Mar 2019 00:02:26 +0100
+
 gdm3 (3.28.3-0ubuntu18.04.4pop3) bionic; urgency=medium
 
   * Re-add the Wayland blacklist for NVIDIA again.
   * Prefer the Pop!_OS session
   * Retry ioctls
 
- -- Michael Aaron Murphy <michael@system76.com>  Wed, 06 Mar 2019 11:21:27 -0700
+ -- Michael Aaron Murphy <michael@system76.com>  Mon, 04 Mar 2019 11:21:27 -0700
 
 gdm3 (3.28.3-0ubuntu18.04.4) bionic-security; urgency=medium
 
@@ -505,11 +521,11 @@ gdm3 (3.19.92-1) experimental; urgency=medium
 gdm3 (3.18.2-1) unstable; urgency=medium
 
   [ Tim Lunn ]
-  * Move schemas to libgdm1 package, gnome-shell requires access to 
+  * Move schemas to libgdm1 package, gnome-shell requires access to
     these even when using a different DM. (Closes: #804893)
   * Move gir package to a more standard naming and install typelib file
     into ma path
-  * debian/control.in: 
+  * debian/control.in:
     - Drop depend on gnome-icon-theme{.symbolic} these
       are obsolete now and adwaita-icon-theme is pulled in by libgtk-3-common
     - Mark libdbus-glib-1-dev [!linux-any], its only required for consolekit
@@ -644,7 +660,7 @@ gdm3 (3.14.1-4) unstable; urgency=medium
 
 gdm3 (3.14.1-3) unstable; urgency=medium
 
-  * 18_all_displays_transient.patch: fix autologin for the initial 
+  * 18_all_displays_transient.patch: fix autologin for the initial
     display. Closes: #758183.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 09 Nov 2014 18:16:02 +0100
@@ -718,19 +734,19 @@ gdm3 (3.12.2-3) experimental; urgency=medium
 gdm3 (3.12.2-2.1) unstable; urgency=medium
 
   * Reinstate patches for better VT management.
-    + 17_switch_on_finish.patch: introduce a setting for GdmDisplay that 
+    + 17_switch_on_finish.patch: introduce a setting for GdmDisplay that
       says it needs to go to the login screen when set.
-    + 18_all_displays_transient.patch: give all local displays the same 
-      properties. Restart them by default, not restart them when told 
+    + 18_all_displays_transient.patch: give all local displays the same
+      properties. Restart them by default, not restart them when told
       not to.
-    + 19_switch_kill_greeter.patch: when switching to an existing 
+    + 19_switch_kill_greeter.patch: when switching to an existing
       session, kill the greeter session and the afferent X server.
-    + debian/rules: use configure switch to disable the -novtswitch 
+    + debian/rules: use configure switch to disable the -novtswitch
       argument to X, if it ever builds again on !linux.
-  * 01_session_windowpath.patch, 02_slave_windowpath.patch: reintroduce 
+  * 01_session_windowpath.patch, 02_slave_windowpath.patch: reintroduce
     WINDOWPATH. Patches from upstream. Closes: #757889.
   * tr.po: updated Turkish translation from Mert Dirik. Closes: #756719.
-  * 03_dont_mask_SIGUSR1.patch: patch from upstream. Stop masking 
+  * 03_dont_mask_SIGUSR1.patch: patch from upstream. Stop masking
     forcibly SIGUSR1. Closes: #756068.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 14 Aug 2014 02:09:47 +0200
@@ -781,40 +797,40 @@ gdm3 (3.12.1-1) experimental; urgency=medium
   * Make description up-to-date.
   * New upstream release.
   * Drop nested-login related patches, they are not coming back.
-  * Remove firstVT patch, it has been replaced upstream by 
+  * Remove firstVT patch, it has been replaced upstream by
     --with-initial-vt.
   * 90_config_comments.patch: stop documenting FirstVT.
   * Install files in /usr/share/dconf
   * Depend on dconf 0.20 for file-db support.
-  * 92_gsettings_path.patch: removed. Dconf now supports database files 
+  * 92_gsettings_path.patch: removed. Dconf now supports database files
     with hardcoded paths.
-  * 91_dconf_database_path.patch: new patch. Point to a dconf path in 
+  * 91_dconf_database_path.patch: new patch. Point to a dconf path in
     /var/lib/gdm3 instead of the one in $DATADIR.
   * Don’t install the pre-generated dconf database.
-  * Install the source dconf databases to their former place in 
+  * Install the source dconf databases to their former place in
     /usr/share/gdm/dconf.
-  * greeter.dconf-defaults: this is a new file to remove the old 
+  * greeter.dconf-defaults: this is a new file to remove the old
     greeter.gsettings
-  * Convert greeter.gsettings to greeter.dconf-defaults at postinst time 
+  * Convert greeter.gsettings to greeter.dconf-defaults at postinst time
     and use ucf to update the file.
-  * Make a direct symlink to the new greeter.dconf-defaults file in the 
+  * Make a direct symlink to the new greeter.dconf-defaults file in the
     dconf defaults directory.
   * Simplify the dconf regeneration in gdm3.init thanks to that.
   * Move configuration generation to a separate script.
   * Use dh_systemd.
-  * 92_systemd_unit.patch: port our init script specifics to the unit 
+  * 92_systemd_unit.patch: port our init script specifics to the unit
     file.
   * Install the unit file.
-  * Install a symlink to display-manager.service for the default display 
+  * Install a symlink to display-manager.service for the default display
     manager, according to the value set in debconf.
-  * Add a symlink to gdm3.service since this is the name of the old init 
+  * Add a symlink to gdm3.service since this is the name of the old init
     script.
-  * Fix the logic to update the default display manager after running 
+  * Fix the logic to update the default display manager after running
     debconf.
   * Require a policykit-1 with systemd support.
-  * 93_disable_gvfs.patch: reverted upstream change 446d061a. Do not 
+  * 93_disable_gvfs.patch: reverted upstream change 446d061a. Do not
     launch gvfs in the login session.
-  * Install stub D-Bus files for gnome-online-accounts and telepathy, to 
+  * Install stub D-Bus files for gnome-online-accounts and telepathy, to
     avoid launching such daemons in the login session.
 
  -- Laurent Bigonville <bigon@debian.org>  Sat, 10 May 2014 22:52:23 +0200
@@ -1087,9 +1103,9 @@ gdm3 (3.4.1-3) unstable; urgency=low
   * Remove obsolete README.source.
   * Grab some patches upstream:
     + 30_dbus_prctl_death.patch: ensure dbus dies with the session.
-    + 31_worker_session_gone.patch: avoid race condition when the 
+    + 31_worker_session_gone.patch: avoid race condition when the
       session dies.
-    + 32_ignore_greeter_crash.patch: ignore when the greeter crashes 
+    + 32_ignore_greeter_crash.patch: ignore when the greeter crashes
       while no longer needed.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 22 Sep 2012 14:01:46 +0200
@@ -1099,13 +1115,13 @@ gdm3 (3.4.1-2) unstable; urgency=low
   * Fix typo in dconf-tools dependency version. Closes: #678961.
   * Use --no-create-home and --quiet for addgroup/adduser calls.
     Closes: #675809.
-  * 05_debug_xserver_core.patch: patch from upstream git. Make the X 
+  * 05_debug_xserver_core.patch: patch from upstream git. Make the X
     server dump core when debugging is enabled. Closes: #651693.
   * 06_first_vt.patch, 20_switch_kill_greeter.patch: refreshed.
   * 90_config_comments.patch: more comments with useful options.
   * Add references to patches.
   * 02_xnest_wrapper.patch: disabled.
-  * 04_reload_config.patch: patch from upstream git. Get SIGHUP to 
+  * 04_reload_config.patch: patch from upstream git. Get SIGHUP to
     actually reload the configuration.
   * gdm3.init: send SIGHUP to get reload to work.
 
@@ -1118,7 +1134,7 @@ gdm3 (3.4.1-1) unstable; urgency=low
 
   [ Josselin Mouette ]
   * gdm3.init: remove .ICEauthority before starting. Closes: #648666.
-  * x11-common will now include xhost code to give access to the 
+  * x11-common will now include xhost code to give access to the
     local user if xhost is installed (see #586685).
     + Depend on the appropriate x11-common version.
     + Depend on x11-xserver-utils so that it actually works.
@@ -1127,17 +1143,17 @@ gdm3 (3.4.1-1) unstable; urgency=low
   * 01_language.patch: dropped, merged upstream.
   * 04_no_fatal_criticals.patch: dropped, obsolete.
   * 07_libexec-paths.patch: removed unused variables/files.
-  * 08_frequent-users_greeter.patch: reworked according to upstream 
+  * 08_frequent-users_greeter.patch: reworked according to upstream
     changes.
-  * 10_gdm3_pam.patch: updated for the new version. Do not prefix the 
+  * 10_gdm3_pam.patch: updated for the new version. Do not prefix the
     PAM files for multistack, they have new names anyway.
   * 14_pam_dialog.patch: dropped, upstream merged an improved version.
   * 18_parametrize_create_display.patch: updated for the new version.
   * 19_static_transient_display.patch: unfuzzed.
   * 29_grep_path.patch: dropped, merged upstream.
-  * 91_dconf_override.patch: dropped, the configuration generation has 
+  * 91_dconf_override.patch: dropped, the configuration generation has
     completely changed.
-  * 93_xdg_data_dirs.patch: dropped, similar functionality merged 
+  * 93_xdg_data_dirs.patch: dropped, similar functionality merged
     upstream.
   * Drop the dconf-gsettings-backend dependency.
   * greeter.gconf-defaults:
@@ -1147,14 +1163,14 @@ gdm3 (3.4.1-1) unstable; urgency=low
     + Document how to use gdm-shell.
     + Document how to change the background. Closes: #655328.
   * rules:
-    + Generate xx_upstream.gschema.override from the new 
+    + Generate xx_upstream.gschema.override from the new
       00-upstream-settings file (much simpler).
     + Remove /etc/dconf from the installed files.
     + Drop all development libraries/headers.
     + Explicitly disable introspection.
-    + (All of this can be shipped in separate packages if actual 
+    + (All of this can be shipped in separate packages if actual
       packages start using this library.)
-    + Explicitly disable split authentication, it will not work properly 
+    + Explicitly disable split authentication, it will not work properly
       with the Debianized PAM stack.
     + Remove the associated PAM files.
     + Disable dh_makeshlibs.
@@ -1165,19 +1181,19 @@ gdm3 (3.4.1-1) unstable; urgency=low
     + Remove the old gsettings link.
   * gdm3.init:
     + Replace the gsettings generation by a dconf-based one.
-    + Do a conversion for the configuration file so that it remains 
+    + Do a conversion for the configuration file so that it remains
       compatible.
-  * 92_gsettings_path.patch: updated to force the dconf directory to be 
+  * 92_gsettings_path.patch: updated to force the dconf directory to be
     in the GDM runtime directory.
   * gdm3.install:
     + Stop installing MIME files by hand.
-  * 93_private_lib.patch: new patch. Install the shared library in a 
+  * 93_private_lib.patch: new patch. Install the shared library in a
     private directory.
   * Break gnome-shell < 3.2 for correct shell support.
   * Suggest gnome-shell.
-  * Require g-s-d and metacity, they are no longer optional. Requiring 
+  * Require g-s-d and metacity, they are no longer optional. Requiring
     g-s-d 3.2 Closes: #656384.
-  * Require d-conf 0.10.0-4 to configure the dconf path and parse 
+  * Require d-conf 0.10.0-4 to configure the dconf path and parse
     defaults in order.
 
   [ Laurent Bigonville ]
@@ -1188,7 +1204,7 @@ gdm3 (3.4.1-1) unstable; urgency=low
 
   [ Josselin Mouette ]
   * New upstream release.
-    + Features the incredible capability to not try endlessly to start 
+    + Features the incredible capability to not try endlessly to start
       up X servers when they fail to start.
       Closes: #580627, #610826, #650183.
   * Move login manager defaults from gconf to gsettings.
@@ -1202,31 +1218,31 @@ gdm3 (3.4.1-1) unstable; urgency=low
   * 07_libexec-paths.patch:
     + Use the binary path as provided by g-s-d.pc.
     + Add a check for gnome-session, which is also used.
-  * 10_gdm3_pam.patch: handle the bucket of FAIL that is hardcoding the 
-    service name in various places since split authentication was 
+  * 10_gdm3_pam.patch: handle the bucket of FAIL that is hardcoding the
+    service name in various places since split authentication was
     introduced.
-  * 18_parametrize_create_display.patch, 
+  * 18_parametrize_create_display.patch,
     19_static_transient_display.patch, 20_switch_kill_greeter.patch,
     21_static_display_purge.patch: adapt to systemd/multiseat changes.
   * Require dconf 0.12.1-2.
-  * gdm3.post{inst,rm}: add a gdm-welcome PAM service, which is now 
+  * gdm3.post{inst,rm}: add a gdm-welcome PAM service, which is now
     needed for the login session. It's just a symlink.
-  * 91_shell_version_control.patch: new patch, Debian-specific. Add 
-    strict version checking for gnome-shell in order to go to the fall 
+  * 91_shell_version_control.patch: new patch, Debian-specific. Add
+    strict version checking for gnome-shell in order to go to the fall
     back session in case of potential incompatibility.
-  * 93_private_lib.patch: also install the typelib file in the private 
+  * 93_private_lib.patch: also install the typelib file in the private
     directory, and drop the gir file.
   * gdm3.dirs: /usr/lib/gnome-shell
   * rules:
     + Remove pre-built gdm.schemas which includes incorrect settings.
     + Enable introspection.
-    + Instruct dh_girepository to look at the typelib file in the right 
+    + Instruct dh_girepository to look at the typelib file in the right
       place.
-    + Add symbolic links for the library and typelib in the gnome-shell 
+    + Add symbolic links for the library and typelib in the gnome-shell
       directory so that it can use them.
   * Add gir (build-)dependencies.
-  * 23_start_polkit.patch: new patch. Start the policykit agent in the 
-    fallback session. Otherwise reboot/shutdown does nothing when 
+  * 23_start_polkit.patch: new patch. Start the policykit agent in the
+    fallback session. Otherwise reboot/shutdown does nothing when
     someone is logged on.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 21 Jun 2012 00:18:36 +0200
@@ -1240,7 +1256,7 @@ gdm3 (3.0.4-4) unstable; urgency=low
     - Don't run uupdate.
 
   [ Josselin Mouette ]
-  * Build-depend on gnome-settings-daemon so that its plugins are 
+  * Build-depend on gnome-settings-daemon so that its plugins are
     correctly listed.
   * Note this is a critical security fix, but does not affect testing.
   * Also closes: #630482.
@@ -1266,21 +1282,21 @@ gdm3 (3.0.4-2) experimental; urgency=low
   * greeter.gsettings: add an example of how to disable the sound.
     Closes: #628858.
   * 06_first_vt.patch: update to add Hurd support. Closes: #629366.
-  * 18_switch_kill_greeter.patch, 20_endsession_respawn.patch: replaced 
+  * 18_switch_kill_greeter.patch, 20_endsession_respawn.patch: replaced
     by a series of cleaned up upstream patches.
-    + 17_switch_on_finish.patch: add the switch-on-finish property to 
+    + 17_switch_on_finish.patch: add the switch-on-finish property to
       displays.
-    + 18_parametrize_create_display.patch: allow the daemon to create an 
+    + 18_parametrize_create_display.patch: allow the daemon to create an
       arbitrary type of display.
-    + 19_static_transient_display.patch: share the respawn logic between 
+    + 19_static_transient_display.patch: share the respawn logic between
       static and transient displays.
-    + 20_switch_kill_greeter.patch: here is the code that kills the 
+    + 20_switch_kill_greeter.patch: here is the code that kills the
       unnecessary greeter if we support -novtswitch.
-    + 21_static_display_purge.patch: the last missing change in the 
-      upstream patches, purges static displays just as transient 
+    + 21_static_display_purge.patch: the last missing change in the
+      upstream patches, purges static displays just as transient
       displays.
   * Pass --with-vt-switch-workaround on non-Linux architectures.
-  * 01_language.patch: replaced by a new version from upstream. Only 
+  * 01_language.patch: replaced by a new version from upstream. Only
     sets the variables when non-empty.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 15 Jun 2011 20:14:19 +0200
@@ -1289,11 +1305,11 @@ gdm3 (3.0.4-1) experimental; urgency=low
 
   * New upstream bugfix & security release.
   * Require accountsservice 0.6.12.
-  * 07_libexec-paths.patch, 91_dconf_override.patch: updated for the new 
+  * 07_libexec-paths.patch, 91_dconf_override.patch: updated for the new
     version.
-  * 93_xdg_data_dirs.patch: new patch. Add /usr/share/gdm to 
+  * 93_xdg_data_dirs.patch: new patch. Add /usr/share/gdm to
     XDG_DATA_DIRS.
-  * debian/gdm3.install: install the dummy desktop handler and the 
+  * debian/gdm3.install: install the dummy desktop handler and the
     mimeapps.list to /usr/share/gdm/applications.
   * rules: clean them from /var.
 
@@ -1301,32 +1317,32 @@ gdm3 (3.0.4-1) experimental; urgency=low
 
 gdm3 (3.0.0-2) experimental; urgency=low
 
-  * 18_switch_kill_greeter.patch: remove the 2 second timeout, it is 
+  * 18_switch_kill_greeter.patch: remove the 2 second timeout, it is
     useless now.
-  * 14_pam_dialog.patch: completely revamped. Use a message queue to 
+  * 14_pam_dialog.patch: completely revamped. Use a message queue to
     show messages on the text area instead of showing an ugly dialog.
-  * 30_utf8_locale.patch: dropped, it’s useless now. Furthermore the 
-    official locale name is now bl_AH.utf8, it’s extracted directly from 
+  * 30_utf8_locale.patch: dropped, it’s useless now. Furthermore the
+    official locale name is now bl_AH.utf8, it’s extracted directly from
     the locales package by accountsservice.
-  * Build-depend on gnome-settings-daemon-dev and 
+  * Build-depend on gnome-settings-daemon-dev and
     gsettings-desktop-schemas.
-  * Rename 21_schemas_usr.patch to 90_config_comments.patch, to match 
+  * Rename 21_schemas_usr.patch to 90_config_comments.patch, to match
     its true meaning and the fact it won’t be forwarded.
   * Allow to tune the GSettings configuration like for GConf.
-    + 91_dconf_override.patch: new Debian-specific patch. Turn the 
-      make-dconf-override-db script into one that creates a GSettings 
+    + 91_dconf_override.patch: new Debian-specific patch. Turn the
+      make-dconf-override-db script into one that creates a GSettings
       override file. Drop the dconf profile entirely.
     + Install the result in /usr/share/gdm/greeter-settings.
-    + 92_gsettings_path.patch: new Debian-specific patch. Set 
-      GSETTINGS_SCHEMA_DIR in the welcome session instead of 
+    + 92_gsettings_path.patch: new Debian-specific patch. Set
+      GSETTINGS_SCHEMA_DIR in the welcome session instead of
       DCONF_PROFILE.
-    + Require gsettings-desktop-schemas and libglib2.0-bin in the binary 
+    + Require gsettings-desktop-schemas and libglib2.0-bin in the binary
       package.
     + greeter.gsettings: new file. Set the Debian GSettings defaults.
-    + Install it in /etc/gdm3 and link it in 
+    + Install it in /etc/gdm3 and link it in
       /usr/share/gdm/greeter-settings.
     + gdm3.init: regenerate the schemas if needed in /var/lib/gdm3.
-  * greeter.gconf-defaults: remove settings that are necessarily in 
+  * greeter.gconf-defaults: remove settings that are necessarily in
     GSettings now.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 12 May 2011 00:09:50 +0200
@@ -1335,40 +1351,40 @@ gdm3 (3.0.0-1) experimental; urgency=low
 
   * DISCLAIMER: this one is labeled “experimental” for a reason.
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.
-  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
+  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY.
     Closes: #616612.
   * New upstream release.
   * 01_minimal_uid.patch: dropped, fixed upstream using accountsservice.
-  * 07_libexec-paths.patch: put enough intelligence in configure.ac to 
+  * 07_libexec-paths.patch: put enough intelligence in configure.ac to
     remove the need for a Debian-specific patch.
   * 08_frequent-users_greeter.patch:
     + Drop the parts that have been moved to accountsservice.
-    + Now use "x11" instead of "gdm" as session type. See #624474 for 
+    + Now use "x11" instead of "gdm" as session type. See #624474 for
       the gory details.
   * 11_no_xhost_thanks.patch: dropped, upstream promises it is safe.
   * 11_xephyr_nested.patch: disabled for the moment.
-  * 12_polkit_settings.patch, 13_gdmsetup.patch, 13_gdmsetup_ui.patch, 
-    13_gdmsetup_desktop.patch: dropped, this is now done in the control 
+  * 12_polkit_settings.patch, 13_gdmsetup.patch, 13_gdmsetup_ui.patch,
+    13_gdmsetup_desktop.patch: dropped, this is now done in the control
     center.
   * 14_pam_dialog.patch: disabled for the moment.
-  * 18_switch_kill_greeter.patch: add the forced -novtswitch argument 
+  * 18_switch_kill_greeter.patch: add the forced -novtswitch argument
     for Linux here, making the patch self-consistent.
-  * 19_configure_xserver.patch: disabled. It lets people do stupid 
+  * 19_configure_xserver.patch: disabled. It lets people do stupid
     things, and upstream would prefer to have only the X server binary
     configurable.
   * Stop setting X_CONFIG_OPTIONS according to those two changes.
   * 20_endsession_respawn.patch: disable the nested stuff for now.
-  * 21_schemas_usr.patch: most of it has been merged upstream. Only keep 
+  * 21_schemas_usr.patch: most of it has been merged upstream. Only keep
     extra comments in the configuration file.
-  * 22_noconsole.patch: rename the configuration option to 
+  * 22_noconsole.patch: rename the configuration option to
     xdmcp/ShowLocalGreeter at upstream’s request.
   * 30_utf8_locale.patch: refreshed.
-  * 31_xkb_options.patch: dropped, upstream removed the keyboard 
+  * 31_xkb_options.patch: dropped, upstream removed the keyboard
     switching feature.
-  * 03_ipv6.patch, 05_stop_welcome_session.patch, 15_kfreebsd.patch, 
-    17_no_libxdmcp.patch, 23_autologin_once.patch, 25_upower.patch, 
-    26_username_escape.patch, 27_orca_braille.patch, 28_beep.patch: 
-    dropped, merged upstream. 
+  * 03_ipv6.patch, 05_stop_welcome_session.patch, 15_kfreebsd.patch,
+    17_no_libxdmcp.patch, 23_autologin_once.patch, 25_upower.patch,
+    26_username_escape.patch, 27_orca_braille.patch, 28_beep.patch:
+    dropped, merged upstream.
   * 90_relibtoolize.patch: dropped in favor of dh-autoreconf.
   * Update build-dependencies according to the new version.
   * Drop the conflicts/replaces/provides against f-u-s-a.
@@ -1378,14 +1394,14 @@ gdm3 (3.0.0-1) experimental; urgency=low
   * Remove icons and desktop files for gdmsetup and gdmflexiserver.
   * debian/po-up/POTFILES.in: cleanup gdmsetup stuff.
   * Drop gdmXnestwrapper, anyway we can force Xephyr now.
-  * Drop gnome-session-check-accelerated.desktop, it’s useless at login 
+  * Drop gnome-session-check-accelerated.desktop, it’s useless at login
     time.
   * gdm3.preinst: dropped, the change is in stable.
   * Require gnome-session 3.0.
   * Stop adding /usr/share/gdm to XDG_DATA_DIRS
-  * Break gnome-control-center < 3 since it is required for account 
+  * Break gnome-control-center < 3 since it is required for account
     configuration.
-  * 01_language.patch: new patch. Don’t set LANG, which can be already 
+  * 01_language.patch: new patch. Don’t set LANG, which can be already
     set by PAM, only set GDM_LANG.
   * gdm*.pam: use session directives for pam_env, instead of auth.
 
@@ -1393,22 +1409,22 @@ gdm3 (3.0.0-1) experimental; urgency=low
 
 gdm3 (2.30.5-11) unstable; urgency=low
 
-  * 35_double_free.patch: stolen from 2.30.7. Fix a double free issue in 
+  * 35_double_free.patch: stolen from 2.30.7. Fix a double free issue in
     the chooser code.
-  * 36_windowpath.patch: stolen from 2.30.7. Only set the WINDOWPATH 
+  * 36_windowpath.patch: stolen from 2.30.7. Only set the WINDOWPATH
     variable if not null.
-  * 37_shutdown_buttons.patch: stolen from upstream git. Only show 
+  * 37_shutdown_buttons.patch: stolen from upstream git. Only show
     shutdown options when requested. Closes: #628032.
-  * 14_pam_dialog.patch: remove the beep, since it happens after the 
+  * 14_pam_dialog.patch: remove the beep, since it happens after the
     session has been reaped and can lock the sound device.
 
  -- Josselin Mouette <joss@debian.org>  Thu, 18 Aug 2011 18:21:15 +0200
 
 gdm3 (2.30.5-10) unstable; urgency=low
 
-  * 33_reset_signal_handler.patch: stolen upstream. Reset SIGPIPE 
+  * 33_reset_signal_handler.patch: stolen upstream. Reset SIGPIPE
     handler before starting the session.
-  * 34_postsession_shutdown.patch: stolen upstream. Execute the 
+  * 34_postsession_shutdown.patch: stolen upstream. Execute the
     PostSession script even when GDM is killed or shut down.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 20 Apr 2011 19:57:09 +0200
@@ -1416,9 +1432,9 @@ gdm3 (2.30.5-10) unstable; urgency=low
 gdm3 (2.30.5-9) unstable; urgency=high
 
   * README.Debian: remove reference to GDM 2.26. Closes: #616603.
-  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY. 
+  * gdm3.8.pod: patch from Vincent Lefevre to document XAUTHORITY.
     Closes: #616612.
-  * 32_CVE-2011-0727.patch: patch from Ray Strode to fix local root 
+  * 32_CVE-2011-0727.patch: patch from Ray Strode to fix local root
     privilege escalation. Closes: #620184, CVE-2011-0727.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 09 Apr 2011 12:09:35 +0200
@@ -1426,9 +1442,9 @@ gdm3 (2.30.5-9) unstable; urgency=high
 gdm3 (2.30.5-8) unstable; urgency=low
 
   * README.Debian: document the xauth stuff. Closes: #614972.
-  * 31_xkb_options.patch: patch from Julien Pinon to always pass XKB 
+  * 31_xkb_options.patch: patch from Julien Pinon to always pass XKB
     options regardless of the layout. Closes: #590534.
-  * 13_gdmsetup.patch: updated to link to the libs required by the usage 
+  * 13_gdmsetup.patch: updated to link to the libs required by the usage
     of libgdmcommon. Closes: #615720.
   * 90_relibtoolize.patch: updated accordingly.
 
@@ -1437,13 +1453,13 @@ gdm3 (2.30.5-8) unstable; urgency=low
 gdm3 (2.30.5-7) unstable; urgency=low
 
   [ Josselin Mouette ]
-  * gdm3.init: chown the configuration to Debian-gdm, to avoid umask 
+  * gdm3.init: chown the configuration to Debian-gdm, to avoid umask
     issues. Closes: #603510.
   * gdm3.postrm: handle deluser/delgroup failures gracefully.
     Closes: #603753.
-  * 29_grep_path.patch: new patch. Don’t hardcode grep to a wrong 
+  * 29_grep_path.patch: new patch. Don’t hardcode grep to a wrong
     location. Closes: #607664.
-  * 30_utf8_locale.patch: new patch. Pass locale.UTF-8 instead of 
+  * 30_utf8_locale.patch: new patch. Pass locale.UTF-8 instead of
     locale.utf8. Closes: #607753.
 
   [ Emilio Pozuelo Monfort ]
@@ -1454,10 +1470,10 @@ gdm3 (2.30.5-7) unstable; urgency=low
 
 gdm3 (2.30.5-6) unstable; urgency=low
 
-  * 11_xephyr_nested.patch: don’t switch VTs from nested displays. It’s 
-    confusing and prevents using them to start sessions for existing 
+  * 11_xephyr_nested.patch: don’t switch VTs from nested displays. It’s
+    confusing and prevents using them to start sessions for existing
     users.
-  * greeter.gconf-defaults: don’t specify the background, it is now set 
+  * greeter.gconf-defaults: don’t specify the background, it is now set
     by desktop-base.
   * Recommend desktop-base >= 6 to obtain this background.
   * Remove moreblue-orbit picture.
@@ -1466,22 +1482,22 @@ gdm3 (2.30.5-6) unstable; urgency=low
 
 gdm3 (2.30.5-5) unstable; urgency=low
 
-  * 27_orca_braille.patch: patch from Samuel Thibault to enable braille 
+  * 27_orca_braille.patch: patch from Samuel Thibault to enable braille
     support in orca. Closes: #600472.
   * 20_endsession_respawn.patch:
-    + Correctly reinitialize the variable that tells a display must 
-      respawn. It badly broke when trying to use an already used 
+    + Correctly reinitialize the variable that tells a display must
+      respawn. It badly broke when trying to use an already used
       display to switch to another one. Closes: #600706.
-    + Also prevent respawning for static displays, otherwise the same 
-      problem will also happen on :0. The only remaining difference 
-      remaining between static and transient displays is autologin 
+    + Also prevent respawning for static displays, otherwise the same
+      problem will also happen on :0. The only remaining difference
+      remaining between static and transient displays is autologin
       handling.
-    + Don’t restart the static display when it exits, that would make 
+    + Don’t restart the static display when it exits, that would make
       the previous change moot.
-  * Get the greeter to play a beep when it is ready. Thanks Samuel 
+  * Get the greeter to play a beep when it is ready. Thanks Samuel
     Thibault for all the testing. Closes: #598132.
     + 28_beep.patch: new patch. Emit a gdk_beep when appropriate.
-    + greeter.gconf-defaults: enable event sounds, so that the beep is 
+    + greeter.gconf-defaults: enable event sounds, so that the beep is
       played.
   * README.Debian:
     + Explain the configuration system more thoroughly. Closes: #601479.
@@ -1491,18 +1507,18 @@ gdm3 (2.30.5-5) unstable; urgency=low
 
 gdm3 (2.30.5-4) unstable; urgency=low
 
-  * 21_schemas_usr.patch: add some comments in the daemon.conf file to 
+  * 21_schemas_usr.patch: add some comments in the daemon.conf file to
     explain the available options. Thanks Joey Hess. Closes: #598666.
   * gdm3.init: drop hal and acpid. Closes: #599015.
   * Pass --enable-debug with DEB_BUILD_OPTIONS=debug.
-  * 20_endsession_respawn.patch: fix typo introduced in 2.30.5-2 that 
+  * 20_endsession_respawn.patch: fix typo introduced in 2.30.5-2 that
     turns the feature completely off.
-  * 18_switch_kill_greeter.patch: ensure that the slave process dies 
+  * 18_switch_kill_greeter.patch: ensure that the slave process dies
     too. Avoids leaking gdm-simple-slave processes around.
-  * 24_show_user_other.patch: dropped. It is not necessary anymore, the 
-    case without any user is handled correctly now. Furthermore it was 
+  * 24_show_user_other.patch: dropped. It is not necessary anymore, the
+    case without any user is handled correctly now. Furthermore it was
     causing the infamous focus bug. Closes: #596359.
-  * 11_xephyr_nested.patch: fix implicit pointer conversion. Thanks Dann 
+  * 11_xephyr_nested.patch: fix implicit pointer conversion. Thanks Dann
     Frazier for the report. Closes: #599104.
 
  -- Josselin Mouette <joss@debian.org>  Wed, 06 Oct 2010 00:10:48 +0200
@@ -1512,7 +1528,7 @@ gdm3 (2.30.5-3) unstable; urgency=low
   [ Josselin Mouette ]
   * pt_BR.po: new Brazilian Portuguese translation by Sérgio Cipolla.
     Closes: #597669.
-  * 26_username_escape.patch: stolen in upstream git (2.30 branch). Fix 
+  * 26_username_escape.patch: stolen in upstream git (2.30 branch). Fix
     escaping in the user list.
 
   [ Luca Bruno ]
@@ -1523,38 +1539,38 @@ gdm3 (2.30.5-3) unstable; urgency=low
 
 gdm3 (2.30.5-2) unstable; urgency=low
 
-  * 03_ipv6.patch: new patch from Julien Cristau, thanks a lot for 
-    investigating! Fix an allocation error that leads to passing garbage 
+  * 03_ipv6.patch: new patch from Julien Cristau, thanks a lot for
+    investigating! Fix an allocation error that leads to passing garbage
     as addresses.
-    Add to that a stripping of ::ffff: from IPv4 mapped addresses, since 
+    Add to that a stripping of ::ffff: from IPv4 mapped addresses, since
     this is not understood in $DISPLAY.
     Closes: #579033.
-  * 11_no_xhost_thanks.patch: new patch. Drops the very suspicious xhost 
-    authentication that is set in the login window. In addition to 
+  * 11_no_xhost_thanks.patch: new patch. Drops the very suspicious xhost
+    authentication that is set in the login window. In addition to
     questioning the security, it interacts badly with the Xephyr patch.
   * 11_xephyr_nested.patch: re-enabled.
     + Updated to apply cleanly.
     + Modified to not affect the logic of 19_configure_xserver.patch.
-    + Handle the upgrade situation, where the IsNested method does not 
+    + Handle the upgrade situation, where the IsNested method does not
       exist on the daemon yet.
     + Don’t pass a vtX argument to nested servers.
-    + Start the nested server with an authorization that is accessible 
-      to the user that launches it. Add another authorization for 
-      Debian-gdm later. The implication is that the parent user has 
-      access to the nested display. Which is, well, completely 
+    + Start the nested server with an authorization that is accessible
+      to the user that launches it. Add another authorization for
+      Debian-gdm later. The implication is that the parent user has
+      access to the nested display. Which is, well, completely
       unimportant since it already owns the server process.
-    + Set GDM_PARENT_{DISPLAY,XAUTHORITY} so that the keymap is set in 
+    + Set GDM_PARENT_{DISPLAY,XAUTHORITY} so that the keymap is set in
       the nested display as well.
-    + Put back in place the code that keeps a connection open to the X 
+    + Put back in place the code that keeps a connection open to the X
       server, it is necessary for proper setting of the keyboard map.
     + Rework the xkb setting in the Init script. Passing model/layout/
       variant/options seems to work better than keymap/types/compat/…
     + Pass GDM_PARENT_DISPLAY to the greeter session too.
-    + In the greeter panel, display only a "Quit" element when 
-      GDM_PARENT_DISPLAY is set. Call the session manager to force a 
+    + In the greeter panel, display only a "Quit" element when
+      GDM_PARENT_DISPLAY is set. Call the session manager to force a
       logout when pressed.
   * debian/po-up/*.po:
-    + Add translations for the Quit and Disconnect strings from gdm 
+    + Add translations for the Quit and Disconnect strings from gdm
       2.20.11.
   * Install the gdmflexiserver-xnest.desktop file.
   * Recommend x11-xkb-utils for xkbcomp.
@@ -1563,7 +1579,7 @@ gdm3 (2.30.5-2) unstable; urgency=low
     + Add the ability to configure the nested X server command.
   * 20_endsession_respawn.patch: don’t respawn nested X servers.
   * 22_noconsole.patch: refreshed.
-  * 14_pam_dialog.patch: show messages from PAM in a dialog so that the 
+  * 14_pam_dialog.patch: show messages from PAM in a dialog so that the
     user can actually see them.
   * Remove debian/TODO, yay!
 
@@ -1571,25 +1587,25 @@ gdm3 (2.30.5-2) unstable; urgency=low
 
 gdm3 (2.30.5-1) unstable; urgency=low
 
-  * greeter.gconf-defaults: disable the power management icon, it allows 
+  * greeter.gconf-defaults: disable the power management icon, it allows
     to change the power management settings. Closes: #580629.
-  * 25_xdmcpfill_length.patch, 26_xdmcp_fill.patch: stolen upstream. 
+  * 25_xdmcpfill_length.patch, 26_xdmcp_fill.patch: stolen upstream.
     Correctly initialize XdmcpFill. Closes: #579033.
-  * 03_authdir.patch: drop, it’s useless since we override it again with 
+  * 03_authdir.patch: drop, it’s useless since we override it again with
     a make argument.
   * Use linux-any wildcard instead of listing non-linux architectures.
   * Bump standards version accordingly.
   * New upstream translation and bugfix release.
-  * 08_frequent-users_greeter.patch, 09_default_session.patch, 
-    18_switch_kill_greeter.patch, 20_endsession_respawn.patch, 
+  * 08_frequent-users_greeter.patch, 09_default_session.patch,
+    18_switch_kill_greeter.patch, 20_endsession_respawn.patch,
     21_schemas_usr.patch, 24_show_user_other.patch: refreshed.
-  * 14_bindv6only.patch, 25_xdmcpfill_length.patch, 
+  * 14_bindv6only.patch, 25_xdmcpfill_length.patch,
     26_xdmcpfill_length.patch: dropped, merged upstream.
-  * 08_frequent-users_greeter.patch: updated to not mark users as logged 
+  * 08_frequent-users_greeter.patch: updated to not mark users as logged
     on if they are not logged on using GDM (e.g. console sessions).
-  * 13_gdmsetup.patch: update gui/Makefile.am accordingly to upstream 
+  * 13_gdmsetup.patch: update gui/Makefile.am accordingly to upstream
     changes.
-  * 25_upower.patch: stolen from upstream git. Use directly upower-glib 
+  * 25_upower.patch: stolen from upstream git. Use directly upower-glib
     instead of devkit-power-gobject. Closes: #595087.
   * Update build-dependencies accordingly.
   * 90_relibtoolize.patch: regenerated for the new version.
@@ -1600,7 +1616,7 @@ gdm3 (2.30.2-4) unstable; urgency=low
 
   [ Josselin Mouette ]
   * Ship a file in insserv.conf.d. Closes: #583694.
-  * greeter.gconf-defaults: force disabling of the compositing manager, 
+  * greeter.gconf-defaults: force disabling of the compositing manager,
     the lower panel fails when it is enabled.
 
   [ Fabian Greffrath ]
@@ -1608,40 +1624,40 @@ gdm3 (2.30.2-4) unstable; urgency=low
 
   [ Josselin Mouette ]
   * New Portuguese translation by Pedro Ribeiro. Closes: #581250.
-  * 24_show_user_other.patch: new patch. Always show the “Other…” user, 
-    even when there are no users in the list. Otherwise this breaks 
+  * 24_show_user_other.patch: new patch. Always show the “Other…” user,
+    even when there are no users in the list. Otherwise this breaks
     setups with no local user.
   * gdm3.init: drop bootlogs from the requirements. Closes: #585512.
   * rules: set default language file to /etc/default/locale.
-  * debian/Xsession: set LANG from GDM_LANG, which is the one set from 
+  * debian/Xsession: set LANG from GDM_LANG, which is the one set from
     GDM. Closes: #584231.
 
  -- Josselin Mouette <joss@debian.org>  Sat, 12 Jun 2010 11:16:04 +0200
 
 gdm3 (2.30.2-3) unstable; urgency=low
 
-  * Pass -novtswitch to the X server options, so that it doesn’t switch 
-    back to the original tty when being killed. This fixes a corner case 
-    of user switching which is the original upstream reason for 
-    introducing the broken behavior we fixed with 
+  * Pass -novtswitch to the X server options, so that it doesn’t switch
+    back to the original tty when being killed. This fixes a corner case
+    of user switching which is the original upstream reason for
+    introducing the broken behavior we fixed with
     18_switch_kill_greeter.patch.
-  * 19_configure_xserver.patch: patch by Hans Petter Jansson to allow to 
+  * 19_configure_xserver.patch: patch by Hans Petter Jansson to allow to
     set the local X server options in the configuration file.
     Also make it use the default options the configure script sets.
-  * 20_endsession_respawn.patch: new patch. Respawn transient displays 
-    when the user session is finished. In combination with 
-    -novtswitch, it allows a unified interface where exiting a session 
-    will always bring back to a login manager, without leaving unused 
+  * 20_endsession_respawn.patch: new patch. Respawn transient displays
+    when the user session is finished. In combination with
+    -novtswitch, it allows a unified interface where exiting a session
+    will always bring back to a login manager, without leaving unused
     displays either.
-  * 08_frequent-users_greeter.patch: updated with an improved logic, to 
-    not use the same session type for the login window and the user 
+  * 08_frequent-users_greeter.patch: updated with an improved logic, to
+    not use the same session type for the login window and the user
     session.
-  * 21_schemas_usr.patch: new patch. Move gdm.schemas to /usr, it should 
+  * 21_schemas_usr.patch: new patch. Move gdm.schemas to /usr, it should
     certainly not be editable.
   * 90_relibtoolize.patch: refreshed accordingly.
-  * 22_noconsole.patch: patch from Patrick Monnerat to allow GDM to work 
+  * 22_noconsole.patch: patch from Patrick Monnerat to allow GDM to work
     as a standalone XDMCP server.
-  * 23_autologin_once.patch: patch from Vincent Untz. Do not autologin 
+  * 23_autologin_once.patch: patch from Vincent Untz. Do not autologin
     again after the session has been closed. Closes: #578736.
   * gdm3.preinst: remove the old gdm.schemas upon upgrade.
 
@@ -1650,14 +1666,14 @@ gdm3 (2.30.2-3) unstable; urgency=low
 gdm3 (2.30.2-2) unstable; urgency=low
 
   * Pass X_PATH et al. through DEB_CONFIGURE_SCRIPT_ENV.
-  * 16_xserver_path.patch: use the environment variables when they 
+  * 16_xserver_path.patch: use the environment variables when they
     exist. Based on a patch by Julien Cristau.
   * 90_relibtoolize.patch: updated accordingly.
   * Stop build-depending on xserver-xorg.
   * 17_no_libxdmcp.patch: fix build when there is no libxdmcp.
   * Updated Czech translation by Michal Šimůnek.
   * New Japanese translation by Hideki Yamane. Closes: #580222.
-  * 18_switch_kill_greeter.patch: new patch. Kill the greeter after 
+  * 18_switch_kill_greeter.patch: new patch. Kill the greeter after
     switching to another user. Closes: #580630.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 07 May 2010 21:42:02 +0200
@@ -1667,13 +1683,13 @@ gdm3 (2.30.2-1) unstable; urgency=low
   * Break orca < 2.30.0-2 just to be sure.
   * New Czech translation by Michal Šimůnek.
   * New Vietnamese translation by Clytie Siddall. Closes: #579228.
-  * 14_bindv6only.patch: patch from Julien Cristau to fix XDMCP and 
+  * 14_bindv6only.patch: patch from Julien Cristau to fix XDMCP and
     chooser behavior with bindv6only=1. Closes: #579033.
   * 15_kfreebsd.patch: first attempt at making gdm3 build on kfreebsd.
     This fixes the current build issue and will probably not be enough.
     Closes: #579288.
   * Add Vcs-* fields.
-  * 06_first_vt.patch: hopefully fix the VT manager on kfreebsd. With 
+  * 06_first_vt.patch: hopefully fix the VT manager on kfreebsd. With
     user switching support, by selecting the correct device.
   * New upstream release.
   * 90_relibtoolize.patch: updated for the new version.
@@ -1691,31 +1707,31 @@ gdm3 (2.30.0-3) unstable; urgency=low
   * Suggest gok.
   * New Russian translations by Yuri Kozlov. Closes: #578775.
   * 06_first_vt.patch: use /dev/tty0 instead of /dev/console.
-  * Merge all translations in debian/po-up to avoid having two files to 
+  * Merge all translations in debian/po-up to avoid having two files to
     give to translators.
   * New Asturian translations by maacub.
   * New Estonian translations by Mihkel.
-  * 06_first_vt.patch: fix a horrible bug that lead to re-use existing 
-    VTs, causing very ugly things happening when you tried to switch 
+  * 06_first_vt.patch: fix a horrible bug that lead to re-use existing
+    VTs, causing very ugly things happening when you tried to switch
     users.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 23 Apr 2010 19:33:33 +0200
 
 gdm3 (2.30.0-2) unstable; urgency=low
 
-  * 11_xephyr_nested.patch: don’t lock the screen when you use Xnest. 
+  * 11_xephyr_nested.patch: don’t lock the screen when you use Xnest.
     Also handle correctly the -l option.
   * greeter.gconf-defaults: remove trailing whitespace.
-  * debian/gdm3.postinst: create a /var/lib/gdm3/.gconf.path that 
-    mentions the .gconf.mandatory where the settings live. This fixes 
-    all issues with g-s-d, which didn’t obtain the correct settings. 
+  * debian/gdm3.postinst: create a /var/lib/gdm3/.gconf.path that
+    mentions the .gconf.mandatory where the settings live. This fixes
+    all issues with g-s-d, which didn’t obtain the correct settings.
     Yay!
-  * 13_gdmsetup_desktop.patch: split the desktop file in another patch, 
+  * 13_gdmsetup_desktop.patch: split the desktop file in another patch,
     again for translations.
   * debian/po-up/POTFILES.in: add it here.
   * debian/po-up/fr.po: updated accordingly.
   * Add missing build-dep on docbook-xml.
-  * Dropped 11_xephyr_nested.patch, it’s not ready for prime time yet. 
+  * Dropped 11_xephyr_nested.patch, it’s not ready for prime time yet.
     Let’s keep up the good work in experimental.
   * Don’t install gdmflexiserver-xnest.desktop.
   * OMG UPLOAD TO UNSTABLE !!!1!!
@@ -1749,10 +1765,10 @@ gdm3 (2.30.0-1) experimental; urgency=low
   [ Josselin Mouette ]
   * New German translation of the desktop file by Gert Michael Kulyk.
   * Use patch-translations to translate patches that require it.
-  * Split the .ui file in a separate patch so that the format can be 
+  * Split the .ui file in a separate patch so that the format can be
     specified.
   * Add French translation for the patches.
-  * 05_stop_welcome_session.patch: revert one of the changes, not 
+  * 05_stop_welcome_session.patch: revert one of the changes, not
     necessary with gnome-session 2.30.
   * Require gnome-session-bin 2.30.
   * Install gdmsetup.desktop in /usr/share/gdm/applications.
@@ -1786,7 +1802,7 @@ gdm3 (2.29.92-1) experimental; urgency=low
 
   [ Josselin Mouette ]
   * Pass --with-screenshot-dir, newly introduced.
-  * Name the user Debian-gdm instead of gdm3, it’s better for the long 
+  * Name the user Debian-gdm instead of gdm3, it’s better for the long
     term.
   * Update list of copyright holders.
 
@@ -1852,12 +1868,12 @@ gdm3 (2.28.1-1) UNRELEASED; urgency=low
   * Rework package description a bit.
   * Translate default.desktop.
   * Remove useless extract-locales.
-  * Rename all configuration files and main binaries so that it does not 
+  * Rename all configuration files and main binaries so that it does not
     cause upgrade trouble with good old gdm.
   * Require upower instead of dk-power.
-  * 10_gdm3_pam.patch: new patch. Allow to look for PAM files named 
+  * 10_gdm3_pam.patch: new patch. Allow to look for PAM files named
     differently from the default.
-  * gdm3.postinst: add some code to handle the need to reload the old 
+  * gdm3.postinst: add some code to handle the need to reload the old
     version of gdm if it is still running.
 
  -- Josselin Mouette <joss@debian.org>  Mon, 15 Mar 2010 21:27:29 +0100
@@ -1866,14 +1882,14 @@ gdm (2.26.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Completely revamp patches. The patches remaining are:
-    + 01_minimal_uid.patch: set the minimal UID to 1000 which is the 
+    + 01_minimal_uid.patch: set the minimal UID to 1000 which is the
       Debian default.
     + 02_xnest-wrapper.patch: formerly 56_xnest-wrapper.patch.
     + 03_authdir.patch: use /var/lib/gdm, not /var/gdm.
     + 90_relibtoolize.patch: formerly 70_mandatory-relibtoolize.patch.
   * Massive update to build-dependencies.
   * Depend/Recommend/Suggest the session components used by GDM.
-  * Remove anything related to gdmsetup and gdmphotosetup, they have 
+  * Remove anything related to gdmsetup and gdmphotosetup, they have
     both disappeared.
   * copyright:
     + Update list of copyright holders.
@@ -1884,36 +1900,36 @@ gdm (2.26.1-1) UNRELEASED; urgency=low
   * Stop installing themes, only install the background picture.
   * Stop installing the locale.conf.
   * New packaging based on cdbs.
-  * Don’t ship /var/lib/gdm/.gconf.mandatory in the package. Instead, 
-    ship the upstream configuration in /usr/share/gdm/greeter-config and 
-    a file for Debian-specific defaults in /etc/gdm. The configuration 
+  * Don’t ship /var/lib/gdm/.gconf.mandatory in the package. Instead,
+    ship the upstream configuration in /usr/share/gdm/greeter-config and
+    a file for Debian-specific defaults in /etc/gdm. The configuration
     is generated in the postinst, and if needed in the init script.
   * Require gconf2 2.26.2-3 for this change.
   * Update README.Debian.
-  * Forbid root login using PAM, since this is no longer a configuration 
+  * Forbid root login using PAM, since this is no longer a configuration
     option.
   * Add a preinst to remove the old conffiles.
-  * Remove some man pages, including the gdmflexiserver one, which is 
+  * Remove some man pages, including the gdmflexiserver one, which is
     seriously outdated.
   * Add lintian overrides.
-  * Use start-stop-daemon --background since it is not able to daemonize 
+  * Use start-stop-daemon --background since it is not able to daemonize
     itself automatically.
 
  -- Josselin Mouette <joss@debian.org>  Tue, 14 Jul 2009 18:58:07 +0200
 
 gdm (2.20.9-1) unstable; urgency=low
 
-  * gdm.install: install the desktop files in 
-    /usr/share/gdm/applications, so that they are only available when 
+  * gdm.install: install the desktop files in
+    /usr/share/gdm/applications, so that they are only available when
     the session has been started by GDM. Closes: #508345.
   * Ship an empty /usr/share/sounds directory. Closes: #509219.
   * New upstream translation and bugfix release.
-  * 51_selinux_memleak.patch, 52_shutdown_crash.patch: removed, merged 
+  * 51_selinux_memleak.patch, 52_shutdown_crash.patch: removed, merged
     upstream.
   * 70_mandatory-relibtoolize.patch: updated for the new version.
-  * 51_xkb_init.patch: new patch, stolen upstream. Handle the case where 
+  * 51_xkb_init.patch: new patch, stolen upstream. Handle the case where
     XKB is not properly initialized.
-  * 52_xdmcp_fixes.patch: new patch, stolen upstream. Fix a double free 
+  * 52_xdmcp_fixes.patch: new patch, stolen upstream. Fix a double free
     and improve error handling for XDMCP. Hopefully closes: #495797.
 
  -- Josselin Mouette <joss@debian.org>  Fri, 27 Feb 2009 19:22:26 +0100
@@ -1931,9 +1947,9 @@ gdm (2.20.7-5) unstable; urgency=low
 
 gdm (2.20.7-4) unstable; urgency=low
 
-  * 52_shutdown_crash.patch: updated to also ignore the signals in the 
+  * 52_shutdown_crash.patch: updated to also ignore the signals in the
     shutdown process.
-  * 35_gdm.conf.patch: use pm-suspend instead of s2ram, for consistency 
+  * 35_gdm.conf.patch: use pm-suspend instead of s2ram, for consistency
     with HAL. Closes: #503085.
   * Suggest pm-utils instead of uswsusp.
 
@@ -1941,7 +1957,7 @@ gdm (2.20.7-4) unstable; urgency=low
 
 gdm (2.20.7-3) unstable; urgency=low
 
-  * Install the debian-moreblue-orbit theme, thanks Andre Luiz Rodrigues 
+  * Install the debian-moreblue-orbit theme, thanks Andre Luiz Rodrigues
     Ferreira. Closes: #497440.
   * 35_gdm.conf.patch: make it the default.
   * copyright: fix encoding.
@@ -1958,7 +1974,7 @@ gdm (2.20.7-2) unstable; urgency=low
     and added -w flag to grep; LP: #256125.
 
   [ Josselin Mouette ]
-  * 51_selinux_memleak.patch: patch from Julien Cristau to fix a memory 
+  * 51_selinux_memleak.patch: patch from Julien Cristau to fix a memory
     leak in the SELinux code.
   * 52_shutdown_crash.patch: new patch, fixes crash upon shutdown when
     the daemon is not correctly closed. Closes: #458802.
@@ -1968,7 +1984,7 @@ gdm (2.20.7-2) unstable; urgency=low
 gdm (2.20.7-1) unstable; urgency=low
 
   [ Josselin Mouette ]
-  * 01_fixfree.patch: stolen from upstream. Patch from Frédéric Crozat 
+  * 01_fixfree.patch: stolen from upstream. Patch from Frédéric Crozat
     to fix an invalid free causing yet another crash upon shutdown.
 
   [ Sebastian Dröge ]
@@ -1992,17 +2008,17 @@ gdm (2.20.6-1) unstable; urgency=low
 
 gdm (2.20.5-2) unstable; urgency=low
 
-  * Xsession: set the USERXSESSIONRC variable. Thanks to Yves-Alexis 
+  * Xsession: set the USERXSESSIONRC variable. Thanks to Yves-Alexis
     Perez. Closes: #458549.
   * control.in: depend on gnome-session | x-session-manager | ...
     Closes: #478497.
-  * gdm.init: stop providing x-display-manager, to prevent installation 
-    failure together with another display manager. The parallel 
+  * gdm.init: stop providing x-display-manager, to prevent installation
+    failure together with another display manager. The parallel
     installation is already handled through debconf. Closes: #479468.
     Other display manager packages should be fixed the same way.
-  * 01_crash_on_shutdown.patch: stolen from upstream SVN. Fixes the 
+  * 01_crash_on_shutdown.patch: stolen from upstream SVN. Fixes the
     crash that happens during the shutdown process.
-    Closes: #480056, #475855, #467203. However it does not fix #459024. 
+    Closes: #480056, #475855, #467203. However it does not fix #459024.
 
  -- Josselin Mouette <joss@debian.org>  Sun, 11 May 2008 02:12:44 +0200
 
@@ -2406,7 +2422,7 @@ gdm (2.16.4-1.1) unstable; urgency=low
 
   * Porter NMU.
   * Disable SELinux on non-Linux architectures (Hurd, GNU/kFreeBSD).
-    Fix gui/gdmchoosed.c wrt to PIPE_BUF (patch from upstream) to 
+    Fix gui/gdmchoosed.c wrt to PIPE_BUF (patch from upstream) to
     support Hurd. (closes: #313008).
 
  -- Aurelien Jarno <aurel32@debian.org>  Mon, 26 Feb 2007 11:51:48 +0100
@@ -2974,11 +2990,11 @@ gdm (2.0-0.beta4.3) unstable; urgency=low
 
   * Session/Gnome: doesn't set the PATH since gdm does already take
     care of this. Closes: #48310
-  * Session/Xsession: calls freetemp only if it's available. 
+  * Session/Xsession: calls freetemp only if it's available.
     Closes: #47916
   * Put a symlink /etc/X11/gdm -> ../gdm. Closes: #46898
-  * Now use /etc/locale.alias instead of its own file. 
-    Closes: #47915 
+  * Now use /etc/locale.alias instead of its own file.
+    Closes: #47915
 
  -- Raphael Hertzog <hertzog@debian.org>  Wed, 27 Oct 1999 14:33:49 +0200
 
@@ -3020,9 +3036,9 @@ gdm (2.0-0.beta3) unstable; urgency=low
     gdm1). Closes: #45719
   * Does show all users (list of exclusion does exist in gdm.conf)
     Closes: #42440, #42493
-  * The X connection problem is solved with this version. 
+  * The X connection problem is solved with this version.
     Closes: #42636, #43667, #43095
-  * The macros stuff has moved in /usr/share/aclocal/gnome. 
+  * The macros stuff has moved in /usr/share/aclocal/gnome.
     Closes: #40293
   * gdm is very kind with xserver badly configured. Closes: #35672
   * gdm cleans (not too much however) the environment. MAIL is removed.
@@ -3046,14 +3062,14 @@ gdm (1.0.0-6) unstable; urgency=low
 
   * Don't automatically restart gdm
   * Change init.d restart behaviour, no longer set -e.
-  * Made substantial changes to /etc/gdm/Sessions/Gnome; removed /etc/gnomerc 
+  * Made substantial changes to /etc/gdm/Sessions/Gnome; removed /etc/gnomerc
     as a result
 
  -- Steve Haslam <araqnid@debian.org>  Wed,  5 May 1999 23:39:08 +0100
 
 gdm (1.0.0-5) unstable; urgency=low
 
-  * Replaced the PAM config again.  
+  * Replaced the PAM config again.
   * Remove po/*.gmo files when cleaning because changes to them can't be
     represented in .diff.gz files
 
