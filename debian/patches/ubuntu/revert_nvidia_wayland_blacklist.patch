@@ -1,0 +1,27 @@
+From: Didier Roche <didrocks@ubuntu.com>
+Date: Thu, 11 Oct 2018 17:45:57 +0100
+Subject: Revert nvidia from wayland blacklist
+
+With some nvidia hardware using binary driver, if gdm GNOME Shell
+instance is running under Xorg, after logged in, turn into an infinite
+restart CPU loop, spiking processor usage to 100%.
+This is due to an invalid paint context.
+As on ubuntu, our main user session is using Xorg, having GDM using
+Wayland is fine, as checked with usptream. So, we can revert nvidia from
+the blacklist for now.
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1797355
+Bug: https://gitlab.gnome.org/GNOME/gdm/issues/429
+---
+ data/61-gdm.rules.in | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index ad5b87d..c9f6110 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -2,5 +2,3 @@
+ ATTR{vendor}=="0x1013", ATTR{device}=="0x00b8", ATTR{subsystem_vendor}=="0x1af4", ATTR{subsystem_device}=="0x1100", RUN+="@libexecdir@/gdm-disable-wayland"
+ # disable Wayland on Hi1710 chipsets
+ ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", RUN+="@libexecdir@/gdm-disable-wayland"
+-# disable Wayland when using the proprietary nvidia driver
+-DRIVER=="nvidia", RUN+="@libexecdir@/gdm-disable-wayland"

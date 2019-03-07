@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gdm 3.29.91\n"
+"Project-Id-Version: gdm 3.31.4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gdm/issues\n"
-"POT-Creation-Date: 2018-08-28 10:11-0400\n"
+"POT-Creation-Date: 2019-02-25 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chooser/gdm-host-chooser-dialog.c:140
+#: chooser/gdm-host-chooser-dialog.c:139
 msgid "_Refresh"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:141
+#: chooser/gdm-host-chooser-dialog.c:140
 msgid "_Cancel"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:142
+#: chooser/gdm-host-chooser-dialog.c:141
 msgid "C_onnect"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:147
+#: chooser/gdm-host-chooser-dialog.c:146
 msgid "Select System"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:254
+#: chooser/gdm-host-chooser-widget.c:253
 msgid "XDMCP: Could not create XDMCP buffer!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:260
+#: chooser/gdm-host-chooser-widget.c:259
 msgid "XDMCP: Could not read XDMCP header!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:266
+#: chooser/gdm-host-chooser-widget.c:265
 msgid "XDMCP: Incorrect XDMCP version!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:272
+#: chooser/gdm-host-chooser-widget.c:271
 msgid "XDMCP: Unable to parse address"
 msgstr ""
 
@@ -53,30 +53,30 @@ msgstr ""
 msgid "/dev/urandom is not a character device"
 msgstr ""
 
-#: common/gdm-common.c:498 libgdm/gdm-user-switching.c:209
+#: common/gdm-common.c:502 libgdm/gdm-user-switching.c:209
 msgid "Could not identify the current session."
 msgstr ""
 
-#: common/gdm-common.c:507 libgdm/gdm-user-switching.c:218
+#: common/gdm-common.c:511 libgdm/gdm-user-switching.c:218
 msgid "Could not identify the current seat."
 msgstr ""
 
-#: common/gdm-common.c:517 libgdm/gdm-user-switching.c:228
+#: common/gdm-common.c:521 libgdm/gdm-user-switching.c:228
 msgid ""
 "The system is unable to determine whether to switch to an existing login "
 "screen or start up a new login screen."
 msgstr ""
 
-#: common/gdm-common.c:525 libgdm/gdm-user-switching.c:236
+#: common/gdm-common.c:529 libgdm/gdm-user-switching.c:236
 msgid "The system is unable to start up a new login screen."
 msgstr ""
 
-#: daemon/gdm-display-access-file.c:300
+#: daemon/gdm-display-access-file.c:298
 #, c-format
 msgid "could not find user “%s” on system"
 msgstr ""
 
-#: daemon/gdm-legacy-display.c:235
+#: daemon/gdm-legacy-display.c:236
 msgid ""
 "Could not start the X server (your graphical environment) due to an internal "
 "error. Please contact your system administrator or check your syslog to "
@@ -84,27 +84,27 @@ msgid ""
 "when the problem is corrected."
 msgstr ""
 
-#: daemon/gdm-manager.c:744
+#: daemon/gdm-manager.c:761
 msgid "No display available"
 msgstr ""
 
-#: daemon/gdm-manager.c:813 daemon/gdm-manager.c:1089
+#: daemon/gdm-manager.c:830 daemon/gdm-manager.c:1114
 msgid "No session available"
 msgstr ""
 
-#: daemon/gdm-manager.c:832
+#: daemon/gdm-manager.c:849
 msgid "Chooser session unavailable"
 msgstr ""
 
-#: daemon/gdm-manager.c:844
+#: daemon/gdm-manager.c:865
 msgid "Can only be called before user is logged in"
 msgstr ""
 
-#: daemon/gdm-manager.c:855
+#: daemon/gdm-manager.c:876
 msgid "Caller not GDM"
 msgstr ""
 
-#: daemon/gdm-manager.c:865
+#: daemon/gdm-manager.c:886
 msgid "Unable to open private communication channel"
 msgstr ""
 
@@ -148,31 +148,31 @@ msgstr ""
 msgid "%s: Empty server command for display %s"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:90
+#: daemon/gdm-session-auditor.c:88
 msgid "Username"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:91
+#: daemon/gdm-session-auditor.c:89
 msgid "The username"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:95
+#: daemon/gdm-session-auditor.c:93
 msgid "Hostname"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:96
+#: daemon/gdm-session-auditor.c:94
 msgid "The hostname"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:101
+#: daemon/gdm-session-auditor.c:99
 msgid "Display Device"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:102
+#: daemon/gdm-session-auditor.c:100
 msgid "The display device"
 msgstr ""
 
-#: daemon/gdm-session.c:1280
+#: daemon/gdm-session.c:1285
 msgid "Could not create authentication helper process"
 msgstr ""
 
@@ -184,15 +184,15 @@ msgstr ""
 msgid "Sorry, that didn’t work. Please try again."
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1180
+#: daemon/gdm-session-worker.c:1187
 msgid "Username:"
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1684 daemon/gdm-session-worker.c:1701
+#: daemon/gdm-session-worker.c:1691 daemon/gdm-session-worker.c:1708
 msgid "no user account available"
 msgstr ""
 
-#: daemon/gdm-session-worker.c:1728
+#: daemon/gdm-session-worker.c:1735
 msgid "Unable to change to user"
 msgstr ""
 

@@ -1,14 +1,11 @@
 #!/usr/bin/make -f
 
-export CCACHE_DISABLE=1
-
--include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
-
 include /usr/share/dpkg/architecture.mk
 include /usr/share/dpkg/buildflags.mk
+include /usr/share/dpkg/pkg-info.mk
+include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 
-GNOME_MODULE := gdm
-
+export CCACHE_DISABLE=1
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 
@@ -45,7 +42,10 @@ $(MANPAGES): $(PODFILES)
 		| sed -e 's/debian:://' >$@
 
 %:
-	dh $@ --with gnome,gir --without systemd
+	dh $@ --with gnome,gir
+
+# We set this up manually
+override_dh_installsystemd:
 
 override_dh_autoreconf:
 	dh_autoreconf --as-needed

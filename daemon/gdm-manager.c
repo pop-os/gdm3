@@ -62,6 +62,7 @@
 #define GDM_MANAGER_DISPLAYS_PATH GDM_DBUS_PATH "/Displays"
 
 #define INITIAL_SETUP_USERNAME "gnome-initial-setup"
+#define ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT GDM_RUN_DIR "/gdm.ran-initial-setup"
 
 typedef struct
 {
@@ -335,23 +336,40 @@ find_session_for_user_on_seat (GdmManager *manager,
 
         for (node = manager->priv->user_sessions; node != NULL; node = node->next) {
                 GdmSession *candidate_session = node->data;
-                const char *candidate_username, *candidate_seat_id;
+                const char *candidate_username, *candidate_seat_id, *candidate_session_id;
 
-                if (candidate_session == dont_count_session)
-                        continue;
+                candidate_session_id = gdm_session_get_session_id (candidate_session);
 
-                if (!gdm_session_is_running (candidate_session))
+                if (candidate_session == dont_count_session) {
+                        g_debug ("GdmSession: Ignoring session %s as requested",
+                                 candidate_session_id);
                         continue;
+                }
+
+                if (!gdm_session_is_running (candidate_session)) {
+                        g_debug ("GdmSession: Ignoring session %s as it isn't running",
+                                 candidate_session_id);
+                        continue;
+                }
 
                 candidate_username = gdm_session_get_username (candidate_session);
                 candidate_seat_id = gdm_session_get_display_seat_id (candidate_session);
 
+                g_debug ("GdmManager: Considering session %s on seat %s belonging to user %s",
+                         candidate_session_id,
+                         candidate_seat_id,
+                         candidate_username);
+
                 if (g_strcmp0 (candidate_username, username) == 0 &&
                     g_strcmp0 (candidate_seat_id, seat_id) == 0) {
+                        g_debug ("GdmManager: yes, found session %s", candidate_session_id);
                         return candidate_session;
                 }
+
+                g_debug ("GdmManager: no, will not use session %s", candidate_session_id);
         }
 
+        g_debug ("GdmManager: no matching sessions found");
         return NULL;
 }
 
@@ -835,8 +853,12 @@ gdm_manager_handle_open_session (GdmDBusManager        *manager,
 #endif
         if (session == NULL) {
                 session = get_user_session_for_display (display);
+                g_debug ("GdmSession: Considering session %s for username %s",
+                         gdm_session_get_session_id (session),
+                         gdm_session_get_username (session));
 
                 if (gdm_session_is_running (session)) {
+                        g_debug ("GdmSession: the session is running, and therefore can't be used");
                         g_dbus_method_invocation_return_error_literal (invocation,
                                                                        G_DBUS_ERROR,
                                                                        G_DBUS_ERROR_ACCESS_DENIED,
@@ -1012,6 +1034,10 @@ open_temporary_reauthentication_channel (GdmManager            *self,
                                    environment);
         g_strfreev (environment);
 
+        g_debug ("GdmSession: Created session for temporary reauthentication channel for user %d (seat %s)",
+                 (int) uid,
+                 seat_id);
+
         g_object_set_data_full (G_OBJECT (session),
                                 "caller-session-id",
                                 g_strdup (session_id),
@@ -1091,11 +1117,13 @@ gdm_manager_handle_open_reauthentication_channel (GdmDBusManager        *manager
         }
 
         if (is_login_screen) {
+                g_debug ("GdmManager: looking for login screen session for user %s on seat %s", username, seat_id);
                 session = find_session_for_user_on_seat (self,
                                                          username,
                                                          seat_id,
                                                          NULL);
         } else {
+                g_debug ("GdmManager: looking for user session on display");
                 session = get_user_session_for_display (display);
         }
 
@@ -1596,6 +1624,123 @@ create_display_for_user_session (GdmManager *self,
 }
 
 static gboolean
+chown_file (GFile   *file,
+            uid_t    uid,
+            gid_t    gid,
+            GError **error)
+{
+        if (!g_file_set_attribute_uint32 (file, G_FILE_ATTRIBUTE_UNIX_UID, uid,
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                          NULL, error)) {
+                return FALSE;
+        }
+        if (!g_file_set_attribute_uint32 (file, G_FILE_ATTRIBUTE_UNIX_GID, gid,
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                          NULL, error)) {
+                return FALSE;
+        }
+        return TRUE;
+}
+
+static gboolean
+chown_recursively (GFile   *dir,
+                   uid_t    uid,
+                   gid_t    gid,
+                   GError **error)
+{
+        GFile *file = NULL;
+        GFileInfo *info = NULL;
+        GFileEnumerator *enumerator = NULL;
+        gboolean retval = FALSE;
+
+        if (chown_file (dir, uid, gid, error) == FALSE) {
+                goto out;
+        }
+
+        enumerator = g_file_enumerate_children (dir,
+                                                G_FILE_ATTRIBUTE_STANDARD_TYPE","
+                                                G_FILE_ATTRIBUTE_STANDARD_NAME,
+                                                G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                                NULL, error);
+        if (!enumerator) {
+                goto out;
+        }
+
+        while ((info = g_file_enumerator_next_file (enumerator, NULL, error)) != NULL) {
+                file = g_file_get_child (dir, g_file_info_get_name (info));
+
+                if (g_file_info_get_file_type (info) == G_FILE_TYPE_DIRECTORY) {
+                        if (chown_recursively (file, uid, gid, error) == FALSE) {
+                                goto out;
+                        }
+                } else if (chown_file (file, uid, gid, error) == FALSE) {
+                        goto out;
+                }
+
+                g_clear_object (&file);
+                g_clear_object (&info);
+        }
+
+        if (*error) {
+                goto out;
+        }
+
+        retval = TRUE;
+out:
+        g_clear_object (&file);
+        g_clear_object (&info);
+        g_clear_object (&enumerator);
+
+        return retval;
+}
+
+static void
+chown_initial_setup_home_dir (void)
+{
+        GFile *dir;
+        GError *error;
+        char *gis_dir_path;
+        char *gis_uid_path;
+        char *gis_uid_contents;
+        struct passwd *pwe;
+        uid_t uid;
+
+        if (!gdm_get_pwent_for_name (INITIAL_SETUP_USERNAME, &pwe)) {
+                g_warning ("Unknown user %s", INITIAL_SETUP_USERNAME);
+                return;
+        }
+
+        gis_dir_path = g_strdup (pwe->pw_dir);
+
+        gis_uid_path = g_build_filename (gis_dir_path,
+                                         "gnome-initial-setup-uid",
+                                         NULL);
+        if (!g_file_get_contents (gis_uid_path, &gis_uid_contents, NULL, NULL)) {
+                g_warning ("Unable to read %s", gis_uid_path);
+                goto out;
+        }
+
+        uid = (uid_t) atoi (gis_uid_contents);
+        pwe = getpwuid (uid);
+        if (uid == 0 || pwe == NULL) {
+                g_warning ("UID '%s' in %s is not valid", gis_uid_contents, gis_uid_path);
+                goto out;
+        }
+
+        error = NULL;
+        dir = g_file_new_for_path (gis_dir_path);
+        if (!chown_recursively (dir, pwe->pw_uid, pwe->pw_gid, &error)) {
+                g_warning ("Failed to change ownership for %s: %s", gis_dir_path, error->message);
+                g_error_free (error);
+        }
+        g_object_unref (dir);
+out:
+        g_free (gis_uid_contents);
+        g_free (gis_uid_path);
+        g_free (gis_dir_path);
+}
+
+static gboolean
 on_start_user_session (StartUserSessionOperation *operation)
 {
         GdmManager *self = operation->manager;
@@ -1653,6 +1798,8 @@ on_start_user_session (StartUserSessionOperation *operation)
 
                 g_object_ref (display);
                 if (doing_initial_setup) {
+                        g_autoptr(GError) error = NULL;
+
 #if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
                         if (g_strcmp0 (display_session_type, "wayland") == 0) {
                                 g_debug ("GdmManager: closing down initial setup display in background");
@@ -1664,6 +1811,18 @@ on_start_user_session (StartUserSessionOperation *operation)
                                 gdm_display_stop_greeter_session (display);
                                 gdm_display_unmanage (display);
                                 gdm_display_finish (display);
+                        }
+
+                        chown_initial_setup_home_dir ();
+
+                        if (!g_file_set_contents (ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
+                                                  "1",
+                                                  1,
+                                                  &error)) {
+                                g_warning ("GdmDisplay: Could not write initial-setup-done marker to %s: %s",
+                                           ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
+                                           error->message);
+                                g_clear_error (&error);
                         }
                 } else {
                         g_debug ("GdmManager: session has its display server, reusing our server for another login screen");
@@ -1683,14 +1842,15 @@ on_start_user_session (StartUserSessionOperation *operation)
                                                  session_id);
 
 
-                if (g_strcmp0 (operation->service_name, "gdm-autologin") == 0) {
+                if (g_strcmp0 (operation->service_name, "gdm-autologin") == 0 &&
+	            !gdm_session_client_is_connected (operation->session)) {
                         /* remove the unused prepared greeter display since we're not going
                          * to have a greeter */
                         gdm_display_store_remove (self->priv->display_store, display);
                         g_object_unref (display);
 
-			self->priv->automatic_login_display = g_object_get_data (G_OBJECT (operation->session), "gdm-display");
-			g_object_add_weak_pointer (G_OBJECT (display), (gpointer *) &self->priv->automatic_login_display);
+                        self->priv->automatic_login_display = g_object_get_data (G_OBJECT (operation->session), "gdm-display");
+                        g_object_add_weak_pointer (G_OBJECT (self->priv->automatic_login_display), (gpointer *) &self->priv->automatic_login_display);
                 }
         }
 
@@ -1917,7 +2077,15 @@ on_session_client_connected (GdmSession      *session,
         gboolean enabled;
         gboolean allow_timed_login = FALSE;
 
-        g_debug ("GdmManager: client connected");
+        g_debug ("GdmManager: client with pid %d connected", (int) pid_of_client);
+
+        if (gdm_session_is_running (session)) {
+                const char *session_username;
+                session_username = gdm_session_get_username (session);
+                g_debug ("GdmManager: ignoring connection, since session already running (for user %s)",
+                         session_username);
+                return;
+        }
 
         display = get_display_for_user_session (session);
 
@@ -1963,7 +2131,7 @@ on_session_client_disconnected (GdmSession   *session,
                                 GPid          pid_of_client,
                                 GdmManager   *manager)
 {
-        g_debug ("GdmManager: client disconnected");
+        g_debug ("GdmManager: client with pid %d disconnected", (int) pid_of_client);
 }
 
 typedef struct
@@ -2030,9 +2198,10 @@ on_session_conversation_started (GdmSession *session,
         gboolean    enabled;
         char       *username;
 
-        g_debug ("GdmManager: session conversation started for service %s", service_name);
+        g_debug ("GdmManager: session conversation started for service %s on session", service_name);
 
         if (g_strcmp0 (service_name, "gdm-autologin") != 0) {
+                g_debug ("GdmManager: ignoring session conversation since its not automatic login conversation");
                 return;
         }
 
@@ -2142,6 +2311,12 @@ create_user_session_for_display (GdmManager *manager,
                                    display_auth_file,
                                    display_is_local,
                                    NULL);
+
+        g_debug ("GdmSession: Created user session for user %d on display %s (seat %s)",
+                 (int) allowed_user,
+                 display_id,
+                 display_seat_id);
+
         g_free (display_name);
         g_free (remote_hostname);
         g_free (display_auth_file);
@@ -2249,15 +2424,12 @@ gdm_manager_error_quark (void)
         return ret;
 }
 
-static gboolean
+static void
 listify_display_ids (const char *id,
                      GdmDisplay *display,
                      GPtrArray **array)
 {
         g_ptr_array_add (*array, g_strdup (id));
-
-        /* return FALSE to continue */
-        return FALSE;
 }
 
 /*
@@ -2517,7 +2689,7 @@ gdm_manager_class_init (GdmManagerClass *klass)
                                                                NULL,
                                                                NULL,
                                                                FALSE,
-                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+                                                               G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 
         g_type_class_add_private (klass, sizeof (GdmManagerPrivate));
 }
