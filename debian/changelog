@@ -1,3 +1,9 @@
+gdm3 (3.32.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Iain Lane <laney@debian.org>  Fri, 15 Mar 2019 15:17:20 +0000
+
 gdm3 (3.31.4+git20190225-1) experimental; urgency=medium
 
   * New upstream git snapshot. This is upstream commit
