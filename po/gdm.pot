@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gdm 3.31.4\n"
+"Project-Id-Version: gdm 3.30.1\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gdm/issues\n"
-"POT-Creation-Date: 2019-02-25 12:10+0000\n"
+"POT-Creation-Date: 2018-10-11 07:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chooser/gdm-host-chooser-dialog.c:139
+#: chooser/gdm-host-chooser-dialog.c:140
 msgid "_Refresh"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:140
+#: chooser/gdm-host-chooser-dialog.c:141
 msgid "_Cancel"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:141
+#: chooser/gdm-host-chooser-dialog.c:142
 msgid "C_onnect"
 msgstr ""
 
-#: chooser/gdm-host-chooser-dialog.c:146
+#: chooser/gdm-host-chooser-dialog.c:147
 msgid "Select System"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:253
+#: chooser/gdm-host-chooser-widget.c:254
 msgid "XDMCP: Could not create XDMCP buffer!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:259
+#: chooser/gdm-host-chooser-widget.c:260
 msgid "XDMCP: Could not read XDMCP header!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:265
+#: chooser/gdm-host-chooser-widget.c:266
 msgid "XDMCP: Incorrect XDMCP version!"
 msgstr ""
 
-#: chooser/gdm-host-chooser-widget.c:271
+#: chooser/gdm-host-chooser-widget.c:272
 msgid "XDMCP: Unable to parse address"
 msgstr ""
 
@@ -71,7 +71,7 @@ msgstr ""
 msgid "The system is unable to start up a new login screen."
 msgstr ""
 
-#: daemon/gdm-display-access-file.c:298
+#: daemon/gdm-display-access-file.c:300
 #, c-format
 msgid "could not find user “%s” on system"
 msgstr ""
@@ -84,27 +84,27 @@ msgid ""
 "when the problem is corrected."
 msgstr ""
 
-#: daemon/gdm-manager.c:761
+#: daemon/gdm-manager.c:744
 msgid "No display available"
 msgstr ""
 
-#: daemon/gdm-manager.c:830 daemon/gdm-manager.c:1114
+#: daemon/gdm-manager.c:813 daemon/gdm-manager.c:1089
 msgid "No session available"
 msgstr ""
 
-#: daemon/gdm-manager.c:849
+#: daemon/gdm-manager.c:832
 msgid "Chooser session unavailable"
 msgstr ""
 
-#: daemon/gdm-manager.c:865
+#: daemon/gdm-manager.c:844
 msgid "Can only be called before user is logged in"
 msgstr ""
 
-#: daemon/gdm-manager.c:876
+#: daemon/gdm-manager.c:855
 msgid "Caller not GDM"
 msgstr ""
 
-#: daemon/gdm-manager.c:886
+#: daemon/gdm-manager.c:865
 msgid "Unable to open private communication channel"
 msgstr ""
 
@@ -148,31 +148,31 @@ msgstr ""
 msgid "%s: Empty server command for display %s"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:88
+#: daemon/gdm-session-auditor.c:90
 msgid "Username"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:89
+#: daemon/gdm-session-auditor.c:91
 msgid "The username"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:93
+#: daemon/gdm-session-auditor.c:95
 msgid "Hostname"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:94
+#: daemon/gdm-session-auditor.c:96
 msgid "The hostname"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:99
+#: daemon/gdm-session-auditor.c:101
 msgid "Display Device"
 msgstr ""
 
-#: daemon/gdm-session-auditor.c:100
+#: daemon/gdm-session-auditor.c:102
 msgid "The display device"
 msgstr ""
 
-#: daemon/gdm-session.c:1285
+#: daemon/gdm-session.c:1280
 msgid "Could not create authentication helper process"
 msgstr ""
 
@@ -204,15 +204,15 @@ msgstr ""
 msgid "Could not create socket!"
 msgstr ""
 
-#: daemon/gdm-x-session.c:826
+#: daemon/gdm-x-session.c:827
 msgid "Run program through /etc/gdm/Xsession wrapper script"
 msgstr ""
 
-#: daemon/gdm-x-session.c:827
+#: daemon/gdm-x-session.c:828
 msgid "Listen on TCP socket"
 msgstr ""
 
-#: daemon/gdm-x-session.c:838
+#: daemon/gdm-x-session.c:839
 msgid "GNOME Display Manager X Session Launcher"
 msgstr ""
 
