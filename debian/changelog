@@ -1,3 +1,10 @@
+gdm3 (3.32.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+  * control, rules: BD on dh-sequence-{gir,gnome} and drop --with
+
+ -- Iain Lane <laney@debian.org>  Fri, 15 Mar 2019 15:20:52 +0000
+
 gdm3 (3.31.4+git20190225-1ubuntu1) disco; urgency=medium
 
   * Merge with Debian. Remaining changes:
