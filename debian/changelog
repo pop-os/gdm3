@@ -1,6 +1,52 @@
 gdm3 (3.32.0-1ubuntu1) UNRELEASED; urgency=medium
 
-  * Merge
+  * Merge with Debian. Remaining changes:
+    + README.Debian: update for correct paths in Ubuntu
+    + control.in:
+      - Don't recommend desktop-base
+      - Depend on bash for config_error_dialog.patch
+      - Update Vcs field
+    + rules:
+      - Don't override default user/group
+      - --enable-gdm-xsession to install upstream Xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, README.Debian, gdm3.8.pod:
+      Use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.postinst, gdm3.prerm: don't kill gdm on upgrade
+    + gdm3.*.pam: Make pam_env read ~/.pam_environment
+    + gdm3.install:
+      - Stop installing default.desktop. It adds unnecessary clutter
+        ("System Default") to the session chooser.
+      - Don't install debian/Xsession
+    + Add run_xsession.d.patch
+    + Add xresources_is_a_dir.patch
+      - Fix loading from /etc/X11/Xresources/*
+    + Add nvidia_prime.patch:
+      - Add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + Add revert_override_LANG_with_accountservices.patch:
+      - On Ubuntu accountservices only stores the language and not the
+        full locale as needed by LANG.
+    + Add dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + Add config_error_dialog.patch:
+      - Show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + Add debian/patches/revert_nvidia_wayland_blacklist.patch:
+      - Don't blacklist nvidia for wayland
+    + Add gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
+      - Wait for the first valid gdm device on pre-start
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: Don't set Debian settings in the
+      greeter's dconf DB
 
  -- Iain Lane <iain.lane@canonical.com>  Fri, 15 Mar 2019 15:20:52 +0000
 
