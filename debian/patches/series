@@ -1,3 +1,4 @@
+libgdm-Remove-duplicate-sessions-once-after-all-sessions-.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
