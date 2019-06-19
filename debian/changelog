@@ -1,3 +1,11 @@
+gdm3 (3.32.0-1ubuntu2) eoan; urgency=medium
+
+  * Remove revert_nvidia_wayland_blacklist.patch because it was causing a
+    much greater problem (LP: #1705369) than it was meant to solve (which
+    doesn't seem to exist any more either).
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Wed, 19 Jun 2019 15:47:11 +0800
+
 gdm3 (3.32.0-1ubuntu1) disco; urgency=medium
 
   * Merge with Debian. Remaining changes:
