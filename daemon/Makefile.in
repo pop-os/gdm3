@@ -157,7 +157,8 @@ nodist_gdm_OBJECTS = gdm-display-glue.$(OBJEXT) \
 	gdm-local-display-factory-glue.$(OBJEXT) \
 	gdm-manager-glue.$(OBJEXT) gdm-local-display-glue.$(OBJEXT) \
 	gdm-session-glue.$(OBJEXT) gdm-session-worker-glue.$(OBJEXT) \
-	gdm-session-enum-types.$(OBJEXT) $(am__objects_1)
+	gdm-session-enum-types.$(OBJEXT) \
+	gdm-session-worker-enum-types.$(OBJEXT) $(am__objects_1)
 gdm_OBJECTS = $(am_gdm_OBJECTS) $(nodist_gdm_OBJECTS)
 am__DEPENDENCIES_1 =
 gdm_DEPENDENCIES = $(top_builddir)/common/libgdmcommon.la \
@@ -191,7 +192,8 @@ am_gdm_session_worker_OBJECTS = session-worker-main.$(OBJEXT) \
 	$(am__objects_5)
 nodist_gdm_session_worker_OBJECTS = gdm-session-glue.$(OBJEXT) \
 	gdm-session-worker-glue.$(OBJEXT) \
-	gdm-session-enum-types.$(OBJEXT) $(am__objects_1)
+	gdm-session-enum-types.$(OBJEXT) \
+	gdm-session-worker-enum-types.$(OBJEXT) $(am__objects_1)
 gdm_session_worker_OBJECTS = $(am_gdm_session_worker_OBJECTS) \
 	$(nodist_gdm_session_worker_OBJECTS)
 gdm_session_worker_DEPENDENCIES =  \
@@ -257,6 +259,7 @@ am__depfiles_remade = ./$(DEPDIR)/gdm-dbus-util.Po \
 	./$(DEPDIR)/gdm-session-settings.Po \
 	./$(DEPDIR)/gdm-session-solaris-auditor.Po \
 	./$(DEPDIR)/gdm-session-worker-common.Po \
+	./$(DEPDIR)/gdm-session-worker-enum-types.Po \
 	./$(DEPDIR)/gdm-session-worker-glue.Po \
 	./$(DEPDIR)/gdm-session-worker-job.Po \
 	./$(DEPDIR)/gdm-session-worker.Po ./$(DEPDIR)/gdm-session.Po \
@@ -623,6 +626,7 @@ BUILT_SOURCES = \
 	gdm-session-glue.h			\
 	gdm-session-worker-glue.h		\
 	gdm-session-enum-types.h		\
+	gdm-session-worker-enum-types.h         \
 	$(NULL)
 
 test_session_client_SOURCES = \
@@ -655,6 +659,8 @@ nodist_gdm_session_worker_SOURCES = \
 	gdm-session-worker-glue.h		\
 	gdm-session-enum-types.c		\
 	gdm-session-enum-types.h		\
+	gdm-session-worker-enum-types.h		\
+	gdm-session-worker-enum-types.c		\
 	$(NULL)
 
 gdm_wayland_session_LDADD = \
@@ -723,6 +729,8 @@ nodist_gdm_SOURCES = \
 	gdm-session-worker-glue.h		\
 	gdm-session-enum-types.c		\
 	gdm-session-enum-types.h		\
+	gdm-session-worker-enum-types.h		\
+	gdm-session-worker-enum-types.c		\
 	$(NULL)
 
 XDMCP_SOURCES = \
@@ -756,6 +764,7 @@ CLEANFILES = \
 	gdm-session-glue.c			\
 	gdm-session-worker-glue.c		\
 	gdm-session-enum-types.c		\
+	gdm-session-worker-enum-types.c		\
 	gdm-local-display-glue.c		\
 	$(BUILT_SOURCES)			\
 	$(NULL)
@@ -769,6 +778,8 @@ EXTRA_DIST = \
 	gdm-local-display-factory.xml	\
 	gdm-session-enum-types.c.in	\
 	gdm-session-enum-types.h.in	\
+	gdm-session-worker-enum-types.c.in	\
+	gdm-session-worker-enum-types.h.in	\
 	$(NULL)
 
 all: $(BUILT_SOURCES)
@@ -962,6 +973,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-settings.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-solaris-auditor.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-worker-common.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-worker-enum-types.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-worker-glue.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-worker-job.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdm-session-worker.Po@am__quote@ # am--include-marker
@@ -1163,6 +1175,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/gdm-session-settings.Po
 	-rm -f ./$(DEPDIR)/gdm-session-solaris-auditor.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-common.Po
+	-rm -f ./$(DEPDIR)/gdm-session-worker-enum-types.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-glue.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-job.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker.Po
@@ -1243,6 +1256,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/gdm-session-settings.Po
 	-rm -f ./$(DEPDIR)/gdm-session-solaris-auditor.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-common.Po
+	-rm -f ./$(DEPDIR)/gdm-session-worker-enum-types.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-glue.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker-job.Po
 	-rm -f ./$(DEPDIR)/gdm-session-worker.Po
@@ -1299,6 +1313,12 @@ gdm-session-enum-types.h: gdm-session-enum-types.h.in gdm-session.h
 	$(AM_V_GEN) glib-mkenums --template $^ > $@
 
 gdm-session-enum-types.c: gdm-session-enum-types.c.in gdm-session.h
+	$(AM_V_GEN) glib-mkenums --template $^ > $@
+
+gdm-session-worker-enum-types.h: gdm-session-worker-enum-types.h.in gdm-session-worker.h
+	$(AM_V_GEN) glib-mkenums --template $^ > $@
+
+gdm-session-worker-enum-types.c: gdm-session-worker-enum-types.c.in gdm-session-worker.h
 	$(AM_V_GEN) glib-mkenums --template $^ > $@
 
 gdm-display-glue.c gdm-display-glue.h: gdm-display.xml Makefile.am

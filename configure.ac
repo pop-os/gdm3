@@ -1,13 +1,14 @@
 
 AC_PREREQ([2.60])
 AC_INIT([gdm],
-        [3.32.0],
+        [3.33.4],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gdm])
 
 AC_CONFIG_SRCDIR([daemon/gdm-manager.c])
 
 AM_INIT_AUTOMAKE([1.11.2 no-dist-gzip dist-xz tar-ustar -Wall foreign])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AM_MAINTAINER_MODE([enable])
 
 # for utmpx stuff
@@ -1416,12 +1417,12 @@ AC_ARG_WITH(initial-vt,
         AS_HELP_STRING([--with-initial-vt=<nr>],
                 [Initial virtual terminal to use]))
 if ! test -z "$with_initial_vt"; then
-        GDM_INITIAL_VT="$with_initial_vt"
+        GDM_INITIAL_VT=$with_initial_vt
 else
-        GDM_INITIAL_VT="1"
+        GDM_INITIAL_VT=1
 fi
 AC_SUBST(GDM_INITIAL_VT)
-AC_DEFINE_UNQUOTED(GDM_INITIAL_VT, "$GDM_INITIAL_VT", [Initial Virtual Terminal])
+AC_DEFINE_UNQUOTED(GDM_INITIAL_VT, $GDM_INITIAL_VT, [Initial Virtual Terminal])
 
 # Set configuration choices.
 #
