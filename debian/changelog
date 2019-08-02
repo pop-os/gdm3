@@ -1,3 +1,16 @@
+gdm3 (3.33.4-1) experimental; urgency=medium
+
+  * New upstream release
+    - Fix session search directories
+    - Kill user sessions when stopping gdm
+    - Add way for sessions to register when they successfully started (LP:
+      #1798790)
+  * libgdm-Remove-duplicate-sessions-once-after-all-sessions-.patch: Drop,
+    upstream
+  * debian/libgdm1.symbols: Update
+
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 13:56:49 +0100
+
 gdm3 (3.32.0-1ubuntu2) eoan; urgency=medium
 
   * Remove revert_nvidia_wayland_blacklist.patch because it was causing a

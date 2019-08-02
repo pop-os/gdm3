@@ -1,89 +1,84 @@
-# Translation of gdm to Bahasa Indonesia
-# Copyright (C) 2004 THE gdm's COPYRIGHT HOLDER
-# This file is distributed under the same license as the gdm package.
+# Karbi (India) translation for gdm.
+# Copyright (C) 2019 gdm's Free Software Foundation, Inc.
+# This file is distributed under the same license as the gdm2 package.
+# Jor Teron <jor.teron@gmail.com>, 2019.
 #
-# Mohammad DAMT <mdamt@bisnisweb.com>, 2003.
-# Dicky Wahyu Purnomo <dicky.wahyu@massaint.or.id>, 2004.
-# ahmad riza h nst <rizahnst@eriagempita.co.id>, 2005, 2006.
-# Dirgita <dirgitadevina@yahoo.co.id>, 2010, 2011, 2012, 2014.
-# Andika Triwidada <andika@gmail.com>, 2009, 2010, 2011, 2012, 2013, 2014.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gdm gnome-3-20\n"
+"Project-Id-Version: gdm master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gdm/issues\n"
-"POT-Creation-Date: 2019-05-22 06:30+0000\n"
-"PO-Revision-Date: 2019-06-07 09:38+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
-"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
-"Language: id\n"
+"POT-Creation-Date: 2019-07-06 08:24+0000\n"
+"PO-Revision-Date: 2019-07-15 00:00+0530\n"
+"Last-Translator: Jor Teron <jor.teron@gmail.com>\n"
+"Language-Team: Karbi <mjw@li.org>\n"
+"Language: mjw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gedit 3.28.1\n"
 
 #: chooser/gdm-host-chooser-dialog.c:139
 msgid "_Refresh"
-msgstr "Sega_rkan"
+msgstr "_Refresh"
 
 #: chooser/gdm-host-chooser-dialog.c:140
 msgid "_Cancel"
-msgstr "_Batal"
+msgstr "_Cancel"
 
 #: chooser/gdm-host-chooser-dialog.c:141
 msgid "C_onnect"
-msgstr "S_ambung"
+msgstr "C_onnect"
 
 #: chooser/gdm-host-chooser-dialog.c:146
 msgid "Select System"
-msgstr "Pilih Sistem"
+msgstr "System chongvai nangji"
 
 #: chooser/gdm-host-chooser-widget.c:253
 msgid "XDMCP: Could not create XDMCP buffer!"
-msgstr "XDMCP: Tak dapat membuat penyangga XDMCP!"
+msgstr "XDMCP: XDMCP buffer selam un-eh!"
 
 #: chooser/gdm-host-chooser-widget.c:259
 msgid "XDMCP: Could not read XDMCP header!"
-msgstr "XDMCP: Tak dapat membaca tajuk XDMCP!"
+msgstr "XDMCP: XDMCP header lang un-eh!"
 
 #: chooser/gdm-host-chooser-widget.c:265
 msgid "XDMCP: Incorrect XDMCP version!"
-msgstr "XDMCP: Versi XDMCP salah!"
+msgstr "XDMCP: XDMCP version chokche!"
 
 #: chooser/gdm-host-chooser-widget.c:271
 msgid "XDMCP: Unable to parse address"
-msgstr "XDMCP: Tak dapat menguraikan alamat"
+msgstr "XDMCP: Address homan me"
 
 #: common/gdm-common.c:307
 msgid "/dev/urandom is not a character device"
-msgstr "/dev/urandom bukan perangkat karakter"
+msgstr "/dev/urandom ke character device kali"
 
 #: common/gdm-common.c:502 libgdm/gdm-user-switching.c:209
 msgid "Could not identify the current session."
-msgstr "Tak dapat mengidentifikasi sesi sekarang."
+msgstr "Session pangthek un-eh."
 
 #: common/gdm-common.c:511 libgdm/gdm-user-switching.c:218
 msgid "Could not identify the current seat."
-msgstr "Tak dapat mengidentifikasi seat sekarang."
+msgstr "Seat pang-thek un-eh."
 
 #: common/gdm-common.c:521 libgdm/gdm-user-switching.c:228
 msgid ""
 "The system is unable to determine whether to switch to an existing login "
 "screen or start up a new login screen."
 msgstr ""
-"Sistem tak bisa menentukan apakah akan berpindah ke layar log masuk yang "
-"telah ada atau memulai layar log masuk baru."
+"Computer munthi un-eh det, je dotang login screen si ingpu nangji mate akimi "
+"login screen si ingpu nangji."
 
 #: common/gdm-common.c:529 libgdm/gdm-user-switching.c:236
 msgid "The system is unable to start up a new login screen."
-msgstr "Sistem tak bisa memulai suatu layar log masuk baru."
+msgstr "Computer login screen kimi ingpu un-eh det."
 
 #: daemon/gdm-display-access-file.c:298
-#, c-format
+#, fuzzy, c-format
+#| msgid "could not find user \"%s\" on system"
 msgid "could not find user “%s” on system"
-msgstr "tidak menemukan pengguna \"%s\" pada sistem"
+msgstr "“%s” phan computer long amen longle"
 
 #: daemon/gdm-legacy-display.c:236
 msgid ""
@@ -92,354 +87,358 @@ msgid ""
 "diagnose. In the meantime this display will be disabled.  Please restart GDM "
 "when the problem is corrected."
 msgstr ""
-"Tak dapat menjalankan server X (lingkungan grafik Anda) karena galat "
-"internal. Hubungilah administrator sistem Anda atau periksa catatan sistem "
-"(syslog) untuk diagnosa. Untuk sementara, tampilan ini akan dimatikan. "
-"Jalankan kembali GDM setelah masalah diperbaiki."
+"X server (nangli graphical environment) pangcheng un-eh det athe arlo "
+"chokche do. Choningri pen System administrator pen chingvai ik-tha kalite "
+"syslog lang siti-er ik det meh. laso esek display pajut po.  Chongningri pen "
+"GDM restart ik tha meh ed lote."
 
 #: daemon/gdm-manager.c:761
 msgid "No display available"
-msgstr "Tak ada tampilan yang tersedia"
+msgstr "Display awe"
 
-#: daemon/gdm-manager.c:830 daemon/gdm-manager.c:1114
+#: daemon/gdm-manager.c:859 daemon/gdm-manager.c:1143
 msgid "No session available"
-msgstr "Tak ada sesi"
+msgstr "Session awe"
 
-#: daemon/gdm-manager.c:849
+#: daemon/gdm-manager.c:878
+#, fuzzy
+#| msgid "No session available"
 msgid "Chooser session unavailable"
-msgstr "Sesi pemilih tidak tersedia"
+msgstr "Session awe"
 
-#: daemon/gdm-manager.c:865
+#: daemon/gdm-manager.c:894
 msgid "Can only be called before user is logged in"
-msgstr "Hanya dapat dipanggil sebelum pengguna log masuk"
+msgstr "Login eh aphrang si klem un chot"
 
-#: daemon/gdm-manager.c:876
+#: daemon/gdm-manager.c:905
 msgid "Caller not GDM"
-msgstr "Pemanggil bukan GDM"
+msgstr "GDM hang-he"
 
-#: daemon/gdm-manager.c:886
+#: daemon/gdm-manager.c:915
 msgid "Unable to open private communication channel"
-msgstr "Tak dapat membuka kanal komunikasi privat"
+msgstr "Chingki phan Private channel ingpu un-eh"
 
 #: daemon/gdm-server.c:383
-#, c-format
+#, fuzzy, c-format
+#| msgid "Server was to be spawned by user %s but that user doesn't exist"
 msgid "Server was to be spawned by user %s but that user doesn’t exist"
-msgstr "Server mestinya dijalankan oleh %s, tetapi pengguna tersebut tidak ada"
+msgstr "Server ke %s monit pen se ingpu nangji anta laso monit abang awe det"
 
 #: daemon/gdm-server.c:394 daemon/gdm-server.c:414
-#, c-format
+#, fuzzy, c-format
+#| msgid "Couldn't set groupid to %d"
 msgid "Couldn’t set groupid to %d"
-msgstr "Tak dapat menentukan groupid menjadi %d"
+msgstr "%d groupid bi un-eh"
 
 #: daemon/gdm-server.c:400
 #, c-format
 msgid "initgroups () failed for %s"
-msgstr "initgroups () gagal untuk %s"
+msgstr "%s aphan initgroups () be un-eh"
 
 #: daemon/gdm-server.c:406
-#, c-format
+#, fuzzy, c-format
+#| msgid "Couldn't set userid to %d"
 msgid "Couldn’t set userid to %d"
-msgstr "Tak dapat menentukan userid menjadi %d"
+msgstr "%d userid bi un-eh"
 
 #: daemon/gdm-server.c:484
 #, c-format
 msgid "%s: Could not open log file for display %s!"
-msgstr "%s: Tak dapat membuka berkas log untuk tampilan %s!"
+msgstr "%s: Log file paklang ji phan ingpu un-eh %s!"
 
 #: daemon/gdm-server.c:505 daemon/gdm-server.c:511 daemon/gdm-server.c:517
 #, c-format
 msgid "%s: Error setting %s to %s"
-msgstr "%s: Gagal mengatur %s menjadi %s"
+msgstr "%s: %s pen %s ason-amung lar un-eh"
 
 #: daemon/gdm-server.c:537
-#, c-format
+#, fuzzy, c-format
+#| msgid "%s: Server priority couldn't be set to %d: %s"
 msgid "%s: Server priority couldn’t be set to %d: %s"
-msgstr "%s: Prioritas server tidak dapat ditentukan menjadi %d: %s"
+msgstr "%s: Server priority laso %d: %s long bi un-eh"
 
 #: daemon/gdm-server.c:689
 #, c-format
 msgid "%s: Empty server command for display %s"
-msgstr "%s: Tak ada perintah server untuk tampilan %s"
+msgstr "%s: Display %s phan server atoi angse pinak"
 
 #: daemon/gdm-session-auditor.c:88
 msgid "Username"
-msgstr "Nama Pengguna"
+msgstr "Username"
 
 #: daemon/gdm-session-auditor.c:89
 msgid "The username"
-msgstr "Nama pengguna"
+msgstr "Username"
 
 #: daemon/gdm-session-auditor.c:93
 msgid "Hostname"
-msgstr "Nama Host"
+msgstr "Hostname"
 
 #: daemon/gdm-session-auditor.c:94
 msgid "The hostname"
-msgstr "Nama host"
+msgstr "Hostname"
 
 #: daemon/gdm-session-auditor.c:99
 msgid "Display Device"
-msgstr "Perangkat Tampilan"
+msgstr "Display hormu"
 
 #: daemon/gdm-session-auditor.c:100
 msgid "The display device"
-msgstr "Perangkat tampilan"
+msgstr "Display hormu hai"
 
 #: daemon/gdm-session.c:1285
 msgid "Could not create authentication helper process"
-msgstr "Tak dapat membuat pembantu proses autentikasi"
+msgstr "Authentication helper process selam un-eh det"
 
-#: daemon/gdm-session-worker.c:766
+#: daemon/gdm-session-worker.c:756
+#, fuzzy
+#| msgid "Your account was given a time limit that's now passed."
 msgid "Your account was given a time limit that’s now passed."
-msgstr "Akun Anda diberi batas waktu yang kini berakhir."
+msgstr "Nangli account phan apor kipi lit tang lo."
 
-#: daemon/gdm-session-worker.c:773
+#: daemon/gdm-session-worker.c:763
+#, fuzzy
+#| msgid "Sorry, that didn't work. Please try again."
 msgid "Sorry, that didn’t work. Please try again."
-msgstr "Maaf, itu tidak bisa. Harap coba lagi."
+msgstr "Diya ik tha, laso keklem chun che. Ephong bor-e thu tha."
 
-#: daemon/gdm-session-worker.c:1187
+#: daemon/gdm-session-worker.c:1188
 msgid "Username:"
-msgstr "Nama Pengguna:"
+msgstr "Username:"
 
-#: daemon/gdm-session-worker.c:1691 daemon/gdm-session-worker.c:1708
+#: daemon/gdm-session-worker.c:1692 daemon/gdm-session-worker.c:1709
 msgid "no user account available"
-msgstr "akun pengguna tidak tersedia"
+msgstr "monit account awe"
 
-#: daemon/gdm-session-worker.c:1735
+#: daemon/gdm-session-worker.c:1736
 msgid "Unable to change to user"
-msgstr "Tak dapat berganti pengguna"
+msgstr "Monit che lar un-eh det"
 
-#: daemon/gdm-wayland-session.c:478
+#: daemon/gdm-wayland-session.c:511
 msgid "GNOME Display Manager Wayland Session Launcher"
-msgstr "Peluncur Sesi Wayland Manajer Tampilan GNOME"
+msgstr "GNOME Display Manager Wayland Session Launcher"
 
 #: daemon/gdm-xdmcp-display-factory.c:612
 msgid "Could not create socket!"
-msgstr "Tak dapat membuat soket!"
+msgstr "Could not create socket!"
 
-#: daemon/gdm-x-session.c:826
+#: daemon/gdm-x-session.c:858
 msgid "Run program through /etc/gdm/Xsession wrapper script"
-msgstr "Menjalankan program melalui skrip pembungkus /etc/gdm/Xsession"
+msgstr "Run program through /etc/gdm/Xsession wrapper script"
 
-#: daemon/gdm-x-session.c:827
+#: daemon/gdm-x-session.c:859
 msgid "Listen on TCP socket"
-msgstr "Dengarkan pada soket TCP"
+msgstr "TCP socket long langtha"
 
-#: daemon/gdm-x-session.c:838
+#: daemon/gdm-x-session.c:871
 msgid "GNOME Display Manager X Session Launcher"
-msgstr "Peluncur Sesi X Manajer Tampilan GNOME"
+msgstr "GNOME Display Manager X Session Launcher"
 
-# Di sini, kita tahu betul bahwa yang dimaksud adalah media penyimpanan.
 #: daemon/main.c:125 daemon/main.c:138
 #, c-format
 msgid "Cannot write PID file %s: possibly out of disk space: %s"
-msgstr ""
-"Tak dapat menulis berkas PID %s: kemungkinan media simpan telah penuh: %s"
+msgstr "PID file %s tok un-eh det: disk space ik lo bon: %s"
 
 #: daemon/main.c:182
 #, c-format
 msgid "Failed to create ran once marker dir %s: %s"
-msgstr "Gagal membuat dir penanda yang dijalankan sekali %s: %s"
+msgstr ""
 
 #: daemon/main.c:188
 #, c-format
 msgid "Failed to create LogDir %s: %s"
-msgstr "Gagal membuat LogDir %s: %s"
+msgstr "LogDir %s: %s selam un-eh det"
 
 #: daemon/main.c:223
-#, c-format
+#, fuzzy, c-format
+#| msgid "Can't find the GDM user '%s'. Aborting!"
 msgid "Can’t find the GDM user “%s”. Aborting!"
-msgstr "Tak menemukan pengguna GDM “%s”. Dibatalkan!"
+msgstr "GDM user “%s” phan long-le. Lasi pajut-lo!"
 
 #: daemon/main.c:229
 msgid "The GDM user should not be root. Aborting!"
-msgstr "Pengguna GDM seharusnya bukan root. Dibatalkan!"
+msgstr "GDM user root nangji. Lasi pajut-lo!"
 
 #: daemon/main.c:235
-#, c-format
+#, fuzzy, c-format
+#| msgid "Can't find the GDM group '%s'. Aborting!"
 msgid "Can’t find the GDM group “%s”. Aborting!"
-msgstr "Tak menemukan kelompok GDM “%s”. Dibatalkan!"
+msgstr "GDM group “%s” longle det. Lasi pajut-lo!"
 
 #: daemon/main.c:241
 msgid "The GDM group should not be root. Aborting!"
-msgstr "Kelompok GDM seharusnya bukan root. Dibatalkan!"
+msgstr "GDM group root kalidet nangji. Lasi pajut-lo!"
 
 #: daemon/main.c:317
 msgid "Make all warnings fatal"
-msgstr "Semua peringatan dianggap fatal"
+msgstr "Kado-kawe warnings so-dak selam noi"
 
 #: daemon/main.c:318
 msgid "Exit after a time (for debugging)"
-msgstr "Keluar setelah tundaan sejenak (untuk pengawakutuan)"
+msgstr "Ebeng apor lote chebon noi (debugging phan)"
 
 #: daemon/main.c:319
 msgid "Print GDM version"
-msgstr "Menampilkan versi GDM"
+msgstr "GDM version paklang"
 
 #: daemon/main.c:330
 msgid "GNOME Display Manager"
-msgstr "Manajer Tampilan GNOME"
+msgstr "GNOME Display Manager"
 
 #. make sure the pid file doesn't get wiped
 #: daemon/main.c:350
 msgid "Only the root user can run GDM"
-msgstr "Hanya root yang bisa menjalankan GDM"
+msgstr "root user atum si GDM padam long chot"
 
 #. Translators: worker is a helper process that does the work
 #. of starting up a session
-#: daemon/session-worker-main.c:94
+#: daemon/session-worker-main.c:119
 msgid "GNOME Display Manager Session Worker"
-msgstr "Pekerja Sesi Manajer Tampilan GNOME"
+msgstr "GNOME Display Manager Session Worker"
 
 #: data/org.gnome.login-screen.gschema.xml:6
 msgid "Whether or not to allow fingerprint readers for login"
-msgstr "Apakah memperbolehkan pembaca sidik jari untuk log masuk"
+msgstr "Fingerprint readers pen longin long jima"
 
 #: data/org.gnome.login-screen.gschema.xml:9
 msgid ""
 "The login screen can optionally allow users who have enrolled their "
 "fingerprints to log in using those prints."
 msgstr ""
-"Layar log masuk dapat dipilih untuk mengizinkan pengguna yang telah "
-"mendaftarkan sidik jari mereka untuk log masuk memakai sidik jari."
+"Login screen along fingerprints chethap tang atum laso fingerprints pen log "
+"in un."
 
 #: data/org.gnome.login-screen.gschema.xml:16
 msgid "Whether or not to allow smartcard readers for login"
-msgstr "Apakah memperbolehkan pembaca smartcard untuk log masuk"
+msgstr "Smartcard readers pen login long ma long-le"
 
 #: data/org.gnome.login-screen.gschema.xml:19
 msgid ""
 "The login screen can optionally allow users who have smartcards to log in "
 "using those smartcards."
-msgstr ""
-"Layar log masuk dapat dipilih untuk mengizinkan pengguna yang memiliki "
-"smartcard untuk log masuk memakai smartcard."
+msgstr "Login screen along smartcards kedo tum smartcards pen log in un."
 
 #: data/org.gnome.login-screen.gschema.xml:26
 msgid "Whether or not to allow passwords for login"
-msgstr "Apakah memperbolehkan sandi untuk log masuk"
+msgstr "Passwords pen login long jima"
 
 #: data/org.gnome.login-screen.gschema.xml:29
 msgid ""
 "The login screen can be configured to disallow password authentication, "
 "forcing the user to use smartcard or fingerprint authentication."
 msgstr ""
-"Layar log masuk dapat ditata untuk menolak autentikasi sandi, memaksa "
-"pengguna untuk memakai autentikasi smartcard atau sidik jari."
+"Login screen long password authentication bi be det un, smartcard lapen "
+"fingerprint authentication be chot me."
 
 #: data/org.gnome.login-screen.gschema.xml:36
 #: data/org.gnome.login-screen.gschema.xml:46
 msgid "Path to small image at top of user list"
-msgstr "Path ke gambar kecil di puncak daftar pengguna"
+msgstr "User list long angsong arjan aso kibi adim"
 
 #: data/org.gnome.login-screen.gschema.xml:39
 msgid ""
 "The login screen can optionally show a small image to provide site "
 "administrators and distributions a way to display branding."
 msgstr ""
-"Layar log masuk dapat dipilih untuk menampilkan gambar kecil yang "
-"menyediakan cara bagi administrator situs dan distribusi untuk menampilkan "
-"branding."
+"Login screen along bihek arjan tar meh, laso pen site administrators lapen "
+"distributions a brand paklang un."
 
 #: data/org.gnome.login-screen.gschema.xml:49
 msgid ""
 "The fallback login screen can optionally show a small image to provide site "
 "administrators and distributions a way to display branding."
 msgstr ""
-"Layar log masuk fallback dapat dipilih untuk menampilkan gambar kecil yang "
-"menyediakan cara bagi administrator situs dan distribusi untuk menampilkan "
-"branding."
+"Chokche dokok aphi login screen ke-klang along bihek arjan tar meh, laso pen "
+"site administrators lapen distributions a brand paklang un."
 
 #: data/org.gnome.login-screen.gschema.xml:56
 msgid "Avoid showing user list"
-msgstr "Hindari menampilkan daftar pengguna"
+msgstr "User list paklang-kle det nangji"
 
 #: data/org.gnome.login-screen.gschema.xml:59
 msgid ""
 "The login screen normally shows a list of available users to log in as. This "
 "setting can be toggled to disable showing the user list."
 msgstr ""
-"Layar log masuk biasanya menampilkan daftar pengguna yang tersedia untuk log "
-"masuk. Pengaturan ini dapat dijungkitkan untuk tidak menampilkan daftar "
-"pengguna."
+"Login screen long login un tum amen klang. Laso amokha pen pa klang kle det me."
 
 #: data/org.gnome.login-screen.gschema.xml:66
 msgid "Enable showing the banner message"
-msgstr "Menampilkan pesan penyambut"
+msgstr "Banner amek-akhor paklang ji"
 
 #: data/org.gnome.login-screen.gschema.xml:69
 msgid "Set to true to show the banner message text."
-msgstr "Isi dengan nilai benar (true) untuk menampilkan teks pesan banner."
+msgstr "Ahok bi kok noi, jongsi Banner amek-akhor paklang ji pute."
 
 #: data/org.gnome.login-screen.gschema.xml:75
 msgid "Banner message text"
-msgstr "Teks pesan banner"
+msgstr "Banner amek-akhor"
 
 #: data/org.gnome.login-screen.gschema.xml:78
 msgid "Text banner message to show in the login window."
-msgstr "Pesan yang ditampilkan pada jendela log masuk."
+msgstr "Login window long paklang amek-akhor."
 
 #: data/org.gnome.login-screen.gschema.xml:84
 msgid "Disable showing the restart buttons"
-msgstr "Tak menampilkan tombol menghidupulangkan mesin"
+msgstr "Restart buttons paklang nang-ne"
 
 #: data/org.gnome.login-screen.gschema.xml:87
 msgid "Set to true to disable showing the restart buttons in the login window."
-msgstr ""
-"Isi dengan nilai benar (true) untuk tidak menampilkan tombol hidupkan ulang "
-"komputer pada jendela log masuk."
+msgstr "Ahok long bi kok noi, jongsi longin window long restart pavedet jite."
 
 #: data/org.gnome.login-screen.gschema.xml:93
 msgid "Number of allowed authentication failures"
-msgstr "Banyaknya kegagalan autentikasi yang diizinkan"
+msgstr "Authentication chokche phong koan ber long"
 
 #: data/org.gnome.login-screen.gschema.xml:96
 msgid ""
 "The number of times a user is allowed to attempt authentication, before "
 "giving up and going back to user selection."
 msgstr ""
-"Berapa kali seorang pengguna diizinkan mencoba mengautentikasi, sebelum "
-"menyerah dan kembali ke pemilihan pengguna."
+"Phong koan authentication sai klem longji, "
+"User selection long aphi cherui re ako."
 
 #: libgdm/gdm-user-switching.c:59
 msgid "Unable to create transient display: "
-msgstr "Tak dapat membuat tampilan transien: "
+msgstr "Transient display selam un-eh: "
 
 #: libgdm/gdm-user-switching.c:90
 msgid "Unable to activate session: "
-msgstr "Tak dapat mengaktifkan sesi: "
+msgstr "Session pangcheng un-eh: "
 
 #: utils/gdmflexiserver.c:45
 msgid "Only the VERSION command is supported"
-msgstr "Hanya perintah VERSION yang didukung"
+msgstr "VERSION atoi se chedon chot"
 
 #: utils/gdmflexiserver.c:45
 msgid "COMMAND"
-msgstr "PERINTAH"
+msgstr "ATOI (COMMAND)"
 
 #: utils/gdmflexiserver.c:46 utils/gdmflexiserver.c:47
 #: utils/gdmflexiserver.c:49 utils/gdmflexiserver.c:50
 msgid "Ignored — retained for compatibility"
-msgstr "Diabaikan — dipertahankan untuk kompatibilitas"
+msgstr "Ignored — retained for compatibility"
 
 #: utils/gdmflexiserver.c:48 utils/gdm-screenshot.c:43
 msgid "Debugging output"
-msgstr "Mengawakutu keluaran"
+msgstr "Debugging ke-klang"
 
 #: utils/gdmflexiserver.c:52
 msgid "Version of this application"
-msgstr "Versi dari aplikasi ini"
+msgstr "Laso application version"
 
 #. Option parsing
 #: utils/gdmflexiserver.c:137
+#, fuzzy
+#| msgid "- New GDM login"
 msgid "— New GDM login"
-msgstr "— Log masuk GDM baru"
+msgstr "— Kimi GDM login"
 
 #: utils/gdm-screenshot.c:212
 msgid "Screenshot taken"
-msgstr "Cuplikan layar telah diambil"
+msgstr "Screenshot en tang-lo"
 
 #. Option parsing
 #: utils/gdm-screenshot.c:279
 msgid "Take a picture of the screen"
-msgstr "Mengambil gambar cuplikan layar"
+msgstr "Screen mohor ke-nep"

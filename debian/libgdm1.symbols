@@ -90,9 +90,13 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_manager_call_register_display@Base 3.17.4
  gdm_manager_call_register_display_finish@Base 3.17.4
  gdm_manager_call_register_display_sync@Base 3.17.4
+ gdm_manager_call_register_session@Base 3.33.4
+ gdm_manager_call_register_session_finish@Base 3.33.4
+ gdm_manager_call_register_session_sync@Base 3.33.4
  gdm_manager_complete_open_reauthentication_channel@Base 3.8.3
  gdm_manager_complete_open_session@Base 3.8.3
  gdm_manager_complete_register_display@Base 3.17.4
+ gdm_manager_complete_register_session@Base 3.33.4
  gdm_manager_dup_version@Base 3.8.3
  gdm_manager_get_type@Base 3.8.3
  gdm_manager_get_version@Base 3.8.3
