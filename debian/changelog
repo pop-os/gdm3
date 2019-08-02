@@ -1,4 +1,4 @@
-gdm3 (3.33.4-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.33.4-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -49,7 +49,7 @@ gdm3 (3.33.4-1ubuntu1) UNRELEASED; urgency=medium
       greeter's dconf DB
   * Should fix Wayland to Xorg fallback on slow machines (LP: #1798790)
 
- -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 14:09:44 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 14:10:22 +0100
 
 gdm3 (3.33.4-1) experimental; urgency=medium
 
