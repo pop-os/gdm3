@@ -1,4 +1,4 @@
-gdm3 (3.33.4-1) UNRELEASED; urgency=medium
+gdm3 (3.33.4-1) experimental; urgency=medium
 
   * New upstream release
     - Fix session search directories
@@ -9,7 +9,7 @@ gdm3 (3.33.4-1) UNRELEASED; urgency=medium
     upstream
   * debian/libgdm1.symbols: Update
 
- -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 13:42:47 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 13:56:49 +0100
 
 gdm3 (3.32.0-1) experimental; urgency=medium
 
