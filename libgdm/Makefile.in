@@ -142,7 +142,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(girdir)" \
 	"$(DESTDIR)$(libgdmdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-libgdm_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+libgdm_la_DEPENDENCIES = $(top_builddir)/common/libgdmcommon.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am__objects_1 =
 am__objects_2 = $(am__objects_1)
@@ -477,7 +478,6 @@ mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
-pixmapdir = @pixmapdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -528,6 +528,7 @@ libgdm_la_LDFLAGS = \
         $(END_OF_LIST)
 
 libgdm_la_LIBADD = \
+        $(top_builddir)/common/libgdmcommon.la                         \
         $(LIBGDM_LIBS)                                                 \
         $(SYSTEMD_LIBS)                                                \
         $(END_OF_LIST)
