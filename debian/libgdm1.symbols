@@ -1,5 +1,20 @@
 libgdm.so.1 libgdm1 #MINVER#
 * Build-Depends-Package: libgdm-dev
+ gdm_activate_session_by_id@Base 3.33.90
+ gdm_address_copy@Base 3.33.90
+ gdm_address_debug@Base 3.33.90
+ gdm_address_equal@Base 3.33.90
+ gdm_address_free@Base 3.33.90
+ gdm_address_get_family_type@Base 3.33.90
+ gdm_address_get_hostname@Base 3.33.90
+ gdm_address_get_numeric_info@Base 3.33.90
+ gdm_address_get_sockaddr_storage@Base 3.33.90
+ gdm_address_get_type@Base 3.33.90
+ gdm_address_is_local@Base 3.33.90
+ gdm_address_is_loopback@Base 3.33.90
+ gdm_address_new_from_sockaddr@Base 3.33.90
+ gdm_address_peek_local_list@Base 3.33.90
+ gdm_address_peek_sockaddr_storage@Base 3.33.90
  gdm_chooser_call_disconnect@Base 3.8.3
  gdm_chooser_call_disconnect_finish@Base 3.8.3
  gdm_chooser_call_disconnect_sync@Base 3.8.3
@@ -20,6 +35,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_chooser_proxy_new_sync@Base 3.8.3
  gdm_chooser_skeleton_get_type@Base 3.8.3
  gdm_chooser_skeleton_new@Base 3.8.3
+ gdm_clear_close_on_exec_flag@Base 3.33.90
  gdm_client_error_quark@Base 3.8.3
  gdm_client_get_chooser@Base 3.8.3
  gdm_client_get_chooser_finish@Base 3.8.3
@@ -40,8 +56,15 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_client_open_reauthentication_channel_finish@Base 3.8.3
  gdm_client_open_reauthentication_channel_sync@Base 3.8.3
  gdm_client_set_enabled_extensions@Base 3.26.2.1
+ gdm_common_error_quark@Base 3.33.90
+ gdm_find_display_session_for_uid@Base 3.33.90
+ gdm_generate_random_bytes@Base 3.33.90
+ gdm_get_login_window_session_id@Base 3.33.90
+ gdm_get_pwent_for_name@Base 3.33.90
+ gdm_get_script_environment@Base 3.33.90
  gdm_get_session_ids@Base 3.8.3
  gdm_get_session_name_and_description@Base 3.8.3
+ gdm_goto_login_session@Base 3.33.90
  gdm_goto_login_session_sync@Base 3.8.3
  gdm_greeter_call_begin_auto_login@Base 3.8.3
  gdm_greeter_call_begin_auto_login_finish@Base 3.8.3
@@ -81,6 +104,10 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_greeter_proxy_new_sync@Base 3.8.3
  gdm_greeter_skeleton_get_type@Base 3.8.3
  gdm_greeter_skeleton_new@Base 3.8.3
+ gdm_log_init@Base 3.33.90
+ gdm_log_set_debug@Base 3.33.90
+ gdm_log_shutdown@Base 3.33.90
+ gdm_log_toggle_debug@Base 3.33.90
  gdm_manager_call_open_reauthentication_channel@Base 3.8.3
  gdm_manager_call_open_reauthentication_channel_finish@Base 3.8.3
  gdm_manager_call_open_reauthentication_channel_sync@Base 3.8.3
@@ -128,6 +155,43 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_remote_greeter_proxy_new_sync@Base 3.8.3
  gdm_remote_greeter_skeleton_get_type@Base 3.8.3
  gdm_remote_greeter_skeleton_new@Base 3.8.3
+ gdm_run_script@Base 3.33.90
+ gdm_settings_backend_error_quark@Base 3.33.90
+ gdm_settings_backend_get_type@Base 3.33.90
+ gdm_settings_backend_get_value@Base 3.33.90
+ gdm_settings_backend_set_value@Base 3.33.90
+ gdm_settings_backend_value_changed@Base 3.33.90
+ gdm_settings_desktop_backend_get_type@Base 3.33.90
+ gdm_settings_desktop_backend_new@Base 3.33.90
+ gdm_settings_direct_get_boolean@Base 3.33.90
+ gdm_settings_direct_get_int@Base 3.33.90
+ gdm_settings_direct_get_string@Base 3.33.90
+ gdm_settings_direct_get_uint@Base 3.33.90
+ gdm_settings_direct_init@Base 3.33.90
+ gdm_settings_direct_set@Base 3.33.90
+ gdm_settings_direct_shutdown@Base 3.33.90
+ gdm_settings_entry_free@Base 3.33.90
+ gdm_settings_entry_get_default_value@Base 3.33.90
+ gdm_settings_entry_get_key@Base 3.33.90
+ gdm_settings_entry_get_signature@Base 3.33.90
+ gdm_settings_entry_get_value@Base 3.33.90
+ gdm_settings_entry_new@Base 3.33.90
+ gdm_settings_entry_set_value@Base 3.33.90
+ gdm_settings_error_quark@Base 3.33.90
+ gdm_settings_get_type@Base 3.33.90
+ gdm_settings_get_value@Base 3.33.90
+ gdm_settings_new@Base 3.33.90
+ gdm_settings_parse_boolean_as_value@Base 3.33.90
+ gdm_settings_parse_double_as_value@Base 3.33.90
+ gdm_settings_parse_integer_as_value@Base 3.33.90
+ gdm_settings_parse_schemas@Base 3.33.90
+ gdm_settings_parse_value_as_boolean@Base 3.33.90
+ gdm_settings_parse_value_as_double@Base 3.33.90
+ gdm_settings_parse_value_as_integer@Base 3.33.90
+ gdm_settings_set_value@Base 3.33.90
+ gdm_shell_expand@Base 3.33.90
+ gdm_shell_var_is_valid_char@Base 3.33.90
+ gdm_signal_pid@Base 3.33.90
  gdm_user_verifier_call_answer_query@Base 3.8.3
  gdm_user_verifier_call_answer_query_finish@Base 3.8.3
  gdm_user_verifier_call_answer_query_sync@Base 3.8.3
@@ -188,6 +252,8 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_user_verifier_proxy_new_sync@Base 3.8.3
  gdm_user_verifier_skeleton_get_type@Base 3.8.3
  gdm_user_verifier_skeleton_new@Base 3.8.3
+ gdm_wait_on_and_disown_pid@Base 3.33.90
+ gdm_wait_on_pid@Base 3.33.90
  gdm_worker_manager_call_choice_list_query@Base 3.26.2.1
  gdm_worker_manager_call_choice_list_query_finish@Base 3.26.2.1
  gdm_worker_manager_call_choice_list_query_sync@Base 3.26.2.1

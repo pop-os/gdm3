@@ -1,3 +1,17 @@
+gdm3 (3.33.90-1) experimental; urgency=medium
+
+  * New upstream release
+    - Update for changes to gnome-settings-daemon
+    - initial-setup permissions fix
+    - allow users to set PATH from ~/.config/environmet
+    - support systemd user sessions
+    - leak fix in libgdm
+    - vt changing fix
+  * gdm3.install: Stop installing pixmaps/icons which have been dropped
+  * debian/libgdm1.symbols: Add new symbols
+
+ -- Iain Lane <laney@debian.org>  Thu, 15 Aug 2019 15:07:42 +0100
+
 gdm3 (3.33.4-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:

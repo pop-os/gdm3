@@ -136,7 +136,8 @@ G_DEFINE_TYPE_WITH_CODE (GdmManager,
                          gdm_manager,
                          GDM_DBUS_TYPE_MANAGER_SKELETON,
                          G_IMPLEMENT_INTERFACE (GDM_DBUS_TYPE_MANAGER,
-                                                manager_interface_init));
+                                                manager_interface_init)
+                         G_ADD_PRIVATE (GdmManager));
 
 #ifdef WITH_PLYMOUTH
 static gboolean
@@ -500,15 +501,16 @@ get_display_and_details_for_bus_sender (GdmManager       *self,
                 goto out;
         }
 
-        session_id = get_session_id_for_pid (pid, &error);
+        ret = gdm_find_display_session_for_uid (caller_uid, &session_id, &error);
 
-        if (session_id == NULL) {
-                g_debug ("GdmManager: Error while retrieving session id for sender: %s",
+        if (!ret) {
+                g_debug ("GdmManager: Unable to find display session for uid %d: %s",
+                         (int) caller_uid,
                          error->message);
                 g_error_free (error);
                 goto out;
         }
- 
+
         if (out_session_id != NULL) {
                 *out_session_id = g_strdup (session_id);
         }
@@ -1811,6 +1813,9 @@ on_start_user_session (StartUserSessionOperation *operation)
 #endif
                       NULL);
 
+        if (doing_initial_setup)
+                chown_initial_setup_home_dir ();
+
         session_id = gdm_session_get_conversation_session_id (operation->session,
                                                               operation->service_name);
 
@@ -1842,8 +1847,6 @@ on_start_user_session (StartUserSessionOperation *operation)
                                 gdm_display_unmanage (display);
                                 gdm_display_finish (display);
                         }
-
-                        chown_initial_setup_home_dir ();
 
                         if (!g_file_set_contents (ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
                                                   "1",
@@ -2720,8 +2723,6 @@ gdm_manager_class_init (GdmManagerClass *klass)
                                                                NULL,
                                                                FALSE,
                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
-
-        g_type_class_add_private (klass, sizeof (GdmManagerPrivate));
 }
 
 static void
@@ -2794,10 +2795,8 @@ gdm_manager_dispose (GObject *object)
 #endif
         g_clear_object (&manager->priv->local_factory);
         g_clear_pointer (&manager->priv->open_reauthentication_requests,
-                         (GDestroyNotify)
                          g_hash_table_unref);
         g_clear_pointer (&manager->priv->transient_sessions,
-                         (GDestroyNotify)
                          g_hash_table_unref);
 
         g_list_foreach (manager->priv->user_sessions,
