@@ -1,3 +1,9 @@
+gdm3 (3.33.90-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Iain Lane <laney@debian.org>  Thu, 15 Aug 2019 09:31:14 +0100
+
 gdm3 (3.33.4-1) experimental; urgency=medium
 
   * New upstream release
