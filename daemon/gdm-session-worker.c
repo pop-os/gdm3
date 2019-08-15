@@ -211,7 +211,8 @@ G_DEFINE_TYPE_WITH_CODE (GdmSessionWorker,
                          gdm_session_worker,
                          GDM_DBUS_TYPE_WORKER_SKELETON,
                          G_IMPLEMENT_INTERFACE (GDM_DBUS_TYPE_WORKER,
-                                                worker_interface_init))
+                                                worker_interface_init)
+                         G_ADD_PRIVATE (GdmSessionWorker))
 
 /* adapted from glib script_execute */
 static void
@@ -664,7 +665,7 @@ gdm_session_worker_process_pam_message (GdmSessionWorker          *worker,
         char    *user_answer;
         gboolean res;
         char    *utf8_msg;
-        char	*msg;
+        char        *msg;
 
         if (response != NULL) {
                 *response = NULL;
@@ -954,7 +955,8 @@ out:
 
 static void
 jump_to_vt (GdmSessionWorker  *worker,
-            int                vt_number)
+            int                vt_number,
+            gboolean           take_control)
 {
         int fd;
         int active_vt_tty_fd;
@@ -990,7 +992,8 @@ jump_to_vt (GdmSessionWorker  *worker,
                 fd = active_vt_tty_fd;
         }
 
-        handle_terminal_vt_switches (worker, fd);
+        if (take_control)
+                handle_terminal_vt_switches (worker, fd);
 
         if (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
                 g_debug ("GdmSessionWorker: couldn't get current VT: %m");
@@ -1053,7 +1056,7 @@ gdm_session_worker_uninitialize_pam (GdmSessionWorker *worker,
 
         if (g_strcmp0 (worker->priv->display_seat_id, "seat0") == 0) {
                 if (worker->priv->login_vt != worker->priv->session_vt) {
-                        jump_to_vt (worker, worker->priv->login_vt);
+                        jump_to_vt (worker, worker->priv->login_vt, FALSE);
                 }
         }
 
@@ -2007,7 +2010,7 @@ gdm_session_worker_start_session (GdmSessionWorker  *worker,
          * ready, and in the reuse server case, we're already on the correct VT. */
         if (g_strcmp0 (worker->priv->display_seat_id, "seat0") == 0) {
                 if (worker->priv->display_mode == GDM_SESSION_DISPLAY_MODE_NEW_VT) {
-                        jump_to_vt (worker, worker->priv->session_vt);
+                        jump_to_vt (worker, worker->priv->session_vt, TRUE);
                 }
         }
 
@@ -3200,7 +3203,7 @@ gdm_session_worker_handle_start_program (GdmDBusWorker         *object,
 
         g_debug ("GdmSessionWorker: start program: %s", text);
 
-        g_clear_pointer (&worker->priv->arguments, (GDestroyNotify) g_strfreev);
+        g_clear_pointer (&worker->priv->arguments, g_strfreev);
         if (! g_shell_parse_argv (text, NULL, &worker->priv->arguments, &parse_error)) {
                 g_dbus_method_invocation_take_error (invocation, parse_error);
                 return TRUE;
@@ -3457,8 +3460,6 @@ gdm_session_worker_class_init (GdmSessionWorkerClass *klass)
         object_class->set_property = gdm_session_worker_set_property;
         object_class->constructor = gdm_session_worker_constructor;
         object_class->finalize = gdm_session_worker_finalize;
-
-        g_type_class_add_private (klass, sizeof (GdmSessionWorkerPrivate));
 
         g_object_class_install_property (object_class,
                                          PROP_SERVER_ADDRESS,
