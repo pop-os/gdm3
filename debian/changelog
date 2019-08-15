@@ -1,18 +1,4 @@
-gdm3 (3.33.90-1) experimental; urgency=medium
-
-  * New upstream release
-    - Update for changes to gnome-settings-daemon
-    - initial-setup permissions fix
-    - allow users to set PATH from ~/.config/environmet
-    - support systemd user sessions
-    - leak fix in libgdm
-    - vt changing fix
-  * gdm3.install: Stop installing pixmaps/icons which have been dropped
-  * debian/libgdm1.symbols: Add new symbols
-
- -- Iain Lane <laney@debian.org>  Thu, 15 Aug 2019 15:07:42 +0100
-
-gdm3 (3.33.4-1ubuntu1) eoan; urgency=medium
+gdm3 (3.33.90-1ubuntu1) UNRELEASED; urgency=medium
 
   * Merge with Debian. Remaining changes:
     + README.Debian: update for correct paths in Ubuntu
@@ -63,7 +49,21 @@ gdm3 (3.33.4-1ubuntu1) eoan; urgency=medium
       greeter's dconf DB
   * Should fix Wayland to Xorg fallback on slow machines (LP: #1798790)
 
- -- Iain Lane <iain.lane@canonical.com>  Fri, 02 Aug 2019 14:10:22 +0100
+ -- Iain Lane <laney@debian.org>  Thu, 15 Aug 2019 18:02:21 +0100
+
+gdm3 (3.33.90-1) experimental; urgency=medium
+
+  * New upstream release
+    - Update for changes to gnome-settings-daemon
+    - initial-setup permissions fix
+    - allow users to set PATH from ~/.config/environmet
+    - support systemd user sessions
+    - leak fix in libgdm
+    - vt changing fix
+  * gdm3.install: Stop installing pixmaps/icons which have been dropped
+  * debian/libgdm1.symbols: Add new symbols
+
+ -- Iain Lane <laney@debian.org>  Thu, 15 Aug 2019 15:07:42 +0100
 
 gdm3 (3.33.4-1) experimental; urgency=medium
 
