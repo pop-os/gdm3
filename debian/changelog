@@ -1,3 +1,10 @@
+gdm3 (3.30.2-5) UNRELEASED; urgency=medium
+
+  * Don't try to manipulate files in debian/gdm3/ when building for
+    s390x, fixing FTBFS
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 29 Aug 2019 17:50:58 +0100
+
 gdm3 (3.30.2-4) unstable; urgency=medium
 
   * Team upload
