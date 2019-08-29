@@ -1,3 +1,39 @@
+gdm3 (3.33.90-2) UNRELEASED; urgency=medium
+
+  * Merge packaging changes from unstable (Closes: #935699)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 29 Aug 2019 11:27:35 +0100
+
+gdm3 (3.30.2-4) unstable; urgency=medium
+
+  * Team upload
+  * d/gbp.conf: Use debian/unstable, upstream/3.30.x branches
+  * Skip building the gdm3 binary package on s390x.
+    GDM requires GNOME Shell, which provides its GUI, but GNOME Shell
+    is unavailable on s390x.
+    Our previous attempt to avoid building an uninstallable gdm3 package
+    on s390x involved a spurious build-dependency on gjs, but mozjs60 and
+    gjs now work well enough on s390x to pass most of their own tests.
+    However, GNOME Shell still fails tests on s390x, and in any case is
+    not appropriate for mainframe-class machines that do not normally have
+    a GPU or a local display.
+    Continuing to build libgdm binaries for s390x, as opposed to forcing the
+    entire source package to FTBFS on s390x, means we can continue to build
+    gnome-panel without special hacks, allowing s390x users to install the
+    GNOME 2-based GNOME Flashback environment if they particularly want a
+    GNOME-based desktop on their mainframes. (Closes: #935699)
+  * d/control.in: Add versioned Recommends on desktop-base (>= 10.0.0)
+    In a previous version this was added to d/control, but d/control is
+    regenerated from d/control.in during clean.
+  * Remove spurious gjs build-dependency.
+    This is less help than we had anticipated in making gdm3 unavailable on
+    architectures where gnome-shell is unavailable, because gjs mostly works
+    on s390x but gnome-shell does not. It is also desirable to build libgdm
+    on even the architectures that do not have a working gdm, so that they
+    can use gnome-panel and hence gnome-flashback.
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 29 Aug 2019 11:08:50 +0100
+
 gdm3 (3.33.90-1) experimental; urgency=medium
 
   * New upstream release

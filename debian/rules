@@ -20,6 +20,11 @@ CONFFLAGS += \
 	--with-vt-switch-workaround
 endif
 
+dh_options =
+ifneq (,$(filter $(DEB_HOST_ARCH_CPU),s390x))
+	dh_options += -Ngdm3
+endif
+
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 CONFFLAGS += --enable-debug
 endif
@@ -41,7 +46,7 @@ $(MANPAGES): $(PODFILES)
 		| sed -e 's/debian:://' >$@
 
 %:
-	dh $@
+	dh $@ $(dh_options)
 
 # We set this up manually
 override_dh_installsystemd:
