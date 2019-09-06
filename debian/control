@@ -7,7 +7,7 @@ Section: gnome
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Tim Lunn <tim@feathertop.org>
+Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>
 Build-Depends: check (>= 0.9.10-2~),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 12),
@@ -16,7 +16,6 @@ Build-Depends: check (>= 0.9.10-2~),
                dh-sequence-gnome,
                docbook-xml,
                gettext (>= 0.19.8),
-               gjs,
                gnome-pkg-tools (>= 0.16.3),
                gnome-settings-daemon (>= 3.24.0),
                gnome-settings-daemon-dev (>= 3.24.0),
