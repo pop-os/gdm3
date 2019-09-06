@@ -1,14 +1,4 @@
-gdm3 (3.33.92-1) experimental; urgency=medium
-
-  * New upstream release
-    - Fix typo in debug message
-    - Revert vt changing fix, because it exposes logind bug and it wasn't
-      quite right anyway
-    - Ensure login screen gets reaped when user switching
-
- -- Iain Lane <laney@debian.org>  Fri, 06 Sep 2019 13:41:32 +0100
-
-gdm3 (3.33.90-2) UNRELEASED; urgency=medium
+gdm3 (3.33.92-2) UNRELEASED; urgency=medium
 
   [ Simon McVittie ]
   * Merge packaging changes from unstable (Closes: #935699)
@@ -18,6 +8,16 @@ gdm3 (3.33.90-2) UNRELEASED; urgency=medium
     actually doing
 
  -- Laurent Bigonville <bigon@debian.org>  Tue, 03 Sep 2019 17:09:22 +0200
+
+gdm3 (3.33.92-1) experimental; urgency=medium
+
+  * New upstream release
+    - Fix typo in debug message
+    - Revert vt changing fix, because it exposes logind bug and it wasn't
+      quite right anyway
+    - Ensure login screen gets reaped when user switching
+
+ -- Iain Lane <laney@debian.org>  Fri, 06 Sep 2019 13:41:32 +0100
 
 gdm3 (3.30.2-5) unstable; urgency=medium
 
