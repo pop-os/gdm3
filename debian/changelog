@@ -1,4 +1,4 @@
-gdm3 (3.33.92-1) UNRELEASED; urgency=medium
+gdm3 (3.33.92-1) experimental; urgency=medium
 
   * New upstream release
     - Fix typo in debug message
@@ -6,7 +6,7 @@ gdm3 (3.33.92-1) UNRELEASED; urgency=medium
       quite right anyway
     - Ensure login screen gets reaped when user switching
 
- -- Iain Lane <laney@debian.org>  Fri, 06 Sep 2019 12:54:54 +0100
+ -- Iain Lane <laney@debian.org>  Fri, 06 Sep 2019 13:41:32 +0100
 
 gdm3 (3.33.90-1) experimental; urgency=medium
 
