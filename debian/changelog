@@ -1,3 +1,9 @@
+gdm3 (3.34.0-1) experimental; urgency=medium
+
+  * New upstream translation release
+
+ -- Iain Lane <laney@debian.org>  Wed, 11 Sep 2019 17:29:53 +0100
+
 gdm3 (3.33.92-2ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:
