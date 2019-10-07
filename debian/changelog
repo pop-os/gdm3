@@ -1,3 +1,19 @@
+gdm3 (3.34.1-1) unstable; urgency=medium
+
+  * New upstream release
+    - De-duplicate sessions on pure Xorg too
+    - Fix fast user switching by assuming the login screen VT is always the
+      initial one
+
+ -- Iain Lane <laney@debian.org>  Mon, 07 Oct 2019 16:25:24 +0100
+
+gdm3 (3.34.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Upload to unstable.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Mon, 30 Sep 2019 17:34:26 +0200
+
 gdm3 (3.34.0-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:
