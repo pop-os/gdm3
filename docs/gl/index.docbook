@@ -58,7 +58,7 @@
     </othercredit>
     <copyright>
       
-        <year>2012-2019.</year>
+        <year>2012-2019</year>
       
       <holder>Fran Dieguez</holder>
     </copyright>
@@ -534,9 +534,7 @@ TimedLoginEnable=true
 TimedLogin=you
 </screen>
 
-      <para lang="en">
-        A full list of supported configuration keys follow:
-      </para>
+      <para>A continuación móstrase unha lista de chaves de configuración admitidas:</para>
 
       <sect3 id="choosersection">
         <title>[chooser]</title>
@@ -554,7 +552,7 @@ TimedLogin=you
             <term>MulticastAddr</term>
             <listitem>
               <synopsis>MulticastAddr=ff02::1</synopsis>
-              <para>Este é o enderezo multicast de link local</para>
+              <para>Este é o enderezo multicast de link local.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -783,21 +781,11 @@ TimedLogin=you
             <term>Enable</term>
             <listitem>
               <synopsis>Enable=false</synopsis>
-              <para lang="en">
-                Setting this to true enables XDMCP support allowing remote
-                displays/X terminals to be managed by GDM.
-              </para>
+              <para>Ao configurar isto a verdadeiro actívase a compatibilidade con XDMCP o que lle permite ás pantallas remotas/terminais X ser xestionados por GDM.</para>
             
-              <para lang="en">
-                <filename>gdm</filename> listens for requests on UDP port 177.
-                See the Port option for more information.
-              </para>
+              <para><filename>gdm</filename> escoita peticións por UDP no porto 177. Vexa a opción Port para máis información.</para>
               
-              <para lang="en">
-                If GDM is compiled to support it, access from remote displays
-                can be controlled using the TCP Wrappers library. The service
-                name is <filename>gdm</filename>
-              </para>
+              <para>Se GDM está compilado para admitilo, o acceso desde pantallas remotas pode controlarse usando a biblioteca de Wrappers TCP. O nome do servizo é <filename>gdm</filename></para>
             
               <para lang="en">
                 You should add 
@@ -810,11 +798,7 @@ gdm:.my.domain
                 man page for details.
               </para>
               
-              <para lang="en">
-                Please note that XDMCP is not a particularly secure protocol
-                and that it is a good idea to block UDP port 177 on your
-                firewall unless you really need it.
-              </para>
+              <para>Teña en conta que XDMCP non é un protocolo particularmente seguro e que é boa idea bloquear o porto UDP 177 no seu cortalumes a non ser que o precise.</para>
             </listitem>
           </varlistentry>
           
@@ -1106,10 +1090,7 @@ gdm:.my.domain
       <sect3 id="accessibilitygconfconfiguration">
         <title>Chaves de accesibilidade de GConf</title>
 
-        <para lang="en">
-         GDM offers the following GConf keys to control its accessibility
-         features:
-        </para>
+        <para>GDM ofrece as seguintes chaves de GConf para controlar as características de accesibilidade:</para>
 
         <variablelist>
           <title>Chaves de configuración de GDM</title>
@@ -1288,10 +1269,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 
         <para>GDM conta cos seguintes engadidos de gnome-settings-daemon: a11y-keyboard, background, sound, xsettings.</para>
 
-        <para lang="en">
-          These are responsible for things like the background image, font and
-          theme settings, sound events, etc.
-        </para>
+        <para>Isto é responsábel de cousas como a imaxe de fondo, o tipo de letra e as preferencias do tema, eventos de son, etc.</para>
 
         <para lang="en">
           Plugins can also be disabled using GConf. For example, if you want to
