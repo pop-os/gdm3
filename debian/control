@@ -6,7 +6,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Tim Lunn <tim@feathertop.org>
+Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>
 Build-Depends: check (>= 0.9.10-2~),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 12),
