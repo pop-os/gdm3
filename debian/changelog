@@ -1,6 +1,9 @@
 gdm3 (3.34.1-1) UNRELEASED; urgency=medium
 
   * New upstream release
+    - De-duplicate sessions on pure Xorg too
+    - Fix fast user switching by assuming the login screen VT is always the
+      initial one
 
  -- Iain Lane <laney@debian.org>  Mon, 07 Oct 2019 15:25:47 +0100
 
