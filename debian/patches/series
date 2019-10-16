@@ -13,3 +13,6 @@ ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
+
+# Pop!_OS patches
+pop_prefer_pop_session_fallback.patch
