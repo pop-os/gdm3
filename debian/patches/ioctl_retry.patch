@@ -1,0 +1,195 @@
+Index: gdm3/daemon/gdm-session-worker.c
+===================================================================
+--- gdm3.orig/daemon/gdm-session-worker.c
++++ gdm3/daemon/gdm-session-worker.c
+@@ -884,7 +884,11 @@ on_release_display (int signal)
+         int fd;
+ 
+         fd = open ("/dev/tty0", O_RDWR | O_NOCTTY);
+-        ioctl(fd, VT_RELDISP, 1);
++        while (ioctl(fd, VT_RELDISP, 1) < 0) {
++            if (errno != EINTR) {
++                break;
++            }
++        }
+         close(fd);
+ }
+ 
+@@ -894,7 +898,11 @@ on_acquire_display (int signal)
+         int fd;
+ 
+         fd = open ("/dev/tty0", O_RDWR | O_NOCTTY);
+-        ioctl(fd, VT_RELDISP, VT_ACKACQ);
++        while (ioctl(fd, VT_RELDISP, VT_ACKACQ) < 0) {
++            if (errno != EINTR) {
++                break;
++            }
++        }
+         close(fd);
+ }
+ 
+@@ -909,9 +917,12 @@ handle_terminal_vt_switches (GdmSessionW
+         setmode_request.relsig = RELEASE_DISPLAY_SIGNAL;
+         setmode_request.acqsig = ACQUIRE_DISPLAY_SIGNAL;
+ 
+-        if (ioctl (tty_fd, VT_SETMODE, &setmode_request) < 0) {
++        while (ioctl (tty_fd, VT_SETMODE, &setmode_request) < 0) {
++            if (errno != EINTR) {
+                 g_debug ("GdmSessionWorker: couldn't manage VTs manually: %m");
+                 succeeded = FALSE;
++                break;
++            }
+         }
+ 
+         signal (RELEASE_DISPLAY_SIGNAL, on_release_display);
+@@ -929,18 +940,24 @@ fix_terminal_vt_mode (GdmSessionWorker
+         gboolean mode_fixed = FALSE;
+         gboolean succeeded = TRUE;
+ 
+-        if (ioctl (tty_fd, VT_GETMODE, &getmode_reply) < 0) {
++        while (ioctl (tty_fd, VT_GETMODE, &getmode_reply) < 0) {
++            if (errno != EINTR) {
+                 g_debug ("GdmSessionWorker: couldn't query VT mode: %m");
+                 succeeded = FALSE;
++                break;
++            }
+         }
+ 
+         if (getmode_reply.mode != VT_AUTO) {
+                 goto out;
+         }
+ 
+-        if (ioctl (tty_fd, KDGETMODE, &kernel_display_mode) < 0) {
++        while (ioctl (tty_fd, KDGETMODE, &kernel_display_mode) < 0) {
++            if (errno != EINTR) {
+                 g_debug ("GdmSessionWorker: couldn't query kernel display mode: %m");
+                 succeeded = FALSE;
++                break;
++            }
+         }
+ 
+         if (kernel_display_mode == KD_TEXT) {
+@@ -970,6 +987,7 @@ jump_to_vt (GdmSessionWorker  *worker,
+         int active_vt_tty_fd;
+         int active_vt = -1;
+         struct vt_stat vt_state = { 0 };
++        int tries = 0;
+ 
+         g_debug ("GdmSessionWorker: jumping to VT %d", vt_number);
+         active_vt_tty_fd = open ("/dev/tty0", O_RDWR | O_NOCTTY);
+@@ -985,8 +1003,11 @@ jump_to_vt (GdmSessionWorker  *worker,
+                 fd = worker->priv->session_tty_fd;
+ 
+                 g_debug ("GdmSessionWorker: first setting graphics mode to prevent flicker");
+-                if (ioctl (fd, KDSETMODE, KD_GRAPHICS) < 0) {
++                while (ioctl (fd, KDSETMODE, KD_GRAPHICS) < 0) {
++                    if (errno != EINTR) {
+                         g_debug ("GdmSessionWorker: couldn't set graphics mode: %m");
++                        break;
++                    }
+                 }
+ 
+                 /* It's possible that the current VT was left in a broken
+@@ -1002,22 +1023,38 @@ jump_to_vt (GdmSessionWorker  *worker,
+ 
+         handle_terminal_vt_switches (worker, fd);
+ 
++	state_again:
+         if (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
++            if (errno == EINTR) {
++                goto state_again;
++            } else {
+                 g_debug ("GdmSessionWorker: couldn't get current VT: %m");
++            }
+         } else {
+                 active_vt = vt_state.v_active;
+         }
+ 
+         if (active_vt != vt_number) {
++            activate_again:
++                g_debug ("GdmSessionWorker: activating VT %d from %d: %m", vt_number, active_vt);
+                 if (ioctl (fd, VT_ACTIVATE, vt_number) < 0) {
++                    if (errno == EINTR) {
++                        goto activate_again;
++                    } else {
+                         g_debug ("GdmSessionWorker: couldn't initiate jump to VT %d: %m",
+                                  vt_number);
+-                } else if (ioctl (fd, VT_WAITACTIVE, vt_number) < 0) {
+-                        g_debug ("GdmSessionWorker: couldn't finalize jump to VT %d: %m",
+-                                 vt_number);
++                    }
++                } else if (tries < 60) {
++                    if (tries > 0) {
++                        sleep(1);
++                    }
++                    tries += 1;
++                    goto state_again;
+                 }
+         }
+ 
++        g_debug ("GdmSessionWorker: finished activating VT %d: %m", vt_number);
++
+         close (active_vt_tty_fd);
+ }
+ 
+@@ -1119,9 +1156,11 @@ ensure_login_vt (GdmSessionWorker *worke
+                 return FALSE;
+         }
+ 
+-        if (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
++        while (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
++            if(errno != EINTR) {
+                 g_debug ("GdmSessionWorker: couldn't get current VT: %m");
+                 goto out;
++            }
+         }
+ 
+         worker->priv->login_vt = vt_state.v_active;
+@@ -1225,7 +1264,7 @@ gdm_session_worker_initialize_pam (GdmSe
+         g_debug ("GdmSessionWorker: state SETUP_COMPLETE");
+         worker->priv->state = GDM_SESSION_WORKER_STATE_SETUP_COMPLETE;
+ 
+-        /* Temporarily set PAM_TTY with the currently active VT (login screen) 
++        /* Temporarily set PAM_TTY with the currently active VT (login screen)
+            PAM_TTY will be reset with the users VT right before the user session is opened */
+         if (ensure_login_vt (worker)) {
+                 g_snprintf (tty_string, 256, "/dev/tty%d", worker->priv->login_vt);
+@@ -2074,8 +2113,11 @@ gdm_session_worker_start_session (GdmSes
+                 /* Take control of the tty
+                  */
+                 if (needs_controlling_terminal) {
+-                        if (ioctl (STDIN_FILENO, TIOCSCTTY, 0) < 0) {
++                        while (ioctl (STDIN_FILENO, TIOCSCTTY, 0) < 0) {
++                            if (errno != EINTR) {
+                                 g_debug ("GdmSessionWorker: could not take control of tty: %m");
++                                break;
++                            }
+                         }
+                 }
+ 
+@@ -2226,9 +2268,11 @@ set_up_for_new_vt (GdmSessionWorker *wor
+         if (worker->priv->display_is_initial) {
+                 session_vt = atoi (GDM_INITIAL_VT);
+         } else {
+-                if (ioctl(fd, VT_OPENQRY, &session_vt) < 0) {
++                while (ioctl(fd, VT_OPENQRY, &session_vt) < 0) {
++                    if (errno != EINTR) {
+                         g_debug ("GdmSessionWorker: couldn't open new VT: %m");
+                         goto fail;
++                    }
+                 }
+         }
+ 
+@@ -2274,9 +2318,11 @@ set_xdg_vtnr_to_current_vt (GdmSessionWo
+                 return FALSE;
+         }
+ 
+-        if (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
++        while (ioctl (fd, VT_GETSTATE, &vt_state) < 0) {
++            if (errno != EINTR) {
+                 g_debug ("GdmSessionWorker: couldn't get current VT: %m");
+                 goto fail;
++            }
+         }
+ 
+         close (fd);

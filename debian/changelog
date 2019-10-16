@@ -1,3 +1,9 @@
+gdm3 (3.34.1-1ubuntu1pop0) eoan; urgency=medium
+
+  * Apply Pop patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Wed, 16 Oct 2019 13:55:05 -0600
+
 gdm3 (3.34.1-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:
