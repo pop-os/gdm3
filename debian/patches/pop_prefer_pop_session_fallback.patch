@@ -1,0 +1,19 @@
+Index: gdm3/daemon/gdm-session.c
+===================================================================
+--- gdm3.orig/daemon/gdm-session.c
++++ gdm3/daemon/gdm-session.c
+@@ -562,6 +562,14 @@ get_fallback_session_name (GdmSession *s
+                 }
+         }
+ 
++        name = g_strdup ("pop");
++        if (get_session_command_for_name (self, name, NULL)) {
++                g_free (self->fallback_session_name);
++                self->fallback_session_name = name;
++                goto out;
++        }
++        g_free (name);
++
+         name = g_strdup ("ubuntu");
+         if (get_session_command_for_name (self, name, NULL)) {
+                 g_free (self->fallback_session_name);

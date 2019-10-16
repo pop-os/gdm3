@@ -51,7 +51,7 @@ Rules-Requires-Root: no
 Homepage: https://wiki.gnome.org/Projects/GDM/
 
 Package: gdm3
-Architecture: linux-any
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: accountsservice (>= 0.6.35),
          adduser,
@@ -104,7 +104,7 @@ Description: GNOME Display Manager
 
 Package: libgdm1
 Section: libs
-Architecture: linux-any
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${gir:Depends},
          ${misc:Depends},
@@ -124,7 +124,7 @@ Description: GNOME Display Manager (shared library)
 
 Package: libgdm-dev
 Section: libdevel
-Architecture: linux-any
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: gir1.2-gdm-1.0 (= ${binary:Version}),
          libgdm1 (= ${binary:Version}),
@@ -145,7 +145,7 @@ Description: GNOME Display Manager (development files)
 
 Package: gir1.2-gdm-1.0
 Section: introspection
-Architecture: linux-any
+Architecture: amd64
 Multi-Arch: same
 Depends: ${gir:Depends},
          ${misc:Depends},

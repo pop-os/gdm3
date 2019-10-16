@@ -1,0 +1,12 @@
+Index: gdm3/data/61-gdm.rules.in
+===================================================================
+--- gdm3.orig/data/61-gdm.rules.in	2020-10-08 09:40:16.690134613 -0600
++++ gdm3/data/61-gdm.rules.in	2020-10-08 09:41:41.499830623 -0600
+@@ -1,6 +1,6 @@
+ # disable Wayland on Hi1710 chipsets
+ ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", RUN+="@libexecdir@/gdm-disable-wayland"
+ # disable Wayland when using the proprietary nvidia driver
+-DRIVER=="nvidia", RUN+="@libexecdir@/gdm-disable-wayland"
++#DRIVER=="nvidia", RUN+="@libexecdir@/gdm-disable-wayland"
+ # disable Wayland if modesetting is disabled
+ IMPORT{cmdline}="nomodeset", RUN+="@libexecdir@/gdm-disable-wayland"
