@@ -17,12 +17,3 @@ Index: gdm3/daemon/gdm-session.c
          name = g_strdup ("ubuntu");
          if (get_session_command_for_name (self, name, NULL)) {
                  g_free (self->fallback_session_name);
-@@ -2569,7 +2577,7 @@ get_session_desktop_names (GdmSession *s
-         gchar *desktop_names = NULL;
- 
-         if (self->selected_program != NULL) {
--                return g_strdup ("GNOME-Greeter:GNOME");
-+                return g_strdup ("pop:GNOME");
-         }
- 
-         filename = g_strdup_printf ("%s.desktop", get_session_name (self));
