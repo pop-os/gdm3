@@ -24,7 +24,7 @@ if [ "$1" = "purge" ] ; then
         	ucfr --purge gdm3 /etc/gdm3/greeter.dconf-defaults
         fi
 	rm -rf /var/lib/gdm3
-	rm -rf /var/run/gdm3
+	rm -rf /run/gdm3
 	rm -rf /var/log/gdm3
 	rm -rf /var/cache/gdm
         if getent passwd Debian-gdm >/dev/null; then

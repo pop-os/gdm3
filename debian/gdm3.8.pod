@@ -42,7 +42,7 @@ F</etc/pam.d/gdm3>.
 =item XAUTHORITY
 
 Upon session startup, GDM sets the XAUTHORITY environment variable to a
-session-specific file in F</var/run/gdm3>.
+session-specific file in F</run/gdm3>.
 
 Applications and scripts that assume this file is set to F<~/.Xauthority>
 will not work. To access the display you need both DISPLAY and

@@ -68,17 +68,17 @@ override_dh_auto_configure:
 		--with-custom-conf=/etc/gdm3/daemon.conf \
 		--with-sysconfsubdir=gdm3 \
 		--with-working-directory=/var/lib/gdm3 \
-		--with-xauth-dir=/var/run/gdm3 \
-		--with-run-dir=/var/run/gdm3 \
-		--with-pid-file=/var/run/gdm3.pid \
+		--with-xauth-dir=/run/gdm3 \
+		--with-run-dir=/run/gdm3 \
+		--with-pid-file=/run/gdm3.pid \
 		--with-log-dir=/var/log/gdm3 \
 		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
-		--with-screenshot-dir=/var/run/gdm3/greeter \
+		--with-screenshot-dir=/run/gdm3/greeter \
 		--with-defaults-conf=/usr/share/gdm/defaults.conf \
 		--with-user=Debian-gdm --with-group=Debian-gdm \
 		--with-lang-file=/etc/default/locale \
 		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
-		--with-ran-once-marker-directory=/var/run/gdm3 \
+		--with-ran-once-marker-directory=/run/gdm3 \
 		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
 		$(CONFFLAGS)
 
@@ -88,7 +88,7 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 override_dh_install:
 	find debian/tmp -name '*.la' -print -delete
 	rm -rf debian/tmp/var/lib/gdm3/.[cgl]*
-	rm -rf debian/tmp/var/run
+	rm -rf debian/tmp/run
 	dh_install
 ifneq ($(just_the_library),yes)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
