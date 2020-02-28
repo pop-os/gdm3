@@ -61,7 +61,6 @@ override_dh_auto_configure:
 	X_SERVER_PATH="/usr/bin" \
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
-		--libexecdir=\$${prefix}/lib/gdm3 \
 		--disable-static \
 		--enable-ipv6=yes \
 		--with-at-spi-registryd-directory=/usr/lib/at-spi \
@@ -100,6 +99,13 @@ ifneq ($(just_the_library),yes)
 	dh_installpam -pgdm3 --name=gdm-password
 	dh_installpam -pgdm3 --name=gdm-fingerprint
 endif
+
+override_dh_link:
+	# Add compatibility symlinks as GDM is not restarted on upgrades and the lack
+	# of these symlinks might prevent the user to login before the machine is
+	# restarted. We can remove this during the next development cycle
+	( mkdir -p debian/gdm3/usr/lib/gdm3; cd debian/gdm3/usr/lib/gdm3; ln -s ../../libexec/* . )
+	dh_link
 
 override_dh_missing:
 	dh_missing --list-missing

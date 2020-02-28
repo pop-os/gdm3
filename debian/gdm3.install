@@ -4,7 +4,7 @@ lib/systemd/
 [linux-any] lib/udev
 lib/*/security/*.so
 usr/bin/gdm-screenshot
-usr/lib/gdm3/gdm-*
+usr/libexec/gdm-*
 # gets renamed to gdm3 in binary-install
 usr/sbin/gdm
 usr/share/locale/
