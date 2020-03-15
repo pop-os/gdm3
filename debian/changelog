@@ -1,3 +1,19 @@
+gdm3 (3.34.1-2) unstable; urgency=medium
+
+  [ Alexander Kurtz ]
+  * debian/gdm3.postinst: Remove obsolete cleanup code now that buster has
+    been released.
+
+  [ Laurent Bigonville ]
+  * debian/control.in: Bump Standards-Version to 4.5.0 (no further changes)
+  * Move the daemons to libexec now that's allowed in the policy
+  * Move everything from /var/run to /run as the former is a link to the later
+    for quite some time
+  * debian/gdm3.postinst: Remove obsolete cleanup code for gdm-welcome PAM
+    service, this dates from 2012
+
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 15 Mar 2020 10:50:21 +0100
+
 gdm3 (3.34.1-1) unstable; urgency=medium
 
   * New upstream release
