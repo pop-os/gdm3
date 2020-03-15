@@ -102,8 +102,8 @@ endif
 
 override_dh_link:
 	# Add compatibility symlinks as GDM is not restarted on upgrades and the lack
-	# of these symlinks might prevent the user to login before the machine is
-	# restarted. We can remove this during the next development cycle
+	# of these symlinks might prevent the user from login before the machine is
+	# restarted. We can remove this after bullseye release.
 	( mkdir -p debian/gdm3/usr/lib/gdm3; cd debian/gdm3/usr/lib/gdm3; ln -s ../../libexec/* . )
 	dh_link
 
