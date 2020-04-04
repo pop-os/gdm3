@@ -1,3 +1,13 @@
+gdm3 (3.34.1-3) UNRELEASED; urgency=medium
+
+  * d/greeter.dconf-defaults: Use 64px instead of 128px logo.
+    Until gnome-shell 3.36.1, the logo was scaled down to be 48px tall.
+    Since 3.36.1, it's shown at actual size, and 128px looks silly.
+    desktop-base doesn't currently have a 48px version, but 64px is close
+    enough. (Closes: #955759)
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 04 Apr 2020 22:46:55 +0100
+
 gdm3 (3.34.1-2) unstable; urgency=medium
 
   [ Alexander Kurtz ]
