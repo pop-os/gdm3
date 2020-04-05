@@ -1,12 +1,22 @@
-gdm3 (3.34.1-3) UNRELEASED; urgency=medium
+gdm3 (3.34.1-3) unstable; urgency=medium
 
+  * Team upload
+
+  [ Simon McVittie ]
   * d/greeter.dconf-defaults: Use 64px instead of 128px logo.
     Until gnome-shell 3.36.1, the logo was scaled down to be 48px tall.
     Since 3.36.1, it's shown at actual size, and 128px looks silly.
     desktop-base doesn't currently have a 48px version, but 64px is close
     enough. (Closes: #955759)
 
- -- Simon McVittie <smcv@debian.org>  Sat, 04 Apr 2020 22:46:55 +0100
+  [ Alexander Kurtz ]
+  * debian/generate-config: Re-compile the dconf database unconditionally.
+    Previously we tried to determine whether running `dconf compile` was
+    really necessary by comparing the timestamps of the input and output
+    files in a make-like fashion, but this was unnecessarily complicated,
+    since both the CPU and IO load are negligible.
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 05 Apr 2020 17:16:30 +0100
 
 gdm3 (3.34.1-2) unstable; urgency=medium
 
