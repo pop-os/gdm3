@@ -52,15 +52,15 @@
   
     <othercredit class="translator">
       <personname>
-        <firstname>Fran Dieguez</firstname>
+        <firstname>Fran Diéguez</firstname>
       </personname>
       <email>frandieguez@gnome.org</email>
     </othercredit>
     <copyright>
       
-        <year>2012-2019</year>
+        <year>2012-2020</year>
       
-      <holder>Fran Dieguez</holder>
+      <holder>Fran Diéguez</holder>
     </copyright>
   </articleinfo>
 
@@ -133,7 +133,7 @@
 
       <para>GDM é responsábel de xestionar pantallas no seu sistema. Isto inclúe a autenticación de usuarios, iniciar e rematar a sesión de usuario. GDM é configurábel e pode atopar unha descrición das formas de como pode facelo na sección «Configurando GDM» deste documento. GDM tamén é accesíbel para os usuarois con discapacidades.</para>
 
-      <para>GDM fornece a característica de xestionar a pantalla da console principal e as pantallas iniciadas en VT. Está integrado con outros programas, como o miniaplicativo de Intercambio de usuarios rápido (FUSA) e o gnome-screensaver para xestionar as pantallas múltiples nunha consola mediante a interface de Terminal Virtual Xserver (VT). Tamén pode xestionar pantallas XDMCP.</para>
+      <para>GDM fornece a característica de xestionar a pantalla da console principal e as pantallas iniciadas en VT. Está integrado con outros programas, como a miniaplicación de Intercambio de usuarios rápido (FUSA) e o gnome-screensaver para xestionar as pantallas múltiples nunha consola mediante a interface de Terminal Virtual Xserver (VT). Tamén pode xestionar pantallas XDMCP.</para>
 
       <para>Con respecto do tipo de pantalla, GDM fará o seguinte cando xestione a pantalla. Comezará o proceso Xserver, logo executará o script <filename>Init</filename> como un usuario root, e logo iniciará o programa de benvida na pantalla.</para>
 
@@ -441,7 +441,7 @@ PostSession/
 
       <para>Cando un usuario remata a súa sesión, GDM executará o script <filename>PostSession</filename>. Teña en conta que Xserver estará parado para cando o script se execute, polo que non poderá acceder a él.</para>
 
-      <para>Teña en conta que o script <filename>PostSession</filename> executarase aínda cando a pantalla falle ao responder debido a un erro de I/O ou similar. Dito isto, non hai garantía que aplicativos X funcionarán duarante a execución de script.</para>
+      <para>Teña en conta que o script <filename>PostSession</filename> executarase aínda cando a pantalla falle ao responder debido a un erro de I/O ou similar. Dito isto, non hai garantía que aplicacións X funcionarán durante a execución de script.</para>
 
       <para lang="en">
         All of the above scripts will set the
@@ -1106,7 +1106,7 @@ gdm:.my.domain
             <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
             <listitem>
               <synopsis>false (booleano)</synopsis>
-              <para>Se está configurado entón as ferramentas de asistencia ligadas con esta chave de GConf iniciaranse co programa de interface de GDM. Por omisión isto é o aplicativo de ampliación de pantalla.</para>
+              <para>Se está configurado entón as ferramentas de asistencia ligadas con esta chave de GConf iniciaranse co programa de interface de GDM. Por omisión isto é a aplicación de ampliación de pantalla.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
