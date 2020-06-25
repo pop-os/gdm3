@@ -10,6 +10,10 @@ gdm3 (3.36.2-1) UNRELEASED; urgency=medium
     - Don't hard-code /bin/plymouth
     - Translation updates
   * d/watch: Only watch for even-numbered (stable) releases
+  * d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+    Add post-release fix from upstream gnome-3-36 branch to fix a fast
+    user switching regression in 3.36.2, by forcing the greeter to appear
+    on tty1
 
  -- Simon McVittie <smcv@debian.org>  Thu, 25 Jun 2020 10:25:44 +0100
 
