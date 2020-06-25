@@ -8,13 +8,10 @@
 ]>
 <article id="index" lang="uk">
   <articleinfo>
-    <title lang="en">GNOME Display Manager Reference Manual</title>
+    <title>Посібник з менеджера дисплеїв середовища Gnome</title>
 
     <revhistory>
-      <revision lang="en">
-        <revnumber>0.0</revnumber>
-        <date>2008-09</date>
-      </revision>
+      <revision><revnumber>0.0</revnumber> <date>2008-09</date></revision>
     </revhistory>
 
     <abstract role="description">
@@ -22,122 +19,64 @@
     </abstract>
 
     <authorgroup>
-      <author lang="en">
-        <firstname>Martin</firstname><othername>K.</othername>
-           <surname>Petersen</surname>
-        <affiliation>
-          <address><email>mkp@mkp.net</email></address>
-        </affiliation>
-      </author>
-      <author lang="en">
-        <firstname>George</firstname><surname>Lebl</surname>
-        <affiliation>
-          <address><email>jirka@5z.com</email></address>
-        </affiliation>
-      </author>
-      <author lang="en">
-        <firstname>Jon</firstname><surname>McCann</surname>
-        <affiliation>
-          <address><email>mccann@jhu.edu</email></address>
-        </affiliation>
-      </author>
-      <author lang="en">
-        <firstname>Ray</firstname><surname>Strode</surname>
-        <affiliation>
-          <address><email>rstrode@redhat.com</email></address>
-        </affiliation>
-      </author>
-      <author role="maintainer" lang="en">
-        <firstname>Brian</firstname><surname>Cameron</surname>
-        <affiliation>
-          <address><email>Brian.Cameron@Oracle.COM</email></address>
-        </affiliation>
-      </author>
+      <author><firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation></author>
+      <author><firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation></author>
+      <author><firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation></author>
+      <author><firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation></author>
+      <author role="maintainer"><firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation></author>
     </authorgroup>
-    <copyright lang="en">
-      <year>1998</year>
-      <year>1999</year>
-      <holder>Martin K. Petersen</holder>
-    </copyright>
-    <copyright lang="en">
-      <year>2001</year>
-      <year>2003</year>
-      <year>2004</year>
-      <holder>George Lebl</holder>
-    </copyright>
-    <copyright lang="en">
-      <year>2003</year>
-      <year>2007</year>
-      <year>2008</year>
-      <holder>Red Hat, Inc.</holder>
-    </copyright>
-    <copyright lang="en">
-      <year>2003</year>
-       <year>2011</year>
-       <holder>Oracle and/or its affiliates. All rights reserved.</holder>
-    </copyright>
+    <copyright><year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder></copyright>
+    <copyright><year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder></copyright>
+    <copyright><year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder></copyright>
+    <copyright><year>2003</year> <year>2011</year> <holder>Oracle і/або афілейовані особи. Усі права застережено.</holder></copyright>
 
       <legalnotice id="legalnotice">
 	<para>Дозволяється копіювати, розповсюджувати та/або змінювати цей документ на умовах ліцензії GNU Free Documentation License (GFDL), версії 1.1 або будь-якої старшої версії, що опублікована Free Software Foundation без інваріантних розділів, тексту титульної сторінки, та тексту фінальної сторінки. Копію GFDL можна знайти <ulink type="help" url="ghelp:fdl">за адресою</ulink> або у файлі COPYING-DOCS, що постачається з цією довідкою.</para>
          <para>Ця довідка є частиною збірки документації з GNOME, що постачається на умовах ліцензії GFDL. Якщо ви бажаєте розповсюджувати цю довідку окремо від збірки, можете це зробити додавши до довідки копію ліцензії, як описано у пункті 6 ліцензії.</para>
 
-	<para>Більшість назв, що використовуються компаніями для розповсюдження їх продуктів та послуг є торговими марками. Якщо такі назви зустрічаються у документації з GNOME та учасникам проекту документування GNOME відомо, що вони є торговими марками, тоді ці назви пишуться великими літерами або починаються з великої літери.</para>
+	<para>Більшість назв, що використовуються компаніями для розповсюдження їх продуктів та послуг є торговими марками. Якщо такі назви зустрічаються у документації з GNOME та учасникам проєкту документування GNOME відомо, що вони є торговими марками, тоді ці назви пишуться великими літерами або починаються з великої літери.</para>
 
-	<para lang="en">
-	  DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED
-	  UNDER  THE TERMS OF THE GNU FREE DOCUMENTATION LICENSE
-	  WITH THE FURTHER UNDERSTANDING THAT:
-
-	  <orderedlist>
+	<para>ДОКУМЕНТ ТА ЗМІНЕНІ ВЕРСІЇ ДОКУМЕНТУ НАДАЮТЬСЯ КОРИСТУВАЧУ ЗА УМОВАМИ ЛІЦЕНЗІЇ GNU FREE DOCUMENTATION LICENSE З ПОДАЛЬШИМ РОЗУМІННЯМ ПРО ТЕ, ЩО: <orderedlist>
 		<listitem>
-		  <para lang="en">DOCUMENT IS PROVIDED ON AN "AS IS" BASIS,
-                    WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
-                    IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES
-                    THAT THE DOCUMENT OR MODIFIED VERSION OF THE
-                    DOCUMENT IS FREE OF DEFECTS MERCHANTABLE, FIT FOR
-                    A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE
-                    RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE
-                    OF THE DOCUMENT OR MODIFIED VERSION OF THE
-                    DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR
-                    MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT,
-                    YOU (NOT THE INITIAL WRITER, AUTHOR OR ANY
-                    CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY
-                    SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER
-                    OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS
-                    LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED
-                    VERSION OF THE DOCUMENT IS AUTHORIZED HEREUNDER
-                    EXCEPT UNDER THIS DISCLAIMER; AND
-		  </para>
+		  <para>ДОКУМЕНТ НАДАЄТЬСЯ "ЯК Є", БЕЗ БУДЬ-ЯКИХ ГАРАНТІЇ, ЯВНИХ ЧИ НЕЯВНИХ, ВКЛЮЧАЮЧИ, АЛЕ НЕ ОБМЕЖУЮЧИСЬ, ГАРАНТІЙ ЩО ЦЕЙ ДОКУМЕНТ ЧИ ЗМІНЕНА ВЕРСІЯ ДОКУМЕНТА ВІЛЬНІ ВІД ДЕФЕКТІВ, ПРИДАТНІ ДО ПРОДАЖУ, ВІДПОВІДАЮТЬ ПЕВНІЙ МЕТІ АБО НЕ ПОРУШУЮТЬ ЧИЇСЬ ПРАВА. ВЕСЬ РИЗИК ЗА ЯКІСТЬ, ТОЧНІСТЬ, ТА ЧИННІСТЬ ЦЬОГО ДОКУМЕНТУ АБО ЙОГО ЗМІНЕНИХ ВЕРСІЙ ЛЕЖИТЬ НА ВАС.  ЯКЩО БУДЬ-ЯКИЙ ДОКУМЕНТ ЧИ ЗМІНЕНА ВЕРСІЯ БУДУТЬ ВИЗНАНІ ДЕФЕКТНИМИ У БУДЬ-ЯКОМУ ВІДНОШЕННІ, ВИ (НЕ ПОЧАТКОВИЙ УКЛАДАЧ, АВТОР АБО БУДЬ-ЯКИЙ СПІВАВТОР) БЕРЕТЕ НА СЕБЕ ВИТРАТИ ЗА БУДЬ-ЯКЕ НЕОБХІДНЕ ОБСЛУГОВУВАННЯ, РЕМОНТ ЧИ ВИПРАВЛЕННЯ. ЦЯ ВІДМОВА ВІД ГАРАНТІЙ СКЛАДАЄ ВАЖЛИВУ ЧАСТИНУ ЦІЄЇ ЛІЦЕНЗІЇ. НЕ ДОПУСКАЄТЬСЯ ВИКОРИСТАННЯ ЦЬОГО ДОКУМЕНТУ АБО ЙОГО ЗМІНЕНОЇ ВЕРСІЇ БЕЗ ПРИЙНЯТТЯ ЦІЄЇ ВІДМОВИ; ТА</para>
 		</listitem>
 		<listitem>
-		  <para lang="en">UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL
-                       THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE),
-                       CONTRACT, OR OTHERWISE, SHALL THE AUTHOR,
-                       INITIAL WRITER, ANY CONTRIBUTOR, OR ANY
-                       DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION
-                       OF THE DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH
-                       PARTIES, BE LIABLE TO ANY PERSON FOR ANY
-                       DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR
-                       CONSEQUENTIAL DAMAGES OF ANY CHARACTER
-                       INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS
-                       OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR
-                       MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR
-                       LOSSES ARISING OUT OF OR RELATING TO USE OF THE
-                       DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT,
-                       EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF
-                       THE POSSIBILITY OF SUCH DAMAGES.
-		  </para>
+		  <para>НІ ЗА ЯКИХ ОБСТАВИН ТА ЗА БУДЬ-ЯКОГО ЗАКОНОДАВСТВА, ЧИ ТО ГРОМАДЯНСЬКОЇ ВІДПОВІДАЛЬНОСТІ (ВКЛЮЧАЮЧИ ХАЛАТНІСТЬ), ДОГОВОРУ, ЧИ ЧОГОСЬ ІНШОГО, АВТОР, ПОЧАТКОВИЙ УКЛАДАЧ, БУДЬ-ЯКИЙ СПІВАВТОР, АБО ДИСТРИБ'ЮТОР ДОКУМЕНТУ ЧИ ЗМІНЕНОЇ ВЕРСІЇ ДОКУМЕНТУ, АБО БУДЬ-ЯКИЙ ПОСТАЧАЛЬНИК БУДЬ-ЯКОЇ З ЦИХ СТОРІН, НЕ НЕСЕ ВІДПОВІДАЛЬНІСТЬ ПЕРЕД БУДЬ-ЯКОЮ ОСОБОЮ ЗА БУДЬ-ЯКІ ПРЯМІ, НЕПРЯМІ, ОСОБЛИВІ, ВИПАДКОВІ, АБО ІСТОТНІ ЗБИТКИ БУДЬ-ЯКОГО ХАРАКТЕРУ ВКЛЮЧАЮЧИ, АЛЕ НЕ ОБМЕЖУЮЧИСЬ, ЗБИТКАМИ ВІД ВТРАТИ ПРЕСТИЖУ, ЗУПИНКИ РОБОТИ, ЗБОЇВ АБО НЕСПРАВНОСТЕЙ КОМП'ЮТЕРА, АБО БУДЬ-ЯКІ ІНШІ ЗБИТКИ АБО ВТРАТИ ЩО ВИНИКЛИ БЕЗВІДНОСНО АБО ВНАСЛІДОК ВИКОРИСТАННЯ ЦЬОГО ДОКУМЕНТУ ТА ЗМІНЕНИХ ВЕРСІЙ ЦЬОГО ДОКУМЕНТУ, НАВІТЬ ЯКЩО ЦІ СТОРОНИ, МОЖЛИВО, БУЛИ ПРОІНФОРМОВАНІ ПРО МОЖЛИВІСТЬ ТАКИХ ЗБИТКІВ.</para>
 		</listitem>
-	  </orderedlist>
-	</para>
+	  </orderedlist></para>
   </legalnotice>
 
 
 
-    <releaseinfo lang="en">
-       This manual describes version 2.26.0 of the GNOME Display Manager.
-       It was last updated on 02/10/2009.
-    </releaseinfo>  
+    <releaseinfo>У посібнику описується менеджер дисплеїв середовища Gnome версії 2.26.0. Останній раз оновлювався 02 жовтня 2009 року.</releaseinfo>  
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Максим Дзюманенко</firstname>
+      </personname>
+      <email>dziumanenko@gmail.com</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2004</year>
+      
+        <year>2006</year>
+      
+      <holder>Максим Дзюманенко</holder>
+    </copyright>
+  
+    <othercredit class="translator">
+      <personname>
+        <firstname>Юрій Чорноіван</firstname>
+      </personname>
+      <email>yurchor@ukr.net</email>
+    </othercredit>
+    <copyright>
+      
+        <year>2020</year>
+      
+      <holder>Юрій Чорноіван</holder>
+    </copyright>
   </articleinfo>
 
   <!-- ============= Preface ================================== -->
@@ -145,15 +84,9 @@
   <sect1 id="preface">
     <title>Терміни та домовленості використані у цьому посібнику</title>
 
-    <para lang="en">
-      This manual describes version 2.26.0 of the GNOME Display Manager.
-      It was last updated on 02/10/2009.
-    </para>  
+    <para>У посібнику описується менеджер дисплеїв середовища Gnome версії 2.26.0. Останній раз оновлювався 02 жовтня 2009 року.</para>  
 
-    <para lang="en">
-      Chooser - A program used to select a remote host for managing a
-      display remotely on the attached display (<command>gdm-host-chooser</command>).
-    </para>
+    <para>Селектор - програма, що використовується для керування дисплеєм віддаленого вузла з приєднаного дисплея (<command>gdm-host-chooser</command>).</para>
 
     <para lang="en">
       FreeDesktop - The organization providing desktop standards, such as the
@@ -161,14 +94,9 @@
       <ulink type="http" url="http://www.freedesktop.org/">
       http://www.freedesktop.org</ulink>.
     </para>
-    <para lang="en">
-      GDM - GNOME Display Manager. Used to describe the software package as a
-      whole.
-    </para>
+    <para>GDM - менеджер дисплеїв середовища GNOME (Gnome Display Manager). Назва використовується при посиланні на програмний пакет взагалі.</para>
 
-    <para lang="en">
-      Greeter - The graphical login window (provided by <command>gnome-shell</command>).
-    </para>
+    <para>Програма привітання - графічне вікно входу (його роботу забезпечує <command>gnome-shell</command>).</para>
 
     <para>PAM - механізм модульної автентифікації</para>
 
@@ -196,12 +124,7 @@
     <sect2 id="introduction">
       <title>Введення</title>
 
-      <para lang="en"> 
-        The GNOME Display Manager (GDM) is a display manager that implements
-        all significant features required for managing attached and remote
-        displays.  GDM was written from scratch and does not contain any XDM or
-        X Consortium code.
-      </para>
+      <para>GDM - менеджер дисплею для GNOME, у якому реалізовано більшість функцій, що вимагаються для керування локальними та віддаленими дисплеями. GDM створено "з чистого аркуша" та він не містить оригінального коду XDM / X Consortium.</para>
 
       <para lang="en">
         Note that GDM is configurable, and many configuration settings have
@@ -216,11 +139,7 @@
         related configuration may be different than described here.
       </para>
 
-      <para lang="en">
-        For further information about GDM, refer to the project website at
-        <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/">
-        http://wiki.gnome.org/Projects/GDM</ulink>.
-      </para>
+      <para>Щоб дізнатися більше про GDM, зверніться до сайта проєкту на <ulink type="http" url="http://wiki.gnome.org/Projects/GDM/">http://wiki.gnome.org/Projects/GDM</ulink>.</para>
 
       <para lang="en">
         For discussion or queries about GDM, refer to the
@@ -232,12 +151,7 @@
         facility to look for messages with keywords.
       </para>
 
-      <para lang="en">
-        Please submit any bug reports or enhancement requests to the
-        "gdm" category in
-        <ulink type="http" url="http://bugzilla.gnome.org/">
-        http://bugzilla.gnome.org</ulink>.
-      </para>
+      <para>Будь ласка, надсилайте усі звіти щодо вад і пропозиції щодо удосконалення до категорії «gdm» на сайті <ulink type="http" url="http://bugzilla.gnome.org/">http://bugzilla.gnome.org</ulink>.</para>
     </sect2>
 
     <sect2 id="stability">
@@ -273,7 +187,7 @@
     </sect2>
 
     <sect2 id="functionaldesc">
-      <title lang="en">Functional Description</title>
+      <title>Функціональний опис</title>
 
 <!--
 <para>
@@ -378,7 +292,7 @@
     </sect2>
 
     <sect2 id="greeterpanel">
-      <title lang="en">Greeter Panel</title>
+      <title>Панель вітання</title>
       <para lang="en">
         The GDM greeter program displays a panel docked at the bottom of the
         screen which provides additional functionality.  When a user is
@@ -396,10 +310,7 @@
         restart request.
       </para>
 
-      <para lang="en">
-        Note that keyboard layout features are only available on systems that
-        support libxklavier.
-      </para>
+      <para>Зауважте, що можливості розкладки клавіатури доступі лише у системах із підтримкою libxklavier.</para>
     </sect2>
 
     <sect2 id="accessibility">
@@ -523,12 +434,7 @@
         configuration file.
       </para>
 
-      <para lang="en">
-        GDM includes several measures making it more resistant to denial of
-        service attacks on the XDMCP service.  A lot of the protocol
-        parameters, handshaking timeouts, etc. can be fine tuned. The default
-        configuration should work reasonably on most systems. 
-      </para>
+      <para>GDM включає декілька заходів, які роблять його більш стійким до атак типу <quote>відмова у обслуговуванні</quote> на службу XDMCP. Можна налаштувати значну кількість параметрів протоколу, час очікування з'єднання, тощо. Типові налаштування мають добре працювати у більшості систем.</para>
 
       <para lang="en">
         GDM by default listens for XDMCP requests on the normal UDP port used
@@ -584,7 +490,7 @@
     </sect2>
 
     <sect2 id="fusa">
-      <title lang="en">Fast User Switching</title>
+      <title>Швидке перемикання користувачів</title>
 
       <para lang="en">
         GDM allows multiple users to be logged in at the same time.  After one
@@ -609,7 +515,7 @@
     <title>Безпека</title>
 
     <sect2 id="gdmuser">
-      <title lang="en">The GDM User And Group</title>
+      <title>Користувач і група GDM</title>
 
       <para lang="en">
         For security reasons a dedicated user and group id are recommended for
@@ -731,7 +637,7 @@
         look like this:
       </para>
 
-<screen lang="en">
+<screen>
        gdm-autologin auth  required    pam_unix_cred.so.1
        gdm-autologin auth  sufficient  pam_allow.so.1
        gdm-autologin account  sufficient  pam_allow.so.1
@@ -744,7 +650,7 @@
         lastlog entry is desired, then use the following for the session:
       </para>
 
-<screen lang="en">
+<screen>
        gdm-autologin session required pam_unix_session.so.1
 </screen>
 
@@ -759,14 +665,14 @@
         a line such as:
       </para>
 
-<screen lang="en">
+<screen>
       gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin
 </screen>
 
     </sect2>
 
     <sect2 id="utmpwtmp">
-      <title lang="en">utmp and wtmp</title>
+      <title>utmp і wtmp</title>
 
       <para lang="en">
         GDM generates utmp and wtmp User Accounting Database entries upon
@@ -783,7 +689,7 @@
     </sect2>
 
     <sect2 id="xauth">
-      <title lang="en">Xserver Authentication Scheme</title>
+      <title>Схема аутентифікації X-серверів</title>
 
       <para lang="en">
         Xserver authorization files are stored in a newly created subdirectory
@@ -793,19 +699,7 @@
         logged in, so users from one session can't snoop on users from another.
       </para>
 
-      <para lang="en">
-        GDM only supports the MIT-MAGIC-COOKIE-1 Xserver authentication
-        scheme.  Normally little is gained from the other schemes, and no
-        effort has been made to implement them so far.  Be especially
-        careful about using XDMCP because the Xserver authentication cookie
-        goes over the wire as clear text.  If snooping is possible, then an
-        attacker could simply snoop your authentication password as you log in,
-        regardless of the authentication scheme being used.  If snooping is
-        possible and undesirable, then you should use ssh for tunneling an X
-        connection rather then using XDMCP.  You could think of XDMCP as a sort
-        of graphical telnet, having the same security issues.  In most cases,
-        ssh -Y should be preferred over GDM's XDMCP features.
-      </para>
+      <para>GDM підтримує лише систему автентифікації MIT-MAGIC-COOKIE-1. Зазвичай від інших схем користі не набагато більше, тому до цих пір не було вжито зусиль для їх реалізації. При використанні XDMCP слід бути особливо обережним, тому що cookie передаються по мережі у незмінному вигляді. Якщо можливе прослуховування лінії зв'язку, тоді нападник може просто отримати ваш пароль під час реєстрації, незалежно від схеми автентифікації. Якщо прослуховування можливе але небажане, тоді використовуйте ssh для тунелювання X з'єднань, замість використання XDMCP. Ви можете розглядати XDMCP як графічний telnet, який має ті ж самі властивості безпеки. У більшості випадків слід надавати перевагу ssh -Y перед можливостями XDMCP GDM.</para>
 
     </sect2>
 
@@ -818,15 +712,7 @@
         clear text.  It is trivial to capture these.
       </para>
 
-      <para lang="en">
-        XDMCP is primarily useful for running thin clients such as in terminal
-        labs.  Those thin clients will only ever need the network to access
-        the server, and so it seems like the best security policy to have
-        those thin clients on a separate network that cannot be accessed by
-        the outside world, and can only connect to the server.  The only point
-        from which you need to access outside is the server.  This type of set up
-        should never use an unmanaged hub or other sniffable network.
-      </para>
+      <para>Головним чином XDMCP використовується для тонких клієнтів у лабораторних умовах. Цім тонким клієнтам для доступу до сервера необхідна лише мережа, та, здається, найкращою політикою безпеки буде тримати їх у окремій мережі, до якої неможливо отримати доступ із зовнішнього світу, а зв'язок є лише з сервером. Єдиною точкою доступу до зовнішнього світу повинен бути сервер. У цьому типі налаштувань ніколи не слід використовувати некерований концентратор або іншу придатну до вивчення ззовні мережу.</para>
 
     </sect2>
 
@@ -851,25 +737,11 @@ gdm: .your.domain
     </sect2>
 
     <sect2 id="firewall">
-      <title lang="en">Firewall Security</title>
+      <title>Захист брандмауером</title>
 
-      <para lang="en">
-        Even though GDM tries to outsmart potential attackers trying to take
-        advantage of XDMCP, it is still advised that you block the XDMCP port
-        (normally UDP port 177) on your firewall unless really needed.  GDM
-        guards against denial of service attacks, but the X protocol is still
-        inherently insecure and should only be used in controlled environments.
-        Also each remote connection takes up lots of resources, so it is much
-        easier to do a denial of service attack via XDMCP than attacking a
-        webserver.
-      </para>
+      <para>Хоча GDM намагається ввести в оману потенційних нападників, рекомендується блокувати XDMCP (UDP порт 177) на вашому брандмауері, якщо він вам не потрібен. GDM протидіє DoS атакам (атаки типу відмови у обслуговуванні), але X протоколу властиві успадковані вади безпеки, тому його слід використовувати у контрольованому оточенні. Також кожне віддалене з'єднання споживає багато ресурсів, тому набагато простіше викликати відмову обслуговування XDMCP сервера, ніж, скажімо, у веб-сервера.</para>
 
-      <para lang="en">
-        It is also wise to block all of the Xserver ports.  These are TCP
-        ports 6000+ (one for each display number) on your firewall.  Note that
-        GDM will use display numbers 20 and higher for flexible on-demand
-        servers.
-      </para>
+      <para>Також буде розумно блокувати на брандмауері всі порти X сервера (TCP порт 6000 + номер дисплею). Зауважте, що різні частини GDM використовують дисплеї з номером 20 та більше (наприклад, при запуску серверів за вимогою).</para>
 
       <para lang="en">
          X is not a very safe protocol when using it over the Internet, and
@@ -878,7 +750,7 @@ gdm: .your.domain
     </sect2>
 
     <sect2 id="policykit">
-      <title lang="en">PolicyKit</title>
+      <title>PolicyKit</title>
 
 <!--
 <para>
@@ -904,7 +776,7 @@ gdm: .your.domain
     </sect2>
 
     <sect2 id="rbac">
-      <title lang="en">RBAC (Role Based Access Control)</title>
+      <title>RBAC (Role Based Access Control)</title>
 
       <para lang="en">
         GDM may be configured to use RBAC instead of PolicyKit.  In this
@@ -925,7 +797,7 @@ gdm: .your.domain
   <!-- ============= ConsoleKit ================================ -->
 
   <sect1 id="consolekit">
-    <title lang="en">Support for ConsoleKit</title>
+    <title>Підтримка ConsoleKit</title>
 
 <!--
 <para>
@@ -987,14 +859,11 @@ gdm: .your.domain
     </para>
 
     <sect2 id="scripting">
-      <title lang="en">Scripting Integration Points</title>
+      <title>Точки інтеграції скриптів</title>
       
-      <para lang="en">
-        The GDM script integration points can be found in the
-        <filename>&lt;etc&gt;/gdm/</filename> directory:
-      </para>
+      <para>Точки інтеграції скриптів GDM можна знайти у каталозі <filename>&lt;etc&gt;/gdm/</filename>:</para>
 
-<screen lang="en">
+<screen>
 Xsession
 Init/
 PostLogin/
@@ -1002,11 +871,7 @@ PreSession/
 PostSession/
 </screen>
 
-      <para lang="en">
-        The <filename>Init</filename>, <filename>PostLogin</filename>,
-        <filename>PreSession</filename>, and <filename>PostSession</filename>
-        scripts all work as described below.
-      </para>
+      <para>Усі скрипти, <filename>Init</filename>, <filename>PostLogin</filename>, <filename>PreSession</filename> і <filename>PostSession</filename>, працюють у описаний нижче спосіб.</para>
 
       <para lang="en">
         For each type of script, the default one which will be executed is
@@ -1072,7 +937,7 @@ PostSession/
     </sect2>
 
     <sect2 id="autostart">
-      <title lang="en">Autostart Configuration</title>
+      <title>Налаштовування автозапуску</title>
       
       <para lang="en">
         The <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename>
@@ -1097,7 +962,7 @@ PostSession/
     </sect2>
 
     <sect2 id="xsessionscript">
-      <title lang="en">Xsession Script</title>
+      <title>Скрипт Xsession</title>
 
       <para lang="en">
         There is also an <filename>Xsession</filename> script located at
@@ -1129,13 +994,7 @@ PostSession/
         options which are no longer supported in the latest versions of GDM.
       </para>
 
-      <para lang="en">
-        The <filename>&lt;etc&gt;/gdm/custom.conf</filename> file is in the
-        <filename>keyfile</filename> format.  Keywords in brackets
-        define group sections, strings before an equal sign (=) are keys and
-        the data after equal sign represents their value.  Empty lines or
-        lines starting with the hash mark (#) are ignored.  
-      </para>
+      <para>Файл <filename>&lt;etc&gt;/gdm/custom.conf</filename> має синтаксис <filename>keyfile</filename>. Ключові слова у дужках визначають розділи груп, рядки перед знаком <quote>дорівнює</quote> (=) є ключами, а дані після знаку тотожності є їх значеннями. Порожні рядки або рядки, що починаються зі знаку (#) ігноруються.</para>
 
       <para lang="en">
         The file <filename>&lt;etc&gt;/gdm/custom.conf</filename> supports the
@@ -1147,15 +1006,13 @@ PostSession/
         following lines:
       </para>
      
-<screen lang="en">
+<screen>
 [daemon]
 TimedLoginEnable=true
 TimedLogin=you
 </screen>
 
-      <para lang="en">
-        A full list of supported configuration keys follow:
-      </para>
+      <para>Нижче наведено повний список підтримуваних ключів налаштувань:</para>
 
       <sect3 id="choosersection">
         <title>[chooser]</title>
@@ -1164,12 +1021,8 @@ TimedLogin=you
           <varlistentry>
             <term>Multicast</term>
             <listitem>
-              <synopsis lang="en">Multicast=false</synopsis>
-              <para lang="en">
-                If true and IPv6 is enabled, the chooser will send a multicast
-                query to the local network and collect responses from the hosts
-                who have joined multicast group.
-              </para>
+              <synopsis>Multicast=false</synopsis>
+              <para>Якщо має значення true та увімкнено IPv6, селектор буде надсилати multicast-запити у локальну мережу та слухати відповідь від вузлів, які входять у multicast-групу.</para>
             </listitem>
           </varlistentry>
          
@@ -1177,9 +1030,7 @@ TimedLogin=you
             <term>MulticastAddr</term>
             <listitem>
               <synopsis>MulticastAddr=ff02::1</synopsis>
-              <para lang="en">
-                This is the Link-local multicast address.
-              </para>
+              <para>У цьому параметрі вказується multicast.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1192,24 +1043,7 @@ TimedLogin=you
             <term>TimedLoginEnable</term>
             <listitem>
               <synopsis>TimedLoginEnable=false</synopsis>
-              <para lang="en">
-                 If the user given in <filename>TimedLogin</filename> should be
-                logged in after a number of seconds (set with
-                <filename>TimedLoginDelay</filename>) of inactivity on the
-                login screen.  This is useful for public access terminals or
-                perhaps even home use.  If the user uses the keyboard or
-                browses the menus, the timeout will be reset to 
-                <filename>TimedLoginDelay</filename> or 30 seconds, whichever 
-                is higher.   If the user does not enter a username but just
-                hits the ENTER key while the login program is requesting the
-                username, then GDM will assume the user wants to login
-                immediately as the timed user.  Note that no password will be
-                asked for this user so you should be careful, although if using
-                PAM it can be configured to require password entry before
-                allowing login.  Refer to the "Security-&gt;PAM"
-                section of the manual for more information, or for help if this
-                feature does not seem to work.
-              </para>
+              <para>Чи має запускатись сеанс користувача, вказаного у параметрі <filename>TimedLogin</filename>, після певної кількості секунд (у параметрі <filename>TimedLoginDelay</filename>) відсутності активності у вікні входу. Використовується для терміналів загального доступу або навіть у домашньому використанні. Якщо користувач використовує клавіатуру або переглядає меню, відлік часу скидається на <filename>TimedLoginDelay</filename> або 30 секунд, в залежності від того яке значення більше. Якщо користувач не ввів ім'я а просто натиснув на клавішу ENTER, тоді GDM вважає що користувач бажає негайно увійти з іменем користувача відкладеного входу. Зауважте, при цьому не запитується пароль, тож будьте обережні,  хоча при використанні PAM можна налаштувати запит паролю перш, ніж дозволити вхід. Зверніться до розділу «Безпека-&gt;PAM» підручника, щоб дізнатися більше, або за додатковими відомостями, якщо ця можливість не працює.</para>
             </listitem>
           </varlistentry>
 
@@ -1307,7 +1141,7 @@ TimedLogin=you
       </sect3>
 
       <sect3 id="debugsection">
-        <title lang="en">Debug Options</title>
+        <title>Параметри налагоджування</title>
       
         <variablelist>
           <title>[debug]</title>
@@ -1331,7 +1165,7 @@ TimedLogin=you
       </sect3>
 
       <sect3 id="greetersection">
-        <title lang="en">Greeter Options</title>
+        <title>Параметри програми привітання</title>
       
         <variablelist>
           <title>[greeter]</title>
@@ -1339,7 +1173,7 @@ TimedLogin=you
           <varlistentry>
             <term>IncludeAll</term>
             <listitem>
-              <synopsis lang="en">IncludeAll=true</synopsis>
+              <synopsis>IncludeAll=true</synopsis>
               <para lang="en">
                 If true, then the face browser will show all users on the local
                 machine.  If false, the face browser will only show users who
@@ -1383,7 +1217,7 @@ TimedLogin=you
           <varlistentry>
             <term>Exclude</term>
             <listitem>
-              <synopsis lang="en">Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
+              <synopsis>Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap</synopsis>
               <para lang="en">
                 Set to a list of users to always exclude in the Face Browser.
                 This value is set to a list of users separated by commas.  Note
@@ -1428,12 +1262,7 @@ TimedLogin=you
             <term>DisplaysPerHost</term>
             <listitem>
               <synopsis>DisplaysPerHost=1</synopsis>
-              <para lang="en">
-                To prevent attackers from filling up the pending queue, GDM
-                will only allow one connection for each remote computer.  If
-                you want to provide display services to computers with more
-                than one screen, you should increase this value.
-              </para>
+              <para>Щоб нападники не змогли наводнити запитами чергу очікування, GDM допускає одне з'єднання з одного віддаленого комп'ютера. Якщо ви бажаєте надавати дисплей комп'ютерам з більш ніж одним екраном, відповідно слід збільшити  значення <filename>DisplaysPerHost</filename>.</para>
 
               <para lang="en">
                 Note that the number of attached DISPLAYS allowed is not 
@@ -1453,16 +1282,9 @@ TimedLogin=you
               
               <para>Якщо GDM скомпільовано з бібліотекою tcp_wrapper, доступ з віддалених дисплеїв може контролюватись цією бібліотекою. Назва служби -  <filename>gdm</filename></para>
             
-              <para lang="en">
-                You should add 
-<screen lang="en">
+              <para>До файла <filename>&lt;etc&gt;/hosts.allow</filename> слід додати <screen>
 gdm:.my.domain
-</screen>
-                to your <filename>&lt;etc&gt;/hosts.allow</filename>, depending
-                on your TCP Wrappers configuration.  See the
-                <ulink type="help" url="man:hosts.allow">hosts.allow</ulink>
-                man page for details.
-              </para>
+</screen>, в залежності від конфігурації бібліотеки TCP Wrappers. Докладнішу інформацію дивіться у man-сторінці <ulink type="help" url="man:hosts.allow">hosts.allow</ulink>.</para>
               
               <para>Зауважте, що XDMCP не є безпечним протоколом, тому якщо ви не використовуєте UDP-порт 177, його краще заблокувати на вашому брандмауері.</para>
             </listitem>
@@ -1472,11 +1294,7 @@ gdm:.my.domain
             <term>HonorIndirect</term>
             <listitem>
               <synopsis>HonorIndirect=true</synopsis>
-              <para lang="en">
-                Enables XDMCP INDIRECT choosing (i.e. remote execution of
-                <filename>gdmchooser</filename>) for X-terminals which do not
-                supply their own display browser.
-              </para>
+              <para>Дозволяє XDMCP INDIRECT вибір (тобто віддалене виконання <filename>gdmchooser</filename>) для X-терміналів, як не мають власної програми перегляду дисплеїв.</para>
             </listitem>
           </varlistentry>
         
@@ -1484,13 +1302,9 @@ gdm:.my.domain
             <term>MaxPending</term>
             <listitem>
               <synopsis>MaxPending=4</synopsis>
-              <para>Для запобігання атакам типу "відмова у доступі", GDM має фіксований розмір черги очікуючих з'єднань. Одночасно можуть бути запущені лише MaxPending дисплеїв.</para>
+              <para>Для запобігання атакам типу "відмова у доступі", GDM має фіксований розмір черги з'єднань. Одночасно можуть бути запущені лише MaxPending дисплеїв.</para>
             
-              <para lang="en">
-                Please note that this parameter does not limit the number of
-                remote displays which can be managed. It only limits the number
-                of displays initiating a connection simultaneously.
-              </para>
+              <para>Зауважте, що цей параметр не обмежує кількість віддалених дисплеїв, якими можна керувати. Обмежується лише кількість дисплеїв які одночасно ініціюють з'єднання.</para>
             </listitem>
           </varlistentry>
           
@@ -1525,7 +1339,7 @@ gdm:.my.domain
           <varlistentry>
             <term>PingIntervalSeconds</term>
             <listitem>
-              <synopsis lang="en">PingIntervalSeconds=60</synopsis>
+              <synopsis>PingIntervalSeconds=60</synopsis>
               <para lang="en">
                 If the Xserver does not respond in the specified number of
                 seconds, then the connection is stopped and the session ended.
@@ -1535,15 +1349,7 @@ gdm:.my.domain
                 from GDM 2.20 and earlier to a newer version.
               </para>
 
-              <para lang="en">
-                Note that GDM in the past used to have a
-                <filename>PingInterval</filename> configuration key which was
-                also in minutes.  For most purposes you'd want this setting
-                to be lower than one minute. However since in most cases where
-                XDMCP would be used (such as terminal labs), a lag of more
-                than 15 or so seconds would really mean that the terminal was
-                turned off or restarted and you would want to end the session.
-              </para>
+              <para>Зауважте, що GDM у минулому мав ключ конфігурації <filename>PingInterval</filename>, який вказував час у хвилинах. Для більшості застосувань XDMCP не потрібно, щоб значення цього параметра було менше за одну хвилину, проте затримка більша за 15 секунд означатиме, що термінал вимкнений або перезавантажений, та вам слід завершити сеанс.</para>
             </listitem>
           </varlistentry>
 
@@ -1551,11 +1357,7 @@ gdm:.my.domain
             <term>Port</term>
             <listitem>
               <synopsis>Port=177</synopsis>
-              <para lang="en">
-                The UDP port number <filename>gdm</filename> should listen to
-                for XDMCP requests. Do not change this unless you know what
-                you are doing.
-              </para>
+              <para>Номер UDP-порту, на якому <filename>gdm</filename> очікуватиме XDMCP-запитів. Не змінюйте його, якщо ви не впевнені у наслідках своїх дій.</para>
             </listitem>
           </varlistentry>
 
@@ -1563,18 +1365,7 @@ gdm:.my.domain
             <term>Willing</term>
             <listitem>
               <synopsis>Willing=&lt;etc&gt;/gdm/Xwilling</synopsis>
-              <para lang="en">
-                When the machine sends a WILLING packet back after a QUERY it
-                sends a string that gives the current status of this server.
-                The default message is the system ID, but it is possible to
-                create a script that displays customized message.  If this
-                script does not exist or this key is empty the default message
-                is sent.  If this script succeeds and produces some output,
-                the first line of it's output is sent (and only the first
-                line).  It runs at most once every 3 seconds to prevent
-                possible denial of service by flooding the machine with QUERY
-                packets.
-              </para>
+              <para>Коли сервер надсилає пакет WILLING у відповідь на QUERY, він надсилає рядок з поточним статусом цього сервера. Типовим повідомленням є системний ідентифікатор, але можна створити власний сценарій, який відображатиме власне повідомлення. Якщо цей сценарій не існує або цей ключ порожній - надсилається типове повідомлення. Якщо цей сценарій успішно виконується та виводить деякий текст, надсилається перший рядок цього тексту (та лише перший рядок). Він запускається максимум раз на 3 секунди для запобігання можливим атакам типу "відмова у доступі" шляхом затоплення його запитами QUERY.</para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1582,7 +1373,7 @@ gdm:.my.domain
     </sect2>
 
     <sect2 id="greeterconfiguration">
-        <title lang="en">Simple Greeter Configuration</title>
+        <title>Проста конфігурація програми привітання</title>
 
         <para lang="en">
           The GDM default greeter is called the simple Greeter and is
@@ -1595,33 +1386,28 @@ gdm:.my.domain
         </para>
 
         <variablelist>
-          <title lang="en">Greeter Configuration Keys</title>
+          <title>Ключі конфігурації програми привітання</title>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/banner_message_enable</term>
+            <term>/apps/gdm/simple-greeter/banner_message_enable</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
-              <para lang="en">
-                Controls whether the banner message text is displayed.
-              </para>
+              <synopsis>false (булеве)</synopsis>
+              <para>Керує тим, чи буде показано текст повідомлення банера.</para>
             </listitem>
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/banner_message_text</term>
+            <term>/apps/gdm/simple-greeter/banner_message_text</term>
             <listitem>
-              <synopsis lang="en">NULL (string)</synopsis>
-              <para lang="en">
-                Specifies the text banner message to show on the greeter
-                window.
-              </para>
+              <synopsis>NULL (рядок)</synopsis>
+              <para>Вказує повідомлення текстового банера, яке слід показати у вікні привітання.</para>
             </listitem>
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/disable_restart_buttons</term>
+            <term>/apps/gdm/simple-greeter/disable_restart_buttons</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 Controls whether to show the restart buttons in the login
                 window.
@@ -1630,9 +1416,9 @@ gdm:.my.domain
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/disable_user_list</term>
+            <term>/apps/gdm/simple-greeter/disable_user_list</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 If true, then the face browser with known users is not shown
                 in the login window.
@@ -1641,9 +1427,9 @@ gdm:.my.domain
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/logo_icon_name</term>
+            <term>/apps/gdm/simple-greeter/logo_icon_name</term>
             <listitem>
-              <synopsis lang="en">computer (string)</synopsis>
+              <synopsis>computer (рядок)</synopsis>
               <para lang="en">
                 Set to the themed icon name to use for the greeter logo.
               </para>
@@ -1651,9 +1437,9 @@ gdm:.my.domain
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/recent-languages</term>
+            <term>/apps/gdm/simple-greeter/recent-languages</term>
             <listitem>
-              <synopsis lang="en">[] (string list)</synopsis>
+              <synopsis>[] (список рядків)</synopsis>
               <para lang="en">
                 Set to a list of languages to be shown by default in the login
                 window.  Default value is "[]".  With the default setting only
@@ -1673,9 +1459,9 @@ gdm:.my.domain
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/recent-layouts</term>
+            <term>/apps/gdm/simple-greeter/recent-layouts</term>
             <listitem>
-              <synopsis lang="en">[] (string list)</synopsis>
+              <synopsis>[] (список рядків)</synopsis>
               <para lang="en">
                 Set to a list of keyboard layouts to be shown by default in the
                 login panel.  Default value is "[]".  With the default setting
@@ -1695,9 +1481,9 @@ gdm:.my.domain
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">/apps/gdm/simple-greeter/wm_use_compiz</term>
+            <term>/apps/gdm/simple-greeter/wm_use_compiz</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 Controls whether compiz is used as the window manager instead
                 of metacity.
@@ -1710,13 +1496,10 @@ gdm:.my.domain
     <sect2 id="accessibilityconfiguration">
      <title>Налаштовування спеціальних можливостей</title>
 
-      <para lang="en">
-       This section describes the accessibility configuration options available
-       in GDM.
-      </para>
+      <para>У цьому розділі описано параметри налаштування доступності, якими можна скористатися у GDM.</para>
 
       <sect3 id="accessibilitydialog">
-        <title lang="en">GDM Accessibility Dialog And GConf Keys</title>
+        <title>Вікно доступності GDM і ключі GConf</title>
 
         <para lang="en">
          The GDM greeter panel at the login screen displays an accessibility
@@ -1749,7 +1532,7 @@ gdm:.my.domain
       </sect3>
 
       <sect3 id="accessibilitygconfconfiguration">
-        <title lang="en">Accessibility GConf Keys</title>
+        <title>Ключі доступності GConf</title>
 
         <para lang="en">
          GDM offers the following GConf keys to control its accessibility
@@ -1757,12 +1540,12 @@ gdm:.my.domain
         </para>
 
         <variablelist>
-          <title lang="en">GDM Configuration Keys</title>
+          <title>Ключі налаштувань GDM</title>
 
           <varlistentry>
-            <term lang="en">/desktop/gnome/interface/accessibility</term>
+            <term>/desktop/gnome/interface/accessibility</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 Controls whether the Accessibility infrastructure will be
                 started with the GDM GUI.  This is needed for many
@@ -1771,9 +1554,9 @@ gdm:.my.domain
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term lang="en">/desktop/gnome/applications/at/screen_magnifier_enabled</term>
+            <term>/desktop/gnome/applications/at/screen_magnifier_enabled</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 If set, then the assistive tools linked to this GConf key will
                 be started with the GDM GUI program.  By default this is a
@@ -1782,9 +1565,9 @@ gdm:.my.domain
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term lang="en">/desktop/gnome/applications/at/screen_keyboard_enabled</term>
+            <term>/desktop/gnome/applications/at/screen_keyboard_enabled</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 If set, then the assistive tools linked to this GConf key will
                 be started with the GDM GUI program.  By default this is an
@@ -1793,9 +1576,9 @@ gdm:.my.domain
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term lang="en">/desktop/gnome/applications/at/screen_reader_enabled</term>
+            <term>/desktop/gnome/applications/at/screen_reader_enabled</term>
             <listitem>
-              <synopsis lang="en">false (boolean)</synopsis>
+              <synopsis>false (булеве)</synopsis>
               <para lang="en">
                 If set, then the assistive tools linked to this GConf key will
                 be started with the GDM GUI program.  By default this is a
@@ -1807,7 +1590,7 @@ gdm:.my.domain
       </sect3>
 
       <sect3 id="accessibilitytoolsconfiguration">
-        <title lang="en">Linking GConf Keys to Accessibility Tools</title>
+        <title>Пов'язування ключів GConf до інструментів доступності</title>
 
         <para lang="en">
          For the screen_magnifier_enabled, the screen_keyboard_enabled, and the
@@ -1821,7 +1604,7 @@ gdm:.my.domain
          following:
         </para>
 
-<screen lang="en">
+<screen>
 AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled
 AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
@@ -1837,7 +1620,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
       </sect3>
 
       <sect3 id="accessibilitytoolexample">
-        <title lang="en">Example Of Modifying Accessibility Tool Configuration</title>
+        <title>Приклад внесення змін до налаштувань засобу спеціальних можливостей</title>
 
         <para lang="en">
          For example, if GNOME is distributed with GOK as the default on-screen
@@ -1855,11 +1638,9 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled
          document.
         </para>
 
-        <para lang="en">
-         The following is an example <filename>onboard.desktop</filename> file:
-        </para>
+        <para>Нижче наведено приклад файла <filename>onboard.desktop</filename>:</para>
 
-<screen lang="en">
+<screen>
 [Desktop Entry]
 Encoding=UTF-8
 Name=Onboard Onscreen Keyboard
@@ -1873,12 +1654,9 @@ Categories=GNOME;GTK;Accessibility;
 AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
 </screen>
 
-        <para lang="en">
-         The following is an example <filename>mousetweaks.desktop</filename>
-         file:
-        </para>
+        <para>Нижче наведено приклад файла <filename>mousetweaks.desktop</filename>:</para>
 
-<screen lang="en">
+<screen>
 [Desktop Entry]
 Encoding=UTF-8
 Name=Software Mouse-Clicks
@@ -1914,7 +1692,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
     </sect2>
 
     <sect2 id="generalsessionconfig">
-      <title lang="en">General Session Settings</title>
+      <title>Параметри загального сеансу</title>
 <!--
 <para>
           TODO - I think this section should be expanded upon.  What specific
@@ -1934,7 +1712,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
     </sect2>
 
     <sect2 id="gnomesettingsdaemon">
-      <title lang="en">GNOME Settings Daemon</title>
+      <title>Фонова служба параметрів GNOME</title>
 <!--
 <para>
           TODO - I think this section should be expanded upon.  What specific
@@ -1965,7 +1743,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
     </sect2>
 
     <sect2 id="sessionconfig">
-      <title lang="en">GDM Session Configuration</title>
+      <title>Налаштовування сеансу GDM</title>
 
       <para lang="en">
         GDM sessions are specified using the FreeDesktop.org Desktop Entry
@@ -2011,7 +1789,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
     </sect2>
 
     <sect2 id="userconfig">
-      <title lang="en">GDM User Session and Language Configuration</title>
+      <title>Налаштовування сеансу користувача і мови GDM</title>
       <para lang="en">
         The user's default session and language choices are stored in the
         <filename>~/.dmrc</filename> file.  When a user logs in for the first
@@ -2020,12 +1798,7 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
         when logging in.  GDM will remember this change for subsequent logins.
       </para>
 
-      <para lang="en">
-        The <filename>~/.dmrc</filename> file is in the standard
-        <filename>INI</filename> format.  It has one section called
-        <filename>[Desktop]</filename> which has two keys:
-        <filename>Session</filename> and <filename>Language</filename>.
-      </para>
+      <para>Файл <filename>~/.dmrc</filename> є файлом у стандартному форматі <filename>INI</filename>. У ньому є один розділ із назвою <filename>[Desktop]</filename>, який містить два ключі: <filename>Session</filename> і <filename>Language</filename>.</para>
 
       <para lang="en">
         The <filename>Session</filename> key specifies the basename of the
@@ -2036,10 +1809,10 @@ AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled
         system default is used.  The file would normally look as follows:
       </para>
 
-<screen lang="en">
+<screen>
 [Desktop]
 Session=gnome
-Language=cs_CZ.UTF-8
+Language=uk_UA.UTF-8
 </screen>
     </sect2>
 
@@ -2051,7 +1824,7 @@ Language=cs_CZ.UTF-8
     <title>Команди GDM</title>
 
     <sect2 id="sbindir_binaries">
-      <title lang="en">GDM Root User Commands</title>
+      <title>Команди GDM адміністративного користувача</title>
 
       <para lang="en">
         The GDM package provides the following commands in
@@ -2059,7 +1832,7 @@ Language=cs_CZ.UTF-8
       </para>
 
       <sect3 id="gdmcommandline">
-        <title lang="en"><command>gdm</command> Command Line Options</title>
+        <title>Параметри командного рядка <command>gdm</command></title>
 
         <para lang="en">
           <command>gdm</command> is the main daemon which sets up
@@ -2067,30 +1840,26 @@ Language=cs_CZ.UTF-8
        </para>
 
         <variablelist>
-          <title lang="en"><command>gdm</command> Command Line Options</title>
+          <title>Параметри командного рядка <command>gdm</command></title>
 
           <varlistentry>
-            <term lang="en">-?, --help</term>
+            <term>-?, --help</term>
             <listitem>
               <para>Виводить коротку довідку з переліком параметрів командного рядка.</para>
             </listitem>
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">--fatal-warnings</term>
+            <term>--fatal-warnings</term>
             <listitem>
-              <para lang="en">
-                Make all warnings cause GDM to exit.
-              </para>
+              <para>Зробити так, щоб попередження призводили до виходу з GDM.</para>
             </listitem>
           </varlistentry>
 
           <varlistentry>
-            <term lang="en">--timed-exit</term>
+            <term>--timed-exit</term>
             <listitem>
-              <para lang="en">
-                Exit after 30 seconds.  Useful for debugging.
-              </para>
+              <para>Вийти за 30 секунд. Корисно для діагностики.</para>
             </listitem>
           </varlistentry>
 
@@ -2104,32 +1873,21 @@ Language=cs_CZ.UTF-8
       </sect3>
 
       <sect3 id="gdmrestartcommandline">
-        <title lang="en"><command>gdm-restart</command> Command Line Options</title>
+        <title>Параметри командного рядка <filename>gdm-restart</filename></title>
 
-        <para lang="en">
-          <command>gdm-restart</command> stops and restarts GDM by sending
-          the GDM daemon a HUP signal.  This command will immediately terminate
-          all sessions and log out users currently logged in with GDM.
-        </para>
+        <para><filename>gdm-restart</filename> зупиняє та перезапускає GDM, надсилаючи службі GDM сигнал HUP. Це призводить до негайного припинення усіх сеансів та виходу користувачів, що увійшли через GDM.</para>
       </sect3>
 
       <sect3 id="gdmsaferestartcommandline">
-        <title lang="en"><command>gdm-safe-restart</command> Command Line Options</title>
+        <title>Параметри командного рядка <command>gdm-safe-restart</command></title>
   
-        <para lang="en">
-          <command>gdm-safe-restart</command> stops and restarts GDM by
-          sending the GDM daemon a USR1 signal.  GDM will be restarted as soon
-          as all users log out.
-        </para>
+        <para><filename>gdm-safe-restart</filename> зупиняє та перезапускає GDM надсилаючи службі GDM сигнал USR1. GDM перезапускається одразу після виходу усіх користувачів.</para>
       </sect3>
 
       <sect3 id="gdmstopcommandline">
-        <title lang="en"><command>gdm-stop</command> Command Line Options</title>
+        <title>Параметри командного рядка <filename>gdm-stop</filename></title>
 
-        <para lang="en">
-          <command>gdm-stop</command> stops GDM by sending the GDM daemon
-          a TERM signal. 
-        </para>
+        <para><filename>gdm-stop</filename> зупиняє GDM, надсилаючи службі GDM сигнал TERM.</para>
       </sect3>
     </sect2>
   </sect1>
@@ -2204,14 +1962,7 @@ Language=cs_CZ.UTF-8
 
   <sect1 id="license">
     <title>Ліцензія</title>
-    <para lang="en">
-      This program is free software; you can redistribute it and/or
-      modify it under the terms of the  <ulink type="help" url="gnome-help:gpl">
-      <citetitle>GNU General Public License</citetitle></ulink> as
-      published by the Free Software Foundation; 
-      either version 2 of the License, or (at your option) any later
-      version.
-    </para>
+    <para>Ця програма є вільною. Ви можете поширювати та змінювати її на умовах, викладених у GNU General Public License що видана Free Software Foundation; або версії 2 ліцензії, або (на ваше розсуд довільної старшої версії.</para>
     <para>Ця програма поширюється з надією, що буде корисною, але БЕЗ БУДЬ_ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ПРИДАТНОСТІ ДО ПРОДАЖУ або ВІДПОВІДНОСТІ ПЕВНІЙ МЕТІ. Докладніше про це дивіться у <citetitle>GNU General Public License</citetitle>.</para>
     <para lang="en">
       A copy of the <citetitle>GNU General Public License</citetitle> is
