@@ -1,8 +1,16 @@
-gdm3 (3.34.1-4) UNRELEASED; urgency=medium
+gdm3 (3.36.2-1) UNRELEASED; urgency=medium
 
+  * New upstream release
+    - Use a separate D-Bus session bus for each greeter
+    - Don't disable Wayland on Cirrus hardware (or more likely, emulated
+      Cirrus hardware in qemu). A 5.2+ kernel is recommended.
+    - Check for keyutils using pkg-config
+    - Fixes for when GDM isn't started on its configured initial VT
+    - Don't hard-code /bin/plymouth
+    - Translation updates
   * d/watch: Only watch for even-numbered (stable) releases
 
- -- Simon McVittie <smcv@debian.org>  Thu, 25 Jun 2020 10:25:08 +0100
+ -- Simon McVittie <smcv@debian.org>  Thu, 25 Jun 2020 10:25:44 +0100
 
 gdm3 (3.34.1-3) unstable; urgency=medium
 
