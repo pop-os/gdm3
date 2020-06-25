@@ -2,6 +2,7 @@ gdm3 (3.36.2-1) UNRELEASED; urgency=medium
 
   * New upstream release
     - Use a separate D-Bus session bus for each greeter
+      + Add Depends on dbus, for dbus-run-session
     - Don't disable Wayland on Cirrus hardware (or more likely, emulated
       Cirrus hardware in qemu). A 5.2+ kernel is recommended.
     - Check for keyutils using pkg-config
