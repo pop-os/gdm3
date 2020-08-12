@@ -169,9 +169,9 @@ CSCOPE = cscope
 DIST_SUBDIRS = data common pam-extensions daemon libgdm utils pam_gdm \
 	po tests chooser docs
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/data/dconf/gdm.in ABOUT-NLS AUTHORS COPYING NEWS \
-	acconfig.h ar-lib compile config.guess config.rpath config.sub \
-	install-sh ltmain.sh missing
+	$(top_srcdir)/data/dconf/gdm.in ABOUT-NLS AUTHORS COPYING \
+	INSTALL NEWS acconfig.h ar-lib compile config.guess \
+	config.rpath config.sub install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
