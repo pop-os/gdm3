@@ -3,7 +3,7 @@ etc/*
 lib/systemd/
 usr/lib/systemd/
 [linux-any] lib/udev
-lib/*/security/*.so
+lib/${DEB_HOST_MULTIARCH}/security/*.so
 usr/bin/gdm-screenshot
 usr/libexec/gdm-*
 # gets renamed to gdm3 in binary-install
