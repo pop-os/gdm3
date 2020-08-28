@@ -1,11 +1,15 @@
-gdm3 (3.36.3-1) UNRELEASED; urgency=medium
+gdm3 (3.37.90-1) UNRELEASED; urgency=medium
 
+  [ Simon McVittie ]
   * New upstream release
     - d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
       Drop, applied upstream
     - This version is functionally equivalent to 3.36.2-1
 
- -- Simon McVittie <smcv@debian.org>  Wed, 12 Aug 2020 12:37:07 +0100
+  [ Marco Trevisan (Treviño) ]
+  * New upstream release
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 02:32:55 +0200
 
 gdm3 (3.36.2-1) unstable; urgency=medium
 
