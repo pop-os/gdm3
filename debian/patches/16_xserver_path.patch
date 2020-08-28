@@ -11,7 +11,7 @@ Forwarded: no
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/build-aux/find-x-server.sh b/build-aux/find-x-server.sh
-index b5a8075..661a6f7 100755
+index b5a8075..f48557e 100755
 --- a/build-aux/find-x-server.sh
 +++ b/build-aux/find-x-server.sh
 @@ -11,7 +11,11 @@
@@ -20,9 +20,9 @@ index b5a8075..661a6f7 100755
  #
 -if test -x /usr/bin/X; then
 +
-+if test -n "$X_PATH"; then
++if test -n "$X_BIN"; then
 +    # assume the user set these variables and don't second-guess them.
-+    echo "$X_PATH"
++    echo "$X_BIN"
 +elif test -x /usr/bin/X; then
      echo "/usr/bin/X"
  elif test -x /usr/X11/bin/Xserver; then

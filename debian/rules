@@ -52,9 +52,7 @@ $(MANPAGES): $(PODFILES)
 override_dh_installsystemd:
 
 override_dh_auto_configure:
-	X_PATH="/usr/bin" \
-	X_SERVER_PATH="/usr/bin" \
-	X_SERVER="/usr/bin/Xorg" \
+	X_BIN="/usr/bin/Xorg" \
 	dh_auto_configure -- \
 		-Dipv6=true \
 		-Dat-spi-registryd-dir=/usr/lib/at-spi \
