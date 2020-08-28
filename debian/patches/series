@@ -7,3 +7,5 @@
 meson-Fix-keyutils-pkg-config-name.patch
 meson-Obey-at-Dcustom-conf-option-when-installing-custom..patch
 meson-Use-correct-rules-path-when-getting-udevdir-from-pk.patch
+meson-Don-t-look-for-non-existent-journald-dependency.patch
+meson_options-Enable-systemd-journal-by-default.patch

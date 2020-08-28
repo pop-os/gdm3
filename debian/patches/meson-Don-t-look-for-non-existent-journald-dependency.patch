@@ -1,0 +1,37 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Fri, 28 Aug 2020 13:57:33 +0200
+Subject: meson: Don't look for non-existent journald dependency
+
+Systemd journal library is provided by libsystemd, given that such API has
+more than 8 years, is probably not needed to convert this into a feature and
+check for a required systemd version in case it's enabled.
+
+So, just set ENABLE_SYSTEMD_JOURNAL just reading the option.
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/107
+Forwarded: yes
+---
+ meson.build | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 08aa1af..a0d4f90 100644
+--- a/meson.build
++++ b/meson.build
+@@ -96,7 +96,6 @@ endif
+ # systemd
+ systemd_dep = dependency('systemd')
+ libsystemd_dep = dependency('libsystemd')
+-journald_dep = dependency('journald', required: get_option('systemd-journal'))
+ systemd_multiseat_x = find_program('systemd-multi-seat-x', required: false)
+ systemd_x_server = systemd_multiseat_x.found()? systemd_multiseat_x.path() : '/lib/systemd/systemd-multi-seat-x'
+ # Plymouth
+@@ -218,7 +217,7 @@ conf.set('HAVE_KEYUTILS', keyutils_dep.found())
+ conf.set('SUPPORTS_PAM_EXTENSIONS', pam_extensions_supported)
+ conf.set('HAVE_SELINUX', libselinux_dep.found())
+ conf.set('ENABLE_USER_DISPLAY_SERVER', get_option('user-display-server'))
+-conf.set('ENABLE_SYSTEMD_JOURNAL', journald_dep.found())
++conf.set('ENABLE_SYSTEMD_JOURNAL', get_option('systemd-journal'))
+ conf.set('ENABLE_WAYLAND_SUPPORT', get_option('wayland-support'))
+ conf.set('ENABLE_PROFILING', get_option('profiling'))
+ conf.set('GDM_INITIAL_VT', get_option('initial-vt'))
