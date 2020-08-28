@@ -7,8 +7,22 @@ gdm3 (3.37.90-1) UNRELEASED; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * New upstream release
+    - debian/rules: Build with meson
+    - debian/control: Depend on debhelper-compat = 13
+    - debian/patches: Refresh as per meson port
+    - debian/gdm3.install: Update install paths.
+      Install everything under usr/share/gdm
+    - debian/rules: Use --fail-missing if not in library-only mode
+    - debian/libgdm1.symbols: Remove various (private) symbols.
+      They were wrongly exported as there's no trace of them in the
+      public API.
+    - debian/patches: Expose to meson only X bin path.
+      It will figure out the rest by itself.
+    - debian/patches: Fix some meson issues causing diffs with autotools
+  * debian/control: Cleanup the Build-Depends.
+    Remove dependencies that are not required explicitly by gdm
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 02:32:55 +0200
+ -- Simon McVittie <smcv@debian.org>  Fri, 28 Aug 2020 10:05:52 +0100
 
 gdm3 (3.36.2-1) unstable; urgency=medium
 
