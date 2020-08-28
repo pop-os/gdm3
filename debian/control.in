@@ -36,6 +36,7 @@ Build-Depends: check (>= 0.9.4),
                libxcb1-dev,
                libxdmcp-dev,
                meson (>= 0.50),
+               systemd,
                udev [linux-any]
 Standards-Version: 4.5.0
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
