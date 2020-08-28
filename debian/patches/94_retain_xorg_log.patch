@@ -1,5 +1,5 @@
 From: Simon McVittie <smcv@debian.org>
-Date: Sat, 8 Nov 2014 17:10:47 +0000
+Date: Sat, 8 Nov 2014 18:10:47 +0100
 Subject: reinstate Xorg.N.log at Xorg maintainers' request
 
 Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=765771

@@ -18,16 +18,16 @@ Forwarded: no
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/data/gdm.service.in b/data/gdm.service.in
-index 57d60ad..f976cbe 100644
+index fbbfb52..98f4cdf 100644
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
 @@ -20,16 +20,16 @@ After=rc-local.service plymouth-start.service systemd-user-sessions.service
  OnFailure=plymouth-quit.service
  
  [Service]
--ExecStart=@sbindir@/gdm
+-ExecStart=${sbindir}/gdm
 +ExecStartPre=/usr/share/gdm/generate-config
-+ExecStart=@sbindir@/gdm3
++ExecStart=${sbindir}/gdm3
  KillMode=mixed
  Restart=always
 +RestartSec=1s
@@ -35,7 +35,7 @@ index 57d60ad..f976cbe 100644
  BusName=org.gnome.DisplayManager
  StandardOutput=syslog
  StandardError=inherit
- EnvironmentFile=-@LANG_CONFIG_FILE@
+ EnvironmentFile=-${LANG_CONFIG_FILE}
 +ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
  KeyringMode=shared
