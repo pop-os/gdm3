@@ -1,28 +1,47 @@
 gdm3 (3.37.90-1) UNRELEASED; urgency=medium
 
-  [ Simon McVittie ]
-  * New upstream release
-    - d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
-      Drop, applied upstream
-
   [ Marco Trevisan (Treviño) ]
-  * New upstream release
-    - debian/rules: Build with meson
-    - debian/control: Depend on debhelper-compat = 13
-    - debian/patches: Refresh as per meson port
-    - debian/gdm3.install: Update install paths.
-      Install everything under usr/share/gdm
-    - debian/rules: Use --fail-missing if not in library-only mode
-    - debian/libgdm1.symbols: Remove various (private) symbols.
-      They were wrongly exported as there's no trace of them in the
+  * New upstream release:
+    - Updates to systemd integration
+    - Support killling X on login even when wayland support is disabled
+    - Fix multi-seat support (LP: #1891815)
+    - Don't keep login screen running in background on Xorg
+    - Fixes for when GDM isn't started on its configured initial VT
+    - Don't hardcode path to plymouth
+    - Enable wayland on cirrus
+    - Chrome remote desktop fix
+    - Always use separate session bus for greeter sessions
+      This runs dbus-run-session, so the binary needs to be available
+  * debian/rules:
+    - Build with meson
+    - Use --fail-missing if not in library-only mode
+    - Expose to meson only X bin path
+  * debian/control:
+    - Depend on debhelper-compat = 13
+    - Cleanup the Build-Depends: Remove dependencies that are not required
+      explicitly by gdm
+  * debian/libgdm1.symbols: Remove various (private) symbols.
+    - They were wrongly exported as there's no trace of them in the
       public API.
-    - debian/patches: Expose to meson only X bin path.
-      It will figure out the rest by itself.
-    - debian/patches: Fix some meson issues causing diffs with autotools
-  * debian/control: Cleanup the Build-Depends.
-    Remove dependencies that are not required explicitly by gdm
+  * debian/patches: Refresh as per meson port
+  * d/p/16_xserver_path.patch:
+    - Make meson read the X bin path from environment
+  * d/p/meson-Fix-keyutils-pkg-config-name.patch,
+    d/p/meson-Obey-at-Dcustom-conf-option-when-installing-custom..patch,
+    d/p/meson-Use-correct-rules-path-when-getting-udevdir-from-pk.patch:
+    - Fix some meson issues causing diffs with autotools
+  * d/p/meson-Don-t-look-for-non-existent-journald-dependency.patch,
+    d/p/meson_options-Enable-systemd-journal-by-default.patch:
+    - Make gdm log again to the journal by default
+  * debian/gdm3.install: Update install paths.
+    Install everything under usr/share/gdm
+  * debian/*.install: Use dh 13 ${DEB_HOST_MULTIARCH} instead of wildcards
 
- -- Simon McVittie <smcv@debian.org>  Fri, 28 Aug 2020 10:05:52 +0100
+  [ Simon McVittie ]
+  * d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+    - Drop, applied upstream
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 22:17:19 +0200
 
 gdm3 (3.36.2-1) unstable; urgency=medium
 
