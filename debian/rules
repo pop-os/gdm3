@@ -10,14 +10,12 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 CONFFLAGS += \
-	--enable-wayland-support \
-	--with-selinux \
-	--with-plymouth
+	-Dselinux=enabled \
+	-Dplymouth=enabled
 else
 CONFFLAGS += \
-	--disable-wayland-support \
-	--without-selinux \
-	--with-vt-switch-workaround
+	-Dwayland-support=false \
+	-Dselinux=disabled
 endif
 
 dh_options =
@@ -28,7 +26,7 @@ ifneq (,$(filter $(DEB_HOST_ARCH_CPU),s390x))
 endif
 
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
-CONFFLAGS += --enable-debug
+CONFFLAGS += --buildtype=debug
 endif
 
 INFILES := $(wildcard debian/*.desktop.in)
@@ -53,42 +51,35 @@ $(MANPAGES): $(PODFILES)
 # We set this up manually
 override_dh_installsystemd:
 
-override_dh_autoreconf:
-	dh_autoreconf --as-needed
-
 override_dh_auto_configure:
 	X_PATH="/usr/bin" \
 	X_SERVER_PATH="/usr/bin" \
 	X_SERVER="/usr/bin/Xorg" \
 	dh_auto_configure -- \
-		--disable-static \
-		--enable-ipv6=yes \
-		--with-at-spi-registryd-directory=/usr/lib/at-spi \
-		--with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
-		--with-custom-conf=/etc/gdm3/daemon.conf \
-		--with-sysconfsubdir=gdm3 \
-		--with-working-directory=/var/lib/gdm3 \
-		--with-xauth-dir=/run/gdm3 \
-		--with-run-dir=/run/gdm3 \
-		--with-pid-file=/run/gdm3.pid \
-		--with-log-dir=/var/log/gdm3 \
-		--with-pam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
-		--with-screenshot-dir=/run/gdm3/greeter \
-		--with-defaults-conf=/usr/share/gdm/defaults.conf \
-		--with-user=Debian-gdm --with-group=Debian-gdm \
-		--with-lang-file=/etc/default/locale \
-		--with-check-accelerated-directory=/usr/lib/gnome-session/ \
-		--with-ran-once-marker-directory=/run/gdm3 \
-		--with-gnome-settings-daemon-directory="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
+		-Dipv6=true \
+		-Dat-spi-registryd-dir=/usr/lib/at-spi \
+		-Ddefault-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
+		-Dcustom-conf=/etc/gdm3/daemon.conf \
+		-Dsysconfsubdir=gdm3 \
+		-Dworking-dir=/var/lib/gdm3 \
+		-Dxauth-dir=/run/gdm3 \
+		-Drun-dir=/run/gdm3 \
+		-Dpid-file=/run/gdm3.pid \
+		-Dlog-dir=/var/log/gdm3 \
+		-Dpam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
+		-Dscreenshot-dir=/run/gdm3/greeter \
+		-Ddefaults-conf=/usr/share/gdm/defaults.conf \
+		-Duser=Debian-gdm -Dgroup=Debian-gdm \
+		-Dlang-file=/etc/default/locale \
+		-Dcheck-accelerated-dir=/usr/lib/gnome-session/ \
+		-Dran-once-marker-dir=/run/gdm3 \
+		-Dgnome-settings-daemon-dir="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
 		$(CONFFLAGS)
 
 override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 	dh_auto_build
 
 override_dh_install:
-	find debian/tmp -name '*.la' -print -delete
-	rm -rf debian/tmp/var/lib/gdm3/.[cgl]*
-	rm -rf debian/tmp/run
 	dh_install
 ifneq ($(just_the_library),yes)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
