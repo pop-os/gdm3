@@ -1,0 +1,26 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <marco@ubuntu.com>
+Date: Fri, 28 Aug 2020 05:19:16 +0200
+Subject: meson: Fix keyutils pkg-config name
+
+Keyutils includes a .pc file as mentioned in commit 141f8bc244, however its
+name was wrongly changed from 'libkeyutils' during the meson port
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/107
+Forwarded: yes
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index b210a18..866e1fe 100644
+--- a/meson.build
++++ b/meson.build
+@@ -50,7 +50,7 @@ gtk_dep = dependency('gtk+-3.0', version: '>= 2.91.1')
+ libcanberra_gtk_dep = dependency('libcanberra-gtk3', version: '>= 0.4')
+ accountsservice_dep = dependency('accountsservice', version: '>= 0.6.35')
+ xcb_dep = dependency('xcb')
+-keyutils_dep = dependency('keyutils', required: false)
++keyutils_dep = dependency('libkeyutils', required: false)
+ libselinux_dep = dependency('libselinux', required: get_option('selinux'))
+ 
+ # udev

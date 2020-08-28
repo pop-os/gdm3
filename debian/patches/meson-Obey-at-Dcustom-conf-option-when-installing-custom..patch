@@ -1,0 +1,36 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <marco@ubuntu.com>
+Date: Fri, 28 Aug 2020 05:19:16 +0200
+Subject: meson: Obey at -Dcustom-conf option when installing custom.conf
+
+No matter what parameter was passed to gdm, the custom.conf was always
+installed in $gdmcomnfdir/custom.conf, even if the config.h was using the
+configured path.
+
+Ensure that we use the passed argument, setting its name as configure_file
+output and its path as the install_dir.
+Unfortunately we've to be hackish here, using coreutils too,s until we
+require meson 0.53 (and can use its FS module).
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/107
+Forwarded: yes
+---
+ data/meson.build | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index b24f7c0..11a70d4 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -34,10 +34,10 @@ configure_file(
+ )
+ configure_file(
+   input: 'gdm.conf-custom.in',
+-  output: 'custom.conf',
++  output: run_command(find_program('basename'), gdm_custom_conf).stdout().strip(),
+   copy: true,
+   install_mode: 'rw-r--r--',
+-  install_dir: gdmconfdir,
++  install_dir: run_command(find_program('dirname'), gdm_custom_conf).stdout().strip(),
+ )
+ 
+ # GSettings schema

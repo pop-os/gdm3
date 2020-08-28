@@ -4,3 +4,6 @@
 92_systemd_unit.patch
 93_translate-default-desktop.patch
 94_retain_xorg_log.patch
+meson-Fix-keyutils-pkg-config-name.patch
+meson-Obey-at-Dcustom-conf-option-when-installing-custom..patch
+meson-Use-correct-rules-path-when-getting-udevdir-from-pk.patch
