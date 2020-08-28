@@ -99,7 +99,11 @@ override_dh_link:
 	dh_link
 
 override_dh_missing:
+ifeq ($(just_the_library),yes)
 	dh_missing --list-missing
+else
+	dh_missing --fail-missing
+endif
 
 override_dh_makeshlibs:
 	dh_makeshlibs -- -c4
