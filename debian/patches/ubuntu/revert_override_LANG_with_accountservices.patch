@@ -9,7 +9,7 @@ This reverts commit db94ed31b79c90528d922d705ff3484216817415.
  1 file changed, 14 deletions(-)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 1792bfd..cfa68e8 100644
+index e6fd59a..2b9dfe9 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
 @@ -2626,7 +2626,6 @@ set_up_session_environment (GdmSession *self)

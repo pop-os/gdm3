@@ -8,48 +8,13 @@ same way as for other types of errors.
 Bug-Ubuntu: https://launchpad.net/bugs/678421
 Forwarded: https://bugzilla.gnome.org/738970
 ---
- configure.ac                |  2 +-
- data/Makefile.am            |  3 +++
  data/Xsession.in            | 28 ++++++++++++++++++++++++----
  data/config-error-dialog.sh | 29 +++++++++++++++++++++++++++++
+ data/meson.build            |  7 ++++++-
  po/POTFILES.in              |  1 +
- 5 files changed, 58 insertions(+), 5 deletions(-)
+ 4 files changed, 60 insertions(+), 5 deletions(-)
  create mode 100644 data/config-error-dialog.sh
 
-diff --git a/configure.ac b/configure.ac
-index bc14047..86ad66e 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -1409,7 +1409,7 @@ fi
- if test x$os_solaris = xyes ; then
-    XSESSION_SHELL=/bin/ksh
- else
--   XSESSION_SHELL=/bin/sh
-+   XSESSION_SHELL=/bin/bash
- fi
- 
- #
-diff --git a/data/Makefile.am b/data/Makefile.am
-index 7bca5e4..48b9d93 100644
---- a/data/Makefile.am
-+++ b/data/Makefile.am
-@@ -238,6 +238,7 @@ uninstall-hook:
- 	rm -f \
- 	$(DESTDIR)$(GDM_CUSTOM_CONF) \
- 	$(DESTDIR)$(gdmconfdir)/Xsession \
-+	$(DESTDIR)$(gdmconfdir)/config-error-dialog.sh \
- 	$(DESTDIR)$(initdir)/Default \
- 	$(DESTDIR)$(postlogindir)/Default.sample \
- 	$(DESTDIR)$(predir)/Default \
-@@ -265,6 +266,8 @@ if ENABLE_GDM_XSESSION
- 	$(INSTALL_SCRIPT) Xsession $(DESTDIR)$(gdmconfdir)/Xsession
- endif
- 
-+	$(INSTALL_DATA) $(srcdir)/config-error-dialog.sh $(DESTDIR)$(gdmconfdir)/config-error-dialog.sh
-+
- 	if test '!' -d $(DESTDIR)$(initdir); then \
- 		$(mkinstalldirs) $(DESTDIR)$(initdir); \
- 		chmod 755 $(DESTDIR)$(initdir); \
 diff --git a/data/Xsession.in b/data/Xsession.in
 index 40da9c7..54b1f9a 100755
 --- a/data/Xsession.in
@@ -126,6 +91,25 @@ index 0000000..08cb7b9
 +elif [ -x /usr/bin/zenity ]; then
 +	zenity --warning --no-wrap --text="$TEXT"
 +fi
+diff --git a/data/meson.build b/data/meson.build
+index 9ae2d4b..ddce3fe 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -178,8 +178,13 @@ if get_option('gdm-xsession')
+     output: '@BASENAME@',
+     configuration: {
+       'libexecdir': gdm_prefix / get_option('libexecdir'),
+-      'XSESSION_SHELL': get_option('solaris')? '/bin/ksh' : '/bin/sh',
++      'XSESSION_SHELL': get_option('solaris')? '/bin/ksh' : '/bin/bash',
+     },
+     install_dir: gdmconfdir,
+   )
++
++  install_data(
++    'config-error-dialog.sh',
++    install_dir: gdmconfdir,
++  )
+ endif
 diff --git a/po/POTFILES.in b/po/POTFILES.in
 index e84eef2..0486c56 100644
 --- a/po/POTFILES.in

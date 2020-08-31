@@ -5,74 +5,34 @@ Subject: gdm3.service: wait for drm device before trying to start it
 Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/gdm3/+bug/1794280
 Forwarded: not-needed
 ---
- configure.ac             |   1 +
- data/Makefile.am         |   1 +
  data/gdm.service.in      |   1 +
- utils/Makefile.am        |   9 +++++
+ data/meson.build         |   1 +
  utils/gdm-wait-for-drm.c | 101 +++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 113 insertions(+)
+ utils/meson.build        |   9 +++++
+ 4 files changed, 112 insertions(+)
  create mode 100644 utils/gdm-wait-for-drm.c
 
-diff --git a/configure.ac b/configure.ac
-index 86ad66e..686921d 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -76,6 +76,7 @@ PKG_CHECK_MODULES(COMMON,
-         gobject-2.0 >= $GLIB_REQUIRED_VERSION
-         gio-2.0 >= $GLIB_REQUIRED_VERSION
-         gio-unix-2.0 >= $GLIB_REQUIRED_VERSION
-+        gudev-1.0
- )
- AC_SUBST(COMMON_CFLAGS)
- AC_SUBST(COMMON_LIBS)
-diff --git a/data/Makefile.am b/data/Makefile.am
-index 48b9d93..943dec3 100644
---- a/data/Makefile.am
-+++ b/data/Makefile.am
-@@ -207,6 +207,7 @@ systemdsystemunit =
- gdm.service: $(srcdir)/gdm.service.in
- 	$(AM_V_GEN)sed \
- 		-e 's,[@]sbindir[@],$(sbindir),g' \
-+		-e 's,[@]libexecdir[@],$(libexecdir),g' \
- 		-e 's,[@]GDM_INITIAL_VT[@],$(GDM_INITIAL_VT),g' \
- 		-e 's,[@]LANG_CONFIG_FILE[@],$(LANG_CONFIG_FILE),g' \
- 		-e 's,[@]PLYMOUTH_QUIT_SERVICE[@],$(PLYMOUTH_QUIT_SERVICE),g' \
 diff --git a/data/gdm.service.in b/data/gdm.service.in
-index f976cbe..c259923 100644
+index 98f4cdf..6f98a2e 100644
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -33,3 +33,4 @@ EnvironmentFile=-@LANG_CONFIG_FILE@
+@@ -33,3 +33,4 @@ EnvironmentFile=-${LANG_CONFIG_FILE}
  ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
  KeyringMode=shared
-+ExecStartPre=@libexecdir@/gdm-wait-for-drm
-diff --git a/utils/Makefile.am b/utils/Makefile.am
-index babe890..3eb43c3 100644
---- a/utils/Makefile.am
-+++ b/utils/Makefile.am
-@@ -35,6 +35,7 @@ bin_PROGRAMS = \
- 
- libexec_PROGRAMS = \
- 	gdm-disable-wayland	\
-+	gdm-wait-for-drm	\
- 	$(NULL)
- 
- gdmflexiserver_LDADD =		\
-@@ -63,6 +64,14 @@ gdm_disable_wayland_SOURCES =	\
- 	gdm-disable-wayland.c	\
- 	$(NULL)
- 
-+gdm_wait_for_drm_LDADD =	\
-+	$(COMMON_LIBS)		\
-+	$(NULL)
-+
-+gdm_wait_for_drm_SOURCES =	\
-+	gdm-wait-for-drm.c	\
-+	$(NULL)
-+
- CLEANFILES = 			\
- 	$(NULL)
- 
++ExecStartPre=${libexecdir}/gdm-wait-for-drm
+diff --git a/data/meson.build b/data/meson.build
+index ddce3fe..e1c57a2 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -136,6 +136,7 @@ gdm_rules = configure_file(
+ # DBus service files
+ service_config = configuration_data()
+ service_config.set('sbindir', gdm_prefix / get_option('sbindir'))
++service_config.set('libexecdir', gdm_prefix / get_option('libexecdir'))
+ service_config.set('GDM_INITIAL_VT', get_option('initial-vt'))
+ service_config.set('LANG_CONFIG_FILE', lang_config_file)
+ if plymouth_dep.found()
 diff --git a/utils/gdm-wait-for-drm.c b/utils/gdm-wait-for-drm.c
 new file mode 100644
 index 0000000..aeffb3c
@@ -180,3 +140,20 @@ index 0000000..aeffb3c
 +
 +        return EXIT_SUCCESS;
 +}
+diff --git a/utils/meson.build b/utils/meson.build
+index f719c49..d7f991b 100644
+--- a/utils/meson.build
++++ b/utils/meson.build
+@@ -39,3 +39,12 @@ gdm_disable_wayland = executable('gdm-disable-wayland',
+   install_dir: get_option('libexecdir'),
+ )
+ 
++gdm_wait_for_drm = executable('gdm-wait-for-drm',
++  'gdm-wait-for-drm.c',
++  dependencies: [
++    glib_dep,
++    dependency('gudev-1.0'),
++  ],
++  install: true,
++  install_dir: get_option('libexecdir'),
++)

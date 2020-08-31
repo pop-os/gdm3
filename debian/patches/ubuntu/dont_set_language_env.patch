@@ -13,7 +13,7 @@ Forwarded: not-needed
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index cfa68e8..2e6c7d8 100644
+index 2b9dfe9..1556b45 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
 @@ -2644,7 +2644,7 @@ set_up_session_environment (GdmSession *self)
