@@ -1,0 +1,41 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Mon, 31 Aug 2020 15:33:46 +0200
+Subject: XSession: Use x-terminal-emulator as fallback instead of xterm
+
+Mimic debian's behavior here, to make sure we use the default terminal,
+which these days points to gnome-terminal, as it may allow a better
+experience especially when it comes to HiDPI monitors where xterm could be
+barely visible and its text hard zoom from the UI.
+---
+ data/Xsession.in      | 6 +++---
+ debian/patches/series | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/data/Xsession.in b/data/Xsession.in
+index 54b1f9a..364b107 100755
+--- a/data/Xsession.in
++++ b/data/Xsession.in
+@@ -227,11 +227,11 @@ echo "$0: Setup done, will execute: $command"
+ 
+ eval exec $command
+ 
+-echo "$0: Executing $command failed, will run xterm"
++echo "$0: Executing $command failed, will run x-terminal-emulator"
+ 
+ if [ -n "$zenity" ] ; then
+-	disptext=`gettextfunc "Failed to start the session, so starting a failsafe xterm session.  Windows will have focus only if the mouse pointer is above them.  To get out of this mode type 'exit' in the window."`
++	disptext=`gettextfunc "Failed to start the session, so starting a failsafe terminal session.  Windows will have focus only if the mouse pointer is above them.  To get out of this mode type 'exit' in the window."`
+ 	"$zenity" --info --text "$disptext"
+ fi
+ 
+-exec xterm -geometry 80x24+0+0
++exec x-terminal-emulator -geometry 80x24+0+0
+diff --git a/debian/patches/series b/debian/patches/series
+index 9fe63d9..2f357a8 100644
+--- a/debian/patches/series
++++ b/debian/patches/series
+@@ -18,3 +18,4 @@ ubuntu/config_error_dialog.patch
+ ubuntu/dont_set_language_env.patch
+ ubuntu/prefer_ubuntu_session_fallback.patch
+ ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
++XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
