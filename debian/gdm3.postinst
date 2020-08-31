@@ -92,10 +92,6 @@ fi
 
 chown -R gdm:gdm /var/lib/gdm3
 
-if [ -L /etc/pam.d/gdm-welcome ]; then
-    rm -f /etc/pam.d/gdm-welcome
-fi
-
 #DEBHELPER#
 
 if [ -x /etc/init.d/gdm3 ]; then

@@ -1,21 +1,18 @@
 #!/usr/bin/dh-exec
 etc/*
 lib/systemd/
+usr/lib/systemd/
 [linux-any] lib/udev
-lib/*/security/*.so
+lib/${DEB_HOST_MULTIARCH}/security/*.so
 usr/bin/gdm-screenshot
-usr/lib/gdm3/gdm-*
+usr/libexec/gdm-*
 # gets renamed to gdm3 in binary-install
 usr/sbin/gdm
 usr/share/locale/
 usr/share/help/
-usr/share/gdm/gdb-cmd
-usr/share/gdm/locale.alias
-usr/share/gdm/greeter
-usr/share/gdm/*.schemas
+usr/share/gdm/
 usr/share/gnome-session/
 usr/share/dconf/
-var/*
 
 # debian/Xsession				etc/gdm3
 debian/greeter.dconf-defaults*		usr/share/gdm

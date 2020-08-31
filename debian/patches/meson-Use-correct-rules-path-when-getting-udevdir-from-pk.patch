@@ -1,0 +1,32 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <marco@ubuntu.com>
+Date: Fri, 28 Aug 2020 05:19:16 +0200
+Subject: meson: Use correct rules path when getting udevdir from pkg-config
+
+When udev is installed we compute the udevdir from pkg-config, however that
+is only the parent folder of the rules.d, so in any case consider it a
+prefix.
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/107
+Forwarded: yes
+---
+ meson.build | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 866e1fe..08aa1af 100644
+--- a/meson.build
++++ b/meson.build
+@@ -56,10 +56,11 @@ libselinux_dep = dependency('libselinux', required: get_option('selinux'))
+ # udev
+ if udev_dir == ''
+   if udev_dep.found()
+-    udev_dir = udev_dep.get_pkgconfig_variable('udevdir')
++    udev_prefix = udev_dep.get_pkgconfig_variable('udevdir')
+   else
+-    udev_dir = gdm_prefix / 'lib' / 'udev' / 'rules.d'
++    udev_prefix = gdm_prefix / 'lib' / 'udev'
+   endif
++  udev_dir = udev_prefix / 'rules.d'
+ endif
+ 
+ # X11

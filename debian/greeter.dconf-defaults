@@ -23,7 +23,7 @@
 # Login manager options
 # =====================
 [org/gnome/login-screen]
-#logo='/usr/share/images/vendor-logos/logo-text-version-128.png'
+#logo='/usr/share/images/vendor-logos/logo-text-version-64.png'
 
 # - Disable user list
 # disable-user-list=true

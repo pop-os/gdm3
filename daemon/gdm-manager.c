@@ -148,7 +148,7 @@ plymouth_is_running (void)
         GError  *error;
 
         error = NULL;
-        res = g_spawn_command_line_sync ("/bin/plymouth --ping",
+        res = g_spawn_command_line_sync ("plymouth --ping",
                                          NULL, NULL, &status, &error);
         if (! res) {
                 g_debug ("Could not ping plymouth: %s", error->message);
@@ -166,7 +166,7 @@ plymouth_prepare_for_transition (void)
         GError  *error;
 
         error = NULL;
-        res = g_spawn_command_line_sync ("/bin/plymouth deactivate",
+        res = g_spawn_command_line_sync ("plymouth deactivate",
                                          NULL, NULL, NULL, &error);
         if (! res) {
                 g_warning ("Could not deactivate plymouth: %s", error->message);
@@ -181,7 +181,7 @@ plymouth_quit_with_transition (void)
         GError  *error;
 
         error = NULL;
-        res = g_spawn_command_line_async ("/bin/plymouth quit --retain-splash", &error);
+        res = g_spawn_command_line_async ("plymouth quit --retain-splash", &error);
         if (! res) {
                 g_warning ("Could not quit plymouth: %s", error->message);
                 g_error_free (error);
@@ -197,7 +197,7 @@ plymouth_quit_without_transition (void)
         GError  *error;
 
         error = NULL;
-        res = g_spawn_command_line_async ("/bin/plymouth quit", &error);
+        res = g_spawn_command_line_async ("plymouth quit", &error);
         if (! res) {
                 g_warning ("Could not quit plymouth: %s", error->message);
                 g_error_free (error);
@@ -501,7 +501,7 @@ get_display_and_details_for_bus_sender (GdmManager       *self,
                 goto out;
         }
 
-        ret = gdm_find_display_session_for_uid (caller_uid, &session_id, &error);
+        ret = gdm_find_display_session (pid, caller_uid, &session_id, &error);
 
         if (!ret) {
                 g_debug ("GdmManager: Unable to find display session for uid %d: %s",
@@ -1781,9 +1781,6 @@ on_start_user_session (StartUserSessionOperation *operation)
         gboolean doing_initial_setup = FALSE;
         GdmDisplay *display;
         const char *session_id;
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
-        g_autofree char *display_session_type = NULL;
-#endif
 
         g_debug ("GdmManager: start or jump to session");
 
@@ -1808,9 +1805,6 @@ on_start_user_session (StartUserSessionOperation *operation)
 
         g_object_get (G_OBJECT (display),
                       "doing-initial-setup", &doing_initial_setup,
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
-                      "session-type", &display_session_type,
-#endif
                       NULL);
 
         if (doing_initial_setup)
@@ -1835,18 +1829,8 @@ on_start_user_session (StartUserSessionOperation *operation)
                 if (doing_initial_setup) {
                         g_autoptr(GError) error = NULL;
 
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
-                        if (g_strcmp0 (display_session_type, "wayland") == 0) {
-                                g_debug ("GdmManager: closing down initial setup display in background");
-                                g_object_set (G_OBJECT (display), "status", GDM_DISPLAY_WAITING_TO_FINISH, NULL);
-                        }
-#endif
-                        if (gdm_display_get_status (display) == GDM_DISPLAY_MANAGED) {
-                                g_debug ("GdmManager: closing down initial setup display");
-                                gdm_display_stop_greeter_session (display);
-                                gdm_display_unmanage (display);
-                                gdm_display_finish (display);
-                        }
+                        g_debug ("GdmManager: closing down initial setup display in background");
+                        g_object_set (G_OBJECT (display), "status", GDM_DISPLAY_WAITING_TO_FINISH, NULL);
 
                         if (!g_file_set_contents (ALREADY_RAN_INITIAL_SETUP_ON_THIS_BOOT,
                                                   "1",

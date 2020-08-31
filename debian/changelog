@@ -1,3 +1,108 @@
+gdm3 (3.37.90-1) experimental; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * New upstream release:
+    - Updates to systemd integration
+    - Support killling X on login even when wayland support is disabled
+    - Fix multi-seat support (LP: #1891815)
+    - Don't keep login screen running in background on Xorg
+    - Fixes for when GDM isn't started on its configured initial VT
+    - Don't hardcode path to plymouth
+    - Enable wayland on cirrus
+    - Chrome remote desktop fix
+    - Always use separate session bus for greeter sessions
+      This runs dbus-run-session, so the binary needs to be available
+  * debian/rules:
+    - Build with meson
+    - Use --fail-missing if not in library-only mode
+    - Expose to meson only X bin path
+  * debian/control:
+    - Depend on debhelper-compat = 13
+    - Cleanup the Build-Depends: Remove dependencies that are not required
+      explicitly by gdm
+  * debian/libgdm1.symbols: Remove various (private) symbols.
+    - They were wrongly exported as there's no trace of them in the
+      public API.
+  * debian/patches: Refresh as per meson port
+  * d/p/16_xserver_path.patch:
+    - Make meson read the X bin path from environment
+  * d/p/meson-Fix-keyutils-pkg-config-name.patch,
+    d/p/meson-Obey-at-Dcustom-conf-option-when-installing-custom..patch,
+    d/p/meson-Use-correct-rules-path-when-getting-udevdir-from-pk.patch:
+    - Fix some meson issues causing diffs with autotools
+  * d/p/meson-Don-t-look-for-non-existent-journald-dependency.patch,
+    d/p/meson_options-Enable-systemd-journal-by-default.patch:
+    - Make gdm log again to the journal by default
+  * debian/gdm3.install: Update install paths.
+    Install everything under usr/share/gdm
+  * debian/*.install: Use dh 13 ${DEB_HOST_MULTIARCH} instead of wildcards
+
+  [ Simon McVittie ]
+  * d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+    - Drop, applied upstream
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 22:37:09 +0200
+
+gdm3 (3.36.2-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - Use a separate D-Bus session bus for each greeter
+      + Add Depends on dbus, for dbus-run-session
+    - Don't disable Wayland on Cirrus hardware (or more likely, emulated
+      Cirrus hardware in qemu). A 5.2+ kernel is recommended.
+    - Check for keyutils using pkg-config
+    - Fixes for when GDM isn't started on its configured initial VT
+    - Don't hard-code /bin/plymouth
+    - Translation updates
+  * d/watch: Only watch for even-numbered (stable) releases
+  * d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+    Add post-release fix from upstream gnome-3-36 branch to fix a fast
+    user switching regression in 3.36.2, by forcing the greeter to appear
+    on tty1
+  * Update symbols file.
+    This ignores a change to private symbols:
+    gdm_find_display_session_for_uid isn't declared in a public header,
+    and nothing in Debian seems to call it.
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 25 Jun 2020 10:55:01 +0100
+
+gdm3 (3.34.1-3) unstable; urgency=medium
+
+  * Team upload
+
+  [ Simon McVittie ]
+  * d/greeter.dconf-defaults: Use 64px instead of 128px logo.
+    Until gnome-shell 3.36.1, the logo was scaled down to be 48px tall.
+    Since 3.36.1, it's shown at actual size, and 128px looks silly.
+    desktop-base doesn't currently have a 48px version, but 64px is close
+    enough. (Closes: #955759)
+
+  [ Alexander Kurtz ]
+  * debian/generate-config: Re-compile the dconf database unconditionally.
+    Previously we tried to determine whether running `dconf compile` was
+    really necessary by comparing the timestamps of the input and output
+    files in a make-like fashion, but this was unnecessarily complicated,
+    since both the CPU and IO load are negligible.
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 05 Apr 2020 17:16:30 +0100
+
+gdm3 (3.34.1-2) unstable; urgency=medium
+
+  [ Alexander Kurtz ]
+  * debian/gdm3.postinst: Remove obsolete cleanup code now that buster has
+    been released.
+
+  [ Laurent Bigonville ]
+  * debian/control.in: Bump Standards-Version to 4.5.0 (no further changes)
+  * Move the daemons to libexec now that's allowed in the policy
+  * Move everything from /var/run to /run as the former is a link to the later
+    for quite some time
+  * debian/gdm3.postinst: Remove obsolete cleanup code for gdm-welcome PAM
+    service, this dates from 2012
+
+ -- Laurent Bigonville <bigon@debian.org>  Sun, 15 Mar 2020 10:50:21 +0100
+
 gdm3 (3.34.1-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:

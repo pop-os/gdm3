@@ -1,5 +1,5 @@
 usr/include/gdm
-usr/lib/*/libgdm.so
-usr/lib/*/pkgconfig/gdm-pam-extensions.pc
-usr/lib/*/pkgconfig/gdm.pc
+usr/lib/${DEB_HOST_MULTIARCH}/libgdm.so
+usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig/gdm-pam-extensions.pc
+usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig/gdm.pc
 usr/share/gir-1.0/

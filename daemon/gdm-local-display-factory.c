@@ -63,7 +63,7 @@ struct _GdmLocalDisplayFactory
         guint            seat_new_id;
         guint            seat_removed_id;
 
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+#if defined(ENABLE_USER_DISPLAY_SERVER)
         unsigned int     active_vt;
         guint            active_vt_watch_id;
         guint            wait_to_finish_timeout_id;
@@ -224,6 +224,7 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
 {
         gboolean         ret;
         GdmDisplay      *display = NULL;
+        gboolean         is_initial = FALSE;
 
         g_return_val_if_fail (GDM_IS_LOCAL_DISPLAY_FACTORY (factory), FALSE);
 
@@ -235,6 +236,7 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
         display = gdm_local_display_new ();
         if (gdm_local_display_factory_use_wayland ())
                 g_object_set (G_OBJECT (display), "session-type", "wayland", NULL);
+        is_initial = TRUE;
 #else
         if (display == NULL) {
                 guint32 num;
@@ -248,6 +250,7 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
         g_object_set (display,
                       "seat-id", "seat0",
                       "allow-timed-login", FALSE,
+                      "is-initial", is_initial,
                       NULL);
 
         store_display (factory, display);
@@ -403,7 +406,7 @@ on_display_status_changed (GdmDisplay             *display,
         case GDM_DISPLAY_PREPARED:
                 break;
         case GDM_DISPLAY_MANAGED:
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+#if defined(ENABLE_USER_DISPLAY_SERVER)
                 g_signal_connect_object (display,
                                          "notify::session-registered",
                                          G_CALLBACK (on_session_registered_cb),
@@ -660,12 +663,11 @@ lookup_by_tty (const char *id,
         return g_strcmp0 (tty_to_check, tty_to_find) == 0;
 }
 
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+#if defined(ENABLE_USER_DISPLAY_SERVER)
 static void
 maybe_stop_greeter_in_background (GdmLocalDisplayFactory *factory,
                                   GdmDisplay             *display)
 {
-        g_autofree char *display_session_type = NULL;
         gboolean doing_initial_setup = FALSE;
 
         if (gdm_display_get_status (display) != GDM_DISPLAY_MANAGED) {
@@ -674,20 +676,12 @@ maybe_stop_greeter_in_background (GdmLocalDisplayFactory *factory,
         }
 
         g_object_get (G_OBJECT (display),
-                      "session-type", &display_session_type,
                       "doing-initial-setup", &doing_initial_setup,
                       NULL);
 
         /* we don't ever stop initial-setup implicitly */
         if (doing_initial_setup) {
                 g_debug ("GdmLocalDisplayFactory: login window is performing initial-setup, so ignoring");
-                return;
-        }
-
-        /* we can only stop greeter for wayland sessions, since
-         * X server would jump back on exit */
-        if (g_strcmp0 (display_session_type, "wayland") != 0) {
-                g_debug ("GdmLocalDisplayFactory: login window is running on Xorg, so ignoring");
                 return;
         }
 
@@ -873,7 +867,7 @@ gdm_local_display_factory_start_monitor (GdmLocalDisplayFactory *factory)
                                                                              g_object_ref (factory),
                                                                              g_object_unref);
 
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+#if defined(ENABLE_USER_DISPLAY_SERVER)
         io_channel = g_io_channel_new_file ("/sys/class/tty/tty0/active", "r", NULL);
 
         if (io_channel != NULL) {
@@ -900,7 +894,7 @@ gdm_local_display_factory_stop_monitor (GdmLocalDisplayFactory *factory)
                                                       factory->seat_removed_id);
                 factory->seat_removed_id = 0;
         }
-#if defined(ENABLE_WAYLAND_SUPPORT) && defined(ENABLE_USER_DISPLAY_SERVER)
+#if defined(ENABLE_USER_DISPLAY_SERVER)
         if (factory->active_vt_watch_id) {
                 g_source_remove (factory->active_vt_watch_id);
                 factory->active_vt_watch_id = 0;

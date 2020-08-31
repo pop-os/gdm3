@@ -1,5 +1,5 @@
 From: Jeremy Bicha <jbicha@ubuntu.com>
-Date: Sat, 4 Aug 2018 21:08:27 +0100
+Date: Sat, 4 Aug 2018 22:08:27 +0200
 Subject: Fix 'make check' in po/
 
 Forwarded: not-needed
@@ -7,12 +7,13 @@ Origin: vendor, Debian
 ---
  po/POTFILES.skip | 1 +
  1 file changed, 1 insertion(+)
- create mode 100644 po/POTFILES.skip
 
 diff --git a/po/POTFILES.skip b/po/POTFILES.skip
-new file mode 100644
-index 0000000..022f550
---- /dev/null
+index 8b7f390..84c4f48 100644
+--- a/po/POTFILES.skip
 +++ b/po/POTFILES.skip
-@@ -0,0 +1 @@
+@@ -7,3 +7,4 @@
+ # remove these unless you fix "make distcheck" a different way.
+ #
+ data/gdm.schemas.in
 +debian/default.desktop.in
