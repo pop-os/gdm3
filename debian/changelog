@@ -1,3 +1,72 @@
+gdm3 (3.37.90-1ubuntu1) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * Merge with debian, containing new upstream release
+  * debian/patches: Refresh
+  * d/p/nvidia_prime.patch,
+    d/p/config_error_dialog.patch,
+    d/p/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
+    - Update to use meson as build system
+  * d/p/meson-Fix-Xsession-input-file-name.patch:
+    - Rename input file from the wrong XSession to Xsession
+  * d/p/ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch:
+    - Use x-terminal-emulator as the fallback terminal instead of xterm,
+      so that the user configured (very likely gnome-terminal) is used
+  * Remaining changes with debian:
+    + README.Debian: update for correct paths in Ubuntu
+    + control.in:
+      - Don't recommend desktop-base
+      - Build depend on libgudev-1.0-dev
+      - Depend on bash for config_error_dialog.patch
+      - Update Vcs field
+      - Recomends libpam-fprintd (instead of Suggests)
+    + rules:
+      - Don't override default user/group
+      - -Dgdm-xsession=true to install upstream Xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, README.Debian, gdm3.8.pod:
+      Use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.postinst, gdm3.prerm: don't kill gdm on upgrade
+    + gdm3.*.pam: Make pam_env read ~/.pam_environment
+    + gdm3.install:
+      - Stop installing default.desktop. It adds unnecessary clutter
+        ("System Default") to the session chooser.
+      - Don't install debian/Xsession
+    + Add run_xsession.d.patch
+    + Add xresources_is_a_dir.patch
+      - Fix loading from /etc/X11/Xresources/*
+    + Add nvidia_prime.patch:
+      - Add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + Add revert_override_LANG_with_accountservices.patch:
+      - On Ubuntu accountservices only stores the language and not the
+        full locale as needed by LANG.
+    + Add dont_set_language_env.patch:
+      - Don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + Add config_error_dialog.patch:
+      - Show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + Add debian/patches/revert_nvidia_wayland_blacklist.patch:
+      - Don't blacklist nvidia for wayland
+    + Add gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
+      - Wait for the first valid gdm device on pre-start
+    + Add debian/default.pa
+      - Disable Bluetooth audio devices in PulseAudio from gdm3.
+    + debian/gdm3.install
+      - Added details of the default.pa file
+    + debian/gdm3.postinst
+      - Added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: Don't set Debian settings in the
+      greeter's dconf DB
+
+  [ Simon McVittie ]
+  * Build-Depend on systemd, for /usr/share/pkgconfig/systemd.pc
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 31 Aug 2020 14:29:16 +0200
+
 gdm3 (3.37.90-1) experimental; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
