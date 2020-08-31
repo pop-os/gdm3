@@ -92,7 +92,7 @@ index 0000000..08cb7b9
 +	zenity --warning --no-wrap --text="$TEXT"
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 9ae2d4b..ddce3fe 100644
+index 71380af..bbaa0d9 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -178,8 +178,13 @@ if get_option('gdm-xsession')

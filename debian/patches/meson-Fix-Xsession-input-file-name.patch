@@ -1,0 +1,24 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Mon, 31 Aug 2020 14:56:16 +0200
+Subject: meson: Fix Xsession input file name
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/107
+Forwarded: yes
+Applied-Upstream: 3.37.92
+---
+ data/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index 11a70d4..2a0741d 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -174,7 +174,7 @@ install_data(
+ # XSession
+ if get_option('gdm-xsession')
+   configure_file(
+-    input: 'XSession.in',
++    input: 'Xsession.in',
+     output: '@BASENAME@',
+     configuration: {
+       'libexecdir': gdm_prefix / get_option('libexecdir'),

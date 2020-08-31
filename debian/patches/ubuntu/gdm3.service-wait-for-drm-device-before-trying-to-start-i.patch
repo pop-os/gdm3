@@ -22,7 +22,7 @@ index 98f4cdf..6f98a2e 100644
  KeyringMode=shared
 +ExecStartPre=${libexecdir}/gdm-wait-for-drm
 diff --git a/data/meson.build b/data/meson.build
-index ddce3fe..e1c57a2 100644
+index bbaa0d9..ddc707e 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -136,6 +136,7 @@ gdm_rules = configure_file(
