@@ -7,9 +7,8 @@ which these days points to gnome-terminal, as it may allow a better
 experience especially when it comes to HiDPI monitors where xterm could be
 barely visible and its text hard zoom from the UI.
 ---
- data/Xsession.in      | 6 +++---
- debian/patches/series | 1 +
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ data/Xsession.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/data/Xsession.in b/data/Xsession.in
 index 54b1f9a..364b107 100755
@@ -30,12 +29,3 @@ index 54b1f9a..364b107 100755
  
 -exec xterm -geometry 80x24+0+0
 +exec x-terminal-emulator -geometry 80x24+0+0
-diff --git a/debian/patches/series b/debian/patches/series
-index 9fe63d9..2f357a8 100644
---- a/debian/patches/series
-+++ b/debian/patches/series
-@@ -18,3 +18,4 @@ ubuntu/config_error_dialog.patch
- ubuntu/dont_set_language_env.patch
- ubuntu/prefer_ubuntu_session_fallback.patch
- ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
-+XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
