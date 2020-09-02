@@ -1,4 +1,4 @@
-gdm3 (3.37.90-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.37.90-1ubuntu1) groovy; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * Merge with debian, containing new upstream release
@@ -75,7 +75,7 @@ gdm3 (3.37.90-1ubuntu1) UNRELEASED; urgency=medium
   * debian/control: Make gdm depend on gnome-session-common ≥ 3.37.0-2~
     This is where the systemd units live now.
 
- -- Iain Lane <iain.lane@canonical.com>  Wed, 02 Sep 2020 17:56:12 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Wed, 02 Sep 2020 17:56:50 +0100
 
 gdm3 (3.37.90-1) experimental; urgency=medium
 
