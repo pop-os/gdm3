@@ -61,11 +61,21 @@ gdm3 (3.37.90-1ubuntu1) UNRELEASED; urgency=medium
         exist.
     + debian/greeter.dconf-defaults: Don't set Debian settings in the
       greeter's dconf DB
+  * debian/patches: Fix patch not to patch debian/patches/series
 
   [ Simon McVittie ]
-  * Build-Depend on systemd, for /usr/share/pkgconfig/systemd.pc
+  * Add patch to remove deprecated StandardOutput=syslog from systemd unit
+  * Build-Depend on systemd, for /usr/share/pkgconfig/systemd.pc.
+    This should fix FTBFS on the buildds.
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 31 Aug 2020 14:29:16 +0200
+  [ Iain Lane ]
+  * debian/control: Bump depends on gnome-{session,settings-daemon,shell}
+    We require the newly rearranged systemd units that are in these
+    versions.
+  * debian/control: Make gdm depend on gnome-session-common ≥ 3.37.0-2~
+    This is where the systemd units live now.
+
+ -- Iain Lane <iain.lane@canonical.com>  Wed, 02 Sep 2020 17:56:12 +0100
 
 gdm3 (3.37.90-1) experimental; urgency=medium
 
