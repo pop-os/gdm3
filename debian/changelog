@@ -1,4 +1,4 @@
-gdm3 (3.36.3-0ubuntu0.20.04.1) UNRELEASED; urgency=medium
+gdm3 (3.36.3-0ubuntu0.20.04.1) focal; urgency=medium
 
   [ Iain Lane ]
   * New upstream release (LP: #1894874).
@@ -19,7 +19,7 @@ gdm3 (3.36.3-0ubuntu0.20.04.1) UNRELEASED; urgency=medium
     isn't declared in a public header, and nothing in Debian/Ubuntu seems to
     call it.
 
- -- Iain Lane <iain.lane@canonical.com>  Tue, 08 Sep 2020 17:59:21 +0100
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 08 Sep 2020 18:01:39 +0100
 
 gdm3 (3.34.1-1ubuntu1) eoan; urgency=medium
 
