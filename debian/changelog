@@ -1,3 +1,26 @@
+gdm3 (3.36.3-0ubuntu0.20.04.1) UNRELEASED; urgency=medium
+
+  [ Iain Lane ]
+  * New upstream release (LP: #1894874).
+    - Always use separate session bus for greeter sessions
+      This runs dbus-run-session, so the binary needs to be available
+    - Chrome remote desktop fix
+    - Don't hardcode path to plymouth
+    - Fixes for when GDM isn't started on its configured initial VT (LP:
+      #1845801)
+    - keyutils has a .pc file so use it
+    - User switching fix
+  * debian/{control,gbp.conf}: Update for ubuntu/focal & upstream/3.36.x
+
+  [ Simon McVittie ]
+  * Add Depends on dbus, for dbus-run-session
+  * Update symbols file.
+    This ignores a change to private symbols: gdm_find_display_session_for_uid
+    isn't declared in a public header, and nothing in Debian/Ubuntu seems to
+    call it.
+
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 08 Sep 2020 17:59:21 +0100
+
 gdm3 (3.34.1-1ubuntu1) eoan; urgency=medium
 
   * Merge with Debian. Remaining changes:
