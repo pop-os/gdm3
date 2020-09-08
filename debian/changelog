@@ -1,3 +1,20 @@
+gdm3 (3.37.90-2) experimental; urgency=medium
+
+  * Team upload
+
+  [ Simon McVittie ]
+  * Add patch to remove deprecated StandardOutput=syslog from systemd unit
+  * Build-Depend on systemd, for /usr/share/pkgconfig/systemd.pc
+
+  [ Iain Lane ]
+  * debian/control: Bump depends on gnome-{session,settings-daemon,shell}
+    We require the newly rearranged systemd units that are in these
+    versions.
+  * debian/control: Make gdm depend on gnome-session-common ≥ 3.37.0-2~
+    This is where the systemd units live now.
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 09 Sep 2020 00:51:41 +0100
+
 gdm3 (3.37.90-1) experimental; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
