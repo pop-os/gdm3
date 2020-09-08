@@ -50,7 +50,7 @@ Standards-Version: 4.2.1
 XS-Debian-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
 Vcs-Browser: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gdm3
-Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gdm3
+Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/gdm3 -b ubuntu/focal
 Rules-Requires-Root: no
 
 Package: gdm3
