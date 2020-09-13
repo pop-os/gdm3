@@ -1,3 +1,9 @@
+gdm3 (3.38.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 13 Sep 2020 17:57:11 +0100
+
 gdm3 (3.37.90-2) experimental; urgency=medium
 
   * Team upload
