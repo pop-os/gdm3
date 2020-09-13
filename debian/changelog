@@ -1,8 +1,14 @@
-gdm3 (3.38.0-1) UNRELEASED; urgency=medium
+gdm3 (3.38.0-1) experimental; urgency=medium
 
+  * Team upload
   * New upstream release
+  * Remove patches that were applied upstream (in some cases differently)
+  * Remove special case for s390x.
+    gjs and gnome-shell now exist there, so we no longer need to avoid
+    depending on them. In particular this makes the GNOME metapackages
+    installable on that architecture again. (Closes: #970245)
 
- -- Simon McVittie <smcv@debian.org>  Sun, 13 Sep 2020 17:57:11 +0100
+ -- Simon McVittie <smcv@debian.org>  Sun, 13 Sep 2020 18:03:34 +0100
 
 gdm3 (3.37.90-2) experimental; urgency=medium
 
