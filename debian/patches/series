@@ -1,12 +1,6 @@
-data-Remove-deprecated-StandardOutput-syslog.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
 93_translate-default-desktop.patch
 94_retain_xorg_log.patch
-meson-Fix-keyutils-pkg-config-name.patch
-meson-Obey-at-Dcustom-conf-option-when-installing-custom..patch
-meson-Use-correct-rules-path-when-getting-udevdir-from-pk.patch
-meson-Don-t-look-for-non-existent-journald-dependency.patch
-meson_options-Enable-systemd-journal-by-default.patch
