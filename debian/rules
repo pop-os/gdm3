@@ -20,13 +20,6 @@ CONFFLAGS += \
 	--with-vt-switch-workaround
 endif
 
-dh_options =
-just_the_library = no
-ifneq (,$(filter $(DEB_HOST_ARCH_CPU),s390x))
-	dh_options += -Ngdm3
-	just_the_library = yes
-endif
-
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 CONFFLAGS += --enable-debug
 endif
@@ -48,7 +41,7 @@ $(MANPAGES): $(PODFILES)
 		| sed -e 's/debian:://' >$@
 
 %:
-	dh $@ $(dh_options)
+	dh $@
 
 # We set this up manually
 override_dh_installsystemd:
@@ -90,7 +83,6 @@ override_dh_install:
 	rm -rf debian/tmp/var/lib/gdm3/.[cgl]*
 	rm -rf debian/tmp/run
 	dh_install
-ifneq ($(just_the_library),yes)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
@@ -98,7 +90,6 @@ ifneq ($(just_the_library),yes)
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
 	dh_installpam -pgdm3 --name=gdm-fingerprint
-endif
 
 override_dh_link:
 	# Add compatibility symlinks as GDM is not restarted on upgrades and the lack
