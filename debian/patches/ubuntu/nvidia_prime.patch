@@ -86,7 +86,7 @@ index 0000000..5a61c3c
 +    $primeswitch
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 2a0741d..71380af 100644
+index 05a2011..05429d5 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -3,7 +3,7 @@ subdir('autostart')

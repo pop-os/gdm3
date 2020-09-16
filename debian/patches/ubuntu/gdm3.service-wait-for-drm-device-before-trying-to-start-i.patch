@@ -13,19 +13,19 @@ Forwarded: not-needed
  create mode 100644 utils/gdm-wait-for-drm.c
 
 diff --git a/data/gdm.service.in b/data/gdm.service.in
-index 98f4cdf..6f98a2e 100644
+index 066d763..ea7f219 100644
 --- a/data/gdm.service.in
 +++ b/data/gdm.service.in
-@@ -33,3 +33,4 @@ EnvironmentFile=-${LANG_CONFIG_FILE}
+@@ -31,3 +31,4 @@ EnvironmentFile=-${LANG_CONFIG_FILE}
  ExecReload=/usr/share/gdm/generate-config
  ExecReload=/bin/kill -SIGHUP $MAINPID
  KeyringMode=shared
 +ExecStartPre=${libexecdir}/gdm-wait-for-drm
 diff --git a/data/meson.build b/data/meson.build
-index bbaa0d9..ddc707e 100644
+index c8e9797..6d253e6 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -136,6 +136,7 @@ gdm_rules = configure_file(
+@@ -162,6 +162,7 @@ gdm_rules = configure_file(
  # DBus service files
  service_config = configuration_data()
  service_config.set('sbindir', gdm_prefix / get_option('sbindir'))
