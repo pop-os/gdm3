@@ -65,6 +65,7 @@ override_dh_auto_configure:
 		-Dcheck-accelerated-dir=/usr/lib/gnome-session/ \
 		-Dran-once-marker-dir=/run/gdm3 \
 		-Dgnome-settings-daemon-dir="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
+		-Druntime-conf=/run/gdm3/daemon.conf \
 		$(CONFFLAGS)
 
 override_dh_auto_build: $(OUTFILES) $(MANPAGES)
