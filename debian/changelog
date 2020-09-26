@@ -72,6 +72,23 @@ gdm3 (3.37.90-1) experimental; urgency=medium
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 22:37:09 +0200
 
+gdm3 (3.36.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+      Drop, applied upstream
+    - This version is functionally equivalent to 3.36.2-1
+  * Remove special case for s390x.
+    gjs and gnome-shell now exist there, so we no longer need to avoid
+    depending on them. In particular this makes the GNOME metapackages
+    installable on that architecture again. (Closes: #970245)
+  * d/gbp.conf: Switch branch for uploads to unstable.
+    3.37.x is already in experimental.
+  * d/watch: Only watch for 3.36.x versions
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 13 Sep 2020 18:05:02 +0100
+
 gdm3 (3.36.2-1) unstable; urgency=medium
 
   * Team upload
