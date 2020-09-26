@@ -1,3 +1,21 @@
+gdm3 (3.38.0-2) unstable; urgency=medium
+
+  * Team upload
+  * d/rules: Set runtime configuration path.
+    In Autotools, the default runtime configuration path used to be
+    ${GDM_RUN_DIR}/custom.conf, but in the Meson build system the fallback
+    changed to be the same as the custom.conf path in /etc (set to
+    /etc/gdm3/daemon.conf in Debian for historical reasons).
+    Explicitly set it to the path we used before switching to Meson, so
+    that configuration changes by gdm-disable-wayland are temporary as
+    intended, and do not persist to a subsequent boot.
+  * Revert "debian/watch: Monitor unstable versions"
+  * d/upstream/metadata: Add
+  * Merge packaging from unstable
+  * Release to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 26 Sep 2020 16:52:06 +0100
+
 gdm3 (3.38.0-1) experimental; urgency=medium
 
   * Team upload
