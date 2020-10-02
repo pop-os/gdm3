@@ -1,3 +1,9 @@
+gdm3 (3.36.3-0ubuntu0.20.04.1pop1) focal; urgency=medium
+
+  * New upstream release 
+
+ -- Michael Aaron Murphy <michael@system76.com>  Fri, 02 Oct 2020 08:45:20 -0600
+
 gdm3 (3.36.3-0ubuntu0.20.04.1) focal; urgency=medium
 
   [ Iain Lane ]
