@@ -16,3 +16,4 @@ ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
 
 # Pop!_OS patches
 pop_prefer_pop_session_fallback.patch
+pop_nvidia_wayland.patch
