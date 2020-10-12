@@ -177,6 +177,24 @@ if [ "x$command" = "xcustom" ] ; then
   set default $*
 fi
 
+OPTIONS="$(
+  if [ -r "$OPTIONFILE" ]; then
+    cat "$OPTIONFILE"
+  fi
+  if [ -d /etc/X11/Xsession.options.d ]; then
+    run-parts --list --regex '\.conf$' /etc/X11/Xsession.options.d
+  fi
+)"
+
+has_option() {
+  # Ensure that a later no-foo overrides an earlier foo
+  if [ "$(echo "$OPTIONS" | grep -Eo "^(no-)?$1\>" | tail -n 1)" = "$1" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 # use run-parts to source every file in the session directory; we source
 # instead of executing so that the variables and functions defined above
 # are available to the scripts, and so that they can pass variables to each
