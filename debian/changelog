@@ -1,4 +1,4 @@
-gdm3 (3.38.1-2) UNRELEASED; urgency=medium
+gdm3 (3.38.1-2) unstable; urgency=medium
 
   * debian/gdm3.preinst: Add script to replace possibly wrong .conf file.
     In gdm3 versions of the 3.38 series a regression was introduced causing
@@ -14,7 +14,7 @@ gdm3 (3.38.1-2) UNRELEASED; urgency=medium
     https://discourse.gnome.org/t/gdm-3-38-0-has-bad-bug-for-nvidia-users/4517
     (LP: #1899673)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 14 Oct 2020 01:25:38 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 14 Oct 2020 01:29:48 +0200
 
 gdm3 (3.38.1-1) unstable; urgency=medium
 
