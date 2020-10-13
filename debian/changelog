@@ -1,3 +1,52 @@
+gdm3 (3.38.1-2) unstable; urgency=medium
+
+  * debian/gdm3.preinst: Add script to replace possibly wrong .conf file.
+    In gdm3 versions of the 3.38 series a regression was introduced causing
+    the /usr/libexec/gdm-disable-wayland tool to write its supposedly
+    temporary gdm file to the persistent location.
+    This is particularly harmful for users of the NVIDIA drivers as they
+    will get their default config file (/etc/gdm3/daemon.conf in debian and
+    /etc/gdm3/custom.conf in Ubuntu) modified for good, making impossible to
+    login in a Wayland session (once nvidia driver is disabled).
+    As per this, in case of upgrades or install with configuration files
+    left, we replace the gdm's daemon.conf/custom.conf file in case it
+    matches the one that the disable-wayland tool would produce.
+    https://discourse.gnome.org/t/gdm-3-38-0-has-bad-bug-for-nvidia-users/4517
+    (LP: #1899673)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 14 Oct 2020 01:29:48 +0200
+
+gdm3 (3.38.1-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Fix bug leading to users /etc/gdm/custom.conf getting overwritten on
+      nvidia systems (LP: #1899673).
+    - Fix typo in comment
+    - Translation updates
+  * debian/rules: Don't override the runtime-conf path anymore.
+    Upstream fixed the root issue for changing this, so the default runtime
+    configuration file will be correctly written in the runtime path again.
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 13 Oct 2020 19:51:14 +0200
+
+gdm3 (3.38.0-2) unstable; urgency=medium
+
+  * Team upload
+  * d/rules: Set runtime configuration path.
+    In Autotools, the default runtime configuration path used to be
+    ${GDM_RUN_DIR}/custom.conf, but in the Meson build system the fallback
+    changed to be the same as the custom.conf path in /etc (set to
+    /etc/gdm3/daemon.conf in Debian for historical reasons).
+    Explicitly set it to the path we used before switching to Meson, so
+    that configuration changes by gdm-disable-wayland are temporary as
+    intended, and do not persist to a subsequent boot.
+  * Revert "debian/watch: Monitor unstable versions"
+  * d/upstream/metadata: Add
+  * Merge packaging from unstable
+  * Release to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 26 Sep 2020 16:52:06 +0100
+
 gdm3 (3.38.0-1ubuntu1) groovy; urgency=medium
 
   * Merge with debian, containing new upstream release:
@@ -210,6 +259,23 @@ gdm3 (3.37.90-1) experimental; urgency=medium
     - Drop, applied upstream
 
  -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 28 Aug 2020 22:37:09 +0200
+
+gdm3 (3.36.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - d/p/local-display-factory-always-force-login-screen-to-VT-1.patch:
+      Drop, applied upstream
+    - This version is functionally equivalent to 3.36.2-1
+  * Remove special case for s390x.
+    gjs and gnome-shell now exist there, so we no longer need to avoid
+    depending on them. In particular this makes the GNOME metapackages
+    installable on that architecture again. (Closes: #970245)
+  * d/gbp.conf: Switch branch for uploads to unstable.
+    3.37.x is already in experimental.
+  * d/watch: Only watch for 3.36.x versions
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 13 Sep 2020 18:05:02 +0100
 
 gdm3 (3.36.2-1) unstable; urgency=medium
 
