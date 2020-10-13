@@ -1,3 +1,13 @@
+gdm3 (3.38.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release:
+    - Fix bug leading to users /etc/gdm/custom.conf getting overwritten on
+      nvidia systems (LP: #1899673).
+    - Fix typo in comment
+    - Translation updates
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 13 Oct 2020 19:40:59 +0200
+
 gdm3 (3.38.0-2) unstable; urgency=medium
 
   * Team upload
