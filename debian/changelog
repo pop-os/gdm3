@@ -1,3 +1,21 @@
+gdm3 (3.38.1-2) UNRELEASED; urgency=medium
+
+  * debian/gdm3.preinst: Add script to replace possibly wrong .conf file.
+    In gdm3 versions of the 3.38 series a regression was introduced causing
+    the /usr/libexec/gdm-disable-wayland tool to write its supposedly
+    temporary gdm file to the persistent location.
+    This is particularly harmful for users of the NVIDIA drivers as they
+    will get their default config file (/etc/gdm3/daemon.conf in debian and
+    /etc/gdm3/custom.conf in Ubuntu) modified for good, making impossible to
+    login in a Wayland session (once nvidia driver is disabled).
+    As per this, in case of upgrades or install with configuration files
+    left, we replace the gdm's daemon.conf/custom.conf file in case it
+    matches the one that the disable-wayland tool would produce.
+    https://discourse.gnome.org/t/gdm-3-38-0-has-bad-bug-for-nvidia-users/4517
+    (LP: #1899673)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 14 Oct 2020 01:25:38 +0200
+
 gdm3 (3.38.1-1) unstable; urgency=medium
 
   * New upstream release:
