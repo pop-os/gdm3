@@ -1,4 +1,4 @@
-gdm3 (3.38.1-1) UNRELEASED; urgency=medium
+gdm3 (3.38.1-1) unstable; urgency=medium
 
   * New upstream release:
     - Fix bug leading to users /etc/gdm/custom.conf getting overwritten on
@@ -9,7 +9,7 @@ gdm3 (3.38.1-1) UNRELEASED; urgency=medium
     Upstream fixed the root issue for changing this, so the default runtime
     configuration file will be correctly written in the runtime path again.
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 13 Oct 2020 19:46:12 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 13 Oct 2020 19:51:14 +0200
 
 gdm3 (3.38.0-2) unstable; urgency=medium
 
