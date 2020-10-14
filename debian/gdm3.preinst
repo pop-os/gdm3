@@ -21,7 +21,7 @@ if [ "$1" = "upgrade" ] || [ "$1" = "install" ]; then
       # replace the conf file to match the one that was default in these
       # broken versions, so that dpkg would replace it in case.
       echo "Configuration file $conf_file has likely been damaged by" \
-        "https://pad.lv/123456, replacing with the gdm default..."
+        "https://pad.lv/pad.lv/1899673, replacing with the gdm default..."
       cat <<'EOF' > "$conf"
 # GDM configuration storage
 #
