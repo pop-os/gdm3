@@ -1,4 +1,4 @@
-gdm3 (3.38.1-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.38.1-2ubuntu1) groovy; urgency=medium
 
   * Merging with debian, containing a new upstream release, remaining changes:
     + readme.debian: update for correct paths in ubuntu
@@ -50,7 +50,7 @@ gdm3 (3.38.1-2ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 13 Oct 2020 20:27:53 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 14 Oct 2020 15:28:44 +0100
 
 gdm3 (3.38.1-2) unstable; urgency=medium
 
