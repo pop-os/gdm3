@@ -1,3 +1,9 @@
+gdm3 (3.38.1-2ubuntu1pop0) groovy; urgency=medium
+
+  * Pop!_OS patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Mon, 19 Oct 2020 10:37:37 -0600
+
 gdm3 (3.38.1-2ubuntu1) groovy; urgency=medium
 
   * Merging with debian, containing a new upstream release, remaining changes:
