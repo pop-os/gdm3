@@ -1,3 +1,12 @@
+gdm3 (3.36.3-0ubuntu0.20.04.2) focal-security; urgency=medium
+
+  * SECURITY UPDATE: gnome-initial-setup launch issue
+    - debian/patches/CVE-2020-16125.patch: fail if accountsservice could
+      not be contacted in daemon/gdm-display.c.
+    - CVE-2020-16125
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 27 Oct 2020 10:57:05 -0400
+
 gdm3 (3.36.3-0ubuntu0.20.04.1) focal; urgency=medium
 
   [ Iain Lane ]
