@@ -1,8 +1,19 @@
 gdm3 (3.38.2-1) UNRELEASED; urgency=medium
 
   * New upstream release
+    - Fix location of locale directory
+    - display: Exit with failure if loading existing users fails
+      (GHSL-2020-202, CVE-2020-16125)
+  * Xsession: Use run-parts --list instead of reimplementing it.
+    Taken from x11-common.
 
- -- Simon McVittie <smcv@debian.org>  Wed, 04 Nov 2020 17:37:57 +0000
+  [ Dmitry Borodaenko ]
+  * Implement has_option in Xsession.
+    Now that x11-common moved this function from 20x11-common_process-args
+    to Xsession (see #920778), gdm's version of Xsession also has to
+    implement it. (Closes: #972108)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 04 Nov 2020 17:38:53 +0000
 
 gdm3 (3.38.1-2) unstable; urgency=medium
 
