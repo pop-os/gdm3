@@ -1,3 +1,11 @@
+gdm3 (3.36.3-0ubuntu0.20.04.3) UNRELEASED; urgency=medium
+
+  * debian/patches/git_display_segfault.patch:
+    - Backport crash fix when using Xvfb in some situations
+      (lp: #1861769)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 10 Nov 2020 13:27:10 +0100
+
 gdm3 (3.36.3-0ubuntu0.20.04.2) focal-security; urgency=medium
 
   * SECURITY UPDATE: gnome-initial-setup launch issue
