@@ -1,4 +1,4 @@
-gdm3 (3.36.3-0ubuntu0.20.04.3) UNRELEASED; urgency=medium
+gdm3 (3.36.3-0ubuntu0.20.04.3) focal; urgency=medium
 
   * debian/patches/git_display_segfault.patch:
     - Backport crash fix when using Xvfb in some situations
