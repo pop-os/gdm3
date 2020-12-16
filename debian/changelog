@@ -1,8 +1,17 @@
-gdm3 (3.38.1-2ubuntu1pop0) groovy; urgency=medium
+gdm3 (3.38.1-2ubuntu1.1pop0) groovy; urgency=medium
 
   * Pop!_OS patches
 
- -- Jeremy Soller <jeremy@system76.com>  Mon, 19 Oct 2020 10:37:37 -0600
+ -- Jeremy Soller <jeremy@system76.com>  Wed, 16 Dec 2020 13:36:17 -0700
+
+gdm3 (3.38.1-2ubuntu1.1) groovy-security; urgency=medium
+
+  * SECURITY UPDATE: gnome-initial-setup launch issue
+    - debian/patches/CVE-2020-16125.patch: fail if accountsservice could
+      not be contacted in daemon/gdm-display.c.
+    - CVE-2020-16125
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 27 Oct 2020 10:53:12 -0400
 
 gdm3 (3.38.1-2ubuntu1) groovy; urgency=medium
 
