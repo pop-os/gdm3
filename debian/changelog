@@ -1,8 +1,9 @@
-gdm3 (3.38.2.1-1) UNRELEASED; urgency=medium
+gdm3 (3.38.2.1-1) unstable; urgency=medium
 
   * New upstream release
+  * debian/control.in: Add a Homepage field (Closes: #976768)
 
- -- Laurent Bigonville <bigon@debian.org>  Fri, 18 Dec 2020 19:19:09 +0100
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 18 Dec 2020 19:35:23 +0100
 
 gdm3 (3.38.2-1) unstable; urgency=medium
 
