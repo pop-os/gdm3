@@ -79,6 +79,8 @@ override_dh_install:
 	dh_installpam -pgdm3 --name=gdm-launch-environment
 	dh_installpam -pgdm3 --name=gdm-password
 	dh_installpam -pgdm3 --name=gdm-fingerprint
+	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-exclusive
+	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-or-password
 
 override_dh_link:
 	# Add compatibility symlinks as GDM is not restarted on upgrades and the lack
