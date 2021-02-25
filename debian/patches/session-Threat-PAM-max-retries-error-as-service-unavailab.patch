@@ -36,10 +36,10 @@ index a55e2b2..7dab7d4 100644
          GDM_SESSION_WORKER_ERROR_AUTHORIZING,
          GDM_SESSION_WORKER_ERROR_OPENING_LOG_FILE,
 diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
-index 2df69f8..e7e0960 100644
+index e4d2e3f..cb53e46 100644
 --- a/daemon/gdm-session-worker.c
 +++ b/daemon/gdm-session-worker.c
-@@ -1294,6 +1294,13 @@ gdm_session_worker_authenticate_user (GdmSessionWorker *worker,
+@@ -1283,6 +1283,13 @@ gdm_session_worker_authenticate_user (GdmSessionWorker *worker,
                               GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE,
                               "%s", "");
                  goto out;

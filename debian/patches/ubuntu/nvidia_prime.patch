@@ -29,10 +29,10 @@ index b8de755..eb2ed38 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index ca7d98f..e6fd59a 100644
+index bab470b..7658ccd 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -2987,6 +2987,12 @@ gdm_session_close (GdmSession *self)
+@@ -2990,6 +2990,12 @@ gdm_session_close (GdmSession *self)
  
          g_list_free_full (self->outside_connections, g_object_unref);
          self->outside_connections = NULL;
@@ -46,10 +46,10 @@ index ca7d98f..e6fd59a 100644
  
  void
 diff --git a/daemon/gdm-x-session.c b/daemon/gdm-x-session.c
-index f0082fd..fd0bd0b 100644
+index 5962da5..dbd73ae 100644
 --- a/daemon/gdm-x-session.c
 +++ b/daemon/gdm-x-session.c
-@@ -618,6 +618,11 @@ spawn_session (State        *state,
+@@ -629,6 +629,11 @@ spawn_session (State        *state,
  
          g_debug ("Running X session");
  

@@ -13,10 +13,10 @@ Forwarded: not-needed
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 2b9dfe9..1556b45 100644
+index b812f1c..ebb9355 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -2644,7 +2644,7 @@ set_up_session_environment (GdmSession *self)
+@@ -2647,7 +2647,7 @@ set_up_session_environment (GdmSession *self)
                  gdm_session_set_environment_variable (self, "XDG_CURRENT_DESKTOP", desktop_names);
          }
  
