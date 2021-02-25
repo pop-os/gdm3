@@ -1,0 +1,122 @@
+From: Gigadoc2 <gigadoc2@revreso.de>
+Date: Sat, 12 Sep 2020 19:57:46 +0200
+Subject: gdm-{wayland,x}-session: don't overwrite user env with fallback vars
+
+In both gdm-wayland-session and gdm-x-session, environment variables
+from the systemd user manager are imported, if it is available. Those
+environment variables are set up for the session-to-be-spawned, however,
+environment variables that the gdm-{wayland,x}-session process itself
+has are also inherited to the new session, and they are given preference
+over what is imported from systemd.
+
+That is not accidential, the gdm-{wayland,x}-session process has fresh
+variables as to what the new user session will be (think $DISPLAY,
+$XDG_CURRENT_DESKTOP, etc.) and those should not be overwritten by stale
+data from the systemd user manager, who might have those variables still
+set from a previous session.
+As the gdm-{wayland,x}-session process does not inherit the environment
+in which GDM itself is launched, but gets a fresh environment with only
+purposefully added variables, this is in general not a problem (i.e.
+there are no environment variables from the systemd system instance
+overwriting those in our user session).
+
+However, the GDM session worker sets a default fallback PATH for
+gdm-{wayland,x}-session. This then gets preferred over whatever the
+systemd user manager has, resulting in the session always getting the
+fallback PATH.
+
+As GDM probably needs to consider scenarios where no variables can get
+imported from the systemd user manager (maybe it is not used at all),
+removing the default PATH is not an option. Instead, this commit adds a
+list of environment variables declared as fallbacks, for which we the
+imported variables _do_ get preference over our own ones. Currently,
+this is only PATH.
+
+Closes: https://gitlab.gnome.org/GNOME/gdm/-/issues/385
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c9
+---
+ daemon/gdm-wayland-session.c | 22 +++++++++++++++++++++-
+ daemon/gdm-x-session.c       | 22 +++++++++++++++++++++-
+ 2 files changed, 42 insertions(+), 2 deletions(-)
+
+diff --git a/daemon/gdm-wayland-session.c b/daemon/gdm-wayland-session.c
+index 35679b1..d0404d2 100644
+--- a/daemon/gdm-wayland-session.c
++++ b/daemon/gdm-wayland-session.c
+@@ -289,6 +289,17 @@ spawn_session (State        *state,
+                                                     "WAYLAND_SOCKET",
+                                                     "GNOME_SHELL_SESSION_MODE",
+                                                     NULL };
++        /* The environment variables listed below are those we have set (or
++         * received from our own execution environment) only as a fallback to
++         * make things work, as opposed to a information directly pertaining to
++         * the session about to be started. Variables listed here will not
++         * overwrite the existing environment (possibly) imported from the
++         * systemd --user instance.
++         * As an example: We need a PATH for some of the launched subprocesses
++         * to work, but if the user (or the distributor) has customized the PATH
++         * via one of systemds user-environment-generators, that version should
++         * be preferred. */
++        static const char  *fallback_variables[] = { "PATH", NULL };
+ 
+         g_debug ("Running wayland session");
+ 
+@@ -320,7 +331,16 @@ spawn_session (State        *state,
+                                 continue;
+                         }
+ 
+-                        g_subprocess_launcher_setenv (launcher, environment_entry[0], environment_entry[1], FALSE);
++                        /* Merge the environment block imported from systemd --user with the
++                         * environment we have set for ourselves (and thus pass on to the
++                         * launcher process). Variables we have set have precedence, as to not
++                         * import stale data from prior user sessions, with the exception of
++                         * those listed in fallback_variables. See the comment there for more
++                         * explanations. */
++                        g_subprocess_launcher_setenv (launcher,
++                                                      environment_entry[0],
++                                                      environment_entry[1],
++                                                      g_strv_contains (fallback_variables, environment_entry[0]));
+                 }
+ 
+                 /* Don't allow session specific environment variables from earlier sessions to
+diff --git a/daemon/gdm-x-session.c b/daemon/gdm-x-session.c
+index b154836..5962da5 100644
+--- a/daemon/gdm-x-session.c
++++ b/daemon/gdm-x-session.c
+@@ -615,6 +615,17 @@ spawn_session (State        *state,
+                                                      "WAYLAND_SOCKET",
+                                                      "GNOME_SHELL_SESSION_MODE",
+                                                      NULL };
++        /* The environment variables listed below are those we have set (or
++         * received from our own execution environment) only as a fallback to
++         * make things work, as opposed to a information directly pertaining to
++         * the session about to be started. Variables listed here will not
++         * overwrite the existing environment (possibly) imported from the
++         * systemd --user instance.
++         * As an example: We need a PATH for some of the launched subprocesses
++         * to work, but if the user (or the distributor) has customized the PATH
++         * via one of systemds user-environment-generators, that version should
++         * be preferred. */
++        static const char  *fallback_variables[] = { "PATH", NULL };
+ 
+         g_debug ("Running X session");
+ 
+@@ -636,7 +647,16 @@ spawn_session (State        *state,
+                                 continue;
+                         }
+ 
+-                        g_subprocess_launcher_setenv (launcher, environment_entry[0], environment_entry[1], FALSE);
++                        /* Merge the environment block imported from systemd --user with the
++                         * environment we have set for ourselves (and thus pass on to the
++                         * launcher process). Variables we have set have precedence, as to not
++                         * import stale data from prior user sessions, with the exception of
++                         * those listed in fallback_variables. See the comment there for more
++                         * explanations. */
++                        g_subprocess_launcher_setenv (launcher,
++                                                      environment_entry[0],
++                                                      environment_entry[1],
++                                                      g_strv_contains (fallback_variables, environment_entry[0]));
+                 }
+ 
+                 /* Don't allow session specific environment variables from earlier sessions to
