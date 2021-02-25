@@ -80,6 +80,7 @@ Recommends: at-spi2-core,
 Suggests: gnome-orca,
           libpam-fprintd (>= 0.8.0-2),
           libpam-sss (>= 2.3.0-1),
+          libpam-pkcs11,
           libpam-gnome-keyring
 Provides: x-display-manager
 Breaks: pulseaudio (<< 11.1-2),

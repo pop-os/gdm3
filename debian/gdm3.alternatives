@@ -7,3 +7,8 @@ Name: gdm-smartcard
 Link: /etc/pam.d/gdm-smartcard
 Alternative: /etc/pam.d/gdm-smartcard-sssd-or-password
 Priority: 40
+
+Name: gdm-smartcard
+Link: /etc/pam.d/gdm-smartcard
+Alternative: /etc/pam.d/gdm-smartcard-pkcs11-exclusive
+Priority: 30
