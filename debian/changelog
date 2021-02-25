@@ -1,6 +1,5 @@
 gdm3 (3.38.2.1-2) experimental; urgency=medium
 
-  * Merge with debian, containing new upstream version
   * debian: Add gdm-smartcard PAM module implemented with libpam_sss.
     The implementation uses update-alternatives to provide a generic
     gdm-smartcard PAM module that can be changed using the tool.
