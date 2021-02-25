@@ -1,4 +1,4 @@
-gdm3 (3.38.2.1-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.38.2.1-2ubuntu1) hirsute; urgency=medium
 
   * Merge with debian, containing new upstream version
   * debian/control: Don't Recommend pam fprintd module, as we seed it
@@ -54,7 +54,7 @@ gdm3 (3.38.2.1-2ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 25 Feb 2021 18:05:38 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 25 Feb 2021 19:42:42 +0000
 
 gdm3 (3.38.2.1-2) experimental; urgency=medium
 
