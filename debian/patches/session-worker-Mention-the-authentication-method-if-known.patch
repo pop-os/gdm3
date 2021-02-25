@@ -1,0 +1,109 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Tue, 24 Nov 2020 18:24:34 +0100
+Subject: session-worker: Mention the authentication method (if known) on
+ error messages
+
+When we use a gdm well known authentication method, we can be a bit more
+clear when showing the error to the user on what explicitly failed.
+
+So add functions to get the friendly error message per authentication
+method.
+
+To make them clearer for translators, I've added some repeated strings
+as generating them could lead to misleading results in some locales.
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/e2f3b1a5
+---
+ daemon/gdm-session-worker.c | 53 ++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 48 insertions(+), 5 deletions(-)
+
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index 05716f7..ec5f6fb 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -743,7 +743,50 @@ gdm_session_worker_process_pam_message (GdmSessionWorker          *worker,
+ }
+ 
+ static const char *
+-get_friendly_error_message (int error_code)
++get_max_retries_error_message (GdmSessionWorker *worker)
++{
++        if (g_strcmp0 (worker->priv->service, "gdm-password") == 0)
++                return _("You reached the maximum password authentication attempts, please try another method");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-pin") == 0)
++                return _("You reached the maximum PIN authentication attempts, please try another method");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-autologin") == 0)
++                return _("You reached the maximum auto login attempts, please try another authentication method");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-fingerprint") == 0)
++                return _("You reached the maximum fingerprint authentication attempts, please try another method");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-smartcard") == 0)
++                return _("You reached the maximum smart card authentication attempts, please try another method");
++
++        return _("You reached the maximum authentication attempts, please try another method");
++}
++
++static const char *
++get_generic_error_message (GdmSessionWorker *worker)
++{
++        if (g_strcmp0 (worker->priv->service, "gdm-password") == 0)
++                return _("Sorry, password authentication didn’t work. Please try again.");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-pin") == 0)
++                return _("Sorry, PIN authentication didn’t work. Please try again.");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-autologin") == 0)
++                return _("Sorry, auto login, didn’t work. Please try again.");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-fingerprint") == 0)
++                return _("Sorry, fingerprint authentication didn’t work. Please try again.");
++
++        if (g_strcmp0 (worker->priv->service, "gdm-smartcard") == 0)
++                return _("Sorry, smart card authentication didn’t work. Please try again.");
++
++        return _("Sorry, that didn’t work. Please try again.");
++}
++
++static const char *
++get_friendly_error_message (GdmSessionWorker *worker,
++                            int               error_code)
+ {
+         switch (error_code) {
+             case PAM_SUCCESS:
+@@ -757,13 +800,13 @@ get_friendly_error_message (int error_code)
+                 break;
+ 
+             case PAM_MAXTRIES:
+-                return _("You reached the maximum authentication attempts, please try another method");
++                return get_max_retries_error_message (worker);
+ 
+             default:
+                 break;
+         }
+ 
+-        return _("Sorry, that didn’t work. Please try again.");
++        return get_generic_error_message (worker);
+ }
+ 
+ static int
+@@ -1265,7 +1308,7 @@ gdm_session_worker_authenticate_user (GdmSessionWorker *worker,
+                 g_set_error (error,
+                              GDM_SESSION_WORKER_ERROR,
+                              GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+-                             "%s", get_friendly_error_message (error_code));
++                             "%s", get_friendly_error_message (worker, error_code));
+                 goto out;
+         }
+ 
+@@ -1330,7 +1373,7 @@ gdm_session_worker_authorize_user (GdmSessionWorker *worker,
+                 g_set_error (error,
+                              GDM_SESSION_WORKER_ERROR,
+                              GDM_SESSION_WORKER_ERROR_AUTHORIZING,
+-                             "%s", get_friendly_error_message (error_code));
++                             "%s", get_friendly_error_message (worker, error_code));
+                 goto out;
+         }
+ 

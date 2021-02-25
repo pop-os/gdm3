@@ -1,3 +1,58 @@
+gdm3 (3.38.2.1-2) experimental; urgency=medium
+
+  * Merge with debian, containing new upstream version
+  * debian: Add gdm-smartcard PAM module implemented with libpam_sss.
+    The implementation uses update-alternatives to provide a generic
+    gdm-smartcard PAM module that can be changed using the tool.
+    Potentially other systems could be used or supported (such as pam_pkcs11
+    or pam_p11) by adding other modules implementing the gdm-smartcard auth
+    service. (LP: #1865226, Closes: #953557)
+  * debian: Add gdm-smartcard implementation using pkcs11
+  * debian/gdm3.gdm-smartcard-sssd-exclusive.pam:
+    - PAM config to use exclusive (no fallback is supported) smartcard
+      authentication via libpam_sss
+  * debian/gdm3.gdm-smartcard-sssd-or-password.pam:
+    - PAM config to optionally use smartcard authentication via libpam_sss,
+      on failure it fallbacks to password authentication
+  * debian/gdm3.gdm-smartcard-pkcs11-exclusive.pam:
+    - PAM config to use exclusive (no fallback is supported) smartcard
+      authentication via libpam_pkcs11
+  * debian/control:
+    - Suggests libam-sss and libam-pkcs11
+  * debian/gdm3.alternatives:
+    - Add gdm-smartcard alternatives to be used as /etc/pam.d/gdm-smartcard
+  * debian/patches: Cherry-pick upstream fixes, including better auth error
+    handling (LP: #1865838)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 25 Feb 2021 16:40:24 +0100
+
+gdm3 (3.38.2.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/control.in: Add a Homepage field (Closes: #976768)
+
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 18 Dec 2020 19:35:23 +0100
+
+gdm3 (3.38.2-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Simon McVittie ]
+  * New upstream release
+    - Fix location of locale directory
+    - display: Exit with failure if loading existing users fails
+      (GHSL-2020-202, CVE-2020-16125)
+  * Xsession: Use run-parts --list instead of reimplementing it.
+    Taken from x11-common.
+
+  [ Dmitry Borodaenko ]
+  * Implement has_option in Xsession.
+    Now that x11-common moved this function from 20x11-common_process-args
+    to Xsession (see #920778), gdm's version of Xsession also has to
+    implement it. (Closes: #972108)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 04 Nov 2020 17:41:42 +0000
+
 gdm3 (3.38.1-2ubuntu1.1) groovy-security; urgency=medium
 
   * SECURITY UPDATE: gnome-initial-setup launch issue

@@ -1,0 +1,27 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Tue, 24 Nov 2020 18:11:49 +0100
+Subject: session-worker: Use a clearer message on max retries error
+
+Some PAM modules we use by default (such as the fingerprint one)
+supports this, so in case we receive a max-retries error we should
+inform the user with some clearer message.
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/e2f3b1a5^
+---
+ daemon/gdm-session-worker.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index d2cfde5..05716f7 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -756,6 +756,9 @@ get_friendly_error_message (int error_code)
+                 return _("Your account was given a time limit that’s now passed.");
+                 break;
+ 
++            case PAM_MAXTRIES:
++                return _("You reached the maximum authentication attempts, please try another method");
++
+             default:
+                 break;
+         }
