@@ -81,12 +81,12 @@ Depends: accountsservice (>= 0.6.35),
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: at-spi2-core,
-            libpam-fprintd (>= 0.8.0-2),
             x11-xkb-utils,
             xserver-xephyr,
             xserver-xorg,
             zenity
 Suggests: gnome-orca,
+          libpam-fprintd (>= 0.8.0-2),
           libpam-sss (>= 2.3.0-1),
           libpam-pkcs11,
           libpam-gnome-keyring
