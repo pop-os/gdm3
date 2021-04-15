@@ -1,3 +1,58 @@
+gdm3 (3.38.2.1-3ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge with debian
+  * debian/gdm3.gdm-smartcard-*: Keep using user_readenv=1 in pam_env.so
+  * Remaining changes with debian:
+    + readme.debian: update for correct paths in ubuntu
+    + control.in:
+      - don't recommend desktop-base
+      - build depend on libgudev-1.0-dev
+      - depend on bash for config_error_dialog.patch
+      - update vcs field
+    + rules:
+      - don't override default user/group
+      - -dgdm-xsession=true to install upstream xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, readme.debian, gdm3.8.pod:
+      use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.*.pam: make pam_env read ~/.pam_environment, as we use in g-c-c
+      settings
+    + gdm3.install:
+      - stop installing default.desktop. it adds unnecessary clutter
+        ("system default") to the session chooser.
+      - don't install debian/xsession
+    + add run_xsession.d.patch
+    + add xresources_is_a_dir.patch
+      - fix loading from /etc/x11/xresources/*
+    + add nvidia_prime.patch:
+      - add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + add revert_override_lang_with_accountservices.patch:
+      - on ubuntu accountservices only stores the language and not the
+        full locale as needed by lang.
+    + add dont_set_language_env.patch:
+      - don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + add config_error_dialog.patch:
+      - show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + add debian/patches/revert_nvidia_wayland_blacklist.patch:
+      - don't blacklist nvidia for wayland
+    + add gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
+      - wait for the first valid gdm device on pre-start
+    + add debian/default.pa
+      - disable bluetooth audio devices in pulseaudio from gdm3.
+    + debian/gdm3.install
+      - added details of the default.pa file
+    + debian/gdm3.postinst
+      - added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: don't set debian settings in the
+      greeter's dconf db
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 18:16:25 +0200
+
 gdm3 (3.38.2.1-3) experimental; urgency=medium
 
   * debian/changelog: Remove bad entry meant to be in ubuntu side only
