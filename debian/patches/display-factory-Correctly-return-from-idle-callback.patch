@@ -1,0 +1,40 @@
+From: Benjamin Berg <bberg@redhat.com>
+Date: Thu, 25 Mar 2021 17:16:20 +0100
+Subject: display-factory: Correctly return from idle callback
+
+The idle callback was defined as a void function rather than returning a
+boolean as it should. This meant that the return value may end up being
+non-zero in some situations causing an infinite loop.
+
+This seems to only happen on aarch64 and possibly only with certain
+compiler versions.
+
+Closes: #668
+
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/a63ec01d
+---
+ daemon/gdm-display-factory.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/daemon/gdm-display-factory.c b/daemon/gdm-display-factory.c
+index 1214f7f..b28d287 100644
+--- a/daemon/gdm-display-factory.c
++++ b/daemon/gdm-display-factory.c
+@@ -76,7 +76,7 @@ purge_display (char       *id,
+         }
+ }
+ 
+-static void
++static gboolean
+ purge_displays (GdmDisplayFactory *factory)
+ {
+         GdmDisplayFactoryPrivate *priv;
+@@ -86,6 +86,8 @@ purge_displays (GdmDisplayFactory *factory)
+         gdm_display_store_foreach_remove (priv->display_store,
+                                           (GdmDisplayStoreFunc)purge_display,
+                                           NULL);
++
++        return G_SOURCE_REMOVE;
+ }
+ 
+ void
