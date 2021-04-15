@@ -1,4 +1,4 @@
-gdm3 (3.38.2.1-3ubuntu1) UNRELEASED; urgency=medium
+gdm3 (3.38.2.1-3ubuntu1) hirsute; urgency=medium
 
   * Merge with debian
   * debian/gdm3.gdm-smartcard-*: Keep using user_readenv=1 in pam_env.so
@@ -51,7 +51,7 @@ gdm3 (3.38.2.1-3ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 18:16:25 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 18:14:18 +0100
 
 gdm3 (3.38.2.1-3) experimental; urgency=medium
 
