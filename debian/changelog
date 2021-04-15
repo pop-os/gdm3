@@ -1,3 +1,33 @@
+gdm3 (3.38.2.1-3) UNRELEASED; urgency=medium
+
+  * debian/changelog: Remove bad entry meant to be in ubuntu side only
+    It's not needed in debian
+  * debian/patches: Correctly return from idle callback
+  * debian/gdm3.gdm-smartcard-*:
+    - Do not set user_readenv=1 in pam_env.so (keep it for ubuntu only).
+    - Ignore invalid user errors on pam_succeed_if.so.
+      We may call the gdm-smartcard module without an user, leaving the module
+      to figure it out depending on the smartcard certificate.
+      So we need to ignore PAM_USER_UNKNOWN errors on pam_suceed_if.so.
+      While pam_sss.so already checks for the user being non root internally,
+      it's always better to ensure early this in all the cases.
+      In the pkcs11 case instead we need to check it again after the module
+      has returned. (LP: #1917362)
+    - Check for /var/run/nologin (and friends) only when an user is defined
+      pam_nologin.so requires a PAM_USER to be defined in order to check if
+      the request has been done by root, possibly stopping the login otherwise.
+      And in case none was provided, it will trigger the fallback pam prompt.
+      However, with smartcard authentication we may initiate the PAM session
+      without an user defined and leave to the smartcard service to try to
+      figure it out depending on the token that has been inserted, that may
+      have an user associated with it.
+      So, ensure that we load all the PAM modules that require an user after
+      the smartcard one, that in case will set one for us.
+      Only after that, we can fail in case /var/run/nologin is present
+      (LP: #1917362)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 17:51:31 +0200
+
 gdm3 (3.38.2.1-2) experimental; urgency=medium
 
   * debian: Add gdm-smartcard PAM module implemented with libpam_sss.
