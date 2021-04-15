@@ -1,8 +1,8 @@
 #%PAM-1.0
-auth    requisite       pam_nologin.so
 auth    [user_unknown=ignore default=bad] pam_succeed_if.so user != root quiet_success
-auth    required	    pam_pkcs11.so
+auth    required        pam_pkcs11.so
 auth    required        pam_succeed_if.so user != root quiet_success
+auth    requisite       pam_nologin.so
 auth    optional        pam_gnome_keyring.so
 
 @include common-account
