@@ -1,4 +1,4 @@
-gdm3 (3.38.2.1-3) UNRELEASED; urgency=medium
+gdm3 (3.38.2.1-3) experimental; urgency=medium
 
   * debian/changelog: Remove bad entry meant to be in ubuntu side only
     It's not needed in debian
@@ -26,7 +26,7 @@ gdm3 (3.38.2.1-3) UNRELEASED; urgency=medium
       Only after that, we can fail in case /var/run/nologin is present
       (LP: #1917362)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 17:51:31 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 15 Apr 2021 17:55:12 +0200
 
 gdm3 (3.38.2.1-2) experimental; urgency=medium
 
