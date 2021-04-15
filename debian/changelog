@@ -1,4 +1,4 @@
-gdm3 (3.38.2.1-3ubuntu1) hirsute; urgency=medium
+gdm3 (3.38.2.1-3ubuntu2) impish; urgency=medium
 
   * Merge with debian
   * debian/gdm3.gdm-smartcard-*: Keep using user_readenv=1 in pam_env.so
