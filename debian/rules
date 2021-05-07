@@ -82,6 +82,9 @@ override_dh_install:
 	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-exclusive
 	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-or-password
 	dh_installpam -pgdm3 --name=gdm-smartcard-pkcs11-exclusive
+ifeq ($(shell dpkg-vendor --is Debian && echo yes),yes)
+	install -m644 debian/default.desktop debian/gdm3/usr/share/gdm/BuiltInSessions
+endif
 
 override_dh_missing:
 ifeq ($(just_the_library),yes)
