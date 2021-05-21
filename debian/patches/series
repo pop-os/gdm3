@@ -17,3 +17,4 @@ git_display_segfault.patch
 
 # Pop!_OS
 pop_prefer_pop_session_fallback.patch
+pop-wait-for-drm.patch

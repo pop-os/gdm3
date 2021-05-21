@@ -1,0 +1,121 @@
+Index: gdm3/utils/gdm-wait-for-drm.c
+===================================================================
+--- gdm3.orig/utils/gdm-wait-for-drm.c	2021-05-21 09:32:50.915675917 -0600
++++ gdm3/utils/gdm-wait-for-drm.c	2021-05-21 09:58:30.536879593 -0600
+@@ -1,35 +1,64 @@
+ #include <glib.h>
+ #include <gudev/gudev.h>
++#include <stdio.h>
++#include <string.h>
+ 
+ /*
+- * Workaround for LP: #1794280.
++ * Workaround for LP: #1794280 and #1925344.
+  *
+- * That bug is because the DRM device isn't ready by the time GDM tries to
++ * That bug is because the DRM devices aren't ready by the time GDM tries to
+  * start wayland/X.
+  * This is a script to add to ExecStartPre of gdm.service. It does the
+  * following:
+  *
+- * 1. Enumerate drm devices from udev, looking for a DRM master. If found,
+- *    exit.
++ * 1. Enumerate drm devices from udev, looking for card0 and/or card1.
++ *    Depending on graphics mode, exit if one or both are found.
+  * 2. Connect to the 'uevent' signal of gudev, watching for the same to be
+  *    added. Again exit if any are found.
+  * 3. If, after 10 seconds, we haven't seen anything, try to proceed anyway as
+  *    a failsafe.
+  */
+ 
++static char *
++freadln (char *path)
++{
++    FILE *file = fopen(path, "r");
++    if (file == NULL) {
++        return NULL;
++    }
++
++    char *line = NULL;
++    size_t len = 0;
++    getline(&line, &len, file);
++    fclose(file);
++    return line;
++}
++
++/*
++ * Systems that have configured X for multiple devices, such as laptops with
++ * muxless dual GPUs, require the DRM devices to be available before starting.
++ */
+ static gboolean
+-handle_device (GUdevDevice *device)
++requires_two_gpus (void)
+ {
+-        const gchar * const * tags;
+-        tags = g_udev_device_get_tags (device);
+-        g_debug ("%s\n", g_udev_device_get_name (device));
+-        if (g_strv_contains (tags, "master-of-seat"))
+-        {
+-                g_debug ("    is seat master\n");
+-                return TRUE;
+-        }
++    // FIXME: This only works for systems with NVIDIA cards, but Intel+AMD
++    //        systems should also need it.
++    gchar *mode = freadln("/etc/prime-discrete");
++
++    gboolean dual_gpus = mode &&
++        (strcmp(mode, "nvidia\n") == 0 ||
++         strcmp(mode, "on-demand\n") == 0);
+ 
+-        return FALSE;
++    free(mode);
++    return dual_gpus;
++}
++
++static gboolean
++is_expected_card(const gchar * const name)
++{
++    return name &&
++        (strcmp(name, "card0") == 0 ||
++         strcmp(name, "card1") == 0);
+ }
+ 
+ static void
+@@ -46,7 +75,8 @@
+ 
+         if (g_strcmp0 (action, "add") == 0)
+         {
+-                if (handle_device (device))
++                const gchar * name = g_udev_device_get_name (device);
++                if (is_expected_card (name))
+                 {
+                         g_debug ("        this is good\n");
+                         g_main_loop_quit (loop);
+@@ -62,6 +92,8 @@
+ main()
+ {
+         const gchar * const subsystems[] = { "drm", NULL };
++        const gboolean needs_two_gpus = requires_two_gpus();
++        int nr_cards = 0;
+ 
+         g_autoptr(GList) devices = NULL;
+         g_autoptr(GMainLoop) loop = NULL;
+@@ -82,8 +114,17 @@
+         for (GList *l = devices; l != NULL; l = l->next)
+         {
+                 g_autoptr(GUdevDevice) device = G_UDEV_DEVICE (l->data);
++                const gchar * name = g_udev_device_get_name (device);
++
++                if (!is_expected_card (name))
++                {
++                        continue;
++                }
++
++                g_debug ("%s\n", name);
++                nr_cards++;
+ 
+-                if (handle_device (device))
++                if (!needs_two_gpus || nr_cards == 2)
+                 {
+                         g_debug ("        good enough for gdm\n");
+                         return EXIT_SUCCESS;
