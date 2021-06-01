@@ -77,7 +77,7 @@ Recommends: at-spi2-core,
             xserver-xephyr,
             xserver-xorg,
             zenity
-Suggests: gnome-orca,
+Suggests: orca,
           libpam-fprintd (>= 0.8.0-2),
           libpam-sss (>= 2.3.0-1),
           libpam-pkcs11,
