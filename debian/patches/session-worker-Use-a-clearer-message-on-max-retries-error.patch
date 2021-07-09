@@ -12,10 +12,10 @@ Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/e2f3b1a5^
  1 file changed, 3 insertions(+)
 
 diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
-index d2cfde5..05716f7 100644
+index 36c3e5d..8d9aca7 100644
 --- a/daemon/gdm-session-worker.c
 +++ b/daemon/gdm-session-worker.c
-@@ -756,6 +756,9 @@ get_friendly_error_message (int error_code)
+@@ -757,6 +757,9 @@ get_friendly_error_message (int error_code)
                  return _("Your account was given a time limit that’s now passed.");
                  break;
  
