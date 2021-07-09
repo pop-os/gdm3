@@ -3,6 +3,7 @@ session-worker-Mention-the-authentication-method-if-known.patch
 session-worker-Remove-stray-comma.patch
 session-Threat-PAM-max-retries-error-as-service-unavailab.patch
 gdm-wayland-x-session-don-t-overwrite-user-env-with-fallb.patch
+session-Only-emit-verification-complete-on-reauth-or-afte.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
