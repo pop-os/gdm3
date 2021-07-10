@@ -1,3 +1,18 @@
+gdm3 (3.38.2.1-3ubuntu3) UNRELEASED; urgency=medium
+
+  [ Laurent Bigonville ]
+  * debian/rules: Drop compatibility symlinks now that bullseye is released
+  * debian/watch: Update the watch file to follow the new version scheme
+  * debian/control.in: Suggest orca instead of gnome-orca, the later is a transitonal package
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/patches:
+    - Refresh
+    - Correctly handle session opening errors (LP: #1935818)
+    - Emit specific error on session opened failure
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 10 Jul 2021 18:11:20 +0200
+
 gdm3 (3.38.2.1-3ubuntu2) impish; urgency=medium
 
   * Merge with debian
