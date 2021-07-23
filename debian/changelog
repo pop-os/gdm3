@@ -1,3 +1,9 @@
+gdm3 (3.36.3-0ubuntu0.20.04.4pop0) focal; urgency=medium
+
+  * Upstream update 
+
+ -- Michael Aaron Murphy <mmstick@pm.me>  Fri, 23 Jul 2021 14:13:10 -0600
+
 gdm3 (3.36.3-0ubuntu0.20.04.3pop0) focal; urgency=medium
 
   * Pop!_OS patches
