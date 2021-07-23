@@ -1,0 +1,104 @@
+From: Marco Trevisan <mail@3v1n0.net>
+Date: Tue, 7 Aug 2018 11:15:57 +0100
+Subject: Only emit verification-complete on reauth or after session is opened
+
+Backport upstream fix:
+We're currently emitting verification-complete signal as soon as we
+got a positive authentication callback from the worker, however at this
+point we've not opened the session yet, and if that fails we'll end up
+in a scenario where gdm assumed that we're logging in, and so its
+greeter is shut down and never restarted on its VT until we manually
+switch back and forth from it. Meanwhile the session opening failure is
+never exposed to the user.
+
+So, do not emit verification-completed on logins, until we've opened
+the session.
+However, re-order the session-opened callback events so that we keep
+notifying verification-complete before than session-opened.
+
+Index: gdm3-3.36.3/daemon/gdm-session.c
+===================================================================
+--- gdm3-3.36.3.orig/daemon/gdm-session.c
++++ gdm3-3.36.3/daemon/gdm-session.c
+@@ -172,6 +172,7 @@ enum {
+         AUTHENTICATION_FAILED,
+         VERIFICATION_COMPLETE,
+         SESSION_OPENED,
++        SESSION_OPENED_FAILED,
+         SESSION_STARTED,
+         SESSION_START_FAILED,
+         SESSION_EXITED,
+@@ -319,18 +320,18 @@ on_establish_credentials_cb (GdmDBusWork
+         service_name = g_strdup (conversation->service_name);
+ 
+         if (worked) {
+-                if (self->user_verifier_interface != NULL) {
+-                        gdm_dbus_user_verifier_emit_verification_complete (self->user_verifier_interface,
+-                                                                           service_name);
+-                        g_signal_emit (self, signals[VERIFICATION_COMPLETE], 0, service_name);
+-                }
+-
+                 switch (self->verification_mode) {
+                 case GDM_SESSION_VERIFICATION_MODE_LOGIN:
+                 case GDM_SESSION_VERIFICATION_MODE_CHOOSER:
+                         gdm_session_open_session (self, service_name);
+                         break;
+                 case GDM_SESSION_VERIFICATION_MODE_REAUTHENTICATE:
++                        if (self->user_verifier_interface != NULL) {
++                                gdm_dbus_user_verifier_emit_verification_complete (self->user_verifier_interface,
++                                                                                   service_name);
++                                g_signal_emit (self, signals[VERIFICATION_COMPLETE], 0, service_name);
++                        }
++                        break;
+                 default:
+                         break;
+                 }
+@@ -871,24 +872,24 @@ on_opened (GdmDBusWorker *worker,
+ 
+                 conversation->session_id = g_strdup (session_id);
+ 
+-                if (self->greeter_interface != NULL) {
+-                        gdm_dbus_greeter_emit_session_opened (self->greeter_interface,
+-                                                              service_name);
+-                }
+-
+                 if (self->user_verifier_interface != NULL) {
+                         gdm_dbus_user_verifier_emit_verification_complete (self->user_verifier_interface,
+                                                                            service_name);
+                         g_signal_emit (self, signals[VERIFICATION_COMPLETE], 0, service_name);
+                 }
+ 
++                if (self->greeter_interface != NULL) {
++                        gdm_dbus_greeter_emit_session_opened (self->greeter_interface,
++                                                              service_name);
++                }
++
+                 g_debug ("GdmSession: Emitting 'session-opened' signal");
+                 g_signal_emit (self, signals[SESSION_OPENED], 0, service_name, session_id);
+         } else {
+                 report_and_stop_conversation (self, service_name, error);
+ 
+                 g_debug ("GdmSession: Emitting 'session-start-failed' signal");
+-                g_signal_emit (self, signals[SESSION_START_FAILED], 0, service_name, error->message);
++                g_signal_emit (self, signals[SESSION_OPENED_FAILED], 0, service_name, error->message);
+         }
+ }
+ 
+@@ -3742,6 +3743,17 @@ gdm_session_class_init (GdmSessionClass
+                               2,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING);
++        signals [SESSION_OPENED_FAILED] =
++                g_signal_new ("session-opened-failed",
++                              GDM_TYPE_SESSION,
++                              G_SIGNAL_RUN_FIRST,
++                              0,
++                              NULL,
++                              NULL,
++                              g_cclosure_marshal_generic,
++                              G_TYPE_NONE,
++                              2,
++                              G_TYPE_STRING, G_TYPE_STRING);
+         signals [SESSION_STARTED] =
+                 g_signal_new ("session-started",
+                               GDM_TYPE_SESSION,

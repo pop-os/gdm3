@@ -14,6 +14,7 @@ ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
 CVE-2020-16125.patch
 git_display_segfault.patch
+ubuntu/reset-session-on-pam-error.patch
 
 # Pop!_OS
 pop_prefer_pop_session_fallback.patch
