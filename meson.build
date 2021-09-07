@@ -1,5 +1,5 @@
 project('gdm', 'c',
-  version: '3.38.2.1',
+  version: '40.0',
   license: 'GPL2+',
   meson_version: '>= 0.50',
 )
@@ -25,7 +25,6 @@ dbus_sys_dir = (get_option('dbus-sys') != '')? get_option('dbus-sys') : get_opti
 gdm_defaults_conf = (get_option('defaults-conf') != '')? get_option('defaults-conf') : gdm_prefix / get_option('datadir') / 'gdm' / 'defaults.conf'
 gdm_custom_conf = (get_option('custom-conf') != '')? get_option('custom-conf') : gdmconfdir / 'custom.conf'
 gnome_settings_daemon_dir = (get_option('gnome-settings-daemon-dir') != '')? get_option('gnome-settings-daemon-dir') : gdm_prefix / get_option('libexecdir')
-check_accelerated_dir = (get_option('check-accelerated-dir') != '')? get_option('check-accelerated-dir') : gdm_prefix / get_option('libexecdir')
 gdm_run_dir = (get_option('run-dir') != '')? get_option('run-dir') : gdm_prefix / get_option('localstatedir') / 'run' / 'gdm'
 gdm_runtime_conf = (get_option('runtime-conf') != '')? get_option('runtime-conf') : gdm_run_dir / 'custom.conf'
 gdm_pid_file = (get_option('pid-file') != '')? get_option('pid-file') : gdm_run_dir / 'gdm.pid'
@@ -40,7 +39,7 @@ config_h_dir = include_directories('.')
 # Dependencies
 udev_dep = dependency('udev')
 
-glib_min_version = '2.44.0'
+glib_min_version = '2.56.0'
 
 glib_dep = dependency('glib-2.0', version: '>=' + glib_min_version)
 gobject_dep = dependency('gobject-2.0', version: '>=' + glib_min_version)
@@ -164,7 +163,7 @@ libpam_dep = cc.find_library('pam')
 pam_extensions_supported = cc.has_header_symbol('security/pam_appl.h', 'PAM_BINARY_PROMPT')
 
 default_pam_config = get_option('default-pam-config')
-# If requested, try autodetecting from release files (see NetworkManager source) 
+# If requested, try autodetecting from release files (see NetworkManager source)
 if default_pam_config == 'autodetect'
   pam_autodetect_map = {
     '/etc/redhat-release': 'redhat',
@@ -209,7 +208,6 @@ conf.set_quoted('GNOMELOCALEDIR', gdm_prefix / get_option('localedir'))
 conf.set_quoted('AT_SPI_REGISTRYD_DIR', at_spi_registryd_dir)
 conf.set_quoted('GDM_PID_FILE', gdm_pid_file)
 conf.set_quoted('GNOME_SETTINGS_DAEMON_DIR', gnome_settings_daemon_dir)
-conf.set_quoted('CHECK_ACCELRATED_DIR', check_accelerated_dir)
 conf.set_quoted('LANG_CONFIG_FILE', lang_config_file)
 conf.set('HAVE_ADT', have_adt)
 conf.set('HAVE_UTMP_H', have_utmp_header)
@@ -274,6 +272,8 @@ if xdmcp_dep.found()
 endif
 subdir('docs')
 
+meson.add_install_script('build-aux/meson_post_install.py')
+
 if meson.version().version_compare('>= 0.53')
 summary({
     'datadir': gdm_prefix / get_option('datadir'),
@@ -298,7 +298,6 @@ summary({
     'GNOME locale': gdm_prefix / get_option('datadir') / get_option('localedir'),
     'GNOME Settings Daemon': gnome_settings_daemon_dir,
     'AT SPI registryd': at_spi_registryd_dir,
-    'Check Accelerated': check_accelerated_dir,
     'Lang config file': lang_config_file,
     'Pam MOD': pam_mod_dir,
     'Udev rules': udev_dir,

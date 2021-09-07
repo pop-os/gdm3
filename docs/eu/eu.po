@@ -1,33 +1,28 @@
-# Traducció del gdm de l'equip de Softcatalà.
-# Copyright © 2009 Free Software Foundation, Inc.
-# Joan Duran <jodufi@gmail.com>, 2009.
-# Josep Sànchez <papapep@gmx.com>, 2013.
+# Basque translation for gdm.
+# Copyright (C) 2021 gdm's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gdm package.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2021.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: gdm\n"
-"POT-Creation-Date: 2014-01-06 15:36+0000\n"
-"PO-Revision-Date: 2013-09-22 14:11+0100\n"
-"Last-Translator: Josep Sànchez Mesegué <papapep@gmx.com>\n"
-"Language-Team: català; valencià <>\n"
-"Language: ca\n"
+msgstr "Project-Id-Version: gdm master\n"
+"POT-Creation-Date: 2021-01-06 14:43+0000\n"
+"PO-Revision-Date: 2021-02-28 20:06+0000\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"Language: eu\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr ""
-"Jordi Mas i Hernandez <jmas@softcatala.org>\n"
-"Josep Sanchez Mesegue <papapep@gmx.com>, 2013"
+msgstr "translator-credits"
 
 #. (itstool) path: articleinfo/title
 #: C/index.docbook:13
 msgid "GNOME Display Manager Reference Manual"
-msgstr "Manual de referència del gestor de pantalla del GNOME"
+msgstr "GNOMEren pantaila-kudeatzailearen erreferentzia-eskuliburua"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:16
@@ -37,8 +32,7 @@ msgstr "<revnumber>0.0</revnumber> <date>2008-09</date>"
 #. (itstool) path: abstract/para
 #: C/index.docbook:23
 msgid "GDM is the GNOME Display Manager, a graphical login program."
-msgstr ""
-"El GDM és el gestor de pantalla del GNOME, un programa gràfic d'entrada."
+msgstr "GDM aplikazioa GNOMEren pantaila-kudeatzailea da, saioak grafikoki hasteko erabiltzen den programa bat."
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:29
@@ -46,79 +40,61 @@ msgid ""
 "<firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</"
 "surname> <affiliation> <address><email>mkp@mkp.net</email></address> </"
 "affiliation>"
-msgstr ""
-"<firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</"
-"surname> <affiliation> <address><email>mkp@mkp.net</email></address> </"
-"affiliation>"
+msgstr "<firstname>Martin</firstname><othername>K.</othername> <surname>Petersen</surname> <affiliation> <address><email>mkp@mkp.net</email></address> </affiliation>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:36
 msgid ""
 "<firstname>George</firstname><surname>Lebl</surname> <affiliation> "
 "<address><email>jirka@5z.com</email></address> </affiliation>"
-msgstr ""
-"<firstname>George</firstname><surname>Lebl</surname> <affiliation> "
-"<address><email>jirka@5z.com</email></address> </affiliation>"
+msgstr "<firstname>George</firstname><surname>Lebl</surname> <affiliation> <address><email>jirka@5z.com</email></address> </affiliation>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:42
 msgid ""
 "<firstname>Jon</firstname><surname>McCann</surname> <affiliation> "
 "<address><email>mccann@jhu.edu</email></address> </affiliation>"
-msgstr ""
-"<firstname>Jon</firstname><surname>McCann</surname> <affiliation> "
-"<address><email>mccann@jhu.edu</email></address> </affiliation>"
+msgstr "<firstname>Jon</firstname><surname>McCann</surname> <affiliation> <address><email>mccann@jhu.edu</email></address> </affiliation>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:48
 msgid ""
 "<firstname>Ray</firstname><surname>Strode</surname> <affiliation> "
 "<address><email>rstrode@redhat.com</email></address> </affiliation>"
-msgstr ""
-"<firstname>Ray</firstname><surname>Strode</surname> <affiliation> "
-"<address><email>rstrode@redhat.com</email></address> </affiliation>"
+msgstr "<firstname>Ray</firstname><surname>Strode</surname> <affiliation> <address><email>rstrode@redhat.com</email></address> </affiliation>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:54
 msgid ""
 "<firstname>Brian</firstname><surname>Cameron</surname> <affiliation> "
 "<address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation>"
-msgstr ""
-"<firstname>Brian</firstname><surname>Cameron</surname> <affiliation> "
-"<address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation>"
+msgstr "<firstname>Brian</firstname><surname>Cameron</surname> <affiliation> <address><email>Brian.Cameron@Oracle.COM</email></address> </affiliation>"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:61
 msgid "<year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder>"
-msgstr ""
-"<year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder>"
+msgstr "<year>1998</year> <year>1999</year> <holder>Martin K. Petersen</holder>"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:66
 msgid ""
 "<year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</"
 "holder>"
-msgstr ""
-"<year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</"
-"holder>"
+msgstr "<year>2001</year> <year>2003</year> <year>2004</year> <holder>George Lebl</holder>"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:72
 msgid ""
 "<year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</"
 "holder>"
-msgstr ""
-"<year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</"
-"holder>"
+msgstr "<year>2003</year> <year>2007</year> <year>2008</year> <holder>Red Hat, Inc.</holder>"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:78
 msgid ""
 "<year>2003</year> <year>2011</year> <holder>Oracle and/or its affiliates. "
 "All rights reserved.</holder>"
-msgstr ""
-"<year>2003</year> <year>2011</year> <holder>Oracle i els seus associats. "
-"Tots els drets reservats.</holder>"
+msgstr "<year>2003</year> <year>2011</year> <holder>Oracle and/or its affiliates. All rights reserved.</holder>"
 
 #. (itstool) path: legalnotice/para
 #: C/index.docbook:2
@@ -129,14 +105,7 @@ msgid ""
 "Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy "
 "of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl\">link</ulink> or "
 "in the file COPYING-DOCS distributed with this manual."
-msgstr ""
-"Teniu permís per a copiar, distribuir i/o modificar aquest document, sota "
-"els termes de la Llicència de documentació lliure GNU (GFDL), versió 1.1 o "
-"qualsevol versió publicada posteriorment per la Free Software Foundation, "
-"sense seccions invariants, sense texts de portada i sense texts de "
-"contraportada. Podeu trobar una còpia de la GFDL en aquest <ulink type=\"help"
-"\" url=\"ghelp:fdl\">enllaç</ulink> o en el fitxer COPYING-DOCS distribuït "
-"amb aquest manual."
+msgstr "Baimena ematen da dokumentu hau kopiatu, banatu eta/edo aldatzeko Free Software Foundation-ek argitaratutako GNU Dokumentazio Librearen Lizentziaren 1.1. bertsioan edo berriago batean ezarritako baldintzak betetzen badira; Atal Aldaezinik, Aurreko azaleko testurik eta Atzeko azaleko testurik gabe. GFDL lizentziaren kopia <ulink type=\"help\" url=\"ghelp:fdl\">esteka honetan</ulink> edo eskuliburu honekin batera ematen den COPYING-DOCS fitxategian aurkituko duzu."
 
 #. (itstool) path: legalnotice/para
 #: C/index.docbook:12 C/legal.xml:12
@@ -145,11 +114,7 @@ msgid ""
 "GFDL. If you want to distribute this manual separately from the collection, "
 "you can do so by adding a copy of the license to the manual, as described in "
 "section 6 of the license."
-msgstr ""
-"Aquest manual forma part d'una col·lecció de manuals del GNOME distribuïts "
-"sota la GFDL. Si voleu distribuir aquest manual independentment de la "
-"col·lecció, podeu fer-ho afegint una còpia de la llicència al manual, tal "
-"com es descriu a la secció 6 de la llicència."
+msgstr "Eskuliburu hau GFDL lizentziarekin banatzen diren GNOME eskuliburuen bildumakoa da. Eskuliburu hau bildumatik bereizita banatu nahi baduzu, bana dezakezu, baina eskuliburuari lizentziaren kopia bat gehitu beharko diozu, lizentzian bertan 6. atalean azaltzen den bezala."
 
 #. (itstool) path: legalnotice/para
 #: C/index.docbook:19 C/legal.xml:19
@@ -159,12 +124,7 @@ msgid ""
 "documentation, and the members of the GNOME Documentation Project are made "
 "aware of those trademarks, then the names are in capital letters or initial "
 "capital letters."
-msgstr ""
-"Molts dels noms que les empreses utilitzen per a distingir els seus "
-"productes i serveis es consideren marques comercials. Quan aquests noms "
-"apareguin en qualsevol documentació del GNOME, si els membres del Projecte "
-"de documentació del GNOME han estat avisats pel que fa a les marques, els "
-"noms apareixeran en majúscules o amb les inicials en majúscules."
+msgstr "Enpresek euren produktu eta zerbitzuak bereizteko erabiltzen dituzten izen asko marka erregistratu moduan hartu behar dira. Izen horiek GNOMEren edozein agiritan agertzen direnean, eta GNOMEren Dokumentazio Proiektuko kideak marka komertzialak direla konturatu badira, orduan izen horiek maiuskulaz idatzita egongo dira, osorik edo hasierako letra maiuskulaz jarrita."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:35 C/legal.xml:35
@@ -180,18 +140,7 @@ msgid ""
 "SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN "
 "ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION "
 "OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND"
-msgstr ""
-"EL DOCUMENT S'OFEREIX «TAL COM ÉS», SENSE CAP TIPUS DE GARANTIA, NI "
-"EXPLÍCITA NI IMPLÍCITA; AIXÒ INCLOU, SENSE LIMITAR-S'HI, LES GARANTIES QUE "
-"EL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT NO TINGUI DEFECTES, SIGUI "
-"COMERCIALITZABLE, SIGUI ADEQUAT PER A UN ÚS CONCRET O NO INFRINGEIXI CAP "
-"LLEI. TOT EL RISC PEL QUE FA A LA QUALITAT, EXACTITUD I RENDIMENT DEL "
-"DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT ÉS VOSTRE. EN CAS QUE EL "
-"DOCUMENT RESULTÉS DEFECTUÓS EN QUALSEVOL ASPECTE, VÓS (NO PAS L'ESCRIPTOR "
-"INICIAL, L'AUTOR O CAP ALTRE COL·LABORADOR) ASSUMIU TOT EL COST DE "
-"MANTENIMENT, REPARACIÓ O CORRECCIÓ. AQUESTA RENÚNCIA DE GARANTIA CONSTITUEIX "
-"UNA PART ESSENCIAL D'AQUESTA LLICÈNCIA. NO S'AUTORITZA L'ÚS DE CAP DOCUMENT "
-"O VERSIÓ MODIFICADA DEL DOCUMENT EXCEPTE SOTA AQUESTA RENÚNCIA DE GARANTIA; I"
+msgstr "DOKUMENTUA \"DAGOEN-DAGOENEAN\" EMATEN DA, INOLAKO BERMERIK GABE, EZ ESPRESUKI ADIERAZITAKORIK ETA EZ INPLIZITURIK ERE; BESTEAK BESTE (MUGARIK GABE), EZ DA BERMATZEN DOKUMENTUA EDO BERTSIO ALDATUA AKATSIK GABEA DENIK, MERKATURATZEKO EDO XEDE JAKIN BATERAKO EGOKIA DENIK EDO ARAURIK HAUSTEN EZ DUENIK. DOKUMENTUAREN EDO DOKUMENTUAREN BERTSIO ALDATUAREN KALITATEARI, ZEHAZTASUNARI ETA PERFORMANTZIARI BURUZKO ERANTZUKIZUN OSOA ZUREA DA. DOKUMENTUREN BATEK EDO BERTSIO ALDATUREN BATEK EDOZEIN MOTATAKO AKATSIK IZANEZ GERO, ZUK (EZ HASIERAKO IDAZLEAK, EZ EGILEAK ETA EZ INONGO KOLABORATZAILEK) ZEURE GAIN HARTU BEHARKO DUZU BERRIKUSTEKO, KONPONTZEKO EDO ZUZENTZEKO BEHARREZKO ZERBITZU GUZTIEN KOSTUA. BERME-UKATZE HAU LIZENTZIA HONEN FUNTSEZKO ZATIA DA. EZ DA BAIMENIK EMATEN EZEIN DOKUMENTU EDO BERTSIO ALDATU ERABILTZEKO, BALDIN ETA EZ BADA BERME-UKATZE HAU ONARTZEN."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:55 C/legal.xml:55
@@ -206,17 +155,7 @@ msgid ""
 "OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED "
 "VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE "
 "POSSIBILITY OF SUCH DAMAGES."
-msgstr ""
-"EN CAP CAS I SOTA CAP INTERPRETACIÓ LEGAL, JA SIGUI PER AGREUJAMENT "
-"(INCLOENT-HI LA NEGLIGÈNCIA), CONTRACTE O ALTRE CAS, L'AUTOR, L'ESCRIPTOR "
-"ORIGINAL, QUALSEVOL DELS COL·LABORADORS O DISTRIBUÏDORS DEL DOCUMENT O UNA "
-"VERSIÓ MODIFICADA DEL DOCUMENT NI CAP PROVEÏDOR D'AQUESTES PARTS NO SERAN "
-"RESPONSABLES DAVANT DE NINGÚ PER CAP DANY DIRECTE, INDIRECTE, ESPECIAL, "
-"ACCIDENTAL O CONSECUTIU DE QUALSEVOL TIPUS; AIXÒ INCLOU, SENSE LIMITAR-S'HI, "
-"ELS DANYS PER PÈRDUA DE CLIENTS, INTERRUPCIONS DE LA FEINA, FALLADA O "
-"MALFUNCIONAMENT DE L'ORDINADOR, O QUALSEVOL ALTRA PÈRDUA O DANY RELACIONAT "
-"AMB L'ÚS DEL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT, FINS I TOT SI "
-"S'HA INFORMAT AQUESTA PART DE LA POSSIBILITAT D'AQUESTS DANYS."
+msgstr "EZINGO DA INONGO ZIRKUNSTANTZIA EDO LEGE-TEORIARIK OINARRI HARTU --EZ ERANTZUKIZUN ZIBILARI BURUZKORIK (ZABARKERIA BARNE HARTUTA) EZ KONTRATUARI BURUZKORIK, EZ BESTERIK-- DOKUMENTU HONEN EDO BERTSIO ALDATU BATEN EGILEA, HASIERAKO IDAZLEA, EDOZEIN KOLABORATZAILE EDO BANATZAILE, EDO ALDERDI HORIEN EDOZEIN HORNITZAILE BESTE PERTSONA BATEN AURREAN ERANTZULE EGITEKO, PERTSONA HORREK EDOZEIN MOTATAKO KALTE ZUZENEKO, ZEHARKAKO, BEREZI, INTZIDENTAL EDO ONDORIOZKOAK JASAN DITUELAKO, BESTEAK BESTE (MUGARIK GABE), BEZEROAK GALTZEAREN, LANA ETEN BEHARRAREN, ORDENAGAILUAK EZ IBILTZEAREN EDO GAIZKI IBILTZEAREN ONDORIOZKO KALTEAK, EDO DOKUMENTUA NAHIZ HAREN BERTSIO ALDATUAK ERABILTZETIK ONDORIOZTATZEN DIREN EDO ERABILERA HORREKIN ZERIKUSIA DUEN EDOZEIN KALTE EDO GALERA, ALDERDIARI KALTE HORIEK GERTA ZITEZKEELA ADITZERA EMAN BAZAIO ERE."
 
 #. (itstool) path: legalnotice/para
 #: C/index.docbook:28 C/legal.xml:28
@@ -224,10 +163,7 @@ msgid ""
 "DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS "
 "OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: "
 "<_:orderedlist-1/>"
-msgstr ""
-"EL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT S'OFEREIXEN SOTA ELS "
-"TERMES DE LA LLICÈNCIA DE DOCUMENTACIÓ LLIURE DE GNU, TENINT EN COMPTE QUE: "
-"<_:orderedlist-1/>"
+msgstr "DOKUMENTUA ETA DOKUMENTUAREN BERTSIO ALDATUAK GNU DOKUMENTAZIO LIBREAREN LIZENTZIAREN BALDINTZEN ARABERA EMATEN DIRA, ETA ONDOREN ZEHAZTEN DIRENAK ONARTZERA BEHARTZEN DUTE: <_:orderedlist-1/>"
 
 #. (itstool) path: articleinfo/releaseinfo
 #. (itstool) path: sect1/para
@@ -235,14 +171,12 @@ msgstr ""
 msgid ""
 "This manual describes version 2.26.0 of the GNOME Display Manager. It was "
 "last updated on 02/10/2009."
-msgstr ""
-"Aquest manual descriu la versió 2.26.0 del gestor de pantalla del GNOME. Es "
-"va actualitzar per últim cop el 10/02/2009."
+msgstr "GNOME GDMren 2.26.0 bertsioa azaltzen da eskuliburu honetan. Azken eguneratzea 2009ko urriaren 2an izan zen."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:95
 msgid "Terms and Conventions Used in This Manual"
-msgstr "Termes i convencions utilitzats en aquest manual"
+msgstr "Eskuliburu honetan erabilitako terminoak eta konbentzioak"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:102
@@ -250,9 +184,6 @@ msgid ""
 "Chooser - A program used to select a remote host for managing a display "
 "remotely on the attached display (<command>gdm-host-chooser</command>)."
 msgstr ""
-"Seleccionador: un programa que s'utilitza per a seleccionar un amfitrió "
-"remot per a gestionar una pantalla remotament a la pantalla local "
-"(<command>gdm-host-chooser</command>)."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:107
@@ -260,39 +191,31 @@ msgid ""
 "FreeDesktop - The organization providing desktop standards, such as the "
 "Desktop Entry Specification used by GDM. <ulink type=\"http\" url=\"http://"
 "www.freedesktop.org/\"> http://www.freedesktop.org</ulink>."
-msgstr ""
-"FreeDesktop: l'organització que proporciona estàndards per a l'escriptori, "
-"com ara l'especificació d'entrada de l'escriptori que utilitza el GDM. "
-"<ulink type=\"http\" url=\"http://www.freedesktop.org/\"> http://www."
-"freedesktop.org</ulink>."
+msgstr "FreeDesktop - Mahaigainerako estandarrak eskaintzen dituen erakundea. Adibidez, GDM aplikazioak erabilitako Desktop Entry Specification sortu du. <ulink type=\"http\" url=\"http://www.freedesktop.org/\"> http://www.freedesktop.org</ulink>."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:113
 msgid ""
 "GDM - GNOME Display Manager. Used to describe the software package as a "
 "whole."
-msgstr ""
-"GDM: el Gestor de pantalla del GNOME. S'utilitza per a descriure el paquet "
-"de programari completament."
+msgstr "GDM - GNOMEren pantaila-kudeatzailea. Software-paketea bere osotasunean deskribatzeko erabiltzen da."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:118
 msgid ""
 "Greeter - The graphical login window (provided by <command>gnome-shell</"
 "command>)."
-msgstr ""
-"Rebedor: la finestra d'entrada gràfica (proporcionada pel <command>gnome-"
-"shell</command>)."
+msgstr "Ongietorria - Saioa hasteko leiho grafikoa (<command>gnome-shell</command> komandoak eskainitakoa)."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:122
 msgid "PAM - Pluggable Authentication Mechanism"
-msgstr "PAM: mòduls de connectors d'autenticació"
+msgstr ""
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:126
 msgid "XDMCP - X Display Manage Protocol"
-msgstr "XDMCP: Protocol de gestió de pantalles X"
+msgstr ""
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:130
@@ -301,9 +224,6 @@ msgid ""
 "Xserver provided by the X.org Foundation <ulink type=\"http\" url=\"http://"
 "www.x.org/\">http://www.x.org</ulink>."
 msgstr ""
-"Xserver: una implementació del sistema de finestres X. Per exemple el "
-"servidor X creat per la fundació X.org <ulink type=\"http\" url=\"http://www."
-"x.org/\">http://www.x.org</ulink>."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:136
@@ -313,20 +233,16 @@ msgid ""
 "to <filename>/usr/share/pixmaps</filename> if GDM was configured with "
 "<command>--prefix=/usr</command>."
 msgstr ""
-"Els camins que comencen amb una paraula entre parèntesis angulars són "
-"relatius al prefix d'instal·lació. Per exemple, <filename>&lt;share&gt;/"
-"pixmaps/</filename> es refereix a <filename>/usr/share/pixmaps</filename> si "
-"el GDM es va configurar amb <command>--prefix=/usr</command>."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:147
 msgid "Overview"
-msgstr "Vista general"
+msgstr "Ikuspegi orokorra"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:150
 msgid "Introduction"
-msgstr "Introducció"
+msgstr "Sarrera"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:152
@@ -335,10 +251,6 @@ msgid ""
 "significant features required for managing attached and remote displays. GDM "
 "was written from scratch and does not contain any XDM or X Consortium code."
 msgstr ""
-"El gestor de pantalla del GNOME (GDM) és un gestor de pantalla que "
-"implementa totes les funcions destacades que fan falta per a gestionar "
-"pantalles locals i remotes. El GDM es va escriure des de zero i no conté cap "
-"codi de l'XDM o de l'X Consortium."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:159
@@ -346,9 +258,6 @@ msgid ""
 "Note that GDM is configurable, and many configuration settings have an "
 "impact on security. Issues to be aware of are highlighted in this document."
 msgstr ""
-"Tingueu en compte que el GDM es pot configurar i que molts paràmetres de "
-"configuració poden afectar a la seguretat. En aquest document es ressalten "
-"els temes en què s'ha de vigilar."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:165
@@ -358,29 +267,14 @@ msgid ""
 "to behave as documented, then check to see if any related configuration may "
 "be different than described here."
 msgstr ""
-"Tingueu en compte que alguns sistemes operatius configuren el GDM per a "
-"comportar-se de forma diferent als valors per defecte que es descriuen en "
-"aquest document. Si el GDM no sembla que es comporta com s'explica aquí, "
-"comproveu si alguna configuració relacionada és diferent de la descrita aquí."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:172
-#, fuzzy
-#| msgid ""
-#| "For further information about GDM, refer to the project website at <ulink "
-#| "type=\"http\" url=\"http://www.gnome.org/projects/gdm/\"> http://www."
-#| "gnome.org/projects/gdm</ulink> and the project Wiki <ulink type=\"http\" "
-#| "url=\"http://live.gnome.org/GDM\"> http://live.gnome.org/GDM</ulink>."
 msgid ""
 "For further information about GDM, refer to the project website at <ulink "
 "type=\"http\" url=\"http://wiki.gnome.org/Projects/GDM/\"> http://wiki.gnome."
 "org/Projects/GDM</ulink>."
 msgstr ""
-"Per a obtenir més informació sobre el GDM, consulteu el lloc web del "
-"projecte a <ulink type=\"http\" url=\"http://www.gnome.org/projects/gdm/"
-"\">http://www.gnome.org/projects/gdm</ulink> i al Wiki del projecte <ulink "
-"type=\"http\" url=\"http://live.gnome.org/GDM\">http://live.gnome.org/GDM</"
-"ulink>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:178
@@ -392,13 +286,6 @@ msgid ""
 "list/\"> http://mail.gnome.org/archives/gdm-list/</ulink> and has a search "
 "facility to look for messages with keywords."
 msgstr ""
-"Per a qüestions o consultes sobre el GDM, consulteu la llista de correu "
-"<address><email>gdm-list@gnome.org</email></address>. Aquesta llista "
-"s'arxiva i és un bon recurs a comprovar per a trobar respostes a les "
-"preguntes freqüents. Els arxius de la llista es troben a <ulink type=\"http"
-"\" url=\"http://mail.gnome.org/archives/gdm-list/\">http://mail.gnome.org/"
-"archives/gdm-list/</ulink> i té una utilitat de cerca per a cercar missatges "
-"amb paraules clau."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:188
@@ -407,14 +294,11 @@ msgid ""
 "category in <ulink type=\"http\" url=\"http://bugzilla.gnome.org/\"> http://"
 "bugzilla.gnome.org</ulink>."
 msgstr ""
-"Envieu qualsevol informe d'error o sol·licituds de millora a la categoria "
-"«gdm» al <ulink type=\"http\" url=\"http://bugzilla.gnome.org/\">http://"
-"bugzilla.gnome.org</ulink>."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:197
 msgid "Interface Stability"
-msgstr "Estabilitat de la interfície"
+msgstr "Interfazearen egonkortasuna"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:199
@@ -426,12 +310,6 @@ msgid ""
 "options never made sense, and in part because some functionality has not "
 "been reimplemented yet."
 msgstr ""
-"El GDM 2.20 i les versions anteriors admetien configuracions d'interfície "
-"estables. Tot i això, es va reescriure el codi totalment pel GDM 2.22 i no "
-"és del tot compatible amb les versions anteriors. Això és en part perquè ara "
-"funciona una mica diferent, de manera que algunes opcions no tenen cap "
-"sentit, entre altres coses perquè algunes opcions mai van tenir sentit i "
-"també perquè algunes funcions encara no s'han tornat a implementar."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:208
@@ -442,11 +320,6 @@ msgid ""
 "filename> file continue to be supported. Also, the <filename>~/.dmrc</"
 "filename>, and face browser image locations are still supported."
 msgstr ""
-"Les interfícies que encara són compatibles de manera estable inclouen els "
-"scripts Init, PreSession, PostSession, PostLogin i Xsession. Algunes opcions "
-"de configuració del dimoni en el fitxer <filename>&lt;etc&gt;/gdm/custom."
-"conf</filename> encara són compatibles. També encara són compatibles el "
-"<filename>~/.dmrc</filename> i les ubicacions del navegador d'imatges."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:217
@@ -457,18 +330,11 @@ msgid ""
 "based greeter themes, and the ability to run the XDMCP chooser from the "
 "login screen. These features were not added back during the 2.22 rewrite."
 msgstr ""
-"El GDM 2.20 i les versions anteriors permetien gestionar diverses pantalles "
-"amb diferents targetes gràfiques, com s'utilitza en entorns de terminal de "
-"servidor, l'entrada dins d'una finestra mitjançant un programa com l'Xnest o "
-"el Xephyr, el programa gdmsetup, els temes de rebedor basats en XML i la "
-"capacitat d'executar el seleccionador XDMCP des de la pantalla d'entrada. "
-"Aquestes funcions no s'han tornat a afegir durant la reescriptura de la "
-"versió 2.22."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:229
 msgid "Functional Description"
-msgstr "Descripció funcional"
+msgstr "Deskribapen funtzionala"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:240
@@ -479,11 +345,6 @@ msgid ""
 "in the \"Configuring GDM\" section of this document. GDM is also accessible "
 "for users with disabilities."
 msgstr ""
-"El GDM és el responsable de la gestió de les pantalles del sistema. Això "
-"inclou l'autenticació d'usuaris, l'inici de la sessió de l'usuari i la "
-"finalització d'aquesta. Les opcions de configuració del GDM estan descrites "
-"a la secció del document «Configuració del GDM». El GDM també és accessible "
-"per als usuaris amb discapacitats."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:248
@@ -494,12 +355,6 @@ msgid ""
 "the console via the Xserver Virtual Terminal (VT) interface. It also can "
 "manage XDMCP displays."
 msgstr ""
-"El GDM proporciona la capacitat de gestionar la consola principal de la "
-"pantalla i les pantalles executades mitjançant el VT. S'integra amb altres "
-"programes, com ara la miniaplicació del commutador d'usuari ràpid (FUSA) i "
-"l'estalvi de pantalla (gnome-screensaver) per a gestionar diverses pantalles "
-"a la consola mitjançant la interfície del terminal virtual (VT) del servidor "
-"X. També pot gestionar pantalles XDMCP."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:256
@@ -509,10 +364,6 @@ msgid ""
 "filename> script as the root user, and start the greeter program on the "
 "display."
 msgstr ""
-"Independentment del tipus de pantalla, el GDM realitzarà el següent quan "
-"gestioni la pantalla: iniciarà un procés del servidor X, seguidament "
-"executarà l'script <filename>Init</filename> com a usuari primari i iniciarà "
-"el programa rebedor a la pantalla."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:263
@@ -531,22 +382,6 @@ msgid ""
 "the <command>--enable-split-authentication</command> <filename>./configure</"
 "filename> option, or one at a time via system PAM configuration."
 msgstr ""
-"El programa rebedor s'executa amb l'usuari/grup sense privilegis «gdm». "
-"Aquest usuari i grup són descrits a la secció «Seguretat» d'aquest document. "
-"Les funcions principals del programa rebedor són proporcionar un mecanisme "
-"per a seleccionar un compte per a entrar i per a conduir el diàleg entre "
-"l'usuari i el sistema en autenticar-se al compte. El procés d'autenticació "
-"és conduït pels mòduls dels connectors d'autenticació (Pluggable "
-"Authentication Modules o PAM). Els mòduls del PAM determinen quines "
-"preguntes (si n'hi ha) es mostren a l'usuari per a autenticar-lo. En "
-"sistemes convencionals, el programa rebedor sol·licitarà un nom d'usuari i "
-"una contrasenya per a autenticar. Tot i això, alguns sistemes es poden "
-"configurar per a utilitzar sistemes alternatius com ara l'empremta dactilar "
-"o lectors de targetes SmartCard. El GDM es pot configurar per a admetre "
-"aquestes alternatives en paral·lel amb extensions del rebedor d'entrada i "
-"l'opció <command>--enable-split-authentication</command><filename>./"
-"configure</filename> o només una a la vegada mitjançant el sistema de "
-"configuració PAM."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:282
@@ -554,9 +389,6 @@ msgid ""
 "The smartcard extension can be enabled or disabled via the <filename>org."
 "gnome.display-manager.extensions.smartcard.active</filename> gsettings key."
 msgstr ""
-"L'extensió de targetes intel·ligents es pot habilitar o inhabilitar "
-"mitjançant la clau del gsettings <filename>org.gnome.display-manager."
-"extensions.smartcard.active</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:288
@@ -565,9 +397,6 @@ msgid ""
 "<filename>org.gnome.display-manager.extensions.fingerprint.active</filename> "
 "gsettings key."
 msgstr ""
-"Així mateix, l'extensió d'empremtes dactilars es pot habilitar o inhabilitar "
-"amb la clau del gsettings <filename>org.gnome.display-manager.extensions."
-"fingerprint.active</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:294
@@ -576,9 +405,6 @@ msgid ""
 "to automatically log in and simply start a session, which can be useful for "
 "some environments, such as single user systems or kiosks."
 msgstr ""
-"Es pot configurar el GDM i el PAM perquè no necessitin cap introducció, "
-"el que faria que el GDM iniciés automàticament una sessió, fet que pot ser "
-"útil en alguns entorns, com en un sistema d'un sol usuari o en un kiosk."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:301
@@ -593,17 +419,6 @@ msgid ""
 "and language in the user's <filename>~/.dmrc</filename> and will use these "
 "defaults if the user did not pick a session or language in the login GUI."
 msgstr ""
-"A més de l'autenticació, el rebedor permet a l'usuari seleccionar quina "
-"sessió vol iniciar i quin idioma vol utilitzar. Les sessions es defineixen "
-"amb fitxers que finalitzen amb el sufix .desktop i en podeu obtenir més "
-"informació a la secció «Configuració de la sessió d'usuari i l'idioma» "
-"d'aquest document. Per defecte, el GDM està configurat per a mostrar un "
-"navegador de cares de manera que l'usuari pugui seleccionar el seu compte "
-"d'usuari fent clic a una imatge en lloc d'haver d'introduir el seu nom "
-"d'usuari. El GDM manté la informació de la sessió i de l'idioma per defecte "
-"de l'usuari en el fitxer <filename>~/.dmrc</filename> i utilitzarà aquests "
-"valors si l'usuari no selecciona una sessió o idioma a la interfície gràfica "
-"d'usuari d'entrada."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:314
@@ -622,26 +437,11 @@ msgid ""
 "user session is initialized. The <filename>PreSession</filename> script is "
 "called after session initialization."
 msgstr ""
-"Després d'autenticar un usuari, el dimoni executa primer l'script "
-"<filename>PostLogin</filename> i després l'script <filename>PreSession</"
-"filename> com a usuari primari. Després de l'execució d'aquests scripts, "
-"s'iniciarà la sessió de l'usuari. Quan l'usuari surti de la sessió, "
-"s'executarà l'script <filename>PostSession</filename>, de nou com a usuari "
-"primari. Aquests scripts estan pensats com a punts de personalització, tant "
-"per les distribucions com pels usuaris finals, per a personalitzar com es "
-"gestionen les sessions. Per exemple, utilitzant aquests punts de "
-"personalització podeu fer que una màquina creï el directori d'usuari $HOME "
-"sota demanda i el suprimeixi en sortir. La diferència entre els scripts "
-"<filename>PostLogin</filename> i <filename>PreSession</filename> és que "
-"l'script <filename>PostLogin</filename> s'executa abans de cridar el mètode "
-"pam_open_session, de manera que és el moment ideal per a fer qualsevol cosa "
-"que s'hauria d'executar abans d'iniciar la sessió d'usuari. L'script "
-"<filename>PreSession</filename> es crida després d'iniciar la sessió."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:334
 msgid "Greeter Panel"
-msgstr "El quadre rebedor"
+msgstr "Ongietorriaren panela"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:335
@@ -660,21 +460,6 @@ msgid ""
 "require the user have appropriate authorization before accepting the "
 "shutdown or restart request."
 msgstr ""
-"El programa rebedor del GDM mostra un quadre acoblat a la part inferior de "
-"la pantalla que proporciona funcions addicionals. Quan se selecciona un "
-"usuari, el quadre permet seleccionar la sessió, l'idioma i la distribució "
-"del teclat que es vol utilitzar durant la sessió. El selector de la "
-"distribució del teclat també canvia la distribució del teclat quan "
-"s'introdueix la contrasenya. El quadre també conté una àrea on els serveis "
-"d'entrada poden deixar icones d'estat. Alguns exemples d'icones d'estat "
-"poden ser una icona de bateria amb la utilització actual de bateria i una "
-"icona per a habilitar les funcions d'accessibilitat. El programa rebedor "
-"també proporciona botons que permeten a l'usuari aturar o tornar a iniciar "
-"el sistema. És possible configurar el GDM perquè no mostri els botons "
-"d'apagada i reinici. També es pot configurar mitjançant el PolicyKit (o "
-"mitjançant RBAC en Oracle Solaris) per a sol·licitar que l'usuari tingui "
-"l'autorització necessària abans d'acceptar la sol·licitud d'apagada o "
-"reinici."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:352
@@ -682,13 +467,11 @@ msgid ""
 "Note that keyboard layout features are only available on systems that "
 "support libxklavier."
 msgstr ""
-"Tingueu present que les característiques de la disposició de teclat només "
-"són disponibles en els sistemes que implementen les libxklavier."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:359
 msgid "Accessibility"
-msgstr "Accessibilitat"
+msgstr "Erabilerraztasuna"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:361
@@ -702,15 +485,6 @@ msgid ""
 "Configuration\" section of the document for more information how various "
 "accessibility features can be configured."
 msgstr ""
-"El GDM admet l'«Entrada accessible», que permet als usuaris entrar a la "
-"sessió d'escriptori fins i tot si no poden utilitzar fàcilment la pantalla, "
-"el ratolí o el teclat de la manera habitual. Hi ha disponibles les funcions "
-"de la tecnologia assistiva (AT) com ara el teclat en pantalla, el lector de "
-"pantalla, l'ampliador de pantalla i l'accessibilitat del teclat del servidor "
-"X AccessX. Si és necessari, també es pot canviar el text per a fer-lo més "
-"gran o mostrar icones i controls de contrast alt. Per a més informació sobre "
-"la configuració de les funcions d'accessibilitat, vegeu la secció "
-"«Configuració de l'accessibilitat» d'aquest document."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:373
@@ -719,14 +493,11 @@ msgid ""
 "a member of the \"audio\" group for AT programs that require audio output "
 "(such as text-to-speech) to be functional."
 msgstr ""
-"En alguns sistemes operatius és necessari assegurar-se que l'usuari del GDM "
-"és membre del grup «audio» per als programes de tecnologies assistives que "
-"utilitzen la sortida d'àudio (com ara el text-a-veu) per a funcionar."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:381
 msgid "The GDM Face Browser"
-msgstr "El navegador de cares del GDM"
+msgstr "GDM aurpegi-arakatzailea"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:383
@@ -742,17 +513,6 @@ msgid ""
 "all remote users, which caused performance problems in large, enterprise "
 "deployments."
 msgstr ""
-"El navegador de cares és la interfície que permet als usuaris seleccionar el "
-"seu nom d'usuari en fer clic a una imatge. Es pot habilitar mitjançant la "
-"clau del GSettings org.gnome.login-screen disable-user-list i està "
-"habilitada de forma predeterminada. Si està inhabilitada, els usuaris han "
-"d'introduir el nom d'usuari complet a mà. Si està habilitat, es mostren tots "
-"els usuaris locals que hi ha disponibles per a entrar al sistema (tots els "
-"comptes d'usuari definits al fitxer /etc/passwd que tenen un intèrpret "
-"d'ordres vàlid i un UID suficientment alt) i els usuaris remots que han "
-"entrat recentment. El navegador de cares del GDM 2.20 i versions anteriors "
-"intentava mostrar tots els usuaris remots, fet que provocava problemes de "
-"rendiment en entorns d'empresa grans."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:397
@@ -761,10 +521,6 @@ msgid ""
 "frequently at the top of the list. This helps to ensure that users who log "
 "in frequently can quickly find their login image."
 msgstr ""
-"El navegador de cares està configurat per a mostrar els usuaris que entren "
-"amb més freqüència a la part superior de la llista. D'aquesta manera es "
-"facilita que els usuaris que entrin sovint puguin trobar ràpidament la seva "
-"imatge d'entrada."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:403
@@ -775,11 +531,6 @@ msgid ""
 "few characters of the username before the correct item in the list gets "
 "selected."
 msgstr ""
-"El navegador d'imatges admet la «cerca en teclejar» que canvia dinàmicament "
-"la selecció de cares mentre l'usuari introdueix el nom d'usuari corresponent "
-"a la llista. Això significa que un usuari amb un nom d'usuari llarg només "
-"haurà d'introduir els primers caràcters del nom d'usuari abans que l'element "
-"correcte de la llista estigui seleccionat."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:411
@@ -791,13 +542,6 @@ msgid ""
 "standard image that GTK+ can read, such as PNG or JPEG. Face icons placed in "
 "the global face directory must be readable to the GDM user."
 msgstr ""
-"Les icones utilitzades pel GDM es poden instal·lar globalment per "
-"l'administrador del sistema o es poden ubicar al directori d'usuari. Si "
-"s'instal·len globalment haurien d'estar al directori <filename>&lt;share&gt;/"
-"pixmaps/faces/</filename> i el nom de fitxer hauria de ser el nom de "
-"l'usuari. Els fitxers d'imatge de cara haurien de ser una imatge estàndard "
-"que el GTK+ pugui llegir, com ara els formats PNG o JPEG. L'usuari del GDM "
-"ha de poder llegir les icones de cara ubicades al directori global de cares."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:427
@@ -808,12 +552,6 @@ msgid ""
 "icon</filename>. If still not found, it will use the value defined for "
 "\"face/picture=\" in the <filename>~/.gnome2/gdm</filename> file."
 msgstr ""
-"Si no hi ha cap icona global per l'usuari, el GDM cercarà el fitxer d'imatge "
-"al directori de l'usuari. El GDM primer cercarà la imatge de cara de "
-"l'usuari a <filename>~/.face</filename>. Si no el troba, ho provarà a "
-"<filename>~/.face.icon</filename>. Si encara no el troba, utilitzarà el "
-"valor definit per «face/picture=» al fitxer <filename>~/.gnome2/gdm</"
-"filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:436
@@ -822,9 +560,6 @@ msgid ""
 "defined in the current GTK+ theme. If no such image is defined, it will "
 "fallback to a generic face image."
 msgstr ""
-"Si un usuari no ha definit cap imatge de cara, el GDM utilitzarà la icona "
-"«stock_person» definida en el tema actual del GTK+. Si no està definida, "
-"llavors s'utilitzarà una imatge de cara genèrica."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:442
@@ -834,10 +569,6 @@ msgid ""
 "load images over NIS or NFS, GDM does not attempt to load face images from "
 "remote home directories."
 msgstr ""
-"Tingueu en compte que la càrrega i l'escalat d'icones d'imatge ubicades a "
-"directoris d'usuari remots pot tardar molt. Com que no és pràctic carregar "
-"imatges mitjançant NIS o NFS, el GDM no intentarà carregar imatges de cara "
-"des de directoris d'usuari remots."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:449
@@ -848,12 +579,6 @@ msgid ""
 "user does not need to guess valid usernames. In some very restrictive "
 "environments the face browser may not be appropriate."
 msgstr ""
-"Quan el navegador està habilitat, es mostren els noms d'usuari vàlids de "
-"l'ordinador a tothom. Si l'XDMCP està habilitat, llavors els noms d'usuari "
-"es mostren a usuaris remots. Això, per descomptat, limita la seguretat "
-"d'alguna manera, ja que un usuari malintencionat no ha d'endevinar possibles "
-"noms d'usuari vàlids. En alguns entorns molt restrictius el navegador de "
-"cares pot no ser apropiat."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:461
@@ -869,13 +594,6 @@ msgid ""
 "support, then the daemon will only grant access to hosts specified in the "
 "GDM service section in the TCP Wrappers configuration file."
 msgstr ""
-"El dimoni del GDM es pot configurar per a escoltar i gestionar les "
-"sol·licituds del X Display Manage Protocol (XDMCP) de les pantalles remotes. "
-"Per defecte la compatibilitat de l'XDMCP està inhabilitada, però es pot "
-"habilitar si es vol. Si el GDM està construït amb compatibilitat de "
-"l'embolcall TCP, llavors el dimoni només permetrà l'accés a amfitrions "
-"especificats a la secció de servei del GDM al fitxer de configuració de "
-"l'embolcall TCP."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:479
@@ -885,10 +603,6 @@ msgid ""
 "timeouts, etc. can be fine tuned. The default configuration should work "
 "reasonably on most systems."
 msgstr ""
-"El GDM inclou diverses mesures per a fer-lo més resistent als atacs de "
-"denegació de servei al servei XDMCP. Molts dels paràmetres del protocol "
-"(temps d'espera de confirmació de connexió, etc.) es poden ajustar finament. "
-"La configuració estàndard hauria de funcionar bé en la majoria de sistemes."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:486
@@ -897,9 +611,6 @@ msgid ""
 "XDMCP, port 177, and will respond to QUERY and BROADCAST_QUERY requests by "
 "sending a WILLING packet to the originator."
 msgstr ""
-"Per defecte el GDM escolta les sol·licituds XDMCP al port UDP normal que "
-"s'utilitza per l'XDMCP, el port 177, i respondrà a les sol·licituds QUERY i "
-"BROADCAST_QUERY enviant un paquet WILLING a la font de la sol·licitud."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:492
@@ -912,13 +623,6 @@ msgid ""
 "are GDM. It is transparent and will be ignored by XDM or other daemons that "
 "implement XDMCP."
 msgstr ""
-"El GDM també es pot configurar perquè respecti les sol·licituds INDIRECT i "
-"mostri un seleccionador d'amfitrió a la pantalla remota. El GDM recordarà "
-"l'opció de l'usuari i reenviarà les següents sol·licituds al gestor "
-"seleccionat. El GDM també admet una extensió al protocol per a oblidar la "
-"redirecció un cop la connexió de l'usuari sigui satisfactòria. Aquesta "
-"extensió només és compatible si els dos dimonis són GDM. És transparent i "
-"l'ignorarà l'XDM o els altres dimonis que implementen l'XDMCP."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:502
@@ -926,8 +630,6 @@ msgid ""
 "If XDMCP seems to not be working, make sure that all machines are specified "
 "in <filename>/etc/hosts</filename>."
 msgstr ""
-"Si l'XDMCP sembla que no funciona, assegureu-vos que tots els ordinadors "
-"estan especificats a <filename>/etc/hosts</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:507
@@ -935,13 +637,11 @@ msgid ""
 "Refer to the \"Security\" section for information about security concerns "
 "when using XDMCP."
 msgstr ""
-"Consulteu la secció «Seguretat» per a obtenir més informació sobre les notes "
-"de seguretat quan s'utilitza l'XDMCP."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:514
 msgid "Logging"
-msgstr "Registre"
+msgstr "Egunkaria"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:516
@@ -951,11 +651,6 @@ msgid ""
 "working properly. Debug output can be enabled by setting the debug/Enable "
 "key to \"true\" in the <filename>&lt;etc&gt;/gdm/custom.conf</filename> file."
 msgstr ""
-"El GDM utilitza el registre del sistema per a registrar els errors i l'estat. "
-"També pot registrar informació de depuració, la qual pot ser útil per a "
-"descobrir problemes si el GDM no funciona correctament. Es pot habilitar la "
-"sortida de depuració si es canvia la clau «debug/Enable» a «true» al fitxer "
-"<filename>&lt;etc&gt;/gdm/custom.conf</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:524
@@ -965,10 +660,6 @@ msgid ""
 "are saved to a file associated with the display value, <filename>&lt;"
 "display&gt;.log</filename>."
 msgstr ""
-"La sortida dels diversos servidors X s'emmagatzema al directori de registre "
-"del GDM, que normalment és el <filename>&lt;var&gt;/log/gdm/</filename>. "
-"Tots els missatges del servidor X es desen a un fitxer associat amb el valor "
-"de la pantalla, <filename>&lt;display&gt;.log</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:531
@@ -980,12 +671,6 @@ msgid ""
 "same user via GDM will cause any messages from the previous session to be "
 "lost."
 msgstr ""
-"La sortida de la sessió és conduïda a través del dimoni GDM al fitxer "
-"<filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</"
-"filename> que habitualment expandeix a <filename>~/.cache/gdm/session.log</"
-"filename>. Se sobreescriu el fitxer a cada entrada, de manera que en sortir "
-"i tornar a entrar amb el mateix usuari mitjançant el GDM provocarà que es "
-"perdin els missatges de la sessió anterior."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:540
@@ -995,15 +680,11 @@ msgid ""
 "replaceable>/gdm/session.log.XXXXXXXX</filename> where the "
 "<filename>XXXXXXXX</filename> are some random characters."
 msgstr ""
-"Si pel que sigui el GDM no pot crear aquest fitxer, es crearà un fitxer "
-"alternatiu anomenat <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable>/"
-"gdm/session.log.XXXXXXXX</filename> on les <filename>XXXXXXXX</filename> "
-"seran alguns caràcters aleatoris."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:548
 msgid "Fast User Switching"
-msgstr "Com commutar d'usuari ràpidament"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:550
@@ -1015,14 +696,6 @@ msgid ""
 "mechanism. Note that some distributions may not add the User Switcher to the "
 "default panel configuration. It can be added using the panel context menu."
 msgstr ""
-"El GDM permet a diversos usuaris entrar a la mateixa vegada. Després que un "
-"usuari hagi entrat, poden entrar més usuaris mitjançant el commutador "
-"d'usuari al quadre del GNOME o des del botó «Commuta l'usuari» al diàleg de "
-"bloqueig de la pantalla de l'estalvi de pantalla del GNOME. La sessió activa "
-"es pot canviar de nou utilitzant el mateix mecanisme. Tingueu en compte que "
-"algunes distribucions no afegeixen el commutador d'usuari a la configuració "
-"per defecte del quadre. El podeu afegir a través del menú contextual del "
-"quadre."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:559
@@ -1030,19 +703,16 @@ msgid ""
 "Note this feature is available on systems that support Virtual Terminals. "
 "This feature will not function if Virtual Terminals is not available."
 msgstr ""
-"Tingueu present que aquesta característica només és disponible en els "
-"sistemes que implementen Terminals Virtuals. En aquest cas, aquesta "
-"característica no funcionarà."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:570
 msgid "Security"
-msgstr "Seguretat"
+msgstr "Segurtasuna"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:573
 msgid "The GDM User And Group"
-msgstr "L'usuari i grup del GDM"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:575
@@ -1053,13 +723,6 @@ msgid ""
 "this user, so that the programs which interact with the user are run in a "
 "sandbox. This user and group should have limited privilege."
 msgstr ""
-"Per raons de seguretat es recomana un identificador d'usuari i de grup "
-"específic pel correcte funcionament. A la majoria de sistemes aquest usuari "
-"i grup normalment és el «gdm», però pot ser qualsevol usuari o grup. Tots "
-"els programes d'interfície gràfica d'usuari del GDM s'executen amb aquest "
-"usuari, de manera que els programes que interactuen amb l'usuari s'executen "
-"en un entorn aïllat. L'usuari i el grup haurien de tenir els privilegis "
-"limitats."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:584
@@ -1069,10 +732,6 @@ msgid ""
 "directory. The <filename>&lt;var&gt;/run/gdm</filename> directory should "
 "have root:gdm ownership and 1777 permissions."
 msgstr ""
-"L'únic privilegi especial que necessita l'usuari «gdm» és la capacitat de "
-"llegir i escriure fitxers Xauth al directori <filename>&lt;var&gt;/run/gdm</"
-"filename>. El propietari del directori <filename>&lt;var&gt;/run/gdm</"
-"filename> hauria de ser root i del grup gdm amb els permisos 1777."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:592
@@ -1087,16 +746,6 @@ msgid ""
 "example, the account should be setup to not have a password or allow non-"
 "root users to login to the account."
 msgstr ""
-"No hauríeu, de cap manera, de configurar l'usuari/grup del GDM a un usuari "
-"sobre el qual un usuari pogués guanyar-ne fàcilment accés, com ara l'usuari "
-"<filename>nobody</filename>. Qualsevol usuari que guanyi accés a una clau "
-"Xauth pot tafanejar i controlar programes en execució de la interfície "
-"gràfica d'usuari associats a la sessió, o realitzar-hi un atac de denegació "
-"de servei. És important assegurar-se que el sistema està configurat "
-"adequadament de manera que només l'usuari «gdm» té accés a aquests fitxers i "
-"que no és fàcil entrar a aquest compte. Per exemple, el compte s'hauria de "
-"configurar perquè no tingui contrasenya o no permetre que usuaris no "
-"primaris puguin entrar-hi."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:605
@@ -1108,18 +757,11 @@ msgid ""
 "a writable $HOME directory. However, some features of GDM may be disabled if "
 "it is unable to write state information to GConf configuration."
 msgstr ""
-"La configuració del rebedor del GDM s'emmagatzema al GConf. Per a permetre "
-"que l'usuari GDM pugui escriure la configuració, és necessari que l'usuari "
-"«gdm» tingui un directori d'usuari amb permisos d'escriptura. Els usuaris "
-"poden configurar la configuració per defecte del GConf com desitgin per a "
-"evitar la necessitat de proporcionar a l'usuari «gdm» un directori d'usuari "
-"amb permisos d'escriptura. Tot i això, es poden inhabilitar algunes funcions "
-"del GDM si no es pot escriure informació d'estat a la configuració del GConf."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:617
 msgid "PAM"
-msgstr "PAM"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:619
@@ -1130,12 +772,6 @@ msgid ""
 "specific authentication behavior for different login programs (such as ssh, "
 "login GUI, screensaver, etc.)"
 msgstr ""
-"El GDM utilitza el PAM per a l'autenticació d'entrada. PAM significa mòduls "
-"de connectors d'autenticació (Pluggable Authentication Modules) i "
-"l'utilitzen la majoria de programes que sol·liciten autenticació a "
-"l'ordinador. Això permet a l'administrador configurar els comportaments "
-"d'autenticació específics per diferents programes d'entrada (com ara el ssh, "
-"la interfície gràfica d'entrada, l'estalvi de pantalla, etc.)"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:627
@@ -1148,13 +784,6 @@ msgid ""
 "documentation to understand how to configure PAM and to understand terms "
 "used in this section."
 msgstr ""
-"El PAM és complicat i altament configurable i en aquesta documentació no "
-"s'intenta d'explicar-lo amb pèls i senyals. La idea és donar una visió "
-"global de com afecta la configuració del PAM al GDM, com es configura "
-"normalment el PAM amb el GDM i els problemes coneguts. S'espera que qui hagi "
-"de realitzar una configuració del PAM llegirà més documentació del PAM per a "
-"entendre com configurar-lo i entendre'n els termes utilitzats en aquesta "
-"secció."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:637
@@ -1166,13 +795,6 @@ msgid ""
 "with the security implications of any changes you intend to make to your "
 "configuration."
 msgstr ""
-"La configuració del PAM té interfícies diferents, però similars, segons el "
-"sistema operatiu, de manera que comproveu les pàgines del manual del <ulink "
-"type=\"help\" url=\"man:pam.d\">pam.d</ulink> o del <ulink type=\"help\" url="
-"\"man:pam.conf\">pam.conf</ulink> per a obtenir-ne tots els detalls. "
-"Assegureu-vos que llegiu la documentació del PAM i que esteu segurs de les "
-"implicacions de seguretat que qualsevol canvi que intenteu realitzar a la "
-"configuració pot ocasionar."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:647
@@ -1184,14 +806,6 @@ msgid ""
 "systems this should work fine. However, the automatic login feature may not "
 "work if the gdm-autologin service is not defined."
 msgstr ""
-"Tingueu en compte que, per defecte, el GDM utilitza el nom de servei del PAM "
-"«gdm» per a una entrada normal i el nom de servei del PAM «gdm-autologin» "
-"per a una entrada automàtica. Pot ser que aquests serveis no estiguin "
-"definits al fitxer de configuració pam.d o pam.conf. Si no hi ha cap entrada "
-"el GDM utilitzarà el comportament per defecte del PAM. A la majoria de "
-"sistemes aquest hauria de funcionar sense cap problema. Tot i això, la "
-"funció d'entrada automàtica podria no funcionar si el servei gdm-autologin "
-"no està definit."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:657
@@ -1201,10 +815,6 @@ msgid ""
 "allows the system administrator to add any scripting to the login process "
 "either before or after PAM initializes the session."
 msgstr ""
-"L'script <filename>PostLogin</filename> s'executa abans de cridar "
-"pam_open_session i l'script <filename>PreSession</filename> després. Això "
-"permet a l'administrador del sistema afegir qualsevol script al procés "
-"d'entrada abans o després que el PAM iniciï la sessió."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:665
@@ -1217,14 +827,6 @@ msgid ""
 "<address><email>gdm-list@gnome.org</email></address> mail list, so you can "
 "refer to the list archives for more information."
 msgstr ""
-"Si voleu fer que el GDM funcioni amb altres tipus de mecanismes "
-"d'autenticació (com ara una empremta dactilar o un lector de targetes "
-"SmartCard), llavors hauríeu d'implementar-ho utilitzant un mòdul de servei "
-"del PAM per al tipus d'autenticació desitjat en comptes d'intentar modificar "
-"el codi del GDM directament. Consulteu la documentació del PAM del sistema. "
-"Se'n parla sovint a la llista de correu <address><email>gdm-list@gnome.org</"
-"email></address>, de manera que podeu consultar els arxius de la llista per "
-"a saber-ne més."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:676
@@ -1236,11 +838,6 @@ msgid ""
 "work, and it is best to research how this problem is commonly solved when "
 "setting up such a configuration."
 msgstr ""
-"El PAM té algunes limitacions relacionades en ser capaç de treballar amb "
-"diversos tipus d'autenticació a la vegada, admetre l'habilitat d'acceptar "
-"targetes SmartCard i introduir el nom d'usuari i la contrasenya al programa "
-"d'entrada. S'utilitzen diverses tècniques per a fer que això funcioni i és "
-"una bona idea conèixer-les si es vol utilitzar una configuració semblant."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:685
@@ -1252,13 +849,6 @@ msgid ""
 "your system has a pam_allow.so PAM module which does this, a PAM "
 "configuration to enable \"gdm-autologin\" would look like this:"
 msgstr ""
-"Si a un sistema no funciona l'entrada automàtica, comproveu si la pila del "
-"PAM «gdm-autologin» està definida a la configuració del PAM. Per a fer-ho "
-"funcionar, és necessari utilitzar un mòdul del PAM que simplement no faci "
-"autenticació o que simplement retorni PAM_SUCCESS des de totes les "
-"interfícies públiques. Si s'assumeix que el sistema té un mòdul del PAM "
-"pam_allow.so que fa això, una configuració del PAM per a habilitar el «gdm-"
-"autologin» podria ser aquesta:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:695
@@ -1271,12 +861,6 @@ msgid ""
 "       gdm-autologin session  sufficient  pam_allow.so.1\n"
 "       gdm-autologin password  sufficient  pam_allow.so.1\n"
 msgstr ""
-"\n"
-"       gdm-autologin auth  required    pam_unix_cred.so.1\n"
-"       gdm-autologin auth  sufficient  pam_allow.so.1\n"
-"       gdm-autologin account  sufficient  pam_allow.so.1\n"
-"       gdm-autologin session  sufficient  pam_allow.so.1\n"
-"       gdm-autologin password  sufficient  pam_allow.so.1\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:703
@@ -1284,9 +868,6 @@ msgid ""
 "The above setup will cause no lastlog entry to be generated. If a lastlog "
 "entry is desired, then use the following for the session:"
 msgstr ""
-"La configuració anterior provocarà que no es generi cap entrada de lastlog. "
-"Si voleu una entrada de lastlog, llavors utilitzeu el següent per a la "
-"sessió:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:708
@@ -1295,8 +876,6 @@ msgid ""
 "\n"
 "       gdm-autologin session required pam_unix_session.so.1\n"
 msgstr ""
-"\n"
-"       gdm-autologin session required pam_unix_session.so.1\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:712
@@ -1309,13 +888,6 @@ msgid ""
 "for a password. For this to work, the PAM configuration file for the \"gdm\" "
 "service must include a line such as:"
 msgstr ""
-"Si l'ordinador l'empren diferents persones, el que fa inviable l'inici "
-"automàtic de sessió, podeu permetre que algun usuari accedeixi sense "
-"contrasenya. Aquesta característica es pot habilitar a nivell d'usuari amb "
-"l'eina users-admin del gnome-system-tools; s'aconsegueix verificant abans de "
-"demanar la contrasenya si l'usuari és membre del grup Unix «nopasswdlogin». "
-"Perquè funcioni, el fitxer de configuració del PAM pel servei «gdm» ha "
-"d'incloure una línia com aquesta:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:723
@@ -1324,13 +896,11 @@ msgid ""
 "\n"
 "      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin\n"
 msgstr ""
-"\n"
-"      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin\n"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:730
 msgid "utmp and wtmp"
-msgstr "utmp i wtmp"
+msgstr "utmp eta wtmp"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:732
@@ -1344,20 +914,11 @@ msgid ""
 "\" url=\"man:utmp\">utmp</ulink> and <ulink type=\"help\" url=\"man:wtmp"
 "\">wtmp</ulink> man pages on your system for more information."
 msgstr ""
-"El GDM genera entrades utmp i wtmp a la base de dades de comptes d'usuari "
-"quan l'usuari entra i surt de la sessió. La base de dades utmp conté "
-"informació de l'accés de l'usuari i del compte que hi accedeixen ordres com "
-"ara el <command>finger</command>, el <command>last</command>, el "
-"<command>login</command> i el <command>who</command>. La base de dades wtmp "
-"conté l'historial de la informació de l'accés de l'usuari i del compte per a "
-"la base de dades utmp. Per a obtenir més informació consulteu les pàgines "
-"del manual del sistema <ulink type=\"help\" url=\"man:utmp\">utmp</ulink> i "
-"<ulink type=\"help\" url=\"man:wtmp\">wtmp</ulink>."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:747
 msgid "Xserver Authentication Scheme"
-msgstr "Esquema d'autenticació del servidor X"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:749
@@ -1368,12 +929,6 @@ msgid ""
 "\"password\" is unique for each session logged in, so users from one session "
 "can't snoop on users from another."
 msgstr ""
-"Els fitxers d'autorització del servidor X s'emmagatzemen en un subdirectori "
-"nou a <filename>&lt;var&gt;/run/gdm</filename> que es crea a l'inici. Els "
-"fitxers serveixen per a emmagatzemar i compartir una «contrasenya» entre els "
-"clients X i el servidor X. Aquesta «contrasenya» és única per a cada sessió "
-"d'entrada, de manera que els usuaris d'una sessió no poden tafanejar a "
-"usuaris d'una altra."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:757
@@ -1389,23 +944,11 @@ msgid ""
 "think of XDMCP as a sort of graphical telnet, having the same security "
 "issues. In most cases, ssh -Y should be preferred over GDM's XDMCP features."
 msgstr ""
-"El GDM només admet l'esquema d'autenticació MIT-MAGIC-COOKIE-1 del servidor "
-"X. La resta d'esquemes no aporten gairebé cap benefici, de manera que no "
-"s'ha realitzat cap esforç per a implementar-los. Vigileu especialment la "
-"utilització de l'XDMCP perquè les galetes d'autenticació del servidor X "
-"circulen per la xarxa com a text pla. Si és possible tafanejar, llavors un "
-"atacant podria simplement tafanejar la vostra contrasenya d'autenticació "
-"quan entreu, independentment de l'esquema d'autenticació que s'utilitzés. Si "
-"és possible tafanejar però no és desitjable, llavors hauríeu d'utilitzar "
-"l'SSH per a fer una tunelització d'una connexió X en comptes d'utilitzar "
-"l'XDMCP. Podeu pensar que l'XDMCP és una espècie de telnet gràfic, que té "
-"els mateixos problemes de seguretat. En la majoria de casos, s'hauria de fer "
-"servir l'SSH -Y en comptes de les funcions XDMCP del GDM."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:774
 msgid "XDMCP Security"
-msgstr "Seguretat de l'XDMCP"
+msgstr "XDMCP segurtasuna"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:776
@@ -1414,9 +957,6 @@ msgid ""
 "keystrokes typed when entering passwords will still go over the wire in "
 "clear text. It is trivial to capture these."
 msgstr ""
-"Encara que la pantalla està protegida per galetes, els XEvents i les "
-"pulsacions de tecles quan s'introdueix la contrasenya encara circularan per "
-"la xarxa com a text pla. És trivial capturar-les."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:782
@@ -1429,19 +969,11 @@ msgid ""
 "is the server. This type of set up should never use an unmanaged hub or "
 "other sniffable network."
 msgstr ""
-"L'XDMCP és útil principalment per a executar clients lleugers com ara en "
-"terminals de laboratori. Aquests clients lleugers només necessiten la xarxa "
-"per a accedir al servidor i per tant sembla que la millor política de "
-"seguretat és tenir aquests clients lleugers en una xarxa separada a la qual "
-"no es pot accedir des del món exterior i només es pot connectar al servidor. "
-"L'únic punt des d'on necessiteu accedir a fora és el servidor. Aquest tipus "
-"de configuració no hauria d'utilitzar un concentrador no gestionat o una "
-"altra xarxa que es pugui vigilar."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:795
 msgid "XDMCP Access Control"
-msgstr "Control d'accés de l'XDMCP"
+msgstr "XDMCP sarbide-kontrola"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:797
@@ -1450,9 +982,6 @@ msgid ""
 "GDM without TCP wrapper support, so this feature may not be supported on "
 "some Operating Systems."
 msgstr ""
-"El control d'accés de l'XDMCP es realitza utilitzant embolcalls TCP. És "
-"possible compilar el GDM sense la compatibilitat d'embolcalls TCP, de manera "
-"que aquesta funció potser no està disponible en alguns sistemes operatius."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:803
@@ -1462,10 +991,6 @@ msgid ""
 "filename> files. For example to deny computers from <filename>.evil.domain</"
 "filename> from logging in, then add"
 msgstr ""
-"Hauríeu d'utilitzar el nom del dimoni <command>gdm</command> als fitxers "
-"<filename>&lt;etc&gt;/hosts.allow</filename> i <filename>&lt;etc&gt;/hosts."
-"deny</filename>. Per exemple, per a denegar l'entrada d'ordinadors des de "
-"<filename>.evil.domain</filename> heu d'afegir"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:810
@@ -1474,14 +999,12 @@ msgid ""
 "\n"
 "gdm: .evil.domain\n"
 msgstr ""
-"\n"
-"gdm: .evil.domain\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:813
 msgid ""
 "to <filename>&lt;etc&gt;/hosts.deny</filename>. You may also need to add"
-msgstr "a <filename>&lt;etc&gt;/hosts.deny</filename>. També heu d'afegir"
+msgstr ""
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:817
@@ -1490,8 +1013,6 @@ msgid ""
 "\n"
 "gdm: .your.domain\n"
 msgstr ""
-"\n"
-"gdm: .your.domain\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:820
@@ -1500,15 +1021,11 @@ msgid ""
 "disallow all services from all hosts. See the <ulink type=\"help\" url=\"man:"
 "hosts.allow\">hosts.allow(5)</ulink> man page for details."
 msgstr ""
-"al vostre <filename>&lt;etc&gt;/hosts.allow</filename> si normalment no "
-"permeteu tots els serveis des de tots els amfitrions. Per a obtenir més "
-"detalls vegeu la pàgina del manual <ulink type=\"help\" url=\"man:hosts.allow"
-"\">hosts.allow(5)</ulink>."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:829
 msgid "Firewall Security"
-msgstr "Seguretat del tallafoc"
+msgstr "Suebaki-segurtasuna"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:831
@@ -1521,14 +1038,6 @@ msgid ""
 "remote connection takes up lots of resources, so it is much easier to do a "
 "denial of service attack via XDMCP than attacking a webserver."
 msgstr ""
-"Encara que el GDM intenta diferenciar intel·ligentment atacants potencials "
-"utilitzant l'avantatge de l'XDMCP, encara es recomana que bloquegeu el port "
-"de l'XDMCP (normalment el port UDP 177) del tallafoc a no ser que realment "
-"el necessiteu. El GDM es protegeix contra atacs de denegació de servei, però "
-"el protocol X encara és inherentment insegur i només s'hauria d'utilitzar en "
-"entorns controlats. A més cada connexió remota utilitza molts recursos, de "
-"manera que és molt més fàcil realitzar un atac de denegació de servei "
-"mitjançant l'XDMCP que atacar un servidor web."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:842
@@ -1537,10 +1046,6 @@ msgid ""
 "(one for each display number) on your firewall. Note that GDM will use "
 "display numbers 20 and higher for flexible on-demand servers."
 msgstr ""
-"També es recomana bloquejar al tallafoc tots els ports del servidor X "
-"(aquests són els ports TCP 6000 + el número de la pantalla). Tingueu en "
-"compte que el GDM utilitzarà els números de pantalla 20 i superiors per als "
-"servidors sota demanda flexibles."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:849
@@ -1548,8 +1053,6 @@ msgid ""
 "X is not a very safe protocol when using it over the Internet, and XDMCP is "
 "even less safe."
 msgstr ""
-"X no és un protocol molt segur per a utilitzar-se per Internet i XDMCP ho és "
-"encara menys."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:856
@@ -1563,10 +1066,6 @@ msgid ""
 "control whether the login screen should provide the shutdown and restart "
 "buttons on the greeter screen."
 msgstr ""
-"Es pot configurar el GDM perquè utilitzi el PolicyKit per a permetre a "
-"l'administrador del sistema controlar quan la pantalla d'entrada hauria de "
-"proporcionar els botons d'apagar i de tornar a iniciar a la pantalla del "
-"rebedor."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:870
@@ -1577,16 +1076,11 @@ msgid ""
 "Policy for these actions can be set up using the polkit-gnome-authorization "
 "tool, or the polkit-auth command line program."
 msgstr ""
-"Les accions <filename>org.freedesktop.consolekit.system.stop-multiple-users</"
-"filename> i <filename>org.freedesktop.consolekit.system.restart-multiple-"
-"users</filename> controlen aquests botons respectivament. Es pot ajustar la "
-"política les accions amb l'eina polkit-gnome-authorization o el programa de "
-"línia d'ordres polkit-auth."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:882
 msgid "RBAC (Role Based Access Control)"
-msgstr "RBAC (control d'accés basat en el rol)"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:884
@@ -1595,10 +1089,6 @@ msgid ""
 "RBAC configuration is used to control whether the login screen should "
 "provide the shutdown and restart buttons on the greeter screen."
 msgstr ""
-"El GDM es pot configurar perquè utilitzi el RBAC en comptes del PolicyKit. "
-"En aquest cas, s'utilitza la configuració del RBAC per a controlar quan la "
-"pantalla d'entrada hauria de proporcionar els botons d'apagar i de tornar a "
-"iniciar a la pantalla del rebedor."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:890
@@ -1607,15 +1097,11 @@ msgid ""
 "authorization is used to control this. Simply modify the <filename>/etc/"
 "user_attr</filename> file so that the \"gdm\" user has this authorization."
 msgstr ""
-"Per exemple, a l'Oracle Solaris, s'utilitza l'autorització «solaris.system."
-"shutdown» per a controlar-ho. Només cal que modifiqueu el fitxer <filename>/"
-"etc/user_attr</filename> de manera que l'usuari «gdm» tingui aquesta "
-"autorització."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:903
 msgid "Support for ConsoleKit"
-msgstr "Compatibilitat per a ConsoleKit"
+msgstr "ConsoleKit euskarria"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:914
@@ -1626,12 +1112,6 @@ msgid ""
 "be used as a replacement for the utmp or utmpx files that are available on "
 "most Unix-like Operating Systems."
 msgstr ""
-"El GDM inclou compatibilitat per a publicar la informació d'entrada de "
-"l'usuari amb l'entorn de treball de comptabilitat d'usuaris i de sessions "
-"d'entrada conegut com a ConsoleKit. El ConsoleKit és capaç de fer el "
-"seguiment de tots els usuaris que estan connectats actualment. En aquest "
-"aspecte, es pot utilitzar com un substitut dels fitxers utmp o utmpx que hi "
-"ha disponibles a la majoria de sistemes operatius tipus UNIX."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:922
@@ -1647,17 +1127,6 @@ msgid ""
 "these bits of information. The use of this privileged method is restricted "
 "by the use of the D-Bus system message bus security policy."
 msgstr ""
-"Quan el GDM va a crear un procés d'entrada nou per a un usuari cridarà un "
-"mètode privilegiat del ConsoleKit per a obrir una sessió nova per a aquest "
-"usuari. En aquest moment el GDM també proporciona al ConsoleKit la "
-"informació sobre aquesta sessió d'usuari com ara: l'identificador de "
-"l'usuari, el nom de la pantalla X11 que estarà associada amb la sessió, el "
-"nom de l'amfitrió que origina la sessió (útil en el cas d'una sessió XDMCP), "
-"si la sessió és local, etc. Com a entitat que inicia el procés d'usuari, el "
-"GDM és en una posició única per a conèixer la sessió de l'usuari i per a "
-"confiar-hi aquestes dades. La utilitat d'aquest mètode privilegiat està "
-"restringit a la utilització d'una política de seguretat del bus del sistema "
-"de missatges del D-Bus."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:936
@@ -1668,12 +1137,6 @@ msgid ""
 "the session receives this unlock signal are undefined and session-specific. "
 "However, most sessions will unlock a screensaver in response."
 msgstr ""
-"En el cas on un usuari amb una sessió existent s'hagi autenticat al GDM i "
-"sol·liciti de continuar la sessió existent, el GDM crida un mètode "
-"privilegiat del ConsoleKit per a desblocar la sessió. Els detalls exactes de "
-"què succeeix quan la sessió rep aquest senyal de desblocatge són indefinits "
-"i específics de la sessió. Tot i això, la majoria de sessions desblocaran un "
-"estalvi de pantalla com a resposta."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:945
@@ -1681,13 +1144,11 @@ msgid ""
 "When the user chooses to log out, or if GDM or the session quit unexpectedly "
 "the user session will be unregistered from ConsoleKit."
 msgstr ""
-"Quan l'usuari vol sortir o si el GDM o la sessió surten de manera "
-"inesperada, es desregistrarà la sessió de l'usuari al ConsoleKit."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:954
 msgid "Configuration"
-msgstr "Configuració"
+msgstr "Konfigurazioa"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:956
@@ -1698,16 +1159,11 @@ msgid ""
 "session configuration. These types of integration are described in detail "
 "below."
 msgstr ""
-"El GDM té tot un seguit d'interfícies de configuració. Aquestes inclouen "
-"punts d'integració pels scripts, la configuració de dimonis, la configuració "
-"del rebedor, els paràmetres de sessió generals, la integració amb la "
-"configuració del gnome-settings-daemon i la configuració de la sessió. "
-"Aquests tipus d'integració estan descrits en detall a sota."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:965
 msgid "Scripting Integration Points"
-msgstr "Punts d'integració pels scripts"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:967
@@ -1715,8 +1171,6 @@ msgid ""
 "The GDM script integration points can be found in the <filename>&lt;etc&gt;/"
 "gdm/</filename> directory:"
 msgstr ""
-"Els punts d'integració pels scripts del GDM es poden trobar al directori "
-"<filename>&lt;etc&gt;/gdm/</filename>:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:972
@@ -1729,12 +1183,6 @@ msgid ""
 "PreSession/\n"
 "PostSession/\n"
 msgstr ""
-"\n"
-"Xsession\n"
-"Init/\n"
-"PostLogin/\n"
-"PreSession/\n"
-"PostSession/\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:980
@@ -1743,9 +1191,6 @@ msgid ""
 "<filename>PreSession</filename>, and <filename>PostSession</filename> "
 "scripts all work as described below."
 msgstr ""
-"Els scripts <filename>Init</filename>, <filename>PostLogin</filename>, "
-"<filename>PreSession</filename> i <filename>PostSession</filename> funcionen "
-"tal com es descriu a sota."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:986
@@ -1759,15 +1204,6 @@ msgid ""
 "Xserver DISPLAY value for that display. For example, if the <filename>&lt;"
 "Init&gt;/:0</filename> script exists, it will be run for DISPLAY \":0\"."
 msgstr ""
-"Per a cada tipus de script, el que s'executarà per defecte s'anomena "
-"«Default» i s'emmagatzema en un directori associat amb el tipus de script. "
-"De manera que l'script per defecte de l'<filename>Init</filename> es troba a "
-"<filename>&lt;etc&gt;/gdm/Init/Default</filename>. Es pot proporcionar un "
-"script per pantalla, si existeix, s'executarà en lloc de l'script per "
-"defecte. Aquests es troben al mateix directori que l'script per defecte i "
-"tenen el mateix nom que el valor DISPLAY del servidor X per a aquesta "
-"pantalla. Per exemple, si existeix l'script <filename>&lt;Init&gt;/:0</"
-"filename>, aquest s'executarà si la pantalla és «:0»."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:998
@@ -1778,12 +1214,6 @@ msgid ""
 "until the scripts finish, so if any of these scripts hang, this will cause "
 "the login process to also hang."
 msgstr ""
-"Tots aquests scripts s'executen amb privilegis d'usuari primari i retornen 0 "
-"si s'executen correctament i retornen un codi diferent de zero si hi ha "
-"alguna fallada que hauria de causar que s'interrompés la sessió d'entrada. "
-"Tingueu en compte que el GDM es blocarà fins que l'script finalitzi, de "
-"manera que si algun d'aquests scripts es penja, això provocarà que el procés "
-"d'entrada també es pengi."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1006
@@ -1794,11 +1224,6 @@ msgid ""
 "run while the login screen is showing, or for doing any special "
 "initialization if required."
 msgstr ""
-"Quan s'ha iniciat correctament el servidor X per a la interfície gràfica "
-"d'entrada, però abans que s'hagi mostrat aquesta, el GDM executarà l'script "
-"<filename>Init</filename>. Aquest script és útil per a iniciar programes que "
-"s'haurien d'executar mentre es mostra la pantalla d'entrada o per a "
-"realitzar qualsevol inicialització especial necessària."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1014
@@ -1810,12 +1235,6 @@ msgid ""
 "session starts. For example, you might setup the user's $HOME directory if "
 "needed."
 msgstr ""
-"Després què s'hagi autenticat correctament a l'usuari, el GDM executarà "
-"l'script <filename>PostLogin</filename>. Aquest s'executa abans de "
-"configurar qualsevol sessió, fins i tot abans de la crida a "
-"pam_open_session. Aquest script és útil per a realitzar qualsevol "
-"inicialització que ha de succeir abans d'iniciar la sessió. Per exemple, "
-"podeu configurar el directori $HOME de l'usuari si és necessari."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1023
@@ -1826,11 +1245,6 @@ msgid ""
 "initialized. It can be used for session management or accounting, for "
 "example."
 msgstr ""
-"Després d'inicialitzar la sessió de l'usuari, el GDM executarà l'script "
-"<filename>PreSession</filename>. Aquest script és útil per a realitzar "
-"qualsevol inicialització que necessiti fer-se després d'inicialitzar la "
-"sessió. Per exemple, es pot utilitzar per a la gestió de sessions o de "
-"comptes."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1031
@@ -1839,10 +1253,6 @@ msgid ""
 "<filename>PostSession</filename> script. Note that the Xserver will have "
 "been stopped by the time this script is run, so it should not be accessed."
 msgstr ""
-"Quan un usuari finalitza la seva sessió, el GDM executarà l'script "
-"<filename>PostSession</filename>. Tingueu en compte que el servidor X "
-"s'aturarà al moment en què s'executi aquest script, de manera que no s'hi "
-"hauria d'accedir."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1038
@@ -1851,10 +1261,6 @@ msgid ""
 "the display fails to respond due to an I/O error or similar. Thus, there is "
 "no guarantee that X applications will work during script execution."
 msgstr ""
-"Tingueu en compte que l'script <filename>PostSession</filename> s'executarà "
-"encara que la pantalla no respongui a causa d'algun error d'E/S o semblant. De "
-"manera que no hi ha cap garantia que les aplicacions X funcionaran durant "
-"l'execució de l'script."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1045
@@ -1865,16 +1271,11 @@ msgid ""
 "when GDM is calling these scripts, so you can run specific code when GDM is "
 "used."
 msgstr ""
-"Tots els scripts anteriors establiran la variable de l'entorn <filename>"
-"$RUNNING_UNDER_GDM</filename> a <filename>yes</filename>. Si els scripts "
-"també són compartits amb altres gestors de pantalla, us permetrà identificar "
-"quan s'està executant aquests scripts des del GDM, de manera que podeu "
-"executar codi específic quan s'està utilitzant el GDM."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1055
 msgid "Autostart Configuration"
-msgstr "Configuració d'arrencada automàtica"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1057
@@ -1885,11 +1286,6 @@ msgid ""
 "specification may be used to specify programs that should auto-restart or "
 "only be launched if a GConf configuration value is set, etc."
 msgstr ""
-"El directori <filename>&lt;share&gt;/gdm/autostart/LoginWindow</filename> "
-"conté fitxers en el format que especifica la «FreeDesktop.org Desktop "
-"Application Autostart Specification». Es poden emprar les característiques "
-"estàndard de l'especificació per a indicar quins programes han de reiniciar-"
-"se, només en el cas que s'hagi definit el valor corresponent al GConf, etc."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1066
@@ -1903,20 +1299,11 @@ msgid ""
 "provided for starting various AT programs if the configuration values "
 "specified in the Accessibility Configuration section below are set."
 msgstr ""
-"Qualsevol fitxer <filename>.desktop</filename> en aquest directori farà que "
-"el programa associat s'iniciï amb la pantalla gràfica de benvinguda. De "
-"forma predeterminada, el GDM té els fitxers que iniciaran la pantalla "
-"gràfica de benvinguda (gdm-simple-greeter), l'aplicació gnome-power-"
-"management, el gnome-settings-daemon i el gestor de finestres metacity. "
-"Aquests programes són necessaris perquè funcioni el programa de "
-"benvinguda. A més, hi ha fitxers desktop per a iniciar diversos programes AT "
-"si s'ha definit els valors corresponents a la secció de Configuració "
-"d'Accessibilitat."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1080
 msgid "Xsession Script"
-msgstr "Script Xsession"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1082
@@ -1929,18 +1316,11 @@ msgid ""
 "run as the user, and it will run whatever session was specified by the "
 "Desktop session file the user selected to start."
 msgstr ""
-"També hi ha un script <filename>Xsession</filename> ubicat a <filename>&lt;"
-"etc&gt;/gdm/Xsession</filename> que es crida entre els scripts "
-"<filename>PreSession</filename> i <filename>PostSession</filename>. Aquest "
-"script no admet configuració per pantalla com els altres scripts. Aquest "
-"script s'utilitza per a iniciar la sessió d'usuari. Aquest script s'executa "
-"com usuari i s'executarà sigui quina sigui la sessió especificada al fitxer "
-"de sessió de l'escriptori que l'usuari ha de seleccionar per a iniciar."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1095
 msgid "Daemon Configuration"
-msgstr "Configuració del dimoni"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1097
@@ -1952,12 +1332,6 @@ msgid ""
 "schemas file may be overwritten when the user updates their system to have a "
 "newer version of GDM."
 msgstr ""
-"El dimoni del GDM es configura utilitzant el fitxer <filename>&lt;etc&gt;/"
-"gdm/custom.conf</filename>. Els valors predeterminats s'emmagatzemen al "
-"GConf en el fitxer <filename>gdm.schemas</filename>. Es recomana que els "
-"usuaris finals modifiquin el fitxer <filename>&lt;etc&gt;/gdm/custom.conf</"
-"filename> perquè es pot sobreescriure el fitxer d'esquemes quan l'usuari "
-"actualitzi el sistema amb una versió nova del GDM."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1107
@@ -1965,9 +1339,6 @@ msgid ""
 "Note that older versions of GDM supported additional configuration options "
 "which are no longer supported in the latest versions of GDM."
 msgstr ""
-"Tingueu en compte que les versions anteriors del GDM admetien opcions de "
-"configuració addicionals que ja no són compatibles amb les últimes versions "
-"del GDM."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1112
@@ -1978,11 +1349,6 @@ msgid ""
 "sign represents their value. Empty lines or lines starting with the hash "
 "mark (#) are ignored."
 msgstr ""
-"El fitxer <filename>&lt;etc&gt;/gdm/custom.conf</filename> està en el format "
-"<filename>keyfile</filename>. Les paraules clau entre claudàtors defineixen "
-"les seccions de grup, les cadenes abans del signe igual (=) són claus i les "
-"dades després del signe igual representen el seu valor. S'ignoren les línies "
-"buides o que comencen amb la marca de coixinet (#)."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1120
@@ -1994,13 +1360,6 @@ msgid ""
 "login user to be a user named \"you\", you would modify the file so it "
 "contains the following lines:"
 msgstr ""
-"El fitxer <filename>&lt;etc&gt;/gdm/custom.conf</filename> admet les "
-"seccions de grup «[daemon]», «[security]» i «[xdmcp]». Existeixen parelles "
-"de clau/valor particulars amb cada grup que es poden especificar per a "
-"modificar com es comporta el GDM. Per exemple, per a habilitar l'entrada "
-"temporitzada i especificar que l'usuari d'entrada temporitzada sigui "
-"«usuari», hauríeu de modificar el fitxer de manera que contingués les línies "
-"següents:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:1130
@@ -2011,32 +1370,27 @@ msgid ""
 "TimedLoginEnable=true\n"
 "TimedLogin=you\n"
 msgstr ""
-"\n"
-"[daemon]\n"
-"TimedLoginEnable=true\n"
-"TimedLogin=usuari\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1136
 msgid "A full list of supported configuration keys follow:"
 msgstr ""
-"A continuació hi ha una llista completa de claus de configuració admeses:"
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1141
 msgid "[chooser]"
-msgstr "[selector]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1145
 msgid "Multicast"
-msgstr "Multicast"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1147
 #, no-wrap
 msgid "Multicast=false"
-msgstr "Multicast=false"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1148
@@ -2045,41 +1399,38 @@ msgid ""
 "local network and collect responses from the hosts who have joined multicast "
 "group."
 msgstr ""
-"Si és cert i s'ha habilitat l'IPv6, el selector enviarà una consulta de "
-"difusió a la xarxa local i recollirà les respostes de les màquines que "
-"s'hagin afegit al grup de difusió."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1157
 msgid "MulticastAddr"
-msgstr "MulticastAddr"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1159
 #, no-wrap
 msgid "MulticastAddr=ff02::1"
-msgstr "MulticastAddr=ff02::1"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1160
 msgid "This is the Link-local multicast address."
-msgstr "Aquesta és l'adreça multidifusió Link-local."
+msgstr ""
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1169
 msgid "[daemon]"
-msgstr "[daemon]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1172
 msgid "TimedLoginEnable"
-msgstr "TimedLoginEnable"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1174
 #, no-wrap
 msgid "TimedLoginEnable=false"
-msgstr "TimedLoginEnable=false"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1175
@@ -2097,32 +1448,17 @@ msgid ""
 "allowing login. Refer to the \"Security-&gt;PAM\" section of the manual for "
 "more information, or for help if this feature does not seem to work."
 msgstr ""
-"Si l'usuari especificat a <filename>TimedLogin</filename> hauria d'entrar "
-"després d'un nombre de segons (especificats a <filename>TimedLoginDelay</"
-"filename>) d'inactivitat a la pantalla d'entrada. Això és útil per a "
-"terminals d'accés públic o fins i tot per ús domèstic. Si l'usuari utilitza "
-"el teclat o els menús de navegació, es reiniciarà el temps d'espera a "
-"<filename>TimedLoginDelay</filename> o 30 segons, el que sigui més alt. Si "
-"l'usuari no introdueix cap nom d'usuari sinó que prem la tecla de retorn "
-"mentre el programa d'entrada sol·licita el nom d'usuari, el GDM assumirà que "
-"l'usuari vol entrar immediatament com a l'usuari definit a "
-"<filename>TimedLogin</filename>. Tingueu en compte que no se sol·licitarà "
-"cap contrasenya per aquest usuari de manera que hauríeu d'anar amb compte, "
-"tot i que si utilitzeu el PAM es podria configurar perquè sigui necessari "
-"introduir la contrasenya abans de permetre l'entrada. Per a obtenir més "
-"informació consulteu la secció «Seguretat-&gt;PAM» del manual o per a "
-"obtenir ajuda si aquesta funció no sembla funcionar."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1197
 msgid "TimedLogin"
-msgstr "TimedLogin"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1199
 #, no-wrap
 msgid "TimedLogin="
-msgstr "TimedLogin="
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1200
@@ -2130,8 +1466,6 @@ msgid ""
 "This is the user that should be logged in after a specified number of "
 "seconds of inactivity."
 msgstr ""
-"Aquest és l'usuari que hauria d'entrar després d'un nombre de segons "
-"d'inactivitat especificat."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1204 C/index.docbook:1248
@@ -2143,24 +1477,17 @@ msgid ""
 "display fashion. For example if the value is \"/usr/bin/getloginuser|\", "
 "then the program \"/usr/bin/getloginuser\" will be run to get the user value."
 msgstr ""
-"Si el valor acaba en un una barra vertical | (el símbol de conducte), "
-"aleshores el GDM executarà el programa especificat i emprarà qualsevol valor "
-"que aquest retorni a la sortida estàndard del programa com l'usuari. El "
-"programa s'executa amb la variable d'entorn DISPLAY definida, de forma que "
-"és possible especificar l'usuari en funció del display. Per exemple, si el "
-"valor és «/usr/bin/getloginuser», aleshores s'executarà el programa «/usr/"
-"bin/getloginuser» per a obtenir el valor de l'usuari."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1218
 msgid "TimedLoginDelay"
-msgstr "TimedLoginDelay"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1220
 #, no-wrap
 msgid "TimedLoginDelay=30"
-msgstr "TimedLoginDelay=30"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1221
@@ -2168,18 +1495,17 @@ msgid ""
 "Delay in seconds before the <filename>TimedLogin</filename> user will be "
 "logged in."
 msgstr ""
-"Retard en segons abans que l'usuari <filename>TimedLogin</filename> entri."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1229
 msgid "AutomaticLoginEnable"
-msgstr "AutomaticLoginEnable"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1231
 #, no-wrap
 msgid "AutomaticLoginEnable=false"
-msgstr "AutomaticLoginEnable=false"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1232
@@ -2188,20 +1514,17 @@ msgid ""
 "logged in immediately. This feature is like timed login with a delay of 0 "
 "seconds."
 msgstr ""
-"Si és cert, l'usuari especificat a <filename>AutomaticLogin</filename> "
-"hauria d'entrar immediatament. Aquesta funció és semblant a l'entrada "
-"temporitzada amb un retard de 0 segons."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1241
 msgid "AutomaticLogin"
-msgstr "AutomaticLogin"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1243
 #, no-wrap
 msgid "AutomaticLogin="
-msgstr "AutomaticLogin="
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1244
@@ -2209,19 +1532,17 @@ msgid ""
 "This is the user that should be logged in immediately if "
 "<filename>AutomaticLoginEnable</filename> is true."
 msgstr ""
-"Aquest és l'usuari que hauria d'entrar immediatament si "
-"<filename>AutomaticLoginEnable</filename> és cert."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1262
 msgid "User"
-msgstr "User"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1264
 #, no-wrap
 msgid "User=gdm"
-msgstr "User=gdm"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1265
@@ -2230,21 +1551,17 @@ msgid ""
 "to the <filename>Group</filename> configuration key and to the \"Security-"
 "&gt;GDM User And Group\" section of this document for more information."
 msgstr ""
-"El nom d'usuari sota el qual el rebedor i altres programes d'interfície "
-"gràfica d'usuari s'executen. Per a obtenir més informació consulteu la clau "
-"de configuració <filename>Group</filename> i la secció «Seguretat-&gt;Usuari "
-"i grup del GDM» d'aquest document."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1275
 msgid "Group"
-msgstr "Group"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1277
 #, no-wrap
 msgid "Group=gdm"
-msgstr "Group=gdm"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1278
@@ -2253,31 +1570,27 @@ msgid ""
 "to the <filename>User</filename> configuration key and to the \"Security-&gt;"
 "GDM User And Group\" section of this document for more information."
 msgstr ""
-"El nom de grup sota el qual el rebedor i altres programes d'interfície "
-"gràfica d'usuari s'executen. Per a obtenir més informació consulteu la clau "
-"de configuració <filename>User</filename> i la secció «Seguretat-&gt;Usuari "
-"i grup del GDM» d'aquest document."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1290
 msgid "Debug Options"
-msgstr "Opcions de depuració"
+msgstr ""
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1293
 msgid "[debug]"
-msgstr "[debug]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1296 C/index.docbook:1427
 msgid "Enable"
-msgstr "Enable"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1298 C/index.docbook:1429
 #, no-wrap
 msgid "Enable=false"
-msgstr "Enable=false"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1299
@@ -2288,33 +1601,27 @@ msgid ""
 "messages</filename> or <filename>&lt;var&gt;/adm/messages</filename> "
 "depending on your Operating System)."
 msgstr ""
-"Per a habilitar la depuració, poseu la clau debug/Enable a «true» al fitxer "
-"<filename>&lt;etc&gt;/gdm/custom.conf</filename> i reinicieu el GDM. "
-"Aleshores la sortida de depuració s'enviarà al fitxer de registre del "
-"sistema (<filename>&lt;var&gt;/log/messages</filename> o <filename>&lt;"
-"var&gt;/adm/messages</filename> depenent de quin sigui el vostre sistema "
-"operatiu)."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1314
 msgid "Greeter Options"
-msgstr "Opcions del rebedor"
+msgstr ""
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1317
 msgid "[greeter]"
-msgstr "[greeter]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1320
 msgid "IncludeAll"
-msgstr "IncludeAll"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1322
 #, no-wrap
 msgid "IncludeAll=true"
-msgstr "IncludeAll=true"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1323
@@ -2322,9 +1629,6 @@ msgid ""
 "If true, then the face browser will show all users on the local machine. If "
 "false, the face browser will only show users who have recently logged in."
 msgstr ""
-"Si és cert, el navegador de cares mostrarà tots els usuaris locals. Si és "
-"fals, el navegador de cares només mostrarà els últims usuaris que hagin "
-"accedit."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1329
@@ -2339,15 +1643,6 @@ msgid ""
 "returns - /sbin/nologin or /bin/false are considered invalid shells even if "
 "getusershell() returns them)."
 msgstr ""
-"Quan aquesta clau sigui certa, el GDM cridarà fgetpwent() per a obtenir un "
-"llistat d'usuaris locals del sistema. No es mostrarà cap usuari amb una id "
-"inferior a 500 (o 100 en l'Oracle Solaris). El navegador de cares també "
-"mostrarà qualsevol usuari que hagi accedit anteriorment al sistema (per "
-"exemple, usuaris NIS/LDAP). Obté aquest llistat cridant la interfície "
-"<command>ck-history</command> del ConsoleKit. Tampoc mostrarà cap usuari que "
-"no tingui un intèrpret d'ordres vàlid (els vàlids són els que retorni "
-"getusershell() - /sbin/nologin o /bin/false es consideren intèrprets "
-"d'ordres no vàlids inclús si getusershell() els retorna)."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1343
@@ -2356,20 +1651,17 @@ msgid ""
 "logged in on the system (local or NIS/LDAP users) by calling the <command>ck-"
 "history</command> ConsoleKit interface."
 msgstr ""
-"Si és fals, aleshores el GDM només mostrarà els usuaris que hagin accedit "
-"anteriorment al sistema (usuaris locals o NIS/LDAP) cridant la interfície "
-"<command>ck-history</command> del ConsoleKit."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1352
 msgid "Include"
-msgstr "Include"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1354
 #, no-wrap
 msgid "Include="
-msgstr "Include="
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1355
@@ -2377,20 +1669,17 @@ msgid ""
 "Set to a list of users to always include in the Face Browser. This value is "
 "set to a list of users separated by commas. By default, the value is empty."
 msgstr ""
-"Defineix un llistat d'usuaris a incloure al navegador de cares. Aquest valor "
-"necessita un llistat d'usuaris separats per coma. De forma predeterminada, "
-"el valor és buit."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1364
 msgid "Exclude"
-msgstr "Exclude"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1366
 #, no-wrap
 msgid "Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap"
-msgstr "Exclude=bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1367
@@ -2401,32 +1690,27 @@ msgid ""
 "to add additional users to the list, then you need to set the value to the "
 "default value with additional users appended to the list."
 msgstr ""
-"Defineix un llistat d'usuaris a excloure al navegador de cares. Aquest valor "
-"necessita un llistat d'usuaris separats per coma. Tingueu present que el "
-"valor definit a <filename>custom.conf</filename> sobreescriu el valor "
-"predeterminat, així que si voleu afegir més usuaris al llistat, heux "
-"d'afegir-los al final del valor predeterminat."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1381
 msgid "Security Options"
-msgstr "Opcions de seguretat"
+msgstr ""
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1384
 msgid "[security]"
-msgstr "[security]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1387
 msgid "DisallowTCP"
-msgstr "DisallowTCP"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1389
 #, no-wrap
 msgid "DisallowTCP=true"
-msgstr "DisallowTCP=true"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1390
@@ -2436,31 +1720,27 @@ msgid ""
 "connection. This is a more secure configuration if you are not using remote "
 "connections."
 msgstr ""
-"Si és cert, sempre s'afegirà <filename>-nolisten tcp</filename> a la línia "
-"d'ordres quan s'iniciïn servidors X locals, d'aquesta manera no es permetran "
-"connexions TCP. Aquesta configuració és més segura si no utilitzeu "
-"connexions remotes."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1402
 msgid "XDCMP Support"
-msgstr "Compatibilitat XDCMP"
+msgstr ""
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1405
 msgid "[xdmcp]"
-msgstr "[xdmcp]"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1408
 msgid "DisplaysPerHost"
-msgstr "DisplaysPerHost"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1410
 #, no-wrap
 msgid "DisplaysPerHost=1"
-msgstr "DisplaysPerHost=1"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1411
@@ -2470,10 +1750,6 @@ msgid ""
 "services to computers with more than one screen, you should increase this "
 "value."
 msgstr ""
-"Per a evitar que els atacants omplin la cua de pendents, el GDM només "
-"permetrà una connexió per a cada ordinador remot. Si voleu proporcionar "
-"serveis de pantalla a ordinadors amb més d'una pantalla, hauríeu "
-"d'incrementar aquest valor."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1418
@@ -2481,9 +1757,6 @@ msgid ""
 "Note that the number of attached DISPLAYS allowed is not limited. Only "
 "remote connections via XDMCP are limited by this configuration option."
 msgstr ""
-"Tingueu en compte que el nombre de pantalles locals permeses no està "
-"limitat. Només les connexions remotes mitjançant XDMCP estan limitades per "
-"aquesta opció de configuració."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1430
@@ -2491,8 +1764,6 @@ msgid ""
 "Setting this to true enables XDMCP support allowing remote displays/X "
 "terminals to be managed by GDM."
 msgstr ""
-"En establir-ho a cert s'habilita la compatibilitat XDMCP, permetent que el "
-"GDM pugui gestionar les pantalles remotes o els terminals X."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1435
@@ -2500,8 +1771,6 @@ msgid ""
 "<filename>gdm</filename> listens for requests on UDP port 177. See the Port "
 "option for more information."
 msgstr ""
-"El <filename>gdm</filename> escolta les sol·licituds al port UDP 177. Per a "
-"obtenir més informació vegeu l'opció Port."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1440
@@ -2510,9 +1779,6 @@ msgid ""
 "controlled using the TCP Wrappers library. The service name is "
 "<filename>gdm</filename>"
 msgstr ""
-"Si el GDM es compila per a permetre-ho, es pot controlar l'accés des de "
-"pantalles remotes utilitzant la biblioteca de l'embolcall TCP. El nom de "
-"servei és <filename>gdm</filename>"
 
 #. (itstool) path: para/screen
 #: C/index.docbook:1448
@@ -2521,8 +1787,6 @@ msgid ""
 "\n"
 "gdm:.my.domain\n"
 msgstr ""
-"\n"
-"gdm:.my.domain\n"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1446
@@ -2531,10 +1795,6 @@ msgid ""
 "filename>, depending on your TCP Wrappers configuration. See the <ulink type="
 "\"help\" url=\"man:hosts.allow\">hosts.allow</ulink> man page for details."
 msgstr ""
-"Hauríeu d'afegir <_:screen-1/> al vostre <filename>&lt;etc&gt;/hosts.allow</"
-"filename>, depenent de la configuració de l'embolcall TCP. Per a obtenir més "
-"detalls vegeu la pàgina del manual <ulink type=\"help\" url=\"man:hosts.allow"
-"\">hosts.allow</ulink>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1457
@@ -2542,20 +1802,17 @@ msgid ""
 "Please note that XDMCP is not a particularly secure protocol and that it is "
 "a good idea to block UDP port 177 on your firewall unless you really need it."
 msgstr ""
-"Tingueu en compte que XDMCP no és un protocol precisament segur i que és una "
-"bona idea bloquejar el port UDP 177 al tallafoc a no ser que realment el "
-"necessiteu."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1466
 msgid "HonorIndirect"
-msgstr "HonorIndirect"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1468
 #, no-wrap
 msgid "HonorIndirect=true"
-msgstr "HonorIndirect=true"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1469
@@ -2564,20 +1821,17 @@ msgid ""
 "<filename>gdmchooser</filename>) for X-terminals which do not supply their "
 "own display browser."
 msgstr ""
-"Habilita la selecció XDMCP INDIRECT (és a dir, l'execució remota del "
-"<filename>gdmchooser</filename>) per als terminals X que no subministren el "
-"seu explorador de pantalla propi."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1478
 msgid "MaxPending"
-msgstr "MaxPending"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1480
 #, no-wrap
 msgid "MaxPending=4"
-msgstr "MaxPending=4"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1481
@@ -2585,9 +1839,6 @@ msgid ""
 "To avoid denial of service attacks, GDM has fixed size queue of pending "
 "connections. Only MaxPending displays can start at the same time."
 msgstr ""
-"Per a evitar els atacs de denegació de servei, el GDM té una cua de "
-"connexions pendents de mida fixa. Només el nombre de les pantalles "
-"MaxPending poden iniciar a la vegada."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1487
@@ -2596,20 +1847,17 @@ msgid ""
 "which can be managed. It only limits the number of displays initiating a "
 "connection simultaneously."
 msgstr ""
-"Tingueu en compte que aquest paràmetre no limita el número de pantalles "
-"remotes que es poden gestionar. Només limita el número de pantalles que "
-"inicien una connexió simultàniament."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1496
 msgid "MaxSessions"
-msgstr "MaxSessions"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1498
 #, no-wrap
 msgid "MaxSessions=16"
-msgstr "MaxSessions=16"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1499
@@ -2618,20 +1866,17 @@ msgid ""
 "managed simultaneously. I.e. the total number of remote displays that can "
 "use your host."
 msgstr ""
-"Determina el número màxim de connexions de pantalles remotes que es poden "
-"gestionar simultàniament. És a dir, el número total de pantalles remotes que "
-"pot utilitzar el vostre amfitrió."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1508
 msgid "MaxWait"
-msgstr "MaxWait"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1510
 #, no-wrap
 msgid "MaxWait=30"
-msgstr "MaxWait=30"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1511
@@ -2640,9 +1885,6 @@ msgid ""
 "containing a unique session id which will be used in future XDMCP "
 "conversations."
 msgstr ""
-"Quan el GDM està preparat per a gestionar una pantalla se li envia un paquet "
-"ACCEPT que conté un identificador de sessió únic que s'utilitzarà en futures "
-"connexions XDMCP."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1517
@@ -2650,8 +1892,6 @@ msgid ""
 "GDM will then place the session id in the pending queue waiting for the "
 "display to respond with a MANAGE request."
 msgstr ""
-"Llavors el GDM ubicarà l'identificador de sessió a la cua de pendents "
-"esperant que la pantalla respongui amb una sol·licitud MANAGE."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1522
@@ -2660,20 +1900,17 @@ msgid ""
 "display dead and erase it from the pending queue freeing up the slot for "
 "other displays."
 msgstr ""
-"Si no es rep una resposta abans de MaxWait segons, el GDM declararà la "
-"pantalla com a morta i la suprimirà de la cua de pendents, alliberant la "
-"ranura per a altres pantalles."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1531
 msgid "MaxWaitIndirect"
-msgstr "MaxWaitIndirect"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1533
 #, no-wrap
 msgid "MaxWaitIndirect=30"
-msgstr "MaxWaitIndirect=30"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1534
@@ -2686,24 +1923,17 @@ msgid ""
 "there are more hosts trying to send indirect queries then "
 "<filename>MaxPendingIndirect</filename>."
 msgstr ""
-"El paràmetre MaxWaitIndirect determina el número màxim de segons entre el "
-"temps on un usuari tria un amfitrió i la sol·licitud indirecta que l'ha de "
-"seguir on l'usuari està connectat a l'amfitrió. Quan s'excedeix el temps "
-"d'espera, s'oblida la informació sobre l'amfitrió triat i s'allibera la "
-"ranura indirecte per a altres pantalles. Es pot oblidar la informació abans "
-"si hi ha més amfitrions intentant enviar sol·licituds indirectes que "
-"<filename>MaxPendingIndirect</filename>."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1548
 msgid "PingIntervalSeconds"
-msgstr "PingIntervalSeconds"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1550
 #, no-wrap
 msgid "PingIntervalSeconds=60"
-msgstr "PingIntervalSeconds=60"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1551
@@ -2714,11 +1944,6 @@ msgid ""
 "setting by 2, so it may be necessary to increase the timeout if upgrading "
 "from GDM 2.20 and earlier to a newer version."
 msgstr ""
-"Si Xserver no respon durant el temps determinat, la connexió s'atura i "
-"s'acaba la sessió. Quan això passa el dimoni esclau mor amb un senyal ALARM. "
-"Tingueu present que el GDM 2.20 i anteriors multiplicaven aquest valor per "
-"2, així que és possible que calgui incrementar el temps d'expiració si "
-"s'actualitza del GDM 2.20 i versions anteriors a una més nova."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1560
@@ -2730,23 +1955,17 @@ msgid ""
 "seconds would really mean that the terminal was turned off or restarted and "
 "you would want to end the session."
 msgstr ""
-"Tingueu en compte que el GDM en el passat utilitzava la clau de configuració "
-"<filename>PingInterval</filename> que estava en minuts. Per a la majoria de "
-"propòsits voldreu que aquest paràmetre sigui inferior d'un minut, ja que en "
-"la majoria de casos on XDMCP s'hauria d'utilitzar (com terminals de "
-"laboratori), un retard de 15 o més segons significaria realment que el "
-"terminal s'ha apagat o s'ha tornat a iniciar i voldríeu finalitzar la sessió."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1573
 msgid "Port"
-msgstr "Port"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1575
 #, no-wrap
 msgid "Port=177"
-msgstr "Port=177"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1576
@@ -2754,20 +1973,17 @@ msgid ""
 "The UDP port number <filename>gdm</filename> should listen to for XDMCP "
 "requests. Do not change this unless you know what you are doing."
 msgstr ""
-"El número de port UDP en el qual el <filename>gdm</filename> hauria "
-"d'escoltar les sol·licituds XDMCP. No ho canvieu si no sabeu les "
-"conseqüències que en poden derivar."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1585
 msgid "Willing"
-msgstr "Willing"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1587
 #, no-wrap
 msgid "Willing=&lt;etc&gt;/gdm/Xwilling"
-msgstr "Willing=&lt;etc&gt;/gdm/Xwilling"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1588
@@ -2781,19 +1997,11 @@ msgid ""
 "every 3 seconds to prevent possible denial of service by flooding the "
 "machine with QUERY packets."
 msgstr ""
-"Quan l'ordinador retorna un paquet WILLING després d'un QUERY aquest envia "
-"una cadena que proporciona l'estat actual del servidor. El missatge per "
-"defecte és l'identificador del sistema, però es pot crear un script que "
-"mostri un missatge personalitzat. Si no existeix l'script o la clau està "
-"buida, s'enviarà el missatge per defecte. Si aquest script acaba bé i "
-"produeix alguna sortida, s'enviarà la primera línia de la seva sortida (i "
-"només la primera línia). S'executa com a molt cada 3 segons per a evitar una "
-"possible denegació de servei per inundació de l'ordinador amb paquets QUERY."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1607
 msgid "Simple Greeter Configuration"
-msgstr "Configuració del rebedor senzill"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1609
@@ -2806,24 +2014,16 @@ msgid ""
 "<command>gconf-editor</command> programs. The following configuration "
 "options are supported:"
 msgstr ""
-"El rebedor per defecte del GDM s'anomena rebedor senzill i es configura "
-"mitjançant el GConf. Els valors per defecte s'emmagatzemen al fitxer "
-"<filename>gdm-simple-greeter.schemas</filename> del GConf. Aquests valors "
-"per defecte es poden sobreescriure si l'usuari «gdm» té un directori $HOME "
-"amb permisos d'escriptura per a emmagatzemar els paràmetres del GConf. "
-"Aquests valors es poden editar utilitzant els programes "
-"<command>gconftool-2</command> o <command>gconf-editor</command>. S'admeten "
-"les opcions de configuració següents:"
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1620
 msgid "Greeter Configuration Keys"
-msgstr "Claus de configuració del rebedor"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1623
 msgid "/apps/gdm/simple-greeter/banner_message_enable"
-msgstr "/apps/gdm/simple-greeter/banner_message_enable"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1625 C/index.docbook:1646 C/index.docbook:1657
@@ -2831,46 +2031,43 @@ msgstr "/apps/gdm/simple-greeter/banner_message_enable"
 #: C/index.docbook:1809 C/index.docbook:1820
 #, no-wrap
 msgid "false (boolean)"
-msgstr "false (booleà)"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1626
 msgid "Controls whether the banner message text is displayed."
-msgstr "Controla si es mostra el missatge de text del bàner."
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1633
 msgid "/apps/gdm/simple-greeter/banner_message_text"
-msgstr "/apps/gdm/simple-greeter/banner_message_text"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1635
 #, no-wrap
 msgid "NULL (string)"
-msgstr "NULL (cadena)"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1636
 msgid "Specifies the text banner message to show on the greeter window."
 msgstr ""
-"Especifica el missatge de text del bàner que es mostra a la finestra del "
-"rebedor."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1644
 msgid "/apps/gdm/simple-greeter/disable_restart_buttons"
-msgstr "/apps/gdm/simple-greeter/disable_restart_buttons"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1647
 msgid "Controls whether to show the restart buttons in the login window."
 msgstr ""
-"Controla si s'han de mostrar els botons de reiniciar a la finestra d'entrada."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1655
 msgid "/apps/gdm/simple-greeter/disable_user_list"
-msgstr "/apps/gdm/simple-greeter/disable_user_list"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1658
@@ -2878,36 +2075,33 @@ msgid ""
 "If true, then the face browser with known users is not shown in the login "
 "window."
 msgstr ""
-"Si és cert, aleshores no es mostrarà el navegador de cares amb els usuaris "
-"coneguts a la finestra d'accés."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1666
 msgid "/apps/gdm/simple-greeter/logo_icon_name"
-msgstr "/apps/gdm/simple-greeter/logo_icon_name"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1668
 #, no-wrap
 msgid "computer (string)"
-msgstr "ordinador (cadena)"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1669
 msgid "Set to the themed icon name to use for the greeter logo."
 msgstr ""
-"Estableix el nom del tema d'icones que s'utilitza per al logotip del rebedor."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1676
 msgid "/apps/gdm/simple-greeter/recent-languages"
-msgstr "/apps/gdm/simple-greeter/recent-languages"
+msgstr ""
 
 #. (itstool) path: listitem/synopsis
 #: C/index.docbook:1678 C/index.docbook:1700
 #, no-wrap
 msgid "[] (string list)"
-msgstr "[] (llista de cadenes)"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1679
@@ -2917,11 +2111,6 @@ msgid ""
 "language is shown and the option \"Other...\" which pops-up a dialog box "
 "showing a full list of available languages which the user can select."
 msgstr ""
-"Definit com un llistat d'idiomes a mostrar de forma predeterminada a la "
-"finestra d'accés. El valor predeterminat és «[]». Amb el valor "
-"predeterminat, només es mostra l'idioma predeterminat en el sistema i "
-"l'opció «Altres...» que surt en un diàleg emergent mostrant el llistat "
-"complet d'idiomes que pot triar l'usuari."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1687
@@ -2931,15 +2120,11 @@ msgid ""
 "them in the language combo box along with the \"Other...\" choice. This way, "
 "commonly selected languages are easier to select."
 msgstr ""
-"Se suposa que els usuaris no han de modificar aquest paràmetre a mà. En "
-"canvi, el GDM registra de tots els idiomes seleccionats amb aquesta clau de "
-"configuració i els mostra al selector d'idiomes amb les opcions «Altres». "
-"D'aquesta forma, es pot triar més fàcilment els idiomes d'ús freqüent."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1698
 msgid "/apps/gdm/simple-greeter/recent-layouts"
-msgstr "/apps/gdm/simple-greeter/recent-layouts"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1701
@@ -2950,11 +2135,6 @@ msgid ""
 "box showing a full list of available keyboard layouts which the user can "
 "select."
 msgstr ""
-"Està definit com un llistat de disposicions de teclat que es mostra de forma "
-"predeterminada al panell d'accés. El valor predeterminat és «[]». Amb el "
-"valor predeterminat només es mostra la disposició de teclat predeterminada "
-"en el sistema i l'opció «Altres» que obre un diàleg emergent on mostra el "
-"llistat complet de disposicions disponibles que pot triar l'usuari."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1709
@@ -2964,29 +2144,22 @@ msgid ""
 "show them in the keyboard layout combo box along with the \"Other...\" "
 "choice. This way, commonly selected keyboard layouts are easier to select."
 msgstr ""
-"Se suposa que els usuaris no han de modificar aquest paràmetre a mà. En "
-"canvi, el GDM registra quines disposicions de teclat s'han seleccionat en "
-"aquesta clau de configuració i els mostra al selector que es mostra amb "
-"l'opció «Altres...». D'aquesta forma, es pot triar més fàcilment les "
-"disposicions de teclat d'ús freqüent."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1720
 msgid "/apps/gdm/simple-greeter/wm_use_compiz"
-msgstr "/apps/gdm/simple-greeter/wm_use_compiz"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1723
 msgid ""
 "Controls whether compiz is used as the window manager instead of metacity."
 msgstr ""
-"Controla si s'utilitza el compiz com a gestor de finestres en lloc del "
-"metacity."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1733
 msgid "Accessibility Configuration"
-msgstr "Configuració de l'accessibilitat"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1735
@@ -2994,13 +2167,11 @@ msgid ""
 "This section describes the accessibility configuration options available in "
 "GDM."
 msgstr ""
-"Aquesta secció descriu les opcions disponibles en la configuració "
-"d'accessibilitat del GDM."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1741
 msgid "GDM Accessibility Dialog And GConf Keys"
-msgstr "Diàleg d'accessibilitat del GDM i claus del GConf"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1743
@@ -3010,10 +2181,6 @@ msgid ""
 "Accessibility Dialog, there is a list of checkboxes, so the user can enable "
 "or disable the associated assistive tools."
 msgstr ""
-"El panell de benvinguda del GDM a la pantalla d'accés, mostra la icona "
-"d'accessibilitat. En fer-hi clic, s'obre el diàleg d'accessibilitat del GDM, "
-"on es mostra un llistat de quadres de verificació, així l'usuari pot "
-"habilitar o deshabilitar els assistents associats."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1750
@@ -3029,17 +2196,6 @@ msgid ""
 "Consequently, the assistive tools that were running during the last GDM "
 "login session will automatically be launched at the next GDM login session."
 msgstr ""
-"Els quadres de verificació corresponents als assistents de teclat virtual en "
-"pantalla, ampliador de pantalla i lector de pantalla actuen amb les tres "
-"claus del GConf que es descriuen a la següent secció d'aquest document. En "
-"habilitar-les o deshabilitar-les, les claus del GConf associades obtenen el "
-"valor «true» o «false», respectivament. Quan les claus del GConf tenen "
-"el valor cert, s'inicien els assistents vinculats a aquestes claus. Quan les "
-"claus del GConf tenen el valor «false», qualsevol assistent que tingui "
-"vinculada la clau es tanca. Aquestes claus del GConf no tornen a un valor "
-"predeterminat cada cop que l'usuari accedeix. Així, els assistents que "
-"estiguessin funcionant a l'última sessió del GDM s'iniciaran automàticament "
-"a la següent."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1764
@@ -3050,34 +2206,27 @@ msgid ""
 "correspond to accessibility features that are provided by the Xserver, which "
 "is always running during the GDM session."
 msgstr ""
-"Els altres quadres de verificació del diàleg d'accessibilitat del GDM no "
-"tenen clau respectiva al GConf perquè no s'inicia cap programa per a "
-"proporcionar les característiques d'accessibilitat que ofereixen. Aquestes "
-"altres opcions corresponen a característiques d'accessibilitat que "
-"proporciona Xserver, que sempre s'executa durant la sessió del GDM."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1774
 msgid "Accessibility GConf Keys"
-msgstr "Claus del GConf sobre l'accessibilitat"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1776
 msgid ""
 "GDM offers the following GConf keys to control its accessibility features:"
 msgstr ""
-"El GDM ofereix les claus del GConf següents per a controlar les seves "
-"funcions d'accessibilitat:"
 
 #. (itstool) path: variablelist/title
 #: C/index.docbook:1782
 msgid "GDM Configuration Keys"
-msgstr "Claus de configuració del GDM"
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1785
 msgid "/desktop/gnome/interface/accessibility"
-msgstr "/desktop/gnome/interface/accessibility"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1788
@@ -3085,14 +2234,11 @@ msgid ""
 "Controls whether the Accessibility infrastructure will be started with the "
 "GDM GUI. This is needed for many accessibility technology programs to work."
 msgstr ""
-"Controla si la infraestructura d'accessibilitat s'ha iniciat amb la "
-"interfície del GDM. Això li cal a moltes tecnologies d'accessibilitat per a "
-"poder funcionar."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1796
 msgid "/desktop/gnome/applications/at/screen_magnifier_enabled"
-msgstr "/desktop/gnome/applications/at/screen_magnifier_enabled"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1799
@@ -3100,14 +2246,11 @@ msgid ""
 "If set, then the assistive tools linked to this GConf key will be started "
 "with the GDM GUI program. By default this is a screen magnifier application."
 msgstr ""
-"Si s'ha definit, l'assistent vinculat a aquesta clau del GConf s'iniciarà "
-"amb la interfície gràfica del GDM. De forma predeterminada és una lupa de "
-"pantalla."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1807
 msgid "/desktop/gnome/applications/at/screen_keyboard_enabled"
-msgstr "/desktop/gnome/applications/at/screen_keyboard_enabled"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1810
@@ -3116,14 +2259,11 @@ msgid ""
 "with the GDM GUI program. By default this is an on-screen keyboard "
 "application."
 msgstr ""
-"Si s'ha definit, l'assistent vinculat a aquesta clau del GConf s'iniciarà "
-"amb la interfície gràfica del GDM. De forma predeterminada és un teclat "
-"virtual en pantalla."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1818
 msgid "/desktop/gnome/applications/at/screen_reader_enabled"
-msgstr "/desktop/gnome/applications/at/screen_reader_enabled"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1821
@@ -3131,14 +2271,11 @@ msgid ""
 "If set, then the assistive tools linked to this GConf key will be started "
 "with the GDM GUI program. By default this is a screen reader application."
 msgstr ""
-"Si s'ha definit, l'assistent vinculat a aquesta clau del GConf s'iniciarà "
-"amb la interfície gràfica del GDM. De forma predeterminada és un lector de "
-"pantalla."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1832
-msgid "Linking GConf Keys to Accessbility Tools"
-msgstr "Com enllaçar les claus del GConf a les eines d'accessibilitat"
+msgid "Linking GConf Keys to Accessibility Tools"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1834
@@ -3152,14 +2289,6 @@ msgid ""
 "file. So the exact AutostartCondition line in the desktop file could be one "
 "of the following:"
 msgstr ""
-"Per a les claus del GConf screen_magnifier_enabled, screen_keyboard_enabled "
-"i the screen_reader_enabled l'assistent que s'inicia depèn dels fitxers "
-"desktop ubicats al directori d'autoinici del GDM, com es descriu a la secció "
-"\"Autostart Configuration\" d'aquest manual. Qualsevol fitxer desktop del "
-"directori d'autoinici del GDM es pot enllaçar amb aquesta clau del GConf "
-"especificant-la a la condició AutorstartCondition del fitxer desktop. Així, "
-"la línia concreta de l'AutostartCondition al fitxer desktop podria ser una "
-"de les següents:"
 
 #. (itstool) path: sect3/screen
 #: C/index.docbook:1846
@@ -3170,10 +2299,6 @@ msgid ""
 "AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled\n"
 "AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled\n"
 msgstr ""
-"\n"
-"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled\n"
-"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabled\n"
-"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled\n"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1852
@@ -3184,17 +2309,11 @@ msgid ""
 "multiple assistive tools if there are multiple desktop files with this "
 "AutostartCondition in the GDM autostart directory."
 msgstr ""
-"Quan una clau d'accessibilitat té el valor cert, aleshores qualsevol "
-"programa amb què estigui enllaçat en un fitxer desktop de l'autoinici del "
-"GDM s'iniciarà (excepte que la clau Hidden estigui definida com a certa en "
-"aquest mateix fitxer desktop). Una única clau GConf pot, fins i tot, iniciar "
-"diferents assistents si hi ha diferents fitxers .desktop amb la "
-"AutostartCondition al directori d'autoinici del GDM."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1862
 msgid "Example Of Modifying Accessibility Tool Configuration"
-msgstr "Exemple de com modificar l'eina de configuració d'accessibilitat"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1864
@@ -3205,11 +2324,6 @@ msgid ""
 "additionally activate the assistive tool \"mousetweaks\" for dwelling "
 "support, then the following configuration is needed."
 msgstr ""
-"Per exemple, si el GNOME s'ha distribuït amb el GOK com el teclat en "
-"pantalla predeterminat, aquest es podria substituir per un altre programa si "
-"es volgués. Per a reemplaçar el GOK amb el teclat en pantalla «onboard» i, "
-"addicionalment, activar l'assistent «mousetweaks que implementa el clic "
-"en pausa, caldria la següent configuració."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1872
@@ -3219,16 +2333,11 @@ msgid ""
 "in the GDM autostart directory and be in the format as explained in the "
 "\"Autostart Configuration\" section of this document."
 msgstr ""
-"Crea un fitxer d'escriptori per a l'onboard i un altre pel mousetweaks; per "
-"exemple, onboard.desktop i mousetweaks.desktop. Aquests fitxers s'han de "
-"posar al directori d'autoinici del GDM i han de tenir el format que "
-"s'explica a la secció \"Autostart Configuration\" d'aquest document."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1880
 msgid "The following is an example <filename>onboard.desktop</filename> file:"
 msgstr ""
-"A continuació un exemple del fitxer <filename>onboard.desktop</filename>:"
 
 #. (itstool) path: sect3/screen
 #: C/index.docbook:1884
@@ -3247,25 +2356,12 @@ msgid ""
 "Categories=GNOME;GTK;Accessibility;\n"
 "AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled\n"
 msgstr ""
-"\n"
-"[Desktop Entry]\n"
-"Encoding=UTF-8\n"
-"Name=Onboard Onscreen Keyboard\n"
-"Comment=Use an on-screen keyboard\n"
-"TryExec=onboard\n"
-"Exec=onboard --size 500x180 -x 20 -y 10\n"
-"Terminal=false\n"
-"Type=Application\n"
-"StartupNotify=true\n"
-"Categories=GNOME;GTK;Accessibility;\n"
-"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled\n"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1898
 msgid ""
 "The following is an example <filename>mousetweaks.desktop</filename> file:"
 msgstr ""
-"A continuació un exemple del fitxer <filename>mousetweaks.desktop</filename>:"
 
 #. (itstool) path: sect3/screen
 #: C/index.docbook:1903
@@ -3284,18 +2380,6 @@ msgid ""
 "Categories=GNOME;GTK;Accessibility;\n"
 "AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled\n"
 msgstr ""
-"\n"
-"[Desktop Entry]\n"
-"Encoding=UTF-8\n"
-"Name=Software Mouse-Clicks\n"
-"Comment=Perform clicks by dwelling with the pointer\n"
-"TryExec=mousetweaks\n"
-"Exec=mousetweaks --enable-dwell -m window -c -x 20 -y 240 \n"
-"Terminal=false\n"
-"Type=Application\n"
-"StartupNotify=true\n"
-"Categories=GNOME;GTK;Accessibility;\n"
-"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enabled\n"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1917
@@ -3303,8 +2387,6 @@ msgid ""
 "Note the line with the AutostartCondition that links both desktop files to "
 "the GConf key for the on-screen keyboard."
 msgstr ""
-"Tingueu present la línia amb AutostartCondition que enllaça ambdós fitxers "
-"d'escriptori a la clau GConf pel teclat en pantalla."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1922
@@ -3315,11 +2397,6 @@ msgid ""
 "from the GDM autostart directory, or by adding the \"Hidden=true\" key "
 "setting to the gok.desktop file."
 msgstr ""
-"Per a evitar que el GOK s'iniciï, s'ha de suprimir o desactivar el fitxer "
-"d'escriptori del teclat en pantalla GOK. D'altra forma, l'onboard i el GOK "
-"s'iniciaran simultàniament. Això es pot aconseguir suprimint el fitxer gok."
-"desktop del directori d'autoinici del GDM, o afegint la clau \"Hidden=true\" "
-"al fitxer gok.desktop."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1930
@@ -3328,14 +2405,11 @@ msgid ""
 "activates the on-screen keyboard in the GDM session; but onboard and "
 "mousetweaks will instead be launched."
 msgstr ""
-"Després d'aquests canvis, el GOK no s'iniciarà quan l'usuari activi el "
-"teclat en pantalla a la sessió del GDM; a canvi, s'iniciaran l'onboard i el "
-"mousetweaks."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1939
 msgid "General Session Settings"
-msgstr "Paràmetres generals de sessió"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1948
@@ -3347,18 +2421,11 @@ msgid ""
 "mandatory policy. GDM installs its own mandatory policy to lock down some "
 "settings for security."
 msgstr ""
-"El rebedor del GDM utilitza alguns components de l'entorn de treball que "
-"utilitzarà la sessió d'escriptori. I per això l'hi afecten tot un seguit de "
-"paràmetres del GConf compartides. Per cada un d'aquests paràmetres el "
-"rebedor utilitzarà el valor per defecte a no ser que s'hagi sobreescrit per "
-"la política obligatòria instal·lada del GDM o per la política obligatòria "
-"del sistema. El GDM, per seguretat, instal·la la seva política obligatòria "
-"per a bloquejar alguns paràmetres."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1959
 msgid "GNOME Settings Daemon"
-msgstr "Dimoni de paràmetres del GNOME"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1972
@@ -3366,8 +2433,6 @@ msgid ""
 "GDM enables the following gnome-settings-daemon plugins: a11y-keyboard, "
 "background, sound, xsettings."
 msgstr ""
-"El GDM habilita els connectors següents del gnome-settings-daemon: l'a11y-"
-"keyboard, el background, el sound i xsettings."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1977
@@ -3375,8 +2440,6 @@ msgid ""
 "These are responsible for things like the background image, font and theme "
 "settings, sound events, etc."
 msgstr ""
-"Aquests són responsables d'aspectes com la imatge de fons, el tipus de "
-"lletra i els paràmetres del tema, els esdeveniments de so, etc."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1982
@@ -3385,15 +2448,11 @@ msgid ""
 "disable the sound plugin then unset the following key: <filename>/apps/gdm/"
 "simple-greeter/settings-manager-plugins/sound/active</filename>."
 msgstr ""
-"Els connectors es poden inhabilitar utilitzant el GConf. Per exemple, si "
-"voleu inhabilitar el connector de so llavors inhabiliteu la clau següent: "
-"<filename>/apps/gdm/simple-greeter/settings-manager-plugins/sound/active</"
-"filename>."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1990
 msgid "GDM Session Configuration"
-msgstr "Configuració de sessió del GDM"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1992
@@ -3403,11 +2462,6 @@ msgid ""
 "\"http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec\"> "
 "http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</ulink>."
 msgstr ""
-"Les sessions del GDM s'especifiquen utilitzant l'Especificació d'entrada de "
-"l'escriptori de la FreeDesktop.org, que es pot consultar a l'URL següent: "
-"<ulink url=\"http://www.freedesktop.org/wiki/Specifications/desktop-entry-"
-"spec\">http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</"
-"ulink>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1999
@@ -3421,16 +2475,6 @@ msgid ""
 "filename> is set to <filename>&lt;etc&gt;/dm/</filename> unless GDM is "
 "configured to use a different directory via the \"--with-dmconfdir\" option."
 msgstr ""
-"De forma predeterminada, el GDM instal·la fitxers d'escriptori al directori "
-"<filename>&lt;share&gt;/xsessions</filename> directory. El GDM cerca dins "
-"els següents directoris, en aquest ordre, per a trobar fitxers d'escriptori: "
-"<filename>&lt;etc&gt;/X11/sessions/</filename>, <filename>&lt;dmconfdir&gt;/"
-"Sessions</filename>, <filename>&lt;share&gt;/xsessions</filename> i "
-"<filename>&lt;share&gt;/gdm/BuiltInSessions</filename>. De forma "
-"predeterminada, es designa <filename>&lt;etc&gt;/dm/</filename> com a "
-"<filename>&lt;dmconfdir&gt;</filename> a no ser que el GDM estigui "
-"configurat per a emprar un directori diferent mitjançant l'opció \"--with-"
-"dmconfdir\"."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2012
@@ -3438,8 +2482,6 @@ msgid ""
 "A session can be disabled by editing the desktop file and adding a line as "
 "follows: <filename>Hidden=true</filename>."
 msgstr ""
-"Es pot inhabilitar una sessió editant el fitxer d'escriptori i afegint una "
-"línia com segueix: <filename>Hidden=true</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2017
@@ -3456,22 +2498,11 @@ msgid ""
 "problems in the system or user scripts that might be preventing a user from "
 "being able to start a session."
 msgstr ""
-"Els fitxers d'escriptori del GDM implementen una extensió específica del "
-"GDM, una clau anomenada «X-GDM-BypassXsession». Si no s'especifica la clau "
-"al fitxer d'escriptori, el valor queda predeterminat a «false». Si la clau "
-"té el valor «true» al fitxer d'escriptori, aleshores el GDM iniciarà el "
-"programa especificat a la clau \"Exec\" del mateix fitxer en iniciar una "
-"sessió d'usuari. No iniciarà el programa mitjançant l'script <filename>&lt;"
-"etc&gt;/gdm/Xsession</filename> que és el comportament habitual. En obviar "
-"l'script, s'evita iniciar la sessió d'usuari amb els paràmetres d'usuari i "
-"de sistema normals. Les sessions iniciades d'aquesta forma són útils per a "
-"fer depuració de problemes als scripts de sistema o d'usuari que estiguin "
-"impedint l'inici de sessió de l'usuari."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:2036
 msgid "GDM User Session and Language Configuration"
-msgstr "Configuració de sessió i d'idioma de l'usuari del GDM"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2037
@@ -3482,11 +2513,6 @@ msgid ""
 "these default values by simply changing to a different value when logging "
 "in. GDM will remember this change for subsequent logins."
 msgstr ""
-"Les opcions per defecte de sessió i d'idioma de l'usuari s'emmagatzemen al "
-"fitxer <filename>~/.dmrc</filename>. Quan un usuari entra per primer cop, es "
-"crea el fitxer amb les opcions inicials de l'usuari. L'usuari pot canviar "
-"aquests valors per defecte canviant-los a un valor diferent quan entra. El "
-"GDM recordarà aquests canvis per les entrades posteriors."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2045
@@ -3496,10 +2522,6 @@ msgid ""
 "which has two keys: <filename>Session</filename> and <filename>Language</"
 "filename>."
 msgstr ""
-"El fitxer <filename>~/.dmrc</filename> està en format estàndard "
-"<filename>INI</filename>. Aquest té una secció anomenada "
-"<filename>[Desktop]</filename> la qual té dues claus: <filename>Session</"
-"filename> i <filename>Language</filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2052
@@ -3511,12 +2533,6 @@ msgid ""
 "If either of these keys is missing, the system default is used. The file "
 "would normally look as follows:"
 msgstr ""
-"La clau <filename>Session</filename> especifica el nom base del fitxer de "
-"sessió <filename>.desktop</filename> que l'usuari vol utilitzar normalment "
-"sense l'extensió <filename>.desktop</filename>. La clau <filename>Language</"
-"filename> especifica l'idioma que l'usuari vol utilitzar per defecte. Si "
-"falta alguna d'aquestes claus, s'utilitzarà el valor predeterminat del "
-"sistema. El fitxer normalment té l'aparença següent:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:2061
@@ -3527,20 +2543,16 @@ msgid ""
 "Session=gnome\n"
 "Language=cs_CZ.UTF-8\n"
 msgstr ""
-"\n"
-"[Desktop]\n"
-"Session=gnome\n"
-"Language=ca_ES.UTF-8\n"
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2073
 msgid "GDM Commands"
-msgstr "Ordres del GDM"
+msgstr ""
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:2076
 msgid "GDM Root User Commands"
-msgstr "Ordres de l'usuari primari del GDM"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2078
@@ -3548,68 +2560,64 @@ msgid ""
 "The GDM package provides the following commands in <filename>sbindir</"
 "filename> intended to be run by the root user:"
 msgstr ""
-"El paquet GDM proporciona les ordres següents a <filename>sbindir</filename> "
-"amb la intenció de què siguin executades per l'usuari primari:"
 
 #. (itstool) path: sect3/title
 #. (itstool) path: variablelist/title
 #: C/index.docbook:2084 C/index.docbook:2092
 msgid "<command>gdm</command> Command Line Options"
-msgstr "Opcions de la línia d'ordres <command>gdm</command>"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2086
 msgid ""
 "<command>gdm</command> is the main daemon which sets up graphical login "
-"environment and starts necesary helpers."
+"environment and starts necessary helpers."
 msgstr ""
-"El <command>gdm</command> és el dimoni principal que inicia un entorn gràfic "
-"d'accés i els assistents necessaris."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2095
 msgid "-?, --help"
-msgstr "-?, --help"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:2097
 msgid "Gives a brief overview of the command line options."
-msgstr "Proporciona un resum general de les opcions de la línia d'ordres."
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2104
 msgid "--fatal-warnings"
-msgstr "--fatal-warnings"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:2106
 msgid "Make all warnings cause GDM to exit."
-msgstr "Fa que tots els avisos provoquin que el GDM surti."
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2113
 msgid "--timed-exit"
-msgstr "--timed-exit"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:2115
 msgid "Exit after 30 seconds. Useful for debugging."
-msgstr "Surt després de 30 segons. És útil per a depurar."
+msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2122
 msgid "--version"
-msgstr "--version"
+msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:2124
 msgid "Print the version of the GDM daemon."
-msgstr "Mostra la versió del dimoni del GDM."
+msgstr ""
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2133
 msgid "<command>gdm-restart</command> Command Line Options"
-msgstr "Opcions de la línia d'ordres del <command>gdm-restart</command>"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2135
@@ -3618,15 +2626,11 @@ msgid ""
 "daemon a HUP signal. This command will immediately terminate all sessions "
 "and log out users currently logged in with GDM."
 msgstr ""
-"El <command>gdm-restart</command> atura i torna a iniciar el GDM enviant un "
-"senyal HUP al dimoni del GDM. Aquesta ordre finalitzarà immediatament totes "
-"les sessions i farà sortir als usuaris que estan connectats actualment amb "
-"el GDM."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2143
 msgid "<command>gdm-safe-restart</command> Command Line Options"
-msgstr "Opcions de la línia d'ordres del <command>gdm-safe-restart</command>"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2145
@@ -3634,14 +2638,11 @@ msgid ""
 "<command>gdm-safe-restart</command> stops and restarts GDM by sending the "
 "GDM daemon a USR1 signal. GDM will be restarted as soon as all users log out."
 msgstr ""
-"El <command>gdm-safe-restart</command> atura i torna a iniciar el GDM "
-"enviant un senyal USR1 al dimoni del GDM. Es tornarà a iniciar el GDM quan "
-"hagin sortit tots els usuaris."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2153
 msgid "<command>gdm-stop</command> Command Line Options"
-msgstr "Opcions de la línia d'ordres del <command>gdm-stop</command>"
+msgstr ""
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2155
@@ -3649,13 +2650,11 @@ msgid ""
 "<command>gdm-stop</command> stops GDM by sending the GDM daemon a TERM "
 "signal."
 msgstr ""
-"El <command>gdm-stop</command> atura el GDM enviant un senyal TERM al dimoni "
-"del GDM."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2166
 msgid "Troubleshooting"
-msgstr "Resolució de problemes"
+msgstr ""
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2174
@@ -3665,10 +2664,6 @@ msgid ""
 "gdm-list mailing list. Information about how to do this is in the "
 "Introduction section of the document."
 msgstr ""
-"Aquesta secció descriu consells útils per a fer funcionar el GDM. En "
-"general, si teniu algun problema utilitzant el GDM, podeu transmetre un "
-"error o enviar un correu electrònic a la llista de correu gdm-list. Trobareu "
-"més informació sobre com fer-ho a la secció «Introducció» del document."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2181
@@ -3685,24 +2680,11 @@ msgid ""
 "you may need to configure syslog (refer to the <ulink type=\"help\" url="
 "\"man:syslog\">syslog</ulink> man page)."
 msgstr ""
-"Si el GDM no funciona correctament, sempre és una bona idea incloure "
-"informació de depuració. Per a habilitar la depuració, establiu la clau "
-"«debug/Enable» a «true» en el fitxer <filename>&lt;etc&gt;/gdm/custom.conf</"
-"filename> i reinicieu el GDM. Llavors utilitzeu el GDM cap al punt on falla "
-"i la sortida de depuració s'enviarà al registre del sistema (<filename>&lt;"
-"var&gt;/log/messages</filename> o <filename>&lt;var&gt;/adm/messages</"
-"filename> en funció del vostre sistema operatiu). Si compartiu aquesta "
-"sortida amb la comunitat del GDM mitjançant un informe d'error o un correu "
-"electrònic, incloeu només la informació de depuració relacionada amb el GDM "
-"i no el fitxer sencer, ja que pot ser molt gran. Si no veieu la sortida del "
-"registre del sistema del GDM, potser heu de configurar el registre del "
-"sistema (consulteu la pàgina del manual <ulink type=\"help\" url=\"man:syslog"
-"\">syslog</ulink>)."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:2197
 msgid "GDM Will Not Start"
-msgstr "El GDM no s'inicia"
+msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2199
@@ -3713,12 +2695,6 @@ msgid ""
 "error message or dialog when it tries to start, but it can be difficult to "
 "track down problems when GDM fails silently."
 msgstr ""
-"Hi ha molts problemes que poden provocar que el GDM falli en iniciar-se, en "
-"aquesta secció però només es descriu alguns problemes comuns i com descobrir "
-"la causa dels problemes amb la inicialització del GDM. Alguns problemes "
-"faran que el GDM mostri un missatge o diàleg d'error quan intenta iniciar, "
-"però pot ser difícil saber la causa del problema si el GDM falla de forma "
-"silenciosa."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2208
@@ -3733,16 +2709,6 @@ msgid ""
 "options. If so, then modify the Xserver command in the GDM configuration "
 "file so that it is correct for your system."
 msgstr ""
-"Primer assegureu-vos que el servidor X està configurat correctament. El "
-"fitxer de configuració del GDM conté una ordre a la secció [server-Standard] "
-"que s'utilitza per a iniciar el servidor X. Verifiqueu que aquesta ordre "
-"funciona. En executar aquesta ordre des del terminal s'hauria d'iniciar el "
-"servidor X. Si aquesta falla, llavors el problema segurament és amb la "
-"configuració del servidor X. Consulteu el registre d'errors del servidor X "
-"per a mirar quin pot ser el problema. El problema també pot ser que el "
-"servidor X necessita opcions diferents de la línia d'ordres. Si és així, "
-"modifiqueu l'ordre del servidor X al fitxer de configuració del GDM perquè "
-"sigui correcte pel vostre sistema."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2221
@@ -3751,14 +2717,11 @@ msgid ""
 "ownership and permissions, and that the machine's file system is not full. "
 "These problems will cause GDM to fail to start."
 msgstr ""
-"També assegureu-vos que el directori <filename>/tmp</filename> té un "
-"propietari i permisos raonables, i que el sistema de fitxers de l'ordinador "
-"no està ple. Aquests problemes poden provocar que el GDM falli en iniciar-se."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2232
 msgid "License"
-msgstr "Llicència"
+msgstr ""
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2233
@@ -3769,11 +2732,6 @@ msgid ""
 "the Free Software Foundation; either version 2 of the License, or (at your "
 "option) any later version."
 msgstr ""
-"Aquest programa és programari lliure; podeu redistribuir-lo i/o modificar-lo "
-"sota els termes de la <ulink type=\"help\" url=\"gnome-help:gpl\"> "
-"<citetitle>Llicència pública general de GNU</citetitle></ulink> tal com "
-"publica la Free Software Foundation; tant en la versió 2 de la llicència, o "
-"(a la vostra opció) una versió posterior."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2241
@@ -3783,10 +2741,6 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE. See the <citetitle>GNU General Public "
 "License</citetitle> for more details."
 msgstr ""
-"Aquest programa es distribueix amb l'esperança que sigui útil, però SENSE "
-"CAP GARANTIA; fins i tot sense la garantia implícita de COMERCIALITZACIÓ o "
-"ADEQUACIÓ A UN ÚS CONCRET. Per a més detalls vegeu la <citetitle>Llicència "
-"pública general de GNU</citetitle>."
 
 #. (itstool) path: para/address
 #: C/index.docbook:2255
@@ -3799,12 +2753,6 @@ msgid ""
 "      <country>USA</country>\n"
 "      "
 msgstr ""
-"\n"
-"      Free Software Foundation, Inc.\n"
-"      <street>51 Franklin Street, Fifth Floor</street>\n"
-"      <city>Boston</city>, <state>MA</state> <postcode>02110-1301</postcode>\n"
-"      <country>USA</country>\n"
-"      "
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2247
@@ -3815,17 +2763,11 @@ msgid ""
 "the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://"
 "www.fsf.org\">their Web site</ulink> or by writing to <_:address-1/>"
 msgstr ""
-"S'inclou una còpia de la <citetitle>Llicència pública general de GNU</"
-"citetitle> en l'apèndix de la <citetitle>Guia d'usuaris del GNOME</"
-"citetitle>. També podeu obtenir una còpia de la <citetitle>Llicència pública "
-"general de GNU</citetitle> de la Free Software Foundation visitant el <ulink "
-"type=\"http\" url=\"http://www.fsf.org\">seu lloc web</ulink> o escrivint a "
-"<_:address-1/>"
 
 #. (itstool) path: para/ulink
 #: C/legal.xml:9
 msgid "link"
-msgstr "enllaç"
+msgstr ""
 
 #. (itstool) path: legalnotice/para
 #: C/legal.xml:2
@@ -3837,10 +2779,3 @@ msgid ""
 "of the GFDL at this <_:ulink-1/> or in the file COPYING-DOCS distributed "
 "with this manual."
 msgstr ""
-"Teniu permís per a copiar, distribuir i/o modificar aquest document, sota "
-"els termes de la Llicència de documentació lliure GNU (GFDL), versió 1.1 o "
-"qualsevol versió publicada posteriorment per la Free Software Foundation, "
-"sense seccions invariants, sense texts de portada i sense texts de "
-"contraportada. Podeu trobar una còpia de la GFDL en aquest <_:ulink-1/> o en "
-"el fitxer COPYING-DOCS distribuït amb aquest manual."
-

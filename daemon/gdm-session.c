@@ -220,7 +220,10 @@ report_and_stop_conversation (GdmSession *self,
         if (self->user_verifier_interface != NULL) {
                 if (g_error_matches (error,
                                      GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE)) {
+                                     GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE) ||
+                    g_error_matches (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_TOO_MANY_RETRIES)) {
                         gdm_dbus_user_verifier_emit_service_unavailable (self->user_verifier_interface,
                                                                          service_name,
                                                                          error->message);
@@ -3590,6 +3593,7 @@ gdm_session_dispose (GObject *object)
         g_clear_pointer (&self->user_verifier_extensions,
                          g_hash_table_unref);
         g_clear_object (&self->greeter_interface);
+        g_clear_object (&self->remote_greeter_interface);
         g_clear_object (&self->chooser_interface);
 
         g_free (self->display_name);
@@ -3994,6 +3998,9 @@ gdm_session_class_init (GdmSessionClass *session_class)
                                                                FALSE,
                                                                G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 #endif
+
+        /* Ensure we can resolve errors */
+        gdm_dbus_error_ensure (GDM_SESSION_WORKER_ERROR);
 }
 
 GdmSession *
