@@ -11,5 +11,4 @@ ubuntu/revert_override_LANG_with_accountservices.patch
 ubuntu/config_error_dialog.patch
 ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
-ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
