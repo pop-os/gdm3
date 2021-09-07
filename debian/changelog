@@ -1,3 +1,30 @@
+gdm3 (3.38.2.1-4) UNRELEASED; urgency=medium
+
+  [ Laurent Bigonville ]
+  * debian/rules: Drop compatibility symlinks now that bullseye is released
+  * debian/watch: Update the watch file to follow the new version scheme
+  * debian/control.in: Suggest orca instead of gnome-orca.
+    The latter is a transitonal package.
+
+  [ Marco Trevisan (Treviño) ]
+  * d/p/session-Only-emit-verification-complete-on-reauth-or-afte.patch:
+    Correctly handle session opening errors
+
+  [ Simon McVittie ]
+  * Add Recommends on gnome-session | x-session-manager.
+    gdm3 already Depends on gnome-session | x-session-manager |
+    x-window-manager | x-terminal-emulator, but not all packages that
+    provide x-window-manager are usable as desktop environments (in
+    particular, the example window manager in the mutter package does not
+    have a built-in way to launch programs). Adding a Recommends here
+    provides a stronger hint that nearly all gdm3 users are going to want
+    an implementation of x-session-manager, preferably GNOME's.
+    (Closes: #986046)
+  * d/watch: Don't use @PACKAGE@.
+    For historical reasons, the Debian package is gdm3 rather than gdm.
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 07 Sep 2021 10:10:47 +0100
+
 gdm3 (3.38.2.1-3) experimental; urgency=medium
 
   * debian/changelog: Remove bad entry meant to be in ubuntu side only
