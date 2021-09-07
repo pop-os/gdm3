@@ -12,15 +12,15 @@ Forwarded: not-needed
  1 file changed, 8 insertions(+)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index e1a46c8..d5e0ae7 100644
+index 71095ba..342b015 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -578,6 +578,14 @@ get_fallback_session_name (GdmSession *self)
+@@ -589,6 +589,14 @@ get_fallback_session_name (GdmSession *self)
                  }
          }
  
 +        name = g_strdup ("ubuntu");
-+        if (get_session_command_for_name (self, name, NULL)) {
++        if (get_session_command_for_name (self, name, NULL, NULL)) {
 +                g_free (self->fallback_session_name);
 +                self->fallback_session_name = name;
 +                goto out;
