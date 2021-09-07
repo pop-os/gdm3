@@ -6,10 +6,6 @@ gdm3 (40.1-1) UNRELEASED; urgency=medium
   * debian/control.in: Suggest orca instead of gnome-orca.
     The latter is a transitonal package.
 
-  [ Marco Trevisan (Treviño) ]
-  * d/p/session-Only-emit-verification-complete-on-reauth-or-afte.patch:
-    Correctly handle session opening errors
-
   [ Simon McVittie ]
   * Add Recommends on gnome-session | x-session-manager.
     gdm3 already Depends on gnome-session | x-session-manager |
@@ -23,6 +19,8 @@ gdm3 (40.1-1) UNRELEASED; urgency=medium
   * d/watch: Don't use @PACKAGE@.
     For historical reasons, the Debian package is gdm3 rather than gdm.
   * New upstream release
+    - Includes changes from Marco Trevisan that were previously committed
+      as patches (LP: #1935818)
 
  -- Simon McVittie <smcv@debian.org>  Tue, 07 Sep 2021 10:28:36 +0100
 
