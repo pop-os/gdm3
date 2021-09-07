@@ -1,3 +1,14 @@
+gdm3 (41~rc-0ubuntu1) UNRELEASED; urgency=medium
+
+  * New upstream release:
+    - Support systems that boot before the graphics subsystem fully loads
+    - Fingerprint auth fixes
+    - Allow user session to be Wayland even when login screen is Xorg
+    - Allow wayland user sessions for single GPU vendor nvidia machines
+      (LP: #1942911)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 07 Sep 2021 17:53:14 +0200
+
 gdm3 (40.1-1) experimental; urgency=medium
 
   [ Laurent Bigonville ]
