@@ -22,10 +22,10 @@ index 066d763..ea7f219 100644
  KeyringMode=shared
 +ExecStartPre=${libexecdir}/gdm-wait-for-drm
 diff --git a/data/meson.build b/data/meson.build
-index c8e9797..6d253e6 100644
+index 39c5bfe..61264e1 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -162,6 +162,7 @@ gdm_rules = configure_file(
+@@ -160,6 +160,7 @@ gdm_rules = configure_file(
  # DBus service files
  service_config = configuration_data()
  service_config.set('sbindir', gdm_prefix / get_option('sbindir'))
@@ -141,10 +141,10 @@ index 0000000..aeffb3c
 +        return EXIT_SUCCESS;
 +}
 diff --git a/utils/meson.build b/utils/meson.build
-index f719c49..d7f991b 100644
+index d59f167..14703f7 100644
 --- a/utils/meson.build
 +++ b/utils/meson.build
-@@ -39,3 +39,12 @@ gdm_disable_wayland = executable('gdm-disable-wayland',
+@@ -39,3 +39,12 @@ gdm_runtime_config = executable('gdm-runtime-config',
    install_dir: get_option('libexecdir'),
  )
  

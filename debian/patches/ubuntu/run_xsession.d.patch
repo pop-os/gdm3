@@ -8,10 +8,10 @@ Origin: Ubuntu; /etc/X11/Xsession.d is a Debianism/Ubuntuism
  1 file changed, 13 insertions(+)
 
 diff --git a/data/Xsession.in b/data/Xsession.in
-index 9d79558..8d0d51f 100755
+index 2e4de4f..f1c7346 100755
 --- a/data/Xsession.in
 +++ b/data/Xsession.in
-@@ -157,6 +157,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
+@@ -189,6 +189,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
      done
  fi
  

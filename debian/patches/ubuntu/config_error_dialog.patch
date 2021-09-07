@@ -8,23 +8,23 @@ same way as for other types of errors.
 Bug-Ubuntu: https://launchpad.net/bugs/678421
 Forwarded: https://bugzilla.gnome.org/738970
 ---
- data/Xsession.in            | 28 ++++++++++++++++++++++++----
+ data/Xsession.in            | 29 +++++++++++++++++++++++------
  data/config-error-dialog.sh | 29 +++++++++++++++++++++++++++++
  data/meson.build            |  7 ++++++-
  po/POTFILES.in              |  1 +
- 4 files changed, 60 insertions(+), 5 deletions(-)
+ 4 files changed, 59 insertions(+), 7 deletions(-)
  create mode 100644 data/config-error-dialog.sh
 
 diff --git a/data/Xsession.in b/data/Xsession.in
-index 40da9c7..54b1f9a 100755
+index af8ade0..0cdf9a1 100755
 --- a/data/Xsession.in
 +++ b/data/Xsession.in
-@@ -29,12 +29,32 @@ command="$@"
+@@ -29,21 +29,38 @@ command="$@"
  # good for debugging where things went wrong
  echo "$0: Beginning session setup..."
  
 +# temporary storage of error messages
-+ERR=$(mktemp --tmpdir config-err-XXXXXX)
++ERR=$(mktemp --tmpdir gdm3-config-err-XXXXXX)
 +
 +source_with_error_check () {
 +  CONFIG_FILE="$1"
@@ -36,23 +36,31 @@ index 40da9c7..54b1f9a 100755
 +  truncate -s 0 "$ERR"
 +}
 +
- # First read /etc/profile and .profile
--test -f /etc/profile && . /etc/profile
+ # First read /etc/profile (resp. /usr/etc/profile) and .profile
+ if [ -f /etc/profile ]; then
+-  . /etc/profile
++  source_with_error_check /etc/profile
+ elif [ -f /usr/etc/profile ]; then
+-  . /usr/etc/profile
++  source_with_error_check /usr/etc/profile
++fi
++if [ -f "$HOME/.profile" ]; then
++  source_with_error_check "$HOME/.profile"
+ fi
 -test -f "$HOME/.profile" && . "$HOME/.profile"
-+for file in /etc/profile "$HOME/.profile"; do
-+  if [ -f "$file" ]; then
-+    source_with_error_check "$file"
-+  fi
-+done
-+
- # Second read /etc/xprofile and .xprofile for X specific setup
--test -f /etc/xprofile && . /etc/xprofile
+ # Second read /etc/xprofile (resp. /usr/etc/xprofile)  and .xprofile for X specific setup
+ if [ -f /etc/xprofile ]; then
+-  . /etc/xprofile
++  source_with_error_check /etc/xprofile
+ elif [ -f /usr/etc/xprofile ]; then
+-  . /usr/etc/xprofile
++  source_with_error_check /usr/etc/xprofile
+ 
+ fi
 -test -f "$HOME/.xprofile" && . "$HOME/.xprofile"
-+for file in /etc/xprofile "$HOME/.xprofile"; do
-+  if [ -f "$file" ]; then
-+    source_with_error_check "$file"
-+  fi
-+done
++if [ -f "$HOME/.xprofile" ]; then
++  source_with_error_check "$HOME/.xprofile"
++fi
  
  # Translation stuff
  if [ -x "@libexecdir@/gdmtranslate" ] ; then
@@ -92,10 +100,10 @@ index 0000000..08cb7b9
 +	zenity --warning --no-wrap --text="$TEXT"
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 05429d5..c8e9797 100644
+index 14c58af..39c5bfe 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -213,8 +213,13 @@ if get_option('gdm-xsession')
+@@ -211,8 +211,13 @@ if get_option('gdm-xsession')
      output: '@BASENAME@',
      configuration: {
        'libexecdir': gdm_prefix / get_option('libexecdir'),
