@@ -427,6 +427,12 @@ static void
 attempt_to_load_user_settings (GdmSessionWorker *worker,
                                const char       *username)
 {
+        if (worker->priv->user_settings == NULL)
+                return;
+
+        if (gdm_session_settings_is_loaded (worker->priv->user_settings))
+                return;
+
         g_debug ("GdmSessionWorker: attempting to load user settings");
         gdm_session_settings_load (worker->priv->user_settings,
                                    username);
@@ -468,8 +474,7 @@ gdm_session_worker_update_username (GdmSessionWorker *worker)
                  * to keep trying to read settings)
                  */
                 if (worker->priv->username != NULL &&
-                    worker->priv->username[0] != '\0' &&
-                    !gdm_session_settings_is_loaded (worker->priv->user_settings)) {
+                    worker->priv->username[0] != '\0') {
                         attempt_to_load_user_settings (worker, worker->priv->username);
                 }
         }
@@ -744,7 +749,50 @@ gdm_session_worker_process_pam_message (GdmSessionWorker          *worker,
 }
 
 static const char *
-get_friendly_error_message (int error_code)
+get_max_retries_error_message (GdmSessionWorker *worker)
+{
+        if (g_strcmp0 (worker->priv->service, "gdm-password") == 0)
+                return _("You reached the maximum password authentication attempts, please try another method");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-pin") == 0)
+                return _("You reached the maximum PIN authentication attempts, please try another method");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-autologin") == 0)
+                return _("You reached the maximum auto login attempts, please try another authentication method");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-fingerprint") == 0)
+                return _("You reached the maximum fingerprint authentication attempts, please try another method");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-smartcard") == 0)
+                return _("You reached the maximum smart card authentication attempts, please try another method");
+
+        return _("You reached the maximum authentication attempts, please try another method");
+}
+
+static const char *
+get_generic_error_message (GdmSessionWorker *worker)
+{
+        if (g_strcmp0 (worker->priv->service, "gdm-password") == 0)
+                return _("Sorry, password authentication didn’t work. Please try again.");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-pin") == 0)
+                return _("Sorry, PIN authentication didn’t work. Please try again.");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-autologin") == 0)
+                return _("Sorry, auto login didn’t work. Please try again.");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-fingerprint") == 0)
+                return _("Sorry, fingerprint authentication didn’t work. Please try again.");
+
+        if (g_strcmp0 (worker->priv->service, "gdm-smartcard") == 0)
+                return _("Sorry, smart card authentication didn’t work. Please try again.");
+
+        return _("Sorry, that didn’t work. Please try again.");
+}
+
+static const char *
+get_friendly_error_message (GdmSessionWorker *worker,
+                            int               error_code)
 {
         switch (error_code) {
             case PAM_SUCCESS:
@@ -757,11 +805,14 @@ get_friendly_error_message (int error_code)
                 return _("Your account was given a time limit that’s now passed.");
                 break;
 
+            case PAM_MAXTRIES:
+                return get_max_retries_error_message (worker);
+
             default:
                 break;
         }
 
-        return _("Sorry, that didn’t work. Please try again.");
+        return get_generic_error_message (worker);
 }
 
 static int
@@ -1143,10 +1194,10 @@ gdm_session_worker_initialize_pam (GdmSessionWorker   *worker,
                 /* we don't use pam_strerror here because it requires a valid
                  * pam handle, and if pam_start fails pam_handle is undefined
                  */
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE,
-                             "%s", "");
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE,
+                                     "");
 
                 goto out;
         }
@@ -1158,10 +1209,10 @@ gdm_session_worker_initialize_pam (GdmSessionWorker   *worker,
                 if (error_code != PAM_SUCCESS) {
                         g_debug ("GdmSessionWorker: error informing authentication system of preferred username prompt: %s",
                                 pam_strerror (worker->priv->pam_handle, error_code));
-                        g_set_error (error,
-                                     GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                                     "%s", "");
+                        g_set_error_literal (error,
+                                             GDM_SESSION_WORKER_ERROR,
+                                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                             "");
                         goto out;
                 }
         }
@@ -1174,10 +1225,10 @@ gdm_session_worker_initialize_pam (GdmSessionWorker   *worker,
                          pam_strerror (worker->priv->pam_handle, error_code));
 
                 if (error_code != PAM_SUCCESS) {
-                        g_set_error (error,
-                                     GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                                     "%s", "");
+                        g_set_error_literal (error,
+                                             GDM_SESSION_WORKER_ERROR,
+                                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                             "");
                         goto out;
                 }
         }
@@ -1232,10 +1283,17 @@ gdm_session_worker_authenticate_user (GdmSessionWorker *worker,
         if (error_code == PAM_AUTHINFO_UNAVAIL) {
                 g_debug ("GdmSessionWorker: authentication service unavailable");
 
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE,
-                             "%s", "");
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_SERVICE_UNAVAILABLE,
+                                     "");
+                goto out;
+        } else if (error_code == PAM_MAXTRIES) {
+                g_debug ("GdmSessionWorker: authentication service had too many retries");
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_TOO_MANY_RETRIES,
+                                     get_friendly_error_message (worker, error_code));
                 goto out;
         } else if (error_code != PAM_SUCCESS) {
                 g_debug ("GdmSessionWorker: authentication returned %d: %s", error_code, pam_strerror (worker->priv->pam_handle, error_code));
@@ -1248,10 +1306,10 @@ gdm_session_worker_authenticate_user (GdmSessionWorker *worker,
                         error_code = PAM_AUTH_ERR;
                 }
 
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                             "%s", get_friendly_error_message (error_code));
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                     get_friendly_error_message (worker, error_code));
                 goto out;
         }
 
@@ -1313,10 +1371,10 @@ gdm_session_worker_authorize_user (GdmSessionWorker *worker,
         if (error_code != PAM_SUCCESS) {
                 g_debug ("GdmSessionWorker: user is not authorized to log in: %s",
                          pam_strerror (worker->priv->pam_handle, error_code));
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_AUTHORIZING,
-                             "%s", get_friendly_error_message (error_code));
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_AUTHORIZING,
+                                     get_friendly_error_message (worker, error_code));
                 goto out;
         }
 
@@ -1516,120 +1574,12 @@ get_var_cb (const char *key,
 }
 
 static void
-load_env_file (GdmSessionWorker *worker,
-               GFile   *file)
+load_env_func (const char *var,
+               const char *value,
+               gpointer user_data)
 {
-        gchar *contents;
-        gchar **lines;
-        gchar *line, *p;
-        gchar *var, *var_end;
-        gchar *expanded;
-        char *filename;
-        int i;
-
-        filename = g_file_get_path (file);
-        g_debug ("Loading env vars from %s\n", filename);
-        g_free (filename);
-
-        if (g_file_load_contents (file, NULL, &contents, NULL, NULL, NULL)) {
-                lines = g_strsplit (contents, "\n", -1);
-                g_free (contents);
-                for (i = 0; lines[i] != NULL; i++) {
-                        line = lines[i];
-                        p = line;
-                        while (g_ascii_isspace (*p))
-                                p++;
-                        if (*p == '#' || *p == '\0')
-                                continue;
-                        var = p;
-                        while (gdm_shell_var_is_valid_char (*p, p == var))
-                                p++;
-                        var_end = p;
-                        while (g_ascii_isspace (*p))
-                                p++;
-                        if (var == var_end || *p != '=') {
-                                g_warning ("Invalid env.d line '%s'\n", line);
-                                continue;
-                        }
-                        *var_end = 0;
-                        p++; /* Skip = */
-                        while (g_ascii_isspace (*p))
-                                p++;
-
-                        expanded = gdm_shell_expand (p, get_var_cb, worker);
-                        expanded = g_strchomp (expanded);
-                        gdm_session_worker_set_environment_variable (worker, var, expanded);
-                        g_free (expanded);
-                }
-                g_strfreev (lines);
-        }
-}
-
-static gint
-compare_str (gconstpointer  a,
-             gconstpointer  b)
-{
-  return strcmp (*(const char **)a, *(const char **)b);
-}
-
-static void
-gdm_session_worker_load_env_dir (GdmSessionWorker *worker,
-                                 GFile *dir)
-{
-        GFileInfo *info = NULL;
-        GFileEnumerator *enumerator = NULL;
-        GPtrArray *names = NULL;
-        GFile *file;
-        const gchar *name;
-        int i;
-
-        enumerator = g_file_enumerate_children (dir,
-                                                G_FILE_ATTRIBUTE_STANDARD_TYPE","
-                                                G_FILE_ATTRIBUTE_STANDARD_NAME","
-                                                G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","
-                                                G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP,
-                                                G_FILE_QUERY_INFO_NONE,
-                                                NULL, NULL);
-        if (!enumerator) {
-                goto out;
-        }
-
-        names = g_ptr_array_new_with_free_func (g_free);
-        while ((info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL) {
-                if (g_file_info_get_file_type (info) == G_FILE_TYPE_REGULAR &&
-                    !g_file_info_get_is_hidden (info) &&
-                    g_str_has_suffix (g_file_info_get_name (info), ".env"))
-                  g_ptr_array_add (names, g_strdup (g_file_info_get_name (info)));
-
-                g_clear_object (&info);
-        }
-
-        g_ptr_array_sort (names, compare_str);
-
-        for (i = 0; i < names->len; i++) {
-                name = g_ptr_array_index (names, i);
-                file = g_file_get_child (dir, name);
-                load_env_file (worker, file);
-                g_object_unref (file);
-        }
-
- out:
-        g_clear_pointer (&names, g_ptr_array_unref);
-        g_clear_object (&enumerator);
-}
-
-static void
-gdm_session_worker_load_env_d (GdmSessionWorker *worker)
-{
-        GFile *dir;
-
-        dir = g_file_new_for_path (DATADIR "/gdm/env.d");
-        gdm_session_worker_load_env_dir (worker, dir);
-        g_object_unref (dir);
-
-        dir = g_file_new_for_path (GDMCONFDIR "/env.d");
-        gdm_session_worker_load_env_dir (worker, dir);
-        g_object_unref (dir);
+        GdmSessionWorker *worker = user_data;
+        gdm_session_worker_set_environment_variable (worker, var, value);
 }
 
 static gboolean
@@ -1697,9 +1647,9 @@ gdm_session_worker_accredit_user (GdmSessionWorker  *worker,
         if (! _change_user (worker, uid, gid)) {
                 g_debug ("GdmSessionWorker: Unable to change to user");
                 error_code = PAM_SYSTEM_ERR;
-                g_set_error (error, GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_GIVING_CREDENTIALS,
-                             "%s", _("Unable to change to user"));
+                g_set_error_literal (error, GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_GIVING_CREDENTIALS,
+                                     _("Unable to change to user"));
                 goto out;
         }
 
@@ -1715,11 +1665,10 @@ gdm_session_worker_accredit_user (GdmSessionWorker  *worker,
         }
 
         if (error_code != PAM_SUCCESS) {
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_GIVING_CREDENTIALS,
-                             "%s",
-                             pam_strerror (worker->priv->pam_handle, error_code));
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_GIVING_CREDENTIALS,
+                                     pam_strerror (worker->priv->pam_handle, error_code));
                 goto out;
         }
 
@@ -2067,10 +2016,10 @@ gdm_session_worker_start_session (GdmSessionWorker  *worker,
         session_pid = fork ();
 
         if (session_pid < 0) {
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_OPENING_SESSION,
-                             "%s", g_strerror (errno));
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_OPENING_SESSION,
+                                     g_strerror (errno));
                 error_code = PAM_ABORT;
                 goto out;
         }
@@ -2129,7 +2078,7 @@ gdm_session_worker_start_session (GdmSessionWorker  *worker,
 #endif
 
                 if (!worker->priv->is_program_session) {
-                        gdm_session_worker_load_env_d (worker);
+                        gdm_load_env_d (load_env_func, get_var_cb, worker);
                 }
 
                 environment = gdm_session_worker_get_environment (worker);
@@ -2366,10 +2315,10 @@ set_up_for_current_vt (GdmSessionWorker  *worker,
                                  pam_tty,
                                  pam_strerror (worker->priv->pam_handle, error_code));
                         g_free (pam_tty);
-                        g_set_error (error,
-                                     GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                                     "%s", "");
+                        g_set_error_literal (error,
+                                             GDM_SESSION_WORKER_ERROR,
+                                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                             "");
                         goto out;
                 }
         }
@@ -2383,10 +2332,10 @@ set_up_for_current_vt (GdmSessionWorker  *worker,
                         g_debug ("error informing authentication system of display string %s: %s",
                                  worker->priv->x11_display_name,
                                  pam_strerror (worker->priv->pam_handle, error_code));
-                        g_set_error (error,
-                                     GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                                     "%s", "");
+                        g_set_error_literal (error,
+                                             GDM_SESSION_WORKER_ERROR,
+                                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                             "");
                         goto out;
                 }
         }
@@ -2402,10 +2351,10 @@ set_up_for_current_vt (GdmSessionWorker  *worker,
                                  pam_strerror (worker->priv->pam_handle, error_code));
                         g_free (pam_xauth);
 
-                        g_set_error (error,
-                                     GDM_SESSION_WORKER_ERROR,
-                                     GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
-                                     "%s", "");
+                        g_set_error_literal (error,
+                                             GDM_SESSION_WORKER_ERROR,
+                                             GDM_SESSION_WORKER_ERROR_AUTHENTICATING,
+                                             "");
                         goto out;
                 }
                 g_free (pam_xauth);
@@ -2462,10 +2411,10 @@ gdm_session_worker_open_session (GdmSessionWorker  *worker,
         error_code = pam_open_session (worker->priv->pam_handle, flags);
 
         if (error_code != PAM_SUCCESS) {
-                g_set_error (error,
-                             GDM_SESSION_WORKER_ERROR,
-                             GDM_SESSION_WORKER_ERROR_OPENING_SESSION,
-                             "%s", pam_strerror (worker->priv->pam_handle, error_code));
+                g_set_error_literal (error,
+                                     GDM_SESSION_WORKER_ERROR,
+                                     GDM_SESSION_WORKER_ERROR_OPENING_SESSION,
+                                     pam_strerror (worker->priv->pam_handle, error_code));
                 goto out;
         }
 
@@ -2575,8 +2524,9 @@ gdm_session_worker_handle_set_session_name (GdmDBusWorker         *object,
 {
         GdmSessionWorker *worker = GDM_SESSION_WORKER (object);
         g_debug ("GdmSessionWorker: session name set to %s", session_name);
-        gdm_session_settings_set_session_name (worker->priv->user_settings,
-                                               session_name);
+        if (worker->priv->user_settings != NULL)
+                gdm_session_settings_set_session_name (worker->priv->user_settings,
+                                                       session_name);
         gdm_dbus_worker_complete_set_session_name (object, invocation);
         return TRUE;
 }
@@ -2600,8 +2550,9 @@ gdm_session_worker_handle_set_language_name (GdmDBusWorker         *object,
 {
         GdmSessionWorker *worker = GDM_SESSION_WORKER (object);
         g_debug ("GdmSessionWorker: language name set to %s", language_name);
-        gdm_session_settings_set_language_name (worker->priv->user_settings,
-                                                language_name);
+        if (worker->priv->user_settings != NULL)
+                gdm_session_settings_set_language_name (worker->priv->user_settings,
+                                                        language_name);
         gdm_dbus_worker_complete_set_language_name (object, invocation);
         return TRUE;
 }
@@ -2631,6 +2582,20 @@ on_saved_session_name_read (GdmSessionWorker *worker)
                                                       session_name);
         g_free (session_name);
 }
+
+static void
+on_saved_session_type_read (GdmSessionWorker *worker)
+{
+        char *session_type;
+
+        session_type = gdm_session_settings_get_session_type (worker->priv->user_settings);
+
+        g_debug ("GdmSessionWorker: Saved session type is %s", session_type);
+        gdm_dbus_worker_emit_saved_session_type_read (GDM_DBUS_WORKER (worker),
+                                                      session_type);
+        g_free (session_type);
+}
+
 
 static void
 do_setup (GdmSessionWorker *worker)
@@ -2733,10 +2698,13 @@ save_account_details_now (GdmSessionWorker *worker)
         g_assert (worker->priv->state == GDM_SESSION_WORKER_STATE_ACCREDITED);
 
         g_debug ("GdmSessionWorker: saving account details for user %s", worker->priv->username);
+
         gdm_session_worker_set_state (worker, GDM_SESSION_WORKER_STATE_ACCOUNT_DETAILS_SAVED);
-        if (!gdm_session_settings_save (worker->priv->user_settings,
-                                        worker->priv->username)) {
-                g_warning ("could not save session and language settings");
+        if (worker->priv->user_settings != NULL) {
+                if (!gdm_session_settings_save (worker->priv->user_settings,
+                                                worker->priv->username)) {
+                        g_warning ("could not save session and language settings");
+                }
         }
         queue_state_change (worker);
 }
@@ -2782,7 +2750,7 @@ do_save_account_details_when_ready (GdmSessionWorker *worker)
 {
         g_assert (worker->priv->state == GDM_SESSION_WORKER_STATE_ACCREDITED);
 
-        if (!gdm_session_settings_is_loaded (worker->priv->user_settings)) {
+        if (worker->priv->user_settings != NULL && !gdm_session_settings_is_loaded (worker->priv->user_settings)) {
                 g_signal_connect (G_OBJECT (worker->priv->user_settings),
                                   "notify::is-loaded",
                                   G_CALLBACK (on_settings_is_loaded_changed),
@@ -3080,6 +3048,8 @@ gdm_session_worker_handle_initialize (GdmDBusWorker         *object,
         worker->priv->pending_invocation = invocation;
 
         if (!worker->priv->is_program_session) {
+                worker->priv->user_settings = gdm_session_settings_new ();
+
                 g_signal_connect_swapped (worker->priv->user_settings,
                                           "notify::language-name",
                                           G_CALLBACK (on_saved_language_name_read),
@@ -3088,6 +3058,11 @@ gdm_session_worker_handle_initialize (GdmDBusWorker         *object,
                 g_signal_connect_swapped (worker->priv->user_settings,
                                           "notify::session-name",
                                           G_CALLBACK (on_saved_session_name_read),
+                                          worker);
+
+                g_signal_connect_swapped (worker->priv->user_settings,
+                                          "notify::session-type",
+                                          G_CALLBACK (on_saved_session_type_read),
                                           worker);
 
                 if (worker->priv->username) {
@@ -3135,6 +3110,8 @@ gdm_session_worker_handle_setup (GdmDBusWorker         *object,
         worker->priv->display_is_initial = display_is_initial;
         worker->priv->username = NULL;
 
+        worker->priv->user_settings = gdm_session_settings_new ();
+
         g_signal_connect_swapped (worker->priv->user_settings,
                                   "notify::language-name",
                                   G_CALLBACK (on_saved_language_name_read),
@@ -3144,6 +3121,11 @@ gdm_session_worker_handle_setup (GdmDBusWorker         *object,
                                   "notify::session-name",
                                   G_CALLBACK (on_saved_session_name_read),
                                   worker);
+        g_signal_connect_swapped (worker->priv->user_settings,
+                                  "notify::session-type",
+                                  G_CALLBACK (on_saved_session_type_read),
+                                  worker);
+
         return TRUE;
 }
 
@@ -3175,6 +3157,8 @@ gdm_session_worker_handle_setup_for_user (GdmDBusWorker         *object,
         worker->priv->display_is_initial = display_is_initial;
         worker->priv->username = g_strdup (username);
 
+        worker->priv->user_settings = gdm_session_settings_new ();
+
         g_signal_connect_swapped (worker->priv->user_settings,
                                   "notify::language-name",
                                   G_CALLBACK (on_saved_language_name_read),
@@ -3183,6 +3167,10 @@ gdm_session_worker_handle_setup_for_user (GdmDBusWorker         *object,
         g_signal_connect_swapped (worker->priv->user_settings,
                                   "notify::session-name",
                                   G_CALLBACK (on_saved_session_name_read),
+                                  worker);
+        g_signal_connect_swapped (worker->priv->user_settings,
+                                  "notify::session-type",
+                                  G_CALLBACK (on_saved_session_type_read),
                                   worker);
 
         /* Load settings from accounts daemon before continuing
@@ -3566,7 +3554,6 @@ gdm_session_worker_init (GdmSessionWorker *worker)
 {
         worker->priv = GDM_SESSION_WORKER_GET_PRIVATE (worker);
 
-        worker->priv->user_settings = gdm_session_settings_new ();
         worker->priv->reauthentication_requests = g_hash_table_new_full (NULL,
                                                                          NULL,
                                                                          NULL,

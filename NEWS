@@ -1,3 +1,41 @@
+============
+Version 40.1
+============
+- Better support for unlocking gnome-keyring with disk password
+- Better support for flatpak
+- Misc auth fixes
+- Improved error output in gdm-runtime-config
+- Sort session list on login screen
+- Support Session and SessionType properties from accountsservice
+- Translation updates
+
+==========
+Version 40
+==========
+- 100% CPU fix
+- Translation updates
+
+================
+Version 40.rc
+================
+- Fingerprint auth fixes
+- Fix timeout handling for graphics bringup
+- Translation updates
+
+================
+Version 40.beta
+================
+- xinit script improvements
+- Build goo fixes  
+- Support systems that boot before the graphics subsystem fully loads
+- Don't overwrite PATH set by user
+- Generalize gdm-disable-wayland into new gdm-runtime-config tool
+- Fail hard if accountsservice fails
+- PAM integration improvements
+- Leak fixes
+- Stop using deprecated systemd functions
+- Translation updates
+
 ================
 Version 3.38.2.1
 ================

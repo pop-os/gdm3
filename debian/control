@@ -81,6 +81,7 @@ Depends: accountsservice (>= 0.6.35),
          ${misc:Depends},
          ${shlibs:Depends}
 Recommends: at-spi2-core,
+            gnome-session | x-session-manager,
             x11-xkb-utils,
             xserver-xephyr,
             xserver-xorg,
