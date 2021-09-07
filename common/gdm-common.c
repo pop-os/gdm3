@@ -257,10 +257,10 @@ _read_bytes (int      fd,
 
                 return FALSE;
         } else if (bytes_left_to_read > 0) {
-                g_set_error (error,
-                             G_FILE_ERROR,
-                             g_file_error_from_errno (errno),
-                             "%s", g_strerror (errno));
+                g_set_error_literal (error,
+                                     G_FILE_ERROR,
+                                     g_file_error_from_errno (errno),
+                                     g_strerror (errno));
                 return FALSE;
         }
 
@@ -292,10 +292,10 @@ gdm_generate_random_bytes (gsize    size,
         fd = open ("/dev/urandom", O_RDONLY);
 
         if (fd < 0) {
-                g_set_error (error,
-                             G_FILE_ERROR,
-                             g_file_error_from_errno (errno),
-                             "%s", g_strerror (errno));
+                g_set_error_literal (error,
+                                     G_FILE_ERROR,
+                                     g_file_error_from_errno (errno),
+                                     g_strerror (errno));
                 close (fd);
                 return NULL;
         }
@@ -508,24 +508,6 @@ goto_login_session (GDBusConnection  *connection,
         if (res < 0) {
                 g_debug ("failed to determine own seat: %s", strerror (-res));
                 g_set_error (error, GDM_COMMON_ERROR, 0, _("Could not identify the current seat."));
-
-                return FALSE;
-        }
-
-        res = sd_seat_can_multi_session (seat_id);
-        if (res < 0) {
-                free (seat_id);
-
-                g_debug ("failed to determine whether seat can do multi session: %s", strerror (-res));
-                g_set_error (error, GDM_COMMON_ERROR, 0, _("The system is unable to determine whether to switch to an existing login screen or start up a new login screen."));
-
-                return FALSE;
-        }
-
-        if (res == 0) {
-                free (seat_id);
-
-                g_set_error (error, GDM_COMMON_ERROR, 0, _("The system is unable to start up a new login screen."));
 
                 return FALSE;
         }
