@@ -90,6 +90,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_greeter_proxy_new_sync@Base 3.8.3
  gdm_greeter_skeleton_get_type@Base 3.8.3
  gdm_greeter_skeleton_new@Base 3.8.3
+ gdm_load_env_d@Base 40.1
  gdm_manager_call_open_reauthentication_channel@Base 3.8.3
  gdm_manager_call_open_reauthentication_channel_finish@Base 3.8.3
  gdm_manager_call_open_reauthentication_channel_sync@Base 3.8.3
