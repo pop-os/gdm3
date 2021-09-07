@@ -1,12 +1,16 @@
-============
-Version 40.1
-============
-- Better support for unlocking gnome-keyring with disk password
-- Better support for flatpak
-- Misc auth fixes
-- Improved error output in gdm-runtime-config
-- Sort session list on login screen
-- Support Session and SessionType properties from accountsservice
+==============
+Version 41.rc1
+==============
+- Fix fallback to Xorg at login screen
+- Fix SessionType in AccountService user config
+- Reuse VT on log out
+- Translation updates
+
+================
+Version 41.alpha
+================
+- Allow user session to be Wayland even when login screen is Xorg
+- Allow wayland user sessions for single GPU vendor nvidia machines
 - Translation updates
 
 ==========
