@@ -1,5 +1,5 @@
 project('gdm', 'c',
-  version: '40.0',
+  version: '40.1',
   license: 'GPL2+',
   meson_version: '>= 0.50',
 )
@@ -90,7 +90,7 @@ else
 endif
 xdmcp_dep = cc.find_library('Xdmcp', required: get_option('xdmcp'))
 if xdmcp_dep.found() and get_option('tcp-wrappers')
-  libwrap_dep = cc.find_library('libwrap')
+  libwrap_dep = cc.find_library('wrap')
 endif
 # systemd
 systemd_dep = dependency('systemd')
@@ -295,7 +295,7 @@ summary({
     'GDM Runtime config': gdm_runtime_conf,
     'GDM Session default path': get_option('default-path'),
     'GDM Working dir': working_dir,
-    'GNOME locale': gdm_prefix / get_option('datadir') / get_option('localedir'),
+    'GNOME locale': gdm_prefix / get_option('localedir'),
     'GNOME Settings Daemon': gnome_settings_daemon_dir,
     'AT SPI registryd': at_spi_registryd_dir,
     'Lang config file': lang_config_file,
