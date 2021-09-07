@@ -183,6 +183,150 @@ take_next_display_number (GdmLocalDisplayFactory *factory)
         return ret;
 }
 
+static char *
+get_preferred_display_server (GdmLocalDisplayFactory *factory)
+{
+        g_autofree gchar *preferred_display_server = NULL;
+        gboolean wayland_enabled = FALSE, xorg_enabled = FALSE;
+
+        gdm_settings_direct_get_boolean (GDM_KEY_WAYLAND_ENABLE, &wayland_enabled);
+        gdm_settings_direct_get_boolean (GDM_KEY_XORG_ENABLE, &xorg_enabled);
+
+        if (wayland_enabled && !xorg_enabled) {
+                return g_strdup ("wayland");
+        }
+
+        if (!wayland_enabled && !xorg_enabled) {
+                return g_strdup ("none");
+        }
+
+        gdm_settings_direct_get_string (GDM_KEY_PREFERRED_DISPLAY_SERVER, &preferred_display_server);
+
+        if (g_strcmp0 (preferred_display_server, "wayland") == 0) {
+                if (wayland_enabled)
+                        return g_strdup (preferred_display_server);
+                else
+                        return g_strdup ("xorg");
+        }
+
+        if (g_strcmp0 (preferred_display_server, "xorg") == 0) {
+                if (xorg_enabled)
+                        return g_strdup (preferred_display_server);
+                else
+                        return g_strdup ("wayland");
+        }
+
+        if (g_strcmp0 (preferred_display_server, "legacy-xorg") == 0) {
+                if (xorg_enabled)
+                        return g_strdup (preferred_display_server);
+        }
+
+        return g_strdup ("none");
+}
+
+struct GdmDisplayServerConfiguration {
+        const char *display_server;
+        const char *key;
+        const char *binary;
+        const char *session_type;
+} display_server_configuration[] = {
+#ifdef ENABLE_WAYLAND_SUPPORT
+        { "wayland", GDM_KEY_WAYLAND_ENABLE, "/usr/bin/Xwayland", "wayland" },
+#endif
+        { "xorg", GDM_KEY_XORG_ENABLE, "/usr/bin/Xorg", "x11" },
+        { NULL, NULL, NULL },
+};
+
+static gboolean
+display_server_enabled (GdmLocalDisplayFactory *factory,
+                        const char             *display_server)
+{
+        size_t i;
+
+        for (i = 0; display_server_configuration[i].display_server != NULL; i++) {
+                const char *key = display_server_configuration[i].key;
+                const char *binary = display_server_configuration[i].binary;
+                gboolean enabled = FALSE;
+
+                if (!g_str_equal (display_server_configuration[i].display_server,
+                                  display_server))
+                        continue;
+
+                if (!gdm_settings_direct_get_boolean (key, &enabled) || !enabled)
+                        return FALSE;
+
+                if (!g_file_test (binary, G_FILE_TEST_IS_EXECUTABLE))
+                        return FALSE;
+
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static const char *
+get_session_type_for_display_server (GdmLocalDisplayFactory *factory,
+                                     const char             *display_server)
+{
+        size_t i;
+
+        for (i = 0; display_server_configuration[i].display_server != NULL; i++) {
+                if (!g_str_equal (display_server_configuration[i].display_server,
+                                  display_server))
+                        continue;
+
+                return display_server_configuration[i].session_type;
+        }
+
+        return NULL;
+}
+
+static char **
+gdm_local_display_factory_get_session_types (GdmLocalDisplayFactory *factory,
+                                             gboolean                should_fall_back)
+{
+        g_autofree gchar *preferred_display_server = NULL;
+        const char *fallback_display_server = NULL;
+        gboolean wayland_preferred = FALSE;
+        gboolean xorg_preferred = FALSE;
+        g_autoptr (GPtrArray) session_types_array = NULL;
+        char **session_types;
+
+        session_types_array = g_ptr_array_new ();
+
+        preferred_display_server = get_preferred_display_server (factory);
+
+        g_debug ("GdmLocalDisplayFactory: Getting session type (prefers %s, falling back: %s)",
+                 preferred_display_server, should_fall_back? "yes" : "no");
+
+        wayland_preferred = g_str_equal (preferred_display_server, "wayland");
+        xorg_preferred = g_str_equal (preferred_display_server, "xorg");
+
+        if (wayland_preferred)
+                fallback_display_server = "xorg";
+        else if (xorg_preferred)
+                fallback_display_server = "wayland";
+        else
+                return NULL;
+
+        if (!should_fall_back) {
+                if (display_server_enabled (factory, preferred_display_server))
+                      g_ptr_array_add (session_types_array, (gpointer) get_session_type_for_display_server (factory, preferred_display_server));
+        }
+
+        if (display_server_enabled (factory, fallback_display_server))
+                g_ptr_array_add (session_types_array, (gpointer) get_session_type_for_display_server (factory, fallback_display_server));
+
+        if (session_types_array->len == 0)
+                return NULL;
+
+        g_ptr_array_add (session_types_array, NULL);
+
+        session_types = g_strdupv ((char **) session_types_array->pdata);
+
+        return session_types;
+}
+
 static void
 on_display_disposed (GdmLocalDisplayFactory *factory,
                      GdmDisplay             *display)
@@ -200,19 +344,6 @@ store_display (GdmLocalDisplayFactory *factory,
         gdm_display_store_add (store, display);
 }
 
-static gboolean
-gdm_local_display_factory_use_wayland (void)
-{
-#ifdef ENABLE_WAYLAND_SUPPORT
-        gboolean wayland_enabled = FALSE;
-        if (gdm_settings_direct_get_boolean (GDM_KEY_WAYLAND_ENABLE, &wayland_enabled)) {
-                if (wayland_enabled && g_file_test ("/usr/bin/Xwayland", G_FILE_TEST_IS_EXECUTABLE) )
-                        return TRUE;
-        }
-#endif
-        return FALSE;
-}
-
 /*
   Example:
   dbus-send --system --dest=org.gnome.DisplayManager \
@@ -228,6 +359,8 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
         gboolean         ret;
         GdmDisplay      *display = NULL;
         gboolean         is_initial = FALSE;
+        const char      *session_type;
+        g_autofree gchar *preferred_display_server = NULL;
 
         g_return_val_if_fail (GDM_IS_LOCAL_DISPLAY_FACTORY (factory), FALSE);
 
@@ -235,20 +368,48 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
 
         g_debug ("GdmLocalDisplayFactory: Creating transient display");
 
+        preferred_display_server = get_preferred_display_server (factory);
+
 #ifdef ENABLE_USER_DISPLAY_SERVER
-        display = gdm_local_display_new ();
-        if (gdm_local_display_factory_use_wayland ())
-                g_object_set (G_OBJECT (display), "session-type", "wayland", NULL);
-        is_initial = TRUE;
-#else
-        if (display == NULL) {
-                guint32 num;
+        if (g_strcmp0 (preferred_display_server, "wayland") == 0 ||
+            g_strcmp0 (preferred_display_server, "xorg") == 0) {
+                g_auto(GStrv) session_types = NULL;
 
-                num = take_next_display_number (factory);
+                session_types = gdm_local_display_factory_get_session_types (factory, FALSE);
 
-                display = gdm_legacy_display_new (num);
+                if (session_types == NULL) {
+                        g_set_error_literal (error,
+                                             GDM_DISPLAY_ERROR,
+                                             GDM_DISPLAY_ERROR_GENERAL,
+                                             "Both Wayland and Xorg are unavailable");
+                        return FALSE;
+                }
+
+                display = gdm_local_display_new ();
+                g_object_set (G_OBJECT (display),
+                              "session-type", session_types[0],
+                              "supported-session-tyes", session_types,
+                              NULL);
+                is_initial = TRUE;
         }
 #endif
+        if (g_strcmp0 (preferred_display_server, "legacy-xorg") == 0) {
+                if (display == NULL) {
+                        guint32 num;
+
+                        num = take_next_display_number (factory);
+
+                        display = gdm_legacy_display_new (num);
+                }
+        }
+
+        if (display == NULL) {
+                g_set_error_literal (error,
+                                     GDM_DISPLAY_ERROR,
+                                     GDM_DISPLAY_ERROR_GENERAL,
+                                     "Invalid preferred display server configured");
+                return FALSE;
+        }
 
         g_object_set (display,
                       "seat-id", "seat0",
@@ -477,10 +638,24 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
         int ret;
         gboolean seat_supports_graphics;
         gboolean is_seat0;
-        const char *session_type = "wayland";
+        g_auto (GStrv) session_types = NULL;
+        const char *legacy_session_types[] = { "x11", NULL };
         GdmDisplayStore *store;
         GdmDisplay      *display = NULL;
         g_autofree char *login_session_id = NULL;
+        gboolean wayland_enabled = FALSE, xorg_enabled = FALSE;
+        g_autofree gchar *preferred_display_server = NULL;
+        gboolean falling_back = FALSE;
+
+        gdm_settings_direct_get_boolean (GDM_KEY_WAYLAND_ENABLE, &wayland_enabled);
+        gdm_settings_direct_get_boolean (GDM_KEY_XORG_ENABLE, &xorg_enabled);
+
+        preferred_display_server = get_preferred_display_server (factory);
+
+        if (g_strcmp0 (preferred_display_server, "none") == 0) {
+               g_debug ("GdmLocalDisplayFactory: Preferred display server is none, so not creating display");
+               return;
+        }
 
         ret = sd_seat_can_graphical (seat_id);
 
@@ -500,21 +675,18 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
         if (g_strcmp0 (seat_id, "seat0") == 0) {
                 is_seat0 = TRUE;
 
-                /* If we've failed, or are explicitly told to, fall back to legacy X11 support
-                 */
-                if (factory->num_failures > 0 || !gdm_local_display_factory_use_wayland ()) {
-                        session_type = NULL;
-                        g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use X11 fallback");
-                } else {
-                        g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use wayland");
-                }
+                falling_back = factory->num_failures > 0;
+                session_types = gdm_local_display_factory_get_session_types (factory, falling_back);
+
+                g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use %s%s",
+                         session_types[0], falling_back? " fallback" : "");
         } else {
                 is_seat0 = FALSE;
 
                 g_debug ("GdmLocalDisplayFactory: New displays on seat %s will use X11 fallback", seat_id);
                 /* Force legacy X11 for all auxiliary seats */
                 seat_supports_graphics = TRUE;
-                session_type = NULL;
+                session_types = g_strdupv ((char **) legacy_session_types);
         }
 
         /* For seat0, we have a fallback logic to still try starting it after
@@ -552,7 +724,9 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
                         g_debug ("GdmLocalDisplayFactory: Assuming we can use seat0 for X11 even though system says it doesn't support graphics!");
                         g_debug ("GdmLocalDisplayFactory: This might indicate an issue where the framebuffer device is not tagged as master-of-seat in udev.");
                         seat_supports_graphics = TRUE;
-                        session_type = NULL;
+                        wayland_enabled = FALSE;
+                        g_strfreev (session_types);
+                        session_types = g_strdupv ((char **) legacy_session_types);
                 } else {
                         g_clear_handle_id (&factory->seat0_graphics_check_timeout_id, g_source_remove);
                 }
@@ -561,8 +735,13 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
         if (!seat_supports_graphics)
                 return;
 
-        g_debug ("GdmLocalDisplayFactory: %s login display for seat %s requested",
-                 session_type? : "X11", seat_id);
+        if (session_types != NULL)
+                g_debug ("GdmLocalDisplayFactory: %s login display for seat %s requested",
+                         session_types[0], seat_id);
+        else if (g_strcmp0 (preferred_display_server, "legacy-xorg") == 0)
+                g_debug ("GdmLocalDisplayFactory: Legacy Xorg login display for seat %s requested",
+                         seat_id);
+
         store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
 
         if (is_seat0)
@@ -597,10 +776,14 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
         g_debug ("GdmLocalDisplayFactory: Adding display on seat %s", seat_id);
 
 #ifdef ENABLE_USER_DISPLAY_SERVER
-        if (is_seat0) {
-                display = gdm_local_display_new ();
-                if (session_type != NULL) {
-                        g_object_set (G_OBJECT (display), "session-type", session_type, NULL);
+        if (g_strcmp0 (preferred_display_server, "wayland") == 0 ||
+            g_strcmp0 (preferred_display_server, "xorg") == 0) {
+                if (is_seat0) {
+                        display = gdm_local_display_new ();
+                        g_object_set (G_OBJECT (display),
+                                      "session-type", session_types[0],
+                                      "supported-session-types", session_types,
+                                      NULL);
                 }
         }
 #endif
@@ -611,6 +794,10 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
                 num = take_next_display_number (factory);
 
                 display = gdm_legacy_display_new (num);
+                g_object_set (G_OBJECT (display),
+                              "session-type", legacy_session_types[0],
+                              "supported-session-types", legacy_session_types,
+                              NULL);
         }
 
         g_object_set (display, "seat-id", seat_id, NULL);
