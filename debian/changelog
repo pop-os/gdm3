@@ -1,4 +1,4 @@
-gdm3 (40.1-1) UNRELEASED; urgency=medium
+gdm3 (40.1-1) experimental; urgency=medium
 
   [ Laurent Bigonville ]
   * debian/rules: Drop compatibility symlinks now that bullseye is released
@@ -22,7 +22,7 @@ gdm3 (40.1-1) UNRELEASED; urgency=medium
     - Includes changes from Marco Trevisan that were previously committed
       as patches (LP: #1935818)
 
- -- Simon McVittie <smcv@debian.org>  Tue, 07 Sep 2021 10:28:36 +0100
+ -- Simon McVittie <smcv@debian.org>  Tue, 07 Sep 2021 10:42:00 +0100
 
 gdm3 (3.38.2.1-3) experimental; urgency=medium
 
