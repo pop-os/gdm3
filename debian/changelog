@@ -1,4 +1,4 @@
-gdm3 (41~rc-0ubuntu1) UNRELEASED; urgency=medium
+gdm3 (41~rc-0ubuntu1) impish; urgency=medium
 
   * New upstream release:
     - Support systems that boot before the graphics subsystem fully loads
@@ -63,7 +63,7 @@ gdm3 (41~rc-0ubuntu1) UNRELEASED; urgency=medium
     Ensure nvidia drivers are at the expected version for wayland being
     enabled.
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 09 Sep 2021 16:57:09 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 09 Sep 2021 16:57:41 +0200
 
 gdm3 (40.1-1) experimental; urgency=medium
 
