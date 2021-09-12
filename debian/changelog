@@ -1,3 +1,16 @@
+gdm3 (40.1-2) unstable; urgency=medium
+
+  * Team upload
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/gbp.conf: Update upstream-vcs-tag format to work with
+    pre-releases
+
+  [ Simon McVittie ]
+  * Release to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 12 Sep 2021 21:46:25 +0100
+
 gdm3 (40.1-1) experimental; urgency=medium
 
   [ Laurent Bigonville ]
