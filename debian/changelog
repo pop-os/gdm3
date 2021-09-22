@@ -1,3 +1,9 @@
+gdm3 (41.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 22 Sep 2021 08:54:36 +0100
+
 gdm3 (40.1-2) unstable; urgency=medium
 
   * Team upload
