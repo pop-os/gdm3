@@ -11,10 +11,10 @@ barely visible and its text hard zoom from the UI.
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/data/Xsession.in b/data/Xsession.in
-index 54b1f9a..364b107 100755
+index 0cdf9a1..e2deca4 100755
 --- a/data/Xsession.in
 +++ b/data/Xsession.in
-@@ -227,11 +227,11 @@ echo "$0: Setup done, will execute: $command"
+@@ -256,11 +256,11 @@ echo "$0: Setup done, will execute: $command"
  
  eval exec $command
  

@@ -93,6 +93,8 @@ typedef struct _GdmDisplayPrivate
         guint                 have_existing_user_accounts : 1;
         guint                 doing_initial_setup : 1;
         guint                 session_registered : 1;
+
+        GStrv                 supported_session_types;
 } GdmDisplayPrivate;
 
 enum {
@@ -116,6 +118,7 @@ enum {
         PROP_HAVE_EXISTING_USER_ACCOUNTS,
         PROP_DOING_INITIAL_SETUP,
         PROP_SESSION_REGISTERED,
+        PROP_SUPPORTED_SESSION_TYPES,
 };
 
 static void     gdm_display_class_init  (GdmDisplayClass *klass);
@@ -514,9 +517,9 @@ static gboolean
 look_for_existing_users_sync (GdmDisplay *self)
 {
         GdmDisplayPrivate *priv;
-        GError *error = NULL;
-        GVariant *call_result;
-        GVariant *user_list;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) call_result = NULL;
+        g_autoptr(GVariant) user_list = NULL;
 
         priv = gdm_display_get_instance_private (self);
         priv->accountsservice_proxy = g_dbus_proxy_new_sync (priv->connection,
@@ -529,7 +532,7 @@ look_for_existing_users_sync (GdmDisplay *self)
 
         if (!priv->accountsservice_proxy) {
                 g_critical ("Failed to contact accountsservice: %s", error->message);
-                goto out;
+                return FALSE;
         }
 
         call_result = g_dbus_proxy_call_sync (priv->accountsservice_proxy,
@@ -542,16 +545,13 @@ look_for_existing_users_sync (GdmDisplay *self)
 
         if (!call_result) {
                 g_critical ("Failed to list cached users: %s", error->message);
-                goto out;
+                return FALSE;
         }
 
         g_variant_get (call_result, "(@ao)", &user_list);
         priv->have_existing_user_accounts = g_variant_n_children (user_list) > 0;
-        g_variant_unref (user_list);
-        g_variant_unref (call_result);
-out:
-        g_clear_error (&error);
-        return priv->accountsservice_proxy != NULL && call_result != NULL;
+
+        return TRUE;
 }
 
 gboolean
@@ -677,8 +677,6 @@ gdm_display_unmanage (GdmDisplay *self)
         g_return_val_if_fail (GDM_IS_DISPLAY (self), FALSE);
 
         priv = gdm_display_get_instance_private (self);
-
-        g_debug ("GdmDisplay: unmanage display");
 
         gdm_display_disconnect (self);
 
@@ -916,6 +914,23 @@ _gdm_display_set_allow_timed_login (GdmDisplay     *self,
 }
 
 static void
+_gdm_display_set_supported_session_types (GdmDisplay         *self,
+                                          const char * const *supported_session_types)
+
+{
+        GdmDisplayPrivate *priv;
+        g_autofree char *supported_session_types_string = NULL;
+
+	if (supported_session_types != NULL)
+          supported_session_types_string = g_strjoinv (":", (GStrv) supported_session_types);
+
+        priv = gdm_display_get_instance_private (self);
+        g_debug ("GdmDisplay: supported session types: %s", supported_session_types_string);
+        g_strfreev (priv->supported_session_types);
+        priv->supported_session_types = g_strdupv ((GStrv) supported_session_types);
+}
+
+static void
 gdm_display_set_property (GObject        *object,
                           guint           prop_id,
                           const GValue   *value,
@@ -970,6 +985,9 @@ gdm_display_set_property (GObject        *object,
                 break;
         case PROP_SESSION_REGISTERED:
                 _gdm_display_set_session_registered (self, g_value_get_boolean (value));
+                break;
+        case PROP_SUPPORTED_SESSION_TYPES:
+                _gdm_display_set_supported_session_types (self, g_value_get_boxed (value));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1048,6 +1066,9 @@ gdm_display_get_property (GObject        *object,
                 break;
         case PROP_ALLOW_TIMED_LOGIN:
                 g_value_set_boolean (value, priv->allow_timed_login);
+                break;
+        case PROP_SUPPORTED_SESSION_TYPES:
+                g_value_set_boxed (value, priv->supported_session_types);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1234,6 +1255,7 @@ gdm_display_dispose (GObject *object)
                 priv->finish_idle_id = 0;
         }
         g_clear_object (&priv->launch_environment);
+        g_clear_pointer (&priv->supported_session_types, g_strfreev);
 
         g_warn_if_fail (priv->status != GDM_DISPLAY_MANAGED);
         g_warn_if_fail (priv->user_access_file == NULL);
@@ -1394,6 +1416,14 @@ gdm_display_class_init (GdmDisplayClass *klass)
                                                            G_MAXINT,
                                                            GDM_DISPLAY_UNMANAGED,
                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
+
+        g_object_class_install_property (object_class,
+                                         PROP_SUPPORTED_SESSION_TYPES,
+                                         g_param_spec_boxed ("supported-session-types",
+                                                             "supported session types",
+                                                             "supported session types",
+                                                             G_TYPE_STRV,
+                                                             G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -1476,9 +1506,9 @@ static void
 self_destruct (GdmDisplay *self)
 {
         g_object_ref (self);
-        if (gdm_display_get_status (self) == GDM_DISPLAY_MANAGED) {
-                gdm_display_unmanage (self);
-        }
+
+        g_debug ("GdmDisplay: initiating display self-destruct");
+        gdm_display_unmanage (self);
 
         if (gdm_display_get_status (self) != GDM_DISPLAY_FINISHED) {
                 queue_finish (self);
@@ -1726,6 +1756,7 @@ gdm_display_start_greeter_session (GdmDisplay *self)
         session = gdm_launch_environment_get_session (priv->launch_environment);
         g_object_set (G_OBJECT (session),
                       "display-is-initial", priv->is_initial,
+                      "supported-session-types", priv->supported_session_types,
                       NULL);
 
         g_free (display_name);

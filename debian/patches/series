@@ -1,17 +1,10 @@
-session-worker-Use-a-clearer-message-on-max-retries-error.patch
-session-worker-Mention-the-authentication-method-if-known.patch
-session-worker-Remove-stray-comma.patch
-session-Threat-PAM-max-retries-error-as-service-unavailab.patch
-gdm-wayland-x-session-don-t-overwrite-user-env-with-fallb.patch
-session-Only-emit-verification-complete-on-reauth-or-afte.patch
-session-Emit-session-opened-failed-on-session-failures.patch
+gdm.rules-Keep-wayland-enabled-in-all-nvidia-configuratio.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
 93_translate-default-desktop.patch
 94_retain_xorg_log.patch
-display-factory-Correctly-return-from-idle-callback.patch
 ubuntu/run_xsession.d.patch
 ubuntu/xresources_is_a_dir.patch
 ubuntu/nvidia_prime.patch
@@ -19,5 +12,4 @@ ubuntu/revert_override_LANG_with_accountservices.patch
 ubuntu/config_error_dialog.patch
 ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
-ubuntu/gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch

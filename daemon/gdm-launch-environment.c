@@ -113,6 +113,23 @@ static void     gdm_launch_environment_finalize      (GObject                   
 
 G_DEFINE_TYPE_WITH_PRIVATE (GdmLaunchEnvironment, gdm_launch_environment, G_TYPE_OBJECT)
 
+static char *
+get_var_cb (const char *var,
+            gpointer user_data)
+{
+        const char *value = g_hash_table_lookup (user_data, var);
+        return g_strdup (value);
+}
+
+static void
+load_env_func (const char *var,
+               const char *value,
+               gpointer user_data)
+{
+        GHashTable *environment = user_data;
+        g_hash_table_replace (environment, g_strdup (var), g_strdup (value));
+}
+
 static GHashTable *
 build_launch_environment (GdmLaunchEnvironment *launch_environment,
                           gboolean              start_session)
@@ -144,6 +161,7 @@ build_launch_environment (GdmLaunchEnvironment *launch_environment,
                 NULL
         };
         char *system_data_dirs;
+        g_auto (GStrv) supported_session_types = NULL;
         int i;
 
         /* create a hash table of current environment, then update keys has necessary */
@@ -158,15 +176,6 @@ build_launch_environment (GdmLaunchEnvironment *launch_environment,
                                      g_strdup (optional_environment[i]),
                                      g_strdup (g_getenv (optional_environment[i])));
         }
-
-        system_data_dirs = g_strjoinv (":", (char **) g_get_system_data_dirs ());
-
-        g_hash_table_insert (hash,
-                             g_strdup ("XDG_DATA_DIRS"),
-                             g_strdup_printf ("%s:%s",
-                                              DATADIR "/gdm/greeter",
-                                              system_data_dirs));
-        g_free (system_data_dirs);
 
         if (launch_environment->priv->x11_authority_file != NULL)
                 g_hash_table_insert (hash, g_strdup ("XAUTHORITY"), g_strdup (launch_environment->priv->x11_authority_file));
@@ -217,6 +226,32 @@ build_launch_environment (GdmLaunchEnvironment *launch_environment,
         }
 
         g_hash_table_insert (hash, g_strdup ("RUNNING_UNDER_GDM"), g_strdup ("true"));
+
+        /* Now populate XDG_DATA_DIRS from env.d if we're running initial setup; this allows
+         * e.g. Flatpak apps to be recognized by gnome-shell.
+         */
+        if (g_strcmp0 (launch_environment->priv->session_mode, INITIAL_SETUP_SESSION_MODE) == 0)
+                gdm_load_env_d (load_env_func, get_var_cb, hash);
+
+        /* Prepend our own XDG_DATA_DIRS value */
+        system_data_dirs = g_strdup (g_hash_table_lookup (hash, "XDG_DATA_DIRS"));
+        if (!system_data_dirs)
+                system_data_dirs = g_strjoinv (":", (char **) g_get_system_data_dirs ());
+
+        g_hash_table_insert (hash,
+                             g_strdup ("XDG_DATA_DIRS"),
+                             g_strdup_printf ("%s:%s",
+                                              DATADIR "/gdm/greeter",
+                                              system_data_dirs));
+        g_free (system_data_dirs);
+
+        g_object_get (launch_environment->priv->session,
+                      "supported-session-types",
+                      &supported_session_types,
+                      NULL);
+        g_hash_table_insert (hash,
+                             g_strdup ("GDM_SUPPORTED_SESSION_TYPES"),
+                             g_strjoinv (":", supported_session_types));
 
         return hash;
 }
