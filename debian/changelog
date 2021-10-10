@@ -1,5 +1,6 @@
-gdm3 (41.0-1) UNRELEASED; urgency=medium
+gdm3 (41.0-1) experimental; urgency=medium
 
+  * Team upload
   * New upstream release
     - Allow Wayland user sessions for single-GPU-vendor NVIDIA machines
       if the v470 NVIDIA proprietary driver is in use (LP: #1942911)
@@ -11,8 +12,19 @@ gdm3 (41.0-1) UNRELEASED; urgency=medium
     d/p/local-display-factory-Don-t-crash-if-Xorg-and-Wayland-are.patch,
     d/p/meson-Fix-detection-of-Xorg-versions-that-need-listen-tcp.patch:
     Various post-release fixes from upstream
+  * Drop default.desktop session.
+    Its name is deeply misleading when it hasn't been GDM's default for
+    several years, and GDM/GNOME is increasingly moving towards Wayland
+    rather than X11. It also seems undesirable to present users with an
+    option that will always need to have a vague, generic name, because we
+    cannot predict what specific session or window manager it will launch.
+    Instead, provide an example file with a more appropriate name,
+    /usr/share/doc/gdm3/examples/custom-x11-session.desktop, which
+    users of ~/.xsession can either install as-is, or use as a basis for
+    their own custom session types as documented in gnome-user-docs.
+  * Xsession: quote more defensively
 
- -- Simon McVittie <smcv@debian.org>  Wed, 22 Sep 2021 08:54:36 +0100
+ -- Simon McVittie <smcv@debian.org>  Sun, 10 Oct 2021 19:52:43 +0100
 
 gdm3 (40.1-2) unstable; urgency=medium
 
