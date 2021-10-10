@@ -8,5 +8,4 @@ meson-Fix-detection-of-Xorg-versions-that-need-listen-tcp.patch
 90_config_comments.patch
 91_dconf_database_path.patch
 92_systemd_unit.patch
-93_translate-default-desktop.patch
 94_retain_xorg_log.patch
