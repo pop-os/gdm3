@@ -1,0 +1,39 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Thu, 7 Oct 2021 15:34:27 -0400
+Subject: local-display-factory: Don't crash if Xorg and Wayland are both
+ unavailable
+
+At the moment if Wayland doesn't work, the login screen will fall back
+to Xorg, and if Xorg doesn't work the login screen will fall back to
+Wayland.
+
+But if the fall back choice is disabled explicitly, GDM will just crash.
+
+This commit fixes the crash.
+
+Bug: https://gitlab.gnome.org/GNOME/gdm/-/issues/739
+Origin: upstream, 42, commit:3db4bc7a35d97d9cbdfc978c9f9dc4c1023e7f36
+---
+ daemon/gdm-local-display-factory.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/daemon/gdm-local-display-factory.c b/daemon/gdm-local-display-factory.c
+index 5fbbad6..c00e1c4 100644
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -684,8 +684,13 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
+                 falling_back = factory->num_failures > 0;
+                 session_types = gdm_local_display_factory_get_session_types (factory, falling_back);
+ 
+-                g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use %s%s",
+-                         session_types[0], falling_back? " fallback" : "");
++                if (session_types == NULL) {
++                        g_debug ("GdmLocalDisplayFactory: Both Wayland and Xorg are unavailable");
++                        seat_supports_graphics = FALSE;
++                } else {
++                        g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use %s%s",
++                                 session_types[0], falling_back? " fallback" : "");
++                }
+         } else {
+                 is_seat0 = FALSE;
+ 

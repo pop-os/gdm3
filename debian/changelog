@@ -1,6 +1,16 @@
 gdm3 (41.0-1) UNRELEASED; urgency=medium
 
   * New upstream release
+    - Allow Wayland user sessions for single-GPU-vendor NVIDIA machines
+      if the v470 NVIDIA proprietary driver is in use (LP: #1942911)
+  * d/p/gdm.rules-Keep-wayland-enabled-in-all-nvidia-configuratio.patch:
+    Also allow Wayland user sessions for hybrid (Optimus) NVIDIA systems
+  * d/p/local-display-factory-Don-t-try-to-respawn-displays-on-sh.patch,
+    d/p/xdmcp-display-factory-Set-supported-session-types-for-XDM.patch,
+    d/p/daemon-Infer-session-type-from-desktop-file-if-user-has-n.patch,
+    d/p/local-display-factory-Don-t-crash-if-Xorg-and-Wayland-are.patch,
+    d/p/meson-Fix-detection-of-Xorg-versions-that-need-listen-tcp.patch:
+    Various post-release fixes from upstream
 
  -- Simon McVittie <smcv@debian.org>  Wed, 22 Sep 2021 08:54:36 +0100
 

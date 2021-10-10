@@ -1,3 +1,9 @@
+gdm.rules-Keep-wayland-enabled-in-all-nvidia-configuratio.patch
+local-display-factory-Don-t-try-to-respawn-displays-on-sh.patch
+xdmcp-display-factory-Set-supported-session-types-for-XDM.patch
+daemon-Infer-session-type-from-desktop-file-if-user-has-n.patch
+local-display-factory-Don-t-crash-if-Xorg-and-Wayland-are.patch
+meson-Fix-detection-of-Xorg-versions-that-need-listen-tcp.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
