@@ -1,3 +1,14 @@
+gdm3 (41.0-2) unstable; urgency=medium
+
+  * Team upload
+  * Trim trailing whitespace in d/changelog
+  * Update standards version to 4.6.0 (no changes needed)
+  * Avoid explicitly specifying -Wl,--as-needed linker flag.
+    This is the default in current toolchains.
+  * Release to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 13 Oct 2021 23:01:42 +0100
+
 gdm3 (41.0-1) experimental; urgency=medium
 
   * Team upload
