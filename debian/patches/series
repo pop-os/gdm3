@@ -23,3 +23,6 @@ ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
 ubuntu/Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
+
+# Pop!_OS patches
+pop_prefer_pop_session_fallback.patch
