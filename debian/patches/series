@@ -13,3 +13,4 @@ ubuntu/config_error_dialog.patch
 ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
+git_select_session.patch

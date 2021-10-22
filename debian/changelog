@@ -1,3 +1,11 @@
+gdm3 (41~rc-0ubuntu2) impish; urgency=medium
+
+  * debian/patches/git_select_session.patch:
+    - backport an upstream fix for gdm sometime starting the wrong
+      session type and not respecting the user selection (lp: #1945008)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 12 Oct 2021 11:05:27 +0200
+
 gdm3 (41~rc-0ubuntu1) impish; urgency=medium
 
   * New upstream release:
