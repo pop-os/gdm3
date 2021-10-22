@@ -1,3 +1,9 @@
+gdm3 (41~rc-0ubuntu2pop0) impish; urgency=medium
+
+  * Pop patches
+
+ -- Jeremy Soller <jeremy@system76.com>  Fri, 22 Oct 2021 09:05:16 -0600
+
 gdm3 (41~rc-0ubuntu2) impish; urgency=medium
 
   * debian/patches/git_select_session.patch:
