@@ -56,7 +56,6 @@ override_dh_auto_configure:
 		-Ddefaults-conf=/usr/share/gdm/defaults.conf \
 		-Duser=Debian-gdm -Dgroup=Debian-gdm \
 		-Dlang-file=/etc/default/locale \
-		-Dcheck-accelerated-dir=/usr/lib/gnome-session/ \
 		-Dran-once-marker-dir=/run/gdm3 \
 		-Dgnome-settings-daemon-dir="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
 		$(CONFFLAGS)
