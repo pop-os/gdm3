@@ -1,3 +1,16 @@
+gdm3 (41.0-3) unstable; urgency=medium
+
+  * Team upload
+  * d/control.in: Depend on specific dbus components.
+    We need the well-known system bus (any implementation, typically either
+    dbus or dbus-broker), plus dbus-daemon/dbus-run-session (for the greeter).
+    Additionally, /etc/init.d/gdm3 needs dbus-send from dbus-bin, although
+    the systemd unit doesn't necessarily need that.
+  * d/rules: Stop using obsolete check-accelerated-dir option.
+    Meson 0.60.0 makes unknown options an error. (Closes: #997935)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 28 Oct 2021 10:11:51 +0100
+
 gdm3 (41.0-2) unstable; urgency=medium
 
   * Team upload
