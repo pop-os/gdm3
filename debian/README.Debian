@@ -20,6 +20,20 @@ through GSettings, but using a specific configuration.
  * After changing any of the settings, you need to run “systemctl reload gdm”
    to take them into account.
 
+Custom X11 sessions
+-------------------
+
+Since Debian 12, GDM does not provide a session type that reads ~/.xsession
+or the X11 session managers managed by update-alternatives. If this
+session type is required:
+
+- create a directory /etc/X11/sessions/
+- copy /usr/share/doc/gdm3/examples/custom-x11-session.desktop
+  to /etc/X11/sessions/
+- edit as required
+
+See the GNOME user documentation in the gnome-user-docs package for
+more details of how to configure custom X11 sessions.
 
 X11 authentication
 ------------------

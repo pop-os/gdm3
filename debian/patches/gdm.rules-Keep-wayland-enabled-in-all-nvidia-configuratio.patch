@@ -16,7 +16,7 @@ At the same time we can tune the rules so that, when the nvidia-drm
 module is loaded, if the driver version is minor than 470, wayland is
 disabled.
 
-Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/155
+Origin: upstream, 42, commit:e29606c4b63452e851b02da86b1c71f585aa6200
 ---
  data/61-gdm.rules.in | 35 +++++++++++++++++++++++++++--------
  1 file changed, 27 insertions(+), 8 deletions(-)

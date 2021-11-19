@@ -1,0 +1,10 @@
+# Create directory /etc/X11/sessions/ and install this there
+[Desktop Entry]
+Name=Custom X11 session
+Comment=Configured in ~/.xsession or update-alternatives
+# Exec=custom is special-cased by the Xsession script to run ~/.xsession
+# or an x-session-manager or x-window-manager. It can be replaced by any
+# command, for example Exec=openbox
+Exec=custom
+Icon=
+Type=Application

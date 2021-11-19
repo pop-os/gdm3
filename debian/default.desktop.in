@@ -1,6 +1,0 @@
-[Desktop Entry]
-_Name=System X11 Default
-_Comment=The X11 default session on the system
-Exec=default
-Icon=
-Type=Application

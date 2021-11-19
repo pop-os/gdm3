@@ -6,7 +6,7 @@ include /usr/share/dpkg/pkg-info.mk
 include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
 
 ifeq (linux,$(DEB_HOST_ARCH_OS))
 CONFFLAGS += \
@@ -21,12 +21,6 @@ endif
 ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
 CONFFLAGS += --buildtype=debug
 endif
-
-INFILES := $(wildcard debian/*.desktop.in)
-OUTFILES := $(INFILES:.desktop.in=.desktop)
-
-%.desktop: %.desktop.in
-	intltool-merge -d debian/po-up $< $@
 
 PODFILES := $(wildcard debian/*.pod)
 MANPAGES := $(patsubst %.pod,%,$(PODFILES))
@@ -61,7 +55,6 @@ override_dh_auto_configure:
 		-Dscreenshot-dir=/run/gdm3/greeter \
 		-Ddefaults-conf=/usr/share/gdm/defaults.conf \
 		-Dlang-file=/etc/default/locale \
-		-Dcheck-accelerated-dir=/usr/lib/gnome-session/ \
 		-Dran-once-marker-dir=/run/gdm3 \
 		-Dgnome-settings-daemon-dir="`pkg-config --variable=libexecdir gnome-settings-daemon`" \
 		$(CONFFLAGS)

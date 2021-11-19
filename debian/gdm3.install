@@ -14,10 +14,9 @@ usr/share/gdm/
 usr/share/gnome-session/
 usr/share/dconf/
 
+# Don't install unnecessary "System X11 Default" on Ubuntu
 # debian/Xsession				etc/gdm3
 debian/greeter.dconf-defaults*		usr/share/gdm
-# Don't install unnecessary "System X11 Default" on Ubuntu
-# debian/default.desktop			usr/share/gdm/BuiltInSessions
 debian/generate-config			usr/share/gdm
 debian/insserv.conf.d			etc
 data/dconf/defaults/*			usr/share/gdm/dconf

@@ -157,7 +157,7 @@ fi
 # "custom"
 if [ "x$command" = "xcustom" ] ; then
   shift
-  set default $*
+  set default "$@"
 fi
 
 OPTIONS="$(

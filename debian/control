@@ -41,7 +41,7 @@ Build-Depends: check (>= 0.9.4),
                meson (>= 0.50),
                systemd,
                udev [linux-any]
-Standards-Version: 4.5.0
+Standards-Version: 4.6.0
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
 XS-Debian-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
 Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git -b ubuntu/master
@@ -57,7 +57,9 @@ Depends: accountsservice (>= 0.6.35),
          bash (>= 4.3),
          dconf-cli (>= 0.20),
          dconf-gsettings-backend (>= 0.20),
-         dbus,
+         dbus-bin | systemd-sysv,
+         dbus-daemon,
+         default-dbus-system-bus | dbus-system-bus,
          gir1.2-gdm-1.0 (= ${binary:Version}),
          gnome-session | x-session-manager | x-window-manager | x-terminal-emulator,
          gnome-session-bin (>= 3.37.0),
