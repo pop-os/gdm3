@@ -1,5 +1,6 @@
-gdm3 (41.3-1) UNRELEASED; urgency=medium
+gdm3 (41.3-1) unstable; urgency=medium
 
+  * Team upload
   * New upstream release
     - Explicitly pass "-listen tcp" to Xorg if configured with
       DisallowTCP=false (Closes: #785495). Please note that this
@@ -25,8 +26,14 @@ gdm3 (41.3-1) UNRELEASED; urgency=medium
     - d/gdm3.postinst: Don't change ownership of /var/lib/gdm3
     - d/gdm3.dirs: Don't ship root-owned directories which will become
       owned by Debian-gdm on running systems
+  * Update spelling of Lintian overrides
+  * Silence Lintian false positive for
+    package-supports-alternative-init-but-no-init.d-script.
+    /etc/init.d/gdm3 is the LSB equivalent of both gdm3.service and
+    gdm.service.
+  * d/gdm3.dirs: Drop unnecessary directories
 
- -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 18:07:19 +0000
+ -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 18:28:14 +0000
 
 gdm3 (41.0-3) unstable; urgency=medium
 
