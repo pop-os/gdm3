@@ -1,8 +1,25 @@
 #! /bin/sh
 set -e
 
-if [ -d /var/lib/gdm3 ]; then
-  dconf compile '/var/lib/gdm3/greeter-dconf-defaults' '/usr/share/gdm/dconf'
-fi
+as_gdm () {
+    # setsid to dissociate from the controlling terminal, if any.
+    # Under systemd, this is unnecessary, because this script is called
+    # from a systemd unit with stdout and stderr pointing to the Journal,
+    # but under sysvinit, /etc/init.d/gdm3 might be invoked by a sysadmin
+    # with its controlling terminal shared with their privileged shell.
+    setsid \
+    setpriv \
+        --reuid Debian-gdm --regid Debian-gdm --init-groups \
+        --no-new-privs \
+        --inh-caps=-all \
+        --reset-env \
+        -- \
+    "$@"
+}
 
-pkill --signal 'HUP' --uid 'Debian-gdm' 'dconf-service' || true
+umask 022
+install -d /var/lib
+install -m711 -oDebian-gdm -gDebian-gdm -d /var/lib/gdm3
+
+as_gdm dconf compile '/var/lib/gdm3/greeter-dconf-defaults' '/usr/share/gdm/dconf'
+as_gdm pkill --signal 'HUP' --uid 'Debian-gdm' 'dconf-service' || true

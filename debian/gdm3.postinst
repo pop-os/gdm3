@@ -64,8 +64,6 @@ ucfr gdm3 /etc/gdm3/greeter.dconf-defaults
 # debconf hangs if gdm3 gets started below without this
 db_stop || true
 
-chown -R Debian-gdm:Debian-gdm /var/lib/gdm3
-
 #DEBHELPER#
 
 if [ -x /etc/init.d/gdm3 ]; then
