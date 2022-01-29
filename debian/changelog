@@ -1,6 +1,17 @@
 gdm3 (41.3-1) UNRELEASED; urgency=medium
 
   * New upstream release
+    - Explicitly pass "-listen tcp" to Xorg if configured with
+      DisallowTCP=false (Closes: #785495). Please note that this
+      configuration continues to be insecure if you have any untrusted
+      devices on your LAN, including games consoles, smart lightbulbs
+      and other embedded devices.
+    - libgdm: Handle GDM_SUPPORTED_SESSION_TYPES being unset
+    - Keep wayland enabled for simple-framebuffer DRM drivers
+    - Restart greeter session if it crashes
+    - Translation updates
+    - Various other fixes that were already included as patches in Debian
+  * Drop patches that were taken from upstream
 
  -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 14:44:50 +0000
 
