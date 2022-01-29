@@ -12,8 +12,21 @@ gdm3 (41.3-1) UNRELEASED; urgency=medium
     - Translation updates
     - Various other fixes that were already included as patches in Debian
   * Drop patches that were taken from upstream
+  * Generically depend on any logind implementation on Linux
+    (Closes: #991880)
+  * Change uid to Debian-gdm for all accesses to /var/lib/gdm3, which is
+    safer than manipulating a non-root-owned directory as root
+    - d/generate-config: Create /var/lib/gdm3 if needed, but subsequently
+      don't change anything as root
+    - d/generate-config: Run `dconf compile` as Debian-gdm
+    - d/generate-config: Run pkill as Debian-gdm too, while we're there
+    - d/gdm3.postinst: Don't create /var/lib/gdm3, it will be created on
+      a just-in-time basis by d/generate-config
+    - d/gdm3.postinst: Don't change ownership of /var/lib/gdm3
+    - d/gdm3.dirs: Don't ship root-owned directories which will become
+      owned by Debian-gdm on running systems
 
- -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 14:44:50 +0000
+ -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 18:07:19 +0000
 
 gdm3 (41.0-3) unstable; urgency=medium
 
