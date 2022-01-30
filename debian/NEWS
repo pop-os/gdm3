@@ -1,0 +1,26 @@
+gdm3 (41.3-2) UNRELEASED; urgency=medium
+
+  In Debian 11, gdm3 provided a desktop session named "System X11 Default",
+  which would attempt to choose a desktop session implementation from
+  among many options:
+
+  - the user-specific executable or shell script ~/.xsession or ~/.Xsession
+  - the system-wide default for the x-session-manager alternative
+  - the system-wide default for the x-window-manager alternative,
+    even if it is only a window manager and not a complete desktop
+    environment
+  - as a last resort, the system-wide default for the x-terminal-emulator
+    alternative
+
+  This option's name was confusing, because it was difficult to predict
+  which desktop environment would result from choosing it, and it has
+  not been the default choice since Debian 10. It is no longer provided.
+
+  Users of ~/.xsession, ~/.Xsession, or a session manager or window manager
+  that is not already listed as an option should configure a custom session
+  definition that will run it, for example by copying
+  /usr/share/doc/gdm3/examples/custom-x11-session.desktop into
+  /etc/X11/sessions and editing it as desired. Please see the example file
+  or the documentation in the gnome-user-docs package for more details.
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 30 Jan 2022 14:22:39 +0000
