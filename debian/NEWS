@@ -21,6 +21,7 @@ gdm3 (41.3-2) UNRELEASED; urgency=medium
   definition that will run it, for example by copying
   /usr/share/doc/gdm3/examples/custom-x11-session.desktop into
   /etc/X11/sessions and editing it as desired. Please see the example file
-  or the documentation in the gnome-user-docs package for more details.
+  or run  yelp help:system-admin-guide/session-custom
+  to read the documentation provided by the gnome-user-docs package.
 
  -- Simon McVittie <smcv@debian.org>  Sun, 30 Jan 2022 14:22:39 +0000
