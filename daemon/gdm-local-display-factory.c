@@ -73,6 +73,8 @@ struct _GdmLocalDisplayFactory
         guint            active_vt_watch_id;
         guint            wait_to_finish_timeout_id;
 #endif
+
+        gboolean         is_started;
 };
 
 enum {
@@ -505,6 +507,10 @@ on_display_status_changed (GdmDisplay             *display,
         gboolean         is_initial = TRUE;
         gboolean         is_local = TRUE;
 
+
+        if (!factory->is_started)
+                return;
+
         num = -1;
         gdm_display_get_x11_display_number (display, &num, NULL);
 
@@ -533,7 +539,8 @@ on_display_status_changed (GdmDisplay             *display,
                  * ensures we get a new login screen when the user logs out,
                  * if there isn't one.
                  */
-                if (is_local && g_strcmp0 (session_class, "greeter") != 0) {
+                if (is_local &&
+                    (g_strcmp0 (session_class, "greeter") != 0 || factory->active_vt == GDM_INITIAL_VT)) {
                         /* reset num failures */
                         factory->num_failures = 0;
 
@@ -678,8 +685,13 @@ ensure_display_for_seat (GdmLocalDisplayFactory *factory,
                 falling_back = factory->num_failures > 0;
                 session_types = gdm_local_display_factory_get_session_types (factory, falling_back);
 
-                g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use %s%s",
-                         session_types[0], falling_back? " fallback" : "");
+                if (session_types == NULL) {
+                        g_debug ("GdmLocalDisplayFactory: Both Wayland and Xorg are unavailable");
+                        seat_supports_graphics = FALSE;
+                } else {
+                        g_debug ("GdmLocalDisplayFactory: New displays on seat0 will use %s%s",
+                                 session_types[0], falling_back? " fallback" : "");
+                }
         } else {
                 is_seat0 = FALSE;
 
@@ -1270,6 +1282,8 @@ gdm_local_display_factory_start (GdmDisplayFactory *base_factory)
 
         g_return_val_if_fail (GDM_IS_LOCAL_DISPLAY_FACTORY (factory), FALSE);
 
+        factory->is_started = TRUE;
+
         store = gdm_display_factory_get_display_store (GDM_DISPLAY_FACTORY (factory));
 
         g_signal_connect_object (G_OBJECT (store),
@@ -1306,8 +1320,9 @@ gdm_local_display_factory_stop (GdmDisplayFactory *base_factory)
         g_signal_handlers_disconnect_by_func (G_OBJECT (store),
                                               G_CALLBACK (on_display_removed),
                                               factory);
-
         g_clear_handle_id (&factory->seat0_graphics_check_timeout_id, g_source_remove);
+
+        factory->is_started = FALSE;
 
         return TRUE;
 }

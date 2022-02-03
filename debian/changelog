@@ -1,3 +1,90 @@
+gdm3 (41.3-1ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge with debian, remaining changes:
+    + readme.debian: update for correct paths in ubuntu
+    + control.in:
+      - don't recommend desktop-base
+      - depend on bash for config_error_dialog.patch
+      - update vcs field
+    + rules:
+      - don't override default user/group
+      - -dgdm-xsession=true to install upstream xsession script
+      - override dh_installinit with --no-start to avoid session being killed
+    + rules, readme.debian, gdm3.8.pod:
+      use upstream custom.conf instead of daemon.conf
+    + gdm3.{postinst,postrm}: rename user and group back to gdm
+    + gdm3.*.pam: make pam_env read ~/.pam_environment, as we use in g-c-c
+      settings
+    + gdm3.install:
+      - don't install debian/xsession
+    + add run_xsession.d.patch
+    + add xresources_is_a_dir.patch
+      - fix loading from /etc/x11/xresources/*
+    + add nvidia_prime.patch:
+      - add hook to run prime-offload (as root) and prime-switch if
+        nvidia-prime is installed
+    + add revert_override_lang_with_accountservices.patch:
+      - on ubuntu accountservices only stores the language and not the
+        full locale as needed by lang.
+    + add dont_set_language_env.patch:
+      - don't run the set_up_session_language() function, since it
+        overrides variable values set by ~/.pam_environment
+    + add config_error_dialog.patch:
+      - show warning dialog in case of error in ~/.profile etc. and
+        don't let a syntax error make the login fail
+    + add debian/patches/revert_nvidia_wayland_blacklist.patch:
+      - don't blacklist nvidia for wayland
+    + add gdm3.service-wait-for-drm-device-before-trying-to-start-i.patch:
+      - wait for the first valid gdm device on pre-start
+    + add debian/default.pa
+      - disable bluetooth audio devices in pulseaudio from gdm3.
+    + debian/gdm3.install
+      - added details of the default.pa file
+    + debian/gdm3.postinst
+      - added installation of default.pa and creation of dir if it doesn't
+        exist.
+    + debian/greeter.dconf-defaults: don't set debian settings in the
+      greeter's dconf db
+
+ -- Jeremy Bicha <jeremy.bicha@canonical.com>  Thu, 03 Feb 2022 13:18:44 -0500
+
+gdm3 (41.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release
+    - Explicitly pass "-listen tcp" to Xorg if configured with
+      DisallowTCP=false (Closes: #785495). Please note that this
+      configuration continues to be insecure if you have any untrusted
+      devices on your LAN, including games consoles, smart lightbulbs
+      and other embedded devices.
+    - libgdm: Handle GDM_SUPPORTED_SESSION_TYPES being unset
+    - Keep wayland enabled for simple-framebuffer DRM drivers
+    - Restart greeter session if it crashes
+    - Translation updates
+    - Various other fixes that were already included as patches in Debian
+  * Drop patches that were taken from upstream
+  * Generically depend on any logind implementation on Linux
+    (Closes: #991880)
+  * Change uid to Debian-gdm for all accesses to /var/lib/gdm3, which is
+    safer than manipulating a non-root-owned directory as root
+    - d/generate-config: Create /var/lib/gdm3 if needed, but subsequently
+      don't change anything as root
+    - d/generate-config: Run `dconf compile` as Debian-gdm
+    - d/generate-config: Run pkill as Debian-gdm too, while we're there
+    - d/gdm3.postinst: Don't create /var/lib/gdm3, it will be created on
+      a just-in-time basis by d/generate-config
+    - d/gdm3.postinst: Don't change ownership of /var/lib/gdm3
+    - d/gdm3.dirs: Don't ship root-owned directories which will become
+      owned by Debian-gdm on running systems
+  * Update spelling of Lintian overrides
+  * Silence Lintian false positive for
+    package-supports-alternative-init-but-no-init.d-script.
+    /etc/init.d/gdm3 is the LSB equivalent of both gdm3.service and
+    gdm.service.
+  * d/gdm3.dirs: Drop unnecessary directories
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 29 Jan 2022 18:28:14 +0000
+
 gdm3 (41.0-3ubuntu2) jammy; urgency=medium
 
   * debian/patches/git_select_session.patch:

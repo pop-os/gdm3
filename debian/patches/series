@@ -1,5 +1,3 @@
-git_select_session.patch
-gdm.rules-Keep-wayland-enabled-in-all-nvidia-configuratio.patch
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
