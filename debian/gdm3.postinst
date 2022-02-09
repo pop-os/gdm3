@@ -69,6 +69,7 @@ db_stop || true
 if ! [ -f /var/lib/gdm3/.config/pulse/default.pa ]; then
   mkdir -p /var/lib/gdm3/.config/pulse
   cp /usr/share/gdm/default.pa /var/lib/gdm3/.config/pulse/default.pa
+  chown -R gdm:gdm /var/lib/gdm3/.config
 fi
 
 #DEBHELPER#
