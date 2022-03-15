@@ -1,3 +1,11 @@
+gdm3 (41.3-1ubuntu3) jammy; urgency=medium
+
+  [ Jeremy Szu ]
+  * d/p/ubuntu/gdm.rules-Prefer-Wayland-with-NVIDIA-510.patch
+      - default to Wayland for nvidia 510 drivers (LP: #1962523)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Mar 2022 13:20:58 +0100
+
 gdm3 (41.3-1ubuntu2) jammy; urgency=medium
 
   * debian/gdm3.postinst:
