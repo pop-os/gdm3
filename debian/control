@@ -6,7 +6,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@debian.org>, Laurent Bigonville <bigon@debian.org>
+Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>
 Build-Depends: check (>= 0.9.4),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 13),
@@ -27,6 +27,7 @@ Build-Depends: check (>= 0.9.4),
                libgirepository1.0-dev (>= 0.9.12),
                libglib2.0-dev (>= 2.44.0),
                libgtk-3-dev (>= 2.91.1),
+               libgudev-1.0-dev (>= 232),
                libkeyutils-dev [linux-any],
                libpam0g-dev,
                libplymouth-dev [linux-any],
