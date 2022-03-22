@@ -1,4 +1,4 @@
-gdm3 (42.0-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (42.0-1ubuntu1) jammy; urgency=medium
 
   * Merge with debian, remaining changes:
     + readme.debian: update for correct paths in ubuntu
@@ -46,7 +46,7 @@ gdm3 (42.0-1ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 22 Mar 2022 16:47:57 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 22 Mar 2022 16:59:12 -0400
 
 gdm3 (42.0-1) unstable; urgency=medium
 
