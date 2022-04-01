@@ -1,3 +1,10 @@
+gdm3 (42.0-1ubuntu2) jammy; urgency=medium
+
+  * debian/control.in: Depend on ubuntu-session ahead of gnome-session
+    (LP: #1966127)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 01 Apr 2022 14:14:18 -0400
+
 gdm3 (42.0-1ubuntu1) jammy; urgency=medium
 
   * Merge with debian, remaining changes:
