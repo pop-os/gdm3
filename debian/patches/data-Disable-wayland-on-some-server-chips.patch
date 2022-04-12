@@ -1,0 +1,39 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Wed, 2 Mar 2022 16:38:47 -0500
+Subject: data: Disable wayland on some server chips
+
+mutter isn't great running in native mode on chips that don't have
+fast blending.
+
+This commit disables wayland on aspeed and matrox server cards.
+
+(cherry picked from commit 8bedb1f0361bc8934c9f2c2481f096cf3f31de94)
+---
+ data/61-gdm.rules.in | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index 02a10e9..52da36d 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -5,6 +5,20 @@ ACTION!="bind", GOTO="gdm_pci_device_end"
+ # disable Wayland on Hi1710 chipsets
+ ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", GOTO="gdm_disable_wayland"
+ 
++# disable Wayland on Matrox chipsets
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0522", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0524", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0530", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0532", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0533", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0534", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0536", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x102b", ATTR{device}=="0x0538", GOTO="gdm_disable_wayland"
++
++# disable Wayland on aspeed chipsets
++ATTR{vendor}=="0x1a03", ATTR{device}=="0x2010", GOTO="gdm_disable_wayland"
++ATTR{vendor}=="0x1a03", ATTR{device}=="0x2000", GOTO="gdm_disable_wayland"
++
+ LABEL="gdm_pci_device_end"
+ 
+ # disable Wayland if modesetting is disabled

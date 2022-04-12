@@ -11,3 +11,12 @@ ubuntu/config_error_dialog.patch
 ubuntu/dont_set_language_env.patch
 ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
+data-Be-a-little-more-specific-when-matching-PCI-cards.patch
+data-Disable-GDM-on-hybrid-graphics-laptops-with-vendor-N.patch
+data-Disable-wayland-on-nvidia-if-suspend-is-broken.patch
+data-Disable-wayland-on-some-server-chips.patch
+data-Disable-wayland-on-guests-with-passthrough-and-virt-.patch
+data-Disable-wayland-if-there-are-multiple-virtual-gpus.patch
+local-display-factory-Fix-type-of-signal-connection-id.patch
+local-display-factory-Stop-listening-to-udev-events-when-.patch
+Update-Basque-translation.patch
