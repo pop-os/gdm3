@@ -1,3 +1,14 @@
+gdm3 (42.0-1ubuntu3) jammy; urgency=medium
+
+  * Cherry-pick commits up to March 30
+    - Disable Wayland for:
+      + Vendor nvidia driver with hybrid graphics
+      + VM guest with vGPU and host pass through gpu
+      + Various server chips that don't have great blending performance
+    - Stop listening to udev events after timeout
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 12 Apr 2022 16:09:54 -0400
+
 gdm3 (42.0-1ubuntu2) jammy; urgency=medium
 
   * debian/control.in: Depend on ubuntu-session ahead of gnome-session
