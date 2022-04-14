@@ -11,10 +11,10 @@ so disable that.
  1 file changed, 7 insertions(+)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 5351e0b..5bc9941 100644
+index d45f1c1..cc9f764 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -100,6 +100,13 @@ TEST!="/run/udev/gdm-machine-has-hardware-gpu", GOTO="gdm_virt_passthrough_check
+@@ -81,6 +81,13 @@ TEST!="/run/udev/gdm-machine-has-hardware-gpu", GOTO="gdm_virt_passthrough_check
  GOTO="gdm_disable_wayland"
  LABEL="gdm_virt_passthrough_check_end"
  
@@ -25,6 +25,6 @@ index 5351e0b..5bc9941 100644
 +TEST=="/run/udev/gdm-machine-has-hardware-gpu", GOTO="gdm_virt_multi_gpu_check_end"
 +LABEL="gdm_virt_multi_gpu_check_end"
 +
- # Disable wayland when nvidia modeset is disabled or when drivers are a lower
- # version than 470,
- # For versions above 470 but lower than 510 prefer Xorg,
+ GOTO="gdm_end"
+ 
+ LABEL="gdm_prefer_xorg"
