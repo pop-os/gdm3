@@ -1,3 +1,10 @@
+gdm3 (42.0-1ubuntu4) jammy; urgency=medium
+
+  * Drop patch disabling Wayland on hybrid laptops using Nvidia's drivers.
+    It's not needed for Ubuntu 22.04 LTS (LP: #1968809)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 14 Apr 2022 14:29:35 -0400
+
 gdm3 (42.0-1ubuntu3) jammy; urgency=medium
 
   * Cherry-pick commits up to March 30
