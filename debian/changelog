@@ -1,4 +1,4 @@
-gdm3 (42.0-1ubuntu5) jammy; urgency=medium
+gdm3 (42.0-1ubuntu6) jammy; urgency=medium
 
   * Fix Wayland no longer being available for everyone
     - Fix by adding a separate revert patch instead of trying to
