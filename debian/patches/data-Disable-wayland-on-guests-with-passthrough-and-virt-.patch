@@ -11,7 +11,7 @@ hardware graphics, then we should disable wayland
  1 file changed, 23 insertions(+)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 87072fa..d45f1c1 100644
+index 52da36d..5351e0b 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
 @@ -1,7 +1,20 @@
@@ -44,9 +44,9 @@ index 87072fa..d45f1c1 100644
  # but keep it enabled for simple framebuffer drivers
  DRIVERS=="simple-framebuffer", GOTO="gdm_nomodeset_end"
  IMPORT{cmdline}="nomodeset", GOTO="gdm_disable_wayland"
-@@ -58,6 +73,14 @@ ATTR{version}=="[5-9][1-9][0-9].*", GOTO="gdm_end"
- GOTO="gdm_prefer_xorg"
- LABEL="gdm_nvidia_drm_end"
+@@ -77,6 +92,14 @@ TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidia_
+ GOTO="gdm_disable_wayland"
+ LABEL="gdm_hybrid_nvidia_laptop_check_end"
  
 +# Disable wayland in situation where we're in a guest with a virtual gpu and host passthrough gpu
 +LABEL="gdm_virt_passthrough_check"
@@ -56,6 +56,6 @@ index 87072fa..d45f1c1 100644
 +GOTO="gdm_disable_wayland"
 +LABEL="gdm_virt_passthrough_check_end"
 +
- GOTO="gdm_end"
- 
- LABEL="gdm_prefer_xorg"
+ # Disable wayland when nvidia modeset is disabled or when drivers are a lower
+ # version than 470,
+ # For versions above 470 but lower than 510 prefer Xorg,
