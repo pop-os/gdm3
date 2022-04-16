@@ -1,36 +1,21 @@
 From: Jeremy Bicha <jeremy.bicha@canonical.com>
 Date: Fri, 15 Apr 2022 20:59:16 -0400
-Subject: Revert "data: Disable GDM on hybrid graphics laptops with vendor
- NVidia driver"
+Subject: data: Don't disable GDM on hybrid graphics laptops with vendor
+ NVidia driver
 
 This commit is no longer necessary because Ubuntu carries the patches
 from  https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2341
 
 This reverts commit 440d6f9ecc151fbcf8c852d500c5cc5add168b94.
 ---
- data/61-gdm.rules.in | 36 ------------------------------------
- 1 file changed, 36 deletions(-)
+ data/61-gdm.rules.in | 27 ---------------------------
+ 1 file changed, 27 deletions(-)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 5bc9941..883639c 100644
+index 5bc9941..d3be611 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -44,14 +44,6 @@ DRIVERS=="simple-framebuffer", GOTO="gdm_nomodeset_end"
- IMPORT{cmdline}="nomodeset", GOTO="gdm_disable_wayland"
- LABEL="gdm_nomodeset_end"
- 
--# The vendor nvidia driver has multiple modules that need to be loaded before GDM can make an
--# informed choice on which way to proceed, so force GDM to wait until NVidia's modules are
--# loaded before starting up.
--KERNEL!="nvidia", GOTO="gdm_nvidia_end"
--SUBSYSTEM!="module", GOTO="gdm_nvidia_end"
--ACTION!="add", GOTO="gdm_nvidia_end"
--RUN+="/usr/bin/touch /run/udev/gdm-machine-has-vendor-nvidia-driver"
--
- # Check if suspend/resume services necessary for working wayland support is available
- TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
- TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
-@@ -65,33 +57,6 @@ IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia-su
+@@ -65,33 +65,6 @@ IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia-su
  ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
  LABEL="gdm_nvidia_end"
  
@@ -64,8 +49,3 @@ index 5bc9941..883639c 100644
  # Disable wayland in situation where we're in a guest with a virtual gpu and host passthrough gpu
  LABEL="gdm_virt_passthrough_check"
  TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_virt_passthrough_check_end"
-@@ -135,4 +100,3 @@ RUN+="@libexecdir@/gdm-runtime-config set daemon WaylandEnable false"
- GOTO="gdm_end"
- 
- LABEL="gdm_end"
--
