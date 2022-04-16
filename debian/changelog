@@ -1,3 +1,16 @@
+gdm3 (42.0-1ubuntu5) jammy; urgency=medium
+
+  * Fix Wayland no longer being available for everyone
+    - Fix by adding a separate revert patch instead of trying to
+      rebase the cherry-picked patches (LP: #1969243)
+  * Please note that Wayland is not currently available for
+    systems using the Nvidia graphics drivers because those drivers
+    don't properly handle suspend and resuming from suspend. It is
+    intended for those drivers to be fixed in a future stable release
+    update for Ubuntu 22.04 LTS. See bug 1968929
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 15 Apr 2022 21:02:08 -0400
+
 gdm3 (42.0-1ubuntu4) jammy; urgency=medium
 
   * Drop patch disabling Wayland on hybrid laptops using Nvidia's drivers.
