@@ -1,3 +1,9 @@
+gdm3 (42.0-1ubuntu6pop1) jammy; urgency=medium
+
+  * Pop!_OS patches
+
+ -- Michael Aaron Murphy <mmstick@pm.me>  Mon, 18 Apr 2022 19:02:50 +0200
+
 gdm3 (42.0-1ubuntu6) jammy; urgency=medium
 
   * Fix Wayland no longer being available for everyone
