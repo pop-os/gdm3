@@ -1,51 +1,62 @@
-From: Jeremy Bicha <jeremy.bicha@canonical.com>
-Date: Fri, 15 Apr 2022 20:59:16 -0400
+From: Alberto Milone <alberto.milonea@canonical.com>
+Date: Tue Apr 19 14:41:38 2022 +0000
 Subject: data: Don't disable GDM on hybrid graphics laptops with vendor
  NVidia driver
 
 This commit is no longer necessary because Ubuntu carries the patches
 from  https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2341
 
-This reverts commit 440d6f9ecc151fbcf8c852d500c5cc5add168b94.
----
- data/61-gdm.rules.in | 27 ---------------------------
- 1 file changed, 27 deletions(-)
+This partially reverts commit 440d6f9ecc151fbcf8c852d500c5cc5add168b94.
 
-diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 5bc9941..d3be611 100644
---- a/data/61-gdm.rules.in
-+++ b/data/61-gdm.rules.in
-@@ -65,33 +65,6 @@ IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia-su
- ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
+Doing so, makes GDM prefer Wayland on hybrid systems, while defaulting
+to Xorg (leaving Wayland as an option) for NVIDIA only systems running
+recent driver series.
+Index: gdm/data/61-gdm.rules.in
+===================================================================
+--- gdm.orig/data/61-gdm.rules.in
++++ gdm/data/61-gdm.rules.in
+@@ -51,18 +51,6 @@ KERNEL!="nvidia", GOTO="gdm_nvidia_end"
+ SUBSYSTEM!="module", GOTO="gdm_nvidia_end"
+ ACTION!="add", GOTO="gdm_nvidia_end"
+ RUN+="/usr/bin/touch /run/udev/gdm-machine-has-vendor-nvidia-driver"
+-
+-# Check if suspend/resume services necessary for working wayland support is available
+-TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
+-TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
+-IMPORT{program}="/bin/sh -c \"sed -e 's/: /=/g' -e 's/\([^[:upper:]]\)\([[:upper:]]\)/\1_\2/g' -e 's/[[:lower:]]/\U&/g' -e 's/^/NVIDIA_/' /proc/driver/nvidia/params\""
+-ENV{NVIDIA_PRESERVE_VIDEO_MEMORY_ALLOCATIONS}!="1", GOTO="gdm_disable_wayland"
+-IMPORT{program}="/bin/sh -c 'echo NVIDIA_HIBERNATE=`systemctl is-enabled nvidia-hibernate`'"
+-ENV{NVIDIA_HIBERNATE}!="enabled", GOTO="gdm_disable_wayland"
+-IMPORT{program}="/bin/sh -c 'echo NVIDIA_RESUME=`systemctl is-enabled nvidia-resume`'"
+-ENV{NVIDIA_RESUME}!="enabled", GOTO="gdm_disable_wayland"
+-IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia-suspend`'"
+-ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
  LABEL="gdm_nvidia_end"
  
--# If this machine has an internal panel, take note, since it's probably a laptop
--# FIXME: It could be "ghost connectors" make this pop positive for some workstations
--# in the wild. If so, we may have to fallback to looking at the chassis type from
--# dmi data or acpi
--KERNEL!="card[0-9]-eDP-*", GOTO="gdm_laptop_check_end"
--SUBSYSTEM!="drm", GOTO="gdm_laptop_check_end"
--ACTION!="add", GOTO="gdm_laptop_check_end"
--RUN+="/usr/bin/touch /run/udev/gdm-machine-is-laptop"
--GOTO="gdm_hybrid_nvidia_laptop_check"
--LABEL="gdm_laptop_check_end"
--
--# If this is a hybrid graphics setup, take note
--KERNEL!="card[1-9]*", GOTO="gdm_hybrid_graphics_check_end"
--KERNEL=="card[1-9]-*", GOTO="gdm_hybrid_graphics_check_end"
--SUBSYSTEM!="drm", GOTO="gdm_hybrid_graphics_check_end"
--ACTION!="add", GOTO="gdm_hybrid_graphics_check_end"
--RUN+="/usr/bin/touch /run/udev/gdm-machine-has-hybrid-graphics"
--LABEL="gdm_hybrid_graphics_check_end"
--
+ # If this machine has an internal panel, take note, since it's probably a laptop
+@@ -84,12 +72,12 @@ ACTION!="add", GOTO="gdm_hybrid_graphics
+ RUN+="/usr/bin/touch /run/udev/gdm-machine-has-hybrid-graphics"
+ LABEL="gdm_hybrid_graphics_check_end"
+ 
 -# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
--LABEL="gdm_hybrid_nvidia_laptop_check"
--TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_end"
--TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_laptop_check_end"
--TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidia_laptop_check_end"
++# If this is a hybrid graphics laptop with vendor nvidia driver, prefer Wayland
+ LABEL="gdm_hybrid_nvidia_laptop_check"
+ TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_end"
+ TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_laptop_check_end"
+ TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidia_laptop_check_end"
 -GOTO="gdm_disable_wayland"
--LABEL="gdm_hybrid_nvidia_laptop_check_end"
--
++GOTO="gdm_end"
+ LABEL="gdm_hybrid_nvidia_laptop_check_end"
+ 
  # Disable wayland in situation where we're in a guest with a virtual gpu and host passthrough gpu
- LABEL="gdm_virt_passthrough_check"
- TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_virt_passthrough_check_end"
+@@ -118,8 +106,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
+ ATTR{parameters/modeset}!="Y", GOTO="gdm_disable_wayland"
+ # disable wayland for nvidia drivers versions lower than 470
+ ATTR{version}=="4[0-6][0-9].*|[0-3][0-9][0-9].*|[0-9][0-9].*|[0-9].*", GOTO="gdm_disable_wayland"
+-# For nvidia drivers versions Above 510, keep Wayland by default
+-ATTR{version}=="[5-9][1-9][0-9].*", GOTO="gdm_end"
++# For nvidia drivers versions Above 510, prefer Xorg by default
++ATTR{version}=="[5-9][1-9][0-9].*", GOTO="gdm_prefer_xorg"
+ # For nvidia drivers versions 470-495, prefer Xorg by default
+ GOTO="gdm_prefer_xorg"
+ LABEL="gdm_nvidia_drm_end"
