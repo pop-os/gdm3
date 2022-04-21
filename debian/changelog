@@ -1,3 +1,12 @@
+gdm3 (42.0-1ubuntu7) jammy; urgency=medium
+
+  [ Alberto Milone ]
+  * Default to Wayland for hybrid systems with Nvidia graphics drivers.
+    Default to Xorg but offer Wayland with the gear button on the login
+    screen for non-hybrid systems with Nvidia graphics drivers. (LP: #1968929)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 21 Apr 2022 06:32:09 -0400
+
 gdm3 (42.0-1ubuntu6) jammy; urgency=medium
 
   * Fix Wayland no longer being available for everyone
