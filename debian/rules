@@ -5,6 +5,8 @@ include /usr/share/dpkg/buildflags.mk
 include /usr/share/dpkg/pkg-info.mk
 include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 
+built_binaries := $(shell dh_listpackages)
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
 
@@ -65,6 +67,7 @@ override_dh_auto_build: $(OUTFILES) $(MANPAGES)
 
 override_dh_install:
 	dh_install
+ifneq ($(filter gdm3,$(built_binaries)),)
 	mv debian/gdm3/usr/sbin/gdm debian/gdm3/usr/sbin/gdm3
 	chmod 755 debian/gdm3/etc/gdm3/Xsession
 	chmod 755 debian/gdm3/usr/share/gdm/generate-config
@@ -75,13 +78,10 @@ override_dh_install:
 	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-exclusive
 	dh_installpam -pgdm3 --name=gdm-smartcard-sssd-or-password
 	dh_installpam -pgdm3 --name=gdm-smartcard-pkcs11-exclusive
+endif
 
 override_dh_missing:
-ifeq ($(just_the_library),yes)
-	dh_missing --list-missing
-else
 	dh_missing --fail-missing
-endif
 
 override_dh_makeshlibs:
 	dh_makeshlibs -- -c4
