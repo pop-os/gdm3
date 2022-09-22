@@ -1,3 +1,10 @@
+gdm3 (42.0-3) UNRELEASED; urgency=medium
+
+  [ Simon McVittie ]
+  * d/control.in: Depend on polkitd instead of policykit-1
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 22 Sep 2022 11:52:35 -0400
+
 gdm3 (42.0-2) experimental; urgency=medium
 
   * Team upload
