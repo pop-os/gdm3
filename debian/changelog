@@ -1,9 +1,12 @@
-gdm3 (42.0-3) UNRELEASED; urgency=medium
+gdm3 (43.0-1) UNRELEASED; urgency=medium
 
   [ Simon McVittie ]
   * d/control.in: Depend on polkitd instead of policykit-1
 
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 22 Sep 2022 11:52:35 -0400
+  [ Jeremy Bicha ]
+  * New upstream release
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 22 Sep 2022 12:05:32 -0400
 
 gdm3 (42.0-2) experimental; urgency=medium
 
