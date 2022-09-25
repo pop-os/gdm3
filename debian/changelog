@@ -1,12 +1,15 @@
-gdm3 (43.0-1) UNRELEASED; urgency=medium
+gdm3 (43.0-1) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * New upstream release
+  * debian/control.in: Build gdm3 on armel since gjs & mozjs102
+    are built there now
+  * Release to unstable
 
   [ Simon McVittie ]
   * d/control.in: Depend on polkitd instead of policykit-1
 
-  [ Jeremy Bicha ]
-  * New upstream release
-
- -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 22 Sep 2022 12:05:32 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 24 Sep 2022 23:48:19 -0400
 
 gdm3 (42.0-2) experimental; urgency=medium
 
