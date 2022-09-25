@@ -15,7 +15,7 @@ Build-Depends: check (>= 0.9.4),
                dh-sequence-gnome,
                docbook-xml,
                gettext (>= 0.19.8),
-               gjs [amd64 arm64 armhf i386 mips64el mipsel ppc64el s390x riscv64],
+               gjs [amd64 armel arm64 armhf i386 mips64el mipsel ppc64el s390x riscv64],
                gnome-pkg-tools (>= 0.16.3),
                gnome-settings-daemon-dev (>= 3.24.0),
                gobject-introspection (>= 0.10.7-1~),
@@ -49,7 +49,7 @@ Rules-Requires-Root: no
 Homepage: https://wiki.gnome.org/Projects/GDM/
 
 Package: gdm3
-Architecture: amd64 arm64 armhf i386 mips64el mipsel ppc64el s390x riscv64
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x riscv64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: accountsservice (>= 0.6.35),
          adduser,
