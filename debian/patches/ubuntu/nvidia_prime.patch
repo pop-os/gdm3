@@ -29,10 +29,10 @@ index 9202902..47d53e1 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index c1e2be0..e0352c1 100644
+index 4b70973..15453d1 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -3041,6 +3041,12 @@ gdm_session_close (GdmSession *self)
+@@ -3043,6 +3043,12 @@ gdm_session_close (GdmSession *self)
  
          g_list_free_full (self->outside_connections, g_object_unref);
          self->outside_connections = NULL;
@@ -46,7 +46,7 @@ index c1e2be0..e0352c1 100644
  
  void
 diff --git a/daemon/gdm-x-session.c b/daemon/gdm-x-session.c
-index 5962da5..dbd73ae 100644
+index 0b07ab5..1333644 100644
 --- a/daemon/gdm-x-session.c
 +++ b/daemon/gdm-x-session.c
 @@ -629,6 +629,11 @@ spawn_session (State        *state,
@@ -86,7 +86,7 @@ index 0000000..5a61c3c
 +    $primeswitch
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 7c5222e..14c58af 100644
+index 2dec4c2..6bac895 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -3,7 +3,7 @@ subdir('autostart')

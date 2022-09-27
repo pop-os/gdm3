@@ -100,10 +100,10 @@ index 0000000..08cb7b9
 +	zenity --warning --no-wrap --text="$TEXT"
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 14c58af..39c5bfe 100644
+index 6bac895..db711a8 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -211,8 +211,13 @@ if get_option('gdm-xsession')
+@@ -207,8 +207,13 @@ if get_option('gdm-xsession')
      output: '@BASENAME@',
      configuration: {
        'libexecdir': gdm_prefix / get_option('libexecdir'),

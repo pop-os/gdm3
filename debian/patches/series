@@ -1,14 +1,3 @@
-# Cherry-picked patches
-data-Be-a-little-more-specific-when-matching-PCI-cards.patch
-data-Disable-GDM-on-hybrid-graphics-laptops-with-vendor-N.patch
-data-Disable-wayland-on-nvidia-if-suspend-is-broken.patch
-data-Disable-wayland-on-some-server-chips.patch
-data-Disable-wayland-on-guests-with-passthrough-and-virt-.patch
-data-Disable-wayland-if-there-are-multiple-virtual-gpus.patch
-local-display-factory-Fix-type-of-signal-connection-id.patch
-local-display-factory-Stop-listening-to-udev-events-when-.patch
-Update-Basque-translation.patch
-# End cherry-picked patches
 16_xserver_path.patch
 90_config_comments.patch
 91_dconf_database_path.patch
