@@ -1,3 +1,31 @@
+gdm3 (43.0-1) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * New upstream release
+  * debian/control.in: Build gdm3 on armel since gjs & mozjs102
+    are built there now
+  * Release to unstable
+
+  [ Simon McVittie ]
+  * d/control.in: Depend on polkitd instead of policykit-1
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 24 Sep 2022 23:48:19 -0400
+
+gdm3 (42.0-2) experimental; urgency=medium
+
+  * Team upload
+  * Only build gdm3 on architectures with working mozjs102 and gjs.
+    gjs is likely to be removed from armel as part of the move to mozjs102
+    (see #1018076), and is unbuildable or fails tests on most non-release
+    architectures. gdm3 requires gnome-shell at runtime, which requires gjs.
+    To avoid having an uninstallable gdm3 package, only build it on
+    architectures where gjs is known to be available.
+  * NEWS: Use correct version number and suite (Closes: #1008663)
+  * Standards-Version: 4.6.1 (no changes required)
+  * Upload to experimental: unstable upload will be done as part of #1018076
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 31 Aug 2022 11:36:12 +0100
+
 gdm3 (42.0-1ubuntu7) jammy; urgency=medium
 
   [ Alberto Milone ]

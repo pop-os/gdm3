@@ -7,7 +7,7 @@ Section: gnome
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Iain Lane <laney@debian.org>, Jeremy Bicha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>
+Uploaders: Jeremy Bicha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>
 Build-Depends: check (>= 0.9.4),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 13),
@@ -16,6 +16,7 @@ Build-Depends: check (>= 0.9.4),
                dh-sequence-gnome,
                docbook-xml,
                gettext (>= 0.19.8),
+               gjs [amd64 armel arm64 armhf i386 mips64el mipsel ppc64el s390x riscv64],
                gnome-pkg-tools (>= 0.16.3),
                gnome-settings-daemon-dev (>= 3.24.0),
                gobject-introspection (>= 0.10.7-1~),
@@ -42,7 +43,7 @@ Build-Depends: check (>= 0.9.4),
                meson (>= 0.50),
                systemd,
                udev [linux-any]
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
 XS-Debian-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
 Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git -b ubuntu/master
@@ -51,7 +52,7 @@ Rules-Requires-Root: no
 Homepage: https://wiki.gnome.org/Projects/GDM/
 
 Package: gdm3
-Architecture: linux-any
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x riscv64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: accountsservice (>= 0.6.35),
          adduser,
@@ -75,7 +76,7 @@ Depends: accountsservice (>= 0.6.35),
          libpam-runtime (>= 0.76-13.1),
          librsvg2-common,
          lsb-base (>= 3.2-14),
-         policykit-1 (>= 0.105-5~) [linux-any],
+         polkitd [linux-any],
          procps,
          ucf,
          x11-common (>= 1:7.6+11),

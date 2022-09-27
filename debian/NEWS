@@ -1,4 +1,4 @@
-gdm3 (41.3-2) UNRELEASED; urgency=medium
+gdm3 (42.0-1) unstable; urgency=medium
 
   In Debian 11, gdm3 provided a desktop session named "System X11 Default",
   which would attempt to choose a desktop session implementation from

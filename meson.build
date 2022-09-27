@@ -1,5 +1,5 @@
 project('gdm', 'c',
-  version: '42.0',
+  version: '43.0',
   license: 'GPL2+',
   meson_version: '>= 0.50',
 )
@@ -11,6 +11,9 @@ i18n = import('i18n')
 
 # Compiler
 cc = meson.get_compiler('c')
+
+# Use GNU extensions if available
+add_project_arguments('-D_GNU_SOURCE', language: 'c')
 
 # Options
 gdm_prefix = get_option('prefix')
