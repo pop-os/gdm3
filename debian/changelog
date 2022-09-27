@@ -1,4 +1,4 @@
-gdm3 (43.0-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (43.0-1ubuntu1) kinetic; urgency=medium
 
   * Merge with debian, remaining changes:
     + readme.debian: update for correct paths in ubuntu
@@ -53,7 +53,7 @@ gdm3 (43.0-1ubuntu1) UNRELEASED; urgency=medium
       greeter's dconf db
   * debian/patches: Drop applied and refresh
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 27 Sep 2022 06:51:59 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 27 Sep 2022 07:23:05 +0200
 
 gdm3 (43.0-1) unstable; urgency=medium
 
