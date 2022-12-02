@@ -1,0 +1,15 @@
+Index: gdm/data/gdm.service.in
+===================================================================
+--- gdm.orig/data/gdm.service.in
++++ gdm/data/gdm.service.in
+@@ -15,6 +15,10 @@ After=${PLYMOUTH_QUIT_SERVICE}
+ # plymouth is quit, which we do)
+ After=rc-local.service plymouth-start.service systemd-user-sessions.service
+ 
++# Start after cloud init is done generating the system configuration
++# otherwise we might end up getting the wrong locale for example
++After=cloud-init.target
++
+ # GDM takes responsibility for stopping plymouth, so if it fails
+ # for any reason, make sure plymouth still stops
+ OnFailure=plymouth-quit.service
