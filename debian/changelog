@@ -1,3 +1,11 @@
+gdm3 (43.0-1ubuntu3) UNRELEASED; urgency=medium
+
+  * d/p/u/start-after-cloudinit.patch:
+    - use cloud-config.service instead of cloud-init.target to avoid moving
+      gdm.service after multi-user.target and blocking plymouth-quit-wait
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 14 Dec 2022 08:07:31 +0100
+
 gdm3 (43.0-1ubuntu2) lunar; urgency=medium
 
   * d/p/u/start-after-cloudinit.patch
