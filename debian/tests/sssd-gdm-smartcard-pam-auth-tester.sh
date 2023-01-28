@@ -201,6 +201,18 @@ EOF
     echo -n -e "$PIN" | runuser -u "$SUDO_USER" -- \
       pamtester -v gdm-smartcard "" authenticate  || return 2
 
+    if echo -n -e "wrong${PIN}" | runuser -u "$SUDO_USER" -- \
+        pamtester -v gdm-smartcard "$SUDO_USER" authenticate; then
+      echo "Unexpected pass!"
+      return 2
+    fi
+
+    if echo -n -e "wrong${PIN}" | runuser -u "$SUDO_USER" -- \
+        pamtester -v gdm-smartcard "" authenticate; then
+      echo "Unexpected pass!"
+      return 2
+    fi
+
     if echo -n -e "$PIN" | pamtester -v gdm-smartcard root authenticate; then
       echo "Unexpected pass!"
       return 2
