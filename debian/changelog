@@ -1,3 +1,22 @@
+gdm3 (43.0-2) unstable; urgency=medium
+
+  * debian/gdm3-gdm-smartcard*: Do not fail if pam_succeed_if suceeded.
+    We were not handling the success case in pam_succeed_if.so, and so even
+    if other modules were successful, gdm-smartcard was failing with a
+    permission denied error, because the pam_succeed_if default was bad, and
+    this was applied to the success case too.
+    Alternatively we could even just use success=ignore here, but it's
+    better to be consistent with other usages. (LP: #1999884)
+  * debian/gdm3.gdm-smartcard-sssd-or-password.pam: Always load gnome keyring
+    and nologin.
+    Ensure that we load the nologin and gnome-key-ring modules also if sss
+    module succeeded.
+  * debian/tests: Add autopkg tests testing gdm smartcard authentication.
+    Create fake certificates from fake CA's and verify they can be used with
+    from a virtual smartcard.
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 28 Jan 2023 09:57:53 +0100
+
 gdm3 (43.0-1ubuntu3) lunar; urgency=medium
 
   * d/p/u/start-after-cloudinit.patch:
