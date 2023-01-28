@@ -1,6 +1,6 @@
 Test-Command: sudo env
   OFFLINE_MODE=1
-  GDM_USER=Debian-gdm
+  GDM_USER=gdm
   bash debian/tests/sssd-gdm-smartcard-pam-auth-tester.sh
 Features: test-name=sssd-gdm-smartcard-auth-test
 Classes: desktop
