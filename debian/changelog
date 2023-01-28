@@ -1,4 +1,4 @@
-gdm3 (43.0-2) UNRELEASED; urgency=medium
+gdm3 (43.0-2) unstable; urgency=medium
 
   * debian/gdm3-gdm-smartcard*: Do not fail if pam_succeed_if suceeded.
     We were not handling the success case in pam_succeed_if.so, and so even
@@ -15,7 +15,7 @@ gdm3 (43.0-2) UNRELEASED; urgency=medium
     Create fake certificates from fake CA's and verify they can be used with
     from a virtual smartcard.
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 28 Jan 2023 09:56:06 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 28 Jan 2023 09:57:53 +0100
 
 gdm3 (43.0-1) unstable; urgency=medium
 
