@@ -13,7 +13,23 @@ gdm3 (43.0-3) UNRELEASED; urgency=medium
     Otherwise, the content of one arbitrary .pod file gets duplicated into
     each of the man pages. (Closes: #1029839)
 
- -- Simon McVittie <smcv@debian.org>  Sun, 29 Jan 2023 17:10:05 +0000
+  [ Simon McVittie ]
+  * d/tests: Avoid autopkgtest failure if test user has blank password.
+    If the test user has a blank password (which might be the case in an
+    expendable test VM) and PAM accepts blank passwords, then
+    gdm-smartcard-sssd-or-password will always authenticate successfully.
+    If that's the case, temporarily change the user's password to be
+    non-empty while running our tests. Also do the same for root.
+  * Move dbus-daemon security policy from /etc to /usr/share
+  * d/control.in: Drop unnecessary dependency on lsb-base
+  * d/control.in: Remove Multi-Arch: same from gir1.2-gdm-1.0.
+    It is not usefully multi-arch co-installable because it depends on
+    libgdm1, which contains /usr/bin/gdmflexiserver.
+  * d/po/sv.po: Transcode from ISO-8859-1 to UTF-8
+  * Update syntax of Lintian overrides
+  * Standards-Version: 4.6.2 (no changes required)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 29 Jan 2023 17:32:20 +0000
 
 gdm3 (43.0-2) unstable; urgency=medium
 
