@@ -1,3 +1,20 @@
+gdm3 (43.0-3) UNRELEASED; urgency=medium
+
+  * Team upload
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/tests/control: Use multi-line Test-Command for easier
+    maintenance
+  * debian/tests/sssd-gdm-smartcard-pam-auth-tester.sh:
+    Assert that entering the wrong PIN leads to authentication failure
+
+  [ Patrice Duroux ]
+  * d/rules: Generate one man page at a time.
+    Otherwise, the content of one arbitrary .pod file gets duplicated into
+    each of the man pages. (Closes: #1029839)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 29 Jan 2023 17:10:05 +0000
+
 gdm3 (43.0-2) unstable; urgency=medium
 
   * debian/gdm3-gdm-smartcard*: Do not fail if pam_succeed_if suceeded.
