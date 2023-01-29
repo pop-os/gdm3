@@ -9,10 +9,12 @@ Depends: bash,
          gnutls-bin,
          openssl,
          pamtester,
+         passwd,
          softhsm2,
          sssd,
          util-linux
-Restrictions: isolation-container,
+Restrictions: breaks-testbed,
+              isolation-container,
               needs-sudo,
               allow-stderr
 
