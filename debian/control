@@ -146,7 +146,6 @@ Description: GNOME Display Manager (development files)
 Package: gir1.2-gdm-1.0
 Section: introspection
 Architecture: linux-any
-Multi-Arch: same
 Depends: ${gir:Depends},
          ${misc:Depends},
          ${shlibs:Depends}
