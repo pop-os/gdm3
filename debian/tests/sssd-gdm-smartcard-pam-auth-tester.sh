@@ -134,7 +134,7 @@ backup_file /etc/shadow
 # Ensure that the test user has a non-trivial password. If it had a blank
 # password, then /etc/pam.d/gdm-smartcard-sssd-or-password would always
 # authenticate successfully
-if pamtester -v gdm-password "$SUDO_USER" authenticate; then
+if pamtester -v gdm-password "$SUDO_USER" authenticate </dev/null; then
     ( echo -n "$SUDO_USER:"; cat /proc/sys/kernel/random/uuid ) | chpasswd
 fi
 
