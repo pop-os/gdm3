@@ -137,10 +137,6 @@ backup_file /etc/shadow
 if pamtester -v gdm-password "$SUDO_USER" authenticate; then
     ( echo -n "$SUDO_USER:"; cat /proc/sys/kernel/random/uuid ) | chpasswd
 fi
-# Same, but for root
-if pamtester -v gdm-password root authenticate; then
-    ( echo -n "root:"; cat /proc/sys/kernel/random/uuid ) | chpasswd
-fi
 
 backup_file /etc/sssd/sssd.conf
 rm -f /etc/sssd/sssd.conf
