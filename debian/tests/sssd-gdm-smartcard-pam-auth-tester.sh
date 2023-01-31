@@ -114,12 +114,15 @@ function handle_exit() {
 trap 'handle_exit' EXIT
 
 tester="$(dirname "$0")"/sssd-softhism2-certificates-tests.sh
-if [ ! -e "$tester" ]; then
+if [ ! -e "$tester" ] && [[ ! -v OFFLINE_MODE ]]; then
   echo "Required $tester missing, we're downloading it..."
   tester="$tmpdir/sssd-softhism2-certificates-tests.sh"
   wget -q -c https://gist.github.com/3v1n0/287d02ca8e03936f1c7bba992173d47a/raw/sssd-softhism2-certificates-tests.sh \
     -O "$tester"
   [ -e "$tester" ] || exit 1
+elif [ ! -e "$tester" ] && [[ -v OFFLINE_MODE ]]; then
+  echo "Required $tester missing"
+  exit 1
 fi
 
 export PIN TEST_TMPDIR="$tmpdir" GENERATE_SMART_CARDS=1 KEEP_TEMPORARY_FILES=1 NO_SSSD_TESTS=1
@@ -173,6 +176,8 @@ function test_authentication() {
 
   mkdir -p -m 700 /etc/sssd
 
+  echo "Using CA DB '$ca_db' with verification options: '$verification_options'"
+
   cat <<EOF > /etc/sssd/sssd.conf || return 2
 [sssd]
 enable_files_domain = True
@@ -206,7 +211,7 @@ EOF
   systemctl restart sssd || return 2
 
   for alternative in "${alternative_pam_configs[@]}"; do
-    sudo update-alternatives --set gdm-smartcard "$alternative"
+    update-alternatives --set gdm-smartcard "$alternative" || return 2
 
     echo -n -e "$PIN" | runuser -u "$SUDO_USER" -- \
       pamtester -v gdm-smartcard "$SUDO_USER" authenticate  || return 2
