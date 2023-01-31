@@ -84,7 +84,7 @@ function backup_file() {
     [ ! -e "$back_path" ] || return 1
 
     mkdir -p "$back_dir" || return 1
-    mv "$1" "$back_path" || return 1
+    cp -a "$1" "$back_path" || return 1
 
     restore_paths+=("$back_path")
   else
@@ -128,7 +128,22 @@ bash "$tester"
 find "$tmpdir" -type d -exec chmod 777 {} \;
 find "$tmpdir" -type f -exec chmod 666 {} \;
 
+backup_file /etc/passwd
+backup_file /etc/shadow
+
+# Ensure that the test user has a non-trivial password. If it had a blank
+# password, then /etc/pam.d/gdm-smartcard-sssd-or-password would always
+# authenticate successfully
+if pamtester -v gdm-password "$SUDO_USER" authenticate; then
+    ( echo -n "$SUDO_USER:"; cat /proc/sys/kernel/random/uuid ) | chpasswd
+fi
+# Same, but for root
+if pamtester -v gdm-password root authenticate; then
+    ( echo -n "root:"; cat /proc/sys/kernel/random/uuid ) | chpasswd
+fi
+
 backup_file /etc/sssd/sssd.conf
+rm -f /etc/sssd/sssd.conf
 
 user_home="$(runuser -u "$SUDO_USER" -- sh -c 'echo ~')"
 mkdir -p "$user_home"
@@ -152,6 +167,7 @@ for path_pair in "${softhsm2_conf_paths[@]}"; do
   IFS=":" read -r -a path <<< "${path_pair}"
   path="${path[1]}"
   backup_file "$path"
+  rm -f "$path"
 done
 
 function test_authentication() {
