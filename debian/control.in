@@ -41,8 +41,8 @@ Build-Depends: check (>= 0.9.4),
 Standards-Version: 4.6.0
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git
 XS-Debian-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm
-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git -b ubuntu/master
-Vcs-Browser: https://salsa.debian.org/gnome-team/gdm/tree/ubuntu/master
+Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git -b ubuntu/jammy
+Vcs-Browser: https://salsa.debian.org/gnome-team/gdm/tree/ubuntu/jammy
 Rules-Requires-Root: no
 Homepage: https://wiki.gnome.org/Projects/GDM/
 
