@@ -1,11 +1,7 @@
 #!/usr/bin/dh-exec
 
 etc/dbus-1/system.d/gdm.conf		usr/share/dbus-1/system.d
-etc/gdm3/Init/Default
-etc/gdm3/PostLogin/Default.sample
-etc/gdm3/PostSession/Default
-etc/gdm3/PreSession/Default
-etc/gdm3/daemon.conf
+etc/gdm3/*
 
 lib/systemd/
 usr/lib/systemd/
