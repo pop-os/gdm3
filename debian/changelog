@@ -1,4 +1,4 @@
-gdm3 (43.0-3ubuntu1) UNRELEASED; urgency=medium
+gdm3 (43.0-3ubuntu1) lunar; urgency=medium
 
   [ Simon McVittie ]
   * d/tests: Don't reset root password.
@@ -77,7 +77,7 @@ gdm3 (43.0-3ubuntu1) UNRELEASED; urgency=medium
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 31 Jan 2023 17:15:42 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 31 Jan 2023 18:16:20 +0100
 
 gdm3 (43.0-3) unstable; urgency=medium
 
