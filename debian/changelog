@@ -1,3 +1,19 @@
+gdm3 (42.0-1ubuntu7.22.04.1) UNRELEASED; urgency=medium
+
+  * debian: Update vcs references to ubuntu/jammy branch
+  * debian/gdm3-gdm-smartcard*: Do not fail if pam_succeed_if suceeded.
+    We were not handling the success case in pam_succeed_if.so, and so even
+    if other modules were successful, gdm-smartcard was failing with a
+    permission denied error, because the pam_succeed_if default was bad, and
+    this was applied to the success case too.
+    Alternatively we could even just use success=ignore here, but it's
+    better to be consistent with other usages. (LP: #1999884)
+  * debian/tests: Add autopkg tests testing gdm smartcard authentication.
+    Create fake certificates from fake CA's and verify they can be used with
+    from a virtual smartcard.
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 31 Jan 2023 05:09:54 +0100
+
 gdm3 (42.0-1ubuntu7) jammy; urgency=medium
 
   [ Alberto Milone ]
