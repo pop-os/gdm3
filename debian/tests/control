@@ -1,10 +1,11 @@
-Test-Command: sudo env
+Test-Command: env
   OFFLINE_MODE=1
   GDM_USER=gdm
-  bash debian/tests/sssd-gdm-smartcard-pam-auth-tester.sh
+  bash debian/tests/sssd-gdm-smartcard-pam-auth-tester-env.sh
 Features: test-name=sssd-gdm-smartcard-auth-test
 Classes: desktop
-Depends: bash,
+Depends: adduser,
+         bash,
          gdm3,
          gnutls-bin,
          openssl,
@@ -12,9 +13,10 @@ Depends: bash,
          passwd,
          softhsm2,
          sssd,
+         sudo,
          util-linux
 Restrictions: breaks-testbed,
               isolation-container,
-              needs-sudo,
+              needs-root,
               allow-stderr
 
