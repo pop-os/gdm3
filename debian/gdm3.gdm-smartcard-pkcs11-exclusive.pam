@@ -1,6 +1,10 @@
 #%PAM-1.0
 auth    [success=ok user_unknown=ignore default=bad] pam_succeed_if.so user != root quiet_success
-auth    required        pam_pkcs11.so
+auth    [success=2 module_unknown=ignore default=die] pam_pkcs11.so
+# If pkcs11 is not installed or configured, we still fallback to default auth
+auth    optional        pam_echo.so PAM pkcs11 is not installed, Smart card authentication is not supported, falling back to default mechanism
+auth    substack        common-auth
+
 auth    required        pam_succeed_if.so user != root quiet_success
 auth    requisite       pam_nologin.so
 auth    optional        pam_gnome_keyring.so

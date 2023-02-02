@@ -1,6 +1,10 @@
 #%PAM-1.0
 auth    [success=ok user_unknown=ignore default=bad] pam_succeed_if.so user != root quiet_success
-auth    required        pam_sss.so allow_missing_name require_cert_auth
+auth    [success=2 module_unknown=ignore default=die] pam_sss.so allow_missing_name require_cert_auth
+# If SSSD is not installed or configured, we still fallback to default auth
+auth    optional        pam_echo.so SSSD PAM module is not installed, Smart card authentication is not supported, falling back to default mechanism
+auth    substack        common-auth
+
 auth    requisite       pam_nologin.so
 auth    optional        pam_gnome_keyring.so
 
