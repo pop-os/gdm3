@@ -1,3 +1,9 @@
+gdm3 (42.0-1ubuntu7pop1) jammy; urgency=medium
+
+  * Pop!_OS Updates
+
+ -- Brock <brock@pop-os.localdomain>  Wed, 08 Feb 2023 17:20:50 -0700
+
 gdm3 (42.0-1ubuntu7.22.04.1) jammy; urgency=medium
 
   * debian: Update vcs references to ubuntu/jammy branch
