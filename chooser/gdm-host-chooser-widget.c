@@ -414,9 +414,7 @@ xdmcp_discover (GdmHostChooserWidget *widget)
         do_ping (widget, TRUE);
 
 #if 0
-        if (widget->scan_time_id > 0) {
-                g_source_remove (widget->scan_time_id);
-        }
+        g_clear_handle_id (&widget->scan_time_id, g_source_remove);
 
         widget->scan_time_id = g_timeout_add_seconds (SCAN_TIMEOUT,
                                                             chooser_scan_time_update,
@@ -424,9 +422,7 @@ xdmcp_discover (GdmHostChooserWidget *widget)
 #endif
         /* Note we already used up one try */
         widget->ping_tries = PING_TRIES - 1;
-        if (widget->ping_try_id > 0) {
-                g_source_remove (widget->ping_try_id);
-        }
+        g_clear_handle_id (&widget->ping_try_id, g_source_remove);
 
         widget->ping_try_id = g_timeout_add_seconds (PING_TIMEOUT,
                                                      (GSourceFunc)ping_try,
@@ -493,7 +489,7 @@ find_broadcast_addresses (GdmHostChooserWidget *widget)
                                 continue;
                         }
 
-                        g_memmove (&sin, &ifreq.ifr_broadaddr, sizeof (struct sockaddr_in));
+                        memcpy (&sin, &ifreq.ifr_broadaddr, sizeof (struct sockaddr_in));
                         sin.sin_port = htons (XDM_UDP_PORT);
                         address = gdm_address_new_from_sockaddr ((struct sockaddr *) &sin, sizeof (sin));
                         if (address != NULL) {

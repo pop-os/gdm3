@@ -168,6 +168,8 @@ gdm_display_get_session_id (GdmDisplay *self)
 {
         GdmDisplayPrivate *priv;
 
+        g_return_val_if_fail (GDM_IS_DISPLAY (self), NULL);
+
         priv = gdm_display_get_instance_private (self);
         return priv->session_id;
 }
@@ -178,13 +180,9 @@ _create_access_file_for_user (GdmDisplay  *self,
                               GError     **error)
 {
         GdmDisplayAccessFile *access_file;
-        GError *file_error;
 
         access_file = gdm_display_access_file_new (username);
-
-        file_error = NULL;
-        if (!gdm_display_access_file_open (access_file, &file_error)) {
-                g_propagate_error (error, file_error);
+        if (!gdm_display_access_file_open (access_file, error)) {
                 return NULL;
         }
 
@@ -265,6 +263,8 @@ gdm_display_add_user_authorization (GdmDisplay *self,
         xcb_void_cookie_t         cookies[3];
 
         g_return_val_if_fail (GDM_IS_DISPLAY (self), FALSE);
+        g_return_val_if_fail (username != NULL, FALSE);
+        g_return_val_if_fail (filename != NULL, FALSE);
 
         priv = gdm_display_get_instance_private (self);
 
@@ -344,6 +344,7 @@ gdm_display_remove_user_authorization (GdmDisplay *self,
         GdmDisplayPrivate *priv;
 
         g_return_val_if_fail (GDM_IS_DISPLAY (self), FALSE);
+        g_return_val_if_fail (username != NULL, FALSE);
 
         priv = gdm_display_get_instance_private (self);
 
@@ -619,10 +620,8 @@ gdm_display_finish (GdmDisplay *self)
         g_return_val_if_fail (GDM_IS_DISPLAY (self), FALSE);
 
         priv = gdm_display_get_instance_private (self);
-        if (priv->finish_idle_id != 0) {
-                g_source_remove (priv->finish_idle_id);
-                priv->finish_idle_id = 0;
-        }
+
+        g_clear_handle_id (&priv->finish_idle_id, g_source_remove);
 
         _gdm_display_set_status (self, GDM_DISPLAY_FINISHED);
 
@@ -1250,10 +1249,7 @@ gdm_display_dispose (GObject *object)
 
         g_debug ("GdmDisplay: Disposing display");
 
-        if (priv->finish_idle_id != 0) {
-                g_source_remove (priv->finish_idle_id);
-                priv->finish_idle_id = 0;
-        }
+        g_clear_handle_id (&priv->finish_idle_id, g_source_remove);
         g_clear_object (&priv->launch_environment);
         g_clear_pointer (&priv->supported_session_types, g_strfreev);
 
@@ -1478,6 +1474,8 @@ GDBusObjectSkeleton *
 gdm_display_get_object_skeleton (GdmDisplay *self)
 {
         GdmDisplayPrivate *priv;
+
+        g_return_val_if_fail (GDM_IS_DISPLAY (self), NULL);
 
         priv = gdm_display_get_instance_private (self);
         return priv->object_skeleton;
@@ -1704,6 +1702,8 @@ gdm_display_start_greeter_session (GdmDisplay *self)
         char          *hostname;
         char          *auth_file = NULL;
 
+        g_return_if_fail (GDM_IS_DISPLAY (self));
+
         priv = gdm_display_get_instance_private (self);
         g_return_if_fail (g_strcmp0 (priv->session_class, "greeter") == 0);
 
@@ -1770,6 +1770,8 @@ gdm_display_stop_greeter_session (GdmDisplay *self)
 {
         GdmDisplayPrivate *priv;
 
+        g_return_if_fail (GDM_IS_DISPLAY (self));
+
         priv = gdm_display_get_instance_private (self);
 
         if (priv->launch_environment != NULL) {
@@ -1827,10 +1829,8 @@ gdm_display_set_windowpath (GdmDisplay *self)
         xcb_get_property_reply_t *get_property_reply = NULL;
         xcb_window_t root_window = XCB_WINDOW_NONE;
         const char *windowpath;
-        char *newwindowpath;
+        g_autofree gchar *newwindowpath = NULL;
         uint32_t num;
-        char nums[10];
-        int numn;
 
         priv = gdm_display_get_instance_private (self);
 
@@ -1868,13 +1868,10 @@ gdm_display_set_windowpath (GdmDisplay *self)
         num = ((uint32_t *) xcb_get_property_value (get_property_reply))[0];
 
         windowpath = getenv ("WINDOWPATH");
-        numn = snprintf (nums, sizeof (nums), "%u", num);
         if (!windowpath) {
-                newwindowpath = malloc (numn + 1);
-                sprintf (newwindowpath, "%s", nums);
+                newwindowpath = g_strdup_printf ("%u", num);
         } else {
-                newwindowpath = malloc (strlen (windowpath) + 1 + numn + 1);
-                sprintf (newwindowpath, "%s:%s", windowpath, nums);
+                newwindowpath = g_strdup_printf ("%s:%u", windowpath, num);
         }
 
         g_setenv ("WINDOWPATH", newwindowpath, TRUE);
@@ -1890,8 +1887,9 @@ gdm_display_connect (GdmDisplay *self)
         xcb_auth_info_t *auth_info = NULL;
         gboolean ret;
 
+        g_return_val_if_fail (GDM_IS_DISPLAY (self), FALSE);
+
         priv = gdm_display_get_instance_private (self);
-        ret = FALSE;
 
         g_debug ("GdmDisplay: Server is ready - opening display %s", priv->x11_display_name);
 

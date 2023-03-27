@@ -752,6 +752,8 @@ gdm_server_start (GdmServer *server)
         GError *local_error = NULL;
         GError **error = &local_error;
 
+        g_return_val_if_fail (GDM_IS_SERVER (server), FALSE);
+
         /* Hardcode the VT for the initial X server, but nothing else */
         if (server->is_initial) {
                 vtarg = "vt" G_STRINGIFY (GDM_INITIAL_VT);
@@ -802,15 +804,14 @@ gdm_server_stop (GdmServer *server)
 {
         int res;
 
+        g_return_val_if_fail (GDM_IS_SERVER (server), FALSE);
+
         if (server->pid <= 1) {
                 return TRUE;
         }
 
         /* remove watch source before we can wait on child */
-        if (server->child_watch_id > 0) {
-                g_source_remove (server->child_watch_id);
-                server->child_watch_id = 0;
-        }
+        g_clear_handle_id (&server->child_watch_id, g_source_remove);
 
         g_debug ("GdmServer: Stopping server");
 
