@@ -1,3 +1,16 @@
+gdm3 (43.0-4) UNRELEASED; urgency=medium
+
+  [ Simon McVittie ]
+  * d/tests: Don't reset root password
+  * d/tests: Explicitly use blank input when checking for blank password
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/tests/control: Add explicit dependency on libpam-sss
+  * debian/gdm3.install: Do not list config files, just install all gdm3 ones
+  * debian/tests/sssd-gdm-smartcard-pam-auth-tester.sh: Some minor cleanups
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 27 Mar 2023 15:26:20 -0400
+
 gdm3 (43.0-3) unstable; urgency=medium
 
   * Team upload
