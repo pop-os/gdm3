@@ -1,31 +1,31 @@
-# Hungarian translation for gdm.
-# Copyright (C) 2014 gdm's COPYRIGHT HOLDER
+# Hungarian translation for gdm help.
+# Copyright (C) 2014, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gdm package.
 #
-# Balázs Úr <urbalazs@gmail.com>, 2014.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: gdm master\n"
-"POT-Creation-Date: 2014-07-22 05:04+0000\n"
-"PO-Revision-Date: 2014-07-22 11:13+0200\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
-"Language-Team: Hungarian <gnome-hu-list@gnome.org>\n"
+"Project-Id-Version: gdm-help master\n"
+"POT-Creation-Date: 2022-07-07 18:01+0000\n"
+"PO-Revision-Date: 2023-03-19 23:14+0100\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Úr Balázs <urbalazs at gmail dot com>, 2014."
+msgstr "Úr Balázs <ur dot balazs at fsf dot hu>, 2014, 2023."
 
 #. (itstool) path: articleinfo/title
 #: C/index.docbook:13
 msgid "GNOME Display Manager Reference Manual"
-msgstr "GNOME bejelentkezéskezelő referencia-kézikönyv"
+msgstr "GNOME Kijelzőkezelő referencia-kézikönyv"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:16
@@ -35,7 +35,8 @@ msgstr "<revnumber>0.0</revnumber> <date>2008-09</date>"
 #. (itstool) path: abstract/para
 #: C/index.docbook:23
 msgid "GDM is the GNOME Display Manager, a graphical login program."
-msgstr "A GDM a GNOME bejelentkezéskezelő, egy grafikus bejelentkező program."
+msgstr ""
+"A GDM a GNOME Kijelzőkezelő, amely egy grafikus bejelentkezési program."
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:29
@@ -117,112 +118,6 @@ msgstr ""
 "<year>2003</year> <year>2011</year> <holder>Oracle és/vagy a tárvállalatai. "
 "Minden jog fenntartva.</holder>"
 
-#. (itstool) path: legalnotice/para
-#: C/index.docbook:2
-msgid ""
-"Permission is granted to copy, distribute and/or modify this document under "
-"the terms of the GNU Free Documentation License (GFDL), Version 1.1 or any "
-"later version published by the Free Software Foundation with no Invariant "
-"Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy "
-"of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl\">link</ulink> or "
-"in the file COPYING-DOCS distributed with this manual."
-msgstr ""
-"Jelen dokumentum szabadon másolható, terjeszthető és/vagy módosítható a GNU "
-"Free Documentation License (GFDL) 1.1-es verziója vagy a Free Software "
-"Foundation által kiadott ennél frissebb verziója alatt, a „Nem változtatható "
-"szakaszok”, „Címlapszövegek” és a „Hátlapszövegek” kivételével. A GFDL "
-"leírása <ulink type=\"help\" url=\"ghelp:fdl\">ezen az oldalon</ulink> "
-"érhető el, vagy a jelen dokumentációban található COPYING-DOCS fájlban."
-
-#. (itstool) path: legalnotice/para
-#: C/index.docbook:12 C/legal.xml:12
-msgid ""
-"This manual is part of a collection of GNOME manuals distributed under the "
-"GFDL. If you want to distribute this manual separately from the collection, "
-"you can do so by adding a copy of the license to the manual, as described in "
-"section 6 of the license."
-msgstr ""
-"Ez a kézikönyv része a GFDL alatt megjelenő GNOME dokumentációk "
-"gyűjteményének. A kézikönyv a gyűjteménytől függetlenül szabadon "
-"terjeszthető, a licenc másolatát mellékelve a 6. fejezetben leírtaknak "
-"megfelelően."
-
-#. (itstool) path: legalnotice/para
-#: C/index.docbook:19 C/legal.xml:19
-msgid ""
-"Many of the names used by companies to distinguish their products and "
-"services are claimed as trademarks. Where those names appear in any GNOME "
-"documentation, and the members of the GNOME Documentation Project are made "
-"aware of those trademarks, then the names are in capital letters or initial "
-"capital letters."
-msgstr ""
-"Számos név, amelyet cégek használnak termékeik és szolgáltatásuk "
-"megkülönböztetésére, védjegy alá esnek. Ahol ezek a nevek megjelennek a "
-"GNOME dokumentációkban és a GNOME Dokumentációs Projekt tagjai tájékozottak "
-"az adott védjegyről, ott ezek nagy kezdőbetűvel vagy csupa nagy betűvel "
-"szerepelnek."
-
-#. (itstool) path: listitem/para
-#: C/index.docbook:35 C/legal.xml:35
-msgid ""
-"DOCUMENT IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTY OF ANY KIND, "
-"EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT "
-"THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS "
-"MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE "
-"RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE OF THE DOCUMENT OR "
-"MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR "
-"MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL "
-"WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY "
-"SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN "
-"ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION "
-"OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND"
-msgstr ""
-"A DOKUMENTUM „JELEN ÁLLAPOTÁBAN” KERÜL KIADÁSRA MINDENFÉLE GARANCIAVÁLLALÁS "
-"NÉLKÜL, LEGYEN AZ KIFEJEZETT VAGY BELEÉRTETT, BELEÉRTVE, DE NEM "
-"KIZÁRÓLAGOSAN A FORGALOMBA HOZHATÓSÁGRA VAGY ALKALMAZHATÓSÁGRA, A JELEN "
-"DOKUMENTUMNAK VAGY ANNAK MÓDOSÍTOTT VERZIÓJÁNAK HIBAMENTESSÉGÉRE VONATKOZÓ "
-"GARANCIÁKAT. A DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT VÁLTOZATÁNAK MINŐSÉGÉBŐL ÉS "
-"FELHASZNÁLHATÓSÁGÁBÓL FAKADÓ ÖSSZES KOCKÁZAT A FELHASZNÁLÓT TERHELI. HA A "
-"DOKUMENTUM BIZONYÍTOTTAN HIBÁS, A FELHASZNÁLÓNAK MAGÁNAK (NEM A DOKUMENTUM "
-"ÍRÓJÁNAK, KIADÓJÁNAK VAGY BÁRMELY KÖZREMŰKÖDŐNEK) KELL VÁLLALNIA A "
-"JAVÍTÁSHOZ SZÜKSÉGES MINDEN KÖLTSÉGET. A JELEN GARANCIAELUTASÍTÁS A JELEN "
-"LICENC LÉNYEGI RÉSZE. A LEFEDETT DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT "
-"VERZIÓJÁNAK HASZNÁLATA CSAK A JELEN ELUTASÍTÁSSAL EGYÜTT ENGEDÉLYEZETT, ÉS"
-
-#. (itstool) path: listitem/para
-#: C/index.docbook:55 C/legal.xml:55
-msgid ""
-"UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING "
-"NEGLIGENCE), CONTRACT, OR OTHERWISE, SHALL THE AUTHOR, INITIAL WRITER, ANY "
-"CONTRIBUTOR, OR ANY DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION OF THE "
-"DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH PARTIES, BE LIABLE TO ANY PERSON "
-"FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF "
-"ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, "
-"WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER DAMAGES "
-"OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED "
-"VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE "
-"POSSIBILITY OF SUCH DAMAGES."
-msgstr ""
-"KÖRÜLMÉNYEKTŐL ÉS HATÁLYOS JOGSZABÁLYOKTÓL, A KÁRTÓL (BELEÉRTVE A "
-"GONDATLANSÁGOT), SZERZŐDÉS VAGY EGYEBEKTŐL FÜGGETLENÜL,A SZERZŐ, A "
-"DOKUMENTUM ÍRÓJA VAGY BÁRMELY FÉL BESZÁLLÍTÓJA NEM TEHETŐK FELELŐSSÉ A "
-"KÁROKÉRT, BELEÉRTVE MINDEN VÉLETLEN, VAGY KÖVETKEZMÉNYES KÁRT, AMELY A "
-"PROGRAM HASZNÁLATÁBÓL VAGY A HASZNÁLAT MEGAKADÁLYOZÁSÁBÓL SZÁRMAZIK "
-"(BELEÉRTVE, DE NEM KIZÁRÓLAGOSAN AZ ADATVESZTÉST ÉS A HELYTELEN "
-"ADATFELDOLGOZÁST, VALAMINT A MÁS PROGRAMOKKAL VALÓ HIBÁS EGYÜTTMŰKÖDÉST), "
-"MÉG AKKOR SEM, HA EZEN FELEK TUDATÁBAN VOLTAK, HOGY ILYEN KÁROK "
-"KELETKEZHETNEK."
-
-#. (itstool) path: legalnotice/para
-#: C/index.docbook:28 C/legal.xml:28
-msgid ""
-"DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS "
-"OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: "
-"<_:orderedlist-1/>"
-msgstr ""
-"A DOKUMENTUM ÉS A DOKUMENTUM MÓDOSÍTOTT VERZIÓJA A GNU FREE DOCUMENTATION "
-"LICENSE (GFDL) ALATT JELENIK MEG AZ ALÁBBI ÉRTELMEZÉSSEL: <_:orderedlist-1/>"
-
 #. (itstool) path: articleinfo/releaseinfo
 #. (itstool) path: sect1/para
 #: C/index.docbook:86 C/index.docbook:97
@@ -230,11 +125,13 @@ msgid ""
 "This manual describes version 2.26.0 of the GNOME Display Manager. It was "
 "last updated on 02/10/2009."
 msgstr ""
+"Ez a kézikönyv a GNOME Kijelzőkezelő 2.26.0-s verzióját ismerteti. Utoljára"
+" 2009. október 2-án volt frissítve."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:95
 msgid "Terms and Conventions Used in This Manual"
-msgstr ""
+msgstr "A kézikönyvben használt kifejezések és egyezmények"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:102
@@ -242,6 +139,9 @@ msgid ""
 "Chooser - A program used to select a remote host for managing a display "
 "remotely on the attached display (<command>gdm-host-chooser</command>)."
 msgstr ""
+"Választó: egy program, amelyet egy távoli gép kiválasztására használnak egy"
+" kijelzőnek a csatlakoztatott kijelzőn történő távoli kezeléséhez (<command"
+">gdm-host-chooser</command>)."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:107
@@ -250,6 +150,9 @@ msgid ""
 "Desktop Entry Specification used by GDM. <ulink type=\"http\" url=\"http://"
 "www.freedesktop.org/\"> http://www.freedesktop.org</ulink>."
 msgstr ""
+"FreeDesktop: az asztali szabványokat biztosító szervezet, mint például a GDM"
+" által használt asztalibejegyzés-specifikáció, bővebben: <ulink type=\"http\""
+" url=\"http://www.freedesktop.org/\">http://www.freedesktop.org</ulink>."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:113
@@ -257,6 +160,8 @@ msgid ""
 "GDM - GNOME Display Manager. Used to describe the software package as a "
 "whole."
 msgstr ""
+"GDM: GNOME Kijelzőkezelő (GNOME Display Manager). A szoftvercsomag egészének"
+" leírására szolgál."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:118
@@ -264,16 +169,18 @@ msgid ""
 "Greeter - The graphical login window (provided by <command>gnome-shell</"
 "command>)."
 msgstr ""
+"Üdvözlő: a grafikus bejelentkezési ablak (a <command>gnome-shell</command>"
+" által biztosítva)."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:122
 msgid "PAM - Pluggable Authentication Mechanism"
-msgstr ""
+msgstr "PAM: moduláris hitelesítési modulok"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:126
 msgid "XDMCP - X Display Manage Protocol"
-msgstr ""
+msgstr "XDMCP - X-megjelenítéskezelő protokoll"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:130
@@ -282,6 +189,9 @@ msgid ""
 "Xserver provided by the X.org Foundation <ulink type=\"http\" url=\"http://"
 "www.x.org/\">http://www.x.org</ulink>."
 msgstr ""
+"Xserve: az X ablakozó rendszer egy megvalósítása. Például az Xorg Xserver"
+" kiszolgálót az X.org Alapítvány (<ulink type=\"http\""
+" url=\"http://www.x.org/\">http://www.x.org</ulink>) biztosítja."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:136
@@ -291,16 +201,20 @@ msgid ""
 "to <filename>/usr/share/pixmaps</filename> if GDM was configured with "
 "<command>--prefix=/usr</command>."
 msgstr ""
+"A kúpos zárójelek között lévő szóval kezdődő útvonalak a telepítési előtagtól"
+" relatívak. Például a <filename>&lt;share&gt;/pixmaps/</filename> az <"
+"filename>/usr/share/pixmaps</filename> könyvtárra hivatkozik, ha a GDM a <"
+"command>--prefix=/usr</command> kapcsolóval lett beállítva."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:147
 msgid "Overview"
-msgstr ""
+msgstr "Áttekintés"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:150
 msgid "Introduction"
-msgstr ""
+msgstr "Bevezetés"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:152
@@ -309,6 +223,10 @@ msgid ""
 "significant features required for managing attached and remote displays. GDM "
 "was written from scratch and does not contain any XDM or X Consortium code."
 msgstr ""
+"A GNOME Display Manager (GDM) egy olyan kijelzőkezelő, amely megvalósítja a"
+" csatlakoztatott és távoli kijelzők kezeléséhez szükséges összes jelentős"
+" funkciót. A GDM a semmiből íródott, és nem tartalmaz semmilyen XDM vagy"
+" X-konzorcium kódot."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:159
@@ -316,6 +234,9 @@ msgid ""
 "Note that GDM is configurable, and many configuration settings have an "
 "impact on security. Issues to be aware of are highlighted in this document."
 msgstr ""
+"Vegye figyelembe, hogy a GDM konfigurálható, és számos beállítási lehetőség"
+" hatással van a biztonságra. Ebben a dokumentumban kiemelésre kerülnek azok a"
+" problémák, amelyekkel tisztában kell lenni."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:165
@@ -325,6 +246,10 @@ msgid ""
 "to behave as documented, then check to see if any related configuration may "
 "be different than described here."
 msgstr ""
+"Ne feledje, hogy egyes operációs rendszerek úgy állítják be a GDM-et, hogy az"
+" a jelen dokumentumban leírt alapértelmezett értékektől eltérően viselkedjen."
+" Ha úgy tűnik, hogy a GDM nem a dokumentáltak szerint viselkedik, akkor"
+" ellenőrizze, hogy a kapcsolódó beállítások eltérnek-e az itt leírtaktól."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:172
@@ -333,6 +258,9 @@ msgid ""
 "type=\"http\" url=\"http://wiki.gnome.org/Projects/GDM/\"> http://wiki.gnome."
 "org/Projects/GDM</ulink>."
 msgstr ""
+"A GDM-mel kapcsolatos további információkért nézze meg a projekt webhelyét a"
+" <ulink type=\"http\" url=\"http://wiki.gnome.org/Projects/GDM/\""
+">http://wiki.gnome.org/Projects/GDM</ulink> címen."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:178
@@ -344,6 +272,12 @@ msgid ""
 "list/\"> http://mail.gnome.org/archives/gdm-list/</ulink> and has a search "
 "facility to look for messages with keywords."
 msgstr ""
+"A GDM-mel kapcsolatos megbeszélések vagy kérdések esetén nézze meg a <address"
+"><email>gdm-list@gnome.org</email></address> levelezőlistát. Ez a lista"
+" archiválva van, és jó erőforrás a gyakori kérdések megválaszolásához. A"
+" lista a <ulink type=\"http\" url=\"http://mail.gnome.org/archives/gdm-list/\""
+">http://mail.gnome.org/archives/gdm-list/</ulink> címen van archiválva, és"
+" rendelkezik keresési funkcióval a kulcsszavakkal történő üzenetkereséshez."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:188
@@ -352,11 +286,14 @@ msgid ""
 "category in <ulink type=\"http\" url=\"http://bugzilla.gnome.org/\"> http://"
 "bugzilla.gnome.org</ulink>."
 msgstr ""
+"A hibajelentéseket és fejlesztési kéréseket a <ulink type=\"http\""
+" url=\"http://bugzilla.gnome.org/\">http://bugzilla.gnome.org</ulink> címen"
+" lévő „gdm” kategóriába küldje."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:197
 msgid "Interface Stability"
-msgstr ""
+msgstr "Az interfész stabilitása"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:199
@@ -368,6 +305,12 @@ msgid ""
 "options never made sense, and in part because some functionality has not "
 "been reimplemented yet."
 msgstr ""
+"A GDM 2.20 és a korábbi verziók stabil beállítási interfészeket támogattak. A"
+" kódbázist azonban teljesen átírták a GDM 2.22-höz, és nem teljesen"
+" kompatibilis visszafelé a régebbi kiadásokkal. Ez részben azért van, mert a"
+" dolgok másképp működnek, így néhány kapcsolónak egyszerűen nincs értelme,"
+" részben azért, mert néhány kapcsolónak soha nem volt értelme, részben pedig"
+" azért, mert néhány funkciót még nem valósítottak meg újra."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:208
@@ -378,6 +321,11 @@ msgid ""
 "filename> file continue to be supported. Also, the <filename>~/.dmrc</"
 "filename>, and face browser image locations are still supported."
 msgstr ""
+"A továbbra is stabilan támogatott interfészek közé tartoznak az Init,"
+" PreSession, PostSession, PostLogin és Xsession parancsfájlok. Az <filename"
+">&lt;etc&gt;/gdm/custom.conf</filename> beállítófájlban lévő néhány"
+" dámonbeállítási kapcsoló továbbra is támogatott. A <filename>~/.dmrc<"
+"/filename> és az arcböngésző képhelyei továbbra is támogatottak."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:217
@@ -388,11 +336,18 @@ msgid ""
 "based greeter themes, and the ability to run the XDMCP chooser from the "
 "login screen. These features were not added back during the 2.22 rewrite."
 msgstr ""
+"A GDM 2.20 és a korábbi verziók támogatták a több különálló grafikus"
+" kártyával rendelkező kijelzők kezelésének lehetőségét, mint például a"
+" terminálkiszolgáló környezetben használtakat, egy ablakban történő"
+" bejelentkezést egy olyan programon keresztül, mint az Xnest vagy a Xephyr, a"
+" gdmsetup programot, az XML-alapú üdvözlő témákat és az XDMCP választónak a"
+" bejelentkezési képernyőről történő futtatásának lehetőségét. Ezek a funkciók"
+" nem kerültek vissza a 2.22-es átírás során."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:229
 msgid "Functional Description"
-msgstr ""
+msgstr "Funkcionális leírás"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:240
@@ -403,6 +358,11 @@ msgid ""
 "in the \"Configuring GDM\" section of this document. GDM is also accessible "
 "for users with disabilities."
 msgstr ""
+"A GDM felelős a rendszer kijelzőinek kezeléséért. Ez magában foglalja a"
+" felhasználók hitelesítését, a felhasználói munkamenet elindítását és a"
+" felhasználói munkamenet megszüntetését. A GDM konfigurálható, és a"
+" beállítási módokat a dokumentum „A GDM beállítása” szakasza ismerteti. A GDM"
+" a fogyatékkal élő felhasználók számára is elérhető."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:248
@@ -413,6 +373,11 @@ msgid ""
 "the console via the Xserver Virtual Terminal (VT) interface. It also can "
 "manage XDMCP displays."
 msgstr ""
+"A GDM lehetővé teszi a fő konzol kijelzőjének és a virtuális terminálon"
+" keresztül indított kijelzőknek a kezelését. Integrálva van más programokkal,"
+" mint például a Fast User Switch Applet (FUSA) és a gnome-screensaver, hogy"
+" az Xserver virtuális terminál (VT) interfészen keresztül több kijelzőt"
+" tudjon kezelni a konzolon. Képes az XDMCP kijelzőket is kezelni."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:256
@@ -422,6 +387,10 @@ msgid ""
 "filename> script as the root user, and start the greeter program on the "
 "display."
 msgstr ""
+"A kijelző típusától függetlenül a GDM a kijelző kezelése során a következőket"
+" teszi. Elindít egy Xserver folyamatot, majd rendszergazda felhasználóként"
+" lefuttatja az <filename>Init</filename> parancsfájlt, és elindítja az"
+" üdvözlő programot a kijelzőn."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:263
@@ -440,6 +409,21 @@ msgid ""
 "the <command>--enable-split-authentication</command> <filename>./configure</"
 "filename> option, or one at a time via system PAM configuration."
 msgstr ""
+"Az üdvözlő program a jogosultság nélküli „gdm” felhasználóként/csoportként"
+" fut. Ezt a felhasználót és csoportot a dokumentum „Biztonság” szakasza"
+" ismerteti. Az üdvözlő program fő funkciói a bejelentkezési fiók kiválasztási"
+" mechanizmusának biztosítása, valamint a felhasználó és a rendszer közötti"
+" párbeszéd irányítása a fiók hitelesítése során. A hitelesítési folyamatot a"
+" PAM (Pluggable Authentication Modules – moduláris hitelesítési modulok)"
+" vezérli. A PAM-modulok határozzák meg, hogy a felhasználó milyen kéréseket"
+" kap (ha kap egyáltalán) a hitelesítéshez. Egy átlagos rendszeren az üdvözlő"
+" program felhasználónevet és jelszót kér a hitelesítéshez. Egyes rendszerek"
+" azonban úgy is konfigurálhatók, hogy kiegészítő mechanizmusokat, például"
+" ujjlenyomat- vagy intelligenskártya-olvasót használjanak. A GDM úgy is"
+" konfigurálható, hogy ezeket az alternatívákat párhuzamosan támogassa az"
+" üdvözlő bejelentkezési kiterjesztésekkel és az <command"
+">--enable-split-authentication</command> <filename>./configure</filename>"
+" kapcsolóval, vagy egyenként a rendszer PAM-konfigurációjával."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:282
@@ -447,6 +431,9 @@ msgid ""
 "The smartcard extension can be enabled or disabled via the <filename>org."
 "gnome.display-manager.extensions.smartcard.active</filename> gsettings key."
 msgstr ""
+"Az intelligens kártya kiterjesztés az <filename"
+">org.gnome.display-manager.extensions.smartcard.active</filename>"
+" gsettings-kulccsal engedélyezhető vagy tiltható le."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:288
@@ -455,6 +442,9 @@ msgid ""
 "<filename>org.gnome.display-manager.extensions.fingerprint.active</filename> "
 "gsettings key."
 msgstr ""
+"Hasonlóképpen, az ujjlenyomat kiterjesztés az <filename"
+">org.gnome.display-manager.extensions.fingerprint.active</filename>"
+" gsettings-kulccsal engedélyezhető vagy tiltható le."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:294
@@ -463,6 +453,10 @@ msgid ""
 "to automatically log in and simply start a session, which can be useful for "
 "some environments, such as single user systems or kiosks."
 msgstr ""
+"A GDM és a PAM úgy is konfigurálható, hogy ne igényeljen semmilyen bemenetet,"
+" amely azt eredményezi, hogy a GDM automatikusan bejelentkezik és egyszerűen"
+" elindít egy munkamenetet, ami hasznos lehet bizonyos környezetekben, például"
+" egyfelhasználós rendszereknél vagy kioszkoknál."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:301
@@ -477,6 +471,18 @@ msgid ""
 "and language in the user's <filename>~/.dmrc</filename> and will use these "
 "defaults if the user did not pick a session or language in the login GUI."
 msgstr ""
+"A hitelesítés mellett az üdvözlő program lehetővé teszi a felhasználó"
+" számára, hogy kiválassza, melyik munkamenetet indítsa el és milyen nyelvet"
+" használjon. A munkameneteket .desktop utótaggal végződő fájlok határozzák"
+" meg. Ezekről a fájlokról további információ a dokumentum „GDM felhasználói"
+" munkamenet és nyelvbeállítás” szakaszában található. Alapértelmezetten a GDM"
+" úgy van beállítva, hogy egy arcböngészőt jelenítsen meg, így a felhasználó"
+" egy képre kattintva kiválaszthatja felhasználói fiókját, ahelyett hogy be"
+" kellene gépelnie a felhasználónevét. A GDM nyomon követi a felhasználó"
+" alapértelmezett munkamenetét és nyelvét a felhasználó <filename>~/.dmrc<"
+"/filename> fájljában, és ezeket az alapértelmezéseket használja, ha a"
+" felhasználó nem választott munkamenetet vagy nyelvet a bejelentkezési"
+" felületen."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:314
@@ -495,11 +501,26 @@ msgid ""
 "user session is initialized. The <filename>PreSession</filename> script is "
 "called after session initialization."
 msgstr ""
+"A felhasználó hitelesítése után a démon rendszergazda felhasználóként"
+" lefuttatja a <filename>PostLogin</filename> parancsfájlt, majd rendszergazda"
+" felhasználóként lefuttatja a <filename>PreSession</filename> parancsfájlt."
+" Ezen parancsfájlok futtatása után a felhasználói munkamenet elindul. Ha a"
+" felhasználó kilép a munkamenetéből, akkor a <filename>PostSession</filename>"
+" parancsfájl lefut rendszergazdaként. Ezek a parancsfájlok horgokként"
+" szolgálnak a disztribúciók és a végfelhasználók számára, hogy személyre"
+" szabhassák a munkamenetek kezelését. Ezekkel a horgokkal például létrehozhat"
+" egy olyan gépet, amely menet közben hozza létre a felhasználó $HOME"
+" könyvtárát, és kijelentkezéskor törli azt. A <filename>PostLogin</filename>"
+" és a <filename>PreSession</filename> parancsfájlok között az a különbség,"
+" hogy a <filename>PostLogin</filename> a pam_open_session hívás előtt fut,"
+" így ez a megfelelő hely minden olyan feladatra, amelyet a felhasználói"
+" munkamenet előkészítése előtt kell lefuttatni. A <filename>PreSession<"
+"/filename> parancsfájl a munkamenet előkészítése után kerül meghívásra."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:334
 msgid "Greeter Panel"
-msgstr ""
+msgstr "Üdvözlő panel"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:335
@@ -518,6 +539,23 @@ msgid ""
 "require the user have appropriate authorization before accepting the "
 "shutdown or restart request."
 msgstr ""
+"A GDM üdvözlő program a képernyő aljára dokkolt panelt jelenít meg, amely"
+" további funkciókat biztosít. A felhasználó kiválasztásakor a panel lehetővé"
+" teszi a felhasználó számára, hogy a bejelentkezés után kiválassza a"
+" használni kívánt munkamenetet, nyelvet és billentyűzetkiosztást. A"
+" billentyűzetkiosztás-választó a jelszó beírásakor használt"
+" billentyűzetkiosztást is megváltoztatja. A panel tartalmaz egy területet is"
+" a bejelentkezési szolgáltatások számára, hogy állapotikonokat hagyjanak ott."
+" Néhány példa az állapotikonokra az akkumulátor ikonja az akkumulátor"
+" aktuális használatához, valamint az akadálymentesítési funkciók"
+" engedélyezésének ikonja. Az üdvözlő program olyan gombokat is biztosít,"
+" amelyek lehetővé teszik a felhasználó számára a rendszer leállítását vagy"
+" újraindítását. Szükség esetén a GDM úgy is konfigurálható, hogy a leállítás"
+" és újraindítás gombok ne jelenjenek meg. A GDM a PolicyKit segítségével"
+" (vagy az Oracle Solaris rendszeren lévő szerepalapú hozzáférés-vezérlésen"
+" keresztül) úgy is konfigurálható, hogy a leállítási vagy újraindítási kérés"
+" elfogadása előtt a felhasználónak megfelelő jogosultsággal kelljen"
+" rendelkeznie."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:352
@@ -525,11 +563,13 @@ msgid ""
 "Note that keyboard layout features are only available on systems that "
 "support libxklavier."
 msgstr ""
+"Vegye figyelembe, hogy a billentyűzetkiosztási funkciók csak a libxklavier"
+" támogatással rendelkező rendszereken érhetőek el."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:359
 msgid "Accessibility"
-msgstr ""
+msgstr "Akadálymentesítés"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:361
@@ -543,6 +583,17 @@ msgid ""
 "Configuration\" section of the document for more information how various "
 "accessibility features can be configured."
 msgstr ""
+"A GDM támogatja az „akadálymentes bejelentkezést”, amely lehetővé teszi a"
+" felhasználók számára, hogy akkor is bejelentkezzenek az asztali"
+" munkamenetükbe, ha nem tudják a képernyőt, az egeret vagy a billentyűzetet a"
+" szokásos módon, egyszerűen használni. Elérhetők az akadálymentes"
+" technológiai (AT) funkciók, mint például a képernyő-billentyűzet, a"
+" képernyőolvasó, a képernyőnagyító és az X-kiszolgáló AccessX"
+" billentyűzet-akadálymentesítése. Szükség esetén lehetőség van nagy méretű"
+" szöveg vagy nagy kontrasztú ikonok és vezérlők engedélyezésére is. A"
+" dokumentum „Akadálymentesítési beállítás” szakaszában további információkat"
+" talál arról, hogy hogyan lehet a különböző akadálymentesítési funkciókat"
+" beállítani."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:373
@@ -551,11 +602,15 @@ msgid ""
 "a member of the \"audio\" group for AT programs that require audio output "
 "(such as text-to-speech) to be functional."
 msgstr ""
+"Néhány operációs rendszeren meg kell győződni arról, hogy a GDM felhasználó"
+" tagja-e az „audio” csoportnak az olyan AT programok esetében, amelyeknek"
+" hangkimenetre van szükségük (például szövegről beszédre átalakító), hogy"
+" működőképesek legyenek."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:381
 msgid "The GDM Face Browser"
-msgstr ""
+msgstr "A GDB arcböngésző"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:383
@@ -571,6 +626,19 @@ msgid ""
 "all remote users, which caused performance problems in large, enterprise "
 "deployments."
 msgstr ""
+"Az arcböngésző egy olyan interfész, amely lehetővé teszi a felhasználók"
+" számára, hogy egy képre kattintva válasszák ki a felhasználónevüket. Ez a"
+" funkció az org.gnome.login-screen disable-user-list GSettings-kulcson"
+" keresztül engedélyezhető vagy tiltható le, és alapértelmezetten be van"
+" kapcsolva. Ha ki van kapcsolva, akkor a felhasználóknak kézzel kell beírniuk"
+" a teljes felhasználónevüket. Ha engedélyezve van, akkor megjeleníti az"
+" összes olyan helyi felhasználót, akik elérhetőek a bejelentkezésre a"
+" rendszeren (az /etc/passwd fájlban meghatározott összes felhasználói fiók,"
+" amelyeknek van érvényes parancsértelmezője és kellően magas UID-ja),"
+" valamint azokat a távoli felhasználókat, akik nemrég jelentkeztek be. A GDM"
+" 2.20 és a korábbi verziókban az arcböngésző az összes távoli felhasználót"
+" megpróbálta megjeleníteni, ami teljesítményproblémákat okozott a nagy,"
+" vállalati telepítésekben."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:397
@@ -579,6 +647,9 @@ msgid ""
 "frequently at the top of the list. This helps to ensure that users who log "
 "in frequently can quickly find their login image."
 msgstr ""
+"Az arcböngésző úgy van konfigurálva, hogy a leggyakrabban bejelentkező"
+" felhasználókat jelenítse meg a lista tetején. Ez segít abban, hogy a gyakran"
+" bejelentkező felhasználók gyorsan megtalálják bejelentkezési képüket."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:403
@@ -589,6 +660,12 @@ msgid ""
 "few characters of the username before the correct item in the list gets "
 "selected."
 msgstr ""
+"Az arcböngésző támogatja a „kiegészítési keresést”, amely dinamikusan a"
+" listában lévő megfelelő felhasználónévre mozgatja az arckiválasztást a"
+" felhasználó gépelése közben. Ez azt jelenti, hogy egy hosszú"
+" felhasználónévvel rendelkező felhasználónak csak a felhasználónév első"
+" néhány karakterét kell beírnia, mielőtt a megfelelő elem kiválasztásra kerül"
+" a listában."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:411
@@ -600,6 +677,13 @@ msgid ""
 "standard image that GTK+ can read, such as PNG or JPEG. Face icons placed in "
 "the global face directory must be readable to the GDM user."
 msgstr ""
+"A GDM által használt ikonokat a rendszergazda globálisan telepítheti, vagy a"
+" felhasználó saját könyvtárában is elhelyezhetők. Globális telepítés esetén a"
+" <filename>&lt;share&gt;/pixmaps/faces/</filename> könyvtárban kell lenniük,"
+" és a fájlnévnek a felhasználó nevének kell lennie. Az arcképfájloknak a GTK+"
+" által olvasható szabványos képeknek kell lenniük, például PNG vagy JPEG. A"
+" globális arcképek könyvtárában elhelyezett arcikonoknak a GDM felhasználó"
+" számára olvashatónak kell lenniük."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:427
@@ -610,6 +694,12 @@ msgid ""
 "icon</filename>. If still not found, it will use the value defined for "
 "\"face/picture=\" in the <filename>~/.gnome2/gdm</filename> file."
 msgstr ""
+"Ha a felhasználónak nincs globális ikonja, akkor a GDM a felhasználó $HOME"
+" könyvtárában keresi a képfájlt. A GDM először a felhasználó arcképét keresi"
+" a <filename>~/.face</filename> fájlban. Ha nem találja, akkor a <filename"
+">~/.face.icon</filename> fájlt próbálja meg. Ha még mindig nem találja, akkor"
+" a <filename>~/.gnome2/gdm</filename> fájlban meghatározott „face/picture=”"
+" értéket használja."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:436
@@ -618,6 +708,10 @@ msgid ""
 "defined in the current GTK+ theme. If no such image is defined, it will "
 "fallback to a generic face image."
 msgstr ""
+"Ha egy felhasználónak nincs meghatározott arcképe, akkor a GDM az aktuális"
+" GTK+ témában meghatározott „stock_person” ikont fogja használni. Ha nincs"
+" ilyen kép meghatározva, akkor egy általános arcképet fog használni"
+" tartalékként."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:442
@@ -627,6 +721,10 @@ msgid ""
 "load images over NIS or NFS, GDM does not attempt to load face images from "
 "remote home directories."
 msgstr ""
+"Ne feledje, hogy a távoli felhasználók saját könyvtáraiban található"
+" arcikonok betöltése és méretezése nagyon időigényes feladat lehet. Mivel a"
+" képek NIS-en vagy NFS-en keresztül történő betöltése nem praktikus, a GDM"
+" nem próbálja meg betölteni az arcképeket a távoli saját könyvtárakból."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:449
@@ -637,11 +735,18 @@ msgid ""
 "user does not need to guess valid usernames. In some very restrictive "
 "environments the face browser may not be appropriate."
 msgstr ""
+"Ha a böngésző be van kapcsolva, akkor a számítógépen lévő érvényes"
+" felhasználónevek mindenki számára láthatóvá válnak. Ha az XDMCP engedélyezve"
+" van, akkor a felhasználónevek a távoli felhasználók számára is láthatóak. Ez"
+" természetesen némileg korlátozza a biztonságot, mivel egy rosszindulatú"
+" felhasználónak nem kell kitalálnia az érvényes felhasználóneveket. Egyes"
+" nagyon szigorúan korlátozott környezetekben az arcböngésző nem biztos, hogy"
+" megfelelő."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:461
 msgid "XDMCP"
-msgstr ""
+msgstr "XDMCP"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:470
@@ -652,6 +757,12 @@ msgid ""
 "support, then the daemon will only grant access to hosts specified in the "
 "GDM service section in the TCP Wrappers configuration file."
 msgstr ""
+"A GDM-démon úgy is konfigurálható, hogy figyelje és kezelje a távoli"
+" kijelzőktől érkező X-kijelzőkezelési protokoll (XDMCP) kéréseket."
+" Alapértelmezetten az XDMCP-támogatás ki van kapcsolva, de igény szerint"
+" engedélyezhető. Ha a GDM TCP-csomagoló támogatással lett összeállítva, akkor"
+" a démon csak a TCP-csomagoló konfigurációs fájljában lévő GDM-szolgáltatás"
+" szakaszban megadott gépeknek ad hozzáférést."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:479
@@ -661,6 +772,11 @@ msgid ""
 "timeouts, etc. can be fine tuned. The default configuration should work "
 "reasonably on most systems."
 msgstr ""
+"A GDM számos olyan intézkedést tartalmaz, amelyek ellenállóbbá teszik az"
+" XDMCP-szolgáltatást érő szolgáltatásmegtagadási támadásokkal szemben. Sok"
+" protokollparaméter, a kézfogadási időkorlátok stb. finomhangolhatóak. Az"
+" alapértelmezett konfigurációnak észszerűen kell működnie a legtöbb"
+" rendszeren."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:486
@@ -669,6 +785,9 @@ msgid ""
 "XDMCP, port 177, and will respond to QUERY and BROADCAST_QUERY requests by "
 "sending a WILLING packet to the originator."
 msgstr ""
+"A GDM alapértelmezetten az XDMCP-kéréseket az XDMCP-nél használt normál"
+" UDP-porton, a 177-es porton figyeli, és a QUERY és BROADCAST_QUERY kérésekre"
+" egy WILLING csomag küldésével válaszol a küldőnek."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:492
@@ -681,6 +800,13 @@ msgid ""
 "are GDM. It is transparent and will be ignored by XDM or other daemons that "
 "implement XDMCP."
 msgstr ""
+"A GDM úgy is konfigurálható, hogy az INDIRECT lekérdezéseket tiszteletben"
+" tartsa, és gépválasztót jelenítsen meg a távoli kijelzőhöz. A GDM megjegyzi"
+" a felhasználó választását, és a későbbi kéréseket a kiválasztott kezelőhöz"
+" továbbítja. A GDM támogatja a protokoll olyan kiterjesztését is, amely"
+" elfelejteti az átirányítást, amint a felhasználó kapcsolódása sikerült. Ez a"
+" kiterjesztés csak akkor támogatott, ha mindkét démon GDM. Ez átlátszó, és az"
+" XDM vagy más, XDMCP-t megvalósító démonok figyelmen kívül fogják hagyni."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:502
@@ -688,6 +814,8 @@ msgid ""
 "If XDMCP seems to not be working, make sure that all machines are specified "
 "in <filename>/etc/hosts</filename>."
 msgstr ""
+"Ha úgy tűnik, hogy az XDMCP nem működik, akkor győződjön meg arról, hogy az"
+" összes gép meg van-e adva az <filename>/etc/hosts</filename> fájlban."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:507
@@ -695,11 +823,13 @@ msgid ""
 "Refer to the \"Security\" section for information about security concerns "
 "when using XDMCP."
 msgstr ""
+"Az XDMCP használata során felmerülő biztonsági problémákkal kapcsolatos"
+" információkért olvassa el a „Biztonság” szakaszt."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:514
 msgid "Logging"
-msgstr ""
+msgstr "Naplózás"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:516
@@ -709,6 +839,11 @@ msgid ""
 "working properly. Debug output can be enabled by setting the debug/Enable "
 "key to \"true\" in the <filename>&lt;etc&gt;/gdm/custom.conf</filename> file."
 msgstr ""
+"A GDM a rendszernaplót használja a hibák és az állapot naplózására. Naplózhat"
+" hibakeresési információkat is, amelyek hasznosak lehetnek a problémák"
+" felderítésében, ha a GDM nem működik megfelelően. A hibakeresési kimenetet"
+" az <filename>&lt;etc&gt;/gdm/custom.conf</filename> fájlban lévő"
+" debug/Enable kulcs „true” értékre állításával lehet engedélyezni."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:524
@@ -718,6 +853,10 @@ msgid ""
 "are saved to a file associated with the display value, <filename>&lt;"
 "display&gt;.log</filename>."
 msgstr ""
+"A különböző X-kiszolgálóktól származó kimenetek a GDM naplókönyvtárában"
+" kerülnek tárolásra, amely általában a <filename>&lt;var&gt;/log/gdm/<"
+"/filename> könyvtár. Az X-kiszolgáló minden üzenete a megjelenített értékhez"
+" tartozó <filename>&lt;display&gt;.log</filename> fájlba kerül mentésre."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:531
@@ -729,6 +868,13 @@ msgid ""
 "same user via GDM will cause any messages from the previous session to be "
 "lost."
 msgstr ""
+"A munkamenet kimenete átirányításra kerül a GDM-démonon keresztül a <filename"
+">~/<replaceable>$XDG_CACHE_HOME</replaceable>/gdm/session.log</filename>"
+" fájlba, amely általában a <filename>~/.cache/gdm/session.log</filename>"
+" fájlra kerül kiterjesztésre. A fájl minden egyes bejelentkezéskor"
+" felülíródik, így ugyanannak a felhasználónak a GDM-en keresztüli"
+" kijelentkezése és újbóli bejelentkezése az előző munkamenet minden"
+" üzenetének elvesztését okozza."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:540
@@ -738,11 +884,15 @@ msgid ""
 "replaceable>/gdm/session.log.XXXXXXXX</filename> where the "
 "<filename>XXXXXXXX</filename> are some random characters."
 msgstr ""
+"Vegye figyelembe, hogy ha a GDM valamilyen okból nem tudja létrehozni ezt a"
+" fájlt, akkor egy <filename>~/<replaceable>$XDG_CACHE_HOME</replaceable"
+">/gdm/session.log.XXXXXXXX</filename> nevű tartalékfájl lesz létrehozva, ahol"
+" az <filename>XXXXXXXX</filename> néhány véletlenszerű karakter."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:548
 msgid "Fast User Switching"
-msgstr ""
+msgstr "Gyors felhasználóváltás"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:550
@@ -754,6 +904,14 @@ msgid ""
 "mechanism. Note that some distributions may not add the User Switcher to the "
 "default panel configuration. It can be added using the panel context menu."
 msgstr ""
+"A GDM lehetővé teszi, hogy egyszerre több felhasználó is bejelentkezzen."
+" Miután egy felhasználó bejelentkezett, további felhasználók jelentkezhetnek"
+" be a GNOME panelen lévő felhasználóváltón keresztül, vagy a GNOME"
+" képernyővédőjének zároló képernyő párbeszédablakában lévő"
+" „Felhasználóváltás” gombra kattintva. Az aktív munkamenet ugyanezzel a"
+" mechanizmussal váltható oda és vissza. Vegye figyelembe, hogy egyes"
+" disztribúciók esetleg nem adják hozzá a felhasználóváltót az alapértelmezett"
+" panelkonfigurációhoz. A panel helyi menüjének használatával adható hozzá."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:559
@@ -761,16 +919,19 @@ msgid ""
 "Note this feature is available on systems that support Virtual Terminals. "
 "This feature will not function if Virtual Terminals is not available."
 msgstr ""
+"Vegye figyelembe, hogy ez a funkció a virtuális terminálokat támogató"
+" rendszereken érhető el. Ez a funkció nem fog működni, ha a virtuális"
+" terminálok nem érhetők el."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:570
 msgid "Security"
-msgstr ""
+msgstr "Biztonság"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:573
 msgid "The GDM User And Group"
-msgstr ""
+msgstr "A GDM felhasználója és csoportja"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:575
@@ -781,6 +942,13 @@ msgid ""
 "this user, so that the programs which interact with the user are run in a "
 "sandbox. This user and group should have limited privilege."
 msgstr ""
+"A megfelelő működéshez biztonsági okokból ajánlott egy külön erre a célra"
+" létrehozott felhasználó- és csoportazonosítót használni. Ez a felhasználó és"
+" csoport a legtöbb rendszeren általában „gdm”, de bármilyen felhasználóra"
+" vagy csoportra beállítható. Az összes grafikus felhasználói felületű GDM"
+" program ezen felhasználóként fut, így a felhasználóval interakcióba lépő"
+" programok egy védőfallal ellátott környezetben futnak. Ennek a"
+" felhasználónak és csoportnak korlátozott jogosultságokkal kell rendelkeznie."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:584
@@ -790,6 +958,11 @@ msgid ""
 "directory. The <filename>&lt;var&gt;/run/gdm</filename> directory should "
 "have root:gdm ownership and 1777 permissions."
 msgstr ""
+"A „gdm” felhasználó számára szükséges egyetlen különleges jogosultság az"
+" Xauth-fájlok olvasásának és írásának képessége a <filename"
+">&lt;var&gt;/run/gdm</filename> könyvtárban. A <filename>&lt;var&gt;/run/gdm<"
+"/filename> könyvtárnak root:gdm tulajdonjoggal és 1777 jogosultsággal kell"
+" rendelkeznie."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:592
@@ -804,6 +977,17 @@ msgid ""
 "example, the account should be setup to not have a password or allow non-"
 "root users to login to the account."
 msgstr ""
+"Soha, semmilyen körülmények között sem szabad a GDM felhasználót vagy"
+" csoportot olyan felhasználóra beállítani, amelyhez egy felhasználó könnyen"
+" hozzáférést szerezhet, például a <filename>nobody</filename> felhasználóhoz."
+" Bármely felhasználó, aki hozzáférést szerez egy Xauth-kulcshoz, kémkedhet a"
+" kapcsolódó munkamenetben futó grafikus felhasználói felületű programok után"
+" és vezérelheti azokat, vagy szolgáltatásmegtagadásos támadást hajthat végre"
+" ellene. Fontos gondoskodni arról, hogy a rendszer megfelelően legyen"
+" konfigurálva, és csak a „gdm” felhasználónak legyen hozzáférése ezekhez a"
+" fájlokhoz, illetve ne lehessen könnyen bejelentkezni ebbe a fiókba. Például"
+" a fiókot úgy kell beállítani, hogy ne legyen jelszava, vagy ne engedje, hogy"
+" nem rendszergazda felhasználók is bejelentkezhessenek a fiókba."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:605
@@ -815,11 +999,18 @@ msgid ""
 "a writable $HOME directory. However, some features of GDM may be disabled if "
 "it is unable to write state information to GConf configuration."
 msgstr ""
+"A GDM üdvözlő konfigurációja a GConf beállításai között van tárolva. Ahhoz,"
+" hogy a GDM felhasználó képes legyen a konfiguráció írására, az szükséges,"
+" hogy a „gdm” felhasználónak írható $HOME könyvtára legyen. A felhasználók"
+" tetszés szerint konfigurálhatják az alapértelmezett GConf konfigurációt,"
+" hogy ne kelljen írható $HOME könyvtárral rendelkező „gdm” felhasználót"
+" biztosítani. Azonban a GDM egyes funkciói letiltásra kerülhetnek, ha nem"
+" képes állapotinformációkat írni a GConf konfigurációba."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:617
 msgid "PAM"
-msgstr ""
+msgstr "PAM"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:619
@@ -830,6 +1021,12 @@ msgid ""
 "specific authentication behavior for different login programs (such as ssh, "
 "login GUI, screensaver, etc.)"
 msgstr ""
+"A GDM a PAM-et használja a bejelentkezés hitelesítésére. A PAM a Pluggable"
+" Authentication Modules (moduláris hitelesítési modulok) rövidítése, és a"
+" legtöbb olyan program használja, amely hitelesítést kér a számítógépen."
+" Lehetővé teszi a rendszergazdának, hogy a különböző bejelentkezési programok"
+" (például ssh, bejelentkezési grafikus felület, képernyővédő stb.) számára"
+" különleges hitelesítési viselkedést állítson be."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:627
@@ -842,6 +1039,14 @@ msgid ""
 "documentation to understand how to configure PAM and to understand terms "
 "used in this section."
 msgstr ""
+"A PAM bonyolult és nagymértékben konfigurálható, de ennek a dokumentációnak"
+" nem célja, hogy ezt részletesen elmagyarázza. Ehelyett inkább áttekintést"
+" kíván adni arról, hogy a PAM konfigurációja hogyan kapcsolódik a GDM-hez,"
+" hogyan konfigurálják általában a PAM-ot a GDM-mel, valamint az ismert"
+" problémákat ismerteti. Elvárható, hogy egy olyan személynek, akinek a PAM"
+" konfigurációját kell elvégeznie, a PAM dokumentációjának további olvasása"
+" szükséges ahhoz, hogy megértse, hogyan kell a PAM-ot konfigurálni, és hogy"
+" megértse az ebben a szakaszban használt kifejezéseket."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:637
@@ -853,6 +1058,12 @@ msgid ""
 "with the security implications of any changes you intend to make to your "
 "configuration."
 msgstr ""
+"A PAM konfigurációjának eltérő, de hasonló interfészei vannak a különböző"
+" operációs rendszereken, ezért a részletekért nézze meg a <ulink"
+" type=\"help\" url=\"man:pam.d\">pam.d</ulink> vagy <ulink type=\"help\""
+" url=\"man:pam.conf\">pam.conf</ulink> kézikönyvoldalakat. Győződjön meg"
+" arról, hogy elolvasta-e a PAM dokumentációját, és tisztában van-e a"
+" konfiguráción végrehajtani kívánt változtatások biztonsági vonatkozásaival."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:647
@@ -864,6 +1075,14 @@ msgid ""
 "systems this should work fine. However, the automatic login feature may not "
 "work if the gdm-autologin service is not defined."
 msgstr ""
+"Vegye figyelembe, hogy alapértelmezetten a GDM a „gdm” PAM-szolgáltatásnevet"
+" használja a normál bejelentkezéshez és a „gdm-autologin”"
+" PAM-szolgáltatásnevet az automatikus bejelentkezéshez. Előfordulhat, hogy"
+" ezek a szolgáltatások nincsenek meghatározva a pam.d vagy pam.conf"
+" beállítófájlban. Ha nincs bejegyzés, akkor a GDM az alapértelmezett"
+" PAM-viselkedést fogja használni. A legtöbb rendszeren ennek jól kell"
+" működnie. Azonban előfordulhat, hogy az automatikus bejelentkezés funkció"
+" nem működik, ha a gdm-autologin szolgáltatás nincs meghatározva."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:657
@@ -873,6 +1092,11 @@ msgid ""
 "allows the system administrator to add any scripting to the login process "
 "either before or after PAM initializes the session."
 msgstr ""
+"A <filename>PostLogin</filename> parancsfájl a pam_open_session meghívása"
+" előtt fut le, a <filename>PreSession</filename> parancsfájl pedig azután"
+" kerül meghívásra. Ez lehetővé teszi a rendszergazdának, hogy bármilyen"
+" parancsfájlt hozzáadjon a bejelentkezési folyamathoz akár a PAM-munkamenet"
+" előkészítése előtt, akár utána."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:665
@@ -885,6 +1109,13 @@ msgid ""
 "<address><email>gdm-list@gnome.org</email></address> mail list, so you can "
 "refer to the list archives for more information."
 msgstr ""
+"Ha a GDM-et más típusú hitelesítési mechanizmusokkal (például ujjlenyomat-"
+" vagy intelligenskártya-olvasóval) is működőképessé szeretné tenni, akkor ezt"
+" a kívánt hitelesítési típushoz tartozó PAM-szolgáltatási modul használatával"
+" kell megvalósítania, nem pedig a GDM-kód közvetlen módosításának"
+" kísérletével. Olvassa el a rendszerén lévő PAM-dokumentációt. Ennek módját"
+" gyakran megvitatták a <address><email>gdm-list@gnome.org</email></address>"
+" levelezőlistán, így a lista archívumában további információkra lelhet."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:676
@@ -896,6 +1127,13 @@ msgid ""
 "work, and it is best to research how this problem is commonly solved when "
 "setting up such a configuration."
 msgstr ""
+"A PAM-nak vannak bizonyos korlátai a tekintetben, hogy egyszerre több"
+" hitelesítési típussal is képes legyen dolgozni, például az intelligens"
+" kártya elfogadásának, illetve a felhasználónévnek és jelszónak a"
+" bejelentkezési programba való beírási képességének támogatásában. Vannak"
+" olyan technikák, amelyekkel ez működik, és a legjobb, ha egy ilyen"
+" konfiguráció beállításakor utánanéz, hogy ezt a problémát általában hogyan"
+" szokták megoldani."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:685
@@ -907,6 +1145,14 @@ msgid ""
 "your system has a pam_allow.so PAM module which does this, a PAM "
 "configuration to enable \"gdm-autologin\" would look like this:"
 msgstr ""
+"Ha az automatikus bejelentkezés nem működik egy rendszeren, akkor"
+" ellenőrizze, hogy a „gdm-autologin” PAM-verem meg van-e határozva a PAM"
+" konfigurációjában. Ahhoz, hogy ez működjön, olyan PAM-modult kell használni,"
+" amely egyszerűen nem végez hitelesítést, vagy amely egyszerűen PAM_SUCCESS"
+" értéket ad vissza az összes nyilvános interfészéről. Feltételezve, hogy a"
+" rendszere rendelkezik olyan pam_allow.so PAM-modullal, amely ezt teszi, a"
+" „gdm-autologin” engedélyezéséhez szükséges PAM-konfigurációnak így kellene"
+" kinéznie:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:695
@@ -919,6 +1165,12 @@ msgid ""
 "       gdm-autologin session  sufficient  pam_allow.so.1\n"
 "       gdm-autologin password  sufficient  pam_allow.so.1\n"
 msgstr ""
+"\n"
+"       gdm-autologin auth  required    pam_unix_cred.so.1\n"
+"       gdm-autologin auth  sufficient  pam_allow.so.1\n"
+"       gdm-autologin account  sufficient  pam_allow.so.1\n"
+"       gdm-autologin session  sufficient  pam_allow.so.1\n"
+"       gdm-autologin password  sufficient  pam_allow.so.1\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:703
@@ -926,6 +1178,9 @@ msgid ""
 "The above setup will cause no lastlog entry to be generated. If a lastlog "
 "entry is desired, then use the following for the session:"
 msgstr ""
+"A fenti beállítás nem fogja az utolsó bejelentkezés bejegyzésének"
+" előállítását eredményezni. Ha utolsó bejelentkezés bejegyzése szükséges,"
+" akkor használja a következőket a munkamenethez:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:708
@@ -934,6 +1189,8 @@ msgid ""
 "\n"
 "       gdm-autologin session required pam_unix_session.so.1\n"
 msgstr ""
+"\n"
+"       gdm-autologin session required pam_unix_session.so.1\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:712
@@ -946,6 +1203,14 @@ msgid ""
 "for a password. For this to work, the PAM configuration file for the \"gdm\" "
 "service must include a line such as:"
 msgstr ""
+"Ha a számítógépet többen használják, ami miatt az automatikus bejelentkezés"
+" nem megfelelő, akkor egyes felhasználók számára engedélyezheti a jelszó"
+" megadása nélküli bejelentkezést. Ezt a funkciót a gnome-system-tools"
+" programban lévő users-admin eszközben lehet felhasználónként engedélyezni."
+" Ez úgy érhető el, hogy a jelszó bekérése előtt ellenőrzi, hogy a felhasználó"
+" tagja-e a „nopasswdlogin” nevű Unix-csoportnak. Ahhoz, hogy ez működjön, a"
+" „gdm” szolgáltatás PAM-beállítófájljának tartalmaznia kell egy ehhez hasonló"
+" sort:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:723
@@ -954,11 +1219,13 @@ msgid ""
 "\n"
 "      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin\n"
 msgstr ""
+"\n"
+"      gdm auth  sufficient  pam_succeed_if.so  user ingroup nopasswdlogin\n"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:730
 msgid "utmp and wtmp"
-msgstr ""
+msgstr "utmp és wtmp"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:732
@@ -972,11 +1239,21 @@ msgid ""
 "\" url=\"man:utmp\">utmp</ulink> and <ulink type=\"help\" url=\"man:wtmp"
 "\">wtmp</ulink> man pages on your system for more information."
 msgstr ""
+"A GDM utmp és wtmp felhasználó-nyilvántartási adatbázis-bejegyzéseket állít"
+" elő a munkamenetbe történő bejelentkezéskor és kijelentkezéskor. Az"
+" utmp-adatbázis tartalmazza a felhasználók hozzáférési és nyilvántartási"
+" adatait, amelyekhez olyan parancsok férnek hozzá, mint a <command>finger<"
+"/command>, <command>last</command>, <command>login</command> és <command>who<"
+"/command>. A wtmp-adatbázis tartalmazza az utmp-adatbázis"
+" felhasználó-hozzáférési és nyilvántartási információinak előzményeit."
+" További információkért olvassa el az <ulink type=\"help\" url=\"man:utmp\""
+">utmp</ulink> és <ulink type=\"help\" url=\"man:wtmp\">wtmp</ulink>"
+" kézikönyvoldalakat a rendszerén."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:747
 msgid "Xserver Authentication Scheme"
-msgstr ""
+msgstr "X-kiszolgáló hitelesítési séma"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:749
@@ -987,6 +1264,12 @@ msgid ""
 "\"password\" is unique for each session logged in, so users from one session "
 "can't snoop on users from another."
 msgstr ""
+"Az X-kiszolgáló felhatalmazási fájljai a <filename>&lt;var&gt;/run/gdm<"
+"/filename> egy újonnan létrehozott alkönyvtárában vannak eltárolva az"
+" induláskor. Ezeket a fájlokat az X-ügyfelek és az X-kiszolgáló közötti"
+" „jelszó” tárolására és megosztására használják. Ez a „jelszó” egyedi minden"
+" egyes bejelentkezett munkamenetnél, így az egyik munkamenet felhasználói nem"
+" hallgathatják ki a másik munkamenet felhasználóit."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:757
@@ -1002,11 +1285,23 @@ msgid ""
 "think of XDMCP as a sort of graphical telnet, having the same security "
 "issues. In most cases, ssh -Y should be preferred over GDM's XDMCP features."
 msgstr ""
+"A GDM csak a MIT-MAGIC-COOKIE-1 X-kiszolgáló hitelesítési sémát támogatja."
+" Általában keveset lehet nyerni a többi sémából, és eddig nem is tettek"
+" erőfeszítést a megvalósításukra. Különösen óvatosnak kell lenni az XDMCP"
+" használatával, mert az X-kiszolgáló hitelesítési sütije nyílt szövegként"
+" megy át a hálózaton. Ha a lehallgatás lehetséges, akkor egy támadó a"
+" használt hitelesítési sémától függetlenül egyszerűen lehallgathatja a"
+" hitelesítési jelszavát, amikor bejelentkezik. Ha a lehallgatás lehetséges és"
+" nem kívánatos, akkor inkább ssh-t kell használni az X-kapcsolat alagútjának"
+" létrehozására az XDMCP használata helyett. Az XDMCP-re egyfajta grafikus"
+" telnetként is gondolhat, amelynek ugyanolyan biztonsági problémái vannak. A"
+" legtöbb esetben az ssh -Y előnyben részesítendő a GDM XDMCP funkcióival"
+" szemben."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:774
 msgid "XDMCP Security"
-msgstr ""
+msgstr "XDMCP biztonság"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:776
@@ -1015,6 +1310,9 @@ msgid ""
 "keystrokes typed when entering passwords will still go over the wire in "
 "clear text. It is trivial to capture these."
 msgstr ""
+"Annak ellenére, hogy a kijelzőt sütik védik, az X-események és így a"
+" jelszavak bevitele során beírt billentyűleütések továbbra is nyílt"
+" szövegként kerülnek átvitelre a hálózaton. Ezek elfogása triviális."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:782
@@ -1027,11 +1325,19 @@ msgid ""
 "is the server. This type of set up should never use an unmanaged hub or "
 "other sniffable network."
 msgstr ""
+"Az XDMCP elsősorban vékony kliensek futtatásához hasznos, például terminál"
+" laborokban. Ezeknek a vékony klienseknek mindig csak a kiszolgáló eléréséhez"
+" van szükségük a hálózatra, ezért a legjobb biztonsági irányelvnek az tűnik,"
+" ha ezek a vékony kliensek külön hálózaton vannak, amelyhez a külvilág nem"
+" férhet hozzá, és csak a kiszolgálóhoz tudnak kapcsolódni. Az egyetlen pont,"
+" ahonnan a külvilágot el kell érni, az a kiszolgáló. Az ilyen típusú"
+" beállítások soha nem használhatnak kezeletlen elosztót vagy más"
+" lehallgatható hálózatot."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:795
 msgid "XDMCP Access Control"
-msgstr ""
+msgstr "XDMCP hozzáférés-vezérlés"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:797
@@ -1040,6 +1346,9 @@ msgid ""
 "GDM without TCP wrapper support, so this feature may not be supported on "
 "some Operating Systems."
 msgstr ""
+"Az XDMCP hozzáférés-vezérlése TCP-csomagolók használatával történik."
+" Lehetséges a GDM-et TCP-csomagoló támogatása nélkül is lefordítani, így"
+" előfordulhat, hogy ez a funkció nem támogatott néhány operációs rendszeren."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:803
@@ -1049,6 +1358,11 @@ msgid ""
 "filename> files. For example to deny computers from <filename>.evil.domain</"
 "filename> from logging in, then add"
 msgstr ""
+"A <command>gdm</command> démon nevét kell használnia a <filename"
+">&lt;etc&gt;/hosts.allow</filename> és a <filename>&lt;etc&gt;/hosts.deny<"
+"/filename> fájlokban. Például az <filename>.evil.domain</filename>"
+" tartományból származó számítógépek bejelentkezésének megtagadásához adja"
+" hozzá a következőt:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:810
@@ -1057,12 +1371,16 @@ msgid ""
 "\n"
 "gdm: .evil.domain\n"
 msgstr ""
+"\n"
+"gdm: .evil.domain\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:813
 msgid ""
 "to <filename>&lt;etc&gt;/hosts.deny</filename>. You may also need to add"
 msgstr ""
+"a <filename>&lt;etc&gt;/hosts.deny</filename> fájlhoz. Szükség lehet még a"
+" következő hozzáadására:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:817
@@ -1071,6 +1389,8 @@ msgid ""
 "\n"
 "gdm: .your.domain\n"
 msgstr ""
+"\n"
+"gdm: .your.domain\n"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:820
@@ -1079,11 +1399,15 @@ msgid ""
 "disallow all services from all hosts. See the <ulink type=\"help\" url=\"man:"
 "hosts.allow\">hosts.allow(5)</ulink> man page for details."
 msgstr ""
+"a <filename>&lt;etc&gt;/hosts.allow</filename> fájlhoz, ha általában az"
+" összes szolgáltatást letiltja az összes gépről. A részletekért nézze meg a <"
+"ulink type=\"help\" url=\"man:hosts.allow\">hosts.allow(5)</ulink>"
+" kézikönyvoldalt."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:829
 msgid "Firewall Security"
-msgstr ""
+msgstr "Tűzfal biztonság"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:831
@@ -1096,6 +1420,15 @@ msgid ""
 "remote connection takes up lots of resources, so it is much easier to do a "
 "denial of service attack via XDMCP than attacking a webserver."
 msgstr ""
+"Annak ellenére, hogy a GDM megpróbál túljárni az XDMCP-t kihasználni próbáló"
+" potenciális támadók eszén, mégis azt tanácsoljuk, hogy blokkolja az"
+" XDMCP-portot (általában a 177-es UDP-portot) a tűzfalán, hacsak valóban"
+" nincs rá szükség. A GDM védelmet nyújt a szolgáltatásmegtagadásos támadások"
+" ellen, de az X protokoll még mindig eleve nem biztonságos, és csak"
+" ellenőrzött környezetekben szabad használni. Emellett minden egyes távoli"
+" kapcsolat sok erőforrást vesz igénybe, így sokkal könnyebb"
+" szolgáltatásmegtagadásos támadást végrehajtani az XDMCP-n keresztül, mint"
+" egy webkiszolgálót megtámadni."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:842
@@ -1104,6 +1437,10 @@ msgid ""
 "(one for each display number) on your firewall. Note that GDM will use "
 "display numbers 20 and higher for flexible on-demand servers."
 msgstr ""
+"Az összes X-kiszolgáló portot is bölcs dolog blokkolni. Ezek a 6000 fölötti"
+" TCP-portok (minden kijelzőszámhoz egy) a tűzfalon. Vegye figyelembe, hogy a"
+" GDM a 20-as és annál magasabb kijelzőszámokat használja a rugalmas, igény"
+" szerinti kiszolgálókhoz."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:849
@@ -1111,11 +1448,13 @@ msgid ""
 "X is not a very safe protocol when using it over the Internet, and XDMCP is "
 "even less safe."
 msgstr ""
+"Az X nem túl biztonságos protokoll, ha az interneten keresztül használják, az"
+" XDMCP pedig még kevésbé biztonságos."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:856
 msgid "PolicyKit"
-msgstr ""
+msgstr "PolicyKit"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:864
@@ -1124,6 +1463,10 @@ msgid ""
 "control whether the login screen should provide the shutdown and restart "
 "buttons on the greeter screen."
 msgstr ""
+"A GDM úgy is konfigurálható, hogy PolicyKitet használjon annak lehetővé"
+" tételére, hogy a rendszergazda vezérelhesse azt, hogy a bejelentkezési"
+" képernyő biztosítson-e leállítás és újraindítás gombokat az üdvözlő"
+" képernyőn."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:870
@@ -1134,11 +1477,16 @@ msgid ""
 "Policy for these actions can be set up using the polkit-gnome-authorization "
 "tool, or the polkit-auth command line program."
 msgstr ""
+"Ezeket a gombokat az <filename>org.freedesktop.consolekit.system.stop-multiple"
+"-users</filename> és az <filename>org.freedesktop.consolekit.system.restart-mu"
+"ltiple-users</filename> műveletek vezérlik, ebben a sorrendben. Ezeknek a"
+" műveleteknek a házirendjét a polkit-gnome-authorization eszköz vagy a"
+" polkit-auth parancssori program használatával lehet beállítani."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:882
 msgid "RBAC (Role Based Access Control)"
-msgstr ""
+msgstr "RBAC (szerepalapú hozzáférés-vezérlés)"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:884
@@ -1147,6 +1495,11 @@ msgid ""
 "RBAC configuration is used to control whether the login screen should "
 "provide the shutdown and restart buttons on the greeter screen."
 msgstr ""
+"A GDM úgy is konfigurálható, hogy szerepalapú hozzáférés-vezérlést (RBAC)"
+" használjon a PolicyKit helyett. Ebben az esetben a szerepalapú"
+" hozzáférés-vezérlés konfigurációja használható annak vezérlésére, hogy a"
+" bejelentkezési képernyő biztosítson-e leállítás és újraindítás gombokat az"
+" üdvözlő képernyőn."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:890
@@ -1155,11 +1508,15 @@ msgid ""
 "authorization is used to control this. Simply modify the <filename>/etc/"
 "user_attr</filename> file so that the \"gdm\" user has this authorization."
 msgstr ""
+"Például az Oracle Solaris rendszeren a „solaris.system.shutdown”"
+" felhatalmazást használják ennek vezérlésére. Egyszerűen módosítsa az <"
+"filename>/etc/user_attr</filename> fájlt úgy, hogy a „gdm” felhasználó"
+" rendelkezzen ezzel a felhatalmazással."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:903
 msgid "Support for ConsoleKit"
-msgstr ""
+msgstr "ConsoleKit támogatás"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:914
@@ -1206,7 +1563,7 @@ msgstr ""
 #. (itstool) path: sect1/title
 #: C/index.docbook:954
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítás"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:956
@@ -1999,10 +2356,10 @@ msgstr ""
 #: C/index.docbook:1551
 msgid ""
 "If the Xserver does not respond in the specified number of seconds, then the "
-"connection is stopped and the session ended. When this happens the "
-"daemon dies with an ALARM signal. Note that GDM 2.20 and earlier multiplied "
-"this setting by 2, so it may be necessary to increase the timeout if "
-"upgrading from GDM 2.20 and earlier to a newer version."
+"connection is stopped and the session ended. When this happens the daemon "
+"dies with an ALARM signal. Note that GDM 2.20 and earlier multiplied this "
+"setting by 2, so it may be necessary to increase the timeout if upgrading "
+"from GDM 2.20 and earlier to a newer version."
 msgstr ""
 
 #. (itstool) path: listitem/para
@@ -2219,7 +2576,7 @@ msgstr ""
 #. (itstool) path: sect2/title
 #: C/index.docbook:1733
 msgid "Accessibility Configuration"
-msgstr ""
+msgstr "Akadálymentesítési beállítások"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1735
@@ -2334,7 +2691,7 @@ msgstr ""
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:1832
-msgid "Linking GConf Keys to Accessbility Tools"
+msgid "Linking GConf Keys to Accessibility Tools"
 msgstr ""
 
 #. (itstool) path: sect3/para
@@ -2355,12 +2712,12 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"AutostartCondition=GNOME "
-"/desktop/gnome/applications/at/screen_keyboard_enabled\n"
-"AutostartCondition=GNOME "
-"/desktop/gnome/applications/at/screen_magnifier_enabled\n"
-"AutostartCondition=GNOME "
-"/desktop/gnome/applications/at/screen_reader_enabled\n"
+"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enable"
+"d\n"
+"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_magnifier_enabl"
+"ed\n"
+"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_reader_enabled"
+"\n"
 msgstr ""
 
 #. (itstool) path: sect3/para
@@ -2417,8 +2774,8 @@ msgid ""
 "Type=Application\n"
 "StartupNotify=true\n"
 "Categories=GNOME;GTK;Accessibility;\n"
-"AutostartCondition=GNOME "
-"/desktop/gnome/applications/at/screen_keyboard_enabled\n"
+"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enable"
+"d\n"
 msgstr ""
 
 #. (itstool) path: sect3/para
@@ -2442,8 +2799,8 @@ msgid ""
 "Type=Application\n"
 "StartupNotify=true\n"
 "Categories=GNOME;GTK;Accessibility;\n"
-"AutostartCondition=GNOME "
-"/desktop/gnome/applications/at/screen_keyboard_enabled\n"
+"AutostartCondition=GNOME /desktop/gnome/applications/at/screen_keyboard_enable"
+"d\n"
 msgstr ""
 
 #. (itstool) path: sect3/para
@@ -2567,7 +2924,7 @@ msgstr ""
 #. (itstool) path: sect2/title
 #: C/index.docbook:2036
 msgid "GDM User Session and Language Configuration"
-msgstr ""
+msgstr "GDM felhasználói munkamenet és nyelvbeállítás"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2037
@@ -2578,6 +2935,12 @@ msgid ""
 "these default values by simply changing to a different value when logging "
 "in. GDM will remember this change for subsequent logins."
 msgstr ""
+"A felhasználó alapértelmezett munkamenet- és nyelvválasztása a <filename"
+">~/.dmrc</filename> fájlban van tárolva. Amikor egy felhasználó először"
+" jelentkezik be, akkor ez a fájl létrehozásra kerül a felhasználó kezdeti"
+" választásaival. A felhasználó megváltoztathatja ezeket az alapértelmezett"
+" értékeket, ha bejelentkezéskor egyszerűen más értékre vált. A GDM megjegyzi"
+" ezt a változtatást a későbbi bejelentkezéseknél."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2045
@@ -2587,6 +2950,10 @@ msgid ""
 "which has two keys: <filename>Session</filename> and <filename>Language</"
 "filename>."
 msgstr ""
+"A <filename>~/.dmrc</filename> fájl a szabványos <filename>INI</filename>"
+" formátumban van. Tartalmaz egy <filename>[Desktop]</filename> szakaszt,"
+" amelynek két kulcsa van: <filename>Session</filename> és <filename>Language<"
+"/filename>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2052
@@ -2598,6 +2965,13 @@ msgid ""
 "If either of these keys is missing, the system default is used. The file "
 "would normally look as follows:"
 msgstr ""
+"A <filename>Session</filename> kulcs adja meg a munkamenet <filename"
+">.desktop</filename> fájljának alapnevét, amelyet a felhasználó általában a <"
+"filename>.desktop</filename> kiterjesztés nélkül szeretne használni. A <"
+"filename>Language</filename> kulcs adja meg azt a nyelvet, amelyet a"
+" felhasználó alapértelmezetten használni szeretne. Ha valamelyik kulcs"
+" hiányzik, akkor a rendszer által alapértelmezettet lesz használva. A fájl"
+" általában a következőképpen néz ki:"
 
 #. (itstool) path: sect2/screen
 #: C/index.docbook:2061
@@ -2608,16 +2982,20 @@ msgid ""
 "Session=gnome\n"
 "Language=cs_CZ.UTF-8\n"
 msgstr ""
+"\n"
+"[Desktop]\n"
+"Session=gnome\n"
+"Language=cs_CZ.UTF-8\n"
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2073
 msgid "GDM Commands"
-msgstr ""
+msgstr "GDM parancsok"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:2076
 msgid "GDM Root User Commands"
-msgstr ""
+msgstr "GDM rendszergazda-felhasználói parancsok"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2078
@@ -2625,19 +3003,23 @@ msgid ""
 "The GDM package provides the following commands in <filename>sbindir</"
 "filename> intended to be run by the root user:"
 msgstr ""
+"A GDM csomag a következő parancsokat biztosítja az <filename>sbindir<"
+"/filename> alatt, amelyeket rendszergazda felhasználónak kell futtatnia:"
 
 #. (itstool) path: sect3/title
 #. (itstool) path: variablelist/title
 #: C/index.docbook:2084 C/index.docbook:2092
 msgid "<command>gdm</command> Command Line Options"
-msgstr ""
+msgstr "A <command>gdm</command> parancssori kapcsolói"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2086
 msgid ""
 "<command>gdm</command> is the main daemon which sets up graphical login "
-"environment and starts necesary helpers."
+"environment and starts necessary helpers."
 msgstr ""
+"A <command>gdm</command> a fő démon, amely beállítja a grafikus"
+" bejelentkezési környezetet és elindítja a szükséges segédprogramokat."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2095
@@ -2647,7 +3029,7 @@ msgstr "-?, --help"
 #. (itstool) path: listitem/para
 #: C/index.docbook:2097
 msgid "Gives a brief overview of the command line options."
-msgstr ""
+msgstr "Rövid áttekintést ad a parancssori kapcsolókról."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2104
@@ -2657,7 +3039,7 @@ msgstr "--fatal-warnings"
 #. (itstool) path: listitem/para
 #: C/index.docbook:2106
 msgid "Make all warnings cause GDM to exit."
-msgstr ""
+msgstr "Olyanná teszi az összes figyelmeztetést, hogy a GDM kilépését okozza."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2113
@@ -2667,7 +3049,7 @@ msgstr "--timed-exit"
 #. (itstool) path: listitem/para
 #: C/index.docbook:2115
 msgid "Exit after 30 seconds. Useful for debugging."
-msgstr ""
+msgstr "Kilépés 30 másodperc után. Hibakereséshez hasznos."
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:2122
@@ -2677,12 +3059,12 @@ msgstr "--version"
 #. (itstool) path: listitem/para
 #: C/index.docbook:2124
 msgid "Print the version of the GDM daemon."
-msgstr ""
+msgstr "A GDM-démon verziójának kiírása."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2133
 msgid "<command>gdm-restart</command> Command Line Options"
-msgstr ""
+msgstr "A <command>gdm-restart</command> parancssori kapcsolói"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2135
@@ -2691,11 +3073,15 @@ msgid ""
 "daemon a HUP signal. This command will immediately terminate all sessions "
 "and log out users currently logged in with GDM."
 msgstr ""
+"A <command>gdm-restart</command> leállítja és újraindítja a GDM-et a GDM"
+" démonnak küldött HUP szignállal. Ez a parancs azonnal befejezi az összes"
+" munkamenetet, és kijelentkezteti a GDM-mel jelenleg bejelentkezett"
+" felhasználókat."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2143
 msgid "<command>gdm-safe-restart</command> Command Line Options"
-msgstr ""
+msgstr "A <command>gdm-safe-restart</command> parancssori kapcsolói"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2145
@@ -2703,11 +3089,14 @@ msgid ""
 "<command>gdm-safe-restart</command> stops and restarts GDM by sending the "
 "GDM daemon a USR1 signal. GDM will be restarted as soon as all users log out."
 msgstr ""
+"A <command>gdm-safe-restart</command> leállítja és újraindítja a GDM-et a"
+" GDM-démonnak küldött USR1 szignállal. A GDM azonnal újraindul, amikor minden"
+" felhasználó kijelentkezik."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:2153
 msgid "<command>gdm-stop</command> Command Line Options"
-msgstr ""
+msgstr "A <command>gdm-stop</command> parancssori kapcsolói"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:2155
@@ -2715,6 +3104,8 @@ msgid ""
 "<command>gdm-stop</command> stops GDM by sending the GDM daemon a TERM "
 "signal."
 msgstr ""
+"A <command>gdm-stop</command> leállítja a GDM-et a GDM-démonnak küldött TERM"
+" szignállal."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2166
@@ -2729,6 +3120,11 @@ msgid ""
 "gdm-list mailing list. Information about how to do this is in the "
 "Introduction section of the document."
 msgstr ""
+"Ez a szakasz a GDM működésbe hozásához szükséges hasznos tanácsokat"
+" ismerteti. Általánosságban elmondható, hogy ha problémája van a GDM"
+" használatával, akkor küldhet hibajelentést vagy e-mailt a gdm-list"
+" levelezőlistára. Az ezzel kapcsolatos információk a dokumentum „Bevezetés”"
+" szakaszában találhatók."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2181
@@ -2745,11 +3141,24 @@ msgid ""
 "you may need to configure syslog (refer to the <ulink type=\"help\" url="
 "\"man:syslog\">syslog</ulink> man page)."
 msgstr ""
+"Ha a GDM nem működik megfelelően, mindig jó ötlet hibakeresési információkat"
+" mellékelni. A hibakeresés engedélyezéséhez állítsa a „debug/Enable” kulcsot"
+" „true” értékre az <filename>&lt;etc&gt;/gdm/custom.conf</filename> fájlban,"
+" és indítsa újra a GDM-et. Ezután használja a GDM-et addig a pontig, ahol nem"
+" működik, és a hibakimenet a rendszer naplófájljába kerül (<filename"
+">&lt;var&gt;/log/messages</filename> vagy <filename>&lt;var&gt;/adm/messages<"
+"/filename> az operációs rendszerétől függően). Ha ezt a kimenetet megosztja a"
+" GDM közösséggel egy hibajelentésen vagy e-mailen keresztül, akkor csak a"
+" GDM-hez kapcsolódó hibakeresési információkat mellékelje, és ne a teljes"
+" fájlt, mivel az nagy lehet. Ha nem lát semmilyen GDM rendszernapló"
+" kimenetet, akkor lehet, hogy be kell állítania a rendszer naplózását (nézze"
+" meg a <ulink type=\"help\" url=\"man:syslog\">syslog</ulink>"
+" kézikönyvoldalt)."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:2197
 msgid "GDM Will Not Start"
-msgstr ""
+msgstr "A GDM nem indul el"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2199
@@ -2760,6 +3169,12 @@ msgid ""
 "error message or dialog when it tries to start, but it can be difficult to "
 "track down problems when GDM fails silently."
 msgstr ""
+"Számos probléma okozhatja, hogy a GDM nem indul el, de ez a szakasz néhány"
+" gyakori problémát tárgyal, és azt, hogy miként közelítheti meg a GDM"
+" indulásával kapcsolatos probléma felderítését. Néhány probléma azt"
+" eredményezi, hogy a GDM hibaüzenettel vagy párbeszédablakkal válaszol,"
+" amikor megpróbál elindulni, de nehéz lehet a problémák nyomon követése, ha a"
+" GDM visszajelzés nélkül lesz működésképtelen."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2208
@@ -2774,6 +3189,17 @@ msgid ""
 "options. If so, then modify the Xserver command in the GDM configuration "
 "file so that it is correct for your system."
 msgstr ""
+"Először győződjön meg arról, hogy az X-kiszolgáló megfelelően van-e"
+" beállítva. A GDM konfigurációs fájl tartalmaz egy parancsot a"
+" [server-Standard] szakaszban, amely az X-kiszolgáló indítására szolgál."
+" Ellenőrizze, hogy ez a parancs működik-e az Ön rendszerén. A parancs"
+" konzolból történő futtatásakor el kell indítania az X-kiszolgálót. Ha ez nem"
+" sikerül, akkor a probléma valószínűleg az X-kiszolgáló beállításával van."
+" Nézze meg az X-kiszolgáló hibanaplóját, hogy megtudja, mi lehet a probléma."
+" A probléma az is lehet, hogy az X-kiszolgáló különböző parancssori"
+" kapcsolókat igényel. Ha ez a helyzet, akkor módosítsa az X-kiszolgáló"
+" parancsot a GDM konfigurációs fájlban úgy, hogy az megfeleljen az Ön"
+" rendszerének."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:2221
@@ -2782,6 +3208,10 @@ msgid ""
 "ownership and permissions, and that the machine's file system is not full. "
 "These problems will cause GDM to fail to start."
 msgstr ""
+"Győződjön meg arról is, hogy a <filename>/tmp</filename> könyvtár megfelelő"
+" tulajdonjoggal és jogosultságokkal rendelkezik-e, és hogy a gép"
+" fájlrendszere nincs-e tele. Ezek a problémák a GDM indításának"
+" sikertelenségét okozzák."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:2232
@@ -2797,6 +3227,11 @@ msgid ""
 "the Free Software Foundation; either version 2 of the License, or (at your "
 "option) any later version."
 msgstr ""
+"Ez a program szabad szoftver; terjeszthető illetve módosítható a Free"
+" Software Foundation által kiadott <ulink type=\"help\""
+" url=\"gnome-help:gpl\"><citetitle>GNU General Public License</citetitle><"
+"/ulink> dokumentumában leírtak; akár a licenc 2-es, akár (tetszőleges)"
+" későbbi változata szerint."
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:2241
@@ -2839,11 +3274,11 @@ msgid ""
 "www.fsf.org\">their Web site</ulink> or by writing to <_:address-1/>"
 msgstr ""
 "A <citetitle>GNU General Public License</citetitle> egy példányát "
-"függelékként tartalmazza a <citetitle>GNOME felhasználói kézikönyv</citetitle>"
-". Beszerezheti a <citetitle>GNU General Public License</citetitle> egy "
-"példányát a Free Software Foundation <ulink type=\"http\" url=\"http://www."
-"fsf.org\">weboldalának</ulink> meglátogatásával, vagy írjon egy levelet az "
-"alábbi címre: <_:address-1/>"
+"függelékként tartalmazza a <citetitle>GNOME felhasználói kézikönyv</"
+"citetitle>. Beszerezheti a <citetitle>GNU General Public License</citetitle> "
+"egy példányát a Free Software Foundation <ulink type=\"http\" url=\"http://"
+"www.fsf.org\">weboldalának</ulink> meglátogatásával, vagy írjon egy levelet "
+"az alábbi címre: <_:address-1/>"
 
 #. (itstool) path: para/ulink
 #: C/legal.xml:9
@@ -2867,3 +3302,91 @@ msgstr ""
 "leírása ezen a <_:ulink-1/> érhető el, vagy a jelen dokumentációban "
 "található COPYING-DOCS fájlban."
 
+#. (itstool) path: legalnotice/para
+#: C/legal.xml:12
+msgid ""
+"This manual is part of a collection of GNOME manuals distributed under the "
+"GFDL. If you want to distribute this manual separately from the collection, "
+"you can do so by adding a copy of the license to the manual, as described in "
+"section 6 of the license."
+msgstr ""
+"Ez a kézikönyv része a GFDL alatt megjelenő GNOME dokumentációk "
+"gyűjteményének. A kézikönyv a gyűjteménytől függetlenül szabadon "
+"terjeszthető, a licenc másolatát mellékelve a 6. fejezetben leírtaknak "
+"megfelelően."
+
+#. (itstool) path: legalnotice/para
+#: C/legal.xml:19
+msgid ""
+"Many of the names used by companies to distinguish their products and "
+"services are claimed as trademarks. Where those names appear in any GNOME "
+"documentation, and the members of the GNOME Documentation Project are made "
+"aware of those trademarks, then the names are in capital letters or initial "
+"capital letters."
+msgstr ""
+"Számos név, amelyet cégek használnak termékeik és szolgáltatásuk "
+"megkülönböztetésére, védjegy alá esnek. Ahol ezek a nevek megjelennek a "
+"GNOME dokumentációkban és a GNOME Dokumentációs Projekt tagjai tájékozottak "
+"az adott védjegyről, ott ezek nagy kezdőbetűvel vagy csupa nagy betűvel "
+"szerepelnek."
+
+#. (itstool) path: listitem/para
+#: C/legal.xml:35
+msgid ""
+"DOCUMENT IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTY OF ANY KIND, "
+"EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT "
+"THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS "
+"MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE "
+"RISK AS TO THE QUALITY, ACCURACY, AND PERFORMANCE OF THE DOCUMENT OR "
+"MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR "
+"MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL "
+"WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY "
+"SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN "
+"ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION "
+"OF THE DOCUMENT IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND"
+msgstr ""
+"A DOKUMENTUM „JELEN ÁLLAPOTÁBAN” KERÜL KIADÁSRA MINDENFÉLE GARANCIAVÁLLALÁS "
+"NÉLKÜL, LEGYEN AZ KIFEJEZETT VAGY BELEÉRTETT, BELEÉRTVE, DE NEM "
+"KIZÁRÓLAGOSAN A FORGALOMBA HOZHATÓSÁGRA VAGY ALKALMAZHATÓSÁGRA, A JELEN "
+"DOKUMENTUMNAK VAGY ANNAK MÓDOSÍTOTT VERZIÓJÁNAK HIBAMENTESSÉGÉRE VONATKOZÓ "
+"GARANCIÁKAT. A DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT VÁLTOZATÁNAK MINŐSÉGÉBŐL ÉS "
+"FELHASZNÁLHATÓSÁGÁBÓL FAKADÓ ÖSSZES KOCKÁZAT A FELHASZNÁLÓT TERHELI. HA A "
+"DOKUMENTUM BIZONYÍTOTTAN HIBÁS, A FELHASZNÁLÓNAK MAGÁNAK (NEM A DOKUMENTUM "
+"ÍRÓJÁNAK, KIADÓJÁNAK VAGY BÁRMELY KÖZREMŰKÖDŐNEK) KELL VÁLLALNIA A "
+"JAVÍTÁSHOZ SZÜKSÉGES MINDEN KÖLTSÉGET. A JELEN GARANCIAELUTASÍTÁS A JELEN "
+"LICENC LÉNYEGI RÉSZE. A LEFEDETT DOKUMENTUM VAGY ANNAK MÓDOSÍTOTT "
+"VERZIÓJÁNAK HASZNÁLATA CSAK A JELEN ELUTASÍTÁSSAL EGYÜTT ENGEDÉLYEZETT, ÉS"
+
+#. (itstool) path: listitem/para
+#: C/legal.xml:55
+msgid ""
+"UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING "
+"NEGLIGENCE), CONTRACT, OR OTHERWISE, SHALL THE AUTHOR, INITIAL WRITER, ANY "
+"CONTRIBUTOR, OR ANY DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION OF THE "
+"DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH PARTIES, BE LIABLE TO ANY PERSON "
+"FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF "
+"ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, "
+"WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER DAMAGES "
+"OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED "
+"VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE "
+"POSSIBILITY OF SUCH DAMAGES."
+msgstr ""
+"KÖRÜLMÉNYEKTŐL ÉS HATÁLYOS JOGSZABÁLYOKTÓL, A KÁRTÓL (BELEÉRTVE A "
+"GONDATLANSÁGOT), SZERZŐDÉS VAGY EGYEBEKTŐL FÜGGETLENÜL,A SZERZŐ, A "
+"DOKUMENTUM ÍRÓJA VAGY BÁRMELY FÉL BESZÁLLÍTÓJA NEM TEHETŐK FELELŐSSÉ A "
+"KÁROKÉRT, BELEÉRTVE MINDEN VÉLETLEN, VAGY KÖVETKEZMÉNYES KÁRT, AMELY A "
+"PROGRAM HASZNÁLATÁBÓL VAGY A HASZNÁLAT MEGAKADÁLYOZÁSÁBÓL SZÁRMAZIK "
+"(BELEÉRTVE, DE NEM KIZÁRÓLAGOSAN AZ ADATVESZTÉST ÉS A HELYTELEN "
+"ADATFELDOLGOZÁST, VALAMINT A MÁS PROGRAMOKKAL VALÓ HIBÁS EGYÜTTMŰKÖDÉST), "
+"MÉG AKKOR SEM, HA EZEN FELEK TUDATÁBAN VOLTAK, HOGY ILYEN KÁROK "
+"KELETKEZHETNEK."
+
+#. (itstool) path: legalnotice/para
+#: C/legal.xml:28
+msgid ""
+"DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS "
+"OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: "
+"<_:orderedlist-1/>"
+msgstr ""
+"A DOKUMENTUM ÉS A DOKUMENTUM MÓDOSÍTOTT VERZIÓJA A GNU FREE DOCUMENTATION "
+"LICENSE (GFDL) ALATT JELENIK MEG AZ ALÁBBI ÉRTELMEZÉSSEL: <_:orderedlist-1/>"

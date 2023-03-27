@@ -102,13 +102,12 @@ gdm_settings_direct_get_int (const char        *key,
         char             *str;
 
         g_return_val_if_fail (key != NULL, FALSE);
+        g_return_val_if_fail (value != NULL, FALSE);
 
         entry = get_entry_for_key (key);
         g_assert (entry != NULL);
 
         assert_signature (entry, "i");
-
-        ret = FALSE;
 
         res = get_value (key, &str);
 
@@ -131,7 +130,9 @@ gdm_settings_direct_get_uint (const char        *key,
         gboolean          ret;
         int               intvalue;
 
-        ret = FALSE;
+        g_return_val_if_fail (key != NULL, FALSE);
+        g_return_val_if_fail (value != NULL, FALSE);
+
         ret = gdm_settings_direct_get_int (key, &intvalue);
    
         if (intvalue >= 0)
@@ -152,13 +153,12 @@ gdm_settings_direct_get_boolean (const char        *key,
         char             *str;
 
         g_return_val_if_fail (key != NULL, FALSE);
+        g_return_val_if_fail (value != NULL, FALSE);
 
         entry = get_entry_for_key (key);
         g_assert (entry != NULL);
 
         assert_signature (entry, "b");
-
-        ret = FALSE;
 
         res = get_value (key, &str);
 
@@ -184,6 +184,7 @@ gdm_settings_direct_get_string (const char        *key,
         char             *str;
 
         g_return_val_if_fail (key != NULL, FALSE);
+        g_return_val_if_fail (value != NULL, FALSE);
 
         entry = get_entry_for_key (key);
         g_assert (entry != NULL);
@@ -199,9 +200,7 @@ gdm_settings_direct_get_string (const char        *key,
                 str = g_strdup (gdm_settings_entry_get_default_value (entry));
         }
 
-        if (value != NULL) {
-                *value = g_strdup (str);
-        }
+        *value = g_strdup (str);
 
         g_free (str);
 
