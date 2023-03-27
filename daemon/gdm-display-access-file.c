@@ -278,7 +278,15 @@ _create_xauth_file_for_user (const char  *username,
                 }
 
                 g_chmod (GDM_XAUTH_DIR, 0711);
-                _get_uid_and_gid_for_user (GDM_USERNAME, &uid, &gid);
+                if (!_get_uid_and_gid_for_user (GDM_USERNAME, &uid, &gid)) {
+                        g_set_error (error,
+                                     GDM_DISPLAY_ERROR,
+                                     GDM_DISPLAY_ERROR_GETTING_USER_INFO,
+                                     _("Could not find user “%s” on system"),
+                                     GDM_USERNAME);
+                        goto out;
+                }
+
                 if (chown (GDM_XAUTH_DIR, 0, gid) != 0) {
                         g_warning ("Unable to change owner of '%s'",
                                    GDM_XAUTH_DIR);
@@ -295,7 +303,7 @@ _create_xauth_file_for_user (const char  *username,
                 g_set_error (error,
                              GDM_DISPLAY_ERROR,
                              GDM_DISPLAY_ERROR_GETTING_USER_INFO,
-                             _("could not find user “%s” on system"),
+                             _("Could not find user “%s” on system"),
                              username);
                 goto out;
 
@@ -402,7 +410,7 @@ gdm_display_access_file_open (GdmDisplayAccessFile  *file,
 {
         GError *create_error;
 
-        g_return_val_if_fail (file != NULL, FALSE);
+        g_return_val_if_fail (GDM_IS_DISPLAY_ACCESS_FILE (file), FALSE);
         g_return_val_if_fail (file->fp == NULL, FALSE);
         g_return_val_if_fail (file->path == NULL, FALSE);
 
@@ -472,8 +480,9 @@ gdm_display_access_file_add_display (GdmDisplayAccessFile  *file,
         GError  *add_error;
         gboolean display_added;
 
-        g_return_val_if_fail (file != NULL, FALSE);
+        g_return_val_if_fail (GDM_IS_DISPLAY_ACCESS_FILE (file), FALSE);
         g_return_val_if_fail (file->path != NULL, FALSE);
+        g_return_val_if_fail (display != NULL, FALSE);
         g_return_val_if_fail (cookie != NULL, FALSE);
 
         add_error = NULL;
@@ -511,8 +520,9 @@ gdm_display_access_file_add_display_with_cookie (GdmDisplayAccessFile  *file,
         Xauth auth_entry;
         gboolean display_added;
 
-        g_return_val_if_fail (file != NULL, FALSE);
+        g_return_val_if_fail (GDM_IS_DISPLAY_ACCESS_FILE (file), FALSE);
         g_return_val_if_fail (file->path != NULL, FALSE);
+        g_return_val_if_fail (display != NULL, FALSE);
         g_return_val_if_fail (cookie != NULL, FALSE);
 
         _get_auth_info_for_display (file, display,
@@ -566,7 +576,7 @@ gdm_display_access_file_close (GdmDisplayAccessFile  *file)
 {
         char *auth_dir;
 
-        g_return_if_fail (file != NULL);
+        g_return_if_fail (GDM_IS_DISPLAY_ACCESS_FILE (file));
         g_return_if_fail (file->fp != NULL);
         g_return_if_fail (file->path != NULL);
 
@@ -600,7 +610,9 @@ gdm_display_access_file_close (GdmDisplayAccessFile  *file)
 }
 
 char *
-gdm_display_access_file_get_path (GdmDisplayAccessFile *access_file)
+gdm_display_access_file_get_path (GdmDisplayAccessFile *file)
 {
-        return g_strdup (access_file->path);
+        g_return_val_if_fail (GDM_IS_DISPLAY_ACCESS_FILE (file), NULL);
+
+        return g_strdup (file->path);
 }
