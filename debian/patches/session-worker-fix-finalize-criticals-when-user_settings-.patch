@@ -1,0 +1,27 @@
+From: Michael Catanzaro <mcatanzaro@redhat.com>
+Date: Mon, 27 Mar 2023 09:39:39 -0500
+Subject: session-worker: fix finalize criticals when user_settings is NULL
+
+This is a really classic case where we try to call g_object_unref() on
+an object that is expected to be NULL. Don't do that.
+
+Fixes #730
+
+(cherry picked from commit b29510dbc51ccf71a7c0ed656d21634a83766c0c)
+---
+ daemon/gdm-session-worker.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index 8888238..b062fdd 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -3572,7 +3572,7 @@ gdm_session_worker_finalize (GObject *object)
+ 
+         jump_back_to_initial_vt (worker);
+ 
+-        g_object_unref (worker->user_settings);
++        g_clear_object (&worker->user_settings);
+         g_free (worker->service);
+         g_free (worker->x11_display_name);
+         g_free (worker->x11_authority_file);
