@@ -1,0 +1,31 @@
+From: Ray Strode <rstrode@redhat.com>
+Date: Fri, 19 Aug 2022 13:55:06 -0400
+Subject: local-display-factory: Fix typo in supported session types
+
+There's a typo "tyes" instead of "types" leading to the wrong
+supported session types getting set in some cases.
+
+This commit fixes that.
+
+Closes https://gitlab.gnome.org/GNOME/gdm/-/issues/808
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/commit/6247ca134f
+Bug-Ubuntu: https://launchpad.net/bugs/2006059
+Forwarded: not-needed
+Last-Update: 2023-04-18
+---
+ daemon/gdm-local-display-factory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/daemon/gdm-local-display-factory.c b/daemon/gdm-local-display-factory.c
+index b3335cd..8c912cc 100644
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -402,7 +402,7 @@ gdm_local_display_factory_create_transient_display (GdmLocalDisplayFactory *fact
+                 display = gdm_local_display_new ();
+                 g_object_set (G_OBJECT (display),
+                               "session-type", session_types[0],
+-                              "supported-session-tyes", session_types,
++                              "supported-session-types", session_types,
+                               NULL);
+                 is_initial = TRUE;
+         }
