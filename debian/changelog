@@ -1,3 +1,9 @@
+gdm3 (44.1-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- Jarred Wilson <jarred.wilson@canonical.com>  Mon, 15 May 2023 12:39:35 -0400
+
 gdm3 (44.0-1ubuntu1) lunar; urgency=medium
 
   * Merge with Debian (LP: #2015406). Remaining changes:
