@@ -57,7 +57,7 @@ gdm3 (44.1-1ubuntu1) mantic; urgency=medium
         exist.
     + debian/greeter.dconf-defaults: don't set debian settings in the
       greeter's dconf db
-  * Cherry-pick a fix for crashing after standby
+  * Drop cherry-picked crash patch applied in new release
 
  -- Jarred Wilson <jarred.wilson@canonical.com>  Mon, 15 May 2023 15:23:16 -0400
 
