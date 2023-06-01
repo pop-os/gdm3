@@ -13,3 +13,4 @@ ubuntu/prefer_ubuntu_session_fallback.patch
 ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
 ubuntu/Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
 ubuntu/start-after-cloudinit.patch
+ubuntu/gitlab_clearing_signal.patch
