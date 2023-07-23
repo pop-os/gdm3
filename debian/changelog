@@ -1,3 +1,10 @@
+gdm3 (44.1-2) unstable; urgency=medium
+
+  * Clean up some old package relationships
+  * Release to unstable
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Sun, 23 Jul 2023 16:10:57 -0400
+
 gdm3 (44.1-1) experimental; urgency=medium
 
   * New upstream release
