@@ -6,7 +6,7 @@ Source: gdm3
 Section: gnome
 Priority: optional
 Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Jeremy Bicha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>, Marco Trevisan (Treviño) <marco@ubuntu.com>
+Uploaders: Iain Lane <laney@debian.org>, Jeremy Bícha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>, Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: check (>= 0.9.4),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 13),
@@ -50,7 +50,6 @@ Homepage: https://wiki.gnome.org/Projects/GDM/
 
 Package: gdm3
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x riscv64
-Pre-Depends: ${misc:Pre-Depends}
 Depends: accountsservice (>= 0.6.35),
          adduser,
          dconf-cli (>= 0.20),
@@ -91,8 +90,6 @@ Suggests: orca,
           libpam-pkcs11,
           libpam-gnome-keyring
 Provides: x-display-manager
-Breaks: pulseaudio (<< 11.1-2),
-        xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -105,12 +102,9 @@ Description: GNOME Display Manager
 Package: libgdm1
 Section: libs
 Architecture: linux-any
-Pre-Depends: ${misc:Pre-Depends}
 Depends: ${gir:Depends},
          ${misc:Depends},
          ${shlibs:Depends}
-Breaks: gdm3 (<< 3.18.0-3~)
-Replaces: gdm3 (<< 3.18.0-3~)
 Description: GNOME Display Manager (shared library)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -125,7 +119,6 @@ Description: GNOME Display Manager (shared library)
 Package: libgdm-dev
 Section: libdevel
 Architecture: linux-any
-Pre-Depends: ${misc:Pre-Depends}
 Depends: gir1.2-gdm-1.0 (= ${binary:Version}),
          libgdm1 (= ${binary:Version}),
          libglib2.0-dev (>= 2.44.0),
