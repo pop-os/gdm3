@@ -1,7 +1,15 @@
-Index: gdm/data/gdm.service.in
-===================================================================
---- gdm.orig/data/gdm.service.in
-+++ gdm/data/gdm.service.in
+From: Sebastien Bacher <seb128@ubuntu.com>
+Date: Wed, 14 Dec 2022 08:51:03 +0100
+Subject: start after cloudinit
+
+---
+ data/gdm.service.in | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/data/gdm.service.in b/data/gdm.service.in
+index 066d763..041a5d7 100644
+--- a/data/gdm.service.in
++++ b/data/gdm.service.in
 @@ -15,6 +15,10 @@ After=${PLYMOUTH_QUIT_SERVICE}
  # plymouth is quit, which we do)
  After=rc-local.service plymouth-start.service systemd-user-sessions.service

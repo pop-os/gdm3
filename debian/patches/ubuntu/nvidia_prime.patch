@@ -16,10 +16,10 @@ This allows enabling and disabling the dGPU on log out.
  create mode 100644 data/PrimeOff.in
 
 diff --git a/common/gdm-common.c b/common/gdm-common.c
-index 9202902..47d53e1 100644
+index 2a0bbd0..dc3b783 100644
 --- a/common/gdm-common.c
 +++ b/common/gdm-common.c
-@@ -702,7 +702,7 @@ gdm_run_script (const char *dir,
+@@ -712,7 +712,7 @@ gdm_run_script (const char *dir,
                  goto out;
          }
  
@@ -29,10 +29,10 @@ index 9202902..47d53e1 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 4b70973..15453d1 100644
+index ebb9213..0484749 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -3043,6 +3043,12 @@ gdm_session_close (GdmSession *self)
+@@ -3057,6 +3057,12 @@ gdm_session_close (GdmSession *self)
  
          g_list_free_full (self->outside_connections, g_object_unref);
          self->outside_connections = NULL;
@@ -86,7 +86,7 @@ index 0000000..5a61c3c
 +    $primeswitch
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 2dec4c2..6bac895 100644
+index c3452e1..86ac1af 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -3,7 +3,7 @@ subdir('autostart')

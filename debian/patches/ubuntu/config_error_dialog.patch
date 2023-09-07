@@ -9,10 +9,10 @@ Bug-Ubuntu: https://launchpad.net/bugs/678421
 Forwarded: https://bugzilla.gnome.org/738970
 ---
  data/Xsession.in            | 29 +++++++++++++++++++++++------
- data/config-error-dialog.sh | 29 +++++++++++++++++++++++++++++
+ data/config-error-dialog.sh | 33 +++++++++++++++++++++++++++++++++
  data/meson.build            |  7 ++++++-
  po/POTFILES.in              |  1 +
- 4 files changed, 59 insertions(+), 7 deletions(-)
+ 4 files changed, 63 insertions(+), 7 deletions(-)
  create mode 100644 data/config-error-dialog.sh
 
 diff --git a/data/Xsession.in b/data/Xsession.in
@@ -66,7 +66,7 @@ index af8ade0..0cdf9a1 100755
  if [ -x "@libexecdir@/gdmtranslate" ] ; then
 diff --git a/data/config-error-dialog.sh b/data/config-error-dialog.sh
 new file mode 100644
-index 0000000..08cb7b9
+index 0000000..fb12366
 --- /dev/null
 +++ b/data/config-error-dialog.sh
 @@ -0,0 +1,33 @@
@@ -104,10 +104,10 @@ index 0000000..08cb7b9
 +	zenity --warning --no-wrap --no-markup --text="$TEXT"
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 6bac895..db711a8 100644
+index 86ac1af..3767052 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -207,8 +207,13 @@ if get_option('gdm-xsession')
+@@ -219,8 +219,13 @@ if get_option('gdm-xsession')
      output: '@BASENAME@',
      configuration: {
        'libexecdir': gdm_prefix / get_option('libexecdir'),
