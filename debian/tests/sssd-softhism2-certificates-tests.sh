@@ -27,7 +27,7 @@ TOKEN_ID=${TOKEN_ID:-00112233445566778899FFAABBCCDDEEFF012345}
 
 if [ ! -v NO_SSSD_TESTS ]; then
   if [ ! -x "$SSSD_P11_CHILD" ]; then
-    if [ ! -e "$$SSSD_P11_CHILD" ]; then
+    if [ ! -e "$SSSD_P11_CHILD" ]; then
       echo "Cannot find $SSSD_P11_CHILD"
     else
       echo "Cannot execute $SSSD_P11_CHILD, try using sudo..."
@@ -665,6 +665,7 @@ function check_certificate() {
     --pre -d 10 \
     --logger=stderr \
     --debug-fd=2 \
+    --module_name "$SOFTHSM2_MODULE" \
     "$verify_arg" \
     --${ca_db_arg}="$key_ring" > "$output_file" || return 2
 
