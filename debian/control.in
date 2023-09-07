@@ -49,7 +49,6 @@ Homepage: https://wiki.gnome.org/Projects/GDM/
 
 Package: gdm3
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x riscv64
-Pre-Depends: ${misc:Pre-Depends}
 Depends: accountsservice (>= 0.6.35),
          adduser,
          bash (>= 4.3),
@@ -90,8 +89,6 @@ Suggests: orca,
           libpam-pkcs11,
           libpam-gnome-keyring
 Provides: x-display-manager
-Breaks: pulseaudio (<< 11.1-2),
-        xserver-xorg-core (<< 2:1.17.2-2~)
 Description: GNOME Display Manager
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -104,12 +101,9 @@ Description: GNOME Display Manager
 Package: libgdm1
 Section: libs
 Architecture: linux-any
-Pre-Depends: ${misc:Pre-Depends}
 Depends: ${gir:Depends},
          ${misc:Depends},
          ${shlibs:Depends}
-Breaks: gdm3 (<< 3.18.0-3~)
-Replaces: gdm3 (<< 3.18.0-3~)
 Description: GNOME Display Manager (shared library)
  GDM provides the equivalent of a "login:" prompt for X displays: it
  asks for a login and starts graphical sessions.
@@ -124,7 +118,6 @@ Description: GNOME Display Manager (shared library)
 Package: libgdm-dev
 Section: libdevel
 Architecture: linux-any
-Pre-Depends: ${misc:Pre-Depends}
 Depends: gir1.2-gdm-1.0 (= ${binary:Version}),
          libgdm1 (= ${binary:Version}),
          libglib2.0-dev (>= 2.44.0),
