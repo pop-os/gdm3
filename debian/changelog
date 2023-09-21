@@ -1,4 +1,4 @@
-gdm3 (45~beta-2) UNRELEASED; urgency=medium
+gdm3 (45.0.1-1) UNRELEASED; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * debian/gdm3.gdm-smartcard-*: Always fallback to password auth if no SC
@@ -16,7 +16,12 @@ gdm3 (45~beta-2) UNRELEASED; urgency=medium
     controlled from modules settings, so let's just do the quickest thing.
   * d/tests/sssd-softhism2-certificates-tests.sh: Cherry-pick upstream fixes
 
- -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 11:40:26 +0100
+  [ Simon McVittie ]
+  * New upstream release
+    - Fix an intermittent crash when unlocking the screen
+    - Translation updates: en_GB, ko, sv
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 11:57:54 +0100
 
 gdm3 (45~beta-1) unstable; urgency=medium
 
