@@ -1,4 +1,4 @@
-gdm3 (45.0.1-1) UNRELEASED; urgency=high
+gdm3 (45.0.1-1) unstable; urgency=high
 
   * Team upload
 
@@ -39,7 +39,11 @@ gdm3 (45.0.1-1) UNRELEASED; urgency=high
     (Closes: #1052374, #1051671, #1051993)
   * Set high urgency for the dconf profile fix
 
- -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 12:23:06 +0100
+  [ Helmut Grohne ]
+  * Avoid FTBFS when systemdsystemunitdir changes in systemd.pc
+    (Closes: #1052381)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 13:12:44 +0100
 
 gdm3 (45~beta-1) unstable; urgency=medium
 
