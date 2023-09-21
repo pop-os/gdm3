@@ -1,3 +1,23 @@
+gdm3 (45~beta-2) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/gdm3.gdm-smartcard-*: Always fallback to password auth if no SC
+    pam module is installed.
+    Both libpam_sss.so and libpam_pkcs11.so might be not be installed in a
+    system, in such case we should not make gdm to enforce the smartcart
+    authentication because that would just lock the user out if there are
+    other login allowed methods.
+    As per this, make these modules partially optional even in the exclusive
+    mode, given that we have not a strong dependency on such modules and so
+    inserting a smartcard is not enough to block a system, unless that's
+    configured.
+    Ideally we should not even try to proceed if the system is not fully
+    configured for smartcards, but that's something that can't be easily
+    controlled from modules settings, so let's just do the quickest thing.
+  * d/tests/sssd-softhism2-certificates-tests.sh: Cherry-pick upstream fixes
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 11:40:26 +0100
+
 gdm3 (45~beta-1) unstable; urgency=medium
 
   * New upstream release
