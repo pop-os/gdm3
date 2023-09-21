@@ -1,4 +1,6 @@
-gdm3 (45.0.1-1) UNRELEASED; urgency=medium
+gdm3 (45.0.1-1) unstable; urgency=high
+
+  * Team upload
 
   [ Marco Trevisan (Treviño) ]
   * debian/gdm3.gdm-smartcard-*: Always fallback to password auth if no SC
@@ -14,14 +16,30 @@ gdm3 (45.0.1-1) UNRELEASED; urgency=medium
     Ideally we should not even try to proceed if the system is not fully
     configured for smartcards, but that's something that can't be easily
     controlled from modules settings, so let's just do the quickest thing.
+    (Mitigates: #1051659, #1051785)
   * d/tests/sssd-softhism2-certificates-tests.sh: Cherry-pick upstream fixes
 
   [ Simon McVittie ]
   * New upstream release
     - Fix an intermittent crash when unlocking the screen
     - Translation updates: en_GB, ko, sv
+  * d/gdm3.links: Create a dconf profile named for the Debian-gdm user.
+    In upstream and Ubuntu gdm, the system username used for the greeter
+    is "gdm", but in Debian, for historical reasons it is "Debian-gdm".
+    Before version 45, the dconf profile name "gdm" was hard-coded,
+    but since version 45 it uses a profile name that matches the system
+    username (to allow gnome-initial-setup to have its own profile).
+    This resulted in the gdm greeter trying to use the ordinary
+    gnome.session instead of gnome-login.session, which caused login to
+    fail when the gnome-session package was not installed, and caused
+    settings in /etc/gdm3/greeter.dconf-defaults to be ineffective. Other
+    differences between gnome.session and gnome-login.session, potentially
+    including security hardening for the greeter, would also not have
+    been effective.
+    (Closes: #1052374, #1051671, #1051993)
+  * Set high urgency for the dconf profile fix
 
- -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 11:57:54 +0100
+ -- Simon McVittie <smcv@debian.org>  Thu, 21 Sep 2023 12:23:06 +0100
 
 gdm3 (45~beta-1) unstable; urgency=medium
 
