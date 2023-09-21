@@ -7,6 +7,9 @@ include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 
 built_binaries := $(shell dh_listpackages)
 
+export systemdsystemunitdir = $(shell pkgconf --variable=systemdsystemunitdir systemd | sed s,^/,,)
+export udevdir = $(shell pkgconf --variable=udevdir udev | sed s,^/,,)
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
 

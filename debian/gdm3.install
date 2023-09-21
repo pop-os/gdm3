@@ -3,9 +3,9 @@
 etc/dbus-1/system.d/gdm.conf		usr/share/dbus-1/system.d
 etc/gdm3/*
 
-lib/systemd/
+${systemdsystemunitdir}
 usr/lib/systemd/
-[linux-any] lib/udev
+[linux-any] ${udevdir}
 lib/${DEB_HOST_MULTIARCH}/security/*.so
 usr/bin/gdm-screenshot
 usr/libexec/gdm-*
