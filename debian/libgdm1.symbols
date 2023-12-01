@@ -26,6 +26,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_client_get_chooser@Base 3.8.3
  gdm_client_get_chooser_finish@Base 3.8.3
  gdm_client_get_chooser_sync@Base 3.8.3
+ gdm_client_get_enabled_extensions@Base 45.0.1-1ubuntu1
  gdm_client_get_greeter@Base 3.8.3
  gdm_client_get_greeter_finish@Base 3.8.3
  gdm_client_get_greeter_sync@Base 3.8.3
@@ -35,6 +36,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_client_get_type@Base 3.8.3
  gdm_client_get_user_verifier@Base 3.8.3
  gdm_client_get_user_verifier_choice_list@Base 3.26.2.1
+ gdm_client_get_user_verifier_custom_json@Base 45.0.1-1ubuntu1
  gdm_client_get_user_verifier_finish@Base 3.8.3
  gdm_client_get_user_verifier_sync@Base 3.8.3
  gdm_client_new@Base 3.8.3
@@ -179,6 +181,27 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_user_verifier_complete_begin_verification_for_user@Base 3.8.3
  gdm_user_verifier_complete_cancel@Base 3.8.3
  gdm_user_verifier_complete_enable_extensions@Base 3.26.2.1
+ gdm_user_verifier_custom_json_call_reply@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_call_reply_finish@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_call_reply_sync@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_call_report_error@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_call_report_error_finish@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_call_report_error_sync@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_complete_reply@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_complete_report_error@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_emit_request@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_get_type@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_interface_info@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_override_properties@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_get_type@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new_finish@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new_for_bus@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new_for_bus_finish@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new_for_bus_sync@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_proxy_new_sync@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_skeleton_get_type@Base 45.0.1-1ubuntu1
+ gdm_user_verifier_custom_json_skeleton_new@Base 45.0.1-1ubuntu1
  gdm_user_verifier_emit_conversation_started@Base 3.8.3
  gdm_user_verifier_emit_conversation_stopped@Base 3.8.3
  gdm_user_verifier_emit_info@Base 3.8.3
@@ -207,6 +230,9 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_worker_manager_call_choice_list_query@Base 3.26.2.1
  gdm_worker_manager_call_choice_list_query_finish@Base 3.26.2.1
  gdm_worker_manager_call_choice_list_query_sync@Base 3.26.2.1
+ gdm_worker_manager_call_custom_json_request@Base 45.0.1-1ubuntu1
+ gdm_worker_manager_call_custom_json_request_finish@Base 45.0.1-1ubuntu1
+ gdm_worker_manager_call_custom_json_request_sync@Base 45.0.1-1ubuntu1
  gdm_worker_manager_call_hello@Base 3.8.3
  gdm_worker_manager_call_hello_finish@Base 3.8.3
  gdm_worker_manager_call_hello_sync@Base 3.8.3
@@ -223,6 +249,7 @@ libgdm.so.1 libgdm1 #MINVER#
  gdm_worker_manager_call_secret_info_query_finish@Base 3.8.3
  gdm_worker_manager_call_secret_info_query_sync@Base 3.8.3
  gdm_worker_manager_complete_choice_list_query@Base 3.26.2.1
+ gdm_worker_manager_complete_custom_json_request@Base 45.0.1-1ubuntu1
  gdm_worker_manager_complete_hello@Base 3.8.3
  gdm_worker_manager_complete_info@Base 3.8.3
  gdm_worker_manager_complete_info_query@Base 3.8.3
