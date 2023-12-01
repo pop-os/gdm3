@@ -7,7 +7,7 @@ Section: gnome
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: Jeremy Bícha <jbicha@ubuntu.com>, Marco Trevisan (Treviño) <marco@ubuntu.com>
+Uploaders: Jeremy Bicha <jbicha@ubuntu.com>, Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: check (>= 0.9.4),
                dconf-cli (>= 0.19.90),
                debhelper-compat (= 13),
@@ -41,7 +41,9 @@ Build-Depends: check (>= 0.9.4),
                libxcb1-dev,
                libxdmcp-dev,
                meson (>= 0.57),
+               pkgconf,
                systemd,
+               systemd-dev,
                udev [linux-any]
 Standards-Version: 4.6.2
 XS-Debian-Vcs-Git: https://salsa.debian.org/gnome-team/gdm.git

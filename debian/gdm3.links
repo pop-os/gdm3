@@ -1,2 +1,3 @@
 etc/gdm3/greeter.dconf-defaults usr/share/gdm/dconf/90-debian-settings
-lib/systemd/system/gdm.service lib/systemd/system/gdm3.service
+${env:systemdsystemunitdir}/gdm.service ${env:systemdsystemunitdir}/gdm3.service
+usr/share/dconf/profile/gdm usr/share/dconf/profile/Debian-gdm
