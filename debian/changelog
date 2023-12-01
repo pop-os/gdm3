@@ -1,4 +1,4 @@
-gdm3 (45.0.1-1ubuntu1) UNRELEASED; urgency=medium
+gdm3 (45.0.1-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian, containing new upstream version.
   * debian/patches: Refresh
