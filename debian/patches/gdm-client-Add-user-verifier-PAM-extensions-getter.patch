@@ -1,0 +1,51 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Mon, 23 Oct 2023 09:34:56 +0200
+Subject: gdm-client: Add user verifier PAM extensions getter
+
+We have a setter to enable the user verifier PAM extensions, but it's
+not possible to get back this parameter.
+
+So add a getter for it. We're still returning the value that the library
+user defined, more than the extensions that are actually enabled as that
+may lead to a racy result, given that it depends on interaction with
+GDM session.
+---
+ libgdm/gdm-client.c | 15 +++++++++++++++
+ libgdm/gdm-client.h |  1 +
+ 2 files changed, 16 insertions(+)
+
+diff --git a/libgdm/gdm-client.c b/libgdm/gdm-client.c
+index 451ada6..0f0d5cd 100644
+--- a/libgdm/gdm-client.c
++++ b/libgdm/gdm-client.c
+@@ -1534,3 +1534,18 @@ gdm_client_set_enabled_extensions (GdmClient          *client,
+ {
+         client->enabled_extensions = g_strdupv ((char **) extensions);
+ }
++
++/**
++ * gdm_client_get_enabled_extensions:
++ * @client: a #GdmClient
++ *
++ * Gets GDM's enabled pam extensions.  Currently, only
++ * org.gnome.DisplayManager.UserVerifier.ChoiceList is supported.
++ *
++ * Returns: (array zero-terminated=1) (element-type utf8) (transfer: full): a list of extensions
++ */
++GStrv
++gdm_client_get_enabled_extensions (GdmClient *client)
++{
++        return g_strdupv (client->enabled_extensions);
++}
+diff --git a/libgdm/gdm-client.h b/libgdm/gdm-client.h
+index 95f9fcb..2e97fca 100644
+--- a/libgdm/gdm-client.h
++++ b/libgdm/gdm-client.h
+@@ -41,6 +41,7 @@ GQuark             gdm_client_error_quark              (void);
+ GdmClient         *gdm_client_new                      (void);
+ void               gdm_client_set_enabled_extensions   (GdmClient *client,
+                                                         const char * const * extensions);
++GStrv              gdm_client_get_enabled_extensions   (GdmClient *client);
+ 
+ void               gdm_client_open_reauthentication_channel (GdmClient     *client,
+                                                              const char           *username,
