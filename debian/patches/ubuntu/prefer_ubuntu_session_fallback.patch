@@ -12,7 +12,7 @@ Forwarded: not-needed
  1 file changed, 8 insertions(+)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 643e374..5debf62 100644
+index 718cd53..d0ea27c 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
 @@ -589,6 +589,14 @@ get_fallback_session_name (GdmSession *self)
