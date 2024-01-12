@@ -8,6 +8,7 @@ gdm-client-Use-qdata-to-get-user-verifier-extensions.patch
 gdm-pam-extensions-common-Include-string-header.patch
 Add-support-for-generic-GDM-CustomJSON-binary-protocol.patch
 gdm-client-Add-user-verifier-PAM-extensions-getter.patch
+gdm-pam-extensions-Install-gdm-custom-json-pam-extension..patch
 ubuntu/run_xsession.d.patch
 ubuntu/xresources_is_a_dir.patch
 ubuntu/nvidia_prime.patch
