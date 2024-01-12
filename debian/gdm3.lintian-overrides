@@ -1,3 +1,5 @@
+# 1031037
+gdm3: no-manual-page [usr/libexec/*]
 # internal use only
 gdm3: unused-debconf-template gdm3/daemon_name [templates:*]
 # "If this is intentional, please override this warning."
