@@ -1,3 +1,14 @@
+gdm3 (45.0.1-3) UNRELEASED; urgency=medium
+
+  * d/control: Stop generating from d/control.in
+  * d/control: Remove unnecessary B-D on systemd, udev.
+    This package already build-depends on systemd-dev. (Closes: #1060507)
+  * d/gdm3.lintian-overrides: Update to accomodate merged /usr
+  * d/gdm3.lintian-overrides: Add an override for #1031037
+  * d/source/lintian-overrides: Silence warnings for local dh-exec substitutions
+
+ -- Simon McVittie <smcv@debian.org>  Fri, 12 Jan 2024 11:41:50 +0000
+
 gdm3 (45.0.1-2) unstable; urgency=medium
 
   * debian/gdm3.gdm-smartcard-pkcs11-exclusive.pam: Make Smart Card module
