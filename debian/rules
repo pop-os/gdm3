@@ -95,3 +95,5 @@ override_dh_auto_clean:
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
 	rm -f data/gdm.schemas data/61-gdm.rules
+
+override_dh_gnome_clean:
