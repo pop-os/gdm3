@@ -54,7 +54,7 @@ override_dh_auto_configure:
 		-Drun-dir=/run/gdm3 \
 		-Dpid-file=/run/gdm3.pid \
 		-Dlog-dir=/var/log/gdm3 \
-		-Dpam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
+		-Dpam-mod-dir=/usr/lib/$(DEB_HOST_MULTIARCH)/security \
 		-Dscreenshot-dir=/run/gdm3/greeter \
 		-Ddefaults-conf=/usr/share/gdm/defaults.conf \
 		-Duser=Debian-gdm -Dgroup=Debian-gdm \
