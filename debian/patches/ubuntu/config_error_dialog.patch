@@ -104,10 +104,10 @@ index 0000000..fb12366
 +	zenity --warning --no-wrap --no-markup --text="$TEXT"
 +fi
 diff --git a/data/meson.build b/data/meson.build
-index 86ac1af..3767052 100644
+index 6941e71..1d58053 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -219,8 +219,13 @@ if get_option('gdm-xsession')
+@@ -216,8 +216,13 @@ if get_option('gdm-xsession')
      output: '@BASENAME@',
      configuration: {
        'libexecdir': gdm_prefix / get_option('libexecdir'),
@@ -123,7 +123,7 @@ index 86ac1af..3767052 100644
 +  )
  endif
 diff --git a/po/POTFILES.in b/po/POTFILES.in
-index e84eef2..0486c56 100644
+index 41fbd76..0ad9866 100644
 --- a/po/POTFILES.in
 +++ b/po/POTFILES.in
 @@ -38,6 +38,7 @@ daemon/gdm-x-session.c
@@ -133,4 +133,4 @@ index e84eef2..0486c56 100644
 +data/config-error-dialog.sh
  data/org.gnome.login-screen.gschema.xml
  libgdm/gdm-user-switching.c
- utils/gdmflexiserver.c
+ utils/gdm-config.c

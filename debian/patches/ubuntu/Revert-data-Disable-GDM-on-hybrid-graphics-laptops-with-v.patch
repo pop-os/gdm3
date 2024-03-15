@@ -16,10 +16,10 @@ recent driver series.
  1 file changed, 4 insertions(+), 16 deletions(-)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index a4f841b..e56cdb0 100644
+index 5434e10..1c5abc1 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -47,18 +47,6 @@ KERNEL!="nvidia", GOTO="gdm_nvidia_end"
+@@ -33,18 +33,6 @@ KERNEL!="nvidia", GOTO="gdm_nvidia_end"
  SUBSYSTEM!="module", GOTO="gdm_nvidia_end"
  ACTION!="add", GOTO="gdm_nvidia_end"
  RUN+="/usr/bin/touch /run/udev/gdm-machine-has-vendor-nvidia-driver"
@@ -38,7 +38,7 @@ index a4f841b..e56cdb0 100644
  LABEL="gdm_nvidia_end"
  
  # If this machine has an internal panel, take note, since it's probably a laptop
-@@ -82,12 +70,12 @@ ENV{GDM_NUMBER_OF_GRAPHICS_CARDS}=="1", RUN+="/usr/bin/rm -f /run/udev/gdm-machi
+@@ -68,12 +56,12 @@ ENV{GDM_NUMBER_OF_GRAPHICS_CARDS}=="1", RUN+="/usr/bin/rm -f /run/udev/gdm-machi
  ENV{GDM_NUMBER_OF_GRAPHICS_CARDS}!="1", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-hybrid-graphics"
  LABEL="gdm_hybrid_graphics_check_end"
  
@@ -53,7 +53,7 @@ index a4f841b..e56cdb0 100644
  LABEL="gdm_hybrid_nvidia_laptop_check_end"
  
  # Disable wayland in situation where we're in a guest with a virtual gpu and host passthrough gpu
-@@ -116,8 +104,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
+@@ -102,8 +90,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
  ATTR{parameters/modeset}!="Y", GOTO="gdm_disable_wayland"
  # disable wayland for nvidia drivers versions lower than 470
  ATTR{version}=="4[0-6][0-9].*|[0-3][0-9][0-9].*|[0-9][0-9].*|[0-9].*", GOTO="gdm_disable_wayland"
