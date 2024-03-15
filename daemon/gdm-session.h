@@ -22,6 +22,7 @@
 #define __GDM_SESSION_H
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <sys/types.h>
 
 G_BEGIN_DECLS
@@ -115,6 +116,10 @@ void              gdm_session_close                       (GdmSession *session);
 void              gdm_session_answer_query                (GdmSession *session,
                                                            const char *service_name,
                                                            const char *text);
+void              gdm_session_report_error                (GdmSession *session,
+                                                           const char *service_name,
+                                                           GDBusError  code,
+                                                           const char *message);
 void              gdm_session_select_program              (GdmSession *session,
                                                            const char *command_line);
 void              gdm_session_select_session              (GdmSession *session,
@@ -126,6 +131,7 @@ void              gdm_session_set_timed_login_details     (GdmSession *session,
                                                            int         delay);
 gboolean          gdm_session_client_is_connected         (GdmSession *session);
 gboolean          gdm_session_is_running                  (GdmSession *session);
+gboolean          gdm_session_is_frozen                   (GdmSession *session);
 GPid              gdm_session_get_pid                     (GdmSession *session);
 
 G_END_DECLS
