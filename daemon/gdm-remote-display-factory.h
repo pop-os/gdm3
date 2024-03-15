@@ -1,7 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2017 Red Hat, Inc.
- * Copyright (C) 2023 Canonical Ltd.
+ * Copyright (C) 2022 Joan Torres <joan.torres@suse.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef GDM_PAM_EXTENSIONS_H
-#define GDM_PAM_EXTENSIONS_H
 
-#include "gdm-choice-list-pam-extension.h"
-#include "gdm-custom-json-pam-extension.h"
 
-#endif
+#ifndef __GDM_REMOTE_DISPLAY_FACTORY_H
+#define __GDM_REMOTE_DISPLAY_FACTORY_H
+
+#include <glib-object.h>
+
+#include "gdm-display-factory.h"
+#include "gdm-display-store.h"
+
+G_BEGIN_DECLS
+
+#define GDM_TYPE_REMOTE_DISPLAY_FACTORY (gdm_remote_display_factory_get_type ())
+G_DECLARE_FINAL_TYPE (GdmRemoteDisplayFactory, gdm_remote_display_factory, GDM, REMOTE_DISPLAY_FACTORY, GdmDisplayFactory)
+
+GdmRemoteDisplayFactory *    gdm_remote_display_factory_new                      (GdmDisplayStore         *display_store);
+
+G_END_DECLS
+
+#endif /* __GDM_REMOTE_DISPLAY_FACTORY_H */
