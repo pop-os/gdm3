@@ -29,10 +29,10 @@ index 2a0bbd0..dc3b783 100644
                                            display_hostname,
                                            display_x11_authority_file);
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index e5ef594..1922b4c 100644
+index 06f648e..4a9ce12 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -3239,6 +3239,12 @@ gdm_session_close (GdmSession *self)
+@@ -3107,6 +3107,12 @@ gdm_session_close (GdmSession *self)
  
          g_list_free_full (self->outside_connections, g_object_unref);
          self->outside_connections = NULL;
