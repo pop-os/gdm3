@@ -1,0 +1,3 @@
+# Defined by debian/rules
+dh-exec-subst-unknown-variable systemdsystemunitdir [*]
+dh-exec-subst-unknown-variable udevdir [*]

@@ -54,7 +54,7 @@ override_dh_auto_configure:
 		-Dpid-file=/run/gdm3.pid \
 		-Dlog-dir=/var/log/gdm3 \
 		-Dgdm-xsession=true \
-		-Dpam-mod-dir=/lib/$(DEB_HOST_MULTIARCH)/security \
+		-Dpam-mod-dir=/usr/lib/$(DEB_HOST_MULTIARCH)/security \
 		-Dscreenshot-dir=/run/gdm3/greeter \
 		-Ddefaults-conf=/usr/share/gdm/defaults.conf \
 		-Dlang-file=/etc/default/locale \
@@ -94,3 +94,5 @@ override_dh_auto_clean:
 	rm -f $(MANPAGES)
 	rm -f $(OUTFILES)
 	rm -f data/gdm.schemas data/61-gdm.rules
+
+override_dh_gnome_clean:

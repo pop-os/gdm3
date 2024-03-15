@@ -1,3 +1,48 @@
+gdm3 (46~rc-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add Build-Depends: libjson-glib-dev
+  * debian/libgdm1.symbols: Add new symbols
+  * debian/gdm3.install: Install /usr/bin/gdm-config
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 15 Mar 2024 13:41:09 -0400
+
+gdm3 (45.0.1-3) unstable; urgency=medium
+
+  * Team upload
+
+  [ Simon McVittie ]
+  * d/control: Stop generating from d/control.in
+  * d/control: Remove unnecessary B-D on systemd, udev.
+    This package already build-depends on systemd-dev. (Closes: #1060507)
+  * d/gdm3.lintian-overrides: Update to accomodate merged /usr
+  * d/gdm3.lintian-overrides: Add an override for #1031037
+  * d/source/lintian-overrides: Silence warnings for local dh-exec
+    substitutions
+
+  [ Dandan Zhang ]
+  * Add loong64 to the list of architectures where gjs is available
+    (Closes: #1058673)
+
+  [ Michael Biebl ]
+  * Install PAM module into /usr (Closes: #1061244)
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 31 Jan 2024 14:56:12 +0100
+
+gdm3 (45.0.1-2) unstable; urgency=medium
+
+  * debian/gdm3.gdm-smartcard-pkcs11-exclusive.pam: Make Smart Card module
+    really exclusive
+    pam_pkcs11 may stil return PAM_IGNORE in case of smart-card errors if no
+    card_only is parameter is provided, potentially leading to an unexpected
+    login.
+    This should not be an issue anymore in recent versions of this service
+    files since we always fallback to password auth, but it's still a bug
+    since we should not really fallback to password if this service file is
+    selected. (LP: #2017870)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 23 Dec 2023 03:29:50 +0100
+
 gdm3 (45.0.1-1ubuntu2) noble; urgency=medium
 
   * debian/gdm3.gdm-smartcard-pkcs11-exclusive.pam: Make Smart Card module
