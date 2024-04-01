@@ -1,8 +1,8 @@
-gdm3 (46.0-1) UNRELEASED; urgency=medium
+gdm3 (46.0-1) unstable; urgency=medium
 
   * New upstream release
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 01 Apr 2024 08:03:18 -0400
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 01 Apr 2024 08:03:50 -0400
 
 gdm3 (46~rc-1) unstable; urgency=medium
 
