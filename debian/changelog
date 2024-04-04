@@ -1,3 +1,16 @@
+gdm3 (46.0-2) UNRELEASED; urgency=medium
+
+  * debian/rules: Set the distro as debian
+  * debian/patches/gdm-auth-config-debian: Install hook for gdm-config.
+    This is distro-specific configuration that gdm allows distro to
+    configure so add the debian version for it and install it /usr/libexec
+  * debian/patches: Refresh indexes
+  * debian/patches: Cherry-pick upstream fixes:
+     - manager: Move g-i-s chown to when PAM authentication completed
+     - udev rules: Add check for nvidia S0ix suspend
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Apr 2024 05:49:36 +0200
+
 gdm3 (46.0-1) unstable; urgency=medium
 
   * New upstream release
