@@ -1,0 +1,161 @@
+From: Dan Nicholson <dbn@endlessos.org>
+Date: Wed, 13 Mar 2024 12:38:50 -0600
+Subject: manager: Move g-i-s chown to when PAM authentication completed
+
+During the PAM conversation, `pam_gnome_keyring` will try to unlock the
+login keyring. If the keyring created by gnome-initial-setup hasn't
+changed ownership, then `gnome-initial-setup-copy-worker` can't move it
+in place and `gnome-keyring-daemon` will try to create a new login
+keyring. This either means the keyring created in g-i-s is lost or g-k-d
+gets confused about a keyring that shows up after initializing but
+before it's received the unlock/create request.
+
+Similarly, the systemd user session is started by `pam_systemd` and will
+trigger any number of services that might consume the config files g-i-s
+has created.
+
+To ensure that files are ready before any consumers have started, chown
+them right after the user credentials have been established but before
+the PAM session has been started.
+
+Helps: https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/137
+(cherry picked from commit ca7d30c3a953aac58976c99e26fceead3427f69b)
+---
+ daemon/gdm-manager.c | 43 +++++++++++++++++++++++++++++++++++--------
+ daemon/gdm-session.c | 18 ++++++++++++++++++
+ 2 files changed, 53 insertions(+), 8 deletions(-)
+
+diff --git a/daemon/gdm-manager.c b/daemon/gdm-manager.c
+index fc5aef6..c2db55b 100644
+--- a/daemon/gdm-manager.c
++++ b/daemon/gdm-manager.c
+@@ -1824,6 +1824,8 @@ chown_initial_setup_home_dir (void)
+                 goto out;
+         }
+ 
++        g_debug ("Changing ownership of %s to %u:%u", gis_dir_path, pwe->pw_uid, pwe->pw_gid);
++
+         error = NULL;
+         dir = g_file_new_for_path (gis_dir_path);
+         if (!chown_recursively (dir, pwe->pw_uid, pwe->pw_gid, &error)) {
+@@ -1843,7 +1845,6 @@ on_start_user_session (StartUserSessionOperation *operation)
+         GdmManager *self = operation->manager;
+         gboolean migrated;
+         gboolean fail_if_already_switched = TRUE;
+-        gboolean doing_initial_setup = FALSE;
+         GdmDisplay *display;
+         const char *session_id;
+ 
+@@ -1868,13 +1869,6 @@ on_start_user_session (StartUserSessionOperation *operation)
+ 
+         display = get_display_for_user_session (operation->session);
+ 
+-        g_object_get (G_OBJECT (display),
+-                      "doing-initial-setup", &doing_initial_setup,
+-                      NULL);
+-
+-        if (doing_initial_setup)
+-                chown_initial_setup_home_dir ();
+-
+         session_id = gdm_session_get_conversation_session_id (operation->session,
+                                                               operation->service_name);
+ 
+@@ -1888,8 +1882,13 @@ on_start_user_session (StartUserSessionOperation *operation)
+                                 "session-id", session_id,
+                                 NULL);
+         } else {
++                gboolean doing_initial_setup = FALSE;
+                 uid_t allowed_uid;
+ 
++                g_object_get (G_OBJECT (display),
++                              "doing-initial-setup", &doing_initial_setup,
++                              NULL);
++
+                 g_object_ref (display);
+                 if (doing_initial_setup) {
+                         g_autoptr(GError) error = NULL;
+@@ -1982,6 +1981,30 @@ on_session_authentication_failed (GdmSession *session,
+         add_session_record (manager, session, conversation_pid, SESSION_RECORD_FAILED);
+ }
+ 
++static void
++on_session_credentials_established (GdmSession *session,
++                                    const char *service_name,
++                                    GdmManager *manager)
++{
++        GdmDisplay *display;
++        gboolean    doing_initial_setup = FALSE;
++
++        display = get_display_for_user_session (session);
++        if (display == NULL) {
++                g_debug ("GdmManager: session has no associated display");
++                return;
++        }
++
++        /* If this is the initial setup, chown the g-i-s homedir now before the
++         * PAM session is opened and the consumers are started.
++         */
++        g_object_get (G_OBJECT (display),
++                      "doing-initial-setup", &doing_initial_setup,
++                      NULL);
++        if (doing_initial_setup)
++                chown_initial_setup_home_dir ();
++}
++
+ static void
+ on_user_session_opened (GdmSession       *session,
+                         const char       *service_name,
+@@ -2476,6 +2499,10 @@ create_user_session_for_display (GdmManager *manager,
+                           "authentication-failed",
+                           G_CALLBACK (on_session_authentication_failed),
+                           manager);
++        g_signal_connect (session,
++                          "credentials-established",
++                          G_CALLBACK (on_session_credentials_established),
++                          manager);
+         g_signal_connect (session,
+                           "session-opened",
+                           G_CALLBACK (on_user_session_opened),
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index a4c4b2d..f37f2c9 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -176,6 +176,7 @@ enum {
+         CLIENT_READY_FOR_SESSION_TO_START,
+         DISCONNECTED,
+         AUTHENTICATION_FAILED,
++        CREDENTIALS_ESTABLISHED,
+         VERIFICATION_COMPLETE,
+         SESSION_OPENED,
+         SESSION_OPENED_FAILED,
+@@ -330,6 +331,12 @@ on_establish_credentials_cb (GdmDBusWorker *proxy,
+         service_name = g_strdup (conversation->service_name);
+ 
+         if (worked) {
++                g_signal_emit (self,
++                               signals[CREDENTIALS_ESTABLISHED],
++                               0,
++                               service_name,
++                               conversation->worker_pid);
++
+                 switch (self->verification_mode) {
+                 case GDM_SESSION_VERIFICATION_MODE_LOGIN:
+                 case GDM_SESSION_VERIFICATION_MODE_CHOOSER:
+@@ -4108,6 +4115,17 @@ gdm_session_class_init (GdmSessionClass *session_class)
+                               2,
+                               G_TYPE_STRING,
+                               G_TYPE_INT);
++        signals [CREDENTIALS_ESTABLISHED] =
++                g_signal_new ("credentials-established",
++                              GDM_TYPE_SESSION,
++                              G_SIGNAL_RUN_FIRST,
++                              0,
++                              NULL,
++                              NULL,
++                              NULL,
++                              G_TYPE_NONE,
++                              1,
++                              G_TYPE_STRING);
+         signals [VERIFICATION_COMPLETE] =
+                 g_signal_new ("verification-complete",
+                               GDM_TYPE_SESSION,
