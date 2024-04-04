@@ -1,0 +1,193 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Thu, 4 Apr 2024 05:32:56 +0200
+Subject: utils/gdm-auth-config-debian: Add debian hook for gdm-config
+
+This is distro-specific configuration that gdm allows distro to
+configure so add the debian version for it that will be installed when
+-Ddistro=debian
+---
+ utils/gdm-auth-config-debian | 175 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 175 insertions(+)
+ create mode 100755 utils/gdm-auth-config-debian
+
+diff --git a/utils/gdm-auth-config-debian b/utils/gdm-auth-config-debian
+new file mode 100755
+index 0000000..54f1741
+--- /dev/null
++++ b/utils/gdm-auth-config-debian
+@@ -0,0 +1,175 @@
++#!/usr/bin/env bash
++#
++# Copyright (C) 2023 Marco Trevisan <marco.trevisan@canonical.com>
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2, or (at your option)
++# any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++# 02110-1301, USA.
++
++command=$1
++action=$2
++action_setting=$3
++
++set -e
++export LANG=C
++
++SSSD_MODULE=pam_sss.so
++PKCS11_MODULE=pam_pkcs11.so
++PAM_MODULES_PATH=/etc/pam.d
++GDM_SMARTCARD_ALTERNATIVE=gdm-smartcard
++
++ENABLED="enabled"
++DISABLED="disabled"
++REQUIRED="required"
++STOP=19
++
++function get_smartcard_mode() {
++    local sc_mode
++    local smartcard_alternative
++
++    smartcard_alternative=$(update-alternatives --query gdm-smartcard \
++        | awk '/^Value: / { print $2; }')
++
++    if [[ "$smartcard_alternative" == *gdm-smartcard-sssd-* ]]; then
++        if [ -n "$(shopt -s nullglob; echo /lib/*/security/$SSSD_MODULE)" ]; then
++            sc_mode=sssd
++        fi
++    elif [[ "$smartcard_alternative" == *gdm-smartcard-pkcs11-* ]]; then
++        if [ -n "$(shopt -s nullglob; echo /lib/*/security/$PKCS11_MODULE)" ]; then
++            sc_mode=pkcs11
++        fi
++    fi
++
++    if [ -z "$sc_mode" ]; then
++        return
++    fi
++
++    if [[ "$smartcard_alternative" == *-exclusive ]]; then
++        sc_mode+="-exclusive"
++    fi
++
++    echo "$sc_mode"
++}
++
++function get_smartcard_module() {
++    sc_mode=$(get_smartcard_mode)
++    echo "${sc_mode%"-exclusive"}"
++}
++
++function is_smartcard_exclusive() {
++    [[ "$(get_smartcard_mode)" == *-exclusive ]]
++}
++
++function set_smartcard_module() {
++    update-alternatives --set "$GDM_SMARTCARD_ALTERNATIVE" \
++        "$PAM_MODULES_PATH/gdm-smartcard-$1-$2"
++}
++
++function has_fingerprint_module() {
++    [ -n "$(shopt -s nullglob; echo /usr/lib/*/security/pam_fprintd.so)" ]
++}
++
++case "$command" in
++    show)
++        case "$action" in
++            password)
++                if is_smartcard_exclusive; then
++                    echo $DISABLED
++                else
++                    echo $ENABLED
++                fi
++            ;;
++            smartcard)
++                if [ -z "$action_setting" ]; then
++                    sc_mode=$(get_smartcard_mode)
++
++                    if [ -z "$sc_mode" ]; then
++                        echo $DISABLED
++                    elif [[ "$sc_mode" == *-exclusive ]]; then
++                        echo $REQUIRED
++                    elif [ -n "$sc_mode" ]; then
++                        echo $ENABLED
++                    fi
++                fi
++            ;;
++            fingerprint)
++                if has_fingerprint_module; then
++                # FIXME: Check if this is ignored if disabled from settings
++                    echo $ENABLED
++                else
++                    echo $DISABLED
++                fi
++            ;;
++        esac
++
++        exit 0
++    ;;
++
++    smartcard)
++        case "$action" in
++            enable)
++                if [ -n "$(get_smartcard_mode)" ]; then
++                    module=$(get_smartcard_module)
++                    set_smartcard_module "$module" "or-password" || true
++                fi
++            ;;
++            require)
++                if [ -n "$(get_smartcard_mode)" ]; then
++                    module=$(get_smartcard_module)
++                    set_smartcard_module "$module" "exclusive" || true
++                fi
++            ;;
++            disable)
++                if is_smartcard_exclusive; then
++                    module=$(get_smartcard_module)
++                    set_smartcard_module "$module" "or-password" || true
++                fi
++            ;;
++            removal-action)
++            ;;
++        esac
++
++        # Continue with default behavior
++        exit 0
++    ;;
++
++    fingerprint)
++        # Use default behavior
++        exit 0
++    ;;
++
++    password)
++        case "$action" in
++            enable)
++                sc_mode=$(get_smartcard_mode)
++                if [[ "$sc_mode" == *-exclusive ]]; then
++                    module=$(get_smartcard_module)
++                    set_smartcard_module "$module" "or-password" || true
++                fi
++            ;;
++            *)
++            ;;
++        esac
++        # Continue with default behavior
++        exit 0
++    ;;
++
++    *)
++        # Use default behavior
++        exit 0
++    ;;
++esac
++
++# shellcheck disable=SC2317
++exit 1
