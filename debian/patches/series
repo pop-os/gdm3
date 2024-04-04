@@ -3,6 +3,7 @@
 91_dconf_database_path.patch
 92_systemd_unit.patch
 94_retain_xorg_log.patch
+debian/utils-gdm-auth-config-debian-Add-debian-hook-for-gdm-conf.patch
 ubuntu/run_xsession.d.patch
 ubuntu/xresources_is_a_dir.patch
 ubuntu/nvidia_prime.patch
@@ -14,3 +15,4 @@ ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
 ubuntu/Revert-data-Remove-nvidia-driver-version-check.patch
 ubuntu/Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
 ubuntu/start-after-cloudinit.patch
+manager-Move-g-i-s-chown-to-when-PAM-authentication-compl.patch

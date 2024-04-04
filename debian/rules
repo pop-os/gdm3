@@ -44,6 +44,7 @@ override_dh_installsystemd:
 override_dh_auto_configure:
 	X_BIN="/usr/bin/Xorg" \
 	dh_auto_configure -- \
+		-Ddistro=debian \
 		-Dipv6=true \
 		-Dat-spi-registryd-dir=/usr/lib/at-spi \
 		-Ddefault-path=/usr/local/bin:/usr/bin:/bin:/usr/games \
