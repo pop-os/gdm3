@@ -1,4 +1,4 @@
-gdm3 (46.0-2ubuntu1) UNRELEASED; urgency=medium
+gdm3 (46.0-2ubuntu1) noble; urgency=medium
 
   * Merge with Debian, containing new upstream release. Remaining changes:
     + readme.debian: update for correct paths in ubuntu
@@ -59,7 +59,7 @@ gdm3 (46.0-2ubuntu1) UNRELEASED; urgency=medium
       greeter's dconf db
     * Reverted debian patch to udev rules for nvidia S0ix suspend support
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Apr 2024 06:08:49 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Apr 2024 07:34:16 +0200
 
 gdm3 (46.0-2) unstable; urgency=medium
 
