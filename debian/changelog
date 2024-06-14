@@ -1,3 +1,14 @@
+gdm3 (46.0-2ubuntu2) UNRELEASED; urgency=medium
+
+  * Remove the Ubuntu-specific rules that made Xorg the default for Nvidia.
+    Updated Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
+    to ensure Nvidia 5xx drivers always get Wayland as the default unless
+    there's a stronger reason why it won't work (like modeset has been
+    disabled on the kernel command line).
+    Also refresh the patch description with a more recent justification.
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Fri, 14 Jun 2024 07:40:20 -0400
+
 gdm3 (46.0-2ubuntu1) noble; urgency=medium
 
   * Merge with Debian, containing new upstream release. Remaining changes:
