@@ -15,4 +15,3 @@ ubuntu/XSession-Use-x-terminal-emulator-as-fallback-instead-of-x.patch
 ubuntu/Revert-data-Remove-nvidia-driver-version-check.patch
 ubuntu/Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
 ubuntu/start-after-cloudinit.patch
-manager-Move-g-i-s-chown-to-when-PAM-authentication-compl.patch
