@@ -1,8 +1,13 @@
-gdm3 (46.2-1) UNRELEASED; urgency=medium
+gdm3 (46.2-1) unstable; urgency=medium
 
+  [ Jeremy Bícha ]
   * New upstream release
+  * Drop 2 patches applied in new release
 
- -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 01 Jul 2024 07:26:40 -0400
+  [ Sebastian Andrzej Siewior ]
+  * Adapt autopkgtest for openssl3.2 (Closes: #1061458)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 01 Jul 2024 07:45:23 -0400
 
 gdm3 (46.0-2) unstable; urgency=medium
 
