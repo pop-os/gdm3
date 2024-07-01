@@ -9,10 +9,10 @@ This reverts commit db94ed31b79c90528d922d705ff3484216817415.
  1 file changed, 14 deletions(-)
 
 diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
-index 97e6a81..ff11a15 100644
+index 5b051a2..66871fc 100644
 --- a/daemon/gdm-session.c
 +++ b/daemon/gdm-session.c
-@@ -2901,7 +2901,6 @@ set_up_session_environment (GdmSession *self)
+@@ -2908,7 +2908,6 @@ set_up_session_environment (GdmSession *self)
  {
          GdmSessionDisplayMode display_mode;
          gchar *desktop_names;
@@ -20,7 +20,7 @@ index 97e6a81..ff11a15 100644
  
          if (self->selected_program == NULL) {
                  gdm_session_set_environment_variable (self,
-@@ -2922,19 +2921,6 @@ set_up_session_environment (GdmSession *self)
+@@ -2929,19 +2928,6 @@ set_up_session_environment (GdmSession *self)
  
          set_up_session_language (self);
  
