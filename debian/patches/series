@@ -4,5 +4,3 @@
 92_systemd_unit.patch
 94_retain_xorg_log.patch
 debian/utils-gdm-auth-config-debian-Add-debian-hook-for-gdm-conf.patch
-udev-rules-Add-check-for-nvidia-S0ix-suspend.patch
-manager-Move-g-i-s-chown-to-when-PAM-authentication-compl.patch
