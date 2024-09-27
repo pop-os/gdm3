@@ -1,26 +1,28 @@
-From: =?utf-8?q?Lo=C3=AFc_Minier?= <loic.minier@ubuntu.com>
-Date: Wed, 13 Jul 2011 17:32:31 +0200
-Subject: ubuntu_xresources_is_a_dir
+Author: Nathan Pratta Teodosio <nteodosio@ubuntu.com>
+Description: If /etc/X11/Xresources is a regular file instead of a
+ directory, load /etc/X11/Xresources/* into the X resource database.
+Bug-Ubuntu: https://launchpad.net/bugs/1955850
+Forwarded: not-needed
 
----
- data/Xsession.in | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/data/Xsession.in b/data/Xsession.in
-index f1c7346..af8ade0 100755
 --- a/data/Xsession.in
 +++ b/data/Xsession.in
-@@ -122,6 +122,13 @@ fi
+@@ -94,7 +94,7 @@ userresources="$HOME/.Xresources"
+ usermodmap="$HOME/.Xmodmap"
+ userxkbmap="$HOME/.Xkbmap"
  
- if [ -f "$sysresources" ]; then
-     xrdb -nocpp -merge "$sysresources"
-+elif [ -d "$sysresources" ]; then
-+    # directory of Xresources files on Debian/Ubuntu
-+    for i in `ls "$sysresources"` ; do
-+        if [ -r "$sysresources/$i"  -a -f "$sysresources/$i" ] && expr "$i" : '^[[:alnum:]_-]\+$' > /dev/null; then
-+            xrdb -nocpp -merge "$sysresources/$i"
-+        fi
-+    done
+-if [ -f /etc/X11/Xresources ]; then
++if [ -e /etc/X11/Xresources ]; then
+     sysresources=/etc/X11/Xresources
+ else
+     sysresources=/usr/etc/X11/Xresources
+@@ -120,9 +120,7 @@ if [ -f "$rh6sysresources" ]; then
+     xrdb -nocpp -merge "$rh6sysresources"
  fi
  
+-if [ -f "$sysresources" ]; then
+-    xrdb -nocpp -merge "$sysresources"
+-fi
++find "$sysresources" -maxdepth 1 -type f -readable -regextype egrep -regex '.*/[[:alnum:]_-]+$' -exec xrdb -nocpp -merge {} \;
+ 
  if [ -f "$userresources" ]; then
+     xrdb -nocpp -merge "$userresources"
