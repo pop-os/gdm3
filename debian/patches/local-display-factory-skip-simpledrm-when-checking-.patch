@@ -1,0 +1,45 @@
+From 04e119c8332a564cfad05dfb9cb6ec547d5ba954 Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 24 Aug 2023 13:39:51 -0500
+Subject: [PATCH] local-display-factory: Skip simpledrm while checking for
+ settled
+
+Some platforms the DRM driver may take more time to load and this
+will mean that GDM starts up using simpledrm instead of the proper
+KMS driver.
+
+To avoid this problem, skip simpledrm when checking if a given node
+is settled.
+
+Fixes: https://gitlab.gnome.org/GNOME/mutter/-/issues/2909
+Suggested-by: Ray Strode <halfline@gmail.com>
+Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+Tested-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ daemon/gdm-local-display-factory.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/daemon/gdm-local-display-factory.c b/daemon/gdm-local-display-factory.c
+index e33b3cbd4..550702366 100644
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -700,9 +700,15 @@ udev_is_settled (GdmLocalDisplayFactory *factory)
+         while (node != NULL) {
+                 GUdevDevice *device = node->data;
+                 GList *next_node = node->next;
++                const gchar *id_path = g_udev_device_get_property (device, "ID_PATH");
+                 g_autoptr (GUdevDevice) platform_device = NULL;
+                 g_autoptr (GUdevDevice) pci_device = NULL;
+ 
++                if (g_str_has_prefix (id_path, "platform-simple-framebuffer")) {
++                        node = next_node;
++                        continue;
++                }
++
+                 platform_device = g_udev_device_get_parent_with_subsystem (device, "platform", NULL);
+ 
+                 if (platform_device != NULL) {
+-- 
+2.34.1
+

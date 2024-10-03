@@ -9,6 +9,7 @@ local-display-factory-Fix-type-of-signal-connection-id.patch
 local-display-factory-Stop-listening-to-udev-events-when-.patch
 Update-Basque-translation.patch
 local-display-factory-Fix-typo-in-supported-session-types.patch
+local-display-factory-skip-simpledrm-when-checking-.patch
 # End cherry-picked patches
 16_xserver_path.patch
 90_config_comments.patch
