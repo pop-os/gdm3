@@ -1,0 +1,52 @@
+From: Alessandro Astone <alessandro.astone@canonical.com>
+Date: Wed, 23 Oct 2024 13:06:47 +0200
+Subject: Drop special handling of nvidia hybrid laptops
+
+These udev rules are inherently broken: their result depends on
+the ordering of events.
+
+Let's handle nvidia hybrid laptops just the same as nvidia desktops:
+* always default to xorg
+* with nvidia version  < 470 Wayland is completely disabled
+* with nvidia version >= 470 Wayland can be opted-in
+---
+ data/61-gdm.rules.in | 19 -------------------
+ 1 file changed, 19 deletions(-)
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index 90d6a77..a836de0 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -35,17 +35,6 @@ ACTION!="add", GOTO="gdm_nvidia_end"
+ RUN+="/usr/bin/touch /run/udev/gdm-machine-has-vendor-nvidia-driver"
+ LABEL="gdm_nvidia_end"
+ 
+-# If this machine has an internal panel, take note, since it's probably a laptop
+-# FIXME: It could be "ghost connectors" make this pop positive for some workstations
+-# in the wild. If so, we may have to fallback to looking at the chassis type from
+-# dmi data or acpi
+-KERNEL!="card[0-9]-eDP-*", GOTO="gdm_laptop_check_end"
+-SUBSYSTEM!="drm", GOTO="gdm_laptop_check_end"
+-ACTION!="add", GOTO="gdm_laptop_check_end"
+-RUN+="/usr/bin/touch /run/udev/gdm-machine-is-laptop"
+-GOTO="gdm_hybrid_nvidia_laptop_check"
+-LABEL="gdm_laptop_check_end"
+-
+ # If this is a hybrid graphics setup, take note
+ KERNEL!="card[1-9]*", GOTO="gdm_hybrid_graphics_check_end"
+ KERNEL=="card[1-9]-*", GOTO="gdm_hybrid_graphics_check_end"
+@@ -56,14 +45,6 @@ ENV{GDM_NUMBER_OF_GRAPHICS_CARDS}=="1", RUN+="/usr/bin/rm -f /run/udev/gdm-machi
+ ENV{GDM_NUMBER_OF_GRAPHICS_CARDS}!="1", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-hybrid-graphics"
+ LABEL="gdm_hybrid_graphics_check_end"
+ 
+-# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
+-LABEL="gdm_hybrid_nvidia_laptop_check"
+-TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_end"
+-TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_laptop_check_end"
+-TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidia_laptop_check_end"
+-GOTO="gdm_disable_wayland"
+-LABEL="gdm_hybrid_nvidia_laptop_check_end"
+-
+ # Disable wayland in situation where we're in a guest with a virtual gpu and host passthrough gpu
+ LABEL="gdm_virt_passthrough_check"
+ TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_virt_passthrough_check_end"

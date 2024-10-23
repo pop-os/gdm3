@@ -1,0 +1,25 @@
+From: Alessandro Astone <alessandro.astone@canonical.com>
+Date: Wed, 23 Oct 2024 12:23:09 +0200
+Subject: Prefer Xorg for all Nvidia versions
+
+Versions  < 470 get Wayland completely disabled.
+Versions >= 470 get Xorg by default but keep the option to switch to Wayland.
+---
+ data/61-gdm.rules.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index 5434e10..31abdda 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -102,8 +102,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
+ ATTR{parameters/modeset}!="Y", GOTO="gdm_disable_wayland"
+ # disable wayland for nvidia drivers versions lower than 470
+ ATTR{version}=="4[0-6][0-9].*|[0-3][0-9][0-9].*|[0-9][0-9].*|[0-9].*", GOTO="gdm_disable_wayland"
+-# For nvidia drivers versions Above 510, keep Wayland by default
+-ATTR{version}=="[5-9][1-9][0-9].*", GOTO="gdm_end"
++# For nvidia drivers versions Above 510, prefer Xorg by default
++ATTR{version}=="[5-9][1-9][0-9].*", GOTO="gdm_prefer_xorg"
+ # For nvidia drivers versions 470-495, prefer Xorg by default
+ GOTO="gdm_prefer_xorg"
+ LABEL="gdm_nvidia_drm_end"
