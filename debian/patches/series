@@ -17,4 +17,3 @@ ubuntu/Prefer-Xorg-for-all-Nvidia-versions.patch
 ubuntu/Drop-Nvidia-power-management-suspend-checks.patch
 ubuntu/Drop-special-handling-of-nvidia-hybrid-laptops.patch
 ubuntu/start-after-cloudinit.patch
-manager-Move-g-i-s-chown-to-when-PAM-authentication-compl.patch

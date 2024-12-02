@@ -217,7 +217,6 @@ openssl req \
   -key "$tmpdir/test-intermediate-CA-key.pem" \
   -passout "$root_ca_key_pass" \
   -sha256 \
-  -extensions v3_ca \
   -out "$tmpdir/test-intermediate-CA-certificate-request.pem"
 
 openssl req -text -noout -in "$tmpdir/test-intermediate-CA-certificate-request.pem"
@@ -306,7 +305,6 @@ openssl req \
   -key "$tmpdir/test-sub-intermediate-CA-key.pem" \
   -passout "$intermediate_ca_key_pass" \
   -sha256 \
-  -extensions v3_ca \
   -out "$tmpdir/test-sub-intermediate-CA-certificate-request.pem"
 
 openssl req -text -noout -in "$tmpdir/test-sub-intermediate-CA-certificate-request.pem"

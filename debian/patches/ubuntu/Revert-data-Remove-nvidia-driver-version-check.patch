@@ -8,10 +8,10 @@ This reverts commit c24e0e69e49f22e8cd1510df7920a659995e460d.
  1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 010f9eb..5434e10 100644
+index aa1a0e0..6692a9f 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -91,12 +91,21 @@ TEST!="/run/udev/gdm-machine-has-virtual-gpu", GOTO="gdm_virt_multi_gpu_check_en
+@@ -99,12 +99,21 @@ TEST!="/run/udev/gdm-machine-has-virtual-gpu", GOTO="gdm_virt_multi_gpu_check_en
  TEST=="/run/udev/gdm-machine-has-hardware-gpu", GOTO="gdm_virt_multi_gpu_check_end"
  LABEL="gdm_virt_multi_gpu_check_end"
  
