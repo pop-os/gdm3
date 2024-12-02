@@ -9,10 +9,10 @@ Versions >= 470 get Xorg by default but keep the option to switch to Wayland.
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index 5434e10..31abdda 100644
+index 6692a9f..53d2fa7 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -102,8 +102,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
+@@ -110,8 +110,8 @@ ACTION!="add", GOTO="gdm_nvidia_drm_end"
  ATTR{parameters/modeset}!="Y", GOTO="gdm_disable_wayland"
  # disable wayland for nvidia drivers versions lower than 470
  ATTR{version}=="4[0-6][0-9].*|[0-3][0-9][0-9].*|[0-9][0-9].*|[0-9].*", GOTO="gdm_disable_wayland"

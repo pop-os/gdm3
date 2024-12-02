@@ -10,7 +10,7 @@ Origin: vendor, Debian
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/daemon/gdm-server.c b/daemon/gdm-server.c
-index e9ed14c..9083f55 100644
+index cca44c5..1a27037 100644
 --- a/daemon/gdm-server.c
 +++ b/daemon/gdm-server.c
 @@ -235,12 +235,14 @@ gdm_server_init_command (GdmServer *server)
