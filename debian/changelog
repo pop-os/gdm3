@@ -1,4 +1,4 @@
-gdm3 (46.2-1ubuntu1~24.04.1) UNRELEASED; urgency=medium
+gdm3 (46.2-1ubuntu1~24.04.1) noble; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * No-change backport of stable release 46.2 (LP: #2090876)
@@ -26,7 +26,7 @@ gdm3 (46.2-1ubuntu1~24.04.1) UNRELEASED; urgency=medium
     To fix failure to load files in /etc/X11/Xresources (in case the latter is
     a directory instead of a regular file). (LP: #1955850)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 02 Dec 2024 23:41:59 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 02 Dec 2024 23:47:57 +0100
 
 gdm3 (46.2-1ubuntu1) oracular; urgency=medium
 
