@@ -1,3 +1,33 @@
+gdm3 (46.2-1ubuntu1~24.04.1) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * No-change backport of stable release 46.2 (LP: #2090876)
+
+  [ Jeremy Bícha ]
+  * Branch for noble
+
+  [ Alessandro Astone ]
+  * Default nvidia hybrid laptops to Xorg (LP: #2080498):
+    - Drop Revert-data-Disable-GDM-on-hybrid-graphics-laptops-with-v.patch
+      The hunks that are still relevant have been split into their own patches.
+    - Add Prefer-Xorg-for-all-Nvidia-versions.patch
+      This diff comes directly from the dropped patch.
+    - Add Drop-Nvidia-power-management-suspend-checks.patch
+      This diff comes directly from the dropped patch, and is still necessary
+      to keep Wayland as an option on nvidia >= 470 (both desktops and laptops).
+    - Add Drop-special-handling-of-nvidia-hybrid-laptops.patch
+      Align nvidia hybrid laptops with nvidia desktops: that means
+      disabling Wayland on nvidia < 470 and keeping it opt-in on nvidia >= 470.
+      Upstream also did this with GNOME 47, with the difference that there the
+      desktop defaults are different.
+
+  [ Nathan Pratta Teodosio ]
+  * Rewrite xresources_is_a_dir.patch.
+    To fix failure to load files in /etc/X11/Xresources (in case the latter is
+    a directory instead of a regular file). (LP: #1955850)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 02 Dec 2024 23:41:59 +0100
+
 gdm3 (46.2-1ubuntu1) oracular; urgency=medium
 
   * Merge with Debian, containing new upstream release. Remaining changes:
@@ -82,6 +112,7 @@ gdm3 (46.0-2ubuntu2) oracular; urgency=medium
     there's a stronger reason why it won't work (like modeset has been
     disabled on the kernel command line).
     Also refresh the patch description with a more recent justification.
+    (LP: #2080498)
 
  -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Tue, 18 Jun 2024 08:53:31 +0200
 
