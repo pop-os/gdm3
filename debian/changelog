@@ -1,3 +1,13 @@
+gdm3 (46.2-1ubuntu1~24.04.2) noble; urgency=medium
+
+  [ Zhaoxuan Zhai ]
+  * Add retry_preferred_display_server_before_fallback.patch to fix
+    the problem that the existing retry strategy cannot retry the preferred
+    session when the preferred session accidentally crashes during startup
+    (LP: #2120413)
+
+ -- Zhaoxuan Zhai <zhai.zhaoxuan@canonical.com>  Thu, 14 Aug 2025 16:45:23 +0800
+
 gdm3 (46.2-1ubuntu1~24.04.1) noble; urgency=medium
 
   [ Marco Trevisan (Treviño) ]

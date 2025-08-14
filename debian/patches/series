@@ -17,3 +17,4 @@ ubuntu/Prefer-Xorg-for-all-Nvidia-versions.patch
 ubuntu/Drop-Nvidia-power-management-suspend-checks.patch
 ubuntu/Drop-special-handling-of-nvidia-hybrid-laptops.patch
 ubuntu/start-after-cloudinit.patch
+ubuntu/retry_preferred_display_server_before_fallback.patch

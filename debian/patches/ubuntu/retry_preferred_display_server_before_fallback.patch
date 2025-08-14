@@ -1,0 +1,39 @@
+From: =?utf-8?q?Joan_Torres_L=C3=B3pez?= <joantolo@redhat.com>
+Date: Thu, 29 May 2025 18:56:53 +0200
+Subject: [PATCH] local-display-factory: Retry before falling back
+
+Sometimes the preferred display server could fail, that doesn't mean it
+will fail 100% all the times.
+
+Now if the preferred display server fails, allow it to be retried 5 times.
+If the last attempt fails, then the fallback display server will be attempted
+5 times too.
+
+Bug: https://gitlab.gnome.org/GNOME/gdm/-/issues/973
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/2120413
+Origin: Upstream commit 9b761767870d8aef4a79d8fd906fc0376e01a71b
+---
+ daemon/gdm-local-display-factory.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -50,7 +50,8 @@
+ #define GDM_LOCAL_DISPLAY_FACTORY_DBUS_PATH GDM_DBUS_PATH "/LocalDisplayFactory"
+ #define GDM_MANAGER_DBUS_NAME               "org.gnome.DisplayManager.LocalDisplayFactory"
+ 
+-#define MAX_DISPLAY_FAILURES 5
++#define MAX_DISPLAY_FAILURES 10
++#define N_FAILURES_UNTIL_FALLBACK 5
+ #define WAIT_TO_FINISH_TIMEOUT 10 /* seconds */
+ #define SEAT0_GRAPHICS_CHECK_TIMEOUT 10 /* seconds */
+ 
+@@ -855,7 +856,7 @@
+ 
+         is_seat0 = g_strcmp0 (seat_id, "seat0") == 0;
+ 
+-        falling_back = factory->num_failures > 0;
++        falling_back = factory->num_failures > N_FAILURES_UNTIL_FALLBACK;
+         session_types = gdm_local_display_factory_get_session_types (factory, falling_back);
+ 
+         if (session_types == NULL) {
