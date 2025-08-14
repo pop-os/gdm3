@@ -1,0 +1,32 @@
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Date: Tue, 12 Aug 2025 12:11:22 -0500
+Subject: local-display-factory: Match simpledrm in a substring instead of
+ prefix
+
+On recent kernel and systemd I'm noticing that simpledrm is showing up
+differently:
+
+ID_PATH=pci-0000:c2:00.0-platform-simple-framebuffer.0
+
+Thus it can't match on a prefix anymore. Adjust accordingly to look
+for a substring.
+
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/2115451
+Origin: Upstream commit 200cf5452e03f846de6d7001592b42d138ecf326
+---
+ daemon/gdm-local-display-factory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/daemon/gdm-local-display-factory.c b/daemon/gdm-local-display-factory.c
+index f6aa6fb..f34d861 100644
+--- a/daemon/gdm-local-display-factory.c
++++ b/daemon/gdm-local-display-factory.c
+@@ -707,7 +707,7 @@ udev_is_settled (GdmLocalDisplayFactory *factory)
+                 g_autoptr (GUdevDevice) platform_device = NULL;
+                 g_autoptr (GUdevDevice) pci_device = NULL;
+ 
+-                if (g_str_has_prefix (id_path, "platform-simple-framebuffer")) {
++                if (g_strrstr (id_path, "platform-simple-framebuffer") != NULL) {
+                         node = next_node;
+                         continue;
+                 }

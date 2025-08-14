@@ -6,7 +6,12 @@ gdm3 (46.2-1ubuntu1~24.04.2) noble; urgency=medium
     session when the preferred session accidentally crashes during startup
     (LP: #2120413)
 
- -- Zhaoxuan Zhai <zhai.zhaoxuan@canonical.com>  Thu, 14 Aug 2025 16:45:23 +0800
+  [ Daniel van Vugt ]
+  * Add local-display-factory-Match-simpledrm-in-a-substring-inst.patch to
+    ensure the login screen does not start before the real DRM kernel driver
+    is loaded. (LP: #2115451)
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Wed, 17 Sep 2025 15:32:10 +0800
 
 gdm3 (46.2-1ubuntu1~24.04.1) noble; urgency=medium
 
