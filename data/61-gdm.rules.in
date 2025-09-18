@@ -9,8 +9,6 @@ ATTR{vendor}=="0x1af4", ATTR{device}=="0x1050", ATTR{subsystem_vendor}=="0x1af4"
 ATTR{vendor}=="0x1b36", ATTR{device}=="0x0100", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-virtual-gpu", ENV{GDM_MACHINE_HAS_VIRTUAL_GPU}="1", GOTO="gdm_pci_device_end"
 # vga
 ATTR{vendor}=="0x1234", ATTR{device}=="0x1111", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-virtual-gpu", ENV{GDM_MACHINE_HAS_VIRTUAL_GPU}="1", GOTO="gdm_pci_device_end"
-# prefer wayland for specific hardware
-ENV{GDM_PREFER_WAYLAND}=="1", GOTO="gdm_prefer_wayland"
 
 # disable Wayland on Hi1710 chipsets
 ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", GOTO="gdm_disable_wayland"
@@ -113,10 +111,6 @@ GOTO="gdm_end"
 
 LABEL="gdm_prefer_xorg"
 RUN+="@libexecdir@/gdm-runtime-config set daemon PreferredDisplayServer xorg"
-GOTO="gdm_end"
-
-LABEL="gdm_prefer_wayland"
-RUN+="@libexecdir@/gdm-runtime-config set daemon PreferredDisplayServer wayland"
 GOTO="gdm_end"
 
 LABEL="gdm_disable_wayland"
