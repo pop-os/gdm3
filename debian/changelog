@@ -11,7 +11,10 @@ gdm3 (46.2-1ubuntu1~24.04.2) noble; urgency=medium
     ensure the login screen does not start before the real DRM kernel driver
     is loaded. (LP: #2115451)
 
- -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Wed, 17 Sep 2025 15:32:10 +0800
+  [ Tony Hsiao ]
+  * Prefer Wayland if a specific environment variable is set (LP: #2124220)
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Thu, 18 Sep 2025 17:10:23 +0800
 
 gdm3 (46.2-1ubuntu1~24.04.1) noble; urgency=medium
 
