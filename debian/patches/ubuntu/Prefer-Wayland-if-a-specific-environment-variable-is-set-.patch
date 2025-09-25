@@ -7,23 +7,24 @@ Bug-Ubuntu: https://bugs.launchpad.net/bugs/2124220
 Origin: https://salsa.debian.org/gnome-team/gdm/-/merge_requests/31
 Forwarded: no
 ---
- data/61-gdm.rules.in | 6 ++++++
- 1 file changed, 6 insertions(+)
+ data/61-gdm.rules.in | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
-index a836de0..7a799fe 100644
+index a836de0..9d5070f 100644
 --- a/data/61-gdm.rules.in
 +++ b/data/61-gdm.rules.in
-@@ -9,6 +9,8 @@ ATTR{vendor}=="0x1af4", ATTR{device}=="0x1050", ATTR{subsystem_vendor}=="0x1af4"
+@@ -9,6 +9,9 @@ ATTR{vendor}=="0x1af4", ATTR{device}=="0x1050", ATTR{subsystem_vendor}=="0x1af4"
  ATTR{vendor}=="0x1b36", ATTR{device}=="0x0100", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-virtual-gpu", ENV{GDM_MACHINE_HAS_VIRTUAL_GPU}="1", GOTO="gdm_pci_device_end"
  # vga
  ATTR{vendor}=="0x1234", ATTR{device}=="0x1111", RUN+="/usr/bin/touch /run/udev/gdm-machine-has-virtual-gpu", ENV{GDM_MACHINE_HAS_VIRTUAL_GPU}="1", GOTO="gdm_pci_device_end"
 +# prefer wayland for specific hardware
++ACTION!="remove", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", DRIVER=="nvidia", ATTR{[dmi/id]sys_vendor}=="Dell Inc.", ATTR{[dmi/id]product_sku}=="0D8[0-3]", ENV{GDM_PREFER_WAYLAND}="1"
 +ENV{GDM_PREFER_WAYLAND}=="1", GOTO="gdm_prefer_wayland"
  
  # disable Wayland on Hi1710 chipsets
  ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", GOTO="gdm_disable_wayland"
-@@ -83,6 +85,10 @@ LABEL="gdm_prefer_xorg"
+@@ -83,6 +86,10 @@ LABEL="gdm_prefer_xorg"
  RUN+="@libexecdir@/gdm-runtime-config set daemon PreferredDisplayServer xorg"
  GOTO="gdm_end"
  
