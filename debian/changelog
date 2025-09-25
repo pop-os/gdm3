@@ -1,3 +1,10 @@
+gdm3 (46.2-1ubuntu1~24.04.3) noble; urgency=medium
+
+  [ Tony Hsiao ]
+  * Add hardware matching rule for preferring wayland (LP: #2124220)
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Thu, 25 Sep 2025 17:14:09 +0800
+
 gdm3 (46.2-1ubuntu1~24.04.2) noble; urgency=medium
 
   [ Zhaoxuan Zhai ]
