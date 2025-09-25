@@ -4,7 +4,8 @@ Subject: Prefer Wayland if a specific environment variable is set (LP:
  #2124220)
 
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/2124220
-Origin: https://salsa.debian.org/gnome-team/gdm/-/merge_requests/31
+Origin: https://salsa.debian.org/gnome-team/gdm/-/merge_requests/31,
+        https://salsa.debian.org/gnome-team/gdm/-/merge_requests/32
 Forwarded: no
 ---
  data/61-gdm.rules.in | 7 +++++++
