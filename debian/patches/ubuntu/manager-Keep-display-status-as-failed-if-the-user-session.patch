@@ -1,0 +1,32 @@
+From: Alessandro Astone <alessandro.astone@canonical.com>
+Date: Tue, 28 Oct 2025 15:32:55 +0100
+Subject: manager: Keep display status as failed if the user session didn't
+ register
+
+Changing the display state to FINISHED will reset the local-display-factory
+fail counter. So when autologin is used and the user session fails to register
+with the preferred display type Wayland, the fail counter will never reach
+N_FAILURES_UNTIL_FALLBACK and will keep retrying forever instead of falling
+back to Xorg.
+
+Fixes: 9b7617678 ("local-display-factory: Retry before falling back")
+Bug-Ubuntu: https://launchpad.net/bugs/2129777
+Origin: https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/332
+---
+ daemon/gdm-manager.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/daemon/gdm-manager.c b/daemon/gdm-manager.c
+index 9936411..d635dd0 100644
+--- a/daemon/gdm-manager.c
++++ b/daemon/gdm-manager.c
+@@ -2053,7 +2053,8 @@ remove_user_session (GdmManager *manager,
+ 
+         if (display != NULL) {
+                 gdm_display_unmanage (display);
+-                gdm_display_finish (display);
++                if (gdm_display_get_status (display) != GDM_DISPLAY_FAILED)
++                        gdm_display_finish (display);
+         }
+ 
+         node = g_list_find (manager->user_sessions, session);
