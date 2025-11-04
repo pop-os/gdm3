@@ -1,3 +1,9 @@
+gdm3 (46.2-1ubuntu1~24.04.4) noble; urgency=medium
+
+  * Fix fallback session with auto-login (LP: #2129777)
+
+ -- Alessandro Astone <alessandro.astone@canonical.com>  Tue, 04 Nov 2025 11:29:29 +0100
+
 gdm3 (46.2-1ubuntu1~24.04.3) noble; urgency=medium
 
   [ Tony Hsiao ]
