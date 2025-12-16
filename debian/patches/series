@@ -21,3 +21,4 @@ ubuntu/retry_preferred_display_server_before_fallback.patch
 ubuntu/local-display-factory-Match-simpledrm-in-a-substring-inst.patch
 ubuntu/Prefer-Wayland-if-a-specific-environment-variable-is-set-.patch
 ubuntu/manager-Keep-display-status-as-failed-if-the-user-session.patch
+ubuntu/manager-Update-remote-id-on-reauth-from-RemoteDisplay.patch

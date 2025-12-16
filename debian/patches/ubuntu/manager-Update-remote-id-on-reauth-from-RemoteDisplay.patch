@@ -1,0 +1,222 @@
+From: Joan Torres <joan.torres@suse.com>
+Date: Fri, 22 Mar 2024 17:45:08 +0100
+Subject: manager: Update remote-id on reauth from RemoteDisplay
+
+Now two headless sessions are compatible.
+On reauthentication, the login display will get the property
+of its reauth_caller_pid.
+Now when a session is reauthenticated, on "Reauthenticated" signal it
+is given the pid_of_caller property. This way it can be known from which
+login display it has been reauthenticated, when multiple login displays
+attempted to reauth the same user.
+On succesfull reauthentication, get the login display using that
+property. If that display is remote, set the "remote-id" of the login
+display to the user display, this makes the g-r-d daemon-system, handover
+an RDP client to that reauthenticated session.
+
+Bug: https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/issues/193
+Bug-Ubuntu: https://launchpad.net/bugs/2072130
+Origin: upstream, https://gitlab.gnome.org/GNOME/gdm/-/commit/ab0431bb91190d68c4a4ff5ae9fd7278b8bae6c4
+---
+ daemon/gdm-manager.c          | 75 ++++++++++++++++++++++++++++++++-----------
+ daemon/gdm-remote-display.c   |  7 ++++
+ daemon/gdm-remote-display.h   |  3 ++
+ daemon/gdm-session-worker.c   |  2 +-
+ daemon/gdm-session-worker.xml |  1 +
+ daemon/gdm-session.c          |  8 +++--
+ 6 files changed, 74 insertions(+), 22 deletions(-)
+
+diff --git a/daemon/gdm-manager.c b/daemon/gdm-manager.c
+index d635dd0..2b8309e 100644
+--- a/daemon/gdm-manager.c
++++ b/daemon/gdm-manager.c
+@@ -1147,8 +1147,13 @@ are_sessions_compatible (GdmSession *session_a,
+         session_a_seat_id = gdm_session_get_display_seat_id (session_a);
+         session_b_seat_id = gdm_session_get_display_seat_id (session_b);
+ 
+-        return session_a_is_local && session_b_is_local &&
+-               g_strcmp0 (session_a_seat_id, session_b_seat_id) == 0;
++        if (session_a_is_local != session_b_is_local)
++                return FALSE;
++
++        if (!session_a_is_local && !session_b_is_local)
++                return TRUE;
++
++        return g_strcmp0 (session_a_seat_id, session_b_seat_id) == 0;
+ }
+ 
+ static gboolean
+@@ -1191,6 +1196,7 @@ gdm_manager_handle_open_reauthentication_channel (GdmDBusManager        *manager
+                                                  username,
+                                                  NULL);
+                 login_session = get_user_session_for_display (display);
++                g_object_set_data (G_OBJECT (display), "reauth-pid-of-caller", GINT_TO_POINTER (pid));
+         } else {
+                 g_debug ("GdmManager: looking for user session on display");
+                 session = get_user_session_for_display (display);
+@@ -2110,29 +2116,62 @@ get_display_device (GdmManager *manager,
+         return NULL;
+ }
+ 
++static gboolean
++lookup_by_reauth_pid (const char *id,
++                      GdmDisplay *display,
++                      gpointer    user_data)
++{
++        GPid looking_for;
++        GPid current;
++
++        looking_for = GPOINTER_TO_INT (user_data);
++        current = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (display), "reauth-pid-of-caller"));
++
++        if (looking_for == 0 || current == 0)
++                return FALSE;
++
++        return looking_for == current;
++}
++
+ static void
+ on_session_reauthenticated (GdmSession *session,
+                             const char *service_name,
++                            int         pid_of_caller,
+                             GdmManager *manager)
+ {
+         gboolean fail_if_already_switched = FALSE;
+-
+-        if (gdm_session_get_display_mode (session) == GDM_SESSION_DISPLAY_MODE_REUSE_VT) {
+-                const char *seat_id;
+-                char *session_id;
+-
+-                seat_id = gdm_session_get_display_seat_id (session);
+-                if (gdm_get_login_window_session_id (seat_id, &session_id)) {
+-                        GdmDisplay *display = gdm_display_store_find (manager->display_store,
+-                                                                      lookup_by_session_id,
+-                                                                      (gpointer) session_id);
+-
+-                        if (display != NULL) {
+-                                gdm_display_stop_greeter_session (display);
+-                                gdm_display_unmanage (display);
+-                                gdm_display_finish (display);
++        GdmDisplay *login_display = gdm_display_store_find (manager->display_store,
++                                                            lookup_by_reauth_pid,
++                                                            GINT_TO_POINTER (pid_of_caller));
++
++        if (login_display != NULL) {
++                if (GDM_IS_REMOTE_DISPLAY (login_display)) {
++                        const char *session_id;
++                        GdmDisplay *user_display;
++
++                        session_id = gdm_session_get_session_id (session);
++                        user_display = gdm_display_store_find (manager->display_store,
++                                                               lookup_by_session_id,
++                                                               (gpointer) session_id);
++
++                        if (user_display != NULL && GDM_IS_REMOTE_DISPLAY (user_display)) {
++                                /* Transferring the remote id from the new login screen display to the
++                                 * preexisting user session display, notifies the remoting software to redirect
++                                 * the connection. That same software will also ensure after the redirection has
++                                 * happened that the login screen session is closed, so we don't have to manage that
++                                 * ourselves.
++                                 */
++                                g_autofree char *remote_id = gdm_remote_display_get_remote_id (GDM_REMOTE_DISPLAY (login_display));
++                                gdm_remote_display_set_remote_id (GDM_REMOTE_DISPLAY (user_display), remote_id);
++                        } else {
++                                g_warning ("GdmManager: Couldn't find remote display associated with reauthenticated user session");
+                         }
+-                        g_free (session_id);
++                }
++
++                if (gdm_session_get_display_mode (session) == GDM_SESSION_DISPLAY_MODE_REUSE_VT) {
++                        gdm_display_stop_greeter_session (login_display);
++                        gdm_display_unmanage (login_display);
++                        gdm_display_finish (login_display);
+                 }
+         }
+ 
+diff --git a/daemon/gdm-remote-display.c b/daemon/gdm-remote-display.c
+index 6074edd..8395462 100644
+--- a/daemon/gdm-remote-display.c
++++ b/daemon/gdm-remote-display.c
+@@ -53,6 +53,13 @@ gdm_remote_display_get_remote_id (GdmRemoteDisplay *display)
+         return g_steal_pointer (&remote_id);
+ }
+ 
++void
++gdm_remote_display_set_remote_id (GdmRemoteDisplay *display,
++                                  const char       *remote_id)
++{
++        g_object_set (G_OBJECT (display->skeleton), "remote-id", remote_id, NULL);
++}
++
+ static GObject *
+ gdm_remote_display_constructor (GType                  type,
+                                 guint                  n_construct_properties,
+diff --git a/daemon/gdm-remote-display.h b/daemon/gdm-remote-display.h
+index bbe9627..2b1d6c8 100644
+--- a/daemon/gdm-remote-display.h
++++ b/daemon/gdm-remote-display.h
+@@ -36,6 +36,9 @@ GdmDisplay *        gdm_remote_display_new                     (const char *remo
+ 
+ char *              gdm_remote_display_get_remote_id           (GdmRemoteDisplay *self);
+ 
++void                gdm_remote_display_set_remote_id           (GdmRemoteDisplay *self,
++                                                                const char       *remote_id);
++
+ G_END_DECLS
+ 
+ #endif /* __GDM_REMOTE_DISPLAY_H */
+diff --git a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+index de39441..25760b5 100644
+--- a/daemon/gdm-session-worker.c
++++ b/daemon/gdm-session-worker.c
+@@ -3361,7 +3361,7 @@ on_reauthentication_verification_complete (GdmSession              *session,
+                  service_name);
+         gdm_session_reset (session);
+ 
+-        gdm_dbus_worker_emit_reauthenticated (GDM_DBUS_WORKER (worker), service_name);
++        gdm_dbus_worker_emit_reauthenticated (GDM_DBUS_WORKER (worker), service_name, request->pid_of_caller);
+ }
+ 
+ static ReauthenticationRequest *
+diff --git a/daemon/gdm-session-worker.xml b/daemon/gdm-session-worker.xml
+index a215779..214ca8d 100644
+--- a/daemon/gdm-session-worker.xml
++++ b/daemon/gdm-session-worker.xml
+@@ -86,6 +86,7 @@
+     </signal>
+     <signal name="Reauthenticated">
+       <arg name="service_name" type="s"/>
++      <arg name="pid_of_caller" type="i"/>
+     </signal>
+     <signal name="CancelPendingQuery">
+     </signal>
+diff --git a/daemon/gdm-session.c b/daemon/gdm-session.c
+index f40b444..f8495c8 100644
+--- a/daemon/gdm-session.c
++++ b/daemon/gdm-session.c
+@@ -1077,11 +1077,12 @@ on_reauthentication_started_cb (GdmDBusWorker *worker,
+ static void
+ worker_on_reauthenticated (GdmDBusWorker          *worker,
+                            const char             *service_name,
++                           int                     reauth_pid,
+                            GdmSessionConversation *conversation)
+ {
+         GdmSession *self = conversation->session;
+         g_debug ("GdmSession: Emitting 'reauthenticated' signal ");
+-        g_signal_emit (self, signals[REAUTHENTICATED], 0, service_name);
++        g_signal_emit (self, signals[REAUTHENTICATED], 0, service_name, reauth_pid);
+ }
+ 
+ static void
+@@ -4227,8 +4228,9 @@ gdm_session_class_init (GdmSessionClass *session_class)
+                               NULL,
+                               NULL,
+                               G_TYPE_NONE,
+-                              1,
+-                              G_TYPE_STRING);
++                              2,
++                              G_TYPE_STRING,
++                              G_TYPE_INT);
+         signals [CANCELLED] =
+                 g_signal_new ("cancelled",
+                               GDM_TYPE_SESSION,
