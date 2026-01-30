@@ -1,0 +1,12 @@
+Index: gdm3/data/61-gdm.rules.in
+===================================================================
+--- gdm3.orig/data/61-gdm.rules.in
++++ gdm3/data/61-gdm.rules.in
+@@ -13,6 +13,7 @@ ATTR{vendor}=="0x1234", ATTR{device}=="0
+ ACTION!="remove", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", DRIVER=="nvidia", ATTR{[dmi/id]sys_vendor}=="Dell Inc.", ATTR{[dmi/id]product_sku}=="0D8[0-3]", ENV{GDM_PREFER_WAYLAND}="1"
+ ACTION!="remove", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", DRIVER=="nvidia", ATTR{[dmi/id]sys_vendor}=="Dell Inc.", ATTR{[dmi/id]product_sku}=="0DD4", ENV{GDM_PREFER_WAYLAND}="1"
+ ENV{GDM_PREFER_WAYLAND}=="1", GOTO="gdm_prefer_wayland"
++ACTION!="remove", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", DRIVER=="nvidia", ATTR{[dmi/id]sys_vendor}=="System76", ATTR{[dmi/id]product_version}=="oryp13", ENV{GDM_PREFER_WAYLAND}="1"
+ 
+ # disable Wayland on Hi1710 chipsets
+ ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", GOTO="gdm_disable_wayland"
